@@ -1594,6 +1594,7 @@ body.yg-drawer-open {
     font-size: 1.25rem;
     font-weight: 400;
     font-style: italic;
+    font-synthesis: none;
     line-height: 1.05;
     letter-spacing: 0;
 }

@@ -491,12 +491,6 @@ data-co-line-count="{{ count($cart['items']) }}"
                         <dt>Subtotal</dt>
                         <dd>£{{ number_format($cart['subtotal'], 2) }}</dd>
                     </div>
-                    @if(! $clubActive && ($cart['savings_from_was'] ?? 0) > 0)
-                    <div class="co-summary__row co-summary__row--save co-summary__row--info">
-                        <dt>Savings</dt>
-                        <dd>£{{ number_format($cart['savings_from_was'], 2) }}</dd>
-                    </div>
-                    @endif
                     @if($hasOffer && ($cart['offer_discount'] ?? 0) > 0)
                     <div class="co-summary__row co-summary__row--promo">
                         <dt>Offer discount</dt>
@@ -514,7 +508,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                         <dd>£{{ number_format($cart['delivery'], 2) }}</dd>
                     </div>
                     @if($totalSavings > 0)
-                    <div class="co-summary__row co-summary__row--save">
+                    <div class="co-summary__row co-summary__row--save co-summary__row--save-total">
                         <dt>Total savings</dt>
                         <dd>£{{ number_format($totalSavings, 2) }}</dd>
                     </div>

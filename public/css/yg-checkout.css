@@ -1110,6 +1110,10 @@ body.co-club-modal-open {
     color: #e3185d;
 }
 
+.co-summary__row--save-total dd {
+    font-weight: 700;
+}
+
 .co-summary__row--promo dd {
     color: #264f1c;
 }
