@@ -16,6 +16,7 @@
         aria-label="Amazon Pay"
         style="--co-express-bg: url('{{ $expressPay('amazon-pay-button.svg') }}')"
     ></button>
+    @if(($cart['show_apple_pay'] ?? true))
     <button
         type="button"
         class="co-express-btn co-express-btn--apple"
@@ -23,4 +24,5 @@
         aria-label="Apple Pay"
         style="--co-express-bg: url('{{ $expressPay('apple-pay-button.svg') }}')"
     ></button>
+    @endif
 </div>

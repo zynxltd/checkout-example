@@ -46,31 +46,67 @@
                 <strong>{{ $order['email'] }}</strong>
             </p>
 
+            <section class="cr-next" aria-label="Next steps">
+                <div class="cr-next__card">
+                    <h2 class="cr-next__title">What happens next</h2>
+                    <ol class="cr-steps">
+                        <li class="cr-steps__item">
+                            <span class="cr-steps__dot" aria-hidden="true"></span>
+                            <div class="cr-steps__body">
+                                <p class="cr-steps__label">Order received</p>
+                                <p class="cr-steps__meta">We&rsquo;re getting your items ready.</p>
+                            </div>
+                        </li>
+                        <li class="cr-steps__item">
+                            <span class="cr-steps__dot" aria-hidden="true"></span>
+                            <div class="cr-steps__body">
+                                <p class="cr-steps__label">Dispatched</p>
+                                <p class="cr-steps__meta">We&rsquo;ll email you when it ships.</p>
+                            </div>
+                        </li>
+                        <li class="cr-steps__item">
+                            <span class="cr-steps__dot" aria-hidden="true"></span>
+                            <div class="cr-steps__body">
+                                <p class="cr-steps__label">Delivered</p>
+                                <p class="cr-steps__meta">Delivered to {{ $addr['postcode'] }}.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="cr-next__card cr-next__card--help">
+                    <h2 class="cr-next__title">Need help?</h2>
+                    <p class="cr-next__text">
+                        For questions about your order, quote
+                        <strong>{{ $order['number'] }}</strong>.
+                    </p>
+                    <div class="cr-mini-actions">
+                        <a href="#" class="cr-mini-actions__link" data-prototype-link>Contact support</a>
+                        <a href="#" class="cr-mini-actions__link" data-prototype-link>Print receipt</a>
+                    </div>
+                </div>
+            </section>
+
             <div class="cr-track-card" role="region" aria-label="Delivery location map preview">
                 <div class="cr-track-card__map">
-                    <div class="cr-map-placeholder" aria-hidden="true">
-                        <svg class="cr-map-placeholder__canvas" viewBox="0 0 640 200" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="cr-map-sky" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="#e8f0e4"/>
-                                    <stop offset="100%" stop-color="#d4e6cf"/>
-                                </linearGradient>
-                            </defs>
-                            <rect width="640" height="200" fill="url(#cr-map-sky)"/>
-                            <path fill="#c8dcc0" d="M0 140h640v60H0z"/>
-                            <path fill="#f4f7f2" stroke="#dfe8da" stroke-width="2" d="M0 72h180v88H0zm220 0h420v88H220z"/>
-                            <path fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" d="M-20 100h280M120 20v160M360 48h300M480 0v200"/>
-                            <path fill="none" stroke="#f0f4ee" stroke-width="6" stroke-linecap="round" d="M80 140h200M300 120h240M200 60h120"/>
-                            <ellipse cx="520" cy="36" rx="48" ry="28" fill="#b8d4ae" opacity=".85"/>
-                            <ellipse cx="88" cy="152" rx="36" ry="20" fill="#b8d4ae" opacity=".7"/>
-                        </svg>
-                        <span class="cr-map-placeholder__pin">
-                            <svg width="28" height="36" viewBox="0 0 28 36" fill="none" aria-hidden="true">
-                                <path d="M14 0C6.268 0 0 6.268 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.268 21.732 0 14 0z" fill="#264f1c"/>
-                                <circle cx="14" cy="13" r="5" fill="#fff"/>
-                            </svg>
-                        </span>
-                    </div>
+                    @php
+                        // Use a postcode-level query with an explicit zoom so the embed reliably centers
+                        // and shows the marker (full street addresses can sometimes render too zoomed-out).
+                        $mapQuery = trim(implode(', ', array_filter([
+                            $addr['postcode'] ?? null,
+                            $addr['city'] ?? null,
+                            $addr['country'] ?? null,
+                        ])));
+                        $mapSrc = 'https://www.google.com/maps?q=' . urlencode($mapQuery) . '&z=15&output=embed';
+                    @endphp
+                    <iframe
+                        class="cr-map-embed"
+                        title="Delivery area map"
+                        src="{{ $mapSrc }}"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        allowfullscreen
+                    ></iframe>
                     <p class="cr-map-placeholder__label">
                         <span class="cr-map-placeholder__city">{{ $addr['city'] }}</span>
                         <span class="cr-map-placeholder__postcode">{{ $addr['postcode'] }}</span>
@@ -78,6 +114,8 @@
                 </div>
                 <p class="cr-track-card__hint">Your order is confirmed — we&rsquo;ll email you when it ships.</p>
             </div>
+
+            @include('demo.partials.confirmation-recos', ['recommendations' => $recommendations ?? []])
 
             <section class="cr-details" aria-labelledby="cr-details-title">
                 <h2 id="cr-details-title" class="cr-details__title">Order details</h2>
@@ -162,7 +200,7 @@
                 </div>
                 @endif
                 <div class="co-summary__row">
-                    <dt>Shipping</dt>
+                    <dt>Delivery</dt>
                     <dd>£{{ number_format($order['delivery'], 2) }}</dd>
                 </div>
                 <div class="co-summary__row co-summary__row--total">
@@ -198,5 +236,147 @@
                 alert('Prototype link — not wired in this demo.');
             });
         });
+
+        (function bindConfirmationRecos() {
+            const csrf = document.querySelector('meta[name="csrf-token"]')?.content || '';
+            const addUrl = window.YG_DEMO_ROUTES?.add;
+            const pdpUrl = @json(route('demo.pdp'));
+            const feedback = document.getElementById('cr-recos-feedback');
+            const scroller = document.querySelector('.cr-recos__scroller');
+
+            if (!addUrl) {
+                return;
+            }
+
+            // Pointer drag-scroll on carousel (works from images, cards, and empty track).
+            if (scroller) {
+                let activePointerId = null;
+                let startX = 0;
+                let scrollLeft = 0;
+                let didDrag = false;
+
+                const isInteractiveTarget = (target) =>
+                    target.closest('[data-cr-reco-add], [data-prototype-link]');
+
+                scroller.addEventListener('dragstart', (e) => {
+                    if (e.target.closest('.cr-reco-card__img')) {
+                        e.preventDefault();
+                    }
+                });
+
+                scroller.addEventListener('pointerdown', (e) => {
+                    if (e.pointerType !== 'mouse' || e.button !== 0) {
+                        return;
+                    }
+                    if (isInteractiveTarget(e.target)) {
+                        return;
+                    }
+
+                    activePointerId = e.pointerId;
+                    startX = e.clientX;
+                    scrollLeft = scroller.scrollLeft;
+                    didDrag = false;
+                    scroller.classList.add('is-dragging');
+                    scroller.setPointerCapture(e.pointerId);
+                });
+
+                scroller.addEventListener('pointermove', (e) => {
+                    if (activePointerId !== e.pointerId) {
+                        return;
+                    }
+
+                    const delta = e.clientX - startX;
+                    if (Math.abs(delta) > 4) {
+                        didDrag = true;
+                    }
+                    if (!didDrag) {
+                        return;
+                    }
+
+                    e.preventDefault();
+                    scroller.scrollLeft = scrollLeft - delta;
+                });
+
+                const endDrag = (e) => {
+                    if (activePointerId !== e.pointerId) {
+                        return;
+                    }
+
+                    activePointerId = null;
+                    scroller.classList.remove('is-dragging');
+                    if (scroller.hasPointerCapture(e.pointerId)) {
+                        scroller.releasePointerCapture(e.pointerId);
+                    }
+                };
+
+                scroller.addEventListener('pointerup', endDrag);
+                scroller.addEventListener('pointercancel', endDrag);
+
+                scroller.addEventListener(
+                    'click',
+                    (e) => {
+                        if (didDrag) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            didDrag = false;
+                        }
+                    },
+                    true,
+                );
+            }
+
+            document.querySelectorAll('[data-cr-reco-add]').forEach((btn) => {
+                btn.addEventListener('click', async () => {
+                    if (btn.disabled || btn.classList.contains('is-added')) {
+                        return;
+                    }
+
+                    const sku = btn.getAttribute('data-cr-reco-add');
+                    if (!sku) {
+                        return;
+                    }
+
+                    btn.disabled = true;
+                    btn.textContent = 'Adding…';
+
+                    try {
+                        const res = await fetch(addUrl, {
+                            method: 'POST',
+                            credentials: 'same-origin',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Accept: 'application/json',
+                                'X-CSRF-TOKEN': csrf,
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                            body: JSON.stringify({ sku, qty: 1 }),
+                        });
+                        const data = await res.json();
+
+                        if (!res.ok) {
+                            btn.disabled = false;
+                            btn.textContent = 'Add to basket';
+                            alert(data.error || 'Could not add to basket.');
+                            return;
+                        }
+
+                        btn.classList.add('is-added');
+                        btn.textContent = 'Added';
+
+                        if (feedback) {
+                            feedback.hidden = false;
+                            feedback.innerHTML =
+                                'Added to your basket. <a href="' +
+                                pdpUrl +
+                                '">View basket</a> to checkout when you\'re ready.';
+                        }
+                    } catch {
+                        btn.disabled = false;
+                        btn.textContent = 'Add to basket';
+                        alert('Could not add to basket.');
+                    }
+                });
+            });
+        })();
     </script>
 @endpush

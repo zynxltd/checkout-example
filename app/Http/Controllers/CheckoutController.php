@@ -59,6 +59,7 @@ class CheckoutController extends Controller
 
         return view('demo.confirmation', [
             'order' => $order,
+            'recommendations' => DemoCart::recommendationsForPostPurchase($order['items'] ?? []),
         ]);
     }
 

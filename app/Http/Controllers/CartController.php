@@ -182,6 +182,7 @@ class CartController extends Controller
             'delivery_bar' => 'demo_free_delivery_bar',
             'upsells' => 'demo_show_upsells',
             'wide_drawer' => 'demo_wide_drawer',
+            'apple_pay' => 'demo_show_apple_pay',
         ];
 
         if (! isset($map[$key])) {

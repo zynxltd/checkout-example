@@ -61,6 +61,7 @@ data-co-line-count="{{ count($cart['items']) }}"
             <div class="co-content">
             <section class="co-express" aria-labelledby="co-express-title">
                 <h2 id="co-express-title" class="co-express__title">Choose an express checkout</h2>
+                <input type="hidden" id="demo-show-apple-pay" value="{{ ($cart['show_apple_pay'] ?? true) ? '1' : '0' }}">
                 @include('demo.partials.checkout-express-buttons')
             </section>
 

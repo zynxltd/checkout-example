@@ -227,6 +227,45 @@ class DemoCart
                 'club_price' => 8.49,
                 'club_saving_per_unit' => 1.50,
             ],
+            '501004' => [
+                'sku' => '501004',
+                'name' => 'Enriched Multi-Purpose Compost',
+                'variant' => '40L bag',
+                'image' => 'images/products/404220.jpg',
+                'price' => 7.99,
+                'was_price' => null,
+                'club_price' => 6.79,
+                'club_saving_per_unit' => 1.20,
+            ],
+            '501005' => [
+                'sku' => '501005',
+                'name' => 'Organic Seaweed Feed',
+                'variant' => '1L concentrate',
+                'image' => 'images/products/404220.jpg',
+                'price' => 6.49,
+                'was_price' => null,
+                'club_price' => 5.52,
+                'club_saving_per_unit' => 0.97,
+            ],
+            '501006' => [
+                'sku' => '501006',
+                'name' => "Lilac 'Palibin' Tree Feed",
+                'variant' => '500g tub',
+                'image' => 'images/products/510317.png',
+                'price' => 5.99,
+                'was_price' => null,
+                'club_price' => 5.09,
+                'club_saving_per_unit' => 0.90,
+            ],
+            '501007' => [
+                'sku' => '501007',
+                'name' => 'Bulb Planter Tool',
+                'image' => 'images/products/403891.jpg',
+                'price' => 9.49,
+                'was_price' => null,
+                'club_price' => 8.07,
+                'club_saving_per_unit' => 1.42,
+            ],
             self::CLUB_SKU_AUTO => [
                 'sku' => self::CLUB_SKU_AUTO,
                 'name' => 'YG Discount Club Yearly Subscription Membership',
@@ -288,6 +327,7 @@ class DemoCart
             'demo_free_delivery_bar' => false,
             'demo_show_upsells' => true,
             'demo_wide_drawer' => false,
+            'demo_show_apple_pay' => false,
         ]);
     }
 
@@ -325,6 +365,36 @@ class DemoCart
                 'image' => 'images/products/402156.jpg',
                 'price' => 14.97,
             ],
+            [
+                'sku' => '501004',
+                'name' => 'Enriched Multi-Purpose Compost',
+                'variant' => '40L bag',
+                'image' => 'images/products/404220.jpg',
+                'price' => 7.99,
+                'from' => true,
+            ],
+            [
+                'sku' => '501005',
+                'name' => 'Organic Seaweed Feed',
+                'variant' => '1L concentrate',
+                'image' => 'images/products/404220.jpg',
+                'price' => 6.49,
+                'from' => true,
+            ],
+            [
+                'sku' => '501006',
+                'name' => "Lilac 'Palibin' Tree Feed",
+                'variant' => '500g tub',
+                'image' => 'images/products/510317.png',
+                'price' => 5.99,
+                'from' => true,
+            ],
+            [
+                'sku' => '501007',
+                'name' => 'Bulb Planter Tool',
+                'image' => 'images/products/403891.jpg',
+                'price' => 9.49,
+            ],
         ];
     }
 
@@ -338,6 +408,22 @@ class DemoCart
 
             return $upsell;
         }, self::upsellProducts());
+    }
+
+    /**
+     * Post-purchase recommendations (exclude items already in the completed order).
+     *
+     * @param  list<array{sku?: string}>  $orderItems
+     * @return list<array{sku: string, name: string, image: string, price: float, variant?: string, from?: bool}>
+     */
+    public static function recommendationsForPostPurchase(array $orderItems): array
+    {
+        $orderedSkus = collect($orderItems)->pluck('sku')->filter()->flip();
+
+        return array_values(array_slice(array_values(array_filter(
+            self::upsellProducts(),
+            fn (array $product) => ! $orderedSkus->has($product['sku']),
+        )), 0, 4));
     }
 
     /** @return list<array{sku: string, qty: int, variant?: string}> */
@@ -612,6 +698,7 @@ class DemoCart
             'show_free_delivery_bar' => (bool) session('demo_free_delivery_bar', false),
             'show_upsells' => (bool) session('demo_show_upsells', false),
             'wide_drawer' => (bool) session('demo_wide_drawer', false),
+            'show_apple_pay' => (bool) session('demo_show_apple_pay', false),
             'upsells' => self::upsellsForDrawer(),
         ];
     }

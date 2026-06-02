@@ -184,6 +184,10 @@
             <input type="checkbox" id="toggle-upsells" data-option="upsells" {{ $cart['show_upsells'] ? 'checked' : '' }}>
             <span>Recommendations side tab</span>
         </label>
+        <label class="demo-toggle">
+            <input type="checkbox" id="toggle-apple-pay" data-option="apple_pay" {{ ($cart['show_apple_pay'] ?? true) ? 'checked' : '' }}>
+            <span>Apple Pay (express button)</span>
+        </label>
         <p class="demo-controls__resize">Resize window: ≤767px mobile · ≥768px desktop — open cart to see slide-out on PDP.</p>
     </aside>
 </div>

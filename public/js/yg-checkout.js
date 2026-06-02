@@ -70,8 +70,9 @@
 
     function syncExpressButtons() {
         // Only show Apple Pay when the browser/device can actually use it.
+        const applePayDemoEnabled = document.getElementById('demo-show-apple-pay')?.value !== '0';
         document.querySelectorAll('[data-express="apple"]').forEach((btn) => {
-            btn.hidden = !isApplePayCapable();
+            btn.hidden = !applePayDemoEnabled || !isApplePayCapable();
         });
     }
 
