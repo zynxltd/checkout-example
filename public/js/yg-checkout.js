@@ -122,7 +122,7 @@
         continueGuest?.addEventListener('click', closeLogin);
 
         submit?.addEventListener('click', () => {
-            const email = loginEmail?.value.trim() || 'customer@yougarden.com';
+            const email = loginEmail?.value.trim() || 'cs@yougarden.com';
             if (guestEmail) {
                 guestEmail.value = email;
             }

@@ -251,8 +251,8 @@ body.yg-drawer-open {
 @media (max-width: 767px) {
     .yg-reco-inline {
         display: block;
-        margin: 4px 0 16px;
-        padding-top: 4px;
+        margin: 16px 0 16px;
+        padding-top: 12px;
         border-top: 1px solid var(--yg-border);
     }
 
@@ -274,7 +274,12 @@ body.yg-drawer-open {
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
         scroll-padding-inline: 6px 14px;
-        scrollbar-width: thin;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .yg-reco-inline__scroller::-webkit-scrollbar {
+        display: none;
     }
 
     .yg-reco-inline__list {
@@ -1312,9 +1317,6 @@ body.yg-drawer-open {
     line-height: 1.25;
     color: var(--yg-text);
     padding-right: 38px;
-    /* Reserve space for two lines so every card is the same height */
-    min-height: calc(15px * 1.25 * 2);
-    flex: 1 0 auto;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;

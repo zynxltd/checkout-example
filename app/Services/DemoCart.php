@@ -752,7 +752,7 @@ class DemoCart
             'number' => 'YG'.random_int(100000, 999999),
             'confirmation' => strtoupper(substr(bin2hex(random_bytes(5)), 0, 10)),
             'placed_at' => now(),
-            'email' => trim((string) ($input['email'] ?? '')) ?: 'customer@yougarden.com',
+            'email' => trim((string) ($input['email'] ?? '')) ?: 'cs@yougarden.com',
             'first_name' => $firstName,
             'last_name' => $lastName,
             'customer_name' => $customerName,
