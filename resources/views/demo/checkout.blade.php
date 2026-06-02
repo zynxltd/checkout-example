@@ -464,11 +464,11 @@ data-co-line-count="{{ count($cart['items']) }}"
                             Offer
                             @if(($cart['offer_discount'] ?? 0) > 0)
                                 <strong>{{ $cart['offer_code'] }} - £{{ number_format($cart['offer_discount'], 2) }} OFF</strong>
+                                applied
                             @else
                                 <strong>{{ $cart['offer_code'] }}</strong>
                                 <span class="co-code-badge" aria-label="Offer code applied">Code Applied</span>
                             @endif
-                            applied
                         </span>
                         <button type="button" class="co-code-applied__remove" data-remove-offer>Remove</button>
                     </div>
