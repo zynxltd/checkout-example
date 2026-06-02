@@ -207,7 +207,6 @@
                                     <div class="yg-totals__row yg-totals__row--promo"><span>Offer discount</span><span>−£{{ number_format($offerDiscount, 2) }}</span></div>
                                     @endif
                                 @endif
-                                <div class="yg-totals__row"><span>Delivery</span><span>£{{ number_format($cart['delivery'], 2) }}</span></div>
                             </div>
                         </details>
                     </div>

@@ -513,7 +513,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                     </div>
                     @endif
                     <div class="co-summary__row">
-                        <dt>Shipping</dt>
+                        <dt>Delivery</dt>
                         <dd>£{{ number_format($cart['delivery'], 2) }}</dd>
                     </div>
                     @if($totalSavings > 0)

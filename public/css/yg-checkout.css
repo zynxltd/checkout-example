@@ -750,6 +750,11 @@ body.co-club-modal-open {
     .co-field-row .co-field__label {
         min-height: 2.6em;
     }
+
+    /* Keep the two columns visually level on iOS */
+    .co-field-row {
+        align-items: end;
+    }
 }
 
 .co-field__label {

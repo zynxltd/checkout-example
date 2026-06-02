@@ -568,7 +568,8 @@ class DemoCart
         $offerDiscount = self::offerCodeDiscount($offerCode);
         $voucherDiscount = self::voucherCodeDiscount($voucherCode);
         $delivery = self::DELIVERY;
-        $basketTotal = round(max(0, $subtotal + $delivery - $offerDiscount), 2);
+        // Basket drawer total should exclude delivery (delivery is chosen/confirmed at checkout)
+        $basketTotal = round(max(0, $subtotal - $offerDiscount), 2);
         $total = round(max(0, $subtotal + $delivery - $offerDiscount - $voucherDiscount), 2);
         $yourSavings = round($savingsFromWas + ($clubActive ? $clubMemberSavings : 0), 2);
 
