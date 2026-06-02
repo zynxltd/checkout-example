@@ -7,6 +7,13 @@
     font-family: var(--yg-font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
 }
 
+/* Sidebar uses checkout line-item classes — keep visible (not checkout collapsible inner) */
+.demo-confirmation-page .cr-summary .co-summary__items,
+.demo-confirmation-page .cr-summary .co-summary__totals,
+.demo-confirmation-page .cr-summary .co-summary__tax {
+    display: block;
+}
+
 .cr {
     min-height: 100vh;
     display: flex;
@@ -30,14 +37,17 @@
     flex: 1;
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
+    grid-template-areas: 'main summary';
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
 }
 
 .cr-main {
+    grid-area: main;
     padding: 32px 48px 56px 24px;
     box-sizing: border-box;
+    min-width: 0;
 }
 
 .cr-status {
@@ -533,6 +543,7 @@
 }
 
 .cr-summary {
+    grid-area: summary;
     background: #f5f5f5;
     border-left: 1px solid #e8e8e8;
     padding: 32px 32px 48px;
@@ -542,6 +553,7 @@
     align-self: start;
     max-height: 100vh;
     overflow-y: auto;
+    min-width: 0;
 }
 
 .cr-summary__title {
@@ -570,21 +582,30 @@
 
 @media (max-width: 999px) {
     .cr-layout {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         max-width: none;
         margin: 0;
     }
 
     .cr-summary {
-        order: -1;
+        order: 1;
+        flex: 0 0 auto;
+        width: 100%;
         border-left: none;
         border-bottom: 1px solid #e8e8e8;
-        position: static;
+        position: relative;
+        top: auto;
+        align-self: stretch;
         max-height: none;
+        overflow: visible;
         padding: 24px 20px;
     }
 
     .cr-main {
+        order: 2;
+        flex: 1 1 auto;
+        width: 100%;
         padding: 24px 20px 40px;
     }
 
