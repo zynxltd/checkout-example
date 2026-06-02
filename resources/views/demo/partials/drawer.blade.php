@@ -188,16 +188,43 @@
                 ])
 
                 <div class="yg-totals">
-                    <div class="yg-totals__row"><span>Subtotal</span><span>£{{ number_format($cart['subtotal'], 2) }}</span></div>
-                    @if($cart['your_savings'] > 0)
-                    <div class="yg-totals__row yg-totals__row--save"><span>Your Savings</span><span>£{{ number_format($cart['your_savings'], 2) }}</span></div>
-                    @endif
-                    @if($hasOffer)
-                        @if($offerDiscount > 0)
-                        <div class="yg-totals__row yg-totals__row--promo"><span>Offer discount</span><span>−£{{ number_format($offerDiscount, 2) }}</span></div>
+                    <div class="yg-totals__mobile-breakdown">
+                        <details class="yg-breakdown" aria-label="Order breakdown">
+                            <summary class="yg-breakdown__summary">
+                                <span class="yg-breakdown__label">Order summary</span>
+                                <span class="yg-breakdown__meta">
+                                    <span class="yg-breakdown__toggle">View</span>
+                                    <span class="yg-breakdown__chev" aria-hidden="true">▾</span>
+                                </span>
+                            </summary>
+                            <div class="yg-breakdown__content">
+                                <div class="yg-totals__row"><span>Subtotal</span><span>£{{ number_format($cart['subtotal'], 2) }}</span></div>
+                                @if($cart['your_savings'] > 0)
+                                <div class="yg-totals__row yg-totals__row--save"><span>Your Savings</span><span>£{{ number_format($cart['your_savings'], 2) }}</span></div>
+                                @endif
+                                @if($hasOffer)
+                                    @if($offerDiscount > 0)
+                                    <div class="yg-totals__row yg-totals__row--promo"><span>Offer discount</span><span>−£{{ number_format($offerDiscount, 2) }}</span></div>
+                                    @endif
+                                @endif
+                                <div class="yg-totals__row"><span>Delivery</span><span>£{{ number_format($cart['delivery'], 2) }}</span></div>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="yg-totals__desktop-breakdown" aria-hidden="true">
+                        <div class="yg-totals__row"><span>Subtotal</span><span>£{{ number_format($cart['subtotal'], 2) }}</span></div>
+                        @if($cart['your_savings'] > 0)
+                        <div class="yg-totals__row yg-totals__row--save"><span>Your Savings</span><span>£{{ number_format($cart['your_savings'], 2) }}</span></div>
                         @endif
-                    @endif
-                    <div class="yg-totals__row"><span>Delivery</span><span>£{{ number_format($cart['delivery'], 2) }}</span></div>
+                        @if($hasOffer)
+                            @if($offerDiscount > 0)
+                            <div class="yg-totals__row yg-totals__row--promo"><span>Offer discount</span><span>−£{{ number_format($offerDiscount, 2) }}</span></div>
+                            @endif
+                        @endif
+                        <div class="yg-totals__row"><span>Delivery</span><span>£{{ number_format($cart['delivery'], 2) }}</span></div>
+                    </div>
+
                     <div class="yg-totals__row yg-totals__row--total"><span>Total</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
                 </div>
                 </div>
