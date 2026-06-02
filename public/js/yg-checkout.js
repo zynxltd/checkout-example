@@ -55,6 +55,26 @@
         });
     }
 
+    function isApplePayCapable() {
+        try {
+            return (
+                typeof window.ApplePaySession !== 'undefined' &&
+                ApplePaySession &&
+                typeof ApplePaySession.canMakePayments === 'function' &&
+                ApplePaySession.canMakePayments()
+            );
+        } catch {
+            return false;
+        }
+    }
+
+    function syncExpressButtons() {
+        // Only show Apple Pay when the browser/device can actually use it.
+        document.querySelectorAll('[data-express="apple"]').forEach((btn) => {
+            btn.hidden = !isApplePayCapable();
+        });
+    }
+
     function bindPrototypeLinks() {
         document.querySelectorAll('[data-prototype-link]').forEach((el) => {
             el.addEventListener('click', (e) => {
@@ -733,6 +753,7 @@
         initCheckoutSkeleton();
         bindCheckoutPageshow();
         bindExpressButtons();
+        syncExpressButtons();
         bindMobileOrderSummary();
         bindPrototypeLinks();
         bindLogin();

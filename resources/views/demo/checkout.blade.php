@@ -62,17 +62,6 @@ data-co-line-count="{{ count($cart['items']) }}"
             <section class="co-express" aria-labelledby="co-express-title">
                 <h2 id="co-express-title" class="co-express__title">Choose an express checkout</h2>
                 @include('demo.partials.checkout-express-buttons')
-                <div class="co-express__payments" aria-label="Accepted payment methods">
-                    <p class="co-express__payments-label">We accept:</p>
-                    <ul class="co-pay-cards">
-                        <li><img src="{{ $ygPay('amazonpayments.png') }}" alt="Amazon Payments"></li>
-                        <li><img src="{{ $ygPay('paypal.png') }}" alt="PayPal"></li>
-                        <li><img src="{{ $ygPay('mastercard.png') }}" alt="Mastercard"></li>
-                        <li><img src="{{ $ygPay('visa.png') }}" alt="Visa"></li>
-                        <li><img src="{{ $ygPay('amex.png') }}" alt="American Express"></li>
-                        <li><img class="co-pay-cards__apple" src="{{ $ygPay('apple_pay_accept.png') }}" alt="Apple Pay"></li>
-                    </ul>
-                </div>
             </section>
 
             <div class="co-divider" role="separator">
@@ -306,17 +295,6 @@ data-co-line-count="{{ count($cart['items']) }}"
                     <p class="co-courier-note" id="co-courier-hint">
                         *Please Note: Instructions entered here will appear on the label for the courier only. They are not seen by our packing team and cannot be used for product or delivery date requests.
                     </p>
-                </section>
-
-                <section class="co-section">
-                    <h2 class="co-section__title">Shipping method</h2>
-                    <div class="co-shipping">
-                        <label class="co-shipping__option">
-                            <input type="radio" name="shipping" value="standard" checked>
-                            <span class="co-shipping__name">Standard delivery</span>
-                            <span class="co-shipping__price">£{{ number_format($cart['delivery'], 2) }}</span>
-                        </label>
-                    </div>
                 </section>
 
                 <section class="co-section co-section--payment">
