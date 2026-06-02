@@ -1211,18 +1211,18 @@ body.co-club-modal-open {
 }
 
 @media (max-width: 999px) {
-    .co-layout {
+    .demo-checkout-page .co-layout {
         grid-template-columns: 1fr;
     }
 
-    .co-summary {
+    .demo-checkout-page .co-summary {
         order: -1;
         border-left: none;
         border-bottom: none;
         padding: 0;
     }
 
-    .co-summary__toggle {
+    .demo-checkout-page .co-summary__toggle {
         display: flex;
         align-items: center;
         justify-content: space-between;
