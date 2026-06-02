@@ -745,6 +745,13 @@ body.co-club-modal-open {
     gap: 12px;
 }
 
+@media (max-width: 480px) {
+    /* Prevent label wrapping from misaligning expiry/CVC inputs */
+    .co-field-row .co-field__label {
+        min-height: 2.6em;
+    }
+}
+
 .co-field__label {
     display: block;
     margin-bottom: 6px;

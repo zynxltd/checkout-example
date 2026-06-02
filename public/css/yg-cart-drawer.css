@@ -1728,6 +1728,12 @@ body.yg-drawer-open {
     color: var(--yg-muted);
 }
 
+@media (max-width: 480px) {
+    .yg-codes__offer .yg-code-field__hint {
+        display: none;
+    }
+}
+
 .yg-code-row {
     display: flex;
     align-items: center;
