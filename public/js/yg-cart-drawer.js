@@ -701,6 +701,8 @@
             root.querySelector('.yg-checkout')?.addEventListener('click', () => {
                 this.goToCheckout();
             });
+
+            window.YGDrawerTheme?.apply();
         },
 
         goToCheckout() {

@@ -4,6 +4,10 @@
 
 @section('body_class', 'demo-pdp')
 
+@push('head')
+    <link rel="stylesheet" href="{{ asset('css/yg-drawer-theme.css') }}?v={{ filemtime(public_path('css/yg-drawer-theme.css')) }}">
+@endpush
+
 @section('content')
 <div class="demo-site">
     <header class="demo-header">
@@ -190,6 +194,8 @@
         </label>
         <p class="demo-controls__resize">Resize window: ≤767px mobile · ≥768px desktop — open cart to see slide-out on PDP.</p>
     </aside>
+
+    @include('demo.partials.drawer-theme-customizer')
 </div>
 
 <div id="yg-drawer-mount">
@@ -198,6 +204,7 @@
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
 <script>
 document.querySelectorAll('[data-qty-delta]').forEach((btn) => {
     btn.addEventListener('click', () => {
