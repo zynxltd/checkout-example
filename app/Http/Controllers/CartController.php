@@ -105,11 +105,11 @@ class CartController extends Controller
 
             if (! DemoCart::isValidOfferCode($code)) {
                 return response()->json([
-                    'error' => 'This offer code isn\'t valid. Try TEST in this demo.',
+                    'error' => 'This offer code isn\'t valid. Try TEST or EM0000 in this demo.',
                 ], 422);
             }
 
-            session(['demo_offer_code' => DemoCart::DEMO_OFFER_CODE]);
+            session(['demo_offer_code' => strtoupper($code)]);
 
             return $this->fragment($request);
         }

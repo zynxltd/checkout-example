@@ -30,6 +30,9 @@ class DemoCart
     /** Demo offer code accepted in the cart drawer prototype */
     public const DEMO_OFFER_CODE = 'TEST';
 
+    /** Demo offer code that applies with no monetary discount (status-only) */
+    public const DEMO_OFFER_CODE_STATUS = 'EM0000';
+
     public const DEMO_OFFER_DISCOUNT = 5.50;
 
     /** Demo voucher code — TEST (same as offer) or legacy VOUCHER */
@@ -39,7 +42,9 @@ class DemoCart
 
     public static function isValidOfferCode(string $code): bool
     {
-        return strtoupper(trim($code)) === self::DEMO_OFFER_CODE;
+        $normalized = strtoupper(trim($code));
+
+        return in_array($normalized, [self::DEMO_OFFER_CODE, self::DEMO_OFFER_CODE_STATUS], true);
     }
 
     public static function isValidVoucherCode(string $code): bool
@@ -51,7 +56,13 @@ class DemoCart
 
     public static function offerCodeDiscount(?string $code): float
     {
-        return self::isValidOfferCode((string) $code) ? self::DEMO_OFFER_DISCOUNT : 0.0;
+        $normalized = strtoupper(trim((string) $code));
+
+        if ($normalized === self::DEMO_OFFER_CODE) {
+            return self::DEMO_OFFER_DISCOUNT;
+        }
+
+        return 0.0;
     }
 
     public static function voucherCodeDiscount(?string $code): float

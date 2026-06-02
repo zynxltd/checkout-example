@@ -1077,6 +1077,20 @@ body.co-club-modal-open {
     cursor: pointer;
 }
 
+.co-code-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(38, 79, 28, 0.22);
+    background: rgba(255, 255, 255, 0.55);
+    color: #264f1c;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
 .co-summary__offer {
     margin: 0 0 12px;
     padding: 8px 10px;
@@ -1115,7 +1129,8 @@ body.co-club-modal-open {
 }
 
 .co-summary__row--promo dd {
-    color: #264f1c;
+    color: #483f3a;
+    font-weight: 700;
 }
 
 .co-summary__row--total {

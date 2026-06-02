@@ -192,8 +192,10 @@
                     @if($cart['your_savings'] > 0)
                     <div class="yg-totals__row yg-totals__row--save"><span>Your Savings</span><span>£{{ number_format($cart['your_savings'], 2) }}</span></div>
                     @endif
-                    @if($offerDiscount > 0)
-                    <div class="yg-totals__row yg-totals__row--promo"><span>Offer discount</span><span>−£{{ number_format($offerDiscount, 2) }}</span></div>
+                    @if($hasOffer)
+                        @if($offerDiscount > 0)
+                        <div class="yg-totals__row yg-totals__row--promo"><span>Offer discount</span><span>−£{{ number_format($offerDiscount, 2) }}</span></div>
+                        @endif
                     @endif
                     <div class="yg-totals__row"><span>Delivery</span><span>£{{ number_format($cart['delivery'], 2) }}</span></div>
                     <div class="yg-totals__row yg-totals__row--total"><span>Total</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
