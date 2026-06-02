@@ -47,12 +47,71 @@
         mount: null,
         activeExtend: null,
         extendCloseTimer: null,
+        recoStorageKey: 'yg_demo_hide_recommendations',
 
         init() {
             this.mount = document.getElementById('yg-drawer-mount');
             this.bindGlobal();
             if (this.mount) {
                 this.wireDrawer(this.mount);
+            }
+        },
+
+        isRecoHidden() {
+            try {
+                return window.localStorage.getItem(this.recoStorageKey) === '1';
+            } catch (e) {
+                return false;
+            }
+        },
+
+        setRecoHidden(hidden) {
+            try {
+                if (hidden) {
+                    window.localStorage.setItem(this.recoStorageKey, '1');
+                } else {
+                    window.localStorage.removeItem(this.recoStorageKey);
+                }
+            } catch (e) {
+                // ignore
+            }
+        },
+
+        applyRecoHiddenState() {
+            const drawer = document.getElementById('yg-cart-drawer');
+            if (!drawer) {
+                return;
+            }
+
+            const hidden = this.isRecoHidden();
+            drawer.classList.toggle('yg-drawer--no-reco', hidden);
+
+            if (hidden) {
+                const panel = document.getElementById('yg-reco-panel');
+                if (panel) {
+                    panel.hidden = true;
+                    panel.classList.remove('is-open');
+                }
+                document.querySelectorAll('[data-extend-open="reco"]').forEach((tab) => {
+                    tab.classList.remove('is-active');
+                    tab.setAttribute('aria-expanded', 'false');
+                    tab.hidden = true;
+                });
+                document.querySelectorAll('.yg-reco-mobile-entry').forEach((el) => {
+                    el.classList.remove('is-active');
+                    el.hidden = true;
+                });
+                this.updateRecoTabLabel(false);
+                if (this.activeExtend === 'reco') {
+                    this.activeExtend = null;
+                }
+            } else {
+                document.querySelectorAll('[data-extend-open="reco"]').forEach((tab) => {
+                    tab.hidden = false;
+                });
+                document.querySelectorAll('.yg-reco-mobile-entry').forEach((el) => {
+                    el.hidden = false;
+                });
             }
         },
 
@@ -154,6 +213,7 @@
             }
 
             drawer.hidden = false;
+            this.applyRecoHiddenState();
             this.primeRecoForDrawerOpen();
 
             requestAnimationFrame(() => {
@@ -194,6 +254,7 @@
             return Boolean(
                 drawer
                 && !drawer.classList.contains('yg-drawer--no-reco')
+                && !this.isRecoHidden()
                 && document.getElementById('yg-reco-panel')
                 && !this.isMobileDrawer()
             );
@@ -248,6 +309,11 @@
                 this.extendCloseTimer = null;
             }
 
+            if (this.activeExtend === 'reco') {
+                // User explicitly hid recommendations; persist this choice.
+                this.setRecoHidden(true);
+            }
+
             document.querySelectorAll('.yg-extend.is-open').forEach((el) => {
                 el.classList.remove('is-open');
             });
@@ -268,6 +334,8 @@
                 this.updateRecoTabLabel(false);
             }
             this.activeExtend = null;
+
+            this.applyRecoHiddenState();
         },
 
         restoreExtend(id) {
@@ -339,6 +407,12 @@
 
             if (!panel) {
                 return;
+            }
+
+            if (id === 'reco') {
+                // User is choosing to view recommendations again.
+                this.setRecoHidden(false);
+                this.applyRecoHiddenState();
             }
 
             document.querySelectorAll(`[data-extend-open="${id}"]`).forEach((tab) => {
@@ -415,6 +489,8 @@
             if (!preserveExtend && !root.querySelector('.yg-extend.is-open')) {
                 this.activeExtend = null;
             }
+
+            this.applyRecoHiddenState();
 
             root.querySelectorAll('[data-drawer-close]').forEach((btn) => {
                 btn.addEventListener('click', () => {

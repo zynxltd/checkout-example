@@ -107,6 +107,56 @@ data-co-line-count="{{ count($cart['items']) }}"
                             <span class="co-field__label">Email</span>
                             <input type="email" name="email" id="co-guest-email" class="co-field__input" autocomplete="email" placeholder=" ">
                         </label>
+                        <label class="co-check co-check--account">
+                            <input type="checkbox" name="create_account" id="co-create-account" value="1">
+                            <span>Create an account?</span>
+                        </label>
+
+                        <div id="co-account-fields" hidden>
+                            <p class="co-field__help" id="co-account-help">
+                                If you wish to create an account please enter a password below.
+                            </p>
+
+                            <div class="co-field-row">
+                                <label class="co-field">
+                                    <span class="co-field__label">Title</span>
+                                    <select name="account_title" id="co-account-title" class="co-field__input co-field__select" autocomplete="honorific-prefix">
+                                        <option value="">Please select…</option>
+                                        <option value="MR">MR</option>
+                                        <option value="MRS">MRS</option>
+                                        <option value="MS">MS</option>
+                                        <option value="MISS">MISS</option>
+                                        <option value="DR">DR</option>
+                                    </select>
+                                </label>
+                                <label class="co-field">
+                                    <span class="co-field__label">Telephone Number</span>
+                                    <input type="tel" name="account_phone" id="co-account-phone" class="co-field__input" autocomplete="tel">
+                                </label>
+                            </div>
+
+                            <div class="co-field-row">
+                                <label class="co-field">
+                                    <span class="co-field__label">First name</span>
+                                    <input type="text" name="account_first_name" id="co-account-first-name" class="co-field__input" autocomplete="given-name">
+                                </label>
+                                <label class="co-field">
+                                    <span class="co-field__label">Last name</span>
+                                    <input type="text" name="account_last_name" id="co-account-last-name" class="co-field__input" autocomplete="family-name">
+                                </label>
+                            </div>
+
+                            <div class="co-field-row">
+                                <label class="co-field">
+                                    <span class="co-field__label">Password</span>
+                                    <input type="password" name="password" id="co-account-password" class="co-field__input" autocomplete="new-password" placeholder=" " aria-describedby="co-account-help">
+                                </label>
+                                <label class="co-field">
+                                    <span class="co-field__label">Retype Password</span>
+                                    <input type="password" name="password_confirmation" id="co-account-password-confirm" class="co-field__input" autocomplete="new-password" placeholder=" " aria-describedby="co-account-help">
+                                </label>
+                            </div>
+                        </div>
                         <label class="co-check">
                             <input type="checkbox" name="marketing" checked>
                             <span>I&rsquo;d like to receive email updates with exclusive offers, new launches and sale early access.</span>

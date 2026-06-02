@@ -70,6 +70,8 @@
         const guest = document.getElementById('co-contact-guest');
         const signedIn = document.getElementById('co-signed-in');
         const guestEmail = document.getElementById('co-guest-email');
+        const guestPassword = document.getElementById('co-account-password');
+        const guestPasswordConfirm = document.getElementById('co-account-password-confirm');
         const loginEmail = document.getElementById('co-login-email');
         const loginPassword = document.getElementById('co-login-password');
         const submit = document.getElementById('co-login-submit');
@@ -110,7 +112,48 @@
                 signedIn.textContent = `Signed in as ${email}`;
                 signedIn.hidden = false;
             }
+            if (guestPassword) {
+                guestPassword.value = '';
+            }
+            if (guestPasswordConfirm) {
+                guestPasswordConfirm.value = '';
+            }
         });
+    }
+
+    function bindCreateAccount() {
+        const toggle = document.getElementById('co-create-account');
+        const fields = document.getElementById('co-account-fields');
+        if (!toggle || !fields) {
+            return;
+        }
+
+        const setRequired = (required) => {
+            fields.querySelectorAll('input, select').forEach((el) => {
+                if (required) {
+                    el.setAttribute('required', 'required');
+                } else {
+                    el.removeAttribute('required');
+                }
+            });
+        };
+
+        const sync = () => {
+            const on = !!toggle.checked;
+            fields.hidden = !on;
+            setRequired(on);
+            if (!on) {
+                fields.querySelectorAll('input').forEach((el) => {
+                    el.value = '';
+                });
+                fields.querySelectorAll('select').forEach((el) => {
+                    el.value = '';
+                });
+            }
+        };
+
+        toggle.addEventListener('change', sync);
+        sync();
     }
 
     function bindGift() {
@@ -693,6 +736,7 @@
         bindMobileOrderSummary();
         bindPrototypeLinks();
         bindLogin();
+        bindCreateAccount();
         bindGift();
         bindBillingAddress();
         bindDeliveryAddress();
