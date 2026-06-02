@@ -90,3 +90,4 @@ Copy the `https://….trycloudflare.com` URL from the terminal. Quick tunnels ar
 5. **Proceed to Checkout** → express options at top, voucher in the summary column.
 
 # checkout-example
+# checkout-example
