@@ -1838,7 +1838,7 @@ body.yg-drawer-open {
 }
 
 .yg-totals__mobile-breakdown {
-    display: none;
+    display: block;
 }
 
 .yg-breakdown {
@@ -1890,14 +1890,8 @@ body.yg-drawer-open {
     padding-top: 8px;
 }
 
-@media (max-width: 480px) {
-    .yg-totals__mobile-breakdown {
-        display: block;
-    }
-
-    .yg-totals__desktop-breakdown {
-        display: none;
-    }
+.yg-totals__desktop-breakdown {
+    display: none;
 }
 
 .yg-totals__row {

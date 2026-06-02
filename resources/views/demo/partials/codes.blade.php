@@ -28,7 +28,7 @@
             >
             <button type="button" data-apply-code="offer">Apply code</button>
         </div>
-        <p class="yg-code-field__hint" id="yg-offer-hint">Only 1 offer code per order. Demo: try <strong>TEST</strong> for £5.50 off or <strong>EM0000</strong> for a code-applied (no discount) example.</p>
+        <p class="yg-code-field__hint" id="yg-offer-hint">Only 1 offer code per order.</p>
     </div>
     @endif
 </div>
