@@ -294,7 +294,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                         <span class="co-courier-field__limit" id="co-courier-count">(Max. 50 characters)</span>
                     </div>
                     <p class="co-courier-note" id="co-courier-hint">
-                        *Please Note: Instructions entered here will appear on the label for the courier only. They are not seen by our packing team and cannot be used for product or delivery date requests.
+                        *Please Note: Instructions entered here will appear on the label for the courier only. If you have any specific instructions for us before we dispatch your order, please email us immediately after placing your order at cs@yougarden.com, or call us on 0844 6 569 569.
                     </p>
                 </section>
 
