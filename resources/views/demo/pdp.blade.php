@@ -171,31 +171,33 @@
         <p class="demo-pdp__desc-more">This compact lilac tree is neatly trained with a single straight stem and a lollipop-style head that bursts into flower with masses of delicate, pale purple blooms from May.</p>
     </section>
 
-    <aside class="demo-controls" aria-label="Prototype controls">
-        <h3>Prototype controls</h3>
-        <p class="demo-controls__label">VWO-style test switch</p>
-        <label class="demo-toggle">
-            <input type="checkbox" id="toggle-drawer-mode" {{ $cart['drawer_enabled'] ? 'checked' : '' }}>
-            <span>Cart drawer (test)</span>
-        </label>
-        <p class="demo-controls__hint">Off = full basket page behaviour (alert). On = slide-out drawer.</p>
-        <p class="demo-controls__label">YG options</p>
-        <label class="demo-toggle">
-            <input type="checkbox" id="toggle-delivery-bar" data-option="delivery_bar" {{ $cart['show_free_delivery_bar'] ? 'checked' : '' }}>
-            <span>Free delivery bar (V2 / GD only)</span>
-        </label>
-        <label class="demo-toggle">
-            <input type="checkbox" id="toggle-upsells" data-option="upsells" {{ $cart['show_upsells'] ? 'checked' : '' }}>
-            <span>Recommendations side tab</span>
-        </label>
-        <label class="demo-toggle">
-            <input type="checkbox" id="toggle-apple-pay" data-option="apple_pay" {{ ($cart['show_apple_pay'] ?? true) ? 'checked' : '' }}>
-            <span>Apple Pay (express button)</span>
-        </label>
-        <p class="demo-controls__resize">Resize window: ≤767px mobile · ≥768px desktop — open cart to see slide-out on PDP.</p>
-    </aside>
+    <div class="demo-prototype-stack">
+        @include('demo.partials.drawer-theme-customizer')
 
-    @include('demo.partials.drawer-theme-customizer')
+        <aside class="demo-controls" aria-label="Prototype controls">
+            <h3>Prototype controls</h3>
+            <p class="demo-controls__label">VWO-style test switch</p>
+            <label class="demo-toggle">
+                <input type="checkbox" id="toggle-drawer-mode" {{ $cart['drawer_enabled'] ? 'checked' : '' }}>
+                <span>Cart drawer (test)</span>
+            </label>
+            <p class="demo-controls__hint">Off = full basket page behaviour (alert). On = slide-out drawer.</p>
+            <p class="demo-controls__label">YG options</p>
+            <label class="demo-toggle">
+                <input type="checkbox" id="toggle-delivery-bar" data-option="delivery_bar" {{ $cart['show_free_delivery_bar'] ? 'checked' : '' }}>
+                <span>Free delivery bar (V2 / GD only)</span>
+            </label>
+            <label class="demo-toggle">
+                <input type="checkbox" id="toggle-upsells" data-option="upsells" {{ $cart['show_upsells'] ? 'checked' : '' }}>
+                <span>Recommendations side tab</span>
+            </label>
+            <label class="demo-toggle">
+                <input type="checkbox" id="toggle-apple-pay" data-option="apple_pay" {{ ($cart['show_apple_pay'] ?? true) ? 'checked' : '' }}>
+                <span>Apple Pay (express button)</span>
+            </label>
+            <p class="demo-controls__resize">Resize window: ≤767px mobile · ≥768px desktop — open cart to see slide-out on PDP.</p>
+        </aside>
+    </div>
 </div>
 
 <div id="yg-drawer-mount">

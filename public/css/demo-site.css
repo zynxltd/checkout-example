@@ -679,12 +679,28 @@ body.demo-pdp {
     color: var(--yg-muted);
 }
 
-/* —— Prototype controls —— */
-.demo-controls {
+/* —— Prototype controls + drawer theme customiser (PDP) —— */
+.demo-prototype-stack {
     position: fixed;
     bottom: 16px;
     left: 16px;
-    z-index: 100;
+    z-index: 110;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: min(300px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    overflow: visible;
+    pointer-events: none;
+}
+
+.demo-prototype-stack > * {
+    pointer-events: auto;
+}
+
+.demo-controls {
+    width: 100%;
     max-width: 280px;
     padding: 14px 16px;
     background: #fff;
