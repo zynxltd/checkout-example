@@ -2,6 +2,112 @@
 
 Interactive demo of the **V2 cart drawer** for stakeholder review. **YG default:** no free-delivery bar (Richard feedback). See `../yg-cart-drawer-stakeholder-feedback.md`.
 
+## Developer setup
+
+**Stack:** Laravel 13 · PHP 8.3+ · Blade · session mock cart · vanilla CSS/JS in `public/` (no React/Shopify).
+
+### Prerequisites
+
+- PHP **8.3+**, [Composer](https://getcomposer.org/)
+- Optional: [Laravel Herd](https://herd.laravel.com) (recommended on macOS)
+- Optional: Node 20+ only if you run `npm run build` / Vite (not required for the demo UI)
+
+### First-time install
+
+```bash
+git clone <repo-url> yg-cart-drawer-demo
+cd yg-cart-drawer-demo
+
+composer setup
+```
+
+`composer setup` runs: `composer install`, copies `.env.example` → `.env`, `php artisan key:generate`, `php artisan migrate`, `npm install`, `npm run build`.
+
+**Manual install** (if you skip `composer setup`):
+
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite   # if missing
+php artisan migrate
+```
+
+### Environment (`.env`)
+
+| Variable | Purpose |
+|----------|---------|
+| `APP_URL` | Local URL, e.g. `http://yg-cart-drawer-demo.test` or `http://127.0.0.1:8000` |
+| `ADOBE_FONTS_KIT` | Adobe Fonts kit ID (Gelica + Proxima Nova); leave empty for system fallbacks |
+| `DEMO_PREVIEW_AUTH_ENABLED` | `true` = login gate; `false` = open demo (local only) |
+| `DEMO_PREVIEW_USERNAME` / `DEMO_PREVIEW_PASSWORD` | Preview login (defaults in `.env.example`) |
+| `SESSION_DRIVER` | `database` (default) — needs SQLite + migrations |
+
+Uses **SQLite** by default (`database/database.sqlite`). No MySQL required for local dev.
+
+### Run locally
+
+**Herd** — park or link the project folder; open:
+
+`http://yg-cart-drawer-demo.test`
+
+**Artisan:**
+
+```bash
+php artisan serve
+```
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+### Preview login
+
+When `DEMO_PREVIEW_AUTH_ENABLED=true`, visit `/login` first.
+
+Defaults (see `.env.example`): username `web`, password `letmein2`.
+
+### Demo codes (mock logic)
+
+| Code | Where |
+|------|--------|
+| `TEST` | Offer code in cart drawer |
+| `TEST` or `VOUCHER` | Gift voucher on checkout |
+
+### Where to edit
+
+| Area | Path |
+|------|------|
+| Routes | `routes/web.php` |
+| Cart / checkout logic | `app/Http/Controllers/` |
+| Views | `resources/views/demo/` |
+| Drawer / checkout JS | `public/js/yg-cart-drawer.js`, `yg-checkout.js` |
+| Styles | `public/css/yg-cart-drawer.css`, `yg-checkout.css`, `demo-site.css` |
+
+### Share a temporary public URL
+
+Requires [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/) (`brew install cloudflared`).
+
+```bash
+./tunnel.sh
+```
+
+Herd: proxies `yg-cart-drawer-demo.test`. For `php artisan serve` only:
+
+```bash
+YG_TUNNEL_ORIGIN=http://127.0.0.1:8000 YG_TUNNEL_HOST=127.0.0.1:8000 ./tunnel.sh
+```
+
+### Herd sync (optional)
+
+If you keep a second copy under `~/Herd/yg-cart-drawer-demo`, sync from the repo:
+
+```bash
+./sync-to-herd.sh
+```
+
+Edit `HERD=` inside the script if your Herd path differs.
+
+---
+
 ## Brand typography
 
 Per **YG Brand Guidelines 2026**: **Gelica** (headings) · **Proxima Nova** (body).
@@ -26,40 +132,6 @@ Until a kit or woff2 files are configured, the browser falls back to system font
 | YG Club Purple | `#812881` | Club banner |
 
 **Checkout icon:** White wheelbarrow line-art (`public/images/icons/icon-wheelbarrow.png`).
-
-## Herd sync
-
-Herd serves `/Users/tom/Herd/yg-cart-drawer-demo`. After editing files in this repo folder, run:
-
-```bash
-./sync-to-herd.sh
-```
-
-## Run locally
-
-From this directory:
-
-```bash
-php artisan serve
-```
-
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000)
-
-If you use [Laravel Herd](https://herd.laravel.com), the site may be available at:
-
-**http://yg-cart-drawer-demo.test**
-
-## Share via Cloudflare Tunnel
-
-Requires [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/) (`brew install cloudflared`). Herd site must be running locally.
-
-```bash
-./tunnel.sh
-```
-
-Proxies Herd HTTPS on `127.0.0.1` with `Host: yg-cart-drawer-demo.test` (required so the site does not redirect visitors to `.test`). For `php artisan serve` only: `YG_TUNNEL_ORIGIN=http://127.0.0.1:8000 YG_TUNNEL_HOST=127.0.0.1:8000 ./tunnel.sh`.
-
-Copy the `https://….trycloudflare.com` URL from the terminal. Quick tunnels are temporary and stop when the process exits.
 
 ## What’s included
 
@@ -88,6 +160,3 @@ Copy the `https://….trycloudflare.com` URL from the terminal. Quick tunnels ar
 3. Apply offer `TEST` in the drawer; apply voucher `TEST` or `VOUCHER` on checkout.
 4. **More Info** on club bar → sheet (mobile) or left panel (desktop).
 5. **Proceed to Checkout** → express options at top, voucher in the summary column.
-
-# checkout-example
-# checkout-example
