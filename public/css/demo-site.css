@@ -699,6 +699,27 @@ body.demo-pdp {
     pointer-events: auto;
 }
 
+.demo-prototype-stack__dock,
+.demo-prototype-stack__bar {
+    display: none;
+}
+
+.demo-prototype-stack__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+}
+
+.demo-prototype-stack__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+}
+
 .demo-controls {
     width: 100%;
     max-width: 280px;
@@ -731,6 +752,78 @@ body.demo-pdp {
     align-items: center;
     gap: 8px;
     cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    .demo-prototype-stack__dock {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 999px;
+        background: #264f1c;
+        color: #fff;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .demo-prototype-stack__dock:hover {
+        filter: brightness(1.08);
+    }
+
+    .demo-prototype-stack__bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        max-width: 280px;
+        padding: 8px 12px;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+        box-sizing: border-box;
+    }
+
+    .demo-prototype-stack__bar-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #483f3a;
+    }
+
+    .demo-prototype-stack__minimize {
+        padding: 4px 10px;
+        border: 1px solid #e0d6cb;
+        border-radius: 6px;
+        background: #f8f6f3;
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 600;
+        color: #483f3a;
+        cursor: pointer;
+    }
+
+    .demo-prototype-stack__minimize:hover {
+        background: #f2e7d8;
+    }
+
+    .demo-prototype-stack.is-collapsed .demo-prototype-stack__body {
+        display: none;
+    }
+
+    .demo-prototype-stack:not(.is-collapsed) .demo-prototype-stack__dock {
+        display: none;
+    }
+
+    .demo-prototype-stack {
+        bottom: max(12px, env(safe-area-inset-bottom));
+        left: max(12px, env(safe-area-inset-left));
+        width: min(280px, calc(100vw - 24px));
+    }
 }
 
 .demo-header__menu,

@@ -171,11 +171,35 @@
         <p class="demo-pdp__desc-more">This compact lilac tree is neatly trained with a single straight stem and a lollipop-style head that bursts into flower with masses of delicate, pale purple blooms from May.</p>
     </section>
 
-    <div class="demo-prototype-stack">
-        @include('demo.partials.drawer-theme-customizer')
+    <div class="demo-prototype-stack" id="demo-prototype-stack">
+        <button
+            type="button"
+            class="demo-prototype-stack__dock"
+            data-prototype-dock
+            aria-expanded="false"
+            aria-controls="demo-prototype-stack-body"
+        >
+            Prototype tools
+        </button>
 
-        <aside class="demo-controls" aria-label="Prototype controls">
-            <h3>Prototype controls</h3>
+        <div class="demo-prototype-stack__body" id="demo-prototype-stack-body">
+            <div class="demo-prototype-stack__bar">
+                <span class="demo-prototype-stack__bar-title">Prototype tools</span>
+                <button
+                    type="button"
+                    class="demo-prototype-stack__minimize"
+                    data-prototype-minimize
+                    aria-label="Minimise prototype tools"
+                >
+                    Minimise
+                </button>
+            </div>
+
+            <div class="demo-prototype-stack__content">
+                @include('demo.partials.drawer-theme-customizer')
+
+                <aside class="demo-controls" aria-label="Prototype controls">
+                    <h3>Prototype controls</h3>
             <p class="demo-controls__label">VWO-style test switch</p>
             <label class="demo-toggle">
                 <input type="checkbox" id="toggle-drawer-mode" {{ $cart['drawer_enabled'] ? 'checked' : '' }}>
@@ -196,7 +220,9 @@
                 <span>Apple Pay (express button)</span>
             </label>
             <p class="demo-controls__resize">Resize window: ≤767px mobile · ≥768px desktop — open cart to see slide-out on PDP.</p>
-        </aside>
+                </aside>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -207,6 +233,7 @@
 
 @push('scripts')
     <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
+    <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
 <script>
 document.querySelectorAll('[data-qty-delta]').forEach((btn) => {
     btn.addEventListener('click', () => {

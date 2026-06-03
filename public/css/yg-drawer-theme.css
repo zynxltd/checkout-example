@@ -112,12 +112,6 @@
 }
 
 @media (max-width: 767px) {
-    .demo-prototype-stack {
-        bottom: max(12px, env(safe-area-inset-bottom));
-        left: max(12px, env(safe-area-inset-left));
-        width: min(280px, calc(100vw - 24px));
-    }
-
     .yg-drawer-theme.is-open .yg-drawer-theme__panel {
         max-height: min(40vh, 360px);
     }
