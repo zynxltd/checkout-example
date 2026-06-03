@@ -52,44 +52,6 @@
         }
     }
 
-    function hexToRgb(hex) {
-        const raw = hex.replace('#', '').trim();
-        const normalized =
-            raw.length === 3
-                ? raw
-                      .split('')
-                      .map((c) => c + c)
-                      .join('')
-                : raw.slice(0, 6);
-        const num = Number.parseInt(normalized, 16);
-        if (Number.isNaN(num)) {
-            return null;
-        }
-
-        return {
-            r: (num >> 16) & 255,
-            g: (num >> 8) & 255,
-            b: num & 255,
-        };
-    }
-
-    function isLightColour(hex) {
-        const rgb = hexToRgb(hex);
-        if (!rgb) {
-            return true;
-        }
-
-        const luminance = (0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b) / 255;
-
-        return luminance > 0.55;
-    }
-
-    function closeIconFilter(headerText) {
-        return isLightColour(headerText)
-            ? 'brightness(0) saturate(100%)'
-            : 'brightness(0) invert(1)';
-    }
-
     function applyTheme(theme) {
         const drawer = drawerEl();
         if (!drawer) {
@@ -101,8 +63,7 @@
             drawer.style.setProperty(field.var, value);
         });
 
-        const headerText = theme.headerText ?? defaults.headerText;
-        drawer.style.setProperty('--yg-theme-close-icon-filter', closeIconFilter(headerText));
+        drawer.style.setProperty('--yg-theme-close-icon-filter', 'none');
     }
 
     const DrawerTheme = {

@@ -51,7 +51,7 @@ body.yg-drawer-open {
     --yg-theme-header-text: #264f1c;
     --yg-theme-header-badge-bg: #264f1c;
     --yg-theme-header-badge-text: #ffffff;
-    --yg-theme-close-icon-filter: brightness(0) saturate(100%);
+    --yg-theme-close-icon-filter: none;
     --yg-theme-panel-bg: var(--yg-cream);
     --yg-theme-body-text: var(--yg-text);
     --yg-theme-muted-text: var(--yg-muted);
@@ -1061,7 +1061,7 @@ body.yg-drawer-open {
 .yg-drawer__close .yg-icon {
     width: 20px;
     height: 20px;
-    filter: var(--yg-theme-close-icon-filter, brightness(0) saturate(100%));
+    filter: var(--yg-theme-close-icon-filter, none);
 }
 
 /* Body — only line items (and optional delivery bar) scroll */
