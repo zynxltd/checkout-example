@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (config('demo-preview.auth_enabled') && config('demo-preview.session_expire_on_close')) {
+            config(['session.expire_on_close' => true]);
+        }
     }
 }
