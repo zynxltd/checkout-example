@@ -1,7 +1,5 @@
 # YouGarden Cart Drawer V2 — Laravel prototype
 
-Interactive demo of the **V2 cart drawer** for stakeholder review. **YG default:** no free-delivery bar (Richard feedback). See `../yg-cart-drawer-stakeholder-feedback.md`.
-
 ## Developer setup
 
 **Stack:** Laravel 13 · PHP 8.3+ · Blade · session mock cart · vanilla CSS/JS in `public/` (no React/Shopify).
@@ -81,20 +79,6 @@ Defaults (see `.env.example`): username `web`, password `letmein2`.
 | Views | `resources/views/demo/` |
 | Drawer / checkout JS | `public/js/yg-cart-drawer.js`, `yg-checkout.js` |
 | Styles | `public/css/yg-cart-drawer.css`, `yg-checkout.css`, `demo-site.css` |
-
-### Share a temporary public URL
-
-Requires [cloudflared](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/downloads/) (`brew install cloudflared`).
-
-```bash
-./tunnel.sh
-```
-
-Herd: proxies `yg-cart-drawer-demo.test`. For `php artisan serve` only:
-
-```bash
-YG_TUNNEL_ORIGIN=http://127.0.0.1:8000 YG_TUNNEL_HOST=127.0.0.1:8000 ./tunnel.sh
-```
 
 ### Herd sync (optional)
 
