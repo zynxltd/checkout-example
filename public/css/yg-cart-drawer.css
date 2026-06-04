@@ -1774,30 +1774,6 @@ body.yg-drawer-open {
     min-height: 40px;
 }
 
-.yg-codes__offer .yg-code-field__hint {
-    margin: 8px 4px 0 16px;
-}
-
-.yg-code-field__hint {
-    margin: 6px 0 0;
-    font-family: var(--yg-body);
-    font-size: 12px;
-    line-height: 1.4;
-    color: var(--yg-muted);
-}
-
-/* Hide hint only on compact v2.1 mobile; default mobile matches desktop */
-@media (max-width: 767px) {
-    .yg-drawer--v-2-1 .yg-codes__offer .yg-code-field__hint {
-        display: none;
-    }
-
-    .yg-drawer:not(.yg-drawer--v-2-1) .yg-codes__offer .yg-code-field__hint {
-        display: block;
-        margin: 6px 4px 0 14px;
-    }
-}
-
 .yg-code-row {
     display: flex;
     align-items: center;
@@ -2044,10 +2020,6 @@ body.yg-drawer-open {
 
     .yg-drawer .yg-codes {
         margin-bottom: 6px;
-    }
-
-    .yg-drawer .yg-codes__offer .yg-code-field__hint {
-        margin: 4px 4px 0 14px;
     }
 
     .yg-drawer .yg-totals {
