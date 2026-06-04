@@ -8,9 +8,13 @@ class DemoDrawerVariant
 {
     public const QUERY = '2.1';
 
+    public const V30 = '3.0';
+
     public const OFF = 'off';
 
     public const SESSION_KEY = 'demo_drawer_variant';
+
+    public const SESSION_V30_KEY = 'demo_drawer_v30';
 
     public static function applyFromRequest(Request $request): void
     {
@@ -27,8 +31,28 @@ class DemoDrawerVariant
         return session(self::SESSION_KEY, self::QUERY) !== self::OFF;
     }
 
+    public static function setV30Enabled(bool $enabled): void
+    {
+        session([self::SESSION_V30_KEY => $enabled]);
+    }
+
+    public static function isV30Active(): bool
+    {
+        return (bool) session(self::SESSION_V30_KEY, false);
+    }
+
     public static function drawerClass(): string
     {
-        return self::isActive() ? 'yg-drawer--v-2-1' : '';
+        $classes = [];
+
+        if (self::isActive()) {
+            $classes[] = 'yg-drawer--v-2-1';
+        }
+
+        if (self::isV30Active()) {
+            $classes[] = 'yg-drawer--v-3-0';
+        }
+
+        return implode(' ', $classes);
     }
 }

@@ -185,6 +185,12 @@ class CartController extends Controller
             return $this->fragment($request);
         }
 
+        if ($key === 'summary_v30') {
+            DemoDrawerVariant::setV30Enabled($value);
+
+            return $this->fragment($request);
+        }
+
         $map = [
             'delivery_bar' => 'demo_free_delivery_bar',
             'upsells' => 'demo_show_upsells',

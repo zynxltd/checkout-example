@@ -5,9 +5,11 @@
     $offerDiscount = (float) ($cart['offer_discount'] ?? 0);
     $showReco = $cart['show_upsells'] ?? true;
     $isEmpty = !empty($cart['is_empty']);
+    $drawerV30 = !empty($drawerVariant30);
+    $totalRowLabel = $drawerV30 ? 'Subtotal' : 'Total';
 @endphp
 
-<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif" id="yg-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
+<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($drawerV30) yg-drawer--v-3-0 @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif" id="yg-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
     <div class="yg-drawer__overlay" data-drawer-close></div>
 
     @if($showClub)
@@ -188,6 +190,7 @@
                 ])
 
                 <div class="yg-totals">
+                    @unless($drawerV30)
                     <div class="yg-totals__mobile-breakdown">
                         <details class="yg-breakdown" aria-label="Order breakdown">
                             <summary class="yg-breakdown__summary">
@@ -210,11 +213,12 @@
                             </div>
                         </details>
                     </div>
+                    @endunless
 
                     @if(empty($drawerVariant21))
-                    <div class="yg-totals__row yg-totals__row--total"><span>Total</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
+                    <div class="yg-totals__row yg-totals__row--total"><span>{{ $totalRowLabel }}</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
                     @else
-                    <div class="yg-totals__row yg-totals__row--total yg-totals__row--total-desktop"><span>Total</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
+                    <div class="yg-totals__row yg-totals__row--total yg-totals__row--total-desktop"><span>{{ $totalRowLabel }}</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
                     @endif
                 </div>
                 </div>
@@ -243,7 +247,7 @@
                 @endif
                 @if(!empty($drawerVariant21))
                 <div class="yg-drawer__summary-total yg-drawer__summary-total--v21-mobile @if($showClubSavings) yg-drawer__summary-total--after-club @endif">
-                    <div class="yg-totals__row yg-totals__row--total"><span>Total</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
+                    <div class="yg-totals__row yg-totals__row--total"><span>{{ $totalRowLabel }}</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
                 </div>
                 @endif
             </div>

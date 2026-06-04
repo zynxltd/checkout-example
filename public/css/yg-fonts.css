@@ -3,8 +3,26 @@
  */
 
 :root {
+    /* Typography — YG Brand Guidelines 2026 */
     --yg-font-heading: 'gelica', 'Gelica', Georgia, 'Times New Roman', serif;
     --yg-font-body: 'proxima-nova', 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --yg-heading: var(--yg-font-heading);
+    --yg-body: var(--yg-font-body);
+
+    /* Brand colours V2 (shared sitewide; drawer theme uses same tokens) */
+    --yg-moss: #cceea8;
+    --yg-moss-dark: #6b9420;
+    --yg-moss-surface: #e5efd0;
+    --yg-forest: #264f1c;
+    --yg-stone: #f2e7d8;
+    --yg-pebble: #483f3a;
+    --yg-rose: #e3185d;
+    --yg-checkout: #468900;
+    --yg-checkout-dark: #3a7000;
+    --yg-club-purple: #812881;
+    --yg-text: var(--yg-pebble);
+    --yg-muted: #7a726c;
+    --yg-border: #e0d6cb;
 }
 
 /* Self-hosted / local fallbacks (woff2 in public/fonts/ or activated via Creative Cloud) */

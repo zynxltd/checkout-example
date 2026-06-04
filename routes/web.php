@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\PreviewLoginController;
+use App\Http\Controllers\TvLiveController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [PreviewLoginController::class, 'show'])->name('demo.login');
@@ -12,6 +13,7 @@ Route::post('/logout', [PreviewLoginController::class, 'logout'])->name('demo.lo
 
 Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/', [DemoController::class, 'pdp'])->name('demo.pdp');
+    Route::get('/tv-live', [TvLiveController::class, 'show'])->name('demo.tv-live');
 
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('demo.checkout');
     Route::post('/checkout/complete', [CheckoutController::class, 'complete'])->name('demo.checkout.complete');

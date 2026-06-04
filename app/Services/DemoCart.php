@@ -704,6 +704,7 @@ class DemoCart
             'wide_drawer' => (bool) session('demo_wide_drawer', false),
             'show_apple_pay' => (bool) session('demo_show_apple_pay', false),
             'compact_v21' => DemoDrawerVariant::isActive(),
+            'summary_v30' => DemoDrawerVariant::isV30Active(),
             'upsells' => self::upsellsForDrawer(),
         ];
     }

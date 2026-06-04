@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('demo.partials.drawer', function ($view): void {
             $view->with('drawerVariant21', DemoDrawerVariant::isActive());
+            $view->with('drawerVariant30', DemoDrawerVariant::isV30Active());
         });
     }
 }
