@@ -996,7 +996,7 @@ body.yg-drawer-open {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 16px 18px;
+    padding: 12px 18px;
     background: var(--yg-theme-header-bg);
     color: var(--yg-theme-header-text);
     border-bottom: 1px solid var(--yg-border);
