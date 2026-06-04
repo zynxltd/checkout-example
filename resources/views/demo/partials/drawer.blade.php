@@ -7,7 +7,7 @@
     $isEmpty = !empty($cart['is_empty']);
 @endphp
 
-<div class="yg-drawer yg-drawer--v2 @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif" id="yg-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
+<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif" id="yg-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
     <div class="yg-drawer__overlay" data-drawer-close></div>
 
     @if($showClub)
@@ -211,17 +211,39 @@
                         </details>
                     </div>
 
+                    @if(empty($drawerVariant21))
                     <div class="yg-totals__row yg-totals__row--total"><span>Total</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
+                    @else
+                    <div class="yg-totals__row yg-totals__row--total yg-totals__row--total-desktop"><span>Total</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
+                    @endif
                 </div>
                 </div>
-                @if($showClubSavings)
-                <div class="yg-club-savings-banner" role="status" aria-label="Club member savings" style="width:100%;margin:12px 0 0;border:1px solid #e0d6cb;background:#fff;overflow:hidden;box-sizing:border-box;">
-                    <div class="yg-club-savings-banner__head" style="padding:10px 12px;text-align:center;background:#812881;color:#fff;">
-                        <p class="yg-club-savings-banner__label" style="margin:0;font-size:14px;font-weight:700;line-height:1.3;color:#fff;">Your Club Member Saving Is:</p>
+                @if($showClubSavings && !empty($drawerVariant21))
+                <div class="yg-club-savings-strip" role="status" aria-label="Club member savings">
+                    <span class="yg-club-savings-strip__label">Club saving</span>
+                    <span class="yg-club-savings-strip__amount">£{{ number_format($cart['club_member_savings'], 2) }}</span>
+                </div>
+                <div class="yg-club-savings-banner yg-club-savings-banner--v21-desktop" role="status" aria-label="Club member savings">
+                    <div class="yg-club-savings-banner__head">
+                        <p class="yg-club-savings-banner__label">Your Club Member Saving Is:</p>
                     </div>
-                    <div class="yg-club-savings-banner__body" style="padding:14px 12px 16px;text-align:center;background:#fff;">
-                        <p class="yg-club-savings-banner__amount" style="margin:0;font-size:1.35rem;font-weight:700;line-height:1.2;color:#483f3a;">£{{ number_format($cart['club_member_savings'], 2) }}</p>
+                    <div class="yg-club-savings-banner__body">
+                        <p class="yg-club-savings-banner__amount">£{{ number_format($cart['club_member_savings'], 2) }}</p>
                     </div>
+                </div>
+                @elseif($showClubSavings)
+                <div class="yg-club-savings-banner" role="status" aria-label="Club member savings">
+                    <div class="yg-club-savings-banner__head">
+                        <p class="yg-club-savings-banner__label">Your Club Member Saving Is:</p>
+                    </div>
+                    <div class="yg-club-savings-banner__body">
+                        <p class="yg-club-savings-banner__amount">£{{ number_format($cart['club_member_savings'], 2) }}</p>
+                    </div>
+                </div>
+                @endif
+                @if(!empty($drawerVariant21))
+                <div class="yg-drawer__summary-total yg-drawer__summary-total--v21-mobile @if($showClubSavings) yg-drawer__summary-total--after-club @endif">
+                    <div class="yg-totals__row yg-totals__row--total"><span>Total</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
                 </div>
                 @endif
             </div>

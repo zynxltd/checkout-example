@@ -43,6 +43,10 @@ php artisan migrate
 
 Uses **SQLite** by default (`database/database.sqlite`). No MySQL required for local dev.
 
+### Compact drawer layout (v2.1)
+
+**Compact view (v2.1)** is **off by default**. Turn it on in **Prototype tools → Compact view (v2.1)**. On **mobile only** (≤767px): compact footer, full-width club saving strip, smaller club line item. **Desktop** stays the same as default V2.
+
 ### Run locally
 
 **Herd** — park or link the project folder; open:

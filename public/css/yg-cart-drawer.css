@@ -1056,12 +1056,31 @@ body.yg-drawer-open {
     cursor: pointer;
     padding: 6px;
     flex-shrink: 0;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.yg-drawer__close:hover {
+    background-color: color-mix(in srgb, var(--yg-theme-header-text) 10%, transparent);
+}
+
+.yg-drawer__close:focus-visible {
+    outline: 2px solid var(--yg-theme-header-text);
+    outline-offset: 2px;
 }
 
 .yg-drawer__close .yg-icon {
     width: 20px;
     height: 20px;
     filter: var(--yg-theme-close-icon-filter, none);
+    transition: transform 0.22s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .yg-drawer__close:hover .yg-icon,
+    .yg-drawer__close:focus-visible .yg-icon {
+        transform: rotate(90deg) scale(1.1);
+    }
 }
 
 /* Body — only line items (and optional delivery bar) scroll */
@@ -1766,9 +1785,15 @@ body.yg-drawer-open {
     color: var(--yg-muted);
 }
 
-@media (max-width: 480px) {
-    .yg-codes__offer .yg-code-field__hint {
+/* Hide hint only on compact v2.1 mobile; default mobile matches desktop */
+@media (max-width: 767px) {
+    .yg-drawer--v-2-1 .yg-codes__offer .yg-code-field__hint {
         display: none;
+    }
+
+    .yg-drawer:not(.yg-drawer--v-2-1) .yg-codes__offer .yg-code-field__hint {
+        display: block;
+        margin: 6px 4px 0 14px;
     }
 }
 
@@ -1966,6 +1991,97 @@ body.yg-drawer-open {
     font-size: 1.1rem;
 }
 
+/* Mobile — align Order summary row with Total row (same horizontal inset) */
+@media (max-width: 767px) {
+    .yg-drawer .yg-breakdown__summary {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 0;
+        margin: 0;
+    }
+
+    .yg-drawer .yg-totals > .yg-totals__row--total,
+    .yg-drawer .yg-totals > .yg-totals__row--total-desktop {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 0;
+        padding: 8px 0;
+        border-top: 1px solid #d0d0d0;
+    }
+
+    .yg-drawer .yg-drawer__summary-total--v21-mobile .yg-totals__row--total {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 0;
+        padding: 8px 0;
+        border-top: 1px solid #d8d0c8;
+    }
+}
+
+/* Desktop — tighter summary/footer (promo, totals, club saving, checkout) */
+@media (min-width: 768px) {
+    .yg-drawer__summary {
+        box-shadow: inset 0 5px 8px -10px rgba(0, 0, 0, 0.18);
+    }
+
+    .yg-drawer__summary-inner {
+        padding: 10px var(--yg-summary-x) 0;
+    }
+
+    .yg-drawer .yg-codes {
+        margin-bottom: 6px;
+    }
+
+    .yg-drawer .yg-codes__offer .yg-code-field__hint {
+        margin: 4px 4px 0 14px;
+    }
+
+    .yg-drawer .yg-totals {
+        padding: 2px 0 4px;
+    }
+
+    .yg-drawer .yg-breakdown {
+        margin-top: 4px;
+        padding-top: 6px;
+    }
+
+    .yg-drawer .yg-totals__row {
+        padding: 2px 0;
+    }
+
+    .yg-drawer .yg-totals__row--total,
+    .yg-drawer .yg-totals__row--total-desktop {
+        margin-top: 4px;
+        padding-top: 8px;
+        font-size: 1.05rem;
+    }
+
+    .yg-drawer .yg-club-savings-banner {
+        margin-top: 6px;
+    }
+
+    .yg-drawer .yg-club-savings-banner__head {
+        padding: 7px 12px;
+    }
+
+    .yg-drawer .yg-club-savings-banner__body {
+        padding: 8px 12px 10px;
+    }
+
+    .yg-drawer .yg-club-savings-banner__label {
+        font-size: 14px;
+    }
+
+    .yg-drawer .yg-club-savings-banner__amount {
+        font-size: 1.2rem;
+    }
+
+    .yg-drawer .yg-checkout {
+        padding-top: 12px;
+        padding-bottom: 14px;
+    }
+}
+
 /* Footer / checkout */
 .yg-drawer__footer {
     flex: 0 0 auto;
@@ -2041,5 +2157,205 @@ body.yg-drawer-open {
 
     .yg-checkout__label--desktop {
         display: inline;
+    }
+}
+
+/* -------------------------------------------------------------------------
+   Compact footer — v2.1 (yg-drawer--v-2-1): mobile only; desktop = default V2
+   ------------------------------------------------------------------------- */
+
+/* v2.1 mobile-only strip + total slot (hidden on desktop) */
+.yg-club-savings-strip {
+    display: none;
+}
+
+.yg-club-savings-banner--v21-desktop {
+    display: none;
+}
+
+.yg-drawer__summary-total--v21-mobile {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .yg-drawer--v-2-1 .yg-totals__row--total-desktop {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .yg-drawer--v-2-1 .yg-club-savings-banner--v21-desktop {
+        display: block;
+    }
+}
+
+@media (max-width: 767px) {
+    .yg-drawer--v-2-1 .yg-drawer__stage,
+    .yg-drawer--v-2-1 .yg-drawer__panel-slot {
+        height: 100svh;
+        height: 100dvh;
+    }
+
+    .yg-drawer--v-2-1 .yg-totals__row--total-desktop {
+        display: none !important;
+    }
+
+    .yg-drawer--v-2-1 .yg-club-savings-banner--v21-desktop {
+        display: none !important;
+    }
+
+    .yg-drawer--v-2-1 .yg-club-savings-strip {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        width: 100%;
+        margin: 0;
+        padding: 8px 14px;
+        box-sizing: border-box;
+        background: var(--yg-club-purple);
+        color: #fff;
+        flex-shrink: 0;
+    }
+
+    .yg-club-savings-strip__label,
+    .yg-club-savings-strip__amount {
+        font-family: var(--yg-body);
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #fff;
+    }
+
+    .yg-club-savings-strip__amount {
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+
+    .yg-drawer--v-2-1 .yg-drawer__summary-total--v21-mobile {
+        display: block;
+        padding: 0 var(--yg-summary-x, 14px) 6px;
+        box-sizing: border-box;
+    }
+
+    .yg-drawer--v-2-1 .yg-drawer__summary-total--v21-mobile .yg-totals__row--total {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 0.95rem;
+    }
+
+    .yg-drawer--v-2-1 .yg-drawer__summary-inner {
+        padding: 10px var(--yg-summary-x) 0;
+    }
+
+    .yg-drawer--v-2-1 .yg-drawer__summary-inner .yg-totals {
+        padding-bottom: 0;
+    }
+
+    .yg-drawer--v-2-1 .yg-codes {
+        margin-bottom: 6px;
+    }
+
+    .yg-drawer--v-2-1 .yg-code-row input {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+
+    .yg-drawer--v-2-1 .yg-codes__offer .yg-code-row button[data-apply-code] {
+        min-height: 36px;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .yg-drawer--v-2-1 .yg-codes__error {
+        margin-bottom: 6px;
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .yg-drawer--v-2-1 .yg-totals {
+        padding: 4px 0 6px;
+        font-size: 14px;
+    }
+
+    .yg-drawer--v-2-1 .yg-breakdown {
+        padding-top: 6px;
+        margin-top: 4px;
+    }
+
+    .yg-drawer--v-2-1 .yg-breakdown__meta {
+        font-size: 12px;
+    }
+
+    .yg-drawer--v-2-1 .yg-totals__row {
+        padding: 3px 0;
+    }
+
+    .yg-drawer--v-2-1.yg-drawer--v-2-1-club .yg-drawer__summary-inner {
+        padding-top: 8px;
+    }
+
+    .yg-drawer--v-2-1.yg-drawer--v-2-1-club .yg-totals {
+        padding-bottom: 4px;
+    }
+
+    .yg-drawer--v-2-1.yg-drawer--v-2-1-club .yg-item--club {
+        grid-template-columns: 56px 1fr;
+        gap: 8px 10px;
+        padding: 8px 10px;
+        min-height: 0;
+    }
+
+    .yg-drawer--v-2-1.yg-drawer--v-2-1-club .yg-item--club .yg-item__img {
+        width: 56px;
+        height: 56px;
+    }
+
+    .yg-drawer--v-2-1.yg-drawer--v-2-1-club .yg-item--club .yg-item__main {
+        min-height: 0;
+    }
+
+    .yg-drawer--v-2-1.yg-drawer--v-2-1-club .yg-item--club .yg-item__sku {
+        display: none;
+    }
+
+    .yg-drawer--v-2-1.yg-drawer--v-2-1-club .yg-item--club .yg-item__name {
+        font-size: 14px;
+        line-height: 1.25;
+    }
+
+    .yg-drawer--v-2-1.yg-drawer--v-2-1-club .yg-item--club .yg-item__foot {
+        margin-top: 2px;
+    }
+
+    .yg-drawer--v-2-1.yg-drawer--v-2-1-club .yg-item--club .yg-item__club-saving {
+        font-size: 12px;
+    }
+
+    .yg-drawer--v-2-1 .yg-club-bar {
+        padding: 8px 12px;
+    }
+
+    .yg-drawer--v-2-1 .yg-club-bar__save {
+        font-size: 1.1rem;
+    }
+
+    .yg-drawer--v-2-1 .yg-checkout {
+        padding: 11px 14px;
+        padding-bottom: max(11px, env(safe-area-inset-bottom));
+        gap: 8px;
+    }
+
+    .yg-drawer--v-2-1 .yg-checkout__icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .yg-drawer--v-2-1 .yg-checkout__label {
+        font-size: 1.05rem;
+    }
+
+    .yg-drawer--v-2-1 .yg-drawer__summary {
+        box-shadow: inset 0 4px 8px -8px rgba(0, 0, 0, 0.2);
     }
 }

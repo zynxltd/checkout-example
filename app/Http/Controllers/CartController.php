@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Support\DemoDrawerVariant;
 use App\Services\DemoCart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -177,6 +178,12 @@ class CartController extends Controller
 
         $key = $request->string('key')->toString();
         $value = $request->boolean('enabled');
+
+        if ($key === 'compact_v21') {
+            DemoDrawerVariant::setEnabled($value);
+
+            return $this->fragment($request);
+        }
 
         $map = [
             'delivery_bar' => 'demo_free_delivery_bar',

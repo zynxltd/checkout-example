@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Support\DemoDrawerVariant;
+
 class DemoCart
 {
     /** SKU used when “Add to basket” is clicked on the demo PDP (yougarden.com item-p-510317) */
@@ -329,6 +331,8 @@ class DemoCart
             'demo_wide_drawer' => false,
             'demo_show_apple_pay' => false,
         ]);
+
+        session()->forget('demo_drawer_variant');
     }
 
     /** @return list<array{sku: string, name: string, image: string, price: float, from?: bool, in_basket?: bool}> */
@@ -699,6 +703,7 @@ class DemoCart
             'show_upsells' => (bool) session('demo_show_upsells', false),
             'wide_drawer' => (bool) session('demo_wide_drawer', false),
             'show_apple_pay' => (bool) session('demo_show_apple_pay', false),
+            'compact_v21' => DemoDrawerVariant::isActive(),
             'upsells' => self::upsellsForDrawer(),
         ];
     }

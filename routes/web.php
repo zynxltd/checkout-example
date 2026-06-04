@@ -10,7 +10,7 @@ Route::get('/login', [PreviewLoginController::class, 'show'])->name('demo.login'
 Route::post('/login', [PreviewLoginController::class, 'login'])->name('demo.login.submit');
 Route::post('/logout', [PreviewLoginController::class, 'logout'])->name('demo.logout');
 
-Route::middleware('demo.preview')->group(function () {
+Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/', [DemoController::class, 'pdp'])->name('demo.pdp');
 
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('demo.checkout');

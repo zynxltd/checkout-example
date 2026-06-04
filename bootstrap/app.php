@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'demo.preview' => \App\Http\Middleware\RequirePreviewAuth::class,
+            'demo.drawer-variant' => \App\Http\Middleware\ApplyDemoDrawerVariant::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
