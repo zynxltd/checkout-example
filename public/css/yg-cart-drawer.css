@@ -1764,6 +1764,7 @@ body.yg-drawer-open {
 .yg-codes__offer .yg-code-row input::placeholder {
     color: var(--yg-forest);
     font-weight: 600;
+    font-size: 14px;
     opacity: 1;
 }
 
@@ -1814,7 +1815,8 @@ body.yg-drawer-open {
     border: 1px solid #ccc;
     border-radius: 8px;
     font-family: var(--yg-body);
-    font-size: 14px;
+    /* 16px minimum — iOS Safari zooms focused inputs below this */
+    font-size: 16px;
 }
 
 .yg-code-row button[data-apply-code] {
@@ -2258,7 +2260,7 @@ body.yg-drawer-open {
 
     .yg-drawer--v-2-1 .yg-code-row input {
         padding: 8px 10px;
-        font-size: 13px;
+        font-size: 16px;
     }
 
     .yg-drawer--v-2-1 .yg-codes__offer .yg-code-row button[data-apply-code] {
