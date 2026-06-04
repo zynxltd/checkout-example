@@ -332,7 +332,7 @@ class DemoCart
             'demo_show_apple_pay' => false,
         ]);
 
-        session()->forget('demo_drawer_variant');
+        DemoDrawerVariant::setEnabled(true);
     }
 
     /** @return list<array{sku: string, name: string, image: string, price: float, from?: bool, in_basket?: bool}> */

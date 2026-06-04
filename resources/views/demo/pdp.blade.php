@@ -211,7 +211,7 @@
                 <input type="checkbox" id="toggle-compact-v21" data-option="compact_v21" {{ !empty($cart['compact_v21']) ? 'checked' : '' }}>
                 <span>Compact view (v2.1)</span>
             </label>
-            <p class="demo-controls__hint">Off by default. Mobile only when on; desktop stays default V2.</p>
+            <p class="demo-controls__hint">On by default. Mobile only when on; desktop stays default V2.</p>
             <p class="demo-controls__label">YG options</p>
             <label class="demo-toggle">
                 <input type="checkbox" id="toggle-delivery-bar" data-option="delivery_bar" {{ $cart['show_free_delivery_bar'] ? 'checked' : '' }}>

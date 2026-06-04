@@ -8,27 +8,23 @@ class DemoDrawerVariant
 {
     public const QUERY = '2.1';
 
+    public const OFF = 'off';
+
     public const SESSION_KEY = 'demo_drawer_variant';
 
     public static function applyFromRequest(Request $request): void
     {
-        // Compact v2.1 is off by default; enabled only via prototype tools toggle (session).
+        // Compact v2.1 default on; prototype tools toggle persists on/off in session.
     }
 
     public static function setEnabled(bool $enabled): void
     {
-        if ($enabled) {
-            session([self::SESSION_KEY => self::QUERY]);
-
-            return;
-        }
-
-        session()->forget(self::SESSION_KEY);
+        session([self::SESSION_KEY => $enabled ? self::QUERY : self::OFF]);
     }
 
     public static function isActive(): bool
     {
-        return session(self::SESSION_KEY) === self::QUERY;
+        return session(self::SESSION_KEY, self::QUERY) !== self::OFF;
     }
 
     public static function drawerClass(): string
