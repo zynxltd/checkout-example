@@ -47,6 +47,8 @@ Uses **SQLite** by default (`database/database.sqlite`). No MySQL required for l
 
 **Compact view (v2.1)** is **on by default** (Prototype tools → Compact view (v2.1)). Untick to use the standard mobile layout. On **mobile only** (≤767px): compact footer, full-width club saving strip, smaller club line item. **Desktop** stays the same as default V2.
 
+**Subtotal only (v3.0)** is also **on by default**: hides the collapsible order summary and labels the main amount line **Subtotal** instead of Total. Untick in prototype tools to restore order summary + Total label.
+
 ### TV Live (`/tv-live`)
 
 TV-shopping style prototype ([yougarden.com/tv-live](https://www.yougarden.com/tv-live) reference): full-width cinema player, shop dock, and shelf tiles. Uses **YG Brand Guidelines 2026** typography (Gelica / Proxima Nova via `yg-fonts.css` + optional `ADBE_FONTS_KIT`) and V2 colours in `tv-live.css` only. Production show titles; demo SKUs for basket. Does not change cart drawer styles or behaviour.

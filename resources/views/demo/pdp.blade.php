@@ -216,7 +216,7 @@
                 <input type="checkbox" id="toggle-summary-v30" data-option="summary_v30" {{ !empty($cart['summary_v30']) ? 'checked' : '' }}>
                 <span>Subtotal only (v3.0)</span>
             </label>
-            <p class="demo-controls__hint">Hides order summary; main line reads Subtotal. Works with compact v2.1.</p>
+            <p class="demo-controls__hint">On by default. Hides order summary; main line reads Subtotal. Works with compact v2.1.</p>
             <p class="demo-controls__label">YG options</p>
             <label class="demo-toggle">
                 <input type="checkbox" id="toggle-delivery-bar" data-option="delivery_bar" {{ $cart['show_free_delivery_bar'] ? 'checked' : '' }}>

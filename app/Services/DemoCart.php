@@ -333,6 +333,7 @@ class DemoCart
         ]);
 
         DemoDrawerVariant::setEnabled(true);
+        DemoDrawerVariant::setV30Enabled(true);
     }
 
     /** @return list<array{sku: string, name: string, image: string, price: float, from?: bool, in_basket?: bool}> */

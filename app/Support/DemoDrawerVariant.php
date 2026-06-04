@@ -18,7 +18,7 @@ class DemoDrawerVariant
 
     public static function applyFromRequest(Request $request): void
     {
-        // Compact v2.1 default on; prototype tools toggle persists on/off in session.
+        // Compact v2.1 and subtotal v3.0 default on; prototype tools toggle persists on/off in session.
     }
 
     public static function setEnabled(bool $enabled): void
@@ -38,7 +38,7 @@ class DemoDrawerVariant
 
     public static function isV30Active(): bool
     {
-        return (bool) session(self::SESSION_V30_KEY, false);
+        return (bool) session(self::SESSION_V30_KEY, true);
     }
 
     public static function drawerClass(): string
