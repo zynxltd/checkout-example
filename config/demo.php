@@ -13,4 +13,12 @@ return [
     */
     'adobe_fonts_kit' => env('ADOBE_FONTS_KIT'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Demo customer account login (prototype)
+    |--------------------------------------------------------------------------
+    */
+    'account_email' => env('DEMO_ACCOUNT_EMAIL', 'john@example.com'),
+    'account_password' => env('DEMO_ACCOUNT_PASSWORD', 'demo'),
+
 ];

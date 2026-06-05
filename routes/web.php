@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\ListingController;
 use App\Http\Controllers\PreviewLoginController;
 use App\Http\Controllers\TvLiveController;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +15,17 @@ Route::post('/logout', [PreviewLoginController::class, 'logout'])->name('demo.lo
 
 Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/', [DemoController::class, 'pdp'])->name('demo.pdp');
+    Route::get('/perennial-plants-and-flowers', [ListingController::class, 'perennials'])->name('demo.listing.perennials');
     Route::get('/tv-live', [TvLiveController::class, 'show'])->name('demo.tv-live');
+    Route::get('/account/login', [AccountController::class, 'login'])->name('demo.account.login');
+    Route::post('/account/login', [AccountController::class, 'loginSubmit'])->name('demo.account.login.submit');
+    Route::get('/account/register', [AccountController::class, 'register'])->name('demo.account.register');
+    Route::post('/account/register', [AccountController::class, 'registerSubmit'])->name('demo.account.register.submit');
+    Route::post('/account/logout', [AccountController::class, 'logout'])->name('demo.account.logout');
+    Route::get('/account', [AccountController::class, 'home'])->name('demo.account.home');
+    Route::get('/account/orders', [AccountController::class, 'orders'])->name('demo.account.orders');
+    Route::get('/account/information', [AccountController::class, 'information'])->name('demo.account.information');
+    Route::get('/account/delivery', [AccountController::class, 'delivery'])->name('demo.account.delivery');
 
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('demo.checkout');
     Route::post('/checkout/complete', [CheckoutController::class, 'complete'])->name('demo.checkout.complete');

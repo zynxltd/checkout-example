@@ -210,13 +210,13 @@
             phone: '01733 000001',
         },
         {
-            postcode: 'NG31 8FU',
+            postcode: 'M1 4GH',
             firstName: 'Guest',
             lastName: 'Customer',
-            address1: '45 High Street',
+            address1: '12 Guest Lane',
             address2: '',
-            city: 'Grantham',
-            phone: '01476 000000',
+            city: 'Manchester',
+            phone: '0161 000000',
         },
         {
             postcode: 'PE1 1AA',
@@ -314,7 +314,7 @@
             if (!matches.length) {
                 const empty = document.createElement('li');
                 empty.className = 'co-postcode-suggest__empty';
-                empty.textContent = 'No addresses found — try PE6, NG31 or enter manually.';
+                empty.textContent = 'No addresses found — try PE6, M1 or enter manually.';
                 list.appendChild(empty);
                 list.hidden = false;
                 input.setAttribute('aria-expanded', 'true');

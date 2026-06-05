@@ -311,6 +311,192 @@ class DemoCart
         ];
     }
 
+    /** @return array<string, mixed> PDP footer columns for sitewide shell */
+    public static function siteFooter(): array
+    {
+        return self::pdpProduct()['footer'];
+    }
+
+    /** @return array<string, mixed> Perennial listing page (matches yougarden.com category grid) */
+    /** @return list<array<string, mixed>> */
+    private static function listingProducts(): array
+    {
+        $images = [
+            'images/products/401842.jpg',
+            'images/products/402156.jpg',
+            'images/products/403891.jpg',
+            'images/products/404220.jpg',
+            'images/products/510317.png',
+        ];
+
+        $products = [
+            [
+                'name' => "Hardy Gerbera 'Garvinea' Bright Collection",
+                'price_label' => 'Just',
+                'price' => 19.99,
+                'discount' => 58,
+                'reviews' => 325,
+                'rating' => 4.8,
+            ],
+            [
+                'name' => 'Summer Flowering Fuchsia Collection',
+                'price_label' => 'Just',
+                'price' => 14.99,
+                'discount' => 50,
+                'reviews' => 797,
+                'rating' => 4.7,
+            ],
+            [
+                'name' => 'Hardy Mini Tree Daffodil Collection',
+                'price_label' => 'Just',
+                'price' => 24.99,
+                'discount' => 58,
+                'reviews' => 544,
+                'rating' => 4.9,
+            ],
+            [
+                'name' => 'Black Lace Elderberry Collection',
+                'price_label' => 'From',
+                'price' => 9.99,
+                'discount' => 20,
+                'reviews' => 77,
+                'rating' => 4.5,
+            ],
+            [
+                'name' => 'Complete Hardy Garden Perennial Collection',
+                'price_label' => 'Just',
+                'price' => 29.99,
+                'discount' => 58,
+                'reviews' => 449,
+                'rating' => 4.3,
+                'featured' => true,
+            ],
+            [
+                'name' => 'Hardy Carefree Lavender Collection',
+                'price_label' => 'Just',
+                'price' => 9.99,
+                'discount' => 58,
+                'reviews' => 315,
+                'rating' => 4.6,
+            ],
+            [
+                'name' => 'Brilliant Buddleia Collection',
+                'price_label' => 'From',
+                'price' => 24.99,
+                'discount' => 50,
+                'reviews' => 292,
+                'rating' => 4.4,
+            ],
+            [
+                'name' => 'Buddleia Sungold Showers Collection',
+                'price_label' => 'From',
+                'price' => 24.99,
+                'discount' => 50,
+                'reviews' => 154,
+                'rating' => 4.2,
+            ],
+            [
+                'name' => 'Hardy Fragrant Lily Collection',
+                'price_label' => 'From',
+                'price' => 19.99,
+                'discount' => 50,
+                'reviews' => 199,
+                'rating' => 4.7,
+            ],
+            [
+                'name' => 'Clematis Collection',
+                'price_label' => 'Just',
+                'price' => 9.99,
+                'discount' => 98,
+                'reviews' => 587,
+                'rating' => 4.8,
+            ],
+        ];
+
+        return array_map(function (array $product, int $index) use ($images) {
+            $product['image'] = $images[$index % count($images)];
+            $product['url'] = route('demo.pdp');
+
+            return $product;
+        }, $products, array_keys($products));
+    }
+
+    /** @return list<array{id: string, label: string, options: array<string, string>}> */
+    public static function listingFilters(): array
+    {
+        $filter = static function (string $id, string $label, array $options): array {
+            return [
+                'id' => $id,
+                'label' => $label,
+                'options' => ['' => $label] + $options,
+            ];
+        };
+
+        return [
+            $filter('awards', 'Awards', [
+                'rhs-agm' => 'RHS Award of Garden Merit',
+                'perfect-for-pollinators' => 'Perfect for Pollinators',
+            ]),
+            $filter('features', 'Features', [
+                'fragrant' => 'Fragrant',
+                'evergreen' => 'Evergreen',
+                'wildlife-friendly' => 'Wildlife Friendly',
+            ]),
+            $filter('planting_time', 'Planting Time', [
+                'spring' => 'Spring',
+                'summer' => 'Summer',
+                'autumn' => 'Autumn',
+            ]),
+            $filter('blooming_time', 'Blooming Time', [
+                'spring' => 'Spring',
+                'summer' => 'Summer',
+                'autumn' => 'Autumn',
+            ]),
+            $filter('fruiting_time', 'Fruiting Time', [
+                'summer' => 'Summer',
+                'autumn' => 'Autumn',
+            ]),
+            $filter('planting_position', 'Planting Position', [
+                'full-sun' => 'Full Sun',
+                'partial-shade' => 'Partial Shade',
+                'shade' => 'Shade',
+            ]),
+            $filter('colours', 'Colours', [
+                'pink' => 'Pink',
+                'purple' => 'Purple',
+                'white' => 'White',
+                'yellow' => 'Yellow',
+            ]),
+        ];
+    }
+
+    /** @return list<array{value: string, label: string}> */
+    public static function listingSortOptions(): array
+    {
+        return [
+            ['value' => 'popularity', 'label' => 'Popularity'],
+            ['value' => 'name-asc', 'label' => 'Name A-Z'],
+            ['value' => 'name-desc', 'label' => 'Name Z-A'],
+            ['value' => 'price-asc', 'label' => 'Price: Low - High'],
+            ['value' => 'price-desc', 'label' => 'Price: High - Low'],
+        ];
+    }
+
+    public static function listingPage(): array
+    {
+        return [
+            'title' => 'Perennial Plants & Flowers',
+            'breadcrumb' => [
+                ['label' => 'Home', 'url' => route('demo.pdp')],
+                ['label' => 'Garden Plants', 'url' => route('demo.listing.perennials')],
+                ['label' => 'Perennial Plants & Flowers', 'url' => null],
+            ],
+            'filters' => self::listingFilters(),
+            'sort_options' => self::listingSortOptions(),
+            'products' => self::listingProducts(),
+        ];
+    }
+
     public static function catalogue(): array
     {
         return [

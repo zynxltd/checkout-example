@@ -1,0 +1,31 @@
+@php
+    $nav = [
+        'home' => ['label' => 'Account Home', 'route' => 'demo.account.home', 'icon' => 'home'],
+        'orders' => ['label' => 'Orders', 'route' => 'demo.account.orders', 'icon' => 'orders'],
+        'information' => ['label' => 'Account Information', 'route' => 'demo.account.information', 'icon' => 'info'],
+        'delivery' => ['label' => 'Delivery Information', 'route' => 'demo.account.delivery', 'icon' => 'delivery'],
+    ];
+@endphp
+
+<aside class="demo-account-nav" aria-label="Account navigation">
+    <nav class="demo-account-nav__list">
+        @foreach ($nav as $key => $item)
+            <a
+                href="{{ route($item['route']) }}"
+                class="demo-account-nav__item{{ ($active ?? '') === $key ? ' is-active' : '' }}"
+                @if(($active ?? '') === $key) aria-current="page" @endif
+            >
+                <span class="demo-account-nav__icon demo-account-nav__icon--{{ $item['icon'] }}" aria-hidden="true"></span>
+                <span class="demo-account-nav__label">{{ $item['label'] }}</span>
+            </a>
+        @endforeach
+    </nav>
+
+    <div class="demo-account-nav__actions">
+        <a href="{{ route('demo.pdp') }}" class="demo-account-nav__btn demo-account-nav__btn--secondary">&laquo; Continue Shopping</a>
+        <form method="post" action="{{ route('demo.account.logout') }}">
+            @csrf
+            <button type="submit" class="demo-account-nav__btn demo-account-nav__btn--logout">Log Out</button>
+        </form>
+    </div>
+</aside>

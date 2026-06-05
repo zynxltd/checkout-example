@@ -6,7 +6,7 @@
 
 @push('head')
     <link rel="stylesheet" href="{{ asset('css/yg-drawer-theme.css') }}?v={{ filemtime(public_path('css/yg-drawer-theme.css')) }}">
-    <link rel="stylesheet" href="{{ asset('css/demo-site-footer.css') }}?v={{ filemtime(public_path('css/demo-site-footer.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/demo-pdp-reviews-footer.css') }}?v={{ filemtime(public_path('css/demo-pdp-reviews-footer.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/tv-live.css') }}?v={{ filemtime(public_path('css/tv-live.css')) }}">
 @endpush
 
@@ -130,7 +130,7 @@
         </div>
     </main>
 
-    @include('demo.partials.site-footer')
+    @include('demo.partials.site-shell-footer')
 </div>
 
 <div id="yg-drawer-mount">

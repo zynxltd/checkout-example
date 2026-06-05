@@ -1,0 +1,342 @@
+/* Account login / register — matches PDP brand tokens */
+
+body.demo-account {
+    margin: 0;
+    font-family: var(--yg-body);
+    background: #fff;
+    color: var(--yg-text);
+}
+
+.demo-account-main {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 32px 16px 56px;
+}
+
+.demo-account-main--wide {
+    max-width: 640px;
+}
+
+@media (min-width: 768px) {
+    .demo-account-main {
+        padding: 48px 24px 72px;
+    }
+
+    .demo-account-main--wide {
+        max-width: 720px;
+    }
+}
+
+.demo-account-card {
+    border: 1px solid var(--yg-border);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(72, 63, 58, 0.06);
+    overflow: hidden;
+}
+
+.demo-account-card__tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--yg-border);
+    background: var(--yg-stone);
+}
+
+.demo-account-card__tab {
+    padding: 14px 16px;
+    text-align: center;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--yg-muted);
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.demo-account-card__tab:hover {
+    color: var(--yg-forest);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.demo-account-card__tab.is-active {
+    color: var(--yg-forest);
+    background: #fff;
+    border-bottom-color: var(--yg-moss-dark);
+}
+
+.demo-account-card__body {
+    padding: 28px 22px 32px;
+}
+
+@media (min-width: 768px) {
+    .demo-account-card__body {
+        padding: 32px 32px 36px;
+    }
+}
+
+.demo-account-card__title {
+    margin: 0 0 8px;
+    font-family: var(--yg-heading);
+    font-size: clamp(1.35rem, 3vw, 1.6rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--yg-pebble);
+}
+
+.demo-account-card__lead {
+    margin: 0 0 24px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--yg-muted);
+}
+
+.demo-account-field {
+    margin-bottom: 18px;
+}
+
+.demo-account-field--half {
+    margin-bottom: 0;
+}
+
+.demo-account-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+@media (min-width: 480px) {
+    .demo-account-row--2 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .demo-account-row--title-name {
+        grid-template-columns: 100px 1fr 1fr;
+    }
+}
+
+.demo-account-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--yg-pebble);
+}
+
+.demo-account-label__hint {
+    font-weight: 400;
+    color: var(--yg-muted);
+}
+
+.demo-account-input,
+.demo-account-select {
+    display: block;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #c5bdb5;
+    border-radius: 6px;
+    background: #fff;
+    font-family: var(--yg-body);
+    font-size: 16px;
+    color: var(--yg-text);
+    box-sizing: border-box;
+}
+
+.demo-account-input:focus,
+.demo-account-select:focus {
+    outline: 2px solid var(--yg-moss-dark);
+    outline-offset: 0;
+    border-color: var(--yg-moss-dark);
+}
+
+.demo-account-check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--yg-text);
+    cursor: pointer;
+}
+
+.demo-account-check input {
+    margin-top: 3px;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--yg-forest);
+}
+
+.demo-account-check a {
+    color: var(--yg-forest);
+    font-weight: 600;
+}
+
+.demo-account-forgot {
+    display: inline-block;
+    margin: -6px 0 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--yg-forest);
+    text-decoration: none;
+}
+
+.demo-account-forgot:hover {
+    text-decoration: underline;
+}
+
+.demo-account-submit {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 6px;
+    background: var(--yg-checkout);
+    color: #fff;
+    font-family: var(--yg-body);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.demo-account-submit:hover {
+    background: var(--yg-checkout-dark);
+}
+
+.demo-account-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 24px 0;
+    font-size: 13px;
+    color: var(--yg-muted);
+}
+
+.demo-account-divider::before,
+.demo-account-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--yg-border);
+}
+
+.demo-account-switch {
+    margin: 0;
+    text-align: center;
+    font-size: 15px;
+    color: var(--yg-text);
+}
+
+.demo-account-switch a {
+    font-weight: 700;
+    color: var(--yg-forest);
+    text-decoration: none;
+}
+
+.demo-account-switch a:hover {
+    text-decoration: underline;
+}
+
+.demo-account-perks {
+    margin-top: 28px;
+    padding: 20px 18px;
+    border-radius: 10px;
+    background: var(--yg-moss-surface);
+    border: 1px solid #d4e4b8;
+}
+
+.demo-account-perks__title {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yg-forest);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.demo-account-perks ul {
+    margin: 0;
+    padding: 0 0 0 18px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--yg-pebble);
+}
+
+.demo-account-perks li + li {
+    margin-top: 6px;
+}
+
+.demo-account-note {
+    margin: 20px 0 0;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: var(--yg-stone);
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--yg-muted);
+    text-align: center;
+}
+
+.demo-account-fieldset {
+    margin: 0 0 24px;
+    padding: 0;
+    border: 0;
+}
+
+.demo-account-fieldset__legend {
+    display: block;
+    width: 100%;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--yg-border);
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yg-forest);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.demo-account-errors {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: #fde8ef;
+    border: 1px solid #f5c2d4;
+    color: #8b1a4a;
+    font-size: 14px;
+}
+
+.demo-account-errors ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.demo-account-demo-login {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border-radius: 8px;
+    background: var(--yg-moss-surface);
+    border: 1px solid #d4e4b8;
+}
+
+.demo-account-demo-login__title {
+    margin: 0 0 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yg-forest);
+}
+
+.demo-account-demo-login__creds {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--yg-pebble);
+}
