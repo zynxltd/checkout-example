@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us — Preview</title>
+  <link rel="stylesheet" href="/css/yg-fonts.css">
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      font-family: var(--yg-body, sans-serif);
+    }
+    .preview-shell {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+    .preview-note {
+      margin: 0 16px 16px;
+      padding: 10px 14px;
+      background: #f2e7d8;
+      border: 1px solid #e0d6cb;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #483f3a;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-shell">
+    <p class="preview-note">Local preview — loads <code>resources/about-us-yg.html</code>. Resize the window to check mobile.</p>
+    <div id="about-content"></div>
+  </div>
+  <script>
+    fetch('/about-us-fragment.html')
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        document.getElementById('about-content').innerHTML = html.trim();
+      })
+      .catch(function () {
+        document.getElementById('about-content').innerHTML =
+          '<p style="padding:16px;color:#c00;">Could not load fragment. Is the server running from <code>public/</code>?</p>';
+      });
+  </script>
+</body>
+</html>
