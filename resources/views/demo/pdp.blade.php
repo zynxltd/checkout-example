@@ -6,6 +6,9 @@
 
 @push('head')
     <link rel="stylesheet" href="{{ asset('css/yg-drawer-theme.css') }}?v={{ filemtime(public_path('css/yg-drawer-theme.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/demo-pdp-plant-calendar.css') }}?v={{ filemtime(public_path('css/demo-pdp-plant-calendar.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/demo-pdp-content.css') }}?v={{ filemtime(public_path('css/demo-pdp-content.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/demo-pdp-reviews-footer.css') }}?v={{ filemtime(public_path('css/demo-pdp-reviews-footer.css')) }}">
 @endpush
 
 @section('content')
@@ -165,11 +168,9 @@
         </div>
     </main>
 
-    <section class="demo-pdp__desc" aria-labelledby="demo-desc-title">
-        <h2 class="demo-pdp__desc-title" id="demo-desc-title">Description</h2>
-        <p class="demo-pdp__desc-lead">{{ $product['description_lead'] }}</p>
-        <p class="demo-pdp__desc-more">This compact lilac tree is neatly trained with a single straight stem and a lollipop-style head that bursts into flower with masses of delicate, pale purple blooms from May.</p>
-    </section>
+    @include('demo.partials.pdp-info', ['product' => $product])
+
+    @include('demo.partials.pdp-reviews-footer', ['product' => $product])
 
     <div class="demo-prototype-stack" id="demo-prototype-stack">
         <button
@@ -245,6 +246,7 @@
 @push('scripts')
     <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
+    <script src="{{ asset('js/demo-pdp-info.js') }}?v={{ filemtime(public_path('js/demo-pdp-info.js')) }}" defer></script>
 <script>
 document.querySelectorAll('[data-qty-delta]').forEach((btn) => {
     btn.addEventListener('click', () => {

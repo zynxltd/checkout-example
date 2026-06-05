@@ -1,0 +1,211 @@
+/* PDP — Plant calendar (month matrix) */
+
+.yg-plant-cal {
+    --yg-cal-plant: var(--yg-moss-dark);
+    --yg-cal-bloom: var(--yg-rose);
+    --yg-cal-fruit: var(--yg-checkout);
+    --yg-cal-idle: #ebe4da;
+    text-align: center;
+}
+
+.yg-plant-cal__title {
+    margin: 0 0 20px;
+    font-family: var(--yg-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--yg-forest);
+    line-height: 1.2;
+}
+
+.yg-plant-cal__matrix {
+    --yg-cal-cols: 12;
+    padding: 20px 14px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid var(--yg-border);
+    box-shadow: 0 4px 20px rgba(72, 63, 58, 0.06);
+}
+
+@media (min-width: 520px) {
+    .yg-plant-cal__matrix {
+        padding: 22px 18px 24px;
+    }
+}
+
+.yg-plant-cal__head,
+.yg-plant-cal__season {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(4.8rem, 6.5rem) minmax(0, 1fr);
+    align-items: center;
+    gap: 10px 12px;
+}
+
+.yg-plant-cal__head {
+    margin-bottom: 8px;
+}
+
+.yg-plant-cal__season + .yg-plant-cal__season {
+    margin-top: 10px;
+}
+
+.yg-plant-cal__corner {
+    display: block;
+    min-height: 1px;
+}
+
+.yg-plant-cal__cells {
+    display: grid;
+    grid-template-columns: repeat(var(--yg-cal-cols), minmax(0, 1fr));
+    gap: 5px;
+}
+
+.yg-plant-cal__cells--head {
+    gap: 4px;
+}
+
+.yg-plant-cal__colhead {
+    font-family: var(--yg-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--yg-muted);
+    line-height: 1.2;
+    text-align: center;
+}
+
+@media (min-width: 520px) {
+    .yg-plant-cal__colhead {
+        font-size: 11px;
+    }
+}
+
+.yg-plant-cal__colhead--now {
+    color: var(--yg-forest);
+}
+
+.yg-plant-cal__rowhead {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+}
+
+.yg-plant-cal__swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.yg-plant-cal__swatch--planting {
+    background: var(--yg-cal-plant);
+}
+
+.yg-plant-cal__swatch--flowering {
+    background: var(--yg-cal-bloom);
+}
+
+.yg-plant-cal__swatch--fruiting {
+    background: var(--yg-cal-fruit);
+}
+
+.yg-plant-cal__rowhead-text {
+    font-family: var(--yg-body);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--yg-text);
+}
+
+@media (min-width: 520px) {
+    .yg-plant-cal__rowhead-text {
+        font-size: 13px;
+    }
+}
+
+.yg-plant-cal__cell {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    max-height: 32px;
+    border-radius: 6px;
+    background: var(--yg-cal-idle);
+}
+
+@media (min-width: 600px) {
+    .yg-plant-cal__cell {
+        max-height: 40px;
+    }
+
+    .yg-plant-cal__cells {
+        gap: 6px;
+    }
+}
+
+@media (min-width: 900px) {
+    .yg-plant-cal__head,
+    .yg-plant-cal__season {
+        grid-template-columns: minmax(5.5rem, 7.5rem) minmax(0, 1fr);
+        gap: 12px 16px;
+    }
+
+    .yg-plant-cal__cell {
+        max-height: 44px;
+        border-radius: 8px;
+    }
+}
+
+.yg-plant-cal__cell.is-active.yg-plant-cal__cell--planting {
+    background: var(--yg-cal-plant);
+}
+
+.yg-plant-cal__cell.is-active.yg-plant-cal__cell--flowering {
+    background: var(--yg-cal-bloom);
+}
+
+.yg-plant-cal__cell.is-active.yg-plant-cal__cell--fruiting {
+    background: var(--yg-cal-fruit);
+}
+
+.yg-plant-cal__cell.is-active.is-now-col {
+    outline: 2px solid var(--yg-forest);
+    outline-offset: 1px;
+}
+
+.yg-plant-cal__sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 380px) {
+    .yg-plant-cal__head,
+    .yg-plant-cal__season {
+        grid-template-columns: 1fr;
+    }
+
+    .yg-plant-cal__rowhead {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .yg-plant-cal__corner {
+        display: none;
+    }
+
+    .yg-plant-cal__cells {
+        gap: 4px;
+    }
+
+    .yg-plant-cal__colhead {
+        font-size: 9px;
+    }
+}

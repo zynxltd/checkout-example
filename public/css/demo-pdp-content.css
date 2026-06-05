@@ -1,0 +1,208 @@
+/* PDP — below-the-fold (calendar + collapsible info cards) */
+
+.demo-pdp__below {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px 56px;
+    border-top: 1px solid var(--yg-border);
+}
+
+@media (min-width: 900px) {
+    .demo-pdp__below {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+.demo-pdp__below .yg-plant-cal {
+    max-width: none;
+    padding: 32px 0 28px;
+    border-top: none;
+}
+
+/* —— Info hub (chips + cards, not accordion) —— */
+
+.demo-pdp-info {
+    text-align: center;
+}
+
+.demo-pdp-info__heading {
+    margin: 0 0 16px;
+    font-family: var(--yg-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--yg-forest);
+    line-height: 1.2;
+}
+
+.demo-pdp-info__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.demo-pdp-info__chip {
+    border: 1px solid var(--yg-border);
+    border-radius: 999px;
+    padding: 8px 14px;
+    background: #fff;
+    font-family: var(--yg-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yg-text);
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.demo-pdp-info__chip:hover {
+    border-color: var(--yg-moss-dark);
+    color: var(--yg-forest);
+}
+
+.demo-pdp-info__chip.is-active {
+    background: var(--yg-moss-surface);
+    border-color: var(--yg-moss-dark);
+    color: var(--yg-forest);
+}
+
+.demo-pdp-info__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.demo-pdp-info-card {
+    border-radius: 12px;
+    background: var(--yg-stone);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.demo-pdp-info-card.is-open {
+    background: #fff;
+    box-shadow: 0 2px 14px rgba(72, 63, 58, 0.08);
+    outline: 1px solid var(--yg-border);
+}
+
+.demo-pdp-info-card__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 16px 24px;
+    box-sizing: border-box;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+}
+
+.demo-pdp-info-card__title {
+    font-family: var(--yg-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--yg-forest);
+    line-height: 1.25;
+}
+
+.demo-pdp-info-card__control {
+    flex-shrink: 0;
+    font-family: var(--yg-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--yg-moss-dark);
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.65);
+}
+
+.demo-pdp-info-card.is-open .demo-pdp-info-card__control {
+    background: var(--yg-moss-surface);
+}
+
+.demo-pdp-info-card__panel {
+    padding: 4px 24px 24px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+@media (min-width: 600px) {
+    .demo-pdp-info-card__toggle {
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+
+    .demo-pdp-info-card__panel {
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+}
+
+.demo-pdp-info-card__p {
+    margin: 0 0 14px;
+    width: 100%;
+    max-width: none;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--yg-text);
+}
+
+.demo-pdp-info-card__p:last-child {
+    margin-bottom: 0;
+}
+
+.demo-pdp-info-card__h3 {
+    margin: 18px 0 10px;
+    width: 100%;
+    max-width: none;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--yg-forest);
+}
+
+.demo-pdp-info-card__list {
+    margin: 0 0 14px;
+    width: 100%;
+    max-width: none;
+    padding-left: 1.25rem;
+    padding-right: 0;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--yg-text);
+}
+
+.demo-pdp-info-card__list li {
+    margin-bottom: 10px;
+}
+
+.demo-pdp-info-card__list li:last-child {
+    margin-bottom: 0;
+}
+
+.demo-pdp-info-card__placeholder {
+    margin: 0;
+    width: 100%;
+    max-width: none;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--yg-muted);
+    font-style: italic;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .demo-pdp-info__chip,
+    .demo-pdp-info-card {
+        transition: none;
+    }
+}

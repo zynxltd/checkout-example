@@ -1,0 +1,319 @@
+/* PDP — Feefo reviews (stone) + pebble footer */
+
+.yg-pdp-bottom {
+    --yg-pdp-reviews-bg: #f2e7d8;
+    --yg-pdp-footer-bg: #483f3a;
+    --yg-pdp-footer-text: #f2e7d8;
+    background: var(--yg-pdp-footer-bg);
+}
+
+.yg-pdp-reviews {
+    margin-top: 16px;
+    background: #fff;
+    color: var(--yg-text);
+}
+
+.yg-pdp-reviews__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px 0;
+}
+
+.yg-pdp-reviews__summary {
+    text-align: center;
+    margin-bottom: 28px;
+    padding: 24px 20px;
+    border-radius: 8px;
+    background: rgba(242, 231, 216, 0.5);
+}
+
+.yg-pdp-reviews__label {
+    margin: 0 0 10px;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--yg-text);
+}
+
+.yg-pdp-reviews__score-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 14px;
+    margin-bottom: 10px;
+}
+
+.yg-pdp-reviews__stars {
+    display: inline-flex;
+    gap: 2px;
+    line-height: 1;
+}
+
+.yg-pdp-reviews__star {
+    font-size: 22px;
+    color: #c9bfb3;
+}
+
+.yg-pdp-reviews__star.is-full {
+    color: #f0b429;
+}
+
+.yg-pdp-reviews__star.is-half {
+    background: linear-gradient(90deg, #f0b429 50%, #c9bfb3 50%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.yg-pdp-reviews__value {
+    font-family: var(--yg-body);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--yg-text);
+}
+
+.yg-pdp-reviews__feefo {
+    font-family: var(--yg-body);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #2d8a3e;
+    text-transform: lowercase;
+}
+
+.yg-pdp-reviews__meta {
+    margin: 0 auto;
+    font-family: var(--yg-body);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--yg-muted);
+    max-width: 52ch;
+}
+
+.yg-pdp-reviews__link {
+    color: #1a6fb5;
+    text-decoration: underline;
+}
+
+.yg-pdp-reviews__link:hover {
+    color: #0f4f86;
+}
+
+.yg-pdp-reviews__cards {
+    display: grid;
+    gap: 16px;
+    padding-bottom: 36px;
+}
+
+@media (min-width: 640px) {
+    .yg-pdp-reviews__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    .yg-pdp-reviews__cards {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+    }
+}
+
+.yg-pdp-review-card {
+    padding: 16px 14px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid #d9cfc3;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.yg-pdp-review-card__stars {
+    display: flex;
+    gap: 1px;
+    margin-bottom: 8px;
+}
+
+.yg-pdp-review-card__stars .yg-pdp-reviews__star {
+    font-size: 16px;
+}
+
+.yg-pdp-review-card__title {
+    margin: 0 0 8px;
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--yg-text);
+}
+
+.yg-pdp-review-card__text {
+    margin: 0 0 10px;
+    font-family: var(--yg-body);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--yg-text);
+}
+
+.yg-pdp-review-card__by {
+    margin: 0;
+    font-family: var(--yg-body);
+    font-size: 12px;
+    color: var(--yg-muted);
+}
+
+/* Wave — organic divider (stone above, pebble fill below) */
+.yg-pdp-wave {
+    display: block;
+    line-height: 0;
+    margin: 0;
+    background: var(--yg-pdp-reviews-bg);
+    color: var(--yg-pdp-footer-bg);
+    overflow: hidden;
+}
+
+.yg-pdp-wave svg {
+    display: block;
+    width: 100%;
+    height: 72px;
+}
+
+@media (min-width: 768px) {
+    .yg-pdp-wave svg {
+        height: 96px;
+    }
+}
+
+/* Footer — pebble, stone-toned type */
+.yg-pdp-footer {
+    background: var(--yg-pdp-footer-bg);
+    color: var(--yg-pdp-footer-text);
+    padding: 4px 20px 28px;
+    margin-top: -2px;
+}
+
+.yg-pdp-footer__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.yg-pdp-footer__grid {
+    display: grid;
+    gap: 28px 24px;
+    padding: 12px 0 28px;
+}
+
+@media (min-width: 768px) {
+    .yg-pdp-footer__grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.yg-pdp-footer__title {
+    margin: 0 0 14px;
+    font-family: var(--yg-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--yg-pdp-footer-text);
+}
+
+.yg-pdp-footer__title--payments {
+    margin-top: 22px;
+}
+
+.yg-pdp-footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.yg-pdp-footer__links li + li {
+    margin-top: 9px;
+}
+
+.yg-pdp-footer__links a {
+    font-family: var(--yg-body);
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--yg-pdp-footer-text);
+    text-decoration: none;
+    opacity: 0.92;
+}
+
+.yg-pdp-footer__links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.yg-pdp-footer__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.yg-pdp-footer__social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(242, 231, 216, 0.14);
+    border: 1px solid rgba(242, 231, 216, 0.35);
+    color: var(--yg-pdp-footer-text);
+    text-decoration: none;
+}
+
+.yg-pdp-footer__social:hover {
+    background: rgba(242, 231, 216, 0.24);
+}
+
+.yg-pdp-footer__payments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.yg-pdp-footer__pay {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 52px;
+    height: 34px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #fff;
+    border: none;
+}
+
+.yg-pdp-footer__pay img {
+    display: block;
+    max-height: 22px;
+    width: auto;
+}
+
+.yg-pdp-footer__legal {
+    padding-top: 20px;
+    border-top: 1px solid rgba(242, 231, 216, 0.28);
+    text-align: center;
+}
+
+.yg-pdp-footer__legal p {
+    margin: 0 0 8px;
+    font-family: var(--yg-body);
+    font-size: 11px;
+    line-height: 1.55;
+    color: rgba(242, 231, 216, 0.78);
+}
+
+.yg-pdp-footer__legal p:last-child {
+    margin-bottom: 0;
+}
+
+body.demo-pdp .demo-site {
+    padding-bottom: 0;
+}
