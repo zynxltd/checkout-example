@@ -49,10 +49,6 @@ Uses **SQLite** by default (`database/database.sqlite`). No MySQL required for l
 
 **Subtotal only (v3.0)** is also **on by default**: hides the collapsible order summary and labels the main amount line **Subtotal** instead of Total. Untick in prototype tools to restore order summary + Total label.
 
-### TV Live (`/tv-live`)
-
-TV-shopping style prototype ([yougarden.com/tv-live](https://www.yougarden.com/tv-live) reference): full-width cinema player, shop dock, and shelf tiles. Uses **YG Brand Guidelines 2026** typography (Gelica / Proxima Nova via `yg-fonts.css` + optional `ADBE_FONTS_KIT`) and V2 colours in `tv-live.css` only. Production show titles; demo SKUs for basket. Does not change cart drawer styles or behaviour.
-
 ### Run locally
 
 **Herd** — park or link the project folder; open:
@@ -141,11 +137,6 @@ Until a kit or woff2 files are configured, the browser falls back to system font
 - **Checkout page** (`/checkout`) — Shopify-style 2-column layout: express checkout (PayPal, G Pay, Apple Pay, Amazon Pay), contact/delivery/payment form, order summary with **gift voucher** field (demo: `TEST` or `VOUCHER`)
 - **Proceed to Checkout** in the drawer → `/checkout` with live basket session
 - **VWO-style toggle** (bottom-left): drawer on vs “full basket page” alert
-
-## Spec docs (parent repo)
-
-- `../yg-cart-drawer-features.md` — feature guide
-- `../yg-cart-drawer-dev-brief.md` — full brief
 
 ## Demo tips
 
