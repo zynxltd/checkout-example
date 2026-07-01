@@ -487,7 +487,10 @@ data-co-line-count="{{ count($cart['items']) }}"
                 <span class="co-summary__toggle-total co-content">£{{ number_format($cart['total'], 2) }}</span>
             </button>
             <div class="co-summary__inner co-content" id="co-summary-panel">
-                <ul class="co-summary__items">
+                <ul @class([
+                    'co-summary__items',
+                    'co-summary__items--scroll' => count($cart['items']) >= 5,
+                ])>
                     @foreach($cart['items'] as $item)
                     @include('demo.partials.checkout-summary-item', ['item' => $item, 'allowRemove' => ! $v40])
                     @endforeach
