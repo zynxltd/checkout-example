@@ -2,7 +2,9 @@
 
 @section('title', 'Checkout — YouGarden Prototype')
 
-@section('body_class', 'demo-checkout-page')
+@section('body_class', 'demo-checkout-page'
+    . (!empty($cart['feedback_v40']) ? ' co--v-4-0' : '')
+    . (!empty($cart['checkout_codes_top']) ? ' co--codes-express' : ''))
 @section('body_attrs')
 data-co-line-count="{{ count($cart['items']) }}"
 @endsection
@@ -15,6 +17,7 @@ data-co-line-count="{{ count($cart['items']) }}"
 
 @section('content')
 @php
+    $v40 = !empty($cart['feedback_v40']);
     $hasVoucher = !empty($cart['voucher_code']);
     $hasOffer = !empty($cart['offer_code']);
     $taxEstimate = round(max(0, $cart['subtotal'] * 0.2 / 1.2), 2);
@@ -65,6 +68,16 @@ data-co-line-count="{{ count($cart['items']) }}"
                 @include('demo.partials.checkout-express-buttons')
             </section>
 
+            @if(!empty($cart['checkout_codes_top']))
+            <section @class([
+                'co-codes',
+                'co-codes--express',
+                'co-codes--ticket' => !empty($cart['checkout_codes_ticket']),
+            ]) aria-label="Discount codes">
+                @include('demo.partials.checkout-codes', ['placement' => 'express'])
+            </section>
+            @endif
+
             <div class="co-divider" role="separator">
                 <span>Or continue below with</span>
             </div>
@@ -74,7 +87,11 @@ data-co-line-count="{{ count($cart['items']) }}"
                 <section class="co-section" id="co-contact-section">
                     <div class="co-section__head">
                         <h2 class="co-section__title">Contact</h2>
+                        @if($v40)
+                        <button type="button" class="co-login-cta" id="co-login-toggle">Log in to your account</button>
+                        @else
                         <button type="button" class="co-section__link" id="co-login-toggle">Log in</button>
+                        @endif
                         <span class="co-section__signed-in" id="co-signed-in" hidden>Signed in</span>
                     </div>
 
@@ -97,6 +114,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                             <span class="co-field__label">Email</span>
                             <input type="email" name="email" id="co-guest-email" class="co-field__input" autocomplete="email" placeholder=" ">
                         </label>
+                        @unless($v40)
                         <label class="co-check co-check--account">
                             <input type="checkbox" name="create_account" id="co-create-account" value="1">
                             <span>Create an account?</span>
@@ -151,6 +169,17 @@ data-co-line-count="{{ count($cart['items']) }}"
                             <input type="checkbox" name="marketing" checked>
                             <span>I&rsquo;d like to receive email updates with exclusive offers, new launches and sale early access.</span>
                         </label>
+                        @else
+                        <div class="co-marketing-optin" id="co-marketing-optins">
+                            <label class="co-check co-check--marketing">
+                                <input type="checkbox" name="marketing" value="1" checked>
+                                <span class="co-check--marketing__copy">
+                                    We would like to tell you about our exclusive offers and new products via email, post and SMS.
+                                    To opt out and see further details, <a href="#" data-prototype-link>click here</a>.
+                                </span>
+                            </label>
+                        </div>
+                        @endunless
                     </div>
                 </section>
 
@@ -166,12 +195,17 @@ data-co-line-count="{{ count($cart['items']) }}"
                     </p>
 
                     <div id="co-billing-fields" class="co-address-fields" hidden>
+                        <input type="hidden" name="billing_region" value="GB">
+                        @if($v40)
                         <label class="co-field">
-                            <span class="co-field__label">Country/Region</span>
-                            <select name="billing_region" class="co-field__input co-field__select" autocomplete="billing country">
-                                @foreach(config('countries') as $code => $name)
-                                <option value="{{ $code }}" @selected($code === 'GB')>{{ $name }}</option>
-                                @endforeach
+                            <span class="co-field__label">Title</span>
+                            <select name="billing_title" class="co-field__input co-field__select" autocomplete="billing honorific-prefix" required>
+                                <option value="">Please select…</option>
+                                <option value="MR">Mr</option>
+                                <option value="MRS">Mrs</option>
+                                <option value="MS">Ms</option>
+                                <option value="MISS">Miss</option>
+                                <option value="DR">Dr</option>
                             </select>
                         </label>
                         <div class="co-field-row">
@@ -184,14 +218,62 @@ data-co-line-count="{{ count($cart['items']) }}"
                                 <input type="text" name="billing_last_name" id="co-billing-last-name" class="co-field__input" autocomplete="billing family-name">
                             </label>
                         </div>
+                        <div class="co-field-row co-field-row--address-lines">
+                            <label class="co-field">
+                                <span class="co-field__label">Address line 1</span>
+                                <input type="text" name="billing_address1" id="co-billing-address1" class="co-field__input" autocomplete="billing address-line1">
+                            </label>
+                            <label class="co-field">
+                                <span class="co-field__label">Address line 2</span>
+                                <input type="text" name="billing_address2" id="co-billing-address2" class="co-field__input" autocomplete="billing address-line2">
+                            </label>
+                        </div>
+                        <div class="co-field-row co-field-row--address-lines">
+                            <label class="co-field">
+                                <span class="co-field__label">Address line 3 <span class="co-field__optional">(optional)</span></span>
+                                <input type="text" name="billing_address3" id="co-billing-address3" class="co-field__input" autocomplete="billing address-line3">
+                            </label>
+                            <label class="co-field">
+                                <span class="co-field__label">Address line 4 <span class="co-field__optional">(optional)</span></span>
+                                <input type="text" name="billing_address4" id="co-billing-address4" class="co-field__input" autocomplete="billing address-line4">
+                            </label>
+                        </div>
                         <label class="co-field">
-                            <span class="co-field__label">Address</span>
-                            <input type="text" name="billing_address1" id="co-billing-address1" class="co-field__input" autocomplete="billing address-line1">
+                            <span class="co-field__label">City</span>
+                            <input type="text" name="billing_city" id="co-billing-city" class="co-field__input" autocomplete="billing address-level2">
                         </label>
-                        <label class="co-field">
-                            <span class="co-field__label">Apartment, suite, etc. (optional)</span>
-                            <input type="text" name="billing_address2" id="co-billing-address2" class="co-field__input" autocomplete="billing address-line2">
-                        </label>
+                        <div class="co-field-row co-field-row--phone-dob">
+                            <label class="co-field">
+                                <span class="co-field__label">Phone</span>
+                                <input type="tel" name="billing_phone" id="co-billing-phone" class="co-field__input" autocomplete="billing tel">
+                            </label>
+                            <label class="co-field">
+                                <span class="co-field__label">Date of birth</span>
+                                <input type="date" name="billing_dob" id="co-billing-dob" class="co-field__input" autocomplete="bday" required>
+                            </label>
+                        </div>
+                        <p class="co-field__help co-billing-dob-note">Let us know your date of birth, and we may just send you a Birthday surprise.</p>
+                        @else
+                        <div class="co-field-row">
+                            <label class="co-field">
+                                <span class="co-field__label">First name</span>
+                                <input type="text" name="billing_first_name" id="co-billing-first-name" class="co-field__input" autocomplete="billing given-name">
+                            </label>
+                            <label class="co-field">
+                                <span class="co-field__label">Last name</span>
+                                <input type="text" name="billing_last_name" id="co-billing-last-name" class="co-field__input" autocomplete="billing family-name">
+                            </label>
+                        </div>
+                        <div class="co-field-row co-field-row--address-lines">
+                            <label class="co-field">
+                                <span class="co-field__label">Address</span>
+                                <input type="text" name="billing_address1" id="co-billing-address1" class="co-field__input" autocomplete="billing address-line1">
+                            </label>
+                            <label class="co-field">
+                                <span class="co-field__label">Apartment, suite, etc. (optional)</span>
+                                <input type="text" name="billing_address2" id="co-billing-address2" class="co-field__input" autocomplete="billing address-line2">
+                            </label>
+                        </div>
                         <label class="co-field">
                             <span class="co-field__label">City</span>
                             <input type="text" name="billing_city" id="co-billing-city" class="co-field__input" autocomplete="billing address-level2">
@@ -200,6 +282,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                             <span class="co-field__label">Phone</span>
                             <input type="tel" name="billing_phone" id="co-billing-phone" class="co-field__input" autocomplete="billing tel">
                         </label>
+                        @endif
                     </div>
                 </section>
 
@@ -223,14 +306,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                     </div>
 
                     <div id="co-delivery-fields" class="co-address-fields" hidden>
-                        <label class="co-field">
-                            <span class="co-field__label">Country/Region</span>
-                            <select name="delivery_region" class="co-field__input co-field__select" autocomplete="shipping country">
-                                @foreach(config('countries') as $code => $name)
-                                <option value="{{ $code }}" @selected($code === 'GB')>{{ $name }}</option>
-                                @endforeach
-                            </select>
-                        </label>
+                        <input type="hidden" name="delivery_region" value="GB">
                         <div class="co-field-row">
                             <label class="co-field">
                                 <span class="co-field__label">First name</span>
@@ -241,14 +317,16 @@ data-co-line-count="{{ count($cart['items']) }}"
                                 <input type="text" name="delivery_last_name" id="co-delivery-last-name" class="co-field__input" autocomplete="shipping family-name">
                             </label>
                         </div>
-                        <label class="co-field">
-                            <span class="co-field__label">Address</span>
-                            <input type="text" name="delivery_address1" id="co-delivery-address1" class="co-field__input" autocomplete="shipping address-line1">
-                        </label>
-                        <label class="co-field">
-                            <span class="co-field__label">Apartment, suite, etc. (optional)</span>
-                            <input type="text" name="delivery_address2" id="co-delivery-address2" class="co-field__input" autocomplete="shipping address-line2">
-                        </label>
+                        <div class="co-field-row co-field-row--address-lines">
+                            <label class="co-field">
+                                <span class="co-field__label">Address</span>
+                                <input type="text" name="delivery_address1" id="co-delivery-address1" class="co-field__input" autocomplete="shipping address-line1">
+                            </label>
+                            <label class="co-field">
+                                <span class="co-field__label">Apartment, suite, etc. (optional)</span>
+                                <input type="text" name="delivery_address2" id="co-delivery-address2" class="co-field__input" autocomplete="shipping address-line2">
+                            </label>
+                        </div>
                         <label class="co-field">
                             <span class="co-field__label">City</span>
                             <input type="text" name="delivery_city" id="co-delivery-city" class="co-field__input" autocomplete="shipping address-level2">
@@ -343,6 +421,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                             </label>
                         </div>
 
+                        @if($cart['show_clearpay'] ?? true)
                         <div class="co-payopt" data-payopt="clearpay">
                             <label class="co-payopt__row">
                                 <input type="radio" name="payment_method" value="clearpay" class="co-payopt__radio">
@@ -350,7 +429,9 @@ data-co-line-count="{{ count($cart['items']) }}"
                                 <img class="co-payopt__logo" src="{{ $ygPay('clearpay.png') }}" alt="Clearpay">
                             </label>
                         </div>
+                        @endif
 
+                        @if($cart['show_klarna'] ?? true)
                         <div class="co-payopt" data-payopt="klarna">
                             <label class="co-payopt__row">
                                 <input type="radio" name="payment_method" value="klarna" class="co-payopt__radio">
@@ -361,6 +442,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                                 </span>
                             </label>
                         </div>
+                        @endif
                     </div>
                 </section>
 
@@ -374,6 +456,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                     <a href="#" data-prototype-link>Terms of service</a>
                 </p>
 
+                @unless($v40)
                 <div class="co-marketing-notice">
                     <p>We would like to tell you about our exclusive offers and new products via email, post and SMS.</p>
                     <p>
@@ -381,6 +464,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                         To see how we store and use your data please see our <a href="#" data-prototype-link>privacy policy</a>.
                     </p>
                 </div>
+                @endunless
             </form>
             </div>{{-- /.co-content --}}
         </main>
@@ -405,7 +489,7 @@ data-co-line-count="{{ count($cart['items']) }}"
             <div class="co-summary__inner co-content" id="co-summary-panel">
                 <ul class="co-summary__items">
                     @foreach($cart['items'] as $item)
-                    @include('demo.partials.checkout-summary-item', ['item' => $item])
+                    @include('demo.partials.checkout-summary-item', ['item' => $item, 'allowRemove' => ! $v40])
                     @endforeach
                 </ul>
 
@@ -436,43 +520,9 @@ data-co-line-count="{{ count($cart['items']) }}"
                 </div>
                 @endif
 
-                <div class="co-summary__codes" id="co-voucher-block">
-                    @if($hasOffer)
-                    <div class="co-code-applied co-code-applied--offer">
-                        <span>
-                            Offer
-                            @if(($cart['offer_discount'] ?? 0) > 0)
-                                <strong>{{ $cart['offer_code'] }} - £{{ number_format($cart['offer_discount'], 2) }} OFF</strong>
-                                applied
-                            @else
-                                <strong>{{ $cart['offer_code'] }}</strong>
-                                <span class="co-code-badge" aria-label="Offer code applied">Code Applied</span>
-                            @endif
-                        </span>
-                        <button type="button" class="co-code-applied__remove" data-remove-offer>Remove</button>
-                    </div>
-                    @endif
-                    @if($hasVoucher)
-                    <div class="co-code-applied co-code-applied--voucher">
-                        <span>Voucher <strong>{{ $cart['voucher_code'] }} - £{{ number_format($cart['voucher_discount'], 2) }} OFF</strong> applied</span>
-                        <button type="button" class="co-code-applied__remove" data-remove-voucher>Remove</button>
-                    </div>
-                    @else
-                    <div class="co-code-row">
-                        <input
-                            type="text"
-                            id="co-voucher-input"
-                            class="co-code-row__input"
-                            placeholder="Gift card or voucher code"
-                            autocomplete="off"
-                            aria-describedby="co-voucher-hint"
-                        >
-                        <button type="button" class="co-code-row__btn" id="co-voucher-apply">Apply</button>
-                    </div>
-                    <p class="co-code-hint" id="co-voucher-hint">Gift vouchers are 16 or 10 digits. Demo: try <strong>VOUCHER</strong> at checkout. Offer codes are applied in the basket.</p>
-                    <p class="co-code-error" id="co-voucher-error" hidden></p>
-                    @endif
-                </div>
+                @unless(!empty($cart['checkout_codes_top']))
+                @include('demo.partials.checkout-codes', ['placement' => 'summary'])
+                @endunless
 
                 <dl class="co-summary__totals">
                     <div class="co-summary__row">
@@ -518,6 +568,8 @@ data-co-line-count="{{ count($cart['items']) }}"
         <a href="{{ route('demo.pdp') }}">← Return to shop</a>
         <span class="co-footer__badge">Prototype checkout</span>
     </footer>
+
+    @include('demo.partials.checkout-prototype-tools', ['cart' => $cart])
 </div>
 
 @if($showJoinClub)
@@ -540,5 +592,6 @@ data-co-line-count="{{ count($cart['items']) }}"
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
     <script src="{{ asset('js/yg-checkout.js') }}?v={{ filemtime(public_path('js/yg-checkout.js')) }}" defer></script>
 @endpush

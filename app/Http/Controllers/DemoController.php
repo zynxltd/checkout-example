@@ -8,6 +8,67 @@ use Illuminate\View\View;
 
 class DemoController extends Controller
 {
+    public function plantFinder(): View
+    {
+        DemoCart::seed();
+
+        return view('demo.plant-finder', [
+            'cart' => DemoCart::state(),
+            'finder' => DemoCart::plantFinderPage(),
+        ]);
+    }
+
+    public function aboutUs(): View
+    {
+        DemoCart::seed();
+
+        return view('demo.about-us', [
+            'cart' => DemoCart::state(),
+            'collections' => [
+                [
+                    'title' => 'Garden Plants',
+                    'url' => route('demo.listing.perennials'),
+                    'image' => 'images/products/401842.jpg',
+                ],
+                [
+                    'title' => 'Perennial Plants & Flowers',
+                    'url' => route('demo.listing.perennials'),
+                    'image' => 'images/products/402156.jpg',
+                ],
+                [
+                    'title' => 'Roses',
+                    'url' => route('demo.pdp'),
+                    'image' => 'images/products/403891.jpg',
+                ],
+                [
+                    'title' => 'Climbing Plants',
+                    'url' => route('demo.pdp'),
+                    'image' => 'images/products/404220.jpg',
+                ],
+                [
+                    'title' => 'Garden Trees',
+                    'url' => route('demo.pdp'),
+                    'image' => 'images/products/510317.png',
+                ],
+                [
+                    'title' => 'Houseplants',
+                    'url' => route('demo.pdp'),
+                    'image' => 'images/products/402156.jpg',
+                ],
+                [
+                    'title' => 'Garden Bulbs',
+                    'url' => route('demo.pdp'),
+                    'image' => 'images/products/403891.jpg',
+                ],
+                [
+                    'title' => 'Fruits and Veg',
+                    'url' => route('demo.pdp'),
+                    'image' => 'images/products/401842.jpg',
+                ],
+            ],
+        ]);
+    }
+
     public function pdp(Request $request): View
     {
         DemoCart::seed();

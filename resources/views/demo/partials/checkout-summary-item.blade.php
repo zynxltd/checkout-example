@@ -11,6 +11,7 @@
     </div>
     <div class="co-summary-item__end">
         <p class="co-summary-item__price">£{{ number_format($item['line_total'], 2) }}</p>
+        @if($allowRemove ?? true)
         <button
             type="button"
             class="co-summary-item__remove"
@@ -20,5 +21,6 @@
             @include('demo.partials.icon', ['name' => 'trash', 'width' => 16, 'height' => 16])
             <span class="co-summary-item__remove-label">Remove</span>
         </button>
+        @endif
     </div>
 </li>

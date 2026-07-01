@@ -6,10 +6,11 @@
     $showReco = $cart['show_upsells'] ?? true;
     $isEmpty = !empty($cart['is_empty']);
     $drawerV30 = !empty($drawerVariant30);
+    $drawerV40 = !empty($cart['feedback_v40']);
     $totalRowLabel = $drawerV30 ? 'Subtotal' : 'Total';
 @endphp
 
-<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($drawerV30) yg-drawer--v-3-0 @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif" id="yg-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
+<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($drawerV30) yg-drawer--v-3-0 @endif @if($drawerV40) yg-drawer--v-4-0 @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif" id="yg-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
     <div class="yg-drawer__overlay" data-drawer-close></div>
 
     @if($showClub)
@@ -80,6 +81,27 @@
             </header>
 
             <div class="yg-drawer__body">
+                @if($drawerV40 && !$isEmpty)
+                <div class="yg-drawer__returning-note" role="status" aria-live="polite">
+                    <span class="yg-drawer__returning-note-icon" aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M10 6v4.5l2.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <p class="yg-drawer__returning-note-text">
+                        <strong>Welcome back.</strong>
+                        These items were saved in your basket from a previous visit.
+                    </p>
+                    <button
+                        type="button"
+                        class="yg-drawer__returning-note-dismiss"
+                        data-dismiss-returning-note
+                        aria-label="Dismiss welcome message"
+                    >@include('demo.partials.icon', ['name' => 'close', 'width' => 14, 'height' => 14])</button>
+                </div>
+                @endif
+
                 @if($cart['show_free_delivery_bar'])
                 <div
                     class="yg-delivery-bar @if($cart['gift_qualified']) yg-delivery-bar--qualified @endif"
@@ -146,19 +168,9 @@
                                     </button>
                                 </div>
                                 <div class="yg-item__price">
-                                    @if($item['was_price'])
-                                    <span class="yg-item__was">£{{ number_format($item['was_price'], 2) }}</span>
-                                    @endif
-                                    <span class="yg-item__now">£{{ number_format($item['price'], 2) }}</span>
-                                    @if(!empty($item['club_saving']) && $item['club_saving'] > 0)
-                                    <span class="yg-item__club-saving">
-                                        @if(!empty($item['is_club']))
-                                        Saving: £{{ number_format($item['club_saving'], 2) }}
-                                        @else
-                                        Club Saving £{{ number_format($item['club_saving'], 2) }}
-                                        @endif
-                                    </span>
-                                    @endif
+                                    <span class="yg-item__now">£{{ number_format($item['unit_price'] ?? $item['price'], 2) }}</span>
+                                    <span class="yg-item__was-line">was <span class="yg-item__was">£{{ number_format($item['was_price'], 2) }}</span></span>
+                                    <span class="yg-item__saving">Saving: £{{ number_format($item['line_saving'] ?? 0, 2) }}</span>
                                 </div>
                             </div>
                         </div>

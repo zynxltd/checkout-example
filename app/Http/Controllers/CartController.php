@@ -191,11 +191,31 @@ class CartController extends Controller
             return $this->fragment($request);
         }
 
+        if ($key === 'feedback_v40') {
+            DemoDrawerVariant::setV40Enabled($value);
+
+            return $this->fragment($request);
+        }
+
+        if ($key === 'checkout_codes_top') {
+            session(['demo_checkout_codes_top' => $value]);
+
+            return response()->json(['ok' => true, 'reload' => true]);
+        }
+
+        if ($key === 'checkout_codes_ticket') {
+            session(['demo_checkout_codes_ticket' => $value]);
+
+            return response()->json(['ok' => true, 'reload' => true]);
+        }
+
         $map = [
             'delivery_bar' => 'demo_free_delivery_bar',
             'upsells' => 'demo_show_upsells',
             'wide_drawer' => 'demo_wide_drawer',
             'apple_pay' => 'demo_show_apple_pay',
+            'clearpay' => 'demo_show_clearpay',
+            'klarna' => 'demo_show_klarna',
         ];
 
         if (! isset($map[$key])) {

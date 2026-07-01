@@ -48,6 +48,7 @@
         activeExtend: null,
         extendCloseTimer: null,
         recoStorageKey: 'yg_demo_hide_recommendations',
+        returningNoteStorageKey: 'yg_demo_dismiss_returning_note',
 
         init() {
             this.mount = document.getElementById('yg-drawer-mount');
@@ -75,6 +76,46 @@
             } catch (e) {
                 // ignore
             }
+        },
+
+        isReturningNoteDismissed() {
+            try {
+                return window.localStorage.getItem(this.returningNoteStorageKey) === '1';
+            } catch (e) {
+                return false;
+            }
+        },
+
+        setReturningNoteDismissed(dismissed) {
+            try {
+                if (dismissed) {
+                    window.localStorage.setItem(this.returningNoteStorageKey, '1');
+                } else {
+                    window.localStorage.removeItem(this.returningNoteStorageKey);
+                }
+            } catch (e) {
+                // ignore
+            }
+        },
+
+        applyReturningNoteState(root = document) {
+            const note = root.querySelector('.yg-drawer__returning-note');
+            if (!note) {
+                return;
+            }
+
+            if (this.isReturningNoteDismissed()) {
+                note.remove();
+            }
+        },
+
+        bindReturningNoteDismiss(root) {
+            root.querySelectorAll('[data-dismiss-returning-note]').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    this.setReturningNoteDismissed(true);
+                    btn.closest('.yg-drawer__returning-note')?.remove();
+                });
+            });
         },
 
         applyRecoHiddenState() {
@@ -138,10 +179,19 @@
 
             document.querySelectorAll('[data-option]').forEach((input) => {
                 input.addEventListener('change', async (e) => {
-                    await post(window.YG_DEMO_ROUTES.toggleOption, {
+                    const res = await post(window.YG_DEMO_ROUTES.toggleOption, {
                         key: e.target.dataset.option,
                         enabled: e.target.checked,
                     });
+                    const data = await res.json().catch(() => ({}));
+                    const onCheckout = document.body.classList.contains('demo-checkout-page');
+                    const checkoutReloadOptions = new Set(['apple_pay', 'clearpay', 'klarna']);
+                    const needsReload = data.reload
+                        || (onCheckout && checkoutReloadOptions.has(e.target.dataset.option));
+                    if (needsReload) {
+                        window.location.reload();
+                        return;
+                    }
                     await this.refresh();
                 });
             });
@@ -491,6 +541,8 @@
             }
 
             this.applyRecoHiddenState();
+            this.applyReturningNoteState(root);
+            this.bindReturningNoteDismiss(root);
 
             root.querySelectorAll('[data-drawer-close]').forEach((btn) => {
                 btn.addEventListener('click', () => {

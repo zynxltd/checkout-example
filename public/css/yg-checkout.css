@@ -87,6 +87,99 @@
     width: 100%;
 }
 
+.co-codes--express {
+    margin: 20px 0 28px;
+    padding: 18px 16px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #f5f5f5;
+    box-sizing: border-box;
+}
+
+.co-codes--express.co-codes--ticket {
+    border: 2px dashed #b8b3ab;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.co-codes--express .co-codes__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.co-codes--express .co-codes__row--fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
+}
+
+.co-codes--express .co-codes__row--hints {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.co-codes--express .co-code-field {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.co-codes--express .co-code-field__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #7a726c;
+}
+
+.co-codes--express .co-code-field .co-code-row {
+    margin-bottom: 0;
+}
+
+.co-codes--express .co-code-field--applied .co-code-applied {
+    flex: 1;
+    margin-bottom: 0;
+    min-height: 44px;
+}
+
+.co-codes--express .co-codes__row--hints .co-code-hint {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin: 0;
+    font-size: 11.5px;
+    line-height: 1.35;
+    color: #9a918a;
+}
+
+.co-codes--express .co-code-hint__demo {
+    font-size: 11px;
+    color: #b0a69d;
+}
+
+.co-codes--express .co-code-hint__demo strong {
+    font-weight: 600;
+    color: #7a726c;
+}
+
+.co-codes--express .co-code-field .co-code-error {
+    margin: 4px 0 0;
+}
+
+.co-codes--express .co-code-row__input {
+    background: #fff;
+}
+
+@media (max-width: 640px) {
+    .co-codes--express .co-codes__row--fields,
+    .co-codes--express .co-codes__row--hints {
+        grid-template-columns: 1fr;
+    }
+}
+
 .co-express-btn--apple {
     grid-column: 1 / -1;
     justify-self: center;
@@ -756,6 +849,38 @@ body.co-club-modal-open {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
+}
+
+.co-field-row--address-lines {
+    margin-bottom: 0;
+}
+
+.co-field-row--address-lines .co-field {
+    margin-bottom: 12px;
+}
+
+@media (max-width: 599px) {
+    .co-field-row--address-lines {
+        grid-template-columns: 1fr;
+    }
+}
+
+.co-field-row--phone-dob {
+    margin-bottom: 0;
+}
+
+.co-field-row--phone-dob .co-field {
+    margin-bottom: 0;
+}
+
+.co-billing-dob-note {
+    margin: 6px 0 12px;
+}
+
+@media (max-width: 599px) {
+    .co-field-row--phone-dob {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1637,4 +1762,84 @@ body.co-club-modal-open {
     .co--ready .co-content {
         transition: none;
     }
+}
+
+/* v4.0 — dev feedback checkout updates */
+.co-login-cta {
+    flex-shrink: 0;
+    margin-left: 12px;
+    padding: 8px 14px;
+    border: 2px solid #264f1c;
+    border-radius: 6px;
+    background: #fff;
+    color: #264f1c;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.co-login-cta:hover {
+    background: #f3f8ee;
+}
+
+.co-optins {
+    margin: 12px 0 0;
+    padding: 0;
+    border: none;
+}
+
+.co-marketing-optin {
+    margin-top: 12px;
+}
+
+.co-check--marketing {
+    align-items: flex-start;
+}
+
+.co-check--marketing__copy {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #7a726c;
+}
+
+.co-check--marketing__copy a {
+    color: #264f1c;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.co-optins__legend {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #483f3a;
+}
+
+.co-optins .co-check + .co-check {
+    margin-top: 8px;
+}
+
+.co-field__optional {
+    font-weight: 400;
+    color: #7a726c;
+}
+
+.co-field--static {
+    margin-bottom: 12px;
+}
+
+.co-field__static-value {
+    display: block;
+    margin-top: 6px;
+    font-size: 15px;
+    color: #483f3a;
+}
+
+.co--v-4-0 .co-summary-item__end {
+    align-self: center;
+}
+
+.co-code-row--offer {
+    margin-bottom: 8px;
 }

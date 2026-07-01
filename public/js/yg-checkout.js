@@ -133,6 +133,10 @@
                 signedIn.textContent = `Signed in as ${email}`;
                 signedIn.hidden = false;
             }
+            const marketingOptins = document.getElementById('co-marketing-optins');
+            if (marketingOptins) {
+                marketingOptins.hidden = true;
+            }
             if (guestPassword) {
                 guestPassword.value = '';
             }
@@ -538,6 +542,50 @@
         });
     }
 
+    function bindApplyOffer() {
+        const applyBtn = document.getElementById('co-offer-apply');
+        const input = document.getElementById('co-offer-input');
+        const errorEl = document.getElementById('co-offer-error');
+
+        if (!applyBtn || !input || !routes.code) {
+            return;
+        }
+
+        const apply = async () => {
+            const code = input.value.trim();
+            if (!code) {
+                if (errorEl) {
+                    errorEl.textContent = 'Please enter an offer code.';
+                    errorEl.hidden = false;
+                }
+                return;
+            }
+
+            applyBtn.disabled = true;
+            const res = await post(routes.code, { type: 'offer', code });
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok) {
+                if (errorEl) {
+                    errorEl.textContent = data.error || 'Could not apply offer code.';
+                    errorEl.hidden = false;
+                }
+                applyBtn.disabled = false;
+                return;
+            }
+
+            window.location.reload();
+        };
+
+        applyBtn.addEventListener('click', apply);
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                apply();
+            }
+        });
+    }
+
     function bindMobileOrderSummary() {
         const summary = document.getElementById('co-summary');
         const toggle = document.getElementById('co-summary-toggle');
@@ -766,6 +814,7 @@
         bindVoucher();
         bindRemoveVoucher();
         bindRemoveOffer();
+        bindApplyOffer();
         bindPaymentOptions();
         bindPayNow();
         bindSummaryRemove();

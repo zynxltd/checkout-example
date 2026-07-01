@@ -6,8 +6,8 @@ use App\Support\DemoDrawerVariant;
 
 class DemoCart
 {
-    /** SKU used when “Add to basket” is clicked on the demo PDP (yougarden.com item-p-510317) */
-    public const PDP_SKU = '510317';
+    /** SKU used when “Add to basket” is clicked on the demo PDP (yougarden.com item-s-pa255) */
+    public const PDP_SKU = 'PA255';
 
     /** Auto-renewal yearly club membership (yougarden.com item-p-820005) */
     public const CLUB_SKU_AUTO = '820005';
@@ -104,35 +104,119 @@ class DemoCart
 
         return [
             'sku' => $p['sku'],
-            'title' => 'Sicilian Lemon Tree',
-            'page_title' => "Sicilian Lemon Tree — 1 x 4 Litre Potted",
-            'tagline' => 'Fresh Fruit, Fragrant Blossom And Mediterranean Style In A Pot',
-            'pack' => '1 x 4 Litre Pot',
+            'title' => "Petunia 'Easy Wave' Ultimate Mix",
+            'page_title' => "Petunia 'Easy Wave' Ultimate Mix",
+            'tagline' => 'A vibrant mix of blooms that create a dynamic and cheerful display throughout the summer.',
+            'pack' => '5 x Garden Ready Plants',
             'price' => $p['price'],
             'was_price' => $p['was_price'],
-            'save' => round($p['was_price'] - $p['price'], 2),
+            'save' => 0,
             'club_price' => $p['club_price'],
+            'rating' => 4.5,
+            'reviews' => 82,
             'image' => $p['image'],
-            'image_alt' => 'Sicilian Lemon Tree in a 4 litre pot',
+            'image_alt' => "Petunia 'Easy Wave' Ultimate Mix in a hanging basket",
             'breadcrumb' => [
-                ['label' => 'Home', 'url' => '/'],
-                ['label' => 'Fruits and Veg', 'url' => '#'],
-                ['label' => 'Citrus Trees And Plants', 'url' => '#'],
-                ['label' => 'Sicilian Lemon Tree', 'url' => null],
+                ['label' => 'Home', 'url' => route('demo.pdp'), 'icon' => true],
+                ['label' => 'Bestsellers', 'url' => route('demo.listing.perennials')],
+                ['label' => 'Petunia Easy Wave Mix', 'url' => null],
             ],
             'also_bought' => [
-                'sku' => '680019',
-                'name' => 'Citrus Orange Tree — 1 x 4L Pot',
-                'price' => 24.99,
+                'sku' => '401842',
+                'name' => "Upright Zonal Geranium 'Parade' Mix",
+                'price' => 9.99,
             ],
             'features' => [
-                ['label' => 'Scented / Fragrant', 'icon' => 'scent'],
                 ['label' => 'Perfect In Pots', 'icon' => 'pot'],
                 ['label' => 'Plant In Sunshine', 'icon' => 'sun'],
-                ['label' => 'Protect From Frost', 'icon' => 'hardy'],
-                ['label' => 'Edible', 'icon' => 'easy'],
+                ['label' => 'Protect From Frost', 'icon' => 'frost'],
+                ['label' => 'Easy To Grow', 'icon' => 'easy'],
+                ['label' => 'Wildlife Friendly', 'icon' => 'wildlife'],
             ],
-            'dimensions' => 'Width: 100cm · Height: 200cm',
+            'dimensions' => null,
+            'category_label' => 'Bedding Plants',
+            'bestseller' => false,
+            'popular_views' => 144,
+            'in_stock' => true,
+            'description_excerpt' => 'A vibrant mix of blooms that create a dynamic and cheerful display throughout the summer. These easy wave petunias are perfect for hanging baskets, containers and borders, delivering masses of colour with minimal effort.',
+            'gallery' => [
+                ['image' => 'images/products/404220.jpg', 'alt' => "Petunia 'Easy Wave' Ultimate Mix hanging basket"],
+                ['image' => 'images/products/401842.jpg', 'alt' => 'Close-up of colourful petunia blooms'],
+                ['image' => 'images/products/402156.jpg', 'alt' => 'Petunias on a sunny patio'],
+                ['image' => 'images/products/403891.jpg', 'alt' => 'Mixed petunias in a container'],
+                ['image' => 'images/products/404220.jpg', 'alt' => 'Growing guide video', 'type' => 'video'],
+            ],
+            'variants' => [
+                [
+                    'id' => '5pack',
+                    'label' => '5 x Garden Ready Plants',
+                    'sku' => 'PA255',
+                    'price' => 6.99,
+                    'was_price' => null,
+                    'default' => true,
+                ],
+                [
+                    'id' => '10pack',
+                    'label' => '10 x Garden Ready Plants',
+                    'sku' => 'PA256',
+                    'price' => 12.99,
+                    'was_price' => null,
+                    'default' => false,
+                ],
+                [
+                    'id' => 'basket',
+                    'label' => '1 x 35cm Pre-Planted Basket',
+                    'sku' => 'PA257',
+                    'price' => 24.98,
+                    'was_price' => 39.98,
+                    'default' => false,
+                ],
+            ],
+            'bulk_tiers' => [],
+            'addons' => [
+                [
+                    'sku' => '501004',
+                    'name' => 'Enriched Multi-Purpose Compost',
+                    'price' => 7.99,
+                    'image' => 'images/products/404220.jpg',
+                ],
+                [
+                    'sku' => '501005',
+                    'name' => 'Organic Seaweed Feed',
+                    'price' => 6.49,
+                    'image' => 'images/products/403891.jpg',
+                ],
+            ],
+            'similar' => [
+                ['name' => 'Surfinia Trailing Petunia Mix', 'price' => 9.99, 'image' => 'images/products/401842.jpg', 'url' => '#'],
+                ['name' => 'Calibrachoa Mini Petunia Collection', 'price' => 12.99, 'image' => 'images/products/402156.jpg', 'url' => '#'],
+                ['name' => 'Bacopa Trailing White', 'price' => 6.99, 'image' => 'images/products/403891.jpg', 'url' => '#'],
+                ['name' => 'Pre-Planted Summer Hanging Basket', 'price' => 24.98, 'image' => 'images/products/404220.jpg', 'url' => '#'],
+            ],
+            'specs' => [
+                ['label' => 'Flowering period', 'value' => 'June – October'],
+                ['label' => 'Planting position', 'value' => 'Full sun'],
+                ['label' => 'Eventual height', 'value' => '25 – 35cm'],
+                ['label' => 'Eventual spread', 'value' => '60 – 90cm'],
+                ['label' => 'Hardiness', 'value' => 'Protect from frost'],
+            ],
+            'care_tabs' => [
+                [
+                    'id' => 'water',
+                    'title' => 'How to water',
+                    'content' => 'Water regularly during dry spells, especially when growing in containers and baskets. Allow the compost to dry slightly between waterings.',
+                ],
+                [
+                    'id' => 'plant',
+                    'title' => 'How to plant',
+                    'content' => 'Plant in well-drained compost in a sunny spot. Ideal for hanging baskets, patio pots and front-of-border displays.',
+                ],
+                [
+                    'id' => 'tip',
+                    'title' => 'Top tip',
+                    'content' => 'Deadhead spent blooms and feed weekly in summer for the longest flowering season.',
+                ],
+            ],
             'plant_calendar' => [
                 'title' => 'Plant calendar',
                 'months' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -141,19 +225,13 @@ class DemoCart
                         'id' => 'planting',
                         'short' => 'Plant',
                         'label' => 'Planting',
-                        'ranges' => [['from' => 3, 'to' => 7]],
+                        'ranges' => [['from' => 4, 'to' => 6]],
                     ],
                     [
                         'id' => 'flowering',
                         'short' => 'Flower',
                         'label' => 'Flowering',
-                        'ranges' => [['from' => 2, 'to' => 5]],
-                    ],
-                    [
-                        'id' => 'fruiting',
-                        'short' => 'Fruit',
-                        'label' => 'Fruiting',
-                        'ranges' => [['from' => 0, 'to' => 2], ['from' => 9, 'to' => 11]],
+                        'ranges' => [['from' => 5, 'to' => 9]],
                     ],
                 ],
             ],
@@ -163,54 +241,27 @@ class DemoCart
                     'title' => 'Description',
                     'open' => true,
                     'paragraphs' => [
-                        'Pick your very own delicious fresh lemons and add a Mediterranean feel to your home or garden! Packed full of vitamin C, these fruits are not only delicious, but good for you as well! Use your fruits in everything from freshly squeezed lemonade, to scrumptious lemon meringue pies, and save loads of money on supermarket prices!',
-                        "This Lemon 'Lunario' tree produces blossom from late spring through to the end of the year. From the blossom, small lemons will be produced, which will quickly swell into ripe and juicy fruits which will ripen for picking late summer up to the end of the year.",
-                        "Allow your tree time to establish in its new home and within 12 months you'll grow delicious full-sized fruit!",
-                        "To ensure you'll be picking delicious fruit year after year, we advise you keep your trees in their pots, and place in a sunny, sheltered position. Protect from frost during the winter time either by bringing indoors into a conservatory, or by covering with a plant cosy.",
-                        'Supplied as an established plant in a 4 litre pot, approximately 70–90cm tall. Please note, this may be supplied with thorns.',
+                        'A vibrant mix of blooms that create a dynamic and cheerful display throughout the summer. These easy wave petunias are perfect for hanging baskets, containers and borders, delivering masses of colour with minimal effort.',
+                        'The Ultimate Mix combines complementary shades for a professional-looking display. Plants spread and trail beautifully, filling out baskets and pots quickly once established.',
+                        'Supplied as garden-ready plants — simply plant out after the last frosts and enjoy months of continuous colour.',
                     ],
                 ],
                 [
                     'id' => 'top-tips',
                     'title' => 'Top Tips',
                     'bullets' => [
-                        'Pick home-grown lemons within 12 months and create a Mediterranean feel in your home or garden.',
-                        "Lemon 'Lunario' produces sweet scented flowers from late spring followed by fruits from late summer.",
-                        'Best left in a pot so it can be moved around easily. From June to September move your lemon outside — garden, patio or balcony. Lemon trees are not frost tolerant.',
-                        'Water freely in summer but reduce watering during winter. Bring indoors for winter in a cool area away from radiators — an unheated conservatory or porch is ideal.',
-                        'Supplied as an established plant in a 4 litre pot, approximately 70–90cm tall. Feed with specialist citrus feed during spring and summer.',
-                    ],
-                ],
-                [
-                    'id' => 'care',
-                    'title' => 'Care Information',
-                    'blocks' => [
-                        [
-                            'bullets' => [
-                                'Feed with specialist feed every month in spring and summer growth — they are hungry fellows.',
-                                'Sweetly fragrant blossom appears in late spring and can flower sporadically through the year. Fruit ripens up to 12 months later — plants are often in flower and fruiting at the same time.',
-                                'Citrus tend not to thrive in centrally heated homes. From mid-June to late September, move plants outside — remember they are not frost tolerant and need cover if cold nights threaten.',
-                                'Only minimal pruning is required to reshape or remove dead or damaged shoots.',
-                            ],
-                        ],
-                        [
-                            'heading' => 'Watering',
-                            'bullets' => [
-                                'In summer, water freely — ideally using rainwater. In winter, allow the surface to partially dry out before watering again. Always allow excess water to drain away.',
-                                'Our Mediterranean citrus trees are grown in a slightly heavier growing medium — take care when watering. Do not overwater, but do not allow the soil to dry out completely.',
-                            ],
-                        ],
+                        'Plant in a sunny position for the best flower power.',
+                        'Feed weekly with a high-potash liquid feed during the growing season.',
+                        'Perfect for hanging baskets, window boxes and patio containers.',
+                        'Protect from frost — keep indoors until all risk has passed.',
                     ],
                 ],
                 [
                     'id' => 'delivery',
                     'title' => 'Delivery Information',
                     'paragraphs' => [
-                        'Please allow us 3–5 working days to dispatch your order. Pre-ordered items will be sent as soon as possible after the date quoted and we\'ll generally ship your entire order with your pre-ordered items.',
-                        'When your order is dispatched, we\'ll send you another email with details of how to track it. Most orders are sent on a fully-tracked courier service with Yodel. No signature is required — our courier is asked to leave your order in a safe place on your property.',
-                        'Smaller, lighter, single-item orders may be sent through the post with Royal Mail — in which case no tracking is available.',
-                        'Our nursery team sends plants nursery fresh in the perfect condition to thrive. We avoid dispatching the most perishable plants if extreme weather is forecast, or over Bank Holiday weekends.',
-                        'Please note, we cannot guarantee delivery on a certain day or time. Delivery to outlying postcode areas may take 1–2 days longer.',
+                        'Please allow us 3–5 working days to dispatch your order. When your order is dispatched, we\'ll send you another email with details of how to track it.',
+                        'Our nursery team sends plants nursery fresh in the perfect condition to thrive.',
                     ],
                 ],
                 [
@@ -220,44 +271,32 @@ class DemoCart
                         'See Feefo customer ratings and recent reviews for this product below.',
                     ],
                 ],
-                [
-                    'id' => 'videos',
-                    'title' => 'Videos',
-                    'placeholder' => 'Product videos and growing guides will appear here on the live site.',
-                ],
             ],
             'feefo' => [
-                'rating' => 4.3,
+                'rating' => 4.5,
                 'max_rating' => 5,
-                'review_count' => 18850,
+                'review_count' => 82,
                 'reviews' => [
                     [
                         'rating' => 5,
-                        'title' => 'Excellent quality',
-                        'text' => 'Tree arrived well packed and already had healthy glossy leaves. Very pleased with the size for a 4 litre pot.',
+                        'title' => 'Stunning colour',
+                        'text' => 'Filled my baskets beautifully — still going strong in September.',
                         'author' => 'Trusted Customer',
-                        'date' => '1 August 2024',
+                        'date' => '14 August 2025',
                     ],
                     [
                         'rating' => 5,
-                        'title' => 'Great little lemon tree',
-                        'text' => 'Bought for the patio — flowers smelled amazing this summer and we picked our first lemon in autumn.',
+                        'title' => 'Great value',
+                        'text' => 'Healthy plants, quick delivery. Would buy again.',
                         'author' => 'Trusted Customer',
-                        'date' => '12 October 2024',
+                        'date' => '2 June 2025',
                     ],
                     [
                         'rating' => 4,
-                        'title' => 'Good value',
-                        'text' => 'Nice plant, delivery was quick. Waiting for more fruit next year but blossom was lovely.',
+                        'title' => 'Lovely mix',
+                        'text' => 'Good spread and plenty of flowers. Needed regular watering in the heat.',
                         'author' => 'Trusted Customer',
-                        'date' => '3 March 2025',
-                    ],
-                    [
-                        'rating' => 5,
-                        'title' => 'Would recommend',
-                        'text' => 'Helpful instructions included. Overwintered in the conservatory with no problems.',
-                        'author' => 'Trusted Customer',
-                        'date' => '18 January 2025',
+                        'date' => '19 July 2025',
                     ],
                 ],
             ],
@@ -281,7 +320,7 @@ class DemoCart
                         'links' => [
                             ['label' => 'Jobs To Do This Month', 'url' => '#'],
                             ['label' => 'Plant Care Instructions', 'url' => '#'],
-                            ['label' => 'Plant Finder', 'url' => '#'],
+                            ['label' => 'Plant Finder', 'url' => route('demo.plant-finder')],
                             ['label' => 'Affiliate Programme', 'url' => '#'],
                             ['label' => 'Refer A Friend', 'url' => '#'],
                             ['label' => 'Videos', 'url' => '#'],
@@ -292,7 +331,7 @@ class DemoCart
                         'title' => 'Shopping',
                         'links' => [
                             ['label' => 'eGift Vouchers', 'url' => '#'],
-                            ['label' => 'About Us', 'url' => '#'],
+                            ['label' => 'About Us', 'url' => route('demo.about-us')],
                             ['label' => 'Terms & Conditions', 'url' => '#'],
                             ['label' => 'Privacy Policy', 'url' => '#'],
                             ['label' => 'Cookie Policy', 'url' => '#'],
@@ -497,6 +536,323 @@ class DemoCart
         ];
     }
 
+    /** @return list<string> */
+    public static function plantFinderMonths(): array
+    {
+        return [
+            '1' => 'January',
+            '2' => 'February',
+            '3' => 'March',
+            '4' => 'April',
+            '5' => 'May',
+            '6' => 'June',
+            '7' => 'July',
+            '8' => 'August',
+            '9' => 'September',
+            '10' => 'October',
+            '11' => 'November',
+            '12' => 'December',
+        ];
+    }
+
+    /** @return list<array{id: string, label: string}> */
+    public static function plantFinderCharacteristics(): array
+    {
+        return [
+            ['id' => 'scented', 'label' => 'Scented / Fragrant'],
+            ['id' => 'pots', 'label' => 'Perfect in pots'],
+            ['id' => 'shade', 'label' => 'Plant in shade'],
+            ['id' => 'sunshine', 'label' => 'Plant in sunshine'],
+            ['id' => 'hardy', 'label' => 'Winter hardy'],
+            ['id' => 'frost', 'label' => 'Protect from frost'],
+            ['id' => 'edible', 'label' => 'Edible'],
+            ['id' => 'cut-flower', 'label' => 'Cut flower'],
+            ['id' => 'easy', 'label' => 'Easy to grow'],
+            ['id' => 'wildlife', 'label' => 'Wildlife friendly'],
+        ];
+    }
+
+    /** @return list<array<string, mixed>> */
+    private static function plantFinderProducts(): array
+    {
+        $images = [
+            'images/products/401842.jpg',
+            'images/products/402156.jpg',
+            'images/products/403891.jpg',
+            'images/products/404220.jpg',
+            'images/products/510317.png',
+        ];
+
+        $products = [
+            [
+                'name' => "English Lavender 'Hidcote'",
+                'price_label' => 'Just',
+                'price' => 14.98,
+                'discount' => 50,
+                'reviews' => 412,
+                'rating' => 4.8,
+                'category' => 'perennials',
+                'planting' => [3, 4, 5, 9],
+                'flowering' => [6, 7, 8],
+                'fruiting' => [],
+                'traits' => ['scented', 'sunshine', 'hardy', 'easy', 'wildlife', 'cut-flower'],
+            ],
+            [
+                'name' => "Apple 'Braeburn' Tree",
+                'price_label' => 'Just',
+                'price' => 24.99,
+                'discount' => 37,
+                'reviews' => 189,
+                'rating' => 4.6,
+                'category' => 'fruit-trees',
+                'planting' => [10, 11, 3],
+                'flowering' => [4, 5],
+                'fruiting' => [9, 10],
+                'traits' => ['sunshine', 'hardy', 'edible', 'wildlife'],
+            ],
+            [
+                'name' => "Clematis 'Nelly Moser'",
+                'price_label' => 'From',
+                'price' => 10.38,
+                'discount' => 20,
+                'reviews' => 276,
+                'rating' => 4.7,
+                'category' => 'climbing',
+                'planting' => [3, 4, 9, 10],
+                'flowering' => [5, 6, 7, 8, 9],
+                'fruiting' => [],
+                'traits' => ['shade', 'sunshine', 'hardy', 'easy', 'cut-flower'],
+            ],
+            [
+                'name' => "Hydrangea paniculata 'Limelight'",
+                'price_label' => 'From',
+                'price' => 9.99,
+                'discount' => 33,
+                'reviews' => 341,
+                'rating' => 4.9,
+                'category' => 'shrubs',
+                'planting' => [3, 4, 10],
+                'flowering' => [7, 8, 9],
+                'fruiting' => [],
+                'traits' => ['shade', 'sunshine', 'hardy', 'easy', 'cut-flower', 'wildlife'],
+            ],
+            [
+                'name' => "Strawberry 'Sweet Colossus'",
+                'price_label' => 'From',
+                'price' => 9.99,
+                'discount' => 50,
+                'reviews' => 198,
+                'rating' => 4.5,
+                'category' => 'fruit-bushes',
+                'planting' => [3, 4, 5],
+                'flowering' => [5, 6],
+                'fruiting' => [6, 7, 8],
+                'traits' => ['sunshine', 'pots', 'edible', 'easy'],
+            ],
+            [
+                'name' => 'Citrus Blood Orange Tree',
+                'price_label' => 'Just',
+                'price' => 29.99,
+                'discount' => 25,
+                'reviews' => 156,
+                'rating' => 4.4,
+                'category' => 'citrus',
+                'planting' => [4, 5, 6],
+                'flowering' => [4, 5],
+                'fruiting' => [11, 12, 1, 2],
+                'traits' => ['sunshine', 'pots', 'frost', 'edible', 'scented'],
+            ],
+            [
+                'name' => "Echinacea 'Cheyenne Spirit'",
+                'price_label' => 'From',
+                'price' => 9.99,
+                'discount' => 50,
+                'reviews' => 223,
+                'rating' => 4.7,
+                'category' => 'perennials',
+                'planting' => [3, 4, 5, 9],
+                'flowering' => [7, 8, 9],
+                'fruiting' => [],
+                'traits' => ['sunshine', 'hardy', 'easy', 'wildlife', 'cut-flower'],
+            ],
+            [
+                'name' => "Foxglove Digitalis 'Illumination Flame'",
+                'price_label' => 'From',
+                'price' => 14.99,
+                'discount' => 37,
+                'reviews' => 167,
+                'rating' => 4.6,
+                'category' => 'perennials',
+                'planting' => [3, 4, 5],
+                'flowering' => [6, 7, 8],
+                'fruiting' => [],
+                'traits' => ['shade', 'hardy', 'wildlife', 'cut-flower'],
+            ],
+            [
+                'name' => "Blueberry 'Blueray'",
+                'price_label' => 'Just',
+                'price' => 9.99,
+                'discount' => 0,
+                'reviews' => 134,
+                'rating' => 4.5,
+                'category' => 'fruit-bushes',
+                'planting' => [10, 11, 3, 4],
+                'flowering' => [5, 6],
+                'fruiting' => [7, 8],
+                'traits' => ['sunshine', 'pots', 'hardy', 'edible', 'wildlife'],
+            ],
+            [
+                'name' => "Pre-Planted Fuchsia Trailing Hanging Baskets",
+                'price_label' => 'Just',
+                'price' => 24.98,
+                'discount' => 37,
+                'reviews' => 289,
+                'rating' => 4.8,
+                'category' => 'bedding',
+                'planting' => [4, 5, 6],
+                'flowering' => [6, 7, 8, 9],
+                'fruiting' => [],
+                'traits' => ['sunshine', 'pots', 'easy', 'wildlife'],
+            ],
+            [
+                'name' => "Acer palmatum 'Emerald Lace'",
+                'price_label' => 'Just',
+                'price' => 9.99,
+                'discount' => 33,
+                'reviews' => 201,
+                'rating' => 4.7,
+                'category' => 'trees',
+                'planting' => [10, 11, 3],
+                'flowering' => [4, 5],
+                'fruiting' => [],
+                'traits' => ['shade', 'sunshine', 'hardy', 'pots'],
+            ],
+            [
+                'name' => "Amaryllis 'Snow Queen' Growing Kit",
+                'price_label' => 'Just',
+                'price' => 12.99,
+                'discount' => 13,
+                'reviews' => 98,
+                'rating' => 4.3,
+                'category' => 'bulbs',
+                'planting' => [10, 11, 12],
+                'flowering' => [12, 1, 2],
+                'fruiting' => [],
+                'traits' => ['pots', 'easy', 'cut-flower', 'frost'],
+            ],
+        ];
+
+        $categoryLabels = [
+            'perennials' => 'Perennials',
+            'shrubs' => 'Shrubs',
+            'trees' => 'Trees',
+            'climbing' => 'Climbing',
+            'bedding' => 'Bedding',
+            'bulbs' => 'Bulbs',
+            'fruit-trees' => 'Fruit trees',
+            'fruit-bushes' => 'Fruit bushes',
+            'citrus' => 'Citrus',
+        ];
+
+        return array_map(function (array $product, int $index) use ($images, $categoryLabels) {
+            $product['image'] = $images[$index % count($images)];
+            $product['url'] = route('demo.pdp');
+            $product['category_label'] = $categoryLabels[$product['category']] ?? 'Plants';
+            $product['was_price'] = $product['discount'] > 0
+                ? round($product['price'] / (1 - ($product['discount'] / 100)), 2)
+                : null;
+
+            return $product;
+        }, $products, array_keys($products));
+    }
+
+    /** @return list<array<string, mixed>> */
+    public static function plantFinderQuiz(): array
+    {
+        return [
+            [
+                'id' => 'space',
+                'question' => 'Where will you be growing?',
+                'hint' => 'Pick the spot you have in mind — we will suggest plants that suit it.',
+                'options' => [
+                    ['id' => 'any', 'label' => 'Any space', 'desc' => 'Show me everything', 'filters' => []],
+                    ['id' => 'garden', 'label' => 'Garden border', 'desc' => 'Beds, borders and lawns', 'filters' => []],
+                    ['id' => 'patio', 'label' => 'Patio or pots', 'desc' => 'Containers and planters', 'filters' => ['traits' => ['pots']]],
+                    ['id' => 'balcony', 'label' => 'Balcony', 'desc' => 'Compact and easy care', 'filters' => ['traits' => ['pots', 'easy']]],
+                ],
+            ],
+            [
+                'id' => 'light',
+                'question' => 'How much sun does your spot get?',
+                'hint' => 'Most plants thrive in the right light — this narrows your matches fast.',
+                'options' => [
+                    ['id' => 'any', 'label' => 'Not sure', 'desc' => 'Skip this for now', 'filters' => []],
+                    ['id' => 'sun', 'label' => 'Full sunshine', 'desc' => '6+ hours of direct sun', 'filters' => ['traits' => ['sunshine']]],
+                    ['id' => 'shade', 'label' => 'Shade', 'desc' => 'Mostly shaded area', 'filters' => ['traits' => ['shade']]],
+                    ['id' => 'flexible', 'label' => 'A bit of both', 'desc' => 'Sun or partial shade', 'filters' => []],
+                ],
+            ],
+            [
+                'id' => 'goal',
+                'question' => 'What are you hoping to grow?',
+                'hint' => 'Tell us what you are looking for and we will filter the catalogue.',
+                'options' => [
+                    ['id' => 'any', 'label' => 'Surprise me', 'desc' => 'All plant types', 'filters' => []],
+                    ['id' => 'flowers', 'label' => 'Colourful flowers', 'desc' => 'Blooms and borders', 'filters' => ['category' => 'perennials']],
+                    ['id' => 'edible', 'label' => 'Fruit & veg', 'desc' => 'Home-grown harvests', 'filters' => ['traits' => ['edible']]],
+                    ['id' => 'easy', 'label' => 'Easy & low fuss', 'desc' => 'Great for beginners', 'filters' => ['traits' => ['easy']]],
+                ],
+            ],
+            [
+                'id' => 'season',
+                'question' => 'When do you want it to shine?',
+                'hint' => 'Choose when you would like flowers, fruit or interest in the garden.',
+                'options' => [
+                    ['id' => 'any', 'label' => 'Any time', 'desc' => 'Year-round interest', 'filters' => []],
+                    ['id' => 'spring', 'label' => 'Spring', 'desc' => 'March – May', 'filters' => ['flowering' => '4']],
+                    ['id' => 'summer', 'label' => 'Summer', 'desc' => 'June – August', 'filters' => ['flowering' => '7']],
+                    ['id' => 'autumn', 'label' => 'Autumn', 'desc' => 'September – November', 'filters' => ['flowering' => '9']],
+                ],
+            ],
+        ];
+    }
+
+    /** @return array<string, mixed> */
+    public static function plantFinderPage(): array
+    {
+        return [
+            'title' => 'Plant Finder',
+            'intro' => 'Answer a few quick questions and we will suggest plants that suit your space — or jump straight to the filters below.',
+            'breadcrumb' => [
+                ['label' => 'Home', 'url' => route('demo.pdp')],
+                ['label' => 'Plant Finder', 'url' => null],
+            ],
+            'months' => self::plantFinderMonths(),
+            'categories' => [
+                '' => 'All categories',
+                'perennials' => 'Perennial Plants & Flowers',
+                'shrubs' => 'Garden Shrubs',
+                'trees' => 'Garden Trees',
+                'climbing' => 'Climbing Plants',
+                'bedding' => 'Bedding Plants',
+                'bulbs' => 'Garden Bulbs',
+                'fruit-trees' => 'Fruit Trees',
+                'fruit-bushes' => 'Fruit Bushes',
+                'citrus' => 'Citrus Trees & Plants',
+            ],
+            'characteristics' => self::plantFinderCharacteristics(),
+            'sort_options' => [
+                ['value' => 'name-asc', 'label' => 'Name A–Z'],
+                ['value' => 'name-desc', 'label' => 'Name Z–A'],
+                ['value' => 'price-asc', 'label' => 'Price: Low – High'],
+                ['value' => 'price-desc', 'label' => 'Price: High – Low'],
+            ],
+            'quiz' => self::plantFinderQuiz(),
+            'trait_labels' => collect(self::plantFinderCharacteristics())->pluck('label', 'id')->all(),
+            'products' => self::plantFinderProducts(),
+        ];
+    }
+
     public static function catalogue(): array
     {
         return [
@@ -506,7 +862,7 @@ class DemoCart
                 'variant' => '12 x plug plants',
                 'image' => 'images/products/401842.jpg',
                 'price' => 9.99,
-                'was_price' => null,
+                'was_price' => 14.99,
                 'club_saving_per_unit' => 1.50,
             ],
             '402156' => [
@@ -526,6 +882,36 @@ class DemoCart
                 'price' => 14.97,
                 'was_price' => 29.97,
                 'club_saving_per_unit' => 2.25,
+            ],
+            'PA255' => [
+                'sku' => 'PA255',
+                'name' => "Petunia 'Easy Wave' Ultimate Mix",
+                'variant' => '5 x Garden Ready Plants',
+                'image' => 'images/products/404220.jpg',
+                'price' => 6.99,
+                'was_price' => 9.99,
+                'club_price' => 5.94,
+                'club_saving_per_unit' => 1.05,
+            ],
+            'PA256' => [
+                'sku' => 'PA256',
+                'name' => "Petunia 'Easy Wave' Ultimate Mix",
+                'variant' => '10 x Garden Ready Plants',
+                'image' => 'images/products/404220.jpg',
+                'price' => 12.99,
+                'was_price' => 19.99,
+                'club_price' => 11.04,
+                'club_saving_per_unit' => 1.95,
+            ],
+            'PA257' => [
+                'sku' => 'PA257',
+                'name' => "Petunia 'Easy Wave' Ultimate Mix",
+                'variant' => '1 x 35cm Pre-Planted Basket',
+                'image' => 'images/products/404220.jpg',
+                'price' => 24.98,
+                'was_price' => 39.98,
+                'club_price' => 21.23,
+                'club_saving_per_unit' => 3.75,
             ],
             '510317' => [
                 'sku' => '510317',
@@ -563,7 +949,7 @@ class DemoCart
                 'variant' => '800g tub',
                 'image' => 'images/products/401842.jpg',
                 'price' => 4.99,
-                'was_price' => null,
+                'was_price' => 7.99,
                 'club_price' => 4.24,
                 'club_saving_per_unit' => 0.75,
             ],
@@ -573,7 +959,7 @@ class DemoCart
                 'variant' => '360g pouch',
                 'image' => 'images/products/402156.jpg',
                 'price' => 3.99,
-                'was_price' => null,
+                'was_price' => 5.99,
                 'club_price' => 3.39,
                 'club_saving_per_unit' => 0.60,
             ],
@@ -583,7 +969,7 @@ class DemoCart
                 'variant' => '1 x 1kg tub',
                 'image' => 'images/products/403891.jpg',
                 'price' => 9.99,
-                'was_price' => null,
+                'was_price' => 14.99,
                 'club_price' => 8.49,
                 'club_saving_per_unit' => 1.50,
             ],
@@ -593,7 +979,7 @@ class DemoCart
                 'variant' => '40L bag',
                 'image' => 'images/products/404220.jpg',
                 'price' => 7.99,
-                'was_price' => null,
+                'was_price' => 11.99,
                 'club_price' => 6.79,
                 'club_saving_per_unit' => 1.20,
             ],
@@ -603,7 +989,7 @@ class DemoCart
                 'variant' => '1L concentrate',
                 'image' => 'images/products/404220.jpg',
                 'price' => 6.49,
-                'was_price' => null,
+                'was_price' => 9.99,
                 'club_price' => 5.52,
                 'club_saving_per_unit' => 0.97,
             ],
@@ -613,7 +999,7 @@ class DemoCart
                 'variant' => '500g tub',
                 'image' => 'images/products/510317.png',
                 'price' => 5.99,
-                'was_price' => null,
+                'was_price' => 8.99,
                 'club_price' => 5.09,
                 'club_saving_per_unit' => 0.90,
             ],
@@ -622,7 +1008,7 @@ class DemoCart
                 'name' => 'Bulb Planter Tool',
                 'image' => 'images/products/403891.jpg',
                 'price' => 9.49,
-                'was_price' => null,
+                'was_price' => 12.99,
                 'club_price' => 8.07,
                 'club_saving_per_unit' => 1.42,
             ],
@@ -641,7 +1027,7 @@ class DemoCart
                 'variant' => '1 year',
                 'image' => 'images/club/discount-club-logo.png',
                 'price' => self::CLUB_MANUAL_PRICE,
-                'was_price' => null,
+                'was_price' => self::CLUB_WAS_PRICE,
                 'is_club' => true,
             ],
         ];
@@ -688,10 +1074,13 @@ class DemoCart
             'demo_show_upsells' => true,
             'demo_wide_drawer' => false,
             'demo_show_apple_pay' => false,
+            'demo_show_clearpay' => true,
+            'demo_show_klarna' => true,
         ]);
 
         DemoDrawerVariant::setEnabled(true);
         DemoDrawerVariant::setV30Enabled(true);
+        DemoDrawerVariant::setV40Enabled(true);
     }
 
     /** @return list<array{sku: string, name: string, image: string, price: float, from?: bool, in_basket?: bool}> */
@@ -976,7 +1365,12 @@ class DemoCart
             }
             $unitPrice = self::unitPriceForCart($product, $clubActive);
             $line = round($unitPrice * $row['qty'], 2);
-            $lineWas = ($product['was_price'] ?? $product['price']) * $row['qty'];
+            $wasUnit = (float) ($product['was_price'] ?? 0);
+            if ($wasUnit <= $unitPrice) {
+                $wasUnit = round($unitPrice * 1.5, 2);
+            }
+            $lineWas = $wasUnit * $row['qty'];
+            $lineSaving = max(0, round($lineWas - $line, 2));
             $lineClubSaving = 0.0;
 
             if ($clubActive) {
@@ -992,6 +1386,9 @@ class DemoCart
                 'qty' => $row['qty'],
                 'variant' => self::lineVariant($row, $product),
                 'line_total' => $line,
+                'unit_price' => $unitPrice,
+                'was_price' => $wasUnit,
+                'line_saving' => $lineSaving,
                 'club_saving' => $lineClubSaving,
             ]);
             $subtotal += $line;
@@ -1062,8 +1459,13 @@ class DemoCart
             'show_upsells' => (bool) session('demo_show_upsells', false),
             'wide_drawer' => (bool) session('demo_wide_drawer', false),
             'show_apple_pay' => (bool) session('demo_show_apple_pay', false),
+            'show_clearpay' => (bool) session('demo_show_clearpay', true),
+            'show_klarna' => (bool) session('demo_show_klarna', true),
             'compact_v21' => DemoDrawerVariant::isActive(),
             'summary_v30' => DemoDrawerVariant::isV30Active(),
+            'feedback_v40' => DemoDrawerVariant::isV40Active(),
+            'checkout_codes_top' => (bool) session('demo_checkout_codes_top', false),
+            'checkout_codes_ticket' => (bool) session('demo_checkout_codes_ticket', true),
             'upsells' => self::upsellsForDrawer(),
         ];
     }

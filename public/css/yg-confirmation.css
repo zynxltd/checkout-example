@@ -653,3 +653,59 @@
         width: 100%;
     }
 }
+
+/* v4.0 — create account on confirmation */
+.cr-create-account {
+    margin: 0 0 28px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.cr-create-account__title {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #483f3a;
+}
+
+.cr-create-account__lead {
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: #5c534d;
+}
+
+.cr-create-account__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.cr-create-account__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cr-create-account__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #483f3a;
+}
+
+.cr-create-account__input {
+    padding: 10px 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+@media (max-width: 599px) {
+    .cr-create-account__row {
+        grid-template-columns: 1fr;
+    }
+}

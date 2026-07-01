@@ -10,11 +10,15 @@ class DemoDrawerVariant
 
     public const V30 = '3.0';
 
+    public const V40 = '4.0';
+
     public const OFF = 'off';
 
     public const SESSION_KEY = 'demo_drawer_variant';
 
     public const SESSION_V30_KEY = 'demo_drawer_v30';
+
+    public const SESSION_V40_KEY = 'demo_feedback_v40';
 
     public static function applyFromRequest(Request $request): void
     {
@@ -41,6 +45,16 @@ class DemoDrawerVariant
         return (bool) session(self::SESSION_V30_KEY, true);
     }
 
+    public static function setV40Enabled(bool $enabled): void
+    {
+        session([self::SESSION_V40_KEY => $enabled]);
+    }
+
+    public static function isV40Active(): bool
+    {
+        return (bool) session(self::SESSION_V40_KEY, true);
+    }
+
     public static function drawerClass(): string
     {
         $classes = [];
@@ -51,6 +65,10 @@ class DemoDrawerVariant
 
         if (self::isV30Active()) {
             $classes[] = 'yg-drawer--v-3-0';
+        }
+
+        if (self::isV40Active()) {
+            $classes[] = 'yg-drawer--v-4-0';
         }
 
         return implode(' ', $classes);

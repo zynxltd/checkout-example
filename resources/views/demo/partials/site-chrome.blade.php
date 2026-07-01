@@ -14,12 +14,12 @@
         </a>
 
         <div class="demo-header__search" role="search">
-            <input type="search" class="demo-header__search-input" placeholder="hanging baskets" aria-label="Search">
+            <input type="search" class="demo-header__search-input" placeholder="{{ $search_placeholder ?? 'hanging baskets' }}" aria-label="Search">
             <button type="button" class="demo-header__search-btn" aria-label="Search">@include('demo.partials.icon', ['name' => 'search'])</button>
         </div>
 
         <div class="demo-header__utilities">
-            <a href="#" class="demo-header__utility">
+            <a href="#" class="demo-header__utility demo-header__utility--club">
                 <span class="demo-header__utility-title">Club Discounts</span>
                 <span class="demo-header__utility-sub">Join Now</span>
             </a>
@@ -63,6 +63,7 @@
         <a href="#">Outdoor Living</a>
         <a href="#" class="demo-nav__sale">Sale</a>
         <a href="#">Contact</a>
+        <a href="{{ route('demo.tv-live') }}" class="demo-nav__tv">YouGarden <span class="demo-nav__tv-badge">TV</span></a>
     </div>
 </nav>
 

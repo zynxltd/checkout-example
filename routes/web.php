@@ -15,6 +15,8 @@ Route::post('/logout', [PreviewLoginController::class, 'logout'])->name('demo.lo
 
 Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/', [DemoController::class, 'pdp'])->name('demo.pdp');
+    Route::get('/about-us', [DemoController::class, 'aboutUs'])->name('demo.about-us');
+    Route::get('/plant-finder', [DemoController::class, 'plantFinder'])->name('demo.plant-finder');
     Route::get('/perennial-plants-and-flowers', [ListingController::class, 'perennials'])->name('demo.listing.perennials');
     Route::get('/tv-live', [TvLiveController::class, 'show'])->name('demo.tv-live');
     Route::get('/account/login', [AccountController::class, 'login'])->name('demo.account.login');

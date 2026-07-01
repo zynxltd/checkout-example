@@ -2,7 +2,7 @@
 
 @section('title', 'Thank you — YouGarden')
 
-@section('body_class', 'demo-confirmation-page')
+@section('body_class', 'demo-confirmation-page' . (\App\Support\DemoDrawerVariant::isV40Active() ? ' cr--v-4-0' : ''))
 
 @push('head')
     <link rel="stylesheet" href="{{ asset('css/yg-checkout.css') }}?v={{ filemtime(public_path('css/yg-checkout.css')) }}">
@@ -12,6 +12,7 @@
 @section('content')
 @php
     $addr = $order['shipping_address'];
+    $v40 = \App\Support\DemoDrawerVariant::isV40Active();
     $placedAt = $order['placed_at'] instanceof \DateTimeInterface
         ? $order['placed_at']
         : \Illuminate\Support\Carbon::parse($order['placed_at']);
@@ -38,7 +39,9 @@
 
             <div class="cr-order-meta">
                 <p class="cr-order-meta__number">Order {{ $order['number'] }}</p>
+                @unless($v40)
                 <p class="cr-order-meta__confirm">Confirmation {{ $order['confirmation'] }}</p>
+                @endunless
             </div>
 
             <p class="cr-email-notice">
@@ -153,9 +156,31 @@
                 </div>
             </section>
 
+            @if($v40)
+            <section class="cr-create-account" aria-labelledby="cr-create-account-title">
+                <h2 id="cr-create-account-title" class="cr-create-account__title">Save your details for next time</h2>
+                <p class="cr-create-account__lead">Create a free YouGarden account to track orders, save addresses, and get your birthday treat.</p>
+                <form class="cr-create-account__form" action="#" method="post" data-prototype-form>
+                    <div class="cr-create-account__row">
+                        <label class="cr-create-account__field">
+                            <span class="cr-create-account__label">Password</span>
+                            <input type="password" name="password" class="cr-create-account__input" autocomplete="new-password" placeholder=" ">
+                        </label>
+                        <label class="cr-create-account__field">
+                            <span class="cr-create-account__label">Confirm password</span>
+                            <input type="password" name="password_confirmation" class="cr-create-account__input" autocomplete="new-password" placeholder=" ">
+                        </label>
+                    </div>
+                    <button type="submit" class="cr-btn cr-btn--secondary">Create an account</button>
+                </form>
+            </section>
+            @endif
+
             <div class="cr-actions">
                 <a href="{{ route('demo.pdp') }}" class="cr-btn cr-btn--primary">Continue shopping</a>
+                @unless($v40)
                 <a href="#" class="cr-btn cr-btn--secondary" data-prototype-link>View order status</a>
+                @endunless
             </div>
 
             <p class="cr-prototype-note">Prototype receipt — basket cleared for demo. Add items again to run another checkout.</p>
@@ -219,7 +244,15 @@
                 <p>Offer <strong>{{ $order['offer_code'] }}</strong> applied</p>
                 @endif
                 @if($order['voucher_code'])
-                <p>Voucher <strong>{{ $order['voucher_code'] }} - £{{ number_format($order['voucher_discount'], 2) }} OFF</strong> applied</p>
+                <p>
+                    Voucher
+                    @if(strcasecmp((string) $order['voucher_code'], 'voucher') === 0)
+                        <strong>£{{ number_format($order['voucher_discount'], 2) }} OFF</strong>
+                    @else
+                        <strong>{{ $order['voucher_code'] }} - £{{ number_format($order['voucher_discount'], 2) }} OFF</strong>
+                    @endif
+                    applied
+                </p>
                 @endif
             </div>
             @endif
@@ -234,6 +267,13 @@
             el.addEventListener('click', (e) => {
                 e.preventDefault();
                 alert('Prototype link — not wired in this demo.');
+            });
+        });
+
+        document.querySelectorAll('[data-prototype-form]').forEach((form) => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Prototype: account creation would complete here using the email from your order.');
             });
         });
 
