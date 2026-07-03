@@ -216,6 +216,12 @@ class CartController extends Controller
             return response()->json(['ok' => true, 'reload' => true]);
         }
 
+        if ($key === 'club_benefits_compact') {
+            DemoAccount::setClubBenefitsCompact($value);
+
+            return response()->json(['ok' => true, 'reload' => true]);
+        }
+
         $map = [
             'delivery_bar' => 'demo_free_delivery_bar',
             'upsells' => 'demo_show_upsells',

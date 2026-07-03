@@ -179,6 +179,16 @@ class DemoAccount
         return (bool) session('demo_club_member', false);
     }
 
+    public static function isClubBenefitsCompact(): bool
+    {
+        return (bool) session('demo_club_benefits_compact', false);
+    }
+
+    public static function setClubBenefitsCompact(bool $active): void
+    {
+        session(['demo_club_benefits_compact' => $active]);
+    }
+
     public static function user(): array
     {
         if (! self::isLoggedIn()) {

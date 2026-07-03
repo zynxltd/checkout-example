@@ -2,7 +2,7 @@
 
 @if (! empty($club['benefits']))
     <section
-        class="demo-account-club-benefits{{ ! empty($horizontal) ? ' demo-account-club-benefits--horizontal' : '' }}{{ ! empty($club_page) ? ' demo-account-club-benefits--club-page' : '' }}"
+        class="demo-account-club-benefits{{ ! empty($horizontal) ? ' demo-account-club-benefits--horizontal' : '' }}{{ ! empty($club_page) ? ' demo-account-club-benefits--club-page' : '' }}{{ ! empty($compact) ? ' demo-account-club-benefits--compact' : '' }}"
         aria-labelledby="club-benefits-title"
     >
         <div class="demo-account-club-benefits__header">

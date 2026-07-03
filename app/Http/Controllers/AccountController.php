@@ -161,6 +161,7 @@ class AccountController extends Controller
             'user' => DemoAccount::user(),
             'active' => $active,
             'club_member' => DemoAccount::isClubMember(),
+            'club_benefits_compact' => DemoAccount::isClubBenefitsCompact(),
             'promo' => DemoAccount::dashboardPromo(),
         ]);
     }
@@ -192,6 +193,7 @@ class AccountController extends Controller
             'user' => DemoAccount::user(),
             'active' => $active,
             'club_member' => DemoAccount::isClubMember(),
+            'club_benefits_compact' => DemoAccount::isClubBenefitsCompact(),
             'promo' => DemoAccount::dashboardPromo(),
             'order' => $order,
         ]);

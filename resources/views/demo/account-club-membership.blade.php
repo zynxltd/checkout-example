@@ -28,6 +28,7 @@
                 'user' => $user,
                 'horizontal' => true,
                 'club_page' => true,
+                'compact' => $club_benefits_compact ?? false,
             ])
 
             <div class="demo-account-club-intro">

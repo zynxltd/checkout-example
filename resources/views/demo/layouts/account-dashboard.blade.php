@@ -37,7 +37,10 @@
     @include('demo.partials.account-secure-footer')
 </div>
 
-@include('demo.partials.account-prototype-tools', ['club_member' => $club_member ?? false])
+@include('demo.partials.account-prototype-tools', [
+    'club_member' => $club_member ?? false,
+    'club_benefits_compact' => $club_benefits_compact ?? false,
+])
 
 <div class="demo-account-page-spinner" id="demo-account-page-spinner" hidden>
     @include('demo.partials.account-spinner', ['class' => 'demo-spinner--page'])
