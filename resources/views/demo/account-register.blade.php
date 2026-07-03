@@ -14,9 +14,7 @@
 <div class="demo-site demo-site--account-secure">
     @include('demo.partials.account-secure-header', ['club_member' => false])
 
-    <main class="demo-account-main demo-account-main--wide demo-account-main--loading" id="account-main" aria-busy="true">
-        @include('demo.partials.account-login-skeleton')
-
+    <main class="demo-account-main demo-account-main--wide demo-account-main--ready" id="account-main">
         <div class="demo-account-main__content">
         <div class="demo-account-card">
             <nav class="demo-account-card__tabs" aria-label="Account">

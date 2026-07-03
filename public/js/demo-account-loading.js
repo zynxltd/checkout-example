@@ -25,14 +25,6 @@
         hidePageSpinner();
     }
 
-    function revealLogin(root) {
-        root.classList.remove('demo-account-main--loading');
-        root.classList.add('demo-account-main--ready');
-        root.removeAttribute('aria-busy');
-        root.querySelectorAll('.demo-account-sk').forEach((el) => el.remove());
-        hidePageSpinner();
-    }
-
     function scheduleSkeletonReveal(callback) {
         const minMs = prefersReducedMotion() ? 0 : MIN_SKELETON_MS;
         const started = performance.now();
@@ -62,21 +54,6 @@
         }
 
         scheduleSkeletonReveal(() => revealDash(root));
-    }
-
-    function initLoginSkeleton() {
-        const root = document.getElementById('account-main');
-        if (!root || !root.classList.contains('demo-account-main--loading')) {
-            hidePageSpinner();
-            return;
-        }
-
-        if (navType() !== 'navigate') {
-            revealLogin(root);
-            return;
-        }
-
-        scheduleSkeletonReveal(() => revealLogin(root));
     }
 
     function setButtonLoading(button, loading) {
@@ -186,7 +163,7 @@
 
     function boot() {
         initDashSkeleton();
-        initLoginSkeleton();
+        hidePageSpinner();
         bindAsyncButtons();
         bindFormLoading();
         bindNavLoading();
