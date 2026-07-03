@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Support\DemoDrawerVariant;
+use App\Services\DemoAccount;
 use App\Services\DemoCart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -205,6 +206,12 @@ class CartController extends Controller
 
         if ($key === 'checkout_codes_ticket') {
             session(['demo_checkout_codes_ticket' => $value]);
+
+            return response()->json(['ok' => true, 'reload' => true]);
+        }
+
+        if ($key === 'club_member') {
+            DemoAccount::setClubMember($value);
 
             return response()->json(['ok' => true, 'reload' => true]);
         }

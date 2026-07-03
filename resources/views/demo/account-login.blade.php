@@ -2,19 +2,24 @@
 
 @section('title', 'Sign in — YouGarden')
 
-@section('body_class', 'demo-account')
+@section('body_class', 'demo-account demo-account--secured')
 
 @push('head')
     <link rel="stylesheet" href="{{ asset('css/yg-drawer-theme.css') }}?v={{ filemtime(public_path('css/yg-drawer-theme.css')) }}">
-    <link rel="stylesheet" href="{{ asset('css/demo-pdp-reviews-footer.css') }}?v={{ filemtime(public_path('css/demo-pdp-reviews-footer.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/demo-account.css') }}?v={{ filemtime(public_path('css/demo-account.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/demo-account-dashboard.css') }}?v={{ filemtime(public_path('css/demo-account-dashboard.css')) }}">
 @endpush
 
 @section('content')
-<div class="demo-site">
-    @include('demo.partials.site-chrome', ['cart' => $cart])
+<div class="demo-site demo-site--account-secure">
+    @include('demo.partials.account-secure-header', ['club_member' => false])
 
-    <main class="demo-account-main" id="account-main">
+    <main class="demo-account-main demo-account-main--wide demo-account-main--loading" id="account-main" aria-busy="true">
+        @include('demo.partials.account-login-skeleton')
+
+        <div class="demo-account-main__content">
+        @include('demo.partials.account-promo-banner', ['promo' => $promo ?? null])
+
         <div class="demo-account-card">
             <nav class="demo-account-card__tabs" aria-label="Account">
                 <a href="{{ route('demo.account.login') }}" class="demo-account-card__tab is-active" aria-current="page">Sign in</a>
@@ -26,26 +31,26 @@
                 <p class="demo-account-card__lead">Sign in to track orders, manage delivery details, and access Club offers.</p>
 
                 <div class="demo-account-demo-login">
-                    <p class="demo-account-demo-login__title">Demo login</p>
+                    <p class="demo-account-demo-login__title">Demo logins</p>
                     <p class="demo-account-demo-login__creds">
-                        <strong>Email:</strong> {{ config('demo.account_email') }}<br>
-                        <strong>Password:</strong> {{ config('demo.account_password') }}<br>
-                        <strong>Account:</strong> MR John Smith, 12 Guest Lane, Manchester M1 4GH
+                        <strong>Guest</strong> — {{ config('demo.account_email') }} / {{ config('demo.account_password') }}
+                    </p>
+                    <p class="demo-account-demo-login__creds">
+                        <strong>Club member</strong> — {{ config('demo.club_account_email') }} / {{ config('demo.club_account_password') }}
                     </p>
                 </div>
 
-                <form class="demo-account-form" action="{{ route('demo.account.login.submit') }}" method="post">
+                <form class="demo-account-form" action="{{ route('demo.account.login.submit') }}" method="post" data-demo-form-loading>
                     @csrf
                     <div class="demo-account-field">
-                        <label class="demo-account-label" for="account-login-email">Email address</label>
+                        <label class="demo-account-label" for="account-login-email">Login</label>
                         <input
                             class="demo-account-input"
-                            type="email"
+                            type="text"
                             id="account-login-email"
                             name="email"
                             value="{{ old('email', config('demo.account_email')) }}"
                             autocomplete="username"
-                            placeholder="you@example.com"
                             required
                         >
                     </div>
@@ -96,9 +101,15 @@
             </ul>
         </aside>
 
+        </div>
     </main>
 
-    @include('demo.partials.site-shell-footer')
+    @include('demo.partials.account-secure-footer')
+</div>
+
+<div class="demo-account-page-spinner" id="demo-account-page-spinner" hidden>
+    @include('demo.partials.account-spinner', ['class' => 'demo-spinner--page'])
+    <span class="demo-account-page-spinner__label">Loading your account</span>
 </div>
 
 <div id="yg-drawer-mount">
@@ -108,4 +119,5 @@
 
 @push('scripts')
     <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
+    <script src="{{ asset('js/demo-account-loading.js') }}?v={{ filemtime(public_path('js/demo-account-loading.js')) }}" defer></script>
 @endpush

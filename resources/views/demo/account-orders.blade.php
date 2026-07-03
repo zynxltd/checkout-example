@@ -16,6 +16,7 @@
                     <th scope="col">Order value</th>
                     <th scope="col">Order status</th>
                     <th scope="col">Tracking</th>
+                    <th scope="col" class="demo-account-table__action-col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -26,16 +27,20 @@
                         <td>£{{ number_format($order['value'], 2) }}</td>
                         <td>{{ $order['status'] }}</td>
                         <td>
-                            @if (! empty($order['tracking_url']))
-                                <a href="{{ $order['tracking_url'] }}">Track</a>
+                            @if (! empty($order['tracking']))
+                                <span class="demo-account-table__tracking">{{ $order['tracking'] }}</span>
+                                <a href="{{ route('demo.account.order.track', ['orderId' => $order['id']]) }}" class="demo-account-btn demo-account-btn--track">Track Order</a>
                             @else
                                 —
                             @endif
                         </td>
+                        <td class="demo-account-table__action-col">
+                            <a href="{{ route('demo.account.order', ['orderId' => $order['id']]) }}" class="demo-account-table__view">View Order &raquo;</a>
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="demo-account-table__empty">You have no orders to display yet.</td>
+                        <td colspan="6" class="demo-account-table__empty">You have no orders to display yet.</td>
                     </tr>
                 @endforelse
             </tbody>

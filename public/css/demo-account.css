@@ -7,6 +7,18 @@ body.demo-account {
     color: var(--yg-text);
 }
 
+body.demo-account--secured {
+    background: #eceae6;
+}
+
+body.demo-account .yg-pdp-bottom {
+    --yg-pdp-reviews-bg: #fff;
+}
+
+body.demo-account .yg-pdp-wave {
+    background: #fff;
+}
+
 .demo-account-main {
     max-width: 520px;
     margin: 0 auto;
@@ -339,4 +351,33 @@ body.demo-account {
     font-size: 14px;
     line-height: 1.55;
     color: var(--yg-pebble);
+}
+
+/* —— Mobile optimisation —— */
+@media (max-width: 767px) {
+    .demo-account-main {
+        padding: 20px 12px 40px;
+    }
+
+    .demo-account-main--wide {
+        max-width: none;
+    }
+
+    .demo-account-card__body {
+        padding: 20px 16px 24px;
+    }
+
+    .demo-account-card__tab {
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+
+    .demo-account-perks {
+        margin-top: 20px;
+        padding: 16px 14px;
+    }
+
+    .demo-account-demo-login {
+        padding: 12px;
+    }
 }

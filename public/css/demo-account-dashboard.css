@@ -1,37 +1,303 @@
 /* Account dashboard — live site IA, PDP brand styling */
 
-.demo-account-banner {
-    background: var(--yg-pebble);
-    color: #fff;
-    text-align: center;
+/* —— Secured account shell (no ecom header/nav) —— */
+body.demo-account--secured {
+    background: #eceae6;
+    scrollbar-gutter: stable;
 }
 
-.demo-account-banner__title {
-    margin: 0;
-    padding: 14px 16px;
+.demo-site--account-secure {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #eceae6;
+}
+
+.demo-account-secure-header {
+    background: #fff;
+    border-bottom: 1px solid var(--yg-border);
+}
+
+.demo-account-secure-header__brand {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 16px 12px;
+}
+
+@media (min-width: 900px) {
+    .demo-account-secure-header__brand {
+        padding: 22px 24px 14px;
+    }
+}
+
+.demo-account-secure-header__logo {
+    display: inline-block;
+    line-height: 0;
+}
+
+.demo-account-secure-header__logo img {
+    display: block;
+    width: auto;
+    height: 52px;
+}
+
+@media (min-width: 768px) {
+    .demo-account-secure-header__logo img {
+        height: 64px;
+    }
+}
+
+.demo-account-secure-header__club {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 16px;
+    background: var(--yg-forest);
+    color: #fff;
+    text-align: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.demo-account-secure-header__club span {
     font-family: var(--yg-body);
-    font-size: clamp(0.9rem, 2.2vw, 1rem);
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
+.demo-account-secure-footer {
+    margin-top: auto;
+}
+
+.demo-account-secure-footer__top {
+    background: linear-gradient(180deg, var(--yg-forest) 0%, color-mix(in srgb, var(--yg-forest) 88%, #000) 100%);
+    color: #fff;
+    border-top: 1px solid var(--yg-moss);
+}
+
+.demo-account-secure-footer__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+}
+
+@media (min-width: 640px) {
+    .demo-account-secure-footer__inner {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.demo-account-secure-footer__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 12px;
+    font-family: var(--yg-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+@media (min-width: 640px) {
+    .demo-account-secure-footer__item:not(:last-child) {
+        border-right: 1px solid color-mix(in srgb, var(--yg-moss) 45%, transparent);
+    }
+}
+
+.demo-account-secure-footer__item a {
+    color: var(--yg-moss);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.demo-account-secure-footer__item a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.demo-account-secure-footer__payments {
+    background: linear-gradient(180deg, var(--yg-forest) 0%, color-mix(in srgb, var(--yg-forest) 88%, #000) 100%);
+    padding: 14px 16px;
+    border-top: 1px solid var(--yg-moss);
+    border-bottom: 1px solid var(--yg-moss);
+}
+
+.demo-account-secure-footer__pay-cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+.demo-account-secure-footer__pay-cards img {
+    display: block;
+    width: auto;
+    height: 28px;
+    max-width: 52px;
+    object-fit: contain;
+}
+
+.demo-account-secure-footer__pay-amo {
+    font-family: var(--yg-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+    white-space: nowrap;
+}
+
+.demo-account-secure-footer__legal {
+    background: #fff;
+    color: #000;
+    border-top: 1px solid var(--yg-border);
+}
+
+.demo-account-secure-footer__legal-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 18px 16px 22px;
+    text-align: center;
+}
+
+.demo-account-secure-footer__legal p {
+    margin: 0 0 8px;
+    font-family: var(--yg-body);
+    font-size: 11px;
+    line-height: 1.55;
+    color: #000;
+}
+
+.demo-account-secure-footer__legal p:last-child {
+    margin-bottom: 0;
+}
+
+.demo-account-secure-footer__source {
+    margin-top: 4px !important;
+    font-size: 10px !important;
+    color: #666 !important;
+}
+
+/* Footer wave band above pebble footer — white on account (not stone) */
+body.demo-account .yg-pdp-bottom {
+    --yg-pdp-reviews-bg: #fff;
+}
+
+body.demo-account .yg-pdp-wave {
+    background: #fff;
+}
+
+.demo-account-page-title {
+    margin: 0 0 20px;
+    padding: 0 0 14px;
+    border-bottom: 1px solid var(--yg-border);
+    font-family: var(--yg-body);
+    font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--yg-pebble);
+}
+
 .demo-account-dash {
-    max-width: 1100px;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 24px 16px 56px;
+}
+
+@media (min-width: 768px) {
+    .demo-account-dash {
+        padding: 32px 24px 72px;
+    }
+}
+
+.demo-account-dash--loading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'stack';
+}
+
+.demo-account-dash--loading > * {
+    grid-area: stack;
+    width: 100%;
+    min-width: 0;
+}
+
+.demo-account-dash__content {
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
     align-items: start;
+    width: 100%;
+    min-width: 0;
 }
 
-@media (min-width: 900px) {
-    .demo-account-dash {
-        grid-template-columns: 220px 1fr;
-        gap: 28px;
-        padding: 32px 24px 72px;
+@media (min-width: 768px) {
+    .demo-account-dash__content {
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
     }
+
+    .demo-account-nav {
+        position: sticky;
+        top: 20px;
+        align-self: start;
+        width: 220px;
+        flex-shrink: 0;
+    }
+}
+
+.demo-account-dash--loading .demo-account-dash__main {
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+.demo-account-dash--nav-loading .demo-account-dash__main {
+    position: relative;
+    min-height: 280px;
+}
+
+.demo-account-dash--nav-loading .demo-account-dash__main::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--yg-border) 85%, #fff) 0%,
+        color-mix(in srgb, var(--yg-stone) 55%, #fff) 45%,
+        color-mix(in srgb, var(--yg-border) 85%, #fff) 90%
+    );
+    background-size: 200% 100%;
+    animation: demo-account-sk-shimmer 1.35s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.demo-account-dash--loading:not(.demo-account-dash--nav-loading) .demo-account-dash__content {
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+.demo-account-dash--ready .demo-account-dash__content,
+.demo-account-dash--ready .demo-account-dash__main {
+    opacity: 1;
+    transition: opacity 0.18s ease;
 }
 
 /* —— Sidebar —— */
@@ -43,39 +309,23 @@
 }
 
 .demo-account-nav__list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0;
-}
-
-@media (min-width: 900px) {
-    .demo-account-nav__list {
-        display: flex;
-        flex-direction: column;
-    }
+    display: flex;
+    flex-direction: column;
 }
 
 .demo-account-nav__item {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 96px;
-    padding: 14px 10px;
+    justify-content: flex-start;
+    gap: 12px;
+    min-height: 0;
+    padding: 13px 16px;
     text-decoration: none;
     color: var(--yg-pebble);
     background: #fff;
     border-bottom: 1px solid var(--yg-border);
-    border-right: 1px solid var(--yg-border);
     transition: background 0.15s ease, color 0.15s ease;
-}
-
-@media (min-width: 900px) {
-    .demo-account-nav__item {
-        min-height: 108px;
-        border-right: none;
-    }
 }
 
 .demo-account-nav__item:hover {
@@ -83,8 +333,16 @@
 }
 
 .demo-account-nav__item.is-active {
-    background: var(--yg-moss-dark);
+    background: var(--yg-club-purple);
     color: #fff;
+}
+
+.demo-account-nav__item--join:not(.is-active) {
+    color: var(--yg-club-purple);
+}
+
+.demo-account-nav__item--join:not(.is-active) .demo-account-nav__icon {
+    opacity: 1;
 }
 
 .demo-account-nav__icon {
@@ -124,10 +382,15 @@
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8'%3E%3Cpath d='M3 7h11v8H3zM14 10h3l3 3v2h-6v-5Z'/%3E%3Ccircle cx='7' cy='17' r='1.5'/%3E%3Ccircle cx='17' cy='17' r='1.5'/%3E%3C/svg%3E");
 }
 
+.demo-account-nav__icon--club {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8'%3E%3Crect x='3' y='6' width='18' height='12' rx='2'/%3E%3Cpath d='M3 10h18M7 14h4'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8'%3E%3Crect x='3' y='6' width='18' height='12' rx='2'/%3E%3Cpath d='M3 10h18M7 14h4'/%3E%3C/svg%3E");
+}
+
 .demo-account-nav__label {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
-    text-align: center;
+    text-align: left;
     line-height: 1.25;
 }
 
@@ -173,11 +436,18 @@
 
 /* —— Main panel —— */
 .demo-account-dash__main {
+    position: relative;
+    width: 100%;
+    min-width: 0;
     border: 1px solid var(--yg-border);
     border-radius: 10px;
     background: #fff;
     padding: 24px 20px 28px;
-    min-width: 0;
+}
+
+.demo-account-dash__main:has(.demo-account-club-page) {
+    overflow: visible;
+    padding-top: 28px;
 }
 
 @media (min-width: 768px) {
@@ -192,7 +462,11 @@
     font-size: clamp(1.4rem, 3vw, 1.75rem);
     font-weight: 400;
     line-height: 1.2;
-    color: var(--yg-moss-dark);
+    color: var(--yg-club-purple);
+}
+
+.demo-account-panel__title--compact {
+    margin-bottom: 20px;
 }
 
 .demo-account-panel__lead {
@@ -289,15 +563,18 @@
 
 .demo-account-prefs {
     margin: 0;
-    padding: 0;
     list-style: none;
+}
+
+.demo-account-prefs.demo-account-section__body {
+    padding: 14px 20px 16px;
 }
 
 .demo-account-prefs li {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
-    padding: 10px 0;
+    gap: 12px;
+    padding: 12px 0;
     border-bottom: 1px solid var(--yg-border);
     font-size: 14px;
     line-height: 1.45;
@@ -328,18 +605,47 @@
     transform: rotate(45deg);
 }
 
+.demo-account-prefs__tick--off {
+    background: var(--yg-rose);
+}
+
+.demo-account-prefs__tick--off::after {
+    left: 5px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border: none;
+    transform: none;
+    background:
+        linear-gradient(45deg, transparent 42%, #fff 42%, #fff 58%, transparent 58%),
+        linear-gradient(-45deg, transparent 42%, #fff 42%, #fff 58%, transparent 58%);
+}
+
 .demo-account-address-card {
-    border: 1px solid var(--yg-border);
-    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px dashed var(--yg-border);
+    border-radius: 4px;
     padding: 18px;
-    background: #faf9f7;
+    background: #fff;
+}
+
+.demo-account-address-card__body {
+    flex: 1 1 auto;
+}
+
+.demo-account-address-card__badge-slot {
+    min-height: 30px;
+    margin-bottom: 4px;
 }
 
 .demo-account-address-card__badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 12px;
+    margin: 0;
+    font-family: var(--yg-body);
     font-size: 14px;
     font-weight: 700;
     color: var(--yg-checkout);
@@ -363,17 +669,33 @@
 
 .demo-account-address-card__name {
     margin: 0 0 8px;
+    font-family: var(--yg-body);
     font-weight: 700;
+}
+
+.demo-account-address-card__business {
+    min-height: 1.35em;
+    margin: 0 0 8px;
+    font-family: var(--yg-body);
+    font-weight: 600;
+    color: var(--yg-text);
+}
+
+.demo-account-address-card__business:empty,
+.demo-account-address-card__business:is(:empty) {
+    visibility: hidden;
 }
 
 .demo-account-address-card__lines {
     margin: 0 0 10px;
+    font-family: var(--yg-body);
     line-height: 1.5;
     white-space: pre-line;
 }
 
 .demo-account-address-card__phone {
-    margin: 0 0 16px;
+    margin: 0;
+    font-family: var(--yg-body);
     color: var(--yg-muted);
 }
 
@@ -381,6 +703,8 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin-top: auto;
+    padding-top: 16px;
 }
 
 .demo-account-btn {
@@ -441,4 +765,1665 @@
     padding: 32px 14px;
     text-align: center;
     color: var(--yg-muted);
+}
+
+/* —— Club banner —— */
+.demo-account-club-banner {
+    background: var(--yg-club-purple);
+    color: #fff;
+    text-align: center;
+}
+
+.demo-account-club-banner__label {
+    display: block;
+    padding: 8px 16px;
+    font-family: var(--yg-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+/* —— Address grid —— */
+.demo-account-address-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: stretch;
+}
+
+@media (min-width: 768px) {
+    .demo-account-address-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* —— Orders table extras —— */
+.demo-account-table__action-col {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.demo-account-table__view {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--yg-club-purple);
+    text-decoration: none;
+}
+
+.demo-account-table__view:hover {
+    text-decoration: underline;
+}
+
+.demo-account-table__tracking {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: var(--yg-muted);
+}
+
+.demo-account-btn--track {
+    padding: 6px 10px;
+    font-size: 12px;
+    background: #e8e4df;
+    color: var(--yg-pebble);
+}
+
+.demo-account-btn--save {
+    background: var(--yg-checkout);
+    color: #fff;
+}
+
+.demo-account-btn--save:hover {
+    background: var(--yg-checkout-dark);
+}
+
+.demo-account-btn--purple {
+    background: var(--yg-club-purple);
+    color: #fff;
+}
+
+.demo-account-btn--compact {
+    padding: 8px 14px;
+    font-size: 12px;
+}
+
+/* —— Amend address form —— */
+.demo-account-amend-form__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+@media (min-width: 900px) {
+    .demo-account-amend-form__grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        column-gap: 40px;
+        row-gap: 14px;
+        align-items: end;
+    }
+
+    .demo-account-amend-form__postcode,
+    .demo-account-amend-form__country {
+        grid-column: 2;
+    }
+
+    .demo-account-amend-form__spacer {
+        display: block;
+        min-height: 0;
+    }
+}
+
+.demo-account-amend-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    min-width: 0;
+}
+
+.demo-account-amend-form__label {
+    display: block;
+    min-height: 2.6em;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--yg-pebble);
+}
+
+.demo-account-amend-form__field input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #c8c2ba;
+    border-radius: 3px;
+    background: #f3f1ee;
+    font-family: var(--yg-body);
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.demo-account-amend-form__checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: calc(2.6em + 40px);
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--yg-pebble);
+}
+
+.demo-account-amend-form__checkbox input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.demo-account-amend-form__spacer {
+    display: none;
+}
+
+.demo-account-amend-form__postcode {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: end;
+    min-width: 0;
+}
+
+.demo-account-amend-form__postcode .demo-account-amend-form__field {
+    margin: 0;
+}
+
+.demo-account-amend-form__find {
+    height: 40px;
+    padding: 0 16px;
+    white-space: nowrap;
+}
+
+.demo-account-amend-form__country {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.demo-account-amend-form__country p {
+    margin: 0;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    color: var(--yg-text);
+}
+
+.demo-account-amend-form__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--yg-border);
+}
+
+/* —— Club membership page —— */
+.demo-account-club-page {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: -4px -4px 0;
+}
+
+.demo-account-club-page--guest {
+    margin: 0;
+}
+
+.demo-account-club-guest {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0 16px;
+    text-align: center;
+}
+
+.demo-account-club-guest__logo {
+    width: min(220px, 100%);
+    height: auto;
+}
+
+.demo-account-club-intro {
+    margin: 0 0 28px;
+    padding: 22px 20px 20px;
+    border: 1px solid var(--yg-border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    background: #fff;
+}
+
+.demo-account-club-intro__greeting {
+    margin: 0 0 16px;
+    font-family: var(--yg-heading);
+    font-size: clamp(1.35rem, 3vw, 1.65rem);
+    font-weight: 400;
+    color: var(--yg-club-purple);
+}
+
+.demo-account-club-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 900px) {
+    .demo-account-club-layout {
+        grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.8fr);
+        gap: 28px;
+        align-items: start;
+    }
+}
+
+.demo-account-club-dates {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.demo-account-club-dates__item {
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid color-mix(in srgb, var(--yg-moss-dark) 18%, var(--yg-border));
+}
+
+.demo-account-club-page .demo-account-club-dates {
+    margin-bottom: 0;
+}
+
+.demo-account-club-dates__label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--yg-muted);
+}
+
+.demo-account-club-block {
+    margin-bottom: 28px;
+}
+
+.demo-account-club-block__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--yg-club-purple);
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--yg-pebble);
+}
+
+.demo-account-club-block__title .demo-club-star,
+.demo-account-club-block__title .demo-club-star--inline {
+    flex-shrink: 0;
+    width: 16px;
+    height: auto;
+    color: var(--yg-club-purple);
+}
+
+.demo-account-club-vouchers {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.demo-account-club-vouchers__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 118px;
+    gap: 6px 12px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--yg-border);
+    font-size: 13px;
+}
+
+@media (min-width: 640px) {
+    .demo-account-club-vouchers__row {
+        grid-template-columns: minmax(0, 1fr) 118px minmax(108px, auto);
+    }
+}
+
+.demo-account-club-vouchers__action {
+    width: 118px;
+    justify-self: end;
+}
+
+.demo-account-club-vouchers__action .demo-account-btn,
+.demo-account-club-vouchers__applied {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 34px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.demo-account-club-vouchers__applied {
+    padding: 8px 10px;
+    border-radius: 3px;
+    background: #e8e4df;
+    color: var(--yg-muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+}
+
+.demo-account-club-vouchers__code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    word-break: break-all;
+}
+
+.demo-account-club-vouchers__expires {
+    grid-column: 1;
+    color: var(--yg-muted);
+    font-size: 12px;
+}
+
+@media (min-width: 640px) {
+    .demo-account-club-vouchers__expires {
+        grid-column: 3;
+        text-align: right;
+    }
+}
+
+.demo-account-club-benefits {
+    position: relative;
+    overflow: visible;
+    border-radius: 12px;
+    padding: 16px 14px 12px;
+    background:
+        radial-gradient(ellipse 120% 80% at 50% -20%, color-mix(in srgb, var(--yg-moss) 28%, transparent), transparent 55%),
+        linear-gradient(165deg, var(--yg-club-purple) 0%, color-mix(in srgb, var(--yg-club-purple) 55%, #1a0a1a) 100%);
+    box-shadow:
+        0 10px 24px color-mix(in srgb, var(--yg-club-purple) 22%, transparent),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.demo-account-club-benefits--club-page {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 14px 14px 10px;
+}
+
+.demo-account-club-benefits::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.35;
+}
+
+.demo-account-club-benefits__header {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.demo-account-club-benefits__logo {
+    display: block;
+    width: min(148px, 100%);
+    height: auto;
+    margin: 0 auto 8px;
+}
+
+.demo-club-star {
+    display: block;
+    flex-shrink: 0;
+    overflow: visible;
+    vertical-align: middle;
+}
+
+.demo-account-club-benefits__title {
+    margin: 0;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #fff;
+}
+
+.demo-account-club-benefits__subtitle {
+    margin: 4px 0 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--yg-moss);
+}
+
+.demo-account-club-benefits__cards,
+.demo-account-club-benefits__panel {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--yg-club-purple) 16%, var(--yg-border));
+    background: #fff;
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--yg-club-purple) 12%, transparent);
+}
+
+@media (min-width: 560px) {
+    .demo-account-club-benefits__cards,
+    .demo-account-club-benefits__panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .demo-account-club-benefits__panel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background: var(--yg-club-purple);
+        transform: translateX(-50%);
+        pointer-events: none;
+    }
+}
+
+.demo-account-club-vip-card {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    height: auto;
+    background: #fff;
+}
+
+.demo-account-club-vip-card + .demo-account-club-vip-card {
+    border-top: 1px solid var(--yg-border);
+}
+
+@media (min-width: 560px) {
+    .demo-account-club-vip-card + .demo-account-club-vip-card {
+        border-top: none;
+        border-left: none;
+    }
+}
+
+.demo-account-club-vip-card__header {
+    padding: 7px 10px;
+    font-family: var(--yg-body);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    background: var(--yg-club-purple);
+}
+
+.demo-account-club-vip-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 0 12px 14px;
+    background: #fff;
+}
+
+.demo-account-club-vip-card--secondary .demo-account-club-vip-card__body {
+    justify-content: flex-start;
+}
+
+.demo-account-club-vip-card__rate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% + 24px);
+    margin: 0 -12px;
+    padding: 12px 12px 10px;
+    line-height: 1;
+    color: #fff;
+    font-family: var(--yg-body);
+    background: var(--yg-club-purple);
+}
+
+.demo-account-club-vip-card__rate-value {
+    font-family: var(--yg-heading);
+    font-size: 1.85rem;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    color: #fff;
+}
+
+.demo-account-club-vip-card__rate-suffix {
+    margin-top: 2px;
+    margin-left: 2px;
+    font-family: var(--yg-body);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #fff;
+}
+
+.demo-account-club-vip-card__rate-suffix small {
+    display: block;
+    margin-top: 1px;
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.demo-account-club-vip-card__categories {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.demo-account-club-vip-card--secondary .demo-account-club-vip-card__categories {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 100%;
+}
+
+.demo-account-club-vip-card__categories li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30px;
+    padding: 5px 6px;
+    border-radius: 4px;
+    font-family: var(--yg-body);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    color: #000;
+    background: #fff;
+    border: 1px solid var(--yg-border);
+    box-sizing: border-box;
+}
+
+.demo-account-club-vip-card__categories li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
+
+.demo-account-club-benefits__note {
+    position: relative;
+    z-index: 1;
+    margin: 8px 0 0;
+    padding-top: 0;
+    border-top: none;
+    font-size: 11px;
+    font-style: italic;
+    line-height: 1.4;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+/* —— Club magazine —— */
+.demo-account-club-mag-section {
+    width: 100%;
+    clear: both;
+}
+
+.demo-account-club-mag {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.demo-account-club-mag__intro {
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--yg-muted);
+}
+
+.demo-account-club-mag__card {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 18px;
+    border: 1px solid var(--yg-border);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.demo-account-club-mag__cover {
+    flex: 0 0 clamp(120px, 18vw, 180px);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    text-decoration: none;
+}
+
+.demo-account-club-mag__cover img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 180px;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.demo-account-club-mag__copy {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
+.demo-account-club-mag__series {
+    margin: 0 0 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.demo-account-club-mag__issue {
+    margin: 0 0 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--yg-club-purple);
+}
+
+.demo-account-club-mag__title {
+    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.demo-account-club-mag__teasers {
+    margin: 0 0 12px;
+    padding: 0;
+    list-style: none;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #555;
+}
+
+.demo-account-club-mag__teasers li {
+    position: relative;
+    padding-left: 14px;
+    margin-bottom: 4px;
+}
+
+.demo-account-club-mag__teasers li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--yg-club-purple);
+    font-weight: 700;
+}
+
+.demo-account-club-mag__cta {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--yg-checkout);
+    border: 1px solid var(--yg-checkout-dark);
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.demo-account-club-mag__cta:hover {
+    background: var(--yg-checkout-dark);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .demo-account-club-mag__card {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: left;
+        padding: 16px;
+    }
+
+    .demo-account-club-mag__cover {
+        flex: 0 0 auto;
+        width: min(240px, 100%);
+        align-self: center;
+    }
+
+    .demo-account-club-mag__cover img {
+        min-height: 0;
+        aspect-ratio: 3 / 4;
+    }
+
+    .demo-account-club-mag__copy {
+        width: 100%;
+    }
+
+    .demo-account-club-mag__teasers {
+        text-align: left;
+    }
+
+    .demo-account-club-mag__cta {
+        align-self: flex-start;
+    }
+}
+
+/* —— Dashboard promo banner —— */
+.demo-account-promo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px 20px;
+    margin: 0 0 24px;
+    padding: 18px 20px;
+    border-radius: 10px;
+    color: #fff;
+    background:
+        radial-gradient(ellipse 90% 120% at 100% 0%, color-mix(in srgb, var(--yg-moss) 35%, transparent), transparent 55%),
+        linear-gradient(135deg, var(--yg-club-purple) 0%, color-mix(in srgb, var(--yg-club-purple) 65%, #1a0a1a) 100%);
+    box-shadow: 0 10px 28px color-mix(in srgb, var(--yg-club-purple) 28%, transparent);
+}
+
+.demo-account-promo__eyebrow {
+    margin: 0 0 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--yg-moss);
+}
+
+.demo-account-promo__title {
+    margin: 0 0 6px;
+    font-family: var(--yg-heading);
+    font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.demo-account-promo__body {
+    margin: 0;
+    max-width: 52ch;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.demo-account-promo__cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--yg-forest);
+    text-decoration: none;
+    white-space: nowrap;
+    background: linear-gradient(180deg, var(--yg-moss) 0%, color-mix(in srgb, var(--yg-moss) 70%, var(--yg-moss-dark)) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.demo-account-promo__cta:hover {
+    color: var(--yg-forest);
+    background: var(--yg-moss);
+}
+
+.demo-account-main .demo-account-promo {
+    margin-bottom: 20px;
+}
+
+/* —— Order detail / tracking —— */
+.demo-account-back {
+    margin: 0 0 12px;
+    font-size: 14px;
+}
+
+.demo-account-back a {
+    color: var(--yg-club-purple);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.demo-account-back a:hover {
+    text-decoration: underline;
+}
+
+.demo-account-order-track-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 16px;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border: 1px solid var(--yg-border);
+    border-radius: 8px;
+    background: var(--yg-moss-surface);
+    font-size: 14px;
+}
+
+.demo-account-order-total {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 12px 0 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--yg-border);
+    font-size: 14px;
+}
+
+.demo-account-order-total--grand {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--yg-forest);
+}
+
+.demo-account-track-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.demo-account-track-steps__item {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 12px;
+    padding: 0 0 18px;
+    position: relative;
+}
+
+.demo-account-track-steps__item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 20px;
+    bottom: 0;
+    width: 2px;
+    background: var(--yg-border);
+}
+
+.demo-account-track-steps__item.is-complete:not(:last-child)::before {
+    background: var(--yg-moss-dark);
+}
+
+.demo-account-track-steps__dot {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    border-radius: 50%;
+    border: 2px solid var(--yg-border);
+    background: #fff;
+}
+
+.demo-account-track-steps__item.is-complete .demo-account-track-steps__dot {
+    border-color: var(--yg-moss-dark);
+    background: var(--yg-moss);
+    box-shadow: inset 0 0 0 3px #fff;
+}
+
+.demo-account-track-steps__item div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 14px;
+}
+
+.demo-account-track-steps__item span {
+    color: var(--yg-muted);
+    font-size: 13px;
+}
+
+/* —— Account information —— */
+.demo-account-flash {
+    margin: 0 0 16px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    background: var(--yg-moss-surface);
+    border: 1px solid color-mix(in srgb, var(--yg-moss-dark) 25%, transparent);
+    color: var(--yg-forest);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.demo-account-info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 768px) {
+    .demo-account-info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+}
+
+.demo-account-dl--info .demo-account-dl__row {
+    grid-template-columns: 140px 1fr;
+}
+
+.demo-account-info-address__label {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yg-pebble);
+}
+
+.demo-account-info-address__value {
+    margin: 0;
+    white-space: pre-line;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--yg-text);
+}
+
+.demo-account-info-actions {
+    margin: 28px 0 0;
+    text-align: center;
+}
+
+.demo-account-btn--update {
+    display: inline-block;
+    min-width: 260px;
+    padding: 12px 24px;
+    background: #9a948c;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+}
+
+.demo-account-btn--update:hover {
+    background: #847e77;
+    color: #fff;
+}
+
+/* —— Account information edit form —— */
+.demo-account-edit-form__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px 20px;
+}
+
+@media (min-width: 700px) {
+    .demo-account-edit-form__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .demo-account-edit-form__grid--2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.demo-account-edit-form__field {
+    display: block;
+}
+
+.demo-account-edit-form__field--grow {
+    flex: 1;
+    min-width: 0;
+}
+
+.demo-account-edit-form__label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--yg-pebble);
+}
+
+.demo-account-edit-form__field input,
+.demo-account-edit-form__field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #c8c2ba;
+    border-radius: 3px;
+    background: #f3f1ee;
+    font-family: var(--yg-body);
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.demo-account-edit-form__address {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px 20px;
+    margin: 24px 0;
+    padding: 16px 0;
+    border-top: 1px solid var(--yg-border);
+    border-bottom: 1px solid var(--yg-border);
+}
+
+.demo-account-edit-form__address-lines {
+    margin: 0;
+    flex: 1 1 240px;
+    white-space: pre-line;
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+.demo-account-edit-form__password {
+    margin-bottom: 24px;
+}
+
+.demo-account-edit-form__password-lead {
+    margin: 0 0 12px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.demo-account-edit-form__password-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px 16px;
+    margin-bottom: 14px;
+}
+
+.demo-account-edit-form__forgot {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yg-rose);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.demo-account-edit-form__forgot:hover {
+    text-decoration: underline;
+}
+
+.demo-account-edit-form__prefs {
+    margin: 0 0 24px;
+    padding: 14px 20px 4px;
+    border: 1px solid var(--yg-border);
+    border-radius: 8px;
+    background: #fff;
+}
+
+.demo-account-edit-form__prefs-legend {
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yg-pebble);
+}
+
+.demo-account-edit-form__checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    line-height: 1.45;
+    cursor: pointer;
+}
+
+.demo-account-edit-form__checkbox input {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.demo-account-edit-form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--yg-border);
+}
+
+/* —— Club benefits horizontal strip —— */
+.demo-account-club-benefits--horizontal {
+    margin: 0 0 24px;
+}
+
+.demo-account-club-benefits--horizontal.demo-account-club-benefits--club-page {
+    margin-bottom: 0;
+}
+
+.demo-account-club-benefits--horizontal .demo-account-club-benefits__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.demo-account-club-benefits--horizontal .demo-account-club-benefits__header > div {
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.demo-account-club-benefits--horizontal .demo-account-club-benefits__subtitle {
+    text-align: center;
+}
+
+@media (min-width: 900px) {
+    .demo-account-club-benefits--horizontal {
+        display: grid;
+        grid-template-columns: minmax(150px, 175px) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        gap: 10px 14px;
+        align-items: center;
+    }
+
+    .demo-account-club-benefits--horizontal .demo-account-club-benefits__header {
+        grid-column: 1;
+        grid-row: 1;
+        align-items: center;
+        align-self: center;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .demo-account-club-benefits--horizontal .demo-account-club-benefits__logo {
+        margin: 0 auto 4px;
+        width: min(128px, 100%);
+    }
+
+    .demo-account-club-benefits--horizontal .demo-account-club-benefits__header > div {
+        margin-top: 12px;
+    }
+
+    .demo-account-club-benefits--horizontal .demo-account-club-benefits__title {
+        font-size: 14px;
+        line-height: 1.3;
+        text-align: center;
+    }
+
+    .demo-account-club-benefits--horizontal .demo-account-club-benefits__subtitle {
+        text-align: center;
+        margin-top: 4px;
+        font-size: 10px;
+    }
+
+    .demo-account-club-benefits--horizontal .demo-account-club-benefits__cards,
+    .demo-account-club-benefits--horizontal .demo-account-club-benefits__panel {
+        grid-column: 2;
+        grid-row: 1;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+    }
+
+    .demo-account-club-benefits--horizontal .demo-account-club-benefits__note {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        margin-top: 0;
+        text-align: center;
+    }
+}
+
+/* —— Loading skeletons & spinners —— */
+@keyframes demo-account-sk-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@keyframes demo-spinner-rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.demo-account-sk {
+    display: none;
+    width: 100%;
+    min-width: 0;
+    pointer-events: none;
+    z-index: 2;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .demo-account-sk {
+        grid-template-columns: 220px 1fr;
+        gap: 24px;
+    }
+}
+
+.demo-account-dash--loading .demo-account-sk {
+    display: grid;
+}
+
+.demo-account-sk__bone {
+    border-radius: 8px;
+    background: linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--yg-border) 85%, #fff) 0%,
+        color-mix(in srgb, var(--yg-stone) 55%, #fff) 45%,
+        color-mix(in srgb, var(--yg-border) 85%, #fff) 90%
+    );
+    background-size: 200% 100%;
+    animation: demo-account-sk-shimmer 1.35s ease-in-out infinite;
+}
+
+.demo-account-sk__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border: 1px solid var(--yg-border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f8f6f3;
+    padding-bottom: 12px;
+}
+
+.demo-account-sk__bone--nav {
+    height: 72px;
+    margin: 0;
+    border-radius: 0;
+    animation-delay: 0.05s;
+}
+
+.demo-account-sk__bone--nav.demo-account-sk__bone--active {
+    opacity: 0.75;
+}
+
+.demo-account-sk__bone--btn {
+    height: 38px;
+    margin: 8px 12px 0;
+    border-radius: 6px;
+}
+
+.demo-account-sk__bone--btn-green {
+    animation-delay: 0.15s;
+}
+
+.demo-account-sk__main {
+    border: 1px solid var(--yg-border);
+    border-radius: 10px;
+    background: #fff;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.demo-account-sk__bone--title {
+    height: 14px;
+    width: 42%;
+    max-width: 180px;
+}
+
+.demo-account-sk__bone--banner {
+    height: 88px;
+    border-radius: 10px;
+    animation-delay: 0.08s;
+}
+
+.demo-account-sk__bone--heading {
+    height: 22px;
+    width: 58%;
+    max-width: 280px;
+    animation-delay: 0.12s;
+}
+
+.demo-account-sk__bone--line {
+    height: 12px;
+    width: 100%;
+}
+
+.demo-account-sk__bone--line.demo-account-sk__bone--short {
+    width: 72%;
+}
+
+.demo-account-sk__bone--line.demo-account-sk__bone--medium {
+    width: 86%;
+}
+
+.demo-account-sk__section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.demo-account-sk__bone--section-head {
+    height: 34px;
+    border-radius: 6px;
+    animation-delay: 0.1s;
+}
+
+.demo-account-sk__cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.demo-account-sk__bone--block {
+    height: 120px;
+    border-radius: 8px;
+}
+
+.demo-account-sk--login {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 2;
+}
+
+.demo-account-main--loading .demo-account-sk--login {
+    display: flex;
+}
+
+.demo-account-sk__login-card {
+    border: 1px solid var(--yg-border);
+    border-radius: 12px;
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.demo-account-sk__bone--tabs {
+    height: 46px;
+    border-radius: 0;
+}
+
+.demo-account-sk__bone--field {
+    height: 44px;
+    border-radius: 6px;
+}
+
+.demo-spinner {
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: demo-spinner-rotate 0.65s linear infinite;
+    vertical-align: -0.15em;
+}
+
+.demo-spinner--btn {
+    width: 1em;
+    height: 1em;
+    margin-right: 6px;
+    color: #fff;
+}
+
+.demo-spinner--page {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+    color: var(--yg-checkout);
+}
+
+.demo-account-page-spinner {
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(2px);
+}
+
+.demo-account-page-spinner[hidden] {
+    display: none !important;
+}
+
+.demo-account-page-spinner__label {
+    font-family: var(--yg-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yg-pebble);
+}
+
+body.demo-account--page-loading {
+    overflow: hidden;
+}
+
+.demo-account-btn.is-loading,
+.demo-account-submit.is-loading {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    opacity: 0.92;
+    cursor: wait;
+}
+
+.demo-account-main {
+    position: relative;
+}
+
+.demo-account-main--loading {
+    display: grid;
+    grid-template-areas: 'stack';
+}
+
+.demo-account-main--loading > * {
+    grid-area: stack;
+}
+
+.demo-account-main__content {
+    min-width: 0;
+}
+
+.demo-account-main--loading .demo-account-main__content {
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+.demo-account-main--ready .demo-account-main__content {
+    opacity: 1;
+    transition: opacity 0.18s ease;
+}
+
+/* —— Mobile optimisation —— */
+@media (max-width: 767px) {
+    .demo-site--account-secure {
+        overflow-x: clip;
+    }
+
+    .demo-account-dash {
+        padding: 16px 12px 40px;
+    }
+
+    .demo-account-dash__main {
+        padding: 16px 14px 22px;
+    }
+
+    .demo-account-dash__main:has(.demo-account-club-page) {
+        padding-top: 16px;
+    }
+
+    .demo-account-page-title {
+        font-size: 0.9rem;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+    }
+
+    .demo-account-panel__title {
+        font-size: 1.25rem;
+    }
+
+    .demo-account-club-page {
+        margin: 0;
+    }
+
+    .demo-account-club-benefits {
+        padding: 12px 10px 10px;
+    }
+
+    .demo-account-club-benefits--club-page {
+        border-radius: 10px 10px 0 0;
+    }
+
+    .demo-account-club-intro {
+        padding: 16px 14px 18px;
+    }
+
+    .demo-account-club-dates {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-account-club-vip-card__rate-value {
+        font-size: 1.75rem;
+    }
+
+    .demo-account-club-vouchers__row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 14px 0;
+    }
+
+    .demo-account-club-vouchers__action {
+        width: 100%;
+        justify-self: stretch;
+    }
+
+    .demo-account-club-vouchers__expires {
+        grid-column: 1;
+    }
+
+    .demo-account-promo {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 14px;
+        margin-bottom: 20px;
+    }
+
+    .demo-account-promo__cta {
+        width: 100%;
+        justify-content: center;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .demo-account-dl--info .demo-account-dl__row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+    }
+
+    .demo-account-btn--update {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .demo-account-amend-form__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .demo-account-amend-form__actions .demo-account-btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .demo-account-address-card__actions {
+        flex-direction: column;
+    }
+
+    .demo-account-address-card__actions .demo-account-btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .demo-account-nav__item {
+        padding: 12px 14px;
+    }
+
+    .demo-account-nav__icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .demo-account-nav__label {
+        font-size: 13px;
+    }
+
+    .demo-account-secure-header__brand {
+        padding: 14px 12px 10px;
+    }
+
+    .demo-account-secure-header__club {
+        padding: 8px 12px;
+    }
+
+    .demo-account-secure-header__club span {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+    }
+
+    .demo-account-edit-form__actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .demo-account-edit-form__actions .demo-account-btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .demo-account-sk__bone,
+    .demo-spinner {
+        animation: none;
+    }
+
+    .demo-account-dash--loading:not(.demo-account-dash--nav-loading) .demo-account-dash__content,
+    .demo-account-dash--loading .demo-account-dash__main {
+        opacity: 1;
+    }
+
+    .demo-account-dash--nav-loading .demo-account-dash__main::after {
+        animation: none;
+    }
 }

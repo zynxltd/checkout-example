@@ -18,7 +18,9 @@ return [
     | Demo customer account login (prototype)
     |--------------------------------------------------------------------------
     */
-    'account_email' => env('DEMO_ACCOUNT_EMAIL', 'john@example.com'),
-    'account_password' => env('DEMO_ACCOUNT_PASSWORD', 'demo'),
+    'account_email' => env('DEMO_ACCOUNT_EMAIL', 'demo'),
+    'account_password' => env('DEMO_ACCOUNT_PASSWORD', 'password'),
+    'club_account_email' => env('DEMO_CLUB_ACCOUNT_EMAIL', 'democlub'),
+    'club_account_password' => env('DEMO_CLUB_ACCOUNT_PASSWORD', 'password'),
 
 ];

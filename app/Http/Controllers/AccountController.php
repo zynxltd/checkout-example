@@ -16,31 +16,41 @@ class AccountController extends Controller
 
         return view('demo.account-login', [
             'cart' => DemoCart::state(),
+            'promo' => DemoAccount::loginPromo(),
         ]);
     }
 
     public function loginSubmit(Request $request): RedirectResponse
     {
         $request->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required', 'string', 'max:120'],
             'password' => ['required', 'string'],
         ]);
 
-        $email = strtolower(trim($request->input('email')));
+        $login = strtolower(trim($request->input('email')));
         $password = $request->input('password');
 
         if (
-            $email !== strtolower(config('demo.account_email'))
-            || $password !== config('demo.account_password')
+            $login === strtolower(config('demo.club_account_email'))
+            && $password === config('demo.club_account_password')
         ) {
-            return back()
-                ->withInput($request->only('email'))
-                ->withErrors(['email' => 'Invalid email or password. Use the demo credentials shown below.']);
+            DemoAccount::loginAsClubMember();
+
+            return redirect()->route('demo.account.home');
         }
 
-        DemoAccount::login();
+        if (
+            $login === strtolower(config('demo.account_email'))
+            && $password === config('demo.account_password')
+        ) {
+            DemoAccount::loginAsGuest();
 
-        return redirect()->route('demo.account.home');
+            return redirect()->route('demo.account.home');
+        }
+
+        return back()
+            ->withInput($request->only('email'))
+            ->withErrors(['email' => 'Invalid login or password. Use the demo credentials shown below.']);
     }
 
     public function register(): View
@@ -70,8 +80,7 @@ class AccountController extends Controller
             'terms' => ['accepted'],
         ]);
 
-        // Prototype: always load the fixed demo customer profile
-        DemoAccount::login();
+        DemoAccount::loginAsGuest();
 
         return redirect()->route('demo.account.home');
     }
@@ -83,24 +92,60 @@ class AccountController extends Controller
         return redirect()->route('demo.account.login');
     }
 
-    public function home(): View
+    public function home(): View|RedirectResponse
     {
         return $this->dashboard('demo.account-home', 'home');
     }
 
-    public function orders(): View
+    public function orders(): View|RedirectResponse
     {
         return $this->dashboard('demo.account-orders', 'orders');
     }
 
-    public function information(): View
+    public function orderShow(string $orderId): View|RedirectResponse
+    {
+        return $this->orderDashboard('demo.account-order', 'orders', $orderId);
+    }
+
+    public function orderTrack(string $orderId): View|RedirectResponse
+    {
+        return $this->orderDashboard('demo.account-order-track', 'orders', $orderId, requireTracking: true);
+    }
+
+    public function information(): View|RedirectResponse
     {
         return $this->dashboard('demo.account-information', 'information');
     }
 
-    public function delivery(): View
+    public function informationEdit(): View|RedirectResponse
+    {
+        return $this->dashboard('demo.account-information-edit', 'information');
+    }
+
+    public function informationSubmit(Request $request): RedirectResponse
+    {
+        if (! DemoAccount::isLoggedIn()) {
+            return redirect()->route('demo.account.login');
+        }
+
+        return redirect()
+            ->route('demo.account.information')
+            ->with('status', 'Your account information has been updated.');
+    }
+
+    public function delivery(): View|RedirectResponse
     {
         return $this->dashboard('demo.account-delivery', 'delivery');
+    }
+
+    public function deliveryAmend(): View|RedirectResponse
+    {
+        return $this->dashboard('demo.account-delivery-amend', 'delivery');
+    }
+
+    public function club(): View|RedirectResponse
+    {
+        return $this->dashboard('demo.account-club-membership', 'club');
     }
 
     private function dashboard(string $view, string $active): View|RedirectResponse
@@ -115,6 +160,40 @@ class AccountController extends Controller
             'cart' => DemoCart::state(),
             'user' => DemoAccount::user(),
             'active' => $active,
+            'club_member' => DemoAccount::isClubMember(),
+            'promo' => DemoAccount::dashboardPromo(),
+        ]);
+    }
+
+    private function orderDashboard(
+        string $view,
+        string $active,
+        string $orderId,
+        bool $requireTracking = false,
+    ): View|RedirectResponse {
+        DemoCart::seed();
+
+        if (! DemoAccount::isLoggedIn()) {
+            return redirect()->route('demo.account.login');
+        }
+
+        $order = DemoAccount::findOrder($orderId);
+
+        if ($order === null) {
+            return redirect()->route('demo.account.orders');
+        }
+
+        if ($requireTracking && empty($order['tracking'])) {
+            return redirect()->route('demo.account.order', ['orderId' => $orderId]);
+        }
+
+        return view($view, [
+            'cart' => DemoCart::state(),
+            'user' => DemoAccount::user(),
+            'active' => $active,
+            'club_member' => DemoAccount::isClubMember(),
+            'promo' => DemoAccount::dashboardPromo(),
+            'order' => $order,
         ]);
     }
 }

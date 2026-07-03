@@ -26,8 +26,14 @@ Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::post('/account/logout', [AccountController::class, 'logout'])->name('demo.account.logout');
     Route::get('/account', [AccountController::class, 'home'])->name('demo.account.home');
     Route::get('/account/orders', [AccountController::class, 'orders'])->name('demo.account.orders');
+    Route::get('/account/orders/{orderId}', [AccountController::class, 'orderShow'])->name('demo.account.order');
+    Route::get('/account/orders/{orderId}/track', [AccountController::class, 'orderTrack'])->name('demo.account.order.track');
     Route::get('/account/information', [AccountController::class, 'information'])->name('demo.account.information');
+    Route::get('/account/information/edit', [AccountController::class, 'informationEdit'])->name('demo.account.information.edit');
+    Route::post('/account/information', [AccountController::class, 'informationSubmit'])->name('demo.account.information.submit');
     Route::get('/account/delivery', [AccountController::class, 'delivery'])->name('demo.account.delivery');
+    Route::get('/account/delivery/amend', [AccountController::class, 'deliveryAmend'])->name('demo.account.delivery.amend');
+    Route::get('/account/club-membership', [AccountController::class, 'club'])->name('demo.account.club');
 
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('demo.checkout');
     Route::post('/checkout/complete', [CheckoutController::class, 'complete'])->name('demo.checkout.complete');
