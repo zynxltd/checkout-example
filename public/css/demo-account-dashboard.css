@@ -124,7 +124,6 @@ body.demo-account--secured {
     background: linear-gradient(180deg, var(--yg-forest) 0%, color-mix(in srgb, var(--yg-forest) 88%, #000) 100%);
     padding: 14px 16px;
     border-top: 1px solid var(--yg-moss);
-    border-bottom: 1px solid var(--yg-moss);
 }
 
 .demo-account-secure-footer__pay-cards {
@@ -159,9 +158,8 @@ body.demo-account--secured {
 }
 
 .demo-account-secure-footer__legal {
-    background: #fff;
-    color: #000;
-    border-top: 1px solid var(--yg-border);
+    background: linear-gradient(180deg, var(--yg-forest) 0%, color-mix(in srgb, var(--yg-forest) 88%, #000) 100%);
+    color: #fff;
 }
 
 .demo-account-secure-footer__legal-inner {
@@ -176,7 +174,7 @@ body.demo-account--secured {
     font-family: var(--yg-body);
     font-size: 11px;
     line-height: 1.55;
-    color: #000;
+    color: #fff;
 }
 
 .demo-account-secure-footer__legal p:last-child {
@@ -186,7 +184,7 @@ body.demo-account--secured {
 .demo-account-secure-footer__source {
     margin-top: 4px !important;
     font-size: 10px !important;
-    color: #666 !important;
+    color: rgba(255, 255, 255, 0.72) !important;
 }
 
 /* Footer wave band above pebble footer — white on account (not stone) */
@@ -1226,9 +1224,9 @@ body.demo-account .yg-pdp-wave {
     align-items: start;
     overflow: hidden;
     border-radius: 10px;
-    border: 1px solid color-mix(in srgb, var(--yg-club-purple) 16%, var(--yg-border));
-    background: #fff;
-    box-shadow: 0 4px 14px color-mix(in srgb, var(--yg-club-purple) 12%, transparent);
+    border: 1px solid color-mix(in srgb, #fff 12%, transparent);
+    background: transparent;
+    box-shadow: none;
 }
 
 @media (min-width: 560px) {
@@ -1244,7 +1242,7 @@ body.demo-account .yg-pdp-wave {
         bottom: 0;
         left: 50%;
         width: 1px;
-        background: var(--yg-club-purple);
+        background: color-mix(in srgb, #fff 22%, transparent);
         transform: translateX(-50%);
         pointer-events: none;
     }
@@ -1255,11 +1253,11 @@ body.demo-account .yg-pdp-wave {
     flex-direction: column;
     align-self: start;
     height: auto;
-    background: #fff;
+    background: transparent;
 }
 
 .demo-account-club-vip-card + .demo-account-club-vip-card {
-    border-top: 1px solid var(--yg-border);
+    border-top: 1px solid color-mix(in srgb, #fff 18%, transparent);
 }
 
 @media (min-width: 560px) {
@@ -1278,7 +1276,7 @@ body.demo-account .yg-pdp-wave {
     text-transform: uppercase;
     text-align: center;
     color: #fff;
-    background: var(--yg-club-purple);
+    background: transparent;
 }
 
 .demo-account-club-vip-card__body {
@@ -1287,7 +1285,7 @@ body.demo-account .yg-pdp-wave {
     align-items: stretch;
     gap: 10px;
     padding: 0 12px 14px;
-    background: #fff;
+    background: transparent;
 }
 
 .demo-account-club-vip-card--secondary .demo-account-club-vip-card__body {
@@ -1304,7 +1302,7 @@ body.demo-account .yg-pdp-wave {
     line-height: 1;
     color: #fff;
     font-family: var(--yg-body);
-    background: var(--yg-club-purple);
+    background: transparent;
 }
 
 .demo-account-club-vip-card__rate-value {
