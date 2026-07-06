@@ -45,7 +45,7 @@
                         type="checkbox"
                         id="toggle-checkout-clearpay"
                         data-option="clearpay"
-                        {{ ($cart['show_clearpay'] ?? true) ? 'checked' : '' }}
+                        {{ ($cart['show_clearpay'] ?? false) ? 'checked' : '' }}
                     >
                     <span>Clearpay</span>
                 </label>
@@ -54,7 +54,7 @@
                         type="checkbox"
                         id="toggle-checkout-klarna"
                         data-option="klarna"
-                        {{ ($cart['show_klarna'] ?? true) ? 'checked' : '' }}
+                        {{ ($cart['show_klarna'] ?? false) ? 'checked' : '' }}
                     >
                     <span>Klarna</span>
                 </label>

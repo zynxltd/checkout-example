@@ -478,6 +478,38 @@
         sync();
     }
 
+    function focusVoucherFromUrl() {
+        const input = document.getElementById('co-voucher-input');
+        if (!input || input.disabled) {
+            return;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const voucher = params.get('voucher')?.trim();
+        const hash = window.location.hash.replace('#', '');
+
+        if (voucher) {
+            input.value = voucher;
+        }
+
+        if (!voucher && hash !== 'co-voucher-input' && hash !== 'co-voucher-block') {
+            return;
+        }
+
+        const block = document.getElementById('co-voucher-block');
+        const summary = document.getElementById('co-summary');
+        const summaryToggle = document.getElementById('co-summary-toggle');
+
+        if (summary && summaryToggle && window.matchMedia('(max-width: 999px)').matches) {
+            summary.classList.add('is-expanded');
+            summaryToggle.setAttribute('aria-expanded', 'true');
+        }
+
+        window.requestAnimationFrame(() => {
+            block?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    }
+
     function bindVoucher() {
         const applyBtn = document.getElementById('co-voucher-apply');
         const input = document.getElementById('co-voucher-input');
@@ -662,6 +694,7 @@
         root.classList.add('co--ready');
         root.removeAttribute('aria-busy');
         root.querySelectorAll('.co-sk').forEach((el) => el.remove());
+        focusVoucherFromUrl();
     }
 
     function initCheckoutSkeleton() {
@@ -672,6 +705,7 @@
 
         if (!root.classList.contains('co--loading')) {
             root.querySelectorAll('.co-sk').forEach((el) => el.remove());
+            focusVoucherFromUrl();
             return;
         }
 

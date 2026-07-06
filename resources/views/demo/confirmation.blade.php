@@ -19,9 +19,12 @@
 @endphp
 
 <div class="cr">
-    <header class="cr-header">
-        <a href="{{ route('demo.pdp') }}" class="cr-header__logo" aria-label="YouGarden home">
+    <header class="co-header">
+        <a href="{{ route('demo.pdp') }}" class="co-header__logo" aria-label="YouGarden home">
             <img src="{{ asset('images/yougarden-logo.png') }}" alt="YouGarden" width="180" height="48">
+        </a>
+        <a href="{{ route('demo.pdp') }}" class="co-header__cart" aria-label="Return to shop">
+            @include('demo.partials.icon', ['name' => 'cart', 'width' => 24, 'height' => 24])
         </a>
     </header>
 

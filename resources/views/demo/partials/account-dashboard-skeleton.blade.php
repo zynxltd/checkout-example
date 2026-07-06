@@ -12,7 +12,6 @@
 
     <div class="demo-account-sk__main">
         <div class="demo-account-sk__bone demo-account-sk__bone--title"></div>
-        <div class="demo-account-sk__bone demo-account-sk__bone--banner"></div>
         <div class="demo-account-sk__bone demo-account-sk__bone--heading"></div>
         <div class="demo-account-sk__bone demo-account-sk__bone--line"></div>
         <div class="demo-account-sk__bone demo-account-sk__bone--line demo-account-sk__bone--short"></div>

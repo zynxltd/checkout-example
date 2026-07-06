@@ -16,8 +16,6 @@
 
     <main class="demo-account-main demo-account-main--wide demo-account-main--ready" id="account-main">
         <div class="demo-account-main__content">
-        @include('demo.partials.account-promo-banner', ['promo' => $promo ?? null])
-
         <div class="demo-account-card">
             <nav class="demo-account-card__tabs" aria-label="Account">
                 <a href="{{ route('demo.account.login') }}" class="demo-account-card__tab is-active" aria-current="page">Sign in</a>

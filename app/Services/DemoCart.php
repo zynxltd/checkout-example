@@ -56,6 +56,58 @@ class DemoCart
         return in_array($normalized, [self::DEMO_OFFER_CODE, self::DEMO_VOUCHER_CODE], true);
     }
 
+    /** Gift / postage vouchers are typically 10- or 16-digit numbers. */
+    public static function looksLikeGiftVoucher(string $code): bool
+    {
+        $digits = preg_replace('/\D/', '', trim($code));
+
+        return strlen($digits) === 10 || strlen($digits) === 16;
+    }
+
+    /** Club £5 vouchers and postage codes are alphanumeric, often 9–16 characters. */
+    public static function looksLikeClubVoucher(string $code): bool
+    {
+        $normalized = strtoupper(preg_replace('/\s+/', '', trim($code)));
+
+        if ($normalized === '') {
+            return false;
+        }
+
+        if (str_starts_with($normalized, 'PP')) {
+            return true;
+        }
+
+        $length = strlen($normalized);
+
+        return $length >= 9
+            && $length <= 16
+            && preg_match('/^[A-Z0-9]+$/', $normalized) === 1;
+    }
+
+    /** Basket accepts offer codes only — anything else belongs at checkout. */
+    public static function isVoucherOnlyCode(string $code): bool
+    {
+        if (self::isValidOfferCode($code)) {
+            return false;
+        }
+
+        $normalized = strtoupper(trim($code));
+
+        if ($normalized === self::DEMO_VOUCHER_CODE) {
+            return true;
+        }
+
+        if (self::looksLikeGiftVoucher($code)) {
+            return true;
+        }
+
+        if (self::isValidVoucherCode($code)) {
+            return true;
+        }
+
+        return self::looksLikeClubVoucher($code);
+    }
+
     public static function offerCodeDiscount(?string $code): float
     {
         $normalized = strtoupper(trim((string) $code));
@@ -306,9 +358,9 @@ class DemoCart
                         'title' => 'Help',
                         'links' => [
                             ['label' => 'Customer Services', 'url' => '#'],
-                            ['label' => 'Delivery', 'url' => '#'],
+                            ['label' => 'Delivery', 'url' => route('demo.standard-delivery')],
                             ['label' => 'Track Order', 'url' => '#'],
-                            ['label' => 'Lifetime Guarantee', 'url' => '#'],
+                            ['label' => 'Lifetime Guarantee', 'url' => route('demo.lifetime-guarantee')],
                             ['label' => 'Contact Us', 'url' => '#'],
                             ['label' => 'Catalogue Request', 'url' => '#'],
                             ['label' => 'Fast Order', 'url' => '#'],
@@ -1074,8 +1126,9 @@ class DemoCart
             'demo_show_upsells' => true,
             'demo_wide_drawer' => false,
             'demo_show_apple_pay' => false,
-            'demo_show_clearpay' => true,
-            'demo_show_klarna' => true,
+            'demo_show_clearpay' => false,
+            'demo_show_klarna' => false,
+            'demo_checkout_codes_top' => true,
         ]);
 
         DemoDrawerVariant::setEnabled(true);
@@ -1459,12 +1512,12 @@ class DemoCart
             'show_upsells' => (bool) session('demo_show_upsells', false),
             'wide_drawer' => (bool) session('demo_wide_drawer', false),
             'show_apple_pay' => (bool) session('demo_show_apple_pay', false),
-            'show_clearpay' => (bool) session('demo_show_clearpay', true),
-            'show_klarna' => (bool) session('demo_show_klarna', true),
+            'show_clearpay' => (bool) session('demo_show_clearpay', false),
+            'show_klarna' => (bool) session('demo_show_klarna', false),
             'compact_v21' => DemoDrawerVariant::isActive(),
             'summary_v30' => DemoDrawerVariant::isV30Active(),
             'feedback_v40' => DemoDrawerVariant::isV40Active(),
-            'checkout_codes_top' => (bool) session('demo_checkout_codes_top', false),
+            'checkout_codes_top' => (bool) session('demo_checkout_codes_top', true),
             'checkout_codes_ticket' => (bool) session('demo_checkout_codes_ticket', false),
             'upsells' => self::upsellsForDrawer(),
         ];

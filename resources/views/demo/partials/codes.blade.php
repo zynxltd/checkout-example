@@ -16,17 +16,22 @@
     </div>
     @else
     <div class="yg-codes__offer">
+        <p class="yg-codes__label" id="yg-code-label">Offer code</p>
         <div class="yg-code-row">
             <input
                 id="yg-input-offer"
                 type="text"
                 name="offer"
-                placeholder="Have a code?"
+                placeholder="Enter offer code"
                 autocomplete="off"
-                aria-label="Offer code"
+                aria-labelledby="yg-code-label"
+                aria-describedby="yg-code-hint"
             >
             <button type="button" data-apply-code="offer">Apply code</button>
         </div>
+        <p class="yg-codes__hint" id="yg-code-hint">
+            Have a gift or postage voucher? <a href="{{ route('demo.checkout') }}#co-voucher-input" class="yg-codes__hint-link">Apply at checkout</a>.
+        </p>
     </div>
     @endif
 </div>

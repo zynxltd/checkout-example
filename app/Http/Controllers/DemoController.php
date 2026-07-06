@@ -18,6 +18,39 @@ class DemoController extends Controller
         ]);
     }
 
+    public function standardDelivery(): View
+    {
+        DemoCart::seed();
+
+        return view('demo.standard-delivery', [
+            'cart' => DemoCart::state(),
+            'feefo' => self::siteFeefo(),
+        ]);
+    }
+
+    public function lifetimeGuarantee(): View
+    {
+        DemoCart::seed();
+
+        return view('demo.lifetime-guarantee', [
+            'cart' => DemoCart::state(),
+            'feefo' => self::siteFeefo(),
+        ]);
+    }
+
+    /** @return array<string, mixed> */
+    private static function siteFeefo(): array
+    {
+        $product = DemoCart::pdpProduct();
+
+        return [
+            'rating' => 4.3,
+            'max_rating' => 5,
+            'review_count' => 12465,
+            'reviews' => $product['feefo']['reviews'],
+        ];
+    }
+
     public function aboutUs(): View
     {
         DemoCart::seed();

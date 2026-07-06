@@ -1811,6 +1811,32 @@ body.yg-drawer-open {
     margin-bottom: 10px;
 }
 
+.yg-codes__label {
+    margin: 0 0 6px;
+    font-family: var(--yg-body);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--yg-forest);
+}
+
+.yg-codes__hint {
+    margin: 8px 0 0;
+    font-family: var(--yg-body);
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--yg-muted);
+}
+
+.yg-codes__hint-link {
+    color: var(--yg-forest);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.yg-codes__hint-link:hover {
+    color: var(--yg-moss-dark);
+}
+
 .yg-codes__offer .yg-code-row {
     padding: 4px 4px 4px 14px;
     border: 1px solid var(--yg-border);
@@ -1831,8 +1857,8 @@ body.yg-drawer-open {
 }
 
 .yg-codes__offer .yg-code-row input::placeholder {
-    color: var(--yg-forest);
-    font-weight: 600;
+    color: var(--yg-muted);
+    font-weight: 400;
     font-size: 14px;
     opacity: 1;
 }

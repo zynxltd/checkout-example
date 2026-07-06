@@ -109,6 +109,13 @@
     gap: 8px;
 }
 
+.co-codes--express .co-codes__intro {
+    margin: 0 0 4px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #5c534d;
+}
+
 .co-codes--express .co-codes__row--fields {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1202,6 +1209,11 @@ body.co-club-modal-open {
     border-radius: 6px;
     font-family: inherit;
     font-size: 14px;
+}
+
+.co-code-row__input:focus {
+    outline: none;
+    border-color: #b8b3ab;
 }
 
 .co-code-row__btn {

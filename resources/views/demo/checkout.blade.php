@@ -421,7 +421,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                             </label>
                         </div>
 
-                        @if($cart['show_clearpay'] ?? true)
+                        @if($cart['show_clearpay'] ?? false)
                         <div class="co-payopt" data-payopt="clearpay">
                             <label class="co-payopt__row">
                                 <input type="radio" name="payment_method" value="clearpay" class="co-payopt__radio">
@@ -431,7 +431,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                         </div>
                         @endif
 
-                        @if($cart['show_klarna'] ?? true)
+                        @if($cart['show_klarna'] ?? false)
                         <div class="co-payopt" data-payopt="klarna">
                             <label class="co-payopt__row">
                                 <input type="radio" name="payment_method" value="klarna" class="co-payopt__radio">

@@ -82,6 +82,18 @@ class CheckoutController extends Controller
         }
 
         if (! DemoCart::isValidVoucherCode($code)) {
+            if (DemoCart::isValidOfferCode($code)) {
+                return response()->json([
+                    'error' => 'This is an offer code — use the "Offer code" field instead.',
+                ], 422);
+            }
+
+            if (DemoCart::looksLikeGiftVoucher($code)) {
+                return response()->json([
+                    'error' => 'This voucher isn\'t valid. Check the number and try again.',
+                ], 422);
+            }
+
             return response()->json([
                 'error' => 'This voucher isn\'t valid. Try TEST or VOUCHER in this demo.',
             ], 422);

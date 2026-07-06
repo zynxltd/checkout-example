@@ -1080,6 +1080,13 @@ body.demo-account .yg-pdp-wave {
     color: var(--yg-club-purple);
 }
 
+.demo-account-club-block__note {
+    margin: -4px 0 12px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--yg-muted);
+}
+
 .demo-account-club-vouchers {
     margin: 0;
     padding: 0;
@@ -1162,10 +1169,146 @@ body.demo-account .yg-pdp-wave {
 }
 
 .demo-account-club-benefits--club-page {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
     margin-bottom: 0;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-    padding: 14px 14px 10px;
+    padding: 20px 18px 14px;
+    border: 1px solid var(--yg-border);
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    background: #fff;
+    box-shadow: none;
+}
+
+.demo-account-club-benefits--club-page::before {
+    display: none;
+}
+
+.demo-account-club-benefits--club-page .demo-account-club-benefits__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.demo-account-club-benefits--club-page .demo-account-club-benefits__logo {
+    width: min(132px, 100%);
+    margin: 0;
+}
+
+.demo-account-club-benefits--club-page .demo-account-club-benefits__title {
+    margin: 0;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--yg-club-purple);
+}
+
+.demo-account-club-benefits--club-page .demo-account-club-benefits__subtitle {
+    margin: 4px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--yg-muted);
+}
+
+.demo-account-club-benefits--club-page .demo-account-club-benefits__tiers {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.demo-account-club-tier {
+    padding: 16px 14px 14px;
+    border: 1px solid var(--yg-border);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.demo-account-club-tier__rate {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+    margin: 0 0 12px;
+    line-height: 1;
+}
+
+.demo-account-club-tier__rate-value {
+    font-family: var(--yg-heading);
+    font-size: 1.75rem;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    color: var(--yg-club-purple);
+}
+
+.demo-account-club-tier__rate-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--yg-club-purple);
+}
+
+.demo-account-club-tier__tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.demo-account-club-tier__tags li {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--yg-club-purple);
+    background: color-mix(in srgb, var(--yg-club-purple) 7%, #fff);
+    border: 1px solid color-mix(in srgb, var(--yg-club-purple) 14%, var(--yg-border));
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+.demo-account-club-benefits--club-page .demo-account-club-benefits__note {
+    margin: 0;
+    grid-column: 1 / -1;
+    font-size: 11px;
+    font-style: italic;
+    line-height: 1.4;
+    text-align: center;
+    color: var(--yg-muted);
+}
+
+@media (min-width: 760px) {
+    .demo-account-club-benefits--club-page {
+        grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        align-items: start;
+        gap: 12px 20px;
+        padding: 18px 20px 14px;
+    }
+
+    .demo-account-club-benefits--club-page .demo-account-club-benefits__intro {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: center;
+    }
+
+    .demo-account-club-benefits--club-page .demo-account-club-benefits__tiers {
+        grid-column: 2;
+        grid-row: 1;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .demo-account-club-benefits--club-page .demo-account-club-benefits__note {
+        grid-row: 2;
+    }
 }
 
 .demo-account-club-benefits::before {
@@ -1997,7 +2140,58 @@ body.demo-account .yg-pdp-wave {
 }
 
 .demo-account-club-benefits--compact.demo-account-club-benefits--club-page {
-    padding: 10px 10px 6px;
+    gap: 10px;
+    padding: 12px 12px 10px;
+}
+
+.demo-account-club-benefits--compact.demo-account-club-benefits--club-page .demo-account-club-benefits__logo {
+    width: min(96px, 100%);
+}
+
+.demo-account-club-benefits--compact.demo-account-club-benefits--club-page .demo-account-club-benefits__title {
+    font-size: 12px;
+}
+
+.demo-account-club-benefits--compact.demo-account-club-benefits--club-page .demo-account-club-benefits__subtitle {
+    margin-top: 2px;
+    font-size: 11px;
+}
+
+.demo-account-club-benefits--compact .demo-account-club-tier {
+    padding: 10px 10px 8px;
+}
+
+.demo-account-club-benefits--compact .demo-account-club-tier__rate {
+    margin-bottom: 6px;
+}
+
+.demo-account-club-benefits--compact .demo-account-club-tier__rate-value {
+    font-size: 1.35rem;
+}
+
+.demo-account-club-benefits--compact .demo-account-club-tier__rate-label {
+    font-size: 0.8rem;
+}
+
+.demo-account-club-benefits--compact .demo-account-club-tier__tags {
+    gap: 4px;
+}
+
+.demo-account-club-benefits--compact .demo-account-club-tier__tags li {
+    padding: 4px 8px;
+    font-size: 9px;
+    border-radius: 5px;
+}
+
+.demo-account-club-benefits--compact.demo-account-club-benefits--club-page .demo-account-club-benefits__note {
+    font-size: 9px;
+}
+
+@media (min-width: 760px) {
+    .demo-account-club-benefits--compact.demo-account-club-benefits--club-page {
+        grid-template-columns: minmax(118px, 132px) minmax(0, 1fr);
+        gap: 8px 12px;
+    }
 }
 
 .demo-account-club-benefits--compact .demo-account-club-benefits__header {

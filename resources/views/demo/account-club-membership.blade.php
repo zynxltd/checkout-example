@@ -26,7 +26,6 @@
         <div class="demo-account-club-page">
             @include('demo.partials.account-club-benefits', [
                 'user' => $user,
-                'horizontal' => true,
                 'club_page' => true,
                 'compact' => $club_benefits_compact ?? false,
             ])
@@ -51,6 +50,7 @@
                     @include('demo.partials.account-club-star', ['modifier' => 'inline', 'size' => 16])
                     Your £5 Voucher Codes
                 </h3>
+                <p class="demo-account-club-block__note">Vouchers are applied at checkout under &ldquo;Gift card or voucher&rdquo;.</p>
                 <ul class="demo-account-club-vouchers">
                     @foreach ($club['product_vouchers'] as $voucher)
                         <li class="demo-account-club-vouchers__row">
@@ -59,7 +59,10 @@
                                 @if (! empty($voucher['applied']))
                                     <span class="demo-account-club-vouchers__applied">APPLIED</span>
                                 @else
-                                    <button type="button" class="demo-account-btn demo-account-btn--save demo-account-btn--compact" data-demo-async>Apply Voucher</button>
+                                    <a
+                                        href="{{ route('demo.checkout', ['voucher' => $voucher['code']]) }}#co-voucher-input"
+                                        class="demo-account-btn demo-account-btn--save demo-account-btn--compact"
+                                    >Apply at checkout</a>
                                 @endif
                             </span>
                             <span class="demo-account-club-vouchers__expires">expires: {{ $voucher['expires'] }}</span>
@@ -73,6 +76,7 @@
                     @include('demo.partials.account-club-star', ['modifier' => 'inline', 'size' => 16])
                     Your Postage Vouchers
                 </h3>
+                <p class="demo-account-club-block__note">Postage vouchers are applied at checkout under &ldquo;Gift card or voucher&rdquo;.</p>
                 <ul class="demo-account-club-vouchers">
                     @foreach ($club['postage_vouchers'] as $voucher)
                         <li class="demo-account-club-vouchers__row">
@@ -81,7 +85,10 @@
                                 @if (! empty($voucher['applied']))
                                     <span class="demo-account-club-vouchers__applied">APPLIED</span>
                                 @else
-                                    <button type="button" class="demo-account-btn demo-account-btn--save demo-account-btn--compact" data-demo-async>Apply Voucher</button>
+                                    <a
+                                        href="{{ route('demo.checkout', ['voucher' => $voucher['code']]) }}#co-voucher-input"
+                                        class="demo-account-btn demo-account-btn--save demo-account-btn--compact"
+                                    >Apply at checkout</a>
                                 @endif
                             </span>
                             <span class="demo-account-club-vouchers__expires">expires: {{ $voucher['expires'] }}</span>

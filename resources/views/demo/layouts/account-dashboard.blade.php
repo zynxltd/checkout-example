@@ -26,9 +26,6 @@
 
             <main class="demo-account-dash__main" id="account-dashboard-main">
                 <h1 class="demo-account-page-title">@yield('account_banner', 'Your account')</h1>
-                @if (($active ?? '') === 'home')
-                    @include('demo.partials.account-promo-banner', ['promo' => $promo ?? null])
-                @endif
                 @yield('account_content')
             </main>
         </div>

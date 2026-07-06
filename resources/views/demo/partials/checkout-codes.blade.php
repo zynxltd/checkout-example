@@ -11,6 +11,7 @@
     'co-codes__inner' => $isExpress,
 ]) id="co-voucher-block">
     @if($isExpress)
+    <p class="co-codes__intro">Offer codes and gift vouchers use separate fields below.</p>
     <div class="co-codes__row co-codes__row--fields">
     @endif
         @if($hasOffer)

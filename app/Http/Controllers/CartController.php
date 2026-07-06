@@ -92,37 +92,33 @@ class CartController extends Controller
             ], 422);
         }
 
-        if ($type === 'offer') {
-            if (session('demo_offer_code')) {
-                return response()->json([
-                    'error' => 'You can only use one offer code per order.',
-                ], 422);
-            }
-
-            if (strtoupper($code) === DemoCart::DEMO_VOUCHER_CODE) {
-                return response()->json([
-                    'error' => 'VOUCHER is a voucher code — enter it under Voucher code.',
-                ], 422);
-            }
-
-            if (! DemoCart::isValidOfferCode($code)) {
-                return response()->json([
-                    'error' => 'This offer code isn\'t valid. Try TEST or EM0000 in this demo.',
-                ], 422);
-            }
-
-            session(['demo_offer_code' => strtoupper($code)]);
-
-            return $this->fragment($request);
-        }
-
-        if ($type === 'voucher') {
+        if ($type !== 'offer') {
             return response()->json([
-                'error' => 'Gift vouchers can only be applied on the checkout page.',
+                'error' => 'Gift vouchers can only be applied at checkout — use the "Gift card or voucher" field.',
             ], 422);
         }
 
-        return response()->json(['error' => 'Invalid code type.'], 422);
+        if (session('demo_offer_code')) {
+            return response()->json([
+                'error' => 'You can only use one offer code per order.',
+            ], 422);
+        }
+
+        if (DemoCart::isVoucherOnlyCode($code)) {
+            return response()->json([
+                'error' => 'Gift vouchers are applied at checkout — use the "Gift card or voucher" field.',
+            ], 422);
+        }
+
+        if (! DemoCart::isValidOfferCode($code)) {
+            return response()->json([
+                'error' => 'This offer code isn\'t valid. Try TEST or EM0000 in this demo.',
+            ], 422);
+        }
+
+        session(['demo_offer_code' => strtoupper($code)]);
+
+        return $this->fragment($request);
     }
 
     public function removeCode(Request $request): JsonResponse
@@ -130,13 +126,13 @@ class CartController extends Controller
         DemoCart::seed();
         $type = $request->string('type')->toString();
 
-        if ($type === 'offer') {
-            session(['demo_offer_code' => null]);
-        } elseif ($type === 'voucher') {
+        if ($type !== 'offer') {
             return response()->json([
-                'error' => 'Gift vouchers can only be removed on the checkout page.',
+                'error' => 'Gift vouchers can only be removed at checkout.',
             ], 422);
         }
+
+        session(['demo_offer_code' => null]);
 
         return $this->fragment($request);
     }
