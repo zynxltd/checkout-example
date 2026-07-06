@@ -49,7 +49,7 @@
                 <button type="button" class="co-code-row__btn" id="co-offer-apply">Apply</button>
             </div>
             @unless($isExpress)
-            <p class="co-code-hint" id="co-offer-hint">Offer codes from promotions. Demo: try <strong>TEST</strong> or <strong>EM0000</strong>.</p>
+            <p class="co-code-hint" id="co-offer-hint">Offer codes from promotions.</p>
             @endunless
             <p class="co-code-error" id="co-offer-error" hidden></p>
         </div>
@@ -89,7 +89,7 @@
                 <button type="button" class="co-code-row__btn" id="co-voucher-apply">Apply</button>
             </div>
             @unless($isExpress)
-            <p class="co-code-hint" id="co-voucher-hint">Gift vouchers are 16 or 10 digits. Demo: try <strong>VOUCHER</strong> at checkout. Offer codes are applied in the basket.</p>
+            <p class="co-code-hint" id="co-voucher-hint">Gift vouchers are 16 or 10 digits.</p>
             @endunless
             <p class="co-code-error" id="co-voucher-error" hidden></p>
         </div>
@@ -100,18 +100,12 @@
     <div class="co-codes__row co-codes__row--hints">
         <div class="co-codes__hint-cell">
             @if($showOfferHint)
-            <p class="co-code-hint" id="co-offer-hint">
-                <span class="co-code-hint__text">From promotions, emails and adverts.</span>
-                <span class="co-code-hint__demo">Demo: <strong>TEST</strong> or <strong>EM0000</strong></span>
-            </p>
+            <p class="co-code-hint" id="co-offer-hint">From promotions, emails and adverts.</p>
             @endif
         </div>
         <div class="co-codes__hint-cell">
             @if($showVoucherHint)
-            <p class="co-code-hint" id="co-voucher-hint">
-                <span class="co-code-hint__text">16 or 10 digit gift card number.</span>
-                <span class="co-code-hint__demo">Demo: <strong>VOUCHER</strong></span>
-            </p>
+            <p class="co-code-hint" id="co-voucher-hint">16 or 10 digit gift card number.</p>
             @endif
         </div>
     </div>
