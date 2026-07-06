@@ -1465,7 +1465,7 @@ class DemoCart
             'summary_v30' => DemoDrawerVariant::isV30Active(),
             'feedback_v40' => DemoDrawerVariant::isV40Active(),
             'checkout_codes_top' => (bool) session('demo_checkout_codes_top', false),
-            'checkout_codes_ticket' => (bool) session('demo_checkout_codes_ticket', true),
+            'checkout_codes_ticket' => (bool) session('demo_checkout_codes_ticket', false),
             'upsells' => self::upsellsForDrawer(),
         ];
     }
