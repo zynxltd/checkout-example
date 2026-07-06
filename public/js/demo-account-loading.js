@@ -161,12 +161,67 @@
         });
     }
 
+    function bindInvoiceAddressToggle() {
+        const toggle = document.querySelector('[data-invoice-address-toggle]');
+        const panel = document.getElementById('invoice-address-fields');
+        const openField = document.querySelector('[data-invoice-address-open]');
+
+        if (!toggle || !panel || !openField) {
+            return;
+        }
+
+        const initPostcodeLookup = () => {
+            window.DemoPostcodeLookup?.bindAll(panel);
+        };
+
+        toggle.addEventListener('click', () => {
+            const isOpen = !panel.hidden;
+            panel.hidden = isOpen;
+            openField.value = isOpen ? '0' : '1';
+            toggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+            toggle.textContent = isOpen ? 'Change Details' : 'Hide Details';
+
+            if (!isOpen) {
+                initPostcodeLookup();
+                panel.querySelector('input, select, textarea')?.focus();
+            }
+        });
+    }
+
+    function bindPostcodeLookups() {
+        window.DemoPostcodeLookup?.bindAll(document);
+    }
+
+    function bindDeleteAddressForms() {
+        document.querySelectorAll('[data-demo-delete-address]').forEach((form) => {
+            form.addEventListener('submit', (event) => {
+                if (form.dataset.demoConfirmed === '1') {
+                    return;
+                }
+
+                event.preventDefault();
+                const confirmed = window.confirm('Delete this delivery address?');
+                if (!confirmed) {
+                    return;
+                }
+
+                form.dataset.demoConfirmed = '1';
+                const submit = form.querySelector('[type="submit"]');
+                setButtonLoading(submit, true);
+                form.submit();
+            });
+        });
+    }
+
     function boot() {
         initDashSkeleton();
         hidePageSpinner();
         bindAsyncButtons();
         bindFormLoading();
         bindNavLoading();
+        bindInvoiceAddressToggle();
+        bindPostcodeLookups();
+        bindDeleteAddressForms();
     }
 
     if (document.readyState === 'loading') {

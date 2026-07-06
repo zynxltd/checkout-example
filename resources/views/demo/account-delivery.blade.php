@@ -5,6 +5,14 @@
 @section('account_banner', 'Your account')
 
 @section('account_content')
+    @if (session('status'))
+        <p class="demo-account-flash" role="status">{{ session('status') }}</p>
+    @endif
+
+    @if ($errors->has('delivery'))
+        <p class="demo-account-flash demo-account-flash--error" role="alert">{{ $errors->first('delivery') }}</p>
+    @endif
+
     <h2 class="demo-account-panel__title">Your Delivery Information</h2>
     <p class="demo-account-panel__meta">Account Number: {{ $user['account_number'] }}</p>
 
@@ -23,8 +31,17 @@
                     <p class="demo-account-address-card__phone">Telephone: {{ $address['phone'] }}</p>
                 </div>
                 <div class="demo-account-address-card__actions">
-                    <a href="{{ route('demo.account.delivery.amend') }}" class="demo-account-btn demo-account-btn--primary">Amend Address</a>
-                    <button type="button" class="demo-account-btn demo-account-btn--muted">Delete Address</button>
+                    <a href="{{ route('demo.account.delivery.amend', ['address' => $address['id']]) }}" class="demo-account-btn demo-account-btn--primary">Amend Address</a>
+                    <form
+                        method="post"
+                        action="{{ route('demo.account.delivery.delete') }}"
+                        class="demo-account-address-card__delete"
+                        data-demo-delete-address
+                    >
+                        @csrf
+                        <input type="hidden" name="address_id" value="{{ $address['id'] }}">
+                        <button type="submit" class="demo-account-btn demo-account-btn--muted">Delete Address</button>
+                    </form>
                 </div>
             </div>
         @endforeach

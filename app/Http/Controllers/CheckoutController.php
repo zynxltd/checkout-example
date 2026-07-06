@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DemoAccount;
 use App\Services\DemoCart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -25,6 +26,7 @@ class CheckoutController extends Controller
         return response()
             ->view('demo.checkout', [
                 'cart' => $cart,
+                'checkout_account' => DemoAccount::checkoutPrefill(),
             ])
             ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
             ->header('Pragma', 'no-cache');

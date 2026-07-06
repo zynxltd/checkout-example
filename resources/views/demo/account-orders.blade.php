@@ -28,8 +28,11 @@
                         <td>{{ $order['status'] }}</td>
                         <td>
                             @if (! empty($order['tracking']))
-                                <span class="demo-account-table__tracking">{{ $order['tracking'] }}</span>
-                                <a href="{{ route('demo.account.order.track', ['orderId' => $order['id']]) }}" class="demo-account-btn demo-account-btn--track">Track Order</a>
+                                <a
+                                    href="{{ \App\Services\DemoAccount::orderTrackingUrl($order) }}"
+                                    class="demo-account-btn demo-account-btn--track"
+                                    @if (! empty($order['tracking_url'])) target="_blank" rel="noopener" @endif
+                                >Track Order</a>
                             @else
                                 —
                             @endif

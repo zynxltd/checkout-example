@@ -85,6 +85,28 @@
         });
     }
 
+    function applyLoggedInCheckoutAccount() {
+        const account = window.__YG_CHECKOUT_ACCOUNT;
+        if (!account?.loggedIn) {
+            return;
+        }
+
+        const toggle = document.getElementById('co-login-toggle');
+        const signedIn = document.getElementById('co-signed-in');
+        const marketingOptins = document.getElementById('co-marketing-optins');
+
+        if (toggle) {
+            toggle.hidden = true;
+        }
+        if (signedIn) {
+            signedIn.textContent = account.signedInLabel || `Signed in as ${account.email}`;
+            signedIn.hidden = false;
+        }
+        if (marketingOptins) {
+            marketingOptins.hidden = true;
+        }
+    }
+
     function bindLogin() {
         const toggle = document.getElementById('co-login-toggle');
         const panel = document.getElementById('co-login-panel');
@@ -416,10 +438,13 @@
         }
 
         const billingMap = [
+            ['co-billing-title', 'co-delivery-title'],
             ['co-billing-first-name', 'co-delivery-first-name'],
             ['co-billing-last-name', 'co-delivery-last-name'],
             ['co-billing-address1', 'co-delivery-address1'],
             ['co-billing-address2', 'co-delivery-address2'],
+            ['co-billing-address3', 'co-delivery-address3'],
+            ['co-billing-address4', 'co-delivery-address4'],
             ['co-billing-city', 'co-delivery-city'],
             ['co-billing-postcode', 'co-delivery-postcode'],
             ['co-billing-phone', 'co-delivery-phone'],
@@ -441,6 +466,18 @@
             }
         };
 
+        const manualToggle = document.getElementById('co-delivery-manual-toggle');
+        const manualFields = document.getElementById('co-delivery-manual-fields');
+
+        const showDeliveryManual = (open) => {
+            if (!manualFields || !manualToggle) {
+                return;
+            }
+            manualFields.hidden = !open;
+            manualToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            manualToggle.textContent = open ? 'Hide manual address' : 'Enter address manually';
+        };
+
         const setAlternative = (useAlternative) => {
             fields.hidden = !useAlternative;
             toggle.setAttribute('aria-expanded', useAlternative ? 'true' : 'false');
@@ -450,6 +487,7 @@
                 status.textContent = 'Enter a different delivery address below';
                 toggle.textContent = 'Use billing address';
                 copyBillingToDelivery();
+                showDeliveryManual(true);
                 fields.querySelector('input, select, textarea')?.focus();
             } else {
                 status.textContent = 'Your order will be delivered to your billing address';
@@ -457,11 +495,18 @@
             }
         };
 
+        manualToggle?.addEventListener('click', () => {
+            showDeliveryManual(manualFields.hidden);
+        });
+
         toggle.addEventListener('click', () => {
             setAlternative(fields.hidden);
         });
 
-        bindPostcodeLookup('delivery');
+        bindPostcodeLookup('delivery', {
+            manualFieldsId: 'co-delivery-manual-fields',
+            manualToggleId: 'co-delivery-manual-toggle',
+        });
     }
 
     function bindCourierNotes() {
@@ -840,6 +885,7 @@
         bindMobileOrderSummary();
         bindPrototypeLinks();
         bindLogin();
+        applyLoggedInCheckoutAccount();
         bindCreateAccount();
         bindGift();
         bindBillingAddress();

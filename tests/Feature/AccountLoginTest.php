@@ -59,4 +59,43 @@ class AccountLoginTest extends TestCase
 
         $this->get('/account')->assertRedirect(route('demo.account.login'));
     }
+
+    public function test_guest_login_persists_on_pdp_header(): void
+    {
+        $this->post('/account/login', [
+            'email' => 'demo',
+            'password' => 'password',
+        ])->assertRedirect(route('demo.account.home'));
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Welcome, John', false)
+            ->assertSee('My Account', false);
+    }
+
+    public function test_club_login_persists_on_pdp_header(): void
+    {
+        $this->post('/account/login', [
+            'email' => 'democlub',
+            'password' => 'password',
+        ])->assertRedirect(route('demo.account.home'));
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Welcome, Richard', false)
+            ->assertDontSee('Member pricing active', false);
+    }
+
+    public function test_logged_in_user_is_recognised_on_checkout(): void
+    {
+        $this->post('/account/login', [
+            'email' => 'demo',
+            'password' => 'password',
+        ])->assertRedirect(route('demo.account.home'));
+
+        $this->get('/checkout')
+            ->assertOk()
+            ->assertSee('Signed in as john@example.com', false)
+            ->assertDontSee('Log in to your account', false);
+    }
 }

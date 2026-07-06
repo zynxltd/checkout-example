@@ -48,13 +48,9 @@
             <h3 class="demo-account-section__head">These are your current communication preferences:</h3>
             <ul class="demo-account-prefs demo-account-section__body">
                 @foreach ($user['communication_preferences'] as $pref)
-                    @php
-                        $label = is_array($pref) ? ($pref['label'] ?? '') : $pref;
-                        $optedIn = is_array($pref) ? ($pref['opted_in'] ?? true) : true;
-                    @endphp
                     <li>
-                        <span class="demo-account-prefs__tick{{ $optedIn ? '' : ' demo-account-prefs__tick--off' }}" aria-hidden="true"></span>
-                        <span>Consent to receive {{ strtolower($label) }}.</span>
+                        <span class="demo-account-prefs__tick{{ empty($pref['opted_out']) ? '' : ' demo-account-prefs__tick--off' }}" aria-hidden="true"></span>
+                        <span>{{ $pref['read_text'] ?? $pref['text'] ?? $pref['label'] ?? '' }}</span>
                     </li>
                 @endforeach
             </ul>

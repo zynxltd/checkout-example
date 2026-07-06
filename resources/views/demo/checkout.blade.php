@@ -35,6 +35,9 @@ data-co-line-count="{{ count($cart['items']) }}"
     );
     $payImg = fn (string $file) => asset('images/payments/' . $file);
     $ygPay = fn (string $file) => asset('images/payments/footer/' . $file);
+    $checkoutAccount = $checkout_account ?? null;
+    $checkoutBilling = $checkoutAccount['billing'] ?? [];
+    $checkoutDelivery = $checkoutAccount['delivery'] ?? [];
 @endphp
 
 <div class="co co--loading" id="co-root" aria-busy="true">
@@ -87,12 +90,14 @@ data-co-line-count="{{ count($cart['items']) }}"
                 <section class="co-section" id="co-contact-section">
                     <div class="co-section__head">
                         <h2 class="co-section__title">Contact</h2>
+                        @if(!$checkoutAccount)
                         @if($v40)
                         <button type="button" class="co-login-cta" id="co-login-toggle">Log in to your account</button>
                         @else
                         <button type="button" class="co-section__link" id="co-login-toggle">Log in</button>
                         @endif
-                        <span class="co-section__signed-in" id="co-signed-in" hidden>Signed in</span>
+                        @endif
+                        <span class="co-section__signed-in" id="co-signed-in" @if(!$checkoutAccount) hidden @endif>@if($checkoutAccount){{ $checkoutAccount['signed_in_label'] ?? 'Signed in' }}@endif</span>
                     </div>
 
                     <div id="co-login-panel" class="co-login-panel" hidden>
@@ -112,7 +117,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                     <div id="co-contact-guest">
                         <label class="co-field">
                             <span class="co-field__label">Email</span>
-                            <input type="email" name="email" id="co-guest-email" class="co-field__input" autocomplete="email" placeholder=" ">
+                            <input type="email" name="email" id="co-guest-email" class="co-field__input" autocomplete="email" placeholder=" " value="{{ old('email', $checkoutAccount['email'] ?? '') }}">
                         </label>
                         @unless($v40)
                         <label class="co-check co-check--account">
@@ -170,7 +175,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                             <span>I&rsquo;d like to receive email updates with exclusive offers, new launches and sale early access.</span>
                         </label>
                         @else
-                        <div class="co-marketing-optin" id="co-marketing-optins">
+                        <div class="co-marketing-optin" id="co-marketing-optins" @if($checkoutAccount) hidden @endif>
                             <label class="co-check co-check--marketing">
                                 <input type="checkbox" name="marketing" value="1" checked>
                                 <span class="co-check--marketing__copy">
@@ -187,69 +192,70 @@ data-co-line-count="{{ count($cart['items']) }}"
                     <h2 class="co-section__title co-section__title--yg">Billing address</h2>
                     <p class="co-section__note co-section__note--lead">The address where the card is registered</p>
 
-                    @include('demo.partials.checkout-postcode-lookup', ['prefix' => 'billing'])
+                    @include('demo.partials.checkout-postcode-lookup', [
+                        'prefix' => 'billing',
+                        'postcode' => old('billing_postcode', $checkoutBilling['postcode'] ?? ''),
+                    ])
                     <p class="co-manual-link-wrap">
-                        <button type="button" class="co-section__link" id="co-billing-manual-toggle" aria-expanded="false" aria-controls="co-billing-fields">
-                            Enter address manually
+                        <button type="button" class="co-section__link" id="co-billing-manual-toggle" aria-expanded="{{ $checkoutAccount ? 'true' : 'false' }}" aria-controls="co-billing-fields">
+                            {{ $checkoutAccount ? 'Hide manual address' : 'Enter address manually' }}
                         </button>
                     </p>
 
-                    <div id="co-billing-fields" class="co-address-fields" hidden>
+                    <div id="co-billing-fields" class="co-address-fields" @if(!$checkoutAccount) hidden @endif>
                         <input type="hidden" name="billing_region" value="GB">
                         @if($v40)
                         <label class="co-field">
                             <span class="co-field__label">Title</span>
-                            <select name="billing_title" class="co-field__input co-field__select" autocomplete="billing honorific-prefix" required>
+                            <select name="billing_title" id="co-billing-title" class="co-field__input co-field__select" autocomplete="billing honorific-prefix" required>
                                 <option value="">Please select…</option>
-                                <option value="MR">Mr</option>
-                                <option value="MRS">Mrs</option>
-                                <option value="MS">Ms</option>
-                                <option value="MISS">Miss</option>
-                                <option value="DR">Dr</option>
+                                @foreach (['MR' => 'Mr', 'MRS' => 'Mrs', 'MS' => 'Ms', 'MISS' => 'Miss', 'DR' => 'Dr'] as $value => $label)
+                                    <option value="{{ $value }}" @selected(old('billing_title', $checkoutBilling['title'] ?? '') === $value)>{{ $label }}</option>
+                                @endforeach
                             </select>
                         </label>
                         <div class="co-field-row">
                             <label class="co-field">
                                 <span class="co-field__label">First name</span>
-                                <input type="text" name="billing_first_name" id="co-billing-first-name" class="co-field__input" autocomplete="billing given-name">
+                                <input type="text" name="billing_first_name" id="co-billing-first-name" class="co-field__input" autocomplete="billing given-name" value="{{ old('billing_first_name', $checkoutBilling['first_name'] ?? '') }}">
                             </label>
                             <label class="co-field">
                                 <span class="co-field__label">Last name</span>
-                                <input type="text" name="billing_last_name" id="co-billing-last-name" class="co-field__input" autocomplete="billing family-name">
+                                <input type="text" name="billing_last_name" id="co-billing-last-name" class="co-field__input" autocomplete="billing family-name" value="{{ old('billing_last_name', $checkoutBilling['last_name'] ?? '') }}">
                             </label>
                         </div>
                         <div class="co-field-row co-field-row--address-lines">
                             <label class="co-field">
                                 <span class="co-field__label">Address line 1</span>
-                                <input type="text" name="billing_address1" id="co-billing-address1" class="co-field__input" autocomplete="billing address-line1">
+                                <input type="text" name="billing_address1" id="co-billing-address1" class="co-field__input" autocomplete="billing address-line1" value="{{ old('billing_address1', $checkoutBilling['address1'] ?? '') }}">
                             </label>
                             <label class="co-field">
                                 <span class="co-field__label">Address line 2</span>
-                                <input type="text" name="billing_address2" id="co-billing-address2" class="co-field__input" autocomplete="billing address-line2">
+                                <input type="text" name="billing_address2" id="co-billing-address2" class="co-field__input" autocomplete="billing address-line2" value="{{ old('billing_address2', $checkoutBilling['address2'] ?? '') }}">
                             </label>
                         </div>
                         <div class="co-field-row co-field-row--address-lines">
                             <label class="co-field">
                                 <span class="co-field__label">Address line 3 <span class="co-field__optional">(optional)</span></span>
-                                <input type="text" name="billing_address3" id="co-billing-address3" class="co-field__input" autocomplete="billing address-line3">
+                                <input type="text" name="billing_address3" id="co-billing-address3" class="co-field__input" autocomplete="billing address-line3" value="{{ old('billing_address3', '') }}">
                             </label>
                             <label class="co-field">
                                 <span class="co-field__label">Address line 4 <span class="co-field__optional">(optional)</span></span>
-                                <input type="text" name="billing_address4" id="co-billing-address4" class="co-field__input" autocomplete="billing address-line4">
+                                <input type="text" name="billing_address4" id="co-billing-address4" class="co-field__input" autocomplete="billing address-line4" value="{{ old('billing_address4', '') }}">
                             </label>
                         </div>
                         <label class="co-field">
                             <span class="co-field__label">City</span>
-                            <input type="text" name="billing_city" id="co-billing-city" class="co-field__input" autocomplete="billing address-level2">
+                            <input type="text" name="billing_city" id="co-billing-city" class="co-field__input" autocomplete="billing address-level2" value="{{ old('billing_city', $checkoutBilling['city'] ?? '') }}">
                         </label>
                         <div class="co-field-row co-field-row--phone-dob">
                             <label class="co-field">
                                 <span class="co-field__label">Phone</span>
-                                <input type="tel" name="billing_phone" id="co-billing-phone" class="co-field__input" autocomplete="billing tel">
+                                <input type="tel" name="billing_phone" id="co-billing-phone" class="co-field__input" autocomplete="billing tel" value="{{ old('billing_phone', $checkoutBilling['phone'] ?? '') }}">
                             </label>
                             <label class="co-field">
                                 <span class="co-field__label">Date of birth</span>
-                                <input type="date" name="billing_dob" id="co-billing-dob" class="co-field__input" autocomplete="bday" required>
+                                <input type="date" name="billing_dob" id="co-billing-dob" class="co-field__input" autocomplete="bday" required value="{{ old('billing_dob', $checkoutBilling['date_of_birth'] ?? '') }}">
                             </label>
                         </div>
                         <p class="co-field__help co-billing-dob-note">Let us know your date of birth, and we may just send you a Birthday surprise.</p>
@@ -257,85 +263,148 @@ data-co-line-count="{{ count($cart['items']) }}"
                         <div class="co-field-row">
                             <label class="co-field">
                                 <span class="co-field__label">First name</span>
-                                <input type="text" name="billing_first_name" id="co-billing-first-name" class="co-field__input" autocomplete="billing given-name">
+                                <input type="text" name="billing_first_name" id="co-billing-first-name" class="co-field__input" autocomplete="billing given-name" value="{{ old('billing_first_name', $checkoutBilling['first_name'] ?? '') }}">
                             </label>
                             <label class="co-field">
                                 <span class="co-field__label">Last name</span>
-                                <input type="text" name="billing_last_name" id="co-billing-last-name" class="co-field__input" autocomplete="billing family-name">
+                                <input type="text" name="billing_last_name" id="co-billing-last-name" class="co-field__input" autocomplete="billing family-name" value="{{ old('billing_last_name', $checkoutBilling['last_name'] ?? '') }}">
                             </label>
                         </div>
                         <div class="co-field-row co-field-row--address-lines">
                             <label class="co-field">
                                 <span class="co-field__label">Address</span>
-                                <input type="text" name="billing_address1" id="co-billing-address1" class="co-field__input" autocomplete="billing address-line1">
+                                <input type="text" name="billing_address1" id="co-billing-address1" class="co-field__input" autocomplete="billing address-line1" value="{{ old('billing_address1', $checkoutBilling['address1'] ?? '') }}">
                             </label>
                             <label class="co-field">
                                 <span class="co-field__label">Apartment, suite, etc. (optional)</span>
-                                <input type="text" name="billing_address2" id="co-billing-address2" class="co-field__input" autocomplete="billing address-line2">
+                                <input type="text" name="billing_address2" id="co-billing-address2" class="co-field__input" autocomplete="billing address-line2" value="{{ old('billing_address2', $checkoutBilling['address2'] ?? '') }}">
                             </label>
                         </div>
                         <label class="co-field">
                             <span class="co-field__label">City</span>
-                            <input type="text" name="billing_city" id="co-billing-city" class="co-field__input" autocomplete="billing address-level2">
+                            <input type="text" name="billing_city" id="co-billing-city" class="co-field__input" autocomplete="billing address-level2" value="{{ old('billing_city', $checkoutBilling['city'] ?? '') }}">
                         </label>
                         <label class="co-field">
                             <span class="co-field__label">Phone</span>
-                            <input type="tel" name="billing_phone" id="co-billing-phone" class="co-field__input" autocomplete="billing tel">
+                            <input type="tel" name="billing_phone" id="co-billing-phone" class="co-field__input" autocomplete="billing tel" value="{{ old('billing_phone', $checkoutBilling['phone'] ?? '') }}">
                         </label>
                         @endif
                     </div>
                 </section>
 
                 <section class="co-section co-section--delivery" id="co-delivery-section">
-                    <input type="hidden" name="delivery_same_as_billing" id="co-delivery-same-as-billing" value="1">
+                    @php $useAltDelivery = ! empty($checkoutAccount['alternative_delivery']); @endphp
+                    <input type="hidden" name="delivery_same_as_billing" id="co-delivery-same-as-billing" value="{{ $useAltDelivery ? '0' : '1' }}">
 
                     <div class="co-address-head">
                         <div>
                             <h2 class="co-section__title co-section__title--yg">Your delivery</h2>
-                            <p class="co-address-status" id="co-delivery-status">Your order will be delivered to your billing address</p>
+                            <p class="co-address-status" id="co-delivery-status">{{ $useAltDelivery ? 'Enter a different delivery address below' : 'Your order will be delivered to your billing address' }}</p>
                         </div>
                         <button
                             type="button"
                             class="co-address-toggle"
                             id="co-delivery-toggle"
-                            aria-expanded="false"
+                            aria-expanded="{{ $useAltDelivery ? 'true' : 'false' }}"
                             aria-controls="co-delivery-fields"
                         >
-                            Choose alternative delivery address
+                            {{ $useAltDelivery ? 'Use billing address' : 'Choose alternative delivery address' }}
                         </button>
                     </div>
 
-                    <div id="co-delivery-fields" class="co-address-fields" hidden>
+                    <div id="co-delivery-fields" class="co-address-fields" @if(!$useAltDelivery) hidden @endif>
                         <input type="hidden" name="delivery_region" value="GB">
-                        <div class="co-field-row">
+
+                        @include('demo.partials.checkout-postcode-lookup', [
+                            'prefix' => 'delivery',
+                            'postcode' => old('delivery_postcode', $checkoutDelivery['postcode'] ?? ''),
+                        ])
+                        <p class="co-manual-link-wrap">
+                            <button type="button" class="co-section__link" id="co-delivery-manual-toggle" aria-expanded="{{ $useAltDelivery ? 'true' : 'false' }}" aria-controls="co-delivery-manual-fields">
+                                {{ $useAltDelivery ? 'Hide manual address' : 'Enter address manually' }}
+                            </button>
+                        </p>
+
+                        <div id="co-delivery-manual-fields" @if(!$useAltDelivery) hidden @endif>
+                            @if($v40)
                             <label class="co-field">
-                                <span class="co-field__label">First name</span>
-                                <input type="text" name="delivery_first_name" id="co-delivery-first-name" class="co-field__input" autocomplete="shipping given-name">
+                                <span class="co-field__label">Title</span>
+                                <select name="delivery_title" id="co-delivery-title" class="co-field__input co-field__select" autocomplete="shipping honorific-prefix" required>
+                                    <option value="">Please select…</option>
+                                    @foreach (['MR' => 'Mr', 'MRS' => 'Mrs', 'MS' => 'Ms', 'MISS' => 'Miss', 'DR' => 'Dr'] as $value => $label)
+                                        <option value="{{ $value }}" @selected(old('delivery_title', $checkoutDelivery['title'] ?? $checkoutBilling['title'] ?? '') === $value)>{{ $label }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+                            <div class="co-field-row">
+                                <label class="co-field">
+                                    <span class="co-field__label">First name</span>
+                                    <input type="text" name="delivery_first_name" id="co-delivery-first-name" class="co-field__input" autocomplete="shipping given-name" value="{{ old('delivery_first_name', $checkoutDelivery['first_name'] ?? '') }}">
+                                </label>
+                                <label class="co-field">
+                                    <span class="co-field__label">Last name</span>
+                                    <input type="text" name="delivery_last_name" id="co-delivery-last-name" class="co-field__input" autocomplete="shipping family-name" value="{{ old('delivery_last_name', $checkoutDelivery['last_name'] ?? '') }}">
+                                </label>
+                            </div>
+                            <div class="co-field-row co-field-row--address-lines">
+                                <label class="co-field">
+                                    <span class="co-field__label">Address line 1</span>
+                                    <input type="text" name="delivery_address1" id="co-delivery-address1" class="co-field__input" autocomplete="shipping address-line1" value="{{ old('delivery_address1', $checkoutDelivery['address1'] ?? '') }}">
+                                </label>
+                                <label class="co-field">
+                                    <span class="co-field__label">Address line 2</span>
+                                    <input type="text" name="delivery_address2" id="co-delivery-address2" class="co-field__input" autocomplete="shipping address-line2" value="{{ old('delivery_address2', $checkoutDelivery['address2'] ?? '') }}">
+                                </label>
+                            </div>
+                            <div class="co-field-row co-field-row--address-lines">
+                                <label class="co-field">
+                                    <span class="co-field__label">Address line 3 <span class="co-field__optional">(optional)</span></span>
+                                    <input type="text" name="delivery_address3" id="co-delivery-address3" class="co-field__input" autocomplete="shipping address-line3" value="{{ old('delivery_address3', $checkoutDelivery['address3'] ?? '') }}">
+                                </label>
+                                <label class="co-field">
+                                    <span class="co-field__label">Address line 4 <span class="co-field__optional">(optional)</span></span>
+                                    <input type="text" name="delivery_address4" id="co-delivery-address4" class="co-field__input" autocomplete="shipping address-line4" value="{{ old('delivery_address4', $checkoutDelivery['address4'] ?? '') }}">
+                                </label>
+                            </div>
+                            <label class="co-field">
+                                <span class="co-field__label">City</span>
+                                <input type="text" name="delivery_city" id="co-delivery-city" class="co-field__input" autocomplete="shipping address-level2" value="{{ old('delivery_city', $checkoutDelivery['city'] ?? '') }}">
                             </label>
                             <label class="co-field">
-                                <span class="co-field__label">Last name</span>
-                                <input type="text" name="delivery_last_name" id="co-delivery-last-name" class="co-field__input" autocomplete="shipping family-name">
+                                <span class="co-field__label">Phone</span>
+                                <input type="tel" name="delivery_phone" id="co-delivery-phone" class="co-field__input" autocomplete="shipping tel" value="{{ old('delivery_phone', $checkoutDelivery['phone'] ?? '') }}">
                             </label>
+                            @else
+                            <div class="co-field-row">
+                                <label class="co-field">
+                                    <span class="co-field__label">First name</span>
+                                    <input type="text" name="delivery_first_name" id="co-delivery-first-name" class="co-field__input" autocomplete="shipping given-name" value="{{ old('delivery_first_name', $checkoutDelivery['first_name'] ?? '') }}">
+                                </label>
+                                <label class="co-field">
+                                    <span class="co-field__label">Last name</span>
+                                    <input type="text" name="delivery_last_name" id="co-delivery-last-name" class="co-field__input" autocomplete="shipping family-name" value="{{ old('delivery_last_name', $checkoutDelivery['last_name'] ?? '') }}">
+                                </label>
+                            </div>
+                            <div class="co-field-row co-field-row--address-lines">
+                                <label class="co-field">
+                                    <span class="co-field__label">Address</span>
+                                    <input type="text" name="delivery_address1" id="co-delivery-address1" class="co-field__input" autocomplete="shipping address-line1" value="{{ old('delivery_address1', $checkoutDelivery['address1'] ?? '') }}">
+                                </label>
+                                <label class="co-field">
+                                    <span class="co-field__label">Apartment, suite, etc. (optional)</span>
+                                    <input type="text" name="delivery_address2" id="co-delivery-address2" class="co-field__input" autocomplete="shipping address-line2" value="{{ old('delivery_address2', $checkoutDelivery['address2'] ?? '') }}">
+                                </label>
+                            </div>
+                            <label class="co-field">
+                                <span class="co-field__label">City</span>
+                                <input type="text" name="delivery_city" id="co-delivery-city" class="co-field__input" autocomplete="shipping address-level2" value="{{ old('delivery_city', $checkoutDelivery['city'] ?? '') }}">
+                            </label>
+                            <label class="co-field">
+                                <span class="co-field__label">Phone</span>
+                                <input type="tel" name="delivery_phone" id="co-delivery-phone" class="co-field__input" autocomplete="shipping tel" value="{{ old('delivery_phone', $checkoutDelivery['phone'] ?? '') }}">
+                            </label>
+                            @endif
                         </div>
-                        <div class="co-field-row co-field-row--address-lines">
-                            <label class="co-field">
-                                <span class="co-field__label">Address</span>
-                                <input type="text" name="delivery_address1" id="co-delivery-address1" class="co-field__input" autocomplete="shipping address-line1">
-                            </label>
-                            <label class="co-field">
-                                <span class="co-field__label">Apartment, suite, etc. (optional)</span>
-                                <input type="text" name="delivery_address2" id="co-delivery-address2" class="co-field__input" autocomplete="shipping address-line2">
-                            </label>
-                        </div>
-                        <label class="co-field">
-                            <span class="co-field__label">City</span>
-                            <input type="text" name="delivery_city" id="co-delivery-city" class="co-field__input" autocomplete="shipping address-level2">
-                        </label>
-                        @include('demo.partials.checkout-postcode-lookup', ['prefix' => 'delivery'])
-                        <label class="co-field">
-                            <span class="co-field__label">Phone</span>
-                            <input type="tel" name="delivery_phone" id="co-delivery-phone" class="co-field__input" autocomplete="shipping tel">
-                        </label>
                     </div>
 
                     <label class="co-check co-check--billing">
@@ -595,6 +664,19 @@ data-co-line-count="{{ count($cart['items']) }}"
 @endsection
 
 @push('scripts')
+    @if($checkoutAccount)
+    @php
+        $checkoutAccountJs = [
+            'loggedIn' => true,
+            'email' => $checkoutAccount['email'],
+            'signedInLabel' => $checkoutAccount['signed_in_label'],
+            'alternativeDelivery' => ! empty($checkoutAccount['alternative_delivery']),
+        ];
+    @endphp
+    <script>
+        window.__YG_CHECKOUT_ACCOUNT = @json($checkoutAccountJs);
+    </script>
+    @endif
     <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
     <script src="{{ asset('js/yg-checkout.js') }}?v={{ filemtime(public_path('js/yg-checkout.js')) }}" defer></script>
 @endpush

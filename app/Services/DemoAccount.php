@@ -6,6 +6,8 @@ class DemoAccount
 {
     public const SESSION_KEY = 'demo_account_user';
 
+    public const WHISTL_DEMO_TRACKING_URL = 'https://despatch.whistl.co.uk/Tracking/reference/H06A8A0004034411';
+
     public static function defaultUser(): array
     {
         return self::guestUser();
@@ -24,6 +26,9 @@ class DemoAccount
             'email' => 'john@example.com',
             'phone' => '+44 (0)7700 900123',
             'date_of_birth' => '15 Jan 1988',
+            'date_of_birth_iso' => '1988-01-15',
+            'initial' => '',
+            'password' => config('demo.account_password'),
             'invoice_address' => [
                 'line1' => '12 Guest Lane',
                 'line2' => '',
@@ -46,12 +51,23 @@ class DemoAccount
                     ],
                     'phone' => '+44 (0)7700 900123',
                 ],
+                [
+                    'id' => 'alternate',
+                    'is_default' => false,
+                    'name' => 'MR John Smith',
+                    'business_name' => '',
+                    'lines' => [
+                        'line1' => '27 Meadow View',
+                        'line2' => 'Didsbury',
+                        'town' => 'Manchester',
+                        'postcode' => 'M20 2AB',
+                        'country' => 'UNITED KINGDOM',
+                    ],
+                    'phone' => '+44 (0)7700 900123',
+                ],
             ],
-            'communication_preferences' => [
-                ['label' => 'catalogues with new varieties and offers', 'opted_in' => true],
-                ['label' => 'exclusive offers and discounts via email', 'opted_in' => true],
-            ],
-            'orders' => [],
+            'communication_preferences' => self::defaultCommunicationPreferences(),
+            'orders' => self::guestSampleOrders(),
             'club' => null,
         ];
     }
@@ -71,9 +87,10 @@ class DemoAccount
             'date_of_birth' => '12 Mar 1972',
             'date_of_birth_iso' => '1972-03-12',
             'initial' => '',
+            'password' => config('demo.club_account_password'),
             'invoice_address' => [
-                'line1' => 'Stamford Road Industrial Estate',
-                'line2' => 'Ryhall Road',
+                'line1' => 'Eventus',
+                'line2' => 'You Garden Ltd Sunderland Road, Northfields Industrial Estate',
                 'town' => 'MARKET DEEPING',
                 'postcode' => 'PE6 8FD',
                 'country' => 'UNITED KINGDOM',
@@ -96,11 +113,11 @@ class DemoAccount
                 [
                     'id' => 'office',
                     'is_default' => false,
-                    'name' => 'Mr Richard Llewellyn',
+                    'name' => 'Mr R Llewellyn',
                     'business_name' => 'You Garden Ltd',
                     'lines' => [
-                        'line1' => 'Stamford Road Industrial Estate',
-                        'line2' => 'Ryhall Road',
+                        'line1' => 'Eventus',
+                        'line2' => 'You Garden Ltd Sunderland Road, Northfields Industrial Estate',
                         'town' => 'MARKET DEEPING',
                         'postcode' => 'PE6 8FD',
                         'country' => 'UNITED KINGDOM',
@@ -108,12 +125,7 @@ class DemoAccount
                     'phone' => '01778382799',
                 ],
             ],
-            'communication_preferences' => [
-                ['label' => 'catalogues with new varieties and offers', 'opted_in' => false],
-                ['label' => 'exclusive offers and discounts via email', 'opted_in' => true],
-                ['label' => 'garden-related offers via telephone and SMS', 'opted_in' => true],
-                ['label' => 'club member magazine and gardening content via email', 'opted_in' => true],
-            ],
+            'communication_preferences' => self::defaultCommunicationPreferences(clubMember: true),
             'orders' => self::sampleOrders(),
             'club' => [
                 'membership_start' => '24/01/2025',
@@ -174,6 +186,58 @@ class DemoAccount
         ];
     }
 
+    /** @return array<string, mixed>|null */
+    public static function checkoutPrefill(): ?array
+    {
+        if (! self::isLoggedIn()) {
+            return null;
+        }
+
+        $user = self::user();
+        $invoice = $user['invoice_address'] ?? [];
+        $defaultDelivery = collect($user['delivery_addresses'] ?? [])->firstWhere('is_default', true)
+            ?? ($user['delivery_addresses'][0] ?? null);
+        $deliveryLines = is_array($defaultDelivery) ? ($defaultDelivery['lines'] ?? []) : [];
+
+        $normalizePostcode = static fn (?string $postcode): string => strtoupper(preg_replace('/\s+/', '', (string) $postcode));
+        $alternativeDelivery = $defaultDelivery
+            && $normalizePostcode($invoice['postcode'] ?? '') !== $normalizePostcode($deliveryLines['postcode'] ?? '');
+
+        $prefill = [
+            'email' => $user['email'] ?? '',
+            'signed_in_label' => 'Signed in as '.($user['email'] ?? ''),
+            'billing' => [
+                'title' => strtoupper((string) ($user['title'] ?? 'MR')),
+                'first_name' => $user['first_name'] ?? '',
+                'last_name' => $user['last_name'] ?? '',
+                'phone' => $user['phone'] ?? '',
+                'date_of_birth' => $user['date_of_birth_iso'] ?? '',
+                'postcode' => $invoice['postcode'] ?? '',
+                'address1' => $invoice['line1'] ?? '',
+                'address2' => $invoice['line2'] ?? '',
+                'city' => $invoice['town'] ?? '',
+            ],
+            'alternative_delivery' => $alternativeDelivery,
+        ];
+
+        if ($alternativeDelivery) {
+            $prefill['delivery'] = [
+                'title' => strtoupper((string) ($user['title'] ?? 'MR')),
+                'first_name' => $user['first_name'] ?? '',
+                'last_name' => $user['last_name'] ?? '',
+                'phone' => $defaultDelivery['phone'] ?? ($user['phone'] ?? ''),
+                'postcode' => $deliveryLines['postcode'] ?? '',
+                'address1' => $deliveryLines['line1'] ?? '',
+                'address2' => $deliveryLines['line2'] ?? '',
+                'address3' => $deliveryLines['line3'] ?? '',
+                'address4' => $deliveryLines['line4'] ?? '',
+                'city' => $deliveryLines['town'] ?? '',
+            ];
+        }
+
+        return $prefill;
+    }
+
     public static function isClubMember(): bool
     {
         return (bool) session('demo_club_member', false);
@@ -195,11 +259,301 @@ class DemoAccount
             return self::guestUser();
         }
 
-        if (self::isClubMember()) {
-            return session(self::SESSION_KEY, self::clubMemberUser());
+        $template = self::isClubMember() ? self::clubMemberUser() : self::guestUser();
+        $user = session(self::SESSION_KEY, $template);
+        $user['orders'] = $template['orders'];
+        $user['communication_preferences'] = self::normalizeCommunicationPreferences($user);
+
+        return $user;
+    }
+
+    /** @param array<string, mixed> $user */
+    /** @return list<array{id: string, text: string, opted_out: bool}> */
+    public static function normalizeCommunicationPreferences(array $user): array
+    {
+        $defaults = self::defaultCommunicationPreferences(! empty($user['club']));
+        $stored = $user['communication_preferences'] ?? [];
+
+        if (isset($stored[0]['text'])) {
+            return $stored;
         }
 
-        return session(self::SESSION_KEY, self::guestUser());
+        foreach ($defaults as $index => &$preference) {
+            if (! isset($stored[$index])) {
+                continue;
+            }
+
+            $legacy = $stored[$index];
+            if (array_key_exists('opted_in', $legacy)) {
+                $preference['opted_out'] = ! $legacy['opted_in'];
+            } elseif (array_key_exists('opted_out', $legacy)) {
+                $preference['opted_out'] = (bool) $legacy['opted_out'];
+            }
+        }
+        unset($preference);
+
+        return $defaults;
+    }
+
+    /** @return list<array{id: string, text: string, opted_out: bool}> */
+    public static function defaultCommunicationPreferences(bool $clubMember = false): array
+    {
+        $preferences = [
+            [
+                'id' => 'catalogues',
+                'text' => 'As a YouGarden customer we would like to send you our catalogues featuring new varieties and exclusive offers. Please tick if you DO NOT wish to receive.',
+                'read_text' => 'You would like to receive our catalogues featuring new varieties and exclusive offers.',
+                'opted_out' => false,
+            ],
+            [
+                'id' => 'email_offers',
+                'text' => 'We would like to send you exclusive offers and discounts by email. Please tick if you DO NOT wish to receive.',
+                'read_text' => 'You would like to receive our exclusive offers and discounts by email.',
+                'opted_out' => false,
+            ],
+            [
+                'id' => 'phone_sms',
+                'text' => 'We would like to send you garden related offers and contact you by Telephone and SMS. Please tick if you DO NOT wish to receive.',
+                'read_text' => 'You would like to receive our garden related offers and contact you by Telephone and SMS',
+                'opted_out' => false,
+            ],
+            [
+                'id' => 'partners',
+                'text' => 'We think you\'d enjoy some of the latest products and offers by post from our trusted partners; companies operating in the retail, charity, finance, travel, FMCG and utility sectors. If you DO NOT wish to receive these please tick.',
+                'read_text' => 'You would like to enjoy some of the latest products and offers by post from our trusted partners; companies operating in the retail, charity, finance, travel, FMCG and utility sectors.',
+                'opted_out' => false,
+            ],
+        ];
+
+        if ($clubMember) {
+            $preferences[0]['opted_out'] = true;
+        }
+
+        return $preferences;
+    }
+
+    /** @param array<string, mixed> $payload */
+    public static function updateInvoiceAddress(array $payload): void
+    {
+        if (! self::isLoggedIn()) {
+            return;
+        }
+
+        $user = session(self::SESSION_KEY);
+        $user['invoice_address'] = [
+            'line1' => $payload['line1'],
+            'line2' => $payload['line2'] ?? '',
+            'town' => $payload['town'],
+            'postcode' => $payload['postcode'],
+            'country' => $payload['country'] ?? 'UNITED KINGDOM',
+        ];
+        session([self::SESSION_KEY => $user]);
+    }
+
+    /** @param list<string> $optedOutIds */
+    public static function updateCommunicationPreferences(array $optedOutIds): void
+    {
+        if (! self::isLoggedIn()) {
+            return;
+        }
+
+        $user = session(self::SESSION_KEY);
+        $optedOut = array_flip($optedOutIds);
+
+        $user['communication_preferences'] = collect($user['communication_preferences'] ?? [])
+            ->map(function (array $pref) use ($optedOut) {
+                $id = $pref['id'] ?? '';
+                $pref['opted_out'] = $id !== '' && isset($optedOut[$id]);
+
+                return $pref;
+            })
+            ->values()
+            ->all();
+
+        session([self::SESSION_KEY => $user]);
+    }
+
+    /** @return array<string, mixed>|null */
+    public static function findDeliveryAddress(string $id): ?array
+    {
+        foreach (self::user()['delivery_addresses'] as $address) {
+            if (($address['id'] ?? '') === $id) {
+                return $address;
+            }
+        }
+
+        return null;
+    }
+
+    /** @param array<string, mixed> $payload */
+    public static function updateDeliveryAddress(string $id, array $payload): void
+    {
+        if (! self::isLoggedIn()) {
+            return;
+        }
+
+        $user = session(self::SESSION_KEY);
+        $addresses = $user['delivery_addresses'] ?? [];
+        $makeDefault = ! empty($payload['is_default']);
+
+        foreach ($addresses as $index => $address) {
+            if ($makeDefault) {
+                $addresses[$index]['is_default'] = ($address['id'] ?? '') === $id;
+            }
+
+            if (($address['id'] ?? '') !== $id) {
+                continue;
+            }
+
+            $addresses[$index]['name'] = $payload['name'];
+            $addresses[$index]['business_name'] = $payload['business_name'] ?? '';
+            $addresses[$index]['phone'] = $payload['phone'];
+            $addresses[$index]['lines'] = [
+                'line1' => $payload['line1'],
+                'line2' => $payload['line2'] ?? '',
+                'town' => $payload['town'],
+                'postcode' => $payload['postcode'],
+                'country' => $payload['country'] ?? 'UNITED KINGDOM',
+            ];
+        }
+
+        $user['delivery_addresses'] = $addresses;
+        session([self::SESSION_KEY => $user]);
+    }
+
+    public static function deleteDeliveryAddress(string $id): bool
+    {
+        if (! self::isLoggedIn()) {
+            return false;
+        }
+
+        $user = session(self::SESSION_KEY);
+        $addresses = $user['delivery_addresses'] ?? [];
+
+        if (count($addresses) <= 1) {
+            return false;
+        }
+
+        $removedDefault = false;
+        $addresses = array_values(array_filter($addresses, function (array $address) use ($id, &$removedDefault) {
+            if (($address['id'] ?? '') !== $id) {
+                return true;
+            }
+
+            $removedDefault = ! empty($address['is_default']);
+
+            return false;
+        }));
+
+        if (count($addresses) === count($user['delivery_addresses'] ?? [])) {
+            return false;
+        }
+
+        if ($removedDefault) {
+            $addresses[0]['is_default'] = true;
+        }
+
+        $user['delivery_addresses'] = $addresses;
+        session([self::SESSION_KEY => $user]);
+
+        return true;
+    }
+
+    /** @param array<string, mixed> $payload */
+    public static function updateProfile(array $payload): void
+    {
+        if (! self::isLoggedIn()) {
+            return;
+        }
+
+        $user = session(self::SESSION_KEY);
+        $initial = trim((string) ($payload['initial'] ?? ''));
+        $firstName = trim((string) ($payload['first_name'] ?? ''));
+        $shortFirst = $initial !== '' ? strtoupper($initial) : strtoupper(substr($firstName, 0, 1));
+
+        $user['title'] = $payload['title'];
+        $user['first_name'] = $firstName;
+        $user['initial'] = $initial;
+        $user['last_name'] = trim((string) ($payload['last_name'] ?? ''));
+        $user['display_name'] = strtoupper((string) ($payload['title'] ?? 'Mr')).' '.$shortFirst.' '.$user['last_name'];
+        $user['business_name'] = trim((string) ($payload['business_name'] ?? ''));
+        $user['email'] = strtolower(trim((string) ($payload['email'] ?? '')));
+        $user['phone'] = trim((string) ($payload['phone'] ?? ''));
+
+        if (! empty($payload['date_of_birth_iso'])) {
+            $user['date_of_birth_iso'] = $payload['date_of_birth_iso'];
+            $user['date_of_birth'] = $payload['date_of_birth'] ?? '';
+        } else {
+            $user['date_of_birth_iso'] = '';
+            $user['date_of_birth'] = '';
+        }
+
+        if (! empty($payload['password'])) {
+            $user['password'] = $payload['password'];
+        }
+
+        session([self::SESSION_KEY => $user]);
+    }
+
+    public static function verifyPassword(string $password): bool
+    {
+        if (! self::isLoggedIn()) {
+            return false;
+        }
+
+        $stored = (string) (self::user()['password'] ?? '');
+
+        return $stored !== '' && hash_equals($stored, $password);
+    }
+
+    /** @param array<string, mixed> $address */
+    public static function formattedOrderAddress(array $address): string
+    {
+        $parts = array_filter([
+            $address['name'] ?? '',
+            $address['business_name'] ?? '',
+        ]);
+
+        $lines = $address['lines'] ?? $address;
+        $parts[] = $lines['line1'] ?? '';
+        $parts[] = $lines['line2'] ?? '';
+        $parts[] = $lines['town'] ?? '';
+        $parts[] = $lines['postcode'] ?? '';
+        $parts[] = strtoupper((string) ($lines['country'] ?? 'UNITED KINGDOM'));
+
+        return implode("\n", array_filter($parts));
+    }
+
+    /** @param array<string, mixed> $order @param array<string, mixed> $user */
+    public static function orderBillingAddress(array $order, array $user): array
+    {
+        if (! empty($order['billing_address'])) {
+            return $order['billing_address'];
+        }
+
+        return [
+            'name' => $user['display_name'] ?? '',
+            'business_name' => $user['business_name'] ?? '',
+            'phone' => $user['phone'] ?? '',
+            'lines' => $user['invoice_address'] ?? [],
+        ];
+    }
+
+    /** @param array<string, mixed> $order @param array<string, mixed> $user */
+    public static function orderDeliveryAddress(array $order, array $user): array
+    {
+        if (! empty($order['delivery_address'])) {
+            return $order['delivery_address'];
+        }
+
+        $delivery = $user['delivery_addresses'][0] ?? [];
+
+        return [
+            'name' => $delivery['name'] ?? ($user['display_name'] ?? ''),
+            'business_name' => $delivery['business_name'] ?? '',
+            'phone' => $delivery['phone'] ?? ($user['phone'] ?? ''),
+            'lines' => $delivery['lines'] ?? [],
+        ];
     }
 
     public static function isLoggedIn(): bool
@@ -294,88 +648,167 @@ class DemoAccount
     }
 
     /** @return list<array<string, mixed>> */
+    public static function whistlTrackingSteps(): array
+    {
+        return [
+            ['label' => 'Delivered to Garage', 'date' => '25/03/2026 10:40', 'complete' => true],
+            ['label' => 'Out for delivery — Delivery 10:00 - 12:00 today', 'date' => '25/03/2026 09:47', 'complete' => true],
+            ['label' => 'Courier received', 'date' => '25/03/2026 09:08', 'complete' => true],
+            ['label' => 'Out for delivery to courier', 'date' => '25/03/2026 00:55', 'complete' => true],
+            ['label' => 'Processed at depot', 'date' => '24/03/2026 23:32', 'complete' => true],
+            ['label' => 'Hub trailer via sorter', 'date' => '24/03/2026 16:13', 'complete' => true],
+            ['label' => 'Received at Hermes hub', 'date' => '24/03/2026 16:12', 'complete' => true],
+            ['label' => 'Shipment created', 'date' => '23/03/2026 11:31', 'complete' => true],
+            ['label' => 'Pre-advice loaded', 'date' => '23/03/2026 11:31', 'complete' => true],
+        ];
+    }
+
+    /**
+     * Shared Patio Potato demo order — OR15284193 with live Whistl tracking.
+     *
+     * @param  array<string, mixed>  $billing
+     * @param  array<string, mixed>  $delivery
+     * @return array<string, mixed>
+     */
+    public static function patioPotatoDemoOrder(array $billing, array $delivery): array
+    {
+        return [
+            'id' => 'OR15284193',
+            'date' => '20/03/2026',
+            'value' => 12.72,
+            'subtotal' => 12.72,
+            'status' => 'Order completed',
+            'tracking' => 'H06A8A0004034411',
+            'tracking_url' => self::WHISTL_DEMO_TRACKING_URL,
+            'sender_reference' => 'SD14690111',
+            'recipient_reference' => 'OR15284193',
+            'carrier' => 'Evri',
+            'service' => 'NPOD',
+            'delivery' => 0.00,
+            'items' => [
+                [
+                    'name' => 'Patio Potato Selection',
+                    'product_number' => '350007',
+                    'qty' => 1,
+                    'price' => 12.72,
+                    'image' => 'images/products/404220.jpg',
+                ],
+            ],
+            'billing_address' => $billing,
+            'delivery_address' => $delivery,
+            'tracking_steps' => self::whistlTrackingSteps(),
+        ];
+    }
+
+    /** @return array<string, string>|null */
+    public static function orderTrackingUrl(array $order): ?string
+    {
+        if (! empty($order['tracking_url'])) {
+            return (string) $order['tracking_url'];
+        }
+
+        if (($order['id'] ?? '') === 'OR15284193' && ! empty($order['tracking'])) {
+            return self::WHISTL_DEMO_TRACKING_URL;
+        }
+
+        if (empty($order['tracking'])) {
+            return null;
+        }
+
+        return route('demo.account.order.track', ['orderId' => $order['id']]);
+    }
+
+    /** @return list<array<string, mixed>> */
+    public static function guestSampleOrders(): array
+    {
+        return [
+            self::patioPotatoDemoOrder(
+                [
+                    'name' => 'MR John Smith',
+                    'business_name' => '',
+                    'phone' => '+44 (0)7700 900123',
+                    'lines' => [
+                        'line1' => '12 Guest Lane',
+                        'line2' => '',
+                        'town' => 'Manchester',
+                        'postcode' => 'M1 4GH',
+                        'country' => 'UNITED KINGDOM',
+                    ],
+                ],
+                [
+                    'name' => 'MR John Smith',
+                    'business_name' => '',
+                    'phone' => '+44 (0)7700 900123',
+                    'lines' => [
+                        'line1' => '27 Meadow View',
+                        'line2' => 'Didsbury',
+                        'town' => 'Manchester',
+                        'postcode' => 'M20 2AB',
+                        'country' => 'UNITED KINGDOM',
+                    ],
+                ],
+            ),
+        ];
+    }
+
+    /** @return list<array<string, mixed>> */
     public static function sampleOrders(): array
     {
         return [
-            [
-                'id' => 'OR15284193',
-                'date' => '18/06/2025',
-                'value' => 84.97,
-                'status' => 'Order completed',
-                'tracking' => '1Z999AA10123456784',
-                'carrier' => 'UPS',
-                'items' => [
-                    ['name' => 'Petunia Easy Wave Mixed', 'qty' => 2, 'price' => 14.97],
-                    ['name' => 'Blooming Fast Superior Plant Food 800g', 'qty' => 1, 'price' => 4.99],
-                    ['name' => 'Rootgrow Mycorrhizal Fungi 360g', 'qty' => 1, 'price' => 3.99],
+            self::patioPotatoDemoOrder(
+                [
+                    'name' => 'MR R Llewellyn',
+                    'business_name' => '',
+                    'phone' => '01778382799',
+                    'lines' => [
+                        'line1' => 'Eventus',
+                        'line2' => 'You Garden Ltd Sunderland Road, Northfields Industrial Estate',
+                        'town' => 'MARKET DEEPING',
+                        'postcode' => 'PE6 8FD',
+                        'country' => 'UNITED KINGDOM',
+                    ],
                 ],
-                'delivery' => 4.99,
-                'tracking_steps' => [
-                    ['label' => 'Order placed', 'date' => '18 Jun 2025', 'complete' => true],
-                    ['label' => 'Dispatched', 'date' => '19 Jun 2025', 'complete' => true],
-                    ['label' => 'Out for delivery', 'date' => '21 Jun 2025', 'complete' => true],
-                    ['label' => 'Delivered', 'date' => '21 Jun 2025', 'complete' => true],
+                [
+                    'name' => 'Mr Richard Llewellyn',
+                    'business_name' => '',
+                    'phone' => '01778382799',
+                    'lines' => [
+                        'line1' => '3 Fallowfields',
+                        'line2' => 'Deeping St. Nicholas',
+                        'town' => 'Spalding',
+                        'postcode' => 'PE11 3TL',
+                        'country' => 'UNITED KINGDOM',
+                    ],
                 ],
-            ],
+            ),
             [
                 'id' => 'OR14971252',
-                'date' => '03/04/2025',
-                'value' => 156.42,
+                'date' => '04/11/2025',
+                'value' => 0.00,
+                'subtotal' => 0.00,
                 'status' => 'Order completed',
                 'tracking' => null,
                 'carrier' => null,
-                'items' => [
-                    ['name' => 'Rose Collection — Best Sellers', 'qty' => 1, 'price' => 89.99],
-                    ['name' => 'Rose Food 1kg', 'qty' => 2, 'price' => 9.99],
-                ],
-                'delivery' => 4.99,
+                'delivery' => 0.00,
+                'items' => [],
                 'tracking_steps' => [],
             ],
             [
-                'id' => 'OR14890311',
-                'date' => '22/02/2025',
-                'value' => 42.99,
-                'status' => 'Order completed',
-                'tracking' => null,
-                'carrier' => null,
-                'items' => [
-                    ['name' => 'Daffodil Mixed Collection', 'qty' => 1, 'price' => 19.99],
-                    ['name' => 'Tulip Mixed Collection', 'qty' => 1, 'price' => 18.99],
-                ],
-                'delivery' => 4.99,
-                'tracking_steps' => [],
-            ],
-            [
-                'id' => 'OR14755602',
-                'date' => '09/01/2025',
-                'value' => 19.99,
+                'id' => 'OR14619028',
+                'date' => '17/06/2025',
+                'value' => 0.00,
+                'subtotal' => 0.00,
                 'status' => 'Order cancelled',
                 'tracking' => null,
                 'carrier' => null,
-                'items' => [
-                    ['name' => 'Indoor Citrus Tree', 'qty' => 1, 'price' => 19.99],
-                ],
-                'delivery' => 0,
-                'tracking_steps' => [],
-            ],
-            [
-                'id' => 'OR14622188',
-                'date' => '14/11/2024',
-                'value' => 231.50,
-                'status' => 'Order completed',
-                'tracking' => null,
-                'carrier' => null,
-                'items' => [
-                    ['name' => 'Fruit Tree Collection', 'qty' => 1, 'price' => 149.99],
-                    ['name' => 'Enriched Multi-Purpose Compost 40L', 'qty' => 4, 'price' => 7.99],
-                ],
-                'delivery' => 0,
+                'delivery' => 0.00,
+                'items' => [],
                 'tracking_steps' => [],
             ],
         ];
     }
 
-  /** @return array<string, string>|null */
+    /** @return array<string, mixed>|null */
     public static function findOrder(string $id): ?array
     {
         foreach (self::user()['orders'] as $order) {

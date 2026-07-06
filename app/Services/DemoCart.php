@@ -1119,7 +1119,6 @@ class DemoCart
             ],
             'demo_offer_code' => null,
             'demo_voucher_code' => null,
-            'demo_club_member' => false,
             'demo_club_in_cart' => false,
             'demo_drawer_enabled' => true,
             'demo_free_delivery_bar' => false,

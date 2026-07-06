@@ -36,7 +36,6 @@
 
 @include('demo.partials.account-prototype-tools', [
     'club_member' => $club_member ?? false,
-    'club_benefits_compact' => $club_benefits_compact ?? false,
 ])
 
 <div class="demo-account-page-spinner" id="demo-account-page-spinner" hidden>
@@ -52,5 +51,6 @@
 @push('scripts')
     <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
+    <script src="{{ asset('js/demo-postcode-lookup.js') }}?v={{ filemtime(public_path('js/demo-postcode-lookup.js')) }}" defer></script>
     <script src="{{ asset('js/demo-account-loading.js') }}?v={{ filemtime(public_path('js/demo-account-loading.js')) }}" defer></script>
 @endpush

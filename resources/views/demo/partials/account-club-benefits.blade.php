@@ -29,11 +29,13 @@
                         $rate = $rateMatch[1] ?? '';
                     @endphp
                     <article class="demo-account-club-tier{{ $index > 0 ? ' demo-account-club-tier--secondary' : '' }}" role="listitem">
-                        <p class="demo-account-club-tier__rate" aria-label="{{ $rate }} percent off">
-                            <span class="demo-account-club-tier__rate-value">{{ $rate }}%</span>
-                            <span class="demo-account-club-tier__rate-label">off</span>
-                        </p>
-                        <ul class="demo-account-club-tier__tags">
+                        <header class="demo-account-club-tier__head">
+                            <p class="demo-account-club-tier__rate" aria-label="{{ $rate }} percent off">
+                                <span class="demo-account-club-tier__rate-value">{{ $rate }}%</span>
+                                <span class="demo-account-club-tier__rate-label">off</span>
+                            </p>
+                        </header>
+                        <ul class="demo-account-club-tier__tags" aria-label="Eligible categories">
                             @foreach ($categories as $category)
                                 <li>{{ $category }}</li>
                             @endforeach

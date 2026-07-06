@@ -22,14 +22,6 @@ body.demo-pdp.demo-pdp--yg .demo-site {
 }
 
 /* —— Header tweaks for YG PDP —— */
-body.demo-pdp--yg .demo-header__utility--club .demo-header__utility-title::before {
-    content: '★';
-    display: inline-block;
-    margin-right: 4px;
-    color: #812881;
-    font-size: 14px;
-}
-
 body.demo-pdp--yg .demo-trust__track span:last-child::before {
     content: 'feefo ';
     font-weight: 800;

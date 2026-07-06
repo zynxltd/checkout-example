@@ -1,4 +1,11 @@
 {{-- Shared YouGarden header + nav (+ optional trust bar) — matches live yougarden.com --}}
+@php
+    use App\Services\DemoAccount;
+
+    $accountLoggedIn = DemoAccount::isLoggedIn();
+    $accountClubMember = $accountLoggedIn && DemoAccount::isClubMember();
+    $accountFirstName = $accountLoggedIn ? (DemoAccount::user()['first_name'] ?? '') : '';
+@endphp
 <header class="demo-header">
     <div class="demo-header__inner">
         <button type="button" class="demo-header__menu demo-header__menu--mobile" aria-label="Menu">@include('demo.partials.icon', ['name' => 'menu'])</button>
@@ -19,17 +26,39 @@
         </div>
 
         <div class="demo-header__utilities">
-            <a href="#" class="demo-header__utility demo-header__utility--club">
-                <span class="demo-header__utility-title">Club Discounts</span>
-                <span class="demo-header__utility-sub">Join Now</span>
+            <a
+                href="{{ $accountLoggedIn ? route('demo.account.club') : route('demo.account.login') }}"
+                class="demo-header__utility demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"
+            >
+                @if ($accountClubMember)
+                    @include('demo.partials.account-club-star', ['modifier' => 'header', 'size' => 14])
+                @endif
+                <span class="demo-header__utility-copy">
+                    <span class="demo-header__utility-title">Club Discounts</span>
+                    @unless ($accountClubMember)
+                        <span class="demo-header__utility-sub">Join Now</span>
+                    @endunless
+                </span>
             </a>
             <div class="demo-header__utility">
-                <span class="demo-header__utility-title">Welcome</span>
-                <span class="demo-header__utility-sub">
-                    <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
-                    <span aria-hidden="true"> | </span>
-                    <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
-                </span>
+                @if ($accountLoggedIn)
+                    <span class="demo-header__utility-title">Welcome, {{ $accountFirstName }}</span>
+                    <span class="demo-header__utility-sub">
+                        <a href="{{ route('demo.account.home') }}" class="demo-header__utility-link">My Account</a>
+                        <span aria-hidden="true"> | </span>
+                        <form method="post" action="{{ route('demo.account.logout') }}" class="demo-header__logout-form">
+                            @csrf
+                            <button type="submit" class="demo-header__utility-link demo-header__utility-link--button">Log out</button>
+                        </form>
+                    </span>
+                @else
+                    <span class="demo-header__utility-title">Welcome</span>
+                    <span class="demo-header__utility-sub">
+                        <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
+                        <span aria-hidden="true"> | </span>
+                        <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
+                    </span>
+                @endif
             </div>
             <button type="button" class="demo-header__basket" data-open-drawer aria-label="Open your basket">
                 <span class="demo-header__basket-icon" aria-hidden="true">@include('demo.partials.icon', ['name' => 'wheelbarrow', 'width' => 40, 'height' => 40])</span>
@@ -44,7 +73,7 @@
         </div>
 
         <div class="demo-header__actions">
-            <a href="{{ route('demo.account.login') }}" class="demo-header__icon" aria-label="Account">@include('demo.partials.icon', ['name' => 'account'])</a>
+            <a href="{{ $accountLoggedIn ? route('demo.account.home') : route('demo.account.login') }}" class="demo-header__icon" aria-label="{{ $accountLoggedIn ? 'My account' : 'Account login' }}">@include('demo.partials.icon', ['name' => 'account'])</a>
             <button type="button" class="demo-header__cart" data-open-drawer aria-label="Open basket">
                 @include('demo.partials.icon', ['name' => 'cart'])
                 <span class="demo-header__badge" id="header-cart-count">{{ $cart['item_count'] }}</span>

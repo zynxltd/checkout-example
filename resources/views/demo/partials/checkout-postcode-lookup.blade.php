@@ -17,6 +17,7 @@
                 id="co-{{ $prefix }}-postcode"
                 class="co-field__input co-postcode-row__input"
                 autocomplete="{{ $autocomplete }}"
+                value="{{ $postcode ?? '' }}"
                 role="combobox"
                 aria-expanded="false"
                 aria-controls="co-{{ $prefix }}-postcode-list"

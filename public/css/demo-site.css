@@ -141,6 +141,39 @@ body.demo-pdp {
     text-decoration: underline;
 }
 
+.demo-header__utility--club.is-member {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.demo-header__utility--club .demo-club-star--header {
+    color: var(--yg-club-purple);
+    flex-shrink: 0;
+}
+
+.demo-header__utility-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.demo-header__logout-form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.demo-header__utility-link--button {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+}
+
 .demo-header__basket {
     display: flex;
     align-items: center;

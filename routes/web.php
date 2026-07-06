@@ -35,6 +35,8 @@ Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::post('/account/information', [AccountController::class, 'informationSubmit'])->name('demo.account.information.submit');
     Route::get('/account/delivery', [AccountController::class, 'delivery'])->name('demo.account.delivery');
     Route::get('/account/delivery/amend', [AccountController::class, 'deliveryAmend'])->name('demo.account.delivery.amend');
+    Route::post('/account/delivery/amend', [AccountController::class, 'deliveryAmendSubmit'])->name('demo.account.delivery.amend.submit');
+    Route::post('/account/delivery/delete', [AccountController::class, 'deliveryDelete'])->name('demo.account.delivery.delete');
     Route::get('/account/club-membership', [AccountController::class, 'club'])->name('demo.account.club');
 
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('demo.checkout');
