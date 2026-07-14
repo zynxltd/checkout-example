@@ -50,6 +50,14 @@ class DemoCart
         return strtoupper((string) preg_replace('/\s+/', '', trim($code)));
     }
 
+    public static function voucherCodesMatch(?string $left, ?string $right): bool
+    {
+        $normalizedLeft = self::normalizeVoucherCode((string) $left);
+        $normalizedRight = self::normalizeVoucherCode((string) $right);
+
+        return $normalizedLeft !== '' && $normalizedLeft === $normalizedRight;
+    }
+
     public static function isValidOfferCode(string $code): bool
     {
         $normalized = strtoupper(trim($code));
