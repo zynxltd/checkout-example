@@ -42,6 +42,14 @@ class DemoCart
 
     public const DEMO_VOUCHER_DISCOUNT = 3.30;
 
+    /** Discount Club £5 product vouchers */
+    public const CLUB_PRODUCT_VOUCHER_DISCOUNT = 5.00;
+
+    public static function normalizeVoucherCode(string $code): string
+    {
+        return strtoupper((string) preg_replace('/\s+/', '', trim($code)));
+    }
+
     public static function isValidOfferCode(string $code): bool
     {
         $normalized = strtoupper(trim($code));
@@ -51,9 +59,22 @@ class DemoCart
 
     public static function isValidVoucherCode(string $code): bool
     {
-        $normalized = strtoupper(trim($code));
+        $normalized = self::normalizeVoucherCode($code);
 
-        return in_array($normalized, [self::DEMO_OFFER_CODE, self::DEMO_VOUCHER_CODE], true);
+        if ($normalized === '') {
+            return false;
+        }
+
+        if (in_array($normalized, [self::DEMO_OFFER_CODE, self::DEMO_VOUCHER_CODE], true)) {
+            return true;
+        }
+
+        return self::looksLikeClubVoucher($normalized);
+    }
+
+    public static function isPostageVoucher(string $code): bool
+    {
+        return str_starts_with(self::normalizeVoucherCode($code), 'PP');
     }
 
     /** Gift / postage vouchers are typically 10- or 16-digit numbers. */
@@ -67,14 +88,15 @@ class DemoCart
     /** Club £5 vouchers and postage codes are alphanumeric, often 9–16 characters. */
     public static function looksLikeClubVoucher(string $code): bool
     {
-        $normalized = strtoupper(preg_replace('/\s+/', '', trim($code)));
+        $normalized = self::normalizeVoucherCode($code);
 
         if ($normalized === '') {
             return false;
         }
 
-        if (str_starts_with($normalized, 'PP')) {
-            return true;
+        if (self::isPostageVoucher($normalized)) {
+            return strlen($normalized) >= 6 && strlen($normalized) <= 16
+                && preg_match('/^[A-Z0-9]+$/', $normalized) === 1;
         }
 
         $length = strlen($normalized);
@@ -91,7 +113,7 @@ class DemoCart
             return false;
         }
 
-        $normalized = strtoupper(trim($code));
+        $normalized = self::normalizeVoucherCode($code);
 
         if ($normalized === self::DEMO_VOUCHER_CODE) {
             return true;
@@ -101,11 +123,7 @@ class DemoCart
             return true;
         }
 
-        if (self::isValidVoucherCode($code)) {
-            return true;
-        }
-
-        return self::looksLikeClubVoucher($code);
+        return self::looksLikeClubVoucher($normalized);
     }
 
     public static function offerCodeDiscount(?string $code): float
@@ -121,7 +139,11 @@ class DemoCart
 
     public static function voucherCodeDiscount(?string $code): float
     {
-        $normalized = strtoupper(trim((string) $code));
+        if ($code === null || trim($code) === '') {
+            return 0.0;
+        }
+
+        $normalized = self::normalizeVoucherCode($code);
 
         if ($normalized === self::DEMO_OFFER_CODE) {
             return self::DEMO_OFFER_DISCOUNT;
@@ -129,6 +151,14 @@ class DemoCart
 
         if ($normalized === self::DEMO_VOUCHER_CODE) {
             return self::DEMO_VOUCHER_DISCOUNT;
+        }
+
+        if (self::isPostageVoucher($normalized)) {
+            return self::DELIVERY;
+        }
+
+        if (self::looksLikeClubVoucher($normalized)) {
+            return self::CLUB_PRODUCT_VOUCHER_DISCOUNT;
         }
 
         return 0.0;

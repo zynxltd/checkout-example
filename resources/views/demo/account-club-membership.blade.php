@@ -35,11 +35,17 @@
 
                 <div class="demo-account-club-dates">
                     <div class="demo-account-club-dates__item">
-                        <span class="demo-account-club-dates__label">Membership Start Date</span>
+                        <span class="demo-account-club-dates__label">
+                            <span class="demo-account-club-dates__label-full">Membership Start Date</span>
+                            <span class="demo-account-club-dates__label-short" aria-hidden="true">Start date</span>
+                        </span>
                         <strong>{{ $club['membership_start'] }}</strong>
                     </div>
                     <div class="demo-account-club-dates__item">
-                        <span class="demo-account-club-dates__label">Membership End Date</span>
+                        <span class="demo-account-club-dates__label">
+                            <span class="demo-account-club-dates__label-full">Membership End Date</span>
+                            <span class="demo-account-club-dates__label-short" aria-hidden="true">End date</span>
+                        </span>
                         <strong>{{ $club['membership_end'] }}</strong>
                     </div>
                 </div>
@@ -53,14 +59,18 @@
                 <p class="demo-account-club-block__note">Vouchers are applied at checkout under &ldquo;Gift card or voucher&rdquo;.</p>
                 <ul class="demo-account-club-vouchers">
                     @foreach ($club['product_vouchers'] as $voucher)
+                        @php
+                            $voucherApplied = ! empty($voucher['applied'])
+                                || strcasecmp((string) $voucher['code'], (string) ($cart['voucher_code'] ?? '')) === 0;
+                        @endphp
                         <li class="demo-account-club-vouchers__row">
                             <span class="demo-account-club-vouchers__code">{{ $voucher['code'] }}</span>
                             <span class="demo-account-club-vouchers__action">
-                                @if (! empty($voucher['applied']))
+                                @if ($voucherApplied)
                                     <span class="demo-account-club-vouchers__applied">APPLIED</span>
                                 @else
                                     <a
-                                        href="{{ route('demo.checkout', ['voucher' => $voucher['code']]) }}#co-voucher-input"
+                                        href="{{ route('demo.checkout', ['voucher' => $voucher['code']]) }}"
                                         class="demo-account-btn demo-account-btn--save demo-account-btn--compact"
                                     >Apply at checkout</a>
                                 @endif
@@ -79,14 +89,18 @@
                 <p class="demo-account-club-block__note">Postage vouchers are applied at checkout under &ldquo;Gift card or voucher&rdquo;.</p>
                 <ul class="demo-account-club-vouchers">
                     @foreach ($club['postage_vouchers'] as $voucher)
+                        @php
+                            $voucherApplied = ! empty($voucher['applied'])
+                                || strcasecmp((string) $voucher['code'], (string) ($cart['voucher_code'] ?? '')) === 0;
+                        @endphp
                         <li class="demo-account-club-vouchers__row">
                             <span class="demo-account-club-vouchers__code">{{ $voucher['code'] }}</span>
                             <span class="demo-account-club-vouchers__action">
-                                @if (! empty($voucher['applied']))
+                                @if ($voucherApplied)
                                     <span class="demo-account-club-vouchers__applied">APPLIED</span>
                                 @else
                                     <a
-                                        href="{{ route('demo.checkout', ['voucher' => $voucher['code']]) }}#co-voucher-input"
+                                        href="{{ route('demo.checkout', ['voucher' => $voucher['code']]) }}"
                                         class="demo-account-btn demo-account-btn--save demo-account-btn--compact"
                                     >Apply at checkout</a>
                                 @endif

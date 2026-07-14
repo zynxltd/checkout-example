@@ -754,32 +754,71 @@ class DemoAccount
     /** @return list<array<string, mixed>> */
     public static function sampleOrders(): array
     {
+        $clubBilling = [
+            'name' => 'MR R Llewellyn',
+            'business_name' => '',
+            'phone' => '01778382799',
+            'lines' => [
+                'line1' => 'Eventus',
+                'line2' => 'You Garden Ltd Sunderland Road, Northfields Industrial Estate',
+                'town' => 'MARKET DEEPING',
+                'postcode' => 'PE6 8FD',
+                'country' => 'UNITED KINGDOM',
+            ],
+        ];
+
+        $clubDelivery = [
+            'name' => 'Mr Richard Llewellyn',
+            'business_name' => '',
+            'phone' => '01778382799',
+            'lines' => [
+                'line1' => '3 Fallowfields',
+                'line2' => 'Deeping St. Nicholas',
+                'town' => 'Spalding',
+                'postcode' => 'PE11 3TL',
+                'country' => 'UNITED KINGDOM',
+            ],
+        ];
+
         return [
-            self::patioPotatoDemoOrder(
-                [
-                    'name' => 'MR R Llewellyn',
-                    'business_name' => '',
-                    'phone' => '01778382799',
-                    'lines' => [
-                        'line1' => 'Eventus',
-                        'line2' => 'You Garden Ltd Sunderland Road, Northfields Industrial Estate',
-                        'town' => 'MARKET DEEPING',
-                        'postcode' => 'PE6 8FD',
-                        'country' => 'UNITED KINGDOM',
-                    ],
+            self::patioPotatoDemoOrder($clubBilling, $clubDelivery),
+            self::demoOrder(
+                id: 'OR15120488',
+                date: '28/02/2026',
+                status: 'Order completed',
+                delivery: 6.99,
+                tracking: 'H06A8A0004019822',
+                items: [
+                    ['name' => "English Lavender 'Hidcote'", 'product_number' => '510317', 'qty' => 2, 'price' => 9.99, 'image' => 'images/products/510317.png'],
+                    ['name' => 'Enriched Multi-Purpose Compost', 'product_number' => '100062', 'qty' => 1, 'price' => 8.99, 'image' => 'images/products/404220.jpg'],
                 ],
-                [
-                    'name' => 'Mr Richard Llewellyn',
-                    'business_name' => '',
-                    'phone' => '01778382799',
-                    'lines' => [
-                        'line1' => '3 Fallowfields',
-                        'line2' => 'Deeping St. Nicholas',
-                        'town' => 'Spalding',
-                        'postcode' => 'PE11 3TL',
-                        'country' => 'UNITED KINGDOM',
-                    ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
+            ),
+            self::demoOrder(
+                id: 'OR15088341',
+                date: '12/01/2026',
+                status: 'Order completed',
+                delivery: 0.00,
+                tracking: null,
+                items: [
+                    ['name' => "Hardy Gerbera 'Garvinea' Bright Collection", 'product_number' => '480102', 'qty' => 1, 'price' => 19.99, 'image' => 'images/products/401842.jpg'],
                 ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
+            ),
+            self::demoOrder(
+                id: 'OR15044117',
+                date: '03/12/2025',
+                status: 'Dispatched',
+                delivery: 6.99,
+                tracking: 'YGTRACK77821',
+                items: [
+                    ['name' => 'Summer Flowering Fuchsia Collection', 'product_number' => '400551', 'qty' => 1, 'price' => 14.99, 'image' => 'images/products/402156.jpg'],
+                    ['name' => 'Bacopa Trailing White', 'product_number' => '400220', 'qty' => 2, 'price' => 6.99, 'image' => 'images/products/403891.jpg'],
+                ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
             ),
             [
                 'id' => 'OR14971252',
@@ -792,7 +831,59 @@ class DemoAccount
                 'delivery' => 0.00,
                 'items' => [],
                 'tracking_steps' => [],
+                'billing_address' => $clubBilling,
+                'delivery_address' => $clubDelivery,
             ],
+            self::demoOrder(
+                id: 'OR14920163',
+                date: '18/10/2025',
+                status: 'Order completed',
+                delivery: 6.99,
+                tracking: null,
+                items: [
+                    ['name' => "Clematis 'Nelly Moser'", 'product_number' => '510088', 'qty' => 1, 'price' => 12.99, 'image' => 'images/products/403891.jpg'],
+                    ['name' => 'Hardy Carefree Lavender Collection', 'product_number' => '480440', 'qty' => 1, 'price' => 16.99, 'image' => 'images/products/510317.png'],
+                ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
+            ),
+            self::demoOrder(
+                id: 'OR14877409',
+                date: '22/09/2025',
+                status: 'Order completed',
+                delivery: 0.00,
+                tracking: null,
+                items: [
+                    ['name' => "Apple 'Braeburn' Tree", 'product_number' => '300041', 'qty' => 1, 'price' => 24.99, 'image' => 'images/products/404220.jpg'],
+                ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
+            ),
+            self::demoOrder(
+                id: 'OR14822055',
+                date: '05/08/2025',
+                status: 'Order completed',
+                delivery: 6.99,
+                tracking: null,
+                items: [
+                    ['name' => 'Complete Hardy Garden Perennial Collection', 'product_number' => '480901', 'qty' => 1, 'price' => 29.99, 'image' => 'images/products/401842.jpg'],
+                    ['name' => 'Organic Seaweed Feed', 'product_number' => '100118', 'qty' => 1, 'price' => 7.99, 'image' => 'images/products/403891.jpg'],
+                ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
+            ),
+            self::demoOrder(
+                id: 'OR14765580',
+                date: '14/07/2025',
+                status: 'Order completed',
+                delivery: 6.99,
+                tracking: null,
+                items: [
+                    ['name' => "Strawberry 'Sweet Colossus'", 'product_number' => '320015', 'qty' => 3, 'price' => 8.99, 'image' => 'images/products/402156.jpg'],
+                ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
+            ),
             [
                 'id' => 'OR14619028',
                 'date' => '17/06/2025',
@@ -804,7 +895,120 @@ class DemoAccount
                 'delivery' => 0.00,
                 'items' => [],
                 'tracking_steps' => [],
+                'billing_address' => $clubBilling,
+                'delivery_address' => $clubDelivery,
             ],
+            self::demoOrder(
+                id: 'OR14588312',
+                date: '29/05/2025',
+                status: 'Order completed',
+                delivery: 0.00,
+                tracking: null,
+                items: [
+                    ['name' => 'Brilliant Buddleia Collection', 'product_number' => '510204', 'qty' => 1, 'price' => 18.99, 'image' => 'images/products/404220.jpg'],
+                ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
+            ),
+            self::demoOrder(
+                id: 'OR14510277',
+                date: '11/04/2025',
+                status: 'Order completed',
+                delivery: 6.99,
+                tracking: null,
+                items: [
+                    ['name' => "Hydrangea paniculata 'Limelight'", 'product_number' => '510156', 'qty' => 1, 'price' => 17.99, 'image' => 'images/products/401842.jpg'],
+                    ['name' => 'Surfinia Trailing Petunia Mix', 'product_number' => '400310', 'qty' => 2, 'price' => 9.99, 'image' => 'images/products/402156.jpg'],
+                ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
+            ),
+            self::demoOrder(
+                id: 'OR14456801',
+                date: '02/03/2025',
+                status: 'Order completed',
+                delivery: 6.99,
+                tracking: null,
+                items: [
+                    ['name' => 'Hardy Fragrant Lily Collection', 'product_number' => '480330', 'qty' => 1, 'price' => 15.99, 'image' => 'images/products/403891.jpg'],
+                    ['name' => 'Pre-Planted Summer Hanging Basket', 'product_number' => '400880', 'qty' => 1, 'price' => 24.98, 'image' => 'images/products/404220.jpg'],
+                ],
+                billing: $clubBilling,
+                deliveryAddress: $clubDelivery,
+            ),
+        ];
+    }
+
+    /**
+     * @param  list<array<string, mixed>>  $items
+     * @param  array<string, mixed>  $billing
+     * @param  array<string, mixed>  $deliveryAddress
+     * @return array<string, mixed>
+     */
+    public static function demoOrder(
+        string $id,
+        string $date,
+        string $status,
+        float $delivery,
+        ?string $tracking,
+        array $items,
+        array $billing,
+        array $deliveryAddress,
+    ): array {
+        $subtotal = round(array_sum(array_map(
+            static fn (array $item): float => (float) ($item['price'] ?? 0) * (int) ($item['qty'] ?? 0),
+            $items,
+        )), 2);
+
+        return [
+            'id' => $id,
+            'date' => $date,
+            'value' => round($subtotal + $delivery, 2),
+            'subtotal' => $subtotal,
+            'status' => $status,
+            'tracking' => $tracking,
+            'carrier' => $tracking ? 'Evri' : null,
+            'delivery' => $delivery,
+            'items' => $items,
+            'billing_address' => $billing,
+            'delivery_address' => $deliveryAddress,
+            'tracking_steps' => [],
+        ];
+    }
+
+    public const ORDERS_PER_PAGE = 5;
+
+    /**
+     * @return array{
+     *     items: list<array<string, mixed>>,
+     *     current_page: int,
+     *     last_page: int,
+     *     per_page: int,
+     *     total: int,
+     *     from: int,
+     *     to: int
+     * }
+     */
+    public static function paginateOrders(int $page = 1, ?int $perPage = null): array
+    {
+        $perPage = $perPage ?? self::ORDERS_PER_PAGE;
+        $orders = self::user()['orders'] ?? [];
+        $total = count($orders);
+        $lastPage = max(1, (int) ceil($total / $perPage));
+        $page = max(1, min($page, $lastPage));
+        $offset = ($page - 1) * $perPage;
+        $items = array_values(array_slice($orders, $offset, $perPage));
+        $from = $total === 0 ? 0 : $offset + 1;
+        $to = $total === 0 ? 0 : min($offset + count($items), $total);
+
+        return [
+            'items' => $items,
+            'current_page' => $page,
+            'last_page' => $lastPage,
+            'per_page' => $perPage,
+            'total' => $total,
+            'from' => $from,
+            'to' => $to,
         ];
     }
 

@@ -90,7 +90,7 @@
                 <button type="button" class="co-code-row__btn" id="co-voucher-apply">Apply</button>
             </div>
             @unless($isExpress)
-            <p class="co-code-hint" id="co-voucher-hint">Gift vouchers are 16 or 10 digits.</p>
+            <p class="co-code-hint" id="co-voucher-hint">Gift vouchers are 16 or 10 digits. Club £5 and postage codes also apply here.</p>
             @endunless
             <p class="co-code-error" id="co-voucher-error" hidden></p>
         </div>

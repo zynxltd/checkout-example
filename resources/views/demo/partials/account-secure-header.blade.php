@@ -8,6 +8,17 @@
                 height="96"
             >
         </a>
+
+        <button
+            type="button"
+            class="demo-account-nav-toggle"
+            id="account-nav-toggle"
+            aria-controls="account-nav"
+            aria-expanded="false"
+            aria-label="Open account menu"
+        >
+            <span class="demo-account-nav-toggle__bars" aria-hidden="true"></span>
+        </button>
     </div>
 
     @if (! empty($club_member))

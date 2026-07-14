@@ -13,7 +13,21 @@
     }
 @endphp
 
-<aside class="demo-account-nav" aria-label="Account navigation">
+<div class="demo-account-nav-overlay" id="account-nav-overlay" hidden></div>
+
+<aside class="demo-account-nav" id="account-nav" aria-label="Account navigation">
+    <div class="demo-account-nav__drawer-head">
+        <p class="demo-account-nav__drawer-title">Account menu</p>
+        <button
+            type="button"
+            class="demo-account-nav__close"
+            id="account-nav-close"
+            aria-label="Close account menu"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <nav class="demo-account-nav__list">
         @foreach ($nav as $key => $item)
             <a

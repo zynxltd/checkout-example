@@ -97,9 +97,30 @@ class AccountController extends Controller
         return $this->dashboard('demo.account-home', 'home');
     }
 
-    public function orders(): View|RedirectResponse
+    public function orders(Request $request): View|RedirectResponse
     {
-        return $this->dashboard('demo.account-orders', 'orders');
+        DemoCart::seed();
+
+        if (! DemoAccount::isLoggedIn()) {
+            return redirect()->route('demo.account.login');
+        }
+
+        $page = max(1, $request->integer('page', 1));
+        $ordersPage = DemoAccount::paginateOrders($page);
+
+        if ($page !== $ordersPage['current_page']) {
+            return redirect()->route('demo.account.orders', ['page' => $ordersPage['current_page']]);
+        }
+
+        return view('demo.account-orders', [
+            'cart' => DemoCart::state(),
+            'user' => DemoAccount::user(),
+            'active' => 'orders',
+            'club_member' => DemoAccount::isClubMember(),
+            'club_benefits_compact' => DemoAccount::isClubBenefitsCompact(),
+            'promo' => DemoAccount::dashboardPromo(),
+            'ordersPage' => $ordersPage,
+        ]);
     }
 
     public function orderShow(string $orderId): View|RedirectResponse

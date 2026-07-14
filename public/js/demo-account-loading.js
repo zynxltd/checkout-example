@@ -213,12 +213,70 @@
         });
     }
 
+    function bindAccountNavDrawer() {
+        const toggle = document.getElementById('account-nav-toggle');
+        const nav = document.getElementById('account-nav');
+        const overlay = document.getElementById('account-nav-overlay');
+        const closeBtn = document.getElementById('account-nav-close');
+
+        if (!toggle || !nav || !overlay) {
+            return;
+        }
+
+        const mobileQuery = window.matchMedia('(max-width: 767px)');
+
+        const setOpen = (open) => {
+            if (!mobileQuery.matches) {
+                open = false;
+            }
+
+            nav.classList.toggle('is-open', open);
+            overlay.classList.toggle('is-open', open);
+            overlay.hidden = !open;
+            document.body.classList.toggle('demo-account-nav-open', open);
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.setAttribute('aria-label', open ? 'Close account menu' : 'Open account menu');
+        };
+
+        const close = () => setOpen(false);
+        const open = () => setOpen(true);
+        const toggleMenu = () => setOpen(!nav.classList.contains('is-open'));
+
+        toggle.addEventListener('click', toggleMenu);
+        closeBtn?.addEventListener('click', close);
+        overlay.addEventListener('click', close);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+                close();
+                toggle.focus();
+            }
+        });
+
+        const onBreakpointChange = () => {
+            if (!mobileQuery.matches) {
+                close();
+            }
+        };
+
+        if (typeof mobileQuery.addEventListener === 'function') {
+            mobileQuery.addEventListener('change', onBreakpointChange);
+        } else {
+            mobileQuery.addListener(onBreakpointChange);
+        }
+
+        nav.querySelectorAll('a[href]').forEach((link) => {
+            link.addEventListener('click', close);
+        });
+    }
+
     function boot() {
         initDashSkeleton();
         hidePageSpinner();
         bindAsyncButtons();
         bindFormLoading();
         bindNavLoading();
+        bindAccountNavDrawer();
         bindInvoiceAddressToggle();
         bindPostcodeLookups();
         bindDeleteAddressForms();

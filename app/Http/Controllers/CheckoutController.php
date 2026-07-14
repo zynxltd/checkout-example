@@ -12,7 +12,7 @@ use Illuminate\View\View;
 
 class CheckoutController extends Controller
 {
-    public function show(): View|RedirectResponse|Response
+    public function show(Request $request): View|RedirectResponse|Response
     {
         DemoCart::seed();
         $cart = DemoCart::state();
@@ -22,6 +22,19 @@ class CheckoutController extends Controller
                 ->route('demo.pdp')
                 ->with('checkout_notice', 'Your basket is empty — add items before checkout.');
         }
+
+        $voucherFromUrl = trim($request->string('voucher')->toString());
+        if (
+            $voucherFromUrl !== ''
+            && ! session('demo_voucher_code')
+            && DemoCart::isValidVoucherCode($voucherFromUrl)
+        ) {
+            session(['demo_voucher_code' => DemoCart::normalizeVoucherCode($voucherFromUrl)]);
+
+            return redirect()->route('demo.checkout');
+        }
+
+        $cart = DemoCart::state();
 
         return response()
             ->view('demo.checkout', [
@@ -83,13 +96,13 @@ class CheckoutController extends Controller
             return response()->json(['error' => 'You can only use one voucher per order.'], 422);
         }
 
-        if (! DemoCart::isValidVoucherCode($code)) {
-            if (DemoCart::isValidOfferCode($code)) {
-                return response()->json([
-                    'error' => 'This is an offer code — use the "Offer code" field instead.',
-                ], 422);
-            }
+        if (DemoCart::isValidOfferCode($code) && ! DemoCart::isValidVoucherCode($code)) {
+            return response()->json([
+                'error' => 'This is an offer code — use the "Offer code" field instead.',
+            ], 422);
+        }
 
+        if (! DemoCart::isValidVoucherCode($code)) {
             if (DemoCart::looksLikeGiftVoucher($code)) {
                 return response()->json([
                     'error' => 'This voucher isn\'t valid. Check the number and try again.',
@@ -97,13 +110,11 @@ class CheckoutController extends Controller
             }
 
             return response()->json([
-                'error' => 'This voucher isn\'t valid. Try TEST or VOUCHER in this demo.',
+                'error' => 'This voucher isn\'t valid. Check the code and try again.',
             ], 422);
         }
 
-        session(['demo_voucher_code' => strtoupper($code) === DemoCart::DEMO_VOUCHER_CODE
-            ? DemoCart::DEMO_VOUCHER_CODE
-            : DemoCart::DEMO_OFFER_CODE]);
+        session(['demo_voucher_code' => DemoCart::normalizeVoucherCode($code)]);
 
         return response()->json(['ok' => true]);
     }
