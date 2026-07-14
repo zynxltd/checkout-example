@@ -61,7 +61,10 @@
                     @foreach ($club['product_vouchers'] as $voucher)
                         @php
                             $voucherApplied = ! empty($voucher['applied'])
-                                || strcasecmp((string) $voucher['code'], (string) ($cart['voucher_code'] ?? '')) === 0;
+                                || \App\Services\DemoCart::voucherCodesMatch(
+                                    $voucher['code'] ?? '',
+                                    $cart['voucher_code'] ?? ''
+                                );
                         @endphp
                         <li class="demo-account-club-vouchers__row">
                             <span class="demo-account-club-vouchers__code">{{ $voucher['code'] }}</span>
@@ -91,7 +94,10 @@
                     @foreach ($club['postage_vouchers'] as $voucher)
                         @php
                             $voucherApplied = ! empty($voucher['applied'])
-                                || strcasecmp((string) $voucher['code'], (string) ($cart['voucher_code'] ?? '')) === 0;
+                                || \App\Services\DemoCart::voucherCodesMatch(
+                                    $voucher['code'] ?? '',
+                                    $cart['voucher_code'] ?? ''
+                                );
                         @endphp
                         <li class="demo-account-club-vouchers__row">
                             <span class="demo-account-club-vouchers__code">{{ $voucher['code'] }}</span>
