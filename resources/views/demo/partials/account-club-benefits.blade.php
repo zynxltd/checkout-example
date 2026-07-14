@@ -44,7 +44,6 @@
                 @endforeach
             </div>
 
-            <p class="demo-account-club-benefits__note">Discounts are automatically applied when logged in</p>
         </section>
     @else
         <section
@@ -81,8 +80,6 @@
                     </article>
                 @endforeach
             </div>
-
-            <p class="demo-account-club-benefits__note">Discounts are automatically applied when logged in</p>
         </section>
     @endif
 @endif

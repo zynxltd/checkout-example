@@ -1431,40 +1431,29 @@ a.demo-account-pagination__page:hover {
 }
 
 .demo-account-club-tier__tags {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-direction: column;
     gap: 6px;
     flex: 1;
     margin: 0;
-    padding: 12px;
+    padding: 12px 14px 14px;
     list-style: none;
-    align-content: start;
 }
 
 .demo-account-club-tier--secondary .demo-account-club-tier__tags {
-    align-content: center;
+    justify-content: flex-start;
 }
 
 .demo-account-club-tier__tags li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 30px;
-    padding: 6px 8px;
-    border-radius: 6px;
-    font-size: 10px;
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
     font-weight: 600;
-    line-height: 1.25;
-    text-align: center;
-    color: var(--yg-club-purple);
-    background: #fff;
-    border: 1px solid color-mix(in srgb, var(--yg-club-purple) 12%, var(--yg-border));
-}
-
-.demo-account-club-tier__tags li:last-child:nth-child(odd):not(:only-child) {
-    grid-column: 1 / -1;
-    width: calc(50% - 3px);
-    justify-self: center;
+    line-height: 1.35;
+    text-align: left;
+    color: var(--yg-pebble);
+    background: none;
+    border: none;
 }
 
 .demo-account-club-benefits--club-page .demo-account-club-benefits__note {
@@ -1479,11 +1468,13 @@ a.demo-account-pagination__page:hover {
 
 @media (min-width: 760px) {
     .demo-account-club-benefits--club-page {
-        grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+        grid-template-columns: auto auto;
         grid-template-rows: auto auto;
-        align-items: start;
-        gap: 12px 20px;
-        padding: 18px 20px 14px;
+        justify-content: center;
+        align-items: center;
+        column-gap: clamp(28px, 6vw, 56px);
+        row-gap: 14px;
+        padding: 20px 24px 16px;
     }
 
     .demo-account-club-benefits--club-page .demo-account-club-benefits__intro {
@@ -1495,12 +1486,16 @@ a.demo-account-pagination__page:hover {
     .demo-account-club-benefits--club-page .demo-account-club-benefits__tiers {
         grid-column: 2;
         grid-row: 1;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(140px, 168px));
         gap: 12px;
         align-items: stretch;
+        width: auto;
+        max-width: none;
+        justify-self: center;
     }
 
     .demo-account-club-benefits--club-page .demo-account-club-benefits__note {
+        grid-column: 1 / -1;
         grid-row: 2;
     }
 }
@@ -2563,14 +2558,11 @@ a.demo-account-pagination__page:hover {
 
 .demo-account-club-benefits--compact .demo-account-club-tier__tags {
     gap: 4px;
-    padding: 8px;
+    padding: 10px 12px 12px;
 }
 
 .demo-account-club-benefits--compact .demo-account-club-tier__tags li {
-    min-height: 26px;
-    padding: 4px 6px;
-    font-size: 9px;
-    border-radius: 5px;
+    font-size: 12px;
 }
 
 .demo-account-club-benefits--compact.demo-account-club-benefits--club-page .demo-account-club-benefits__note {
@@ -2579,8 +2571,13 @@ a.demo-account-pagination__page:hover {
 
 @media (min-width: 760px) {
     .demo-account-club-benefits--compact.demo-account-club-benefits--club-page {
-        grid-template-columns: minmax(118px, 132px) minmax(0, 1fr);
-        gap: 8px 12px;
+        grid-template-columns: auto auto;
+        justify-content: center;
+        column-gap: clamp(20px, 4vw, 40px);
+    }
+
+    .demo-account-club-benefits--compact.demo-account-club-benefits--club-page .demo-account-club-benefits__tiers {
+        grid-template-columns: repeat(2, minmax(128px, 148px));
     }
 }
 
