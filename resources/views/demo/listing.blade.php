@@ -28,11 +28,27 @@
 
         @include('demo.partials.listing-filters', ['listing' => $listing])
 
+        @if (! empty($listing['seo_categories']))
+            <nav class="demo-listing-seo" aria-label="Related categories">
+                <ul class="demo-listing-seo__list">
+                    @foreach ($listing['seo_categories'] as $category)
+                        <li class="demo-listing-seo__item">
+                            <a class="demo-listing-seo__link" href="{{ $category['url'] }}">{{ $category['label'] }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            </nav>
+        @endif
+
         <div class="resListingWrapper demo-listing__grid">
             @foreach ($listing['products'] as $product)
+                @php
+                    $isOutOfStock = ! empty($product['out_of_stock']);
+                @endphp
                 <a
                     href="{{ $product['url'] }}"
-                    class="category-box{{ ! empty($product['featured']) ? ' is-featured' : '' }}"
+                    class="category-box{{ ! empty($product['featured']) ? ' is-featured' : '' }}{{ $isOutOfStock ? ' is-out-of-stock' : '' }}"
+                    @if ($isOutOfStock) aria-label="{{ $product['name'] }} — out of stock" @endif
                 >
                     <div class="imgWrapper">
                         <img
@@ -44,7 +60,11 @@
                         >
                     </div>
 
-                    <div class="savingFlash" aria-hidden="true">{{ $product['discount'] }}%<br>OFF</div>
+                    @if ($isOutOfStock)
+                        <div class="outOfStock" aria-hidden="true">OUT<br>OF<br>STOCK</div>
+                    @else
+                        <div class="savingFlash" aria-hidden="true">{{ $product['discount'] }}%<br>OFF</div>
+                    @endif
 
                     <div class="category-box__content">
                         <div class="title">{{ $product['name'] }}</div>
@@ -77,7 +97,9 @@
                         </div>
                     </div>
 
-                    <div class="mainButtonGreen moreInfo">Find out more</div>
+                    <div class="category-box__cta{{ $isOutOfStock ? ' category-box__cta--oos' : '' }}">
+                        {{ $isOutOfStock ? 'Email when available' : 'Find out more' }}
+                    </div>
                 </a>
             @endforeach
         </div>

@@ -515,6 +515,7 @@ class DemoCart
                 'discount' => 50,
                 'reviews' => 292,
                 'rating' => 4.4,
+                'out_of_stock' => true,
             ],
             [
                 'name' => 'Buddleia Sungold Showers Collection',
@@ -531,6 +532,7 @@ class DemoCart
                 'discount' => 50,
                 'reviews' => 199,
                 'rating' => 4.7,
+                'out_of_stock' => true,
             ],
             [
                 'name' => 'Clematis Collection',
@@ -540,11 +542,21 @@ class DemoCart
                 'reviews' => 587,
                 'rating' => 4.8,
             ],
+            [
+                'name' => "Geranium Rosebud Trailing Collection",
+                'price_label' => 'From',
+                'price' => 14.99,
+                'discount' => 37,
+                'reviews' => 412,
+                'rating' => 4.6,
+                'out_of_stock' => true,
+            ],
         ];
 
         return array_map(function (array $product, int $index) use ($images) {
             $product['image'] = $images[$index % count($images)];
             $product['url'] = route('demo.pdp');
+            $product['out_of_stock'] = ! empty($product['out_of_stock']);
 
             return $product;
         }, $products, array_keys($products));
@@ -622,6 +634,14 @@ class DemoCart
             ],
             'filters' => self::listingFilters(),
             'sort_options' => self::listingSortOptions(),
+            'seo_categories' => [
+                ['label' => 'Agapanthus Plants', 'url' => '#'],
+                ['label' => 'Echinacea Plants', 'url' => '#'],
+                ['label' => 'Fern Plants', 'url' => '#'],
+                ['label' => 'Geranium Plants', 'url' => '#'],
+                ['label' => 'Hellebore Plants', 'url' => '#'],
+                ['label' => 'Peony Plants', 'url' => '#'],
+            ],
             'products' => self::listingProducts(),
         ];
     }
