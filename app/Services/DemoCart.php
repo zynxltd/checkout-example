@@ -557,7 +557,7 @@ class DemoCart
             return [
                 'id' => $id,
                 'label' => $label,
-                'options' => ['' => $label] + $options,
+                'options' => ['' => 'Any'] + $options,
             ];
         };
 

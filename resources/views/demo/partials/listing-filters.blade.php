@@ -20,9 +20,11 @@
         aria-modal="true"
         aria-labelledby="listing-filters-title"
     >
-        <header class="demo-listing-filters__head">
-            <h2 class="demo-listing-filters__title" id="listing-filters-title">Filters &amp; Sort</h2>
-            <button type="button" class="demo-listing-filters__close" id="listing-filters-close" aria-label="Close filters">
+        <header class="yg-drawer__header demo-listing-filters__head">
+            <div class="yg-drawer__heading">
+                <h2 class="yg-drawer__title" id="listing-filters-title">Filters &amp; Sort</h2>
+            </div>
+            <button type="button" class="yg-drawer__close" id="listing-filters-close" aria-label="Close filters">
                 @include('demo.partials.icon', ['name' => 'close'])
             </button>
         </header>
@@ -42,15 +44,11 @@
                         </span>
                     </label>
                 @endforeach
-            </div>
 
-            <div class="demo-listing-filters__actions">
-                <button type="reset" class="demo-listing-filters__reset" id="listing-filters-reset">Reset filters</button>
-
-                <label class="demo-listing-filters__sort">
-                    <span class="demo-listing-filters__sort-label">Sort listing</span>
-                    <span class="demo-listing-filters__select-wrap demo-listing-filters__select-wrap--sort">
-                        <select class="demo-listing-filters__select demo-listing-filters__select--sort" name="sort" id="listing-sort">
+                <label class="demo-listing-filters__field demo-listing-filters__field--sort">
+                    <span class="demo-listing-filters__label">Sort by</span>
+                    <span class="demo-listing-filters__select-wrap">
+                        <select class="demo-listing-filters__select" name="sort" id="listing-sort">
                             @foreach ($listing['sort_options'] as $option)
                                 <option value="{{ $option['value'] }}" @selected($option['value'] === 'popularity')>{{ $option['label'] }}</option>
                             @endforeach
@@ -58,6 +56,11 @@
                         <span class="demo-listing-filters__chevron" aria-hidden="true">▾</span>
                     </span>
                 </label>
+            </div>
+
+            <div class="demo-listing-filters__actions">
+                <button type="reset" class="demo-listing-filters__reset" id="listing-filters-reset">Reset filters</button>
+                <button type="button" class="demo-listing-filters__apply" id="listing-filters-apply">Apply filters</button>
             </div>
         </form>
     </aside>
