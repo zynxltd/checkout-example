@@ -1182,8 +1182,10 @@ div.mainButtonGreen.moreInfo {
     right: 12px;
     transform: translateY(-50%);
     pointer-events: none;
-    font-size: 12px;
-    color: var(--yg-moss-dark);
+    font-size: 18px;
+    line-height: 1;
+    color: #666;
+    font-weight: 700;
 }
 
 .demo-listing-inline__reset {
@@ -1439,8 +1441,10 @@ body.demo-listing-filters-open {
     right: 12px;
     transform: translateY(-50%);
     pointer-events: none;
-    font-size: 12px;
-    color: var(--yg-moss-dark);
+    font-size: 18px;
+    line-height: 1;
+    color: #666;
+    font-weight: 700;
 }
 
 .demo-listing-filters__actions {

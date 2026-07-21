@@ -2196,8 +2196,7 @@ body.yg-drawer-open {
     display: block;
     flex-shrink: 0;
     object-fit: contain;
-    /* Black-line PNG → white on checkout green */
-    filter: brightness(0) invert(1);
+    filter: none;
 }
 
 .yg-checkout__label {

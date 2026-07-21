@@ -8,7 +8,7 @@
         'minus' => 'icon-minus.svg',
         'arrow-right' => 'icon-arrow-right.svg',
         'arrow-forest' => 'icon-arrow-right-forest.svg',
-        'wheelbarrow' => 'icon-wheelbarrow.png',
+        'wheelbarrow' => 'icon-wheelbarrow.svg',
         'cart' => 'icon-cart.svg',
         'menu' => 'icon-menu.svg',
         'search' => 'icon-search.svg',

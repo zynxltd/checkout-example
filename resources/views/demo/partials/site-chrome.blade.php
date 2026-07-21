@@ -37,9 +37,7 @@
                 href="{{ $accountLoggedIn ? route('demo.account.club') : route('demo.account.login') }}"
                 class="demo-header__utility demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"
             >
-                @if ($accountClubMember)
-                    @include('demo.partials.account-club-star', ['modifier' => 'header', 'size' => 14])
-                @endif
+                @include('demo.partials.account-club-star', ['modifier' => 'header', 'size' => 28])
                 <span class="demo-header__utility-copy">
                     <span class="demo-header__utility-title">Club Discounts</span>
                     @unless ($accountClubMember)
@@ -47,25 +45,28 @@
                     @endunless
                 </span>
             </a>
-            <div class="demo-header__utility">
-                @if ($accountLoggedIn)
-                    <span class="demo-header__utility-title">Welcome, {{ $accountFirstName }}</span>
-                    <span class="demo-header__utility-sub">
-                        <a href="{{ route('demo.account.home') }}" class="demo-header__utility-link">My Account</a>
-                        <span aria-hidden="true"> | </span>
-                        <form method="post" action="{{ route('demo.account.logout') }}" class="demo-header__logout-form">
-                            @csrf
-                            <button type="submit" class="demo-header__utility-link demo-header__utility-link--button">Log out</button>
-                        </form>
-                    </span>
-                @else
-                    <span class="demo-header__utility-title">Welcome</span>
-                    <span class="demo-header__utility-sub">
-                        <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
-                        <span aria-hidden="true"> | </span>
-                        <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
-                    </span>
-                @endif
+            <div class="demo-header__utility demo-header__utility--account">
+                <span class="demo-header__utility-icon" aria-hidden="true">@include('demo.partials.icon', ['name' => 'account', 'width' => 28, 'height' => 28])</span>
+                <span class="demo-header__utility-copy">
+                    @if ($accountLoggedIn)
+                        <span class="demo-header__utility-title">Welcome, {{ $accountFirstName }}</span>
+                        <span class="demo-header__utility-sub">
+                            <a href="{{ route('demo.account.home') }}" class="demo-header__utility-link">My Account</a>
+                            <span aria-hidden="true"> | </span>
+                            <form method="post" action="{{ route('demo.account.logout') }}" class="demo-header__logout-form">
+                                @csrf
+                                <button type="submit" class="demo-header__utility-link demo-header__utility-link--button">Log out</button>
+                            </form>
+                        </span>
+                    @else
+                        <span class="demo-header__utility-title">Welcome</span>
+                        <span class="demo-header__utility-sub">
+                            <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
+                            <span aria-hidden="true"> | </span>
+                            <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
+                        </span>
+                    @endif
+                </span>
             </div>
             <button type="button" class="demo-header__basket" data-open-drawer aria-label="Open your basket">
                 <span class="demo-header__basket-icon" aria-hidden="true">

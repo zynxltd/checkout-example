@@ -266,7 +266,13 @@
 
             <footer class="yg-drawer__footer">
                 <button type="button" class="yg-checkout">
-                    @include('demo.partials.icon', ['name' => 'wheelbarrow', 'class' => 'yg-checkout__icon', 'width' => 34, 'height' => 34])
+                    <img
+                        class="yg-checkout__icon"
+                        src="{{ asset('images/icons/icon-checkout-cart.png') }}?v={{ filemtime(public_path('images/icons/icon-checkout-cart.png')) }}"
+                        alt=""
+                        width="34"
+                        height="34"
+                    >
                     <span class="yg-checkout__label yg-checkout__label--mobile">Checkout</span>
                     <span class="yg-checkout__label yg-checkout__label--desktop">Proceed to Checkout</span>
                 </button>

@@ -58,10 +58,11 @@ body.demo-pdp {
 
 .demo-header__search {
     grid-area: search;
+    position: relative;
     display: flex;
     align-items: stretch;
     width: 100%;
-    max-width: 560px;
+    max-width: 420px;
     margin: 0 auto;
     border: 1px solid #c5bdb5;
     border-radius: 999px;
@@ -73,9 +74,10 @@ body.demo-pdp {
     flex: 1;
     min-width: 0;
     border: none;
-    padding: 10px 12px;
+    padding: 11px 44px 11px 16px;
     font-family: var(--yg-body);
     font-size: 15px;
+    color: #777;
 }
 
 .demo-header__search-input:focus {
@@ -84,11 +86,15 @@ body.demo-pdp {
 }
 
 .demo-header__search-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
     width: 44px;
     border: none;
-    border-left: 1px solid #c5bdb5;
-    background: var(--yg-forest);
-    color: #fff;
+    border-left: none;
+    background: transparent;
+    color: #666;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -96,7 +102,10 @@ body.demo-pdp {
 }
 
 .demo-header__search-btn .yg-icon {
-    filter: brightness(0) invert(1);
+    filter: none;
+    width: 20px;
+    height: 20px;
+    opacity: 0.85;
 }
 
 .demo-header__utilities {
@@ -141,15 +150,44 @@ body.demo-pdp {
     text-decoration: underline;
 }
 
+.demo-header__utility--club {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
 .demo-header__utility--club.is-member {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+.demo-header__utility--club .demo-club-star--header {
+    width: 28px;
+    height: 25px;
+    color: var(--yg-club-purple);
+    flex-shrink: 0;
+}
+
+.demo-header__utility--account {
     flex-direction: row;
     align-items: center;
     gap: 8px;
 }
 
-.demo-header__utility--club .demo-club-star--header {
-    color: var(--yg-club-purple);
+.demo-header__utility-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    color: #666;
+    line-height: 0;
+}
+
+.demo-header__utility-icon .yg-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
 }
 
 .demo-header__utility-copy {
@@ -208,10 +246,13 @@ body.demo-pdp {
 
 @media (min-width: 992px) {
     .demo-header__inner {
-        grid-template-columns: auto minmax(0, 1fr) auto;
-        grid-template-areas: 'logo search utilities';
-        gap: 24px 32px;
-        padding: 12px 24px 10px;
+        grid-template-columns: auto minmax(300px, 420px) minmax(24px, 1fr) auto;
+        grid-template-areas: 'logo search . utilities';
+        gap: 12px 20px;
+        padding: 14px 16px 12px;
+        width: auto;
+        max-width: 1200px;
+        align-items: center;
     }
 
     .demo-header__menu--mobile,
@@ -229,8 +270,10 @@ body.demo-pdp {
     }
 
     .demo-header__search {
-        justify-self: center;
-        width: min(100%, 520px);
+        justify-self: start;
+        width: 100%;
+        max-width: 420px;
+        margin: 0;
     }
 
     .demo-header__utilities {
@@ -238,6 +281,26 @@ body.demo-pdp {
         align-items: center;
         gap: 22px;
         justify-self: end;
+        flex-shrink: 0;
+    }
+
+    .demo-header__utility--club .demo-club-star--header {
+        width: 26px;
+        height: 23px;
+    }
+
+    .demo-header__utility-icon .yg-icon {
+        width: 26px;
+        height: 26px;
+    }
+
+    .demo-header__basket {
+        gap: 8px;
+    }
+
+    .demo-header__basket-img {
+        width: 48px;
+        max-height: 42px;
     }
 }
 
