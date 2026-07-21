@@ -1,14 +1,49 @@
-{{-- PLP filter toolbar + slide-out panel (matches yougarden.com perennial filters) --}}
+{{-- PLP filter toolbar + slide-out panel, with optional desktop inline layout --}}
 @php
     $productCount = count($listing['products']);
 @endphp
 
-<div class="demo-listing-toolbar">
+<div class="demo-listing-toolbar" id="listing-filters-toolbar">
     <button type="button" class="demo-listing-toolbar__open" id="listing-filters-open" aria-expanded="false" aria-controls="listing-filters-panel">
         Open Filters &amp; Sort
     </button>
     <p class="demo-listing-toolbar__count">{{ $productCount }} items</p>
 </div>
+
+{{-- Desktop inline filters (live yougarden.com PLP style) — shown via prototype toggle --}}
+<form class="demo-listing-inline" id="listing-inline-filters" aria-label="Filters and sort">
+    <div class="demo-listing-inline__grid">
+        @foreach ($listing['filters'] as $filter)
+            <label class="demo-listing-inline__field">
+                <span class="demo-listing-inline__label">{{ $filter['label'] }}</span>
+                <span class="demo-listing-inline__select-wrap">
+                    <select class="demo-listing-inline__select" name="{{ $filter['id'] }}" data-filter="{{ $filter['id'] }}">
+                        @foreach ($filter['options'] as $value => $label)
+                            <option value="{{ $value }}">{{ $value === '' ? $filter['label'] : $label }}</option>
+                        @endforeach
+                    </select>
+                    <span class="demo-listing-inline__chevron" aria-hidden="true">▾</span>
+                </span>
+            </label>
+        @endforeach
+
+        <button type="reset" class="demo-listing-inline__reset" id="listing-inline-reset">Reset filters</button>
+
+        <label class="demo-listing-inline__field demo-listing-inline__field--sort">
+            <span class="demo-listing-inline__label">Sort listing</span>
+            <span class="demo-listing-inline__select-wrap demo-listing-inline__select-wrap--sort">
+                <select class="demo-listing-inline__select demo-listing-inline__select--sort" name="sort" id="listing-inline-sort">
+                    <option value="popularity" selected>Sort listing</option>
+                    @foreach ($listing['sort_options'] as $option)
+                        @continue($option['value'] === 'popularity')
+                        <option value="{{ $option['value'] }}">{{ $option['label'] }}</option>
+                    @endforeach
+                </select>
+                <span class="demo-listing-inline__chevron" aria-hidden="true">▾</span>
+            </span>
+        </label>
+    </div>
+</form>
 
 <div class="demo-listing-filters" id="listing-filters" hidden>
     <div class="demo-listing-filters__overlay" id="listing-filters-overlay" tabindex="-1" aria-hidden="true"></div>

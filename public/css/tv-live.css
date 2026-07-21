@@ -23,7 +23,8 @@ body.demo-tv-live {
     box-shadow: inset 0 -3px 0 var(--yg-moss);
 }
 
-.demo-tv-live .demo-trust {
+.demo-tv-live .demo-trust,
+.demo-tv-live .usp-wrapper {
     display: none;
 }
 

@@ -627,8 +627,14 @@ class DemoCart
     {
         return [
             'title' => 'Perennial Plants & Flowers',
+            'subtitle' => 'Discover Beautiful Perennials for a Colourful, Low-Maintenance Garden',
+            'seo_intro' => [
+                'Perennials are the backbone of any well-planned garden. These dependable plants return year after year, filling borders, beds and containers with long-lasting colour, shape and texture. Whether you love classic cottage garden perennials or prefer bold, architectural varieties, there is a perennial plant for every space, style and skill level.',
+                'Perennial flowers are incredibly rewarding. Many hardy perennials thrive in typical UK conditions, shrugging off cold winters and bursting back into life each spring. Some produce continuous displays for months on end, while others offer seasonal highlights that mark the rhythm of the gardening year. Long flowering perennials such as hardy geraniums, salvia or coreopsis keep borders vibrant through summer, while late-season stars like rudbeckia and sedum carry gardens into autumn.',
+                'Even smaller spaces can benefit from perennial plants. Compact varieties suit pots, patio corners and balcony gardens, delivering reliable colour with little effort. Many perennial flowers are also excellent for pollinators, encouraging bees and butterflies into your outdoor space from spring to autumn. If you are building a border from scratch, a collection of hardy perennials is one of the easiest and most cost-effective ways to achieve instant impact. At YouGarden, you can explore a wide choice of perennial plants UK gardeners rely on, from shade-loving hosta and ferns to sun-loving verbena and echinacea. Every plant is selected for reliability, performance and ease of care, helping you build a garden that looks good from year to year.',
+            ],
             'breadcrumb' => [
-                ['label' => 'Home', 'url' => route('demo.pdp')],
+                ['label' => 'Home', 'url' => route('demo.pdp'), 'icon' => 'home'],
                 ['label' => 'Garden Plants', 'url' => route('demo.listing.perennials')],
                 ['label' => 'Perennial Plants & Flowers', 'url' => null],
             ],

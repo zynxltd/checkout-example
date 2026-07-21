@@ -13,6 +13,7 @@
         'menu' => 'icon-menu.svg',
         'search' => 'icon-search.svg',
         'account' => 'icon-account.svg',
+        'home' => 'icon-home.svg',
     ];
     $file = $icons[$name] ?? $icons['close'];
     $path = public_path('images/icons/' . $file);

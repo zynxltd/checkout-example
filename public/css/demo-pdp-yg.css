@@ -22,11 +22,7 @@ body.demo-pdp.demo-pdp--yg .demo-site {
 }
 
 /* —— Header tweaks for YG PDP —— */
-body.demo-pdp--yg .demo-trust__track span:last-child::before {
-    content: 'feefo ';
-    font-weight: 800;
-    color: #ffce00;
-}
+/* USP icons now include feefo mark — no text prefix needed */
 
 /* —— Main layout —— */
 .demo-pdp-main {

@@ -3,7 +3,7 @@
 body.demo-listing {
     margin: 0;
     font-family: var(--yg-body);
-    background: #f5f3f0;
+    background: #fff;
     color: var(--yg-text);
 }
 
@@ -14,6 +14,10 @@ body.demo-listing {
 }
 
 .demo-listing__crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0;
     margin: 0 0 18px;
     padding: 0;
     font-size: 13px;
@@ -29,9 +33,128 @@ body.demo-listing {
     text-decoration: underline;
 }
 
+.demo-listing__crumb-link--home {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+}
+
+.demo-listing__crumb-link--home:hover {
+    text-decoration: none;
+    opacity: 0.75;
+}
+
+.demo-listing__crumb-home {
+    display: inline-flex;
+    color: #333;
+}
+
+.demo-listing__crumb-home .yg-icon {
+    width: 14px;
+    height: 14px;
+    display: block;
+}
+
 .demo-listing__crumb-sep {
-    margin: 0 6px;
+    margin: 0 8px;
     color: #c5bdb5;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* —— PLP SEO intro (matches yougarden.com category pages) —— */
+
+.demo-listing-seo-intro {
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+.demo-listing-seo-intro__title {
+    margin: 0 0 10px;
+    font-family: var(--yg-heading);
+    font-size: clamp(1.85rem, 3.2vw, 2.55rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--yg-pebble);
+}
+
+.demo-listing-seo-intro__subtitle {
+    margin: 0 auto 14px;
+    max-width: 58rem;
+    font-family: var(--yg-heading);
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--yg-pebble);
+}
+
+.demo-listing-seo-intro__copy {
+    margin: 0 auto;
+    max-width: none;
+    width: 100%;
+}
+
+.demo-listing-seo-intro__body {
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--yg-pebble);
+    text-align: center;
+}
+
+.demo-listing-seo-intro__body p {
+    margin: 0 0 1em;
+}
+
+.demo-listing-seo-intro__body p:last-child {
+    margin-bottom: 0;
+}
+
+.demo-listing-seo-intro__copy[data-collapsed="true"] .demo-listing-seo-intro__body {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.demo-listing-seo-intro__copy[data-collapsed="true"] .demo-listing-seo-intro__body p {
+    display: inline;
+    margin: 0;
+}
+
+.demo-listing-seo-intro__copy[data-collapsed="true"] .demo-listing-seo-intro__body p + p::before {
+    content: ' ';
+}
+
+.demo-listing-seo-intro__toggle {
+    appearance: none;
+    display: inline-block;
+    margin: 10px 0 0;
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yg-pebble);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+}
+
+.demo-listing-seo-intro__toggle:hover {
+    color: var(--yg-forest);
 }
 
 .demo-listing__grid {
@@ -235,16 +358,17 @@ body.demo-listing {
 .resListingWrapper .category-box {
     position: relative;
     z-index: 0;
-    border: none;
+    border: 1px solid #e5e5e5;
     border-radius: 14px;
     overflow: visible !important;
     background: #fff;
     box-shadow: none;
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .category-box:hover {
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.16);
+    border-color: #d8d2cb;
+    box-shadow: 0 0 11px #888;
 }
 
 .category-box .imgWrapper {
@@ -318,6 +442,19 @@ body.demo-listing {
 .category-box__cta--oos {
     background: #666;
     color: #fff;
+}
+
+body.demo-listing-hide-cta-more .category-box:not(.is-out-of-stock) .category-box__cta {
+    display: none;
+}
+
+body.demo-listing-hide-cta-oos .category-box.is-out-of-stock .category-box__cta {
+    display: none;
+}
+
+body.demo-listing-hide-cta-more .category-box:not(.is-out-of-stock) .category-box__content,
+body.demo-listing-hide-cta-oos .category-box.is-out-of-stock .category-box__content {
+    border-radius: 0 0 14px 14px;
 }
 
 .category-box > img.overlay {
@@ -822,7 +959,7 @@ div.mainButtonGreen.moreInfo {
     align-items: center !important;
     justify-content: space-between !important;
     gap: 8px;
-    margin-top: auto !important;
+    margin-top: 0 !important;
     padding: 0 12px 12px !important;
     width: 100%;
     box-sizing: border-box;
@@ -853,6 +990,35 @@ div.mainButtonGreen.moreInfo {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+@media (max-width: 639px) {
+    .category-box__meta {
+        flex-direction: column-reverse !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        gap: 6px !important;
+    }
+
+    .category-box .priceWrapper,
+    .category-box .rating {
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .category-box .priceWrapper .price {
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .category-box .rating .summary-rating,
+    .category-box .rating .feefo-product-stars-widget .summary-rating {
+        justify-content: center !important;
+    }
 }
 
 .category-box .rating .feefo-product-stars-widget {
@@ -941,6 +1107,163 @@ div.mainButtonGreen.moreInfo {
     color: var(--yg-muted);
 }
 
+/* —— Desktop inline filters (drawer styling, page layout) —— */
+
+.demo-listing-inline {
+    display: none;
+    margin: 0 0 18px;
+    padding: 18px;
+    border: 1px solid var(--yg-border);
+    border-radius: 12px;
+    background: #f2e7d8;
+}
+
+.demo-listing-inline__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px 12px;
+    align-items: end;
+}
+
+.demo-listing-inline__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    min-width: 0;
+}
+
+.demo-listing-inline__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.demo-listing-inline__select-wrap {
+    position: relative;
+    display: block;
+}
+
+.demo-listing-inline__select {
+    appearance: none;
+    width: 100%;
+    border: 1px solid var(--yg-border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--yg-pebble);
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    padding: 12px 36px 12px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.demo-listing-inline__select:hover {
+    border-color: color-mix(in srgb, var(--yg-forest) 35%, var(--yg-border));
+}
+
+.demo-listing-inline__select:focus {
+    outline: none;
+    border-color: var(--yg-forest);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--yg-moss) 70%, transparent);
+}
+
+.demo-listing-inline__chevron {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 12px;
+    color: var(--yg-moss-dark);
+}
+
+.demo-listing-inline__reset {
+    appearance: none;
+    align-self: stretch;
+    box-sizing: border-box;
+    height: 44px;
+    border: 2px solid var(--yg-forest);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--yg-forest);
+    font-family: var(--yg-body);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.demo-listing-inline__reset:hover {
+    background: var(--yg-moss-surface);
+}
+
+.demo-listing-inline__select-wrap--sort {
+    height: 44px;
+}
+
+.demo-listing-inline__select-wrap--sort .demo-listing-inline__select {
+    box-sizing: border-box;
+    height: 44px;
+    background: var(--yg-forest);
+    border: 2px solid var(--yg-forest);
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 12px;
+    line-height: 1;
+    padding: 0 36px 0 12px;
+}
+
+.demo-listing-inline__select-wrap--sort .demo-listing-inline__select:hover {
+    background: color-mix(in srgb, var(--yg-forest) 88%, #000);
+    border-color: color-mix(in srgb, var(--yg-forest) 88%, #000);
+}
+
+.demo-listing-inline__select-wrap--sort .demo-listing-inline__select:focus {
+    border-color: var(--yg-forest);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--yg-moss) 70%, transparent);
+}
+
+.demo-listing-inline__select-wrap--sort .demo-listing-inline__chevron {
+    color: #fff;
+}
+
+@media (min-width: 992px) {
+    body.demo-listing-inline-filters .demo-listing-toolbar {
+        display: none;
+    }
+
+    body.demo-listing-inline-filters .demo-listing-inline {
+        display: block;
+    }
+
+    body.demo-listing-inline-filters .demo-listing-seo {
+        border-top: none;
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 991px) {
+    .demo-listing-inline {
+        display: none !important;
+    }
+}
+
 /* —— Desktop SEO category links (matches yougarden.com PLP) —— */
 
 .demo-listing-seo {
@@ -973,10 +1296,10 @@ div.mainButtonGreen.moreInfo {
 
     .demo-listing-seo__link {
         font-family: var(--yg-body);
-        font-size: 14px;
+        font-size: 17px;
         font-weight: 400;
-        line-height: 1.3;
-        color: var(--yg-muted);
+        line-height: 1.35;
+        color: var(--yg-pebble);
         text-decoration: none;
     }
 
