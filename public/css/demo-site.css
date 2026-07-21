@@ -271,19 +271,20 @@ body.demo-pdp {
 }
 
 /* —— Trust strip (below main nav, like yougarden.com) —— */
-/* —— USP banner (matches yougarden.com .usp-wrapper) —— */
+/* —— USP banner (matches yougarden.com look, fixed clipping/centering) —— */
 
 .demo-trust,
 .usp-wrapper {
     float: none;
     width: 100%;
-    height: 32px;
-    padding: 2px 0 10px;
+    min-height: 42px;
+    height: auto;
+    padding: 8px 0;
     margin: 0;
     background: #f2e7d8;
     overflow: hidden;
     border-bottom: none;
-    box-sizing: content-box;
+    box-sizing: border-box;
 }
 
 .usp-inner-wrapper {
@@ -302,7 +303,7 @@ body.demo-pdp {
 
 .usp-track {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     transform: translate3d(0, 0, 0);
     transition: transform 0.35s ease;
@@ -314,19 +315,26 @@ body.demo-pdp {
     width: 25%;
     max-width: 25%;
     box-sizing: border-box;
-    padding: 0 4px;
+    padding: 0 8px;
     float: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .usp-text {
-    display: block;
-    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: auto;
+    max-width: 100%;
     padding: 0;
     margin: 0;
     font-family: var(--yg-body);
     font-size: 13px;
     font-weight: 700;
-    line-height: 20px;
+    line-height: 1.2;
     color: #000;
     text-align: center;
     white-space: nowrap;
@@ -335,14 +343,14 @@ body.demo-pdp {
 }
 
 .usp-icon {
-    display: inline-block;
+    display: block;
+    flex-shrink: 0;
     height: 26px;
     width: auto;
     max-width: 78px;
-    position: relative;
-    top: 6px;
-    margin: 0 10px 0 0;
-    vertical-align: top;
+    position: static;
+    top: auto;
+    margin: 0;
     object-fit: contain;
 }
 
