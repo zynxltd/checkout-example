@@ -1666,7 +1666,7 @@ body.yg-drawer-open {
     }
 }
 
-/* Club bar — full-width purple; content inset like summary (V2 mockup) */
+/* Club bar — full-width purple; entire bar opens club panel */
 .yg-club-bar {
     display: flex;
     align-items: center;
@@ -1675,11 +1675,22 @@ body.yg-drawer-open {
     width: 100%;
     margin: 0;
     padding: 10px 14px;
+    border: none;
     border-radius: 0;
     background: var(--yg-club-purple);
     color: #fff;
     flex-shrink: 0;
     box-sizing: border-box;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.yg-club-bar:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: -2px;
 }
 
 .yg-drawer .yg-club-bar {
@@ -1730,10 +1741,10 @@ body.yg-drawer-open {
     font-size: 13px;
     font-weight: 400;
     font-style: normal;
-    cursor: pointer;
     white-space: nowrap;
     flex-shrink: 0;
     line-height: 1.2;
+    pointer-events: none;
 }
 
 .yg-drawer .yg-club-bar__btn {

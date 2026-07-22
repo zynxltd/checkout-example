@@ -186,14 +186,14 @@
 
             <div class="yg-drawer__summary">
                 @if($showClub)
-                <div class="yg-club-bar">
-                    <p class="yg-club-bar__lead">
+                <button type="button" class="yg-club-bar" data-extend-open="club" aria-label="Join the Club and save £{{ number_format($cart['club_savings'], 2) }} — more information">
+                    <span class="yg-club-bar__lead">
                         <span class="yg-club-bar__lead-line">Join the</span>
                         <span class="yg-club-bar__lead-line">Club &amp;</span>
-                    </p>
-                    <p class="yg-club-bar__save">Save £{{ number_format($cart['club_savings'], 2) }}!</p>
-                    <button type="button" class="yg-club-bar__btn" data-extend-open="club">More Info</button>
-                </div>
+                    </span>
+                    <span class="yg-club-bar__save">Save £{{ number_format($cart['club_savings'], 2) }}!</span>
+                    <span class="yg-club-bar__btn">More Info</span>
+                </button>
                 @endif
                 <div class="yg-drawer__summary-inner">
                 @include('demo.partials.codes', [
