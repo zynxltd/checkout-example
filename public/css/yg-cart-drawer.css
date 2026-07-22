@@ -1373,9 +1373,9 @@ body.yg-drawer-open {
 .yg-item__remove {
     width: 32px;
     height: 32px;
-    border: none;
+    border: 1px solid #e5e5e5;
     border-radius: 999px;
-    background: var(--yg-moss);
+    background: var(--yg-theme-qty-bg);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1394,8 +1394,8 @@ body.yg-drawer-open {
 }
 
 .yg-item__remove .yg-icon {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     display: block;
     filter: brightness(0);
 }
