@@ -1,0 +1,12 @@
+flowchart TD
+    START([Order placed — plant/product SKU]) --> TX[Transactional order confirmation]
+    TX --> D1[Delay 2-3 days post dispatch]
+    D1 --> CARE[Email — SKU care / planting guide]
+    CARE --> D2[Delay 11-14 days]
+    D2 --> REV[Email — review request + CS link]
+    REV --> CLUB{club_member?}
+    CLUB -->|Yes| EXIT1([Exit])
+    CLUB -->|No| ORD{order_count >= 2 or LTV threshold?}
+    ORD -->|Yes| UP[Email — Club savings recap]
+    ORD -->|No| EXIT2([Exit])
+    UP --> EXIT3([Exit])

@@ -1,0 +1,5 @@
+flowchart TD
+    START([Sale scheduled T-48h<br/>club_member = Y]) --> E1[Email — member early access]
+    E1 --> D48[Delay 48h]
+    D48 --> GARY[Gary broadcast to wider list]
+    GARY --> EXIT([Exit])

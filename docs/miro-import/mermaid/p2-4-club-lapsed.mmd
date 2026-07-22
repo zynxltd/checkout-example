@@ -1,0 +1,8 @@
+flowchart TD
+    START([Membership expired — was member in 90d]) --> D14[Delay 14 days]
+    D14 --> E1[Email — rejoin + savings recap]
+    E1 --> D14B[Delay 14 days]
+    D14B --> E2[Email 2 — £10 price lock reminder]
+    E2 --> REJOIN{Rejoined?}
+    REJOIN -->|Yes| P12([P1.2 Club welcome])
+    REJOIN -->|No| EXIT([Exit])

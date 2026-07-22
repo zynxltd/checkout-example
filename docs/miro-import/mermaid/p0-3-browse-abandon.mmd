@@ -1,0 +1,13 @@
+flowchart TD
+    START([Session ended — browsed, no cart]) --> IDENT{Email known?}
+    IDENT -->|No| STOP([No send])
+    IDENT -->|Yes| E1["Email 1 — ~1h<br/>Viewed products layout"]
+    E1 --> CART{Carted or purchased?}
+    CART -->|Yes| EXIT1([Exit — cart program takes over])
+    CART -->|No| D1[Delay 24h]
+    D1 --> E2[Email 2 — similar + seasonal tip]
+    E2 --> CLUB{club_member?}
+    CLUB -->|No| E2N[Club footer CTA]
+    CLUB -->|Yes| E2M[Member picks only]
+    E2N --> EXIT2([Exit — max 2 emails])
+    E2M --> EXIT2

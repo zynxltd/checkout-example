@@ -1,0 +1,7 @@
+flowchart TD
+    START([Plant Finder completed]) --> E1[Email 1 — ~1h top 3 matched plants]
+    E1 --> PURCH{Purchased?}
+    PURCH -->|Yes| EXIT1([Exit])
+    PURCH -->|No| D1[Delay 24h]
+    D1 --> E2[Email 2 — seasonal tip + link to results]
+    E2 --> EXIT2([Exit])

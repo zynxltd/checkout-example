@@ -1,0 +1,7 @@
+flowchart TD
+    START([FR — browsed product price drop]) --> E1[Email — immediate product + new price]
+    E1 --> CLUB{club_member?}
+    CLUB -->|Yes| MEM[Show member price vs sale]
+    CLUB -->|No| NOM[Standard price + Club footer]
+    MEM --> EXIT([Exit — 1 email])
+    NOM --> EXIT

@@ -1,0 +1,466 @@
+{# YG Returning Users — overlay showing previously carted products.
+   FR admin: content_type product, data source Previously Carted (or Abandoned Cart).
+   Hidden on live site when products is empty. #}
+
+{% set maxProducts = fields.maxProducts|default(3)|int %}
+{% set showBlock = products|length > 0 or meta.preview == 'true' %}
+{% set showBorderImage = fields.borderImage.active != false %}
+{% set borderUrl = fields.borderImage.url if fields.borderImage.url else 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?fm=jpg&fit=crop&w=960&h=720&q=85' %}
+
+{% if showBlock %}
+
+<div id="{{safeid}}__wrapper" class="{{safeid}}__wrapper">
+
+	<div class="{{safeid}}__popover-overlay">
+
+		<div id="{{safeid}}__popover" class="{{safeid}}__popover{% if not showBorderImage %} {{safeid}}__popover--plain{% endif %}">
+
+			<button type="button" class="{{safeid}}__close-button" aria-label="Close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
+					<path d="M27.1 1.1c-10.4 2-19.4 9.1-23.9 18.7C1 24.5.5 26.9.5 33.5c0 15.5-6.8 7.8 107.5 122l101 101-101.9 102C24.4 441.4 4.9 461.4 3 465.5c-3.4 7.1-3.5 19.9-.2 27 2.9 6.3 9.3 12.9 15.7 16.3 7.2 3.7 18.7 4.2 27 1.2 5.8-2.2 9.4-5.6 108.3-104.4L256 303.5l101.8 101.6c81.7 81.6 102.7 102.1 106.7 104 4.2 2 6.5 2.4 14.5 2.4 8.3 0 10.1-.4 14.5-2.7 6.2-3.2 12.9-10.3 15.8-16.6 3.2-6.8 3-19.7-.3-26.7-1.9-4.1-21.4-24.1-104.1-107L303 256.5l101-101C518.3 41.3 511.5 49 511.5 33.5c0-6.5-.5-9-2.6-13.5-8.1-17.2-28.4-24.2-45.4-15.8-2.6 1.3-39.1 37-105.7 103.6L256 209.5 154.3 107.8C87.6 41.2 51.1 5.5 48.5 4.2 45.1 2.5 34-.3 32.1.1c-.3.1-2.6.5-5 1z"/>
+				</svg>
+			</button>
+
+			<div class="{{safeid}}__panel">
+
+				{% if fields.headline.active != false %}
+				<h2 class="{{safeid}}__headline">{{ mergeField(fields.headline.text) }}</h2>
+				{% endif %}
+
+				{% if fields.subHeadline.active != false %}
+				<p class="{{safeid}}__subheadline">{{ mergeField(fields.subHeadline.text) }}</p>
+				{% endif %}
+
+				{% if fields.message.active != false %}
+				<p class="{{safeid}}__message">{{ mergeField(fields.message.text) }}</p>
+				{% endif %}
+
+				<div class="{{safeid}}__products">
+					{% if products|length > 0 %}
+						{% for product in products %}
+						{% if loop.index <= maxProducts %}
+						<a class="{{safeid}}__product-row" href="{{ mergeField(fields.checkoutHref, { product: product })|set_ga_tracking(
+							utm_campaign=mergeField(fields.utmCampaign, {}),
+							utm_medium=mergeField(fields.utmMedium, {}),
+							utm_source=mergeField(fields.utmSource, {})) }}">
+							<div class="{{safeid}}__product-image">
+								<img src="{{ product.img }}" alt="{{ product.n }}" loading="lazy">
+							</div>
+							<div class="{{safeid}}__product-copy">
+								{% if fields.productName.active %}
+								<span class="{{safeid}}__product-name">{{ product.n }}</span>
+								{% endif %}
+								{% if fields.productPrice.active %}
+								<span class="{{safeid}}__product-price">{{ mergeField(fields.pricePrefix.text) }} {{ product.uv|format_currency(product.curr, 0) }}</span>
+								{% endif %}
+							</div>
+						</a>
+						{% endif %}
+						{% endfor %}
+					{% elif meta.preview == 'true' %}
+						{% for i in range(3) %}
+						<div class="{{safeid}}__product-row {{safeid}}__product-row--preview">
+							<div class="{{safeid}}__product-image {{safeid}}__product-image--placeholder"></div>
+							<div class="{{safeid}}__product-copy">
+								<span class="{{safeid}}__product-name">Sample product {{ i + 1 }}</span>
+								<span class="{{safeid}}__product-price">{{ mergeField(fields.pricePrefix.text) }} £9.99</span>
+							</div>
+						</div>
+						{% endfor %}
+					{% endif %}
+				</div>
+
+				{% if fields.checkoutButton.active != false %}
+				<a class="{{safeid}}__checkout-button" href="{{ mergeField(fields.checkoutHref)|set_ga_tracking(
+					utm_campaign=mergeField(fields.utmCampaign, {}),
+					utm_medium=mergeField(fields.utmMedium, {}),
+					utm_source=mergeField(fields.utmSource, {}) ) }}">
+					{{ fields.checkoutButton.text }}
+				</a>
+				{% endif %}
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+<style>
+	.{{safeid}}__wrapper,
+	.{{safeid}}__wrapper *,
+	.{{safeid}}__wrapper *::before,
+	.{{safeid}}__wrapper *::after {
+		box-sizing: border-box;
+	}
+
+	.{{safeid}}__wrapper {
+		position: fixed !important;
+		inset: 0 !important;
+		z-index: 2147483647 !important;
+		pointer-events: none;
+		font-family: Verdana, sans-serif;
+		font-size: 16px;
+		line-height: 1.4;
+		{{ 'display: block;' if meta.preview == 'true' else 'display: none;' }}
+	}
+
+	.{{safeid}}__wrapper .{{safeid}}__popover-overlay {
+		display: flex;
+		position: fixed;
+		inset: 0;
+		background-color: rgba(0, 0, 0, 0.55);
+		align-items: center;
+		justify-content: center;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		z-index: 2147483647 !important;
+		pointer-events: auto;
+		padding: {{ fields.popoverMargin.size }}{{ fields.popoverMargin.unit }};
+	}
+
+	.{{safeid}}__wrapper .{{safeid}}__popover {
+		position: relative;
+		width: {{ fields.width.size }}{{ fields.width.unit }};
+		max-width: calc(100vw - {{ (fields.popoverMargin.size * 2) }}{{ fields.popoverMargin.unit }});
+		height: auto;
+		border-radius: {{ fields.borderRadius }};
+		overflow: hidden;
+		padding: {{ fields.borderPadding.size }}{{ fields.borderPadding.unit }};
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+		{% if showBorderImage and borderUrl %}
+		background-image: url('{{ borderUrl }}');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		{% else %}
+		background-image: none;
+		{% endif %}
+	}
+
+	.{{safeid}}__wrapper .{{safeid}}__popover--plain {
+		padding: 0;
+		background-image: none;
+	}
+
+	.{{safeid}}__wrapper .{{safeid}}__panel {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+		background-color: {{ fields.panelBackground.color if fields.panelBackground.color else '#81038E' }};
+		background-image: linear-gradient(180deg, {{ fields.panelBackground.color if fields.panelBackground.color else '#81038E' }} 0%, #6a0278 100%);
+		border-radius: {{ fields.innerBorderRadius }};
+		padding: {{ fields.panelPadding.size }}{{ fields.panelPadding.unit }};
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		max-height: calc(100dvh - {{ (fields.popoverMargin.size * 2) + (fields.borderPadding.size * 2) }}{{ fields.popoverMargin.unit }});
+		overflow-y: auto;
+	}
+
+	.{{safeid}}__wrapper button.{{safeid}}__close-button {
+		cursor: pointer;
+		position: absolute;
+		top: {{ fields.crossInset.size }}{{ fields.crossInset.unit }};
+		right: {{ fields.crossInset.size }}{{ fields.crossInset.unit }};
+		z-index: 3;
+		border: none;
+		background: rgba(255, 255, 255, 0.92);
+		border-radius: 50%;
+		height: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
+		width: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
+		padding: 0;
+		margin: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
+	}
+
+	.{{safeid}}__wrapper button.{{safeid}}__close-button svg {
+		display: block;
+		height: calc({{ fields.crossSize.size }}{{ fields.crossSize.unit }} * 0.55);
+		width: calc({{ fields.crossSize.size }}{{ fields.crossSize.unit }} * 0.55);
+		fill: {{ fields.crossColor }};
+	}
+
+	.{{safeid}}__wrapper h2.{{safeid}}__headline {
+		display: block;
+		width: 100%;
+		margin: 0 0 0.35rem;
+		padding: 0;
+		font-family: {{ fields.headline.font or 'proxima-nova' }}, 'Proxima Nova', sans-serif;
+		font-size: {{ fields.headline.fontSize.size }}{{ fields.headline.fontSize.unit }};
+		font-weight: {{ 'bold' if fields.headline.bold else 'normal' }};
+		color: {{ fields.headline.color }};
+		text-transform: uppercase;
+		text-align: center;
+		line-height: 1.15;
+	}
+
+	.{{safeid}}__wrapper p.{{safeid}}__subheadline {
+		display: block;
+		width: 100%;
+		margin: 0 0 0.35rem;
+		padding: 0;
+		font-family: {{ fields.subHeadline.font or 'proxima-nova' }}, 'Proxima Nova', sans-serif;
+		font-size: {{ fields.subHeadline.fontSize.size }}{{ fields.subHeadline.fontSize.unit }};
+		font-weight: {{ 'bold' if fields.subHeadline.bold else 'normal' }};
+		color: {{ fields.subHeadline.color }};
+		text-align: center;
+		line-height: 1.25;
+	}
+
+	.{{safeid}}__wrapper p.{{safeid}}__message {
+		display: block;
+		width: 100%;
+		margin: 0 0 1.25rem;
+		padding: 0;
+		font-family: {{ fields.message.font or 'Verdana' }}, Verdana, sans-serif;
+		font-size: {{ fields.message.fontSize.size }}{{ fields.message.fontSize.unit }};
+		color: {{ fields.message.color }};
+		text-align: center;
+		line-height: 1.35;
+	}
+
+	.{{safeid}}__wrapper .{{safeid}}__products {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+		margin: 0 0 1.25rem;
+		padding: 0;
+	}
+
+	.{{safeid}}__wrapper a.{{safeid}}__product-row,
+	.{{safeid}}__wrapper div.{{safeid}}__product-row {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 0.85rem;
+		width: 100%;
+		padding: 0.55rem 0.65rem;
+		background: #ffffff;
+		border-radius: 4px;
+		text-decoration: none;
+		text-align: left;
+		color: inherit;
+	}
+
+	.{{safeid}}__wrapper a.{{safeid}}__product-row:hover {
+		opacity: 0.95;
+	}
+
+	.{{safeid}}__wrapper .{{safeid}}__product-image {
+		flex: 0 0 72px;
+		width: 72px;
+		height: 72px;
+		min-width: 72px;
+		max-width: 72px;
+		overflow: hidden;
+		border-radius: 2px;
+		background: #f3f3f3;
+	}
+
+	.{{safeid}}__wrapper .{{safeid}}__product-image img {
+		width: 72px;
+		height: 72px;
+		max-width: 72px;
+		max-height: 72px;
+		object-fit: cover;
+		display: block;
+		border: 0;
+	}
+
+	.{{safeid}}__wrapper .{{safeid}}__product-image--placeholder {
+		background: linear-gradient(135deg, #ddd, #eee);
+	}
+
+	.{{safeid}}__wrapper .{{safeid}}__product-copy {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+		min-width: 0;
+		flex: 1 1 auto;
+	}
+
+	.{{safeid}}__wrapper span.{{safeid}}__product-name {
+		display: block;
+		font-family: {{ fields.productName.font or 'Verdana' }}, Verdana, sans-serif;
+		font-size: {{ fields.productName.fontSize.size }}{{ fields.productName.fontSize.unit }};
+		color: {{ fields.productName.color }};
+		line-height: 1.25;
+		overflow: hidden;
+	}
+
+	.{{safeid}}__wrapper span.{{safeid}}__product-price {
+		display: block;
+		font-family: {{ fields.productPrice.font or 'Verdana' }}, Verdana, sans-serif;
+		font-size: {{ fields.productPrice.fontSize.size }}{{ fields.productPrice.fontSize.unit }};
+		font-weight: bold;
+		color: {{ fields.productPrice.color }};
+		line-height: 1.2;
+	}
+
+	.{{safeid}}__wrapper a.{{safeid}}__checkout-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		align-self: center;
+		cursor: pointer;
+		width: {{ fields.checkoutButton.width }}%;
+		max-width: 360px;
+		padding: {{ fields.checkoutButton.padding.size }}{{ fields.checkoutButton.padding.unit }};
+		margin: 0;
+		border: 0;
+		font-family: {{ fields.checkoutButton.font or 'proxima-nova' }}, 'Proxima Nova', sans-serif;
+		font-size: {{ fields.checkoutButton.fontSize.size }}{{ fields.checkoutButton.fontSize.unit }};
+		font-weight: {{ 'bold' if fields.checkoutButton.bold else 'normal' }};
+		color: {{ fields.checkoutButton.colors.foreground }};
+		background-color: {{ fields.checkoutButton.colors.background }};
+		border-radius: {{ fields.checkoutButton.borderRadius }};
+		text-decoration: none;
+		text-transform: uppercase;
+		text-align: center;
+		letter-spacing: 0.03em;
+		line-height: 1.2;
+	}
+
+	.{{safeid}}__wrapper a.{{safeid}}__checkout-button:hover {
+		opacity: 0.95;
+	}
+
+	@media (max-width: {{ fields.mobileBreakpoint if fields.mobileBreakpoint else 768 }}px) {
+		.{{safeid}}__wrapper .{{safeid}}__popover {
+			width: calc(100vw - {{ (fields.popoverMargin.size * 2) }}{{ fields.popoverMargin.unit }});
+			max-width: {{ fields.mobileWidth.size if fields.mobileWidth.size else 700 }}{{ fields.mobileWidth.unit if fields.mobileWidth.unit else 'px' }};
+		}
+
+		.{{safeid}}__wrapper .{{safeid}}__panel {
+			padding: {{ fields.mobilePanelPadding.size }}{{ fields.mobilePanelPadding.unit }};
+		}
+
+		{% if fields.headline.mobileFontSize.size > 0 %}
+		.{{safeid}}__wrapper h2.{{safeid}}__headline {
+			font-size: {{ fields.headline.mobileFontSize.size }}{{ fields.headline.mobileFontSize.unit }};
+		}
+		{% endif %}
+
+		.{{safeid}}__wrapper .{{safeid}}__product-image,
+		.{{safeid}}__wrapper .{{safeid}}__product-image img {
+			flex-basis: 64px;
+			width: 64px;
+			height: 64px;
+			min-width: 64px;
+			max-width: 64px;
+			max-height: 64px;
+		}
+	}
+
+	@keyframes {{safeid}}__fadeIn { from { opacity: 0; } to { opacity: 1; } }
+	@keyframes {{safeid}}__fadeOut { from { opacity: 1; } to { opacity: 0; } }
+	.{{safeid}}__wrapper .{{safeid}}__fadeIn { animation: {{safeid}}__fadeIn {{ fields.animationDuration }}s ease forwards; }
+	.{{safeid}}__wrapper .{{safeid}}__fadeOut { animation: {{safeid}}__fadeOut {{ fields.animationDuration }}s ease forwards; }
+</style>
+
+<script>
+	const {{safeid}}_rootElement = document.getElementById('{{safeid}}__wrapper');
+	const {{safeid}}_popoverElement = document.getElementById('{{safeid}}__popover');
+	const {{safeid}}_showAfterFixedDelay = {{ 'true' if fields.popoverFixedDelay|int > 0 else 'false' }};
+	const {{safeid}}_appearAnimationClass = '{{safeid}}__{{ fields.animationType }}';
+	const {{safeid}}_disappearAnimationClass = '{{safeid}}__{{ fields.animationType|replace('In', 'Out') }}';
+
+	const {{safeid}}_ouibounceCallback = () => {
+		if ({{safeid}}_popoverElement.getAttribute('data-triggered-state') !== 'loaded') {
+			const animatedElement = {{safeid}}_popoverElement;
+			animatedElement.addEventListener('animationend', function {{safeid}}_showPopover() {
+				animatedElement.classList.remove({{safeid}}_appearAnimationClass);
+				animatedElement.removeEventListener('animationend', {{safeid}}_showPopover);
+			});
+			animatedElement.classList.add({{safeid}}_appearAnimationClass);
+			animatedElement.setAttribute('data-triggered-state', 'loaded');
+			document.body.style.overflow = 'hidden';
+			try { $TB.popoverShown('{{ slotid }}'); } catch (e) {}
+		}
+	};
+
+	const {{safeid}}_ouibounceOptions = {
+		cookieName: "{{ fields.cookieName }}",
+		cookieExpire: {{ fields.daysBetweenPopovers if fields.daysBetweenPopovers else 0 }},
+		callback: {{ safeid }}_ouibounceCallback,
+		sitewide: true,
+		aggressive: {{ 'true' if fields.showEverytime else 'false' }},
+		timer: 1000,
+		delay: {{ '250' if fields.displayOnExitIntent else '3600000' }},
+	};
+
+	const {{safeid}}_closePopover = () => {
+		const root = {{safeid}}_rootElement;
+		const animatedElement = {{safeid}}_popoverElement;
+		animatedElement.addEventListener('animationend', function {{safeid}}_hidePopover() {
+			root.style.display = 'none';
+			animatedElement.classList.remove({{safeid}}_disappearAnimationClass);
+			animatedElement.removeEventListener('animationend', {{safeid}}_hidePopover);
+		});
+		animatedElement.classList.add({{safeid}}_disappearAnimationClass);
+		document.body.style.overflow = '';
+	};
+
+	const {{safeid}}_dismissModal = () => {
+		{{safeid}}_closePopover();
+		try { $TB.popoverDismissed('{{ slotid }}'); } catch (e) {}
+	};
+
+	const {{safeid}}_popoverClick = (e) => {
+		const targetClasses = e.target.classList;
+		if (targetClasses.contains('{{safeid}}__wrapper')
+			|| targetClasses.contains('{{safeid}}__popover-overlay')
+			|| targetClasses.contains('{{safeid}}__close-button')
+			|| (['svg', 'path'].includes(e.target.tagName.toLowerCase()) && e.target.closest('button') && e.target.closest('button').classList.contains('{{safeid}}__close-button'))) {
+			e.preventDefault();
+			{{safeid}}_dismissModal();
+		}
+	};
+
+	const {{safeid}}_init = () => {
+		if ({{safeid}}_rootElement && {{safeid}}_rootElement.parentElement !== document.body) {
+			document.body.appendChild({{safeid}}_rootElement);
+		}
+		try {
+			{{safeid}}_popover = ouibounce({{safeid}}_rootElement, {{safeid}}_ouibounceOptions);
+		} catch (e) {
+			console.error('Failed to initialize Ouibounce');
+		}
+		if ({{safeid}}_showAfterFixedDelay) {
+			window.setTimeout(() => {
+				if (document.cookie.replace(/(?:(?:^|.*;\s*){{ fields.cookieName }}\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== "true" || {{ 'true' if fields.showEverytime else 'false' }}) {
+					{{safeid}}_popover.fire();
+				}
+			}, {{ fields.popoverFixedDelay|int * 1000 }});
+		}
+		document.addEventListener('keyup', (e) => { if (e.keyCode === 27) {{safeid}}_dismissModal(); });
+		{{safeid}}_rootElement.addEventListener('click', {{safeid}}_popoverClick);
+	};
+
+	try {
+		if (typeof requirejs === 'function') {
+			requirejs.config({ paths: { ouibounce: '//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min' } });
+			requirejs(['ouibounce'], (ouibounce) => { window.ouibounce = ouibounce; {{safeid}}_init(); });
+		} else if (typeof $TB !== 'undefined' && typeof $TB.getScript === 'function') {
+			$TB.getScript('//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min.js', () => { {{safeid}}_init(); });
+		} else if (typeof ouibounce !== 'undefined') {
+			{{safeid}}_init();
+		}
+	} catch (e) {
+		console.error('Returning users popover init failed', e);
+	}
+</script>
+
+{% if meta.preview == 'true' %}
+<script src="//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min.js"></script>
+<script>{{safeid}}_init();</script>
+{% endif %}
+
+{% endif %}

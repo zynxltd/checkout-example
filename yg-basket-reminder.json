@@ -1,0 +1,315 @@
+{
+	"name": "Basket Reminder 1",
+	"slug": "ts4h3dx",
+	"html": "",
+	"active": true,
+	"content_tag": "",
+	"content_type": "popover",
+	"dt": "",
+	"template_style": "nsber2u",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "Sticky basket reminder tooltip (Epsilon match). Sticky campaign: Desktop anchor top→bottom of div#top-basket:nth-of-type(1) offset X5 Y-15. Mobile anchor top→bottom of #header > div.mobileNavBar offset X100 Y-5.",
+		"sortOrder": 30,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "coreSection",
+				"name": "Core Settings",
+				"fields": [
+					{
+						"id": "width",
+						"name": "Desktop Width",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 220, "unit": "px" },
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "mobileWidth",
+						"name": "Mobile Width",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 220, "unit": "px" },
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "mobileBreakpoint",
+						"name": "Mobile Breakpoint",
+						"type": "numeric",
+						"inline": true,
+						"default": 768,
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "desktopArrowOffset",
+						"name": "Desktop Arrow Position (%)",
+						"description": "Horizontal position of the upward pointer (50 = centred)",
+						"type": "numeric",
+						"inline": true,
+						"default": 50,
+						"sortOrder": 4,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "mobileArrowOffset",
+						"name": "Mobile Arrow Position (%)",
+						"description": "Horizontal position of the upward pointer on mobile (align with basket icon)",
+						"type": "numeric",
+						"inline": true,
+						"default": 75,
+						"sortOrder": 5,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "padding",
+						"name": "Padding",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 14, "unit": "px" },
+						"sortOrder": 6,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "backgroundColor",
+						"name": "Background Color",
+						"type": "color",
+						"inline": true,
+						"default": "#81038E",
+						"sortOrder": 7,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "textColor",
+						"name": "Default Text Color",
+						"type": "color",
+						"inline": true,
+						"default": "#FFFFFF",
+						"sortOrder": 8,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "borderRadius",
+						"name": "Corner Style",
+						"type": "select",
+						"inline": true,
+						"default": "6px",
+						"sortOrder": 9,
+						"options": [
+							["8px", "Rounded"],
+							["6px", "Slightly Rounded"],
+							["4px", "Subtle"],
+							["0px", "Square"]
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "crossSize",
+						"name": "Close Button Size",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 20, "unit": "px" },
+						"sortOrder": 10,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "crossColor",
+						"name": "Close Button Color",
+						"type": "color",
+						"inline": true,
+						"default": "#FFFFFF",
+						"sortOrder": 11,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 0
+			},
+			{
+				"id": "copySection",
+				"name": "Copy",
+				"fields": [
+					{
+						"id": "headline",
+						"name": "Headline",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "Reminder!", "mergeJinja": true },
+							{ "id": "font", "name": "Font", "type": "font", "default": "Verdana" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 16, "unit": "px" } },
+							{ "id": "color", "name": "Color", "type": "color", "default": "#FFFFFF" }
+						],
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "message",
+						"name": "Message",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "You still have items in your basket!", "mergeJinja": true },
+							{ "id": "font", "name": "Font", "type": "font", "default": "Verdana" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 12, "unit": "px" } },
+							{ "id": "color", "name": "Color", "type": "color", "default": "#FFFFFF" }
+						],
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 1
+			},
+			{
+				"id": "ctaSection",
+				"name": "Checkout Button",
+				"fields": [
+					{
+						"id": "checkoutButton",
+						"name": "Checkout Button",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "Checkout Now" },
+							{ "id": "font", "name": "Font", "type": "font", "default": "Verdana" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 13, "unit": "px" } },
+							{ "id": "bold", "name": "Bold", "type": "bold", "default": true },
+							{ "id": "width", "name": "Width (%)", "type": "numeric", "default": 100 },
+							{ "id": "padding", "name": "Padding", "type": "padding", "default": { "size": 10, "unit": "px" } },
+							{
+								"id": "borderRadius",
+								"name": "Corner Style",
+								"type": "select",
+								"default": "4px",
+								"options": [["8px", "Rounded"], ["4px", "Slightly Rounded"], ["0px", "Square"]]
+							},
+							{
+								"id": "textColor",
+								"name": "Text Color",
+								"description": "Button label colour (use panel colour for contrast on white buttons)",
+								"type": "color",
+								"default": "#81038E"
+							},
+							{
+								"id": "buttonBackgroundColor",
+								"name": "Background Color",
+								"description": "Button fill colour",
+								"type": "color",
+								"default": "#FFFFFF"
+							}
+						],
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 2
+			},
+			{
+				"id": "behavior",
+				"name": "Behavior",
+				"fields": [
+					{
+						"id": "cookieName",
+						"name": "Dismiss Cookie Name",
+						"type": "text",
+						"inline": true,
+						"default": "yg_basket_reminder",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "daysBetweenShows",
+						"name": "Days Before Showing Again After Dismiss",
+						"type": "numeric",
+						"inline": true,
+						"default": 1,
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 3
+			},
+			{
+				"id": "links",
+				"name": "Links",
+				"fields": [
+					{
+						"id": "checkoutHref",
+						"name": "Checkout URL",
+						"type": "url",
+						"inline": true,
+						"default": "/checkout",
+						"mergeJinja": true,
+						"sortOrder": 1,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmCampaign",
+						"name": "UTM Campaign",
+						"type": "text",
+						"inline": true,
+						"default": "yg_basket_reminder",
+						"mergeJinja": true,
+						"sortOrder": 2,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmSource",
+						"name": "UTM Source",
+						"type": "text",
+						"inline": true,
+						"default": "freshrelevance",
+						"mergeJinja": true,
+						"sortOrder": 3,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmMedium",
+						"name": "UTM Medium",
+						"type": "text",
+						"inline": true,
+						"default": "sticky",
+						"mergeJinja": true,
+						"sortOrder": 4,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 4
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

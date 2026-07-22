@@ -1,0 +1,304 @@
+{
+	"name": "Catalogue Collection",
+	"slug": "736h89c",
+	"html": "",
+	"active": true,
+	"content_tag": null,
+	"content_type": "product",
+	"dt": "",
+	"template_style": "736h89c",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "",
+		"sortOrder": -1,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "latest",
+				"name": "Latest catalogue",
+				"fields": [
+					{
+						"id": "latest_cover",
+						"name": "Cover image",
+						"description": "Cover image for the latest catalogue",
+						"inline": true,
+						"type": "image_url",
+						"first": true,
+						"default": "https://images.dycdn.net/a8u5sf4p/Screenshot-2026-05-18-at-16.38.42_k8jjluqhu3.png",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_title",
+						"name": "Title",
+						"description": "Catalogue title",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Transform Your Summer Garden",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_url",
+						"name": "Catalogue URL",
+						"description": "URL to open the digital catalogue",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "https://content.yudu.com/web/433ma/0A44t64/2026-Summer-Cata/html/index.html",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 1
+			},
+			{
+				"id": "cat2",
+				"name": "Catalogue 2",
+				"fields": [
+					{
+						"id": "cat2_cover",
+						"name": "Cover image",
+						"description": "Cover image",
+						"inline": true,
+						"type": "image_url",
+						"first": true,
+						"default": "https://images.dycdn.net/a8u5sf4p/April-26-Catalogue_9kz1d5cfns.png",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "cat2_title",
+						"name": "Title",
+						"description": "Catalogue title",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Feed Your Passion For Plants",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "cat2_url",
+						"name": "Catalogue URL",
+						"description": "URL to open the digital catalogue",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "https://content.yudu.com/web/433ma/0A44t64/2026-Mid-Spring-Cata/html/index.html?origin=reader",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 2
+			},
+			{
+				"id": "cat3",
+				"name": "Catalogue 3",
+				"fields": [
+					{
+						"id": "cat3_cover",
+						"name": "Cover image",
+						"description": "Cover image",
+						"inline": true,
+						"type": "image_url",
+						"first": true,
+						"default": "https://images.dycdn.net/a8u5sf4p/2026-Catalogue-1_kpqxf3pk3w.jpg",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "cat3_title",
+						"name": "Title",
+						"description": "Catalogue title",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Get Inspired... Get Gardening",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "cat3_url",
+						"name": "Catalogue URL",
+						"description": "URL to open the digital catalogue",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "https://content.yudu.com/web/433ma/0A44t64/2026-Catalogue/index.html",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 3
+			},
+			{
+				"id": "cat4",
+				"name": "Early Spring Sensations",
+				"fields": [
+					{
+						"id": "cat4_cover",
+						"name": "Cover image",
+						"description": "Cover image",
+						"inline": true,
+						"type": "image_url",
+						"first": true,
+						"default": "https://images.dycdn.net/a8u5sf4p/Early-Spring-Sensations_new_at21atz68i.jpg",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "cat4_title",
+						"name": "Title",
+						"description": "Catalogue title",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Early Spring Sensations",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "cat4_url",
+						"name": "Catalogue URL",
+						"description": "URL to open the digital catalogue",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "https://content.yudu.com/web/433ma/0A44t64/Early-Spring-Sens-26/html/index.html",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 4
+			},
+			{
+				"id": "older1",
+				"name": "Older catalogue 1",
+				"fields": [
+					{
+						"id": "older1_cover",
+						"name": "Cover image",
+						"description": "Cover image",
+						"inline": true,
+						"type": "image_url",
+						"first": true,
+						"default": "https://images.dycdn.net/a8u5sf4p/New-Year-2026-Catalogue_new_6q2w5ixt6d.jpg",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "older1_title",
+						"name": "Title",
+						"description": "Catalogue title",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Your New Year Garden",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "older1_url",
+						"name": "Catalogue URL",
+						"description": "URL to open the digital catalogue",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "https://content.yudu.com/web/433ma/0A44t64/New-Year-2026/html/index.html",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 5
+			},
+			{
+				"id": "older2",
+				"name": "Older catalogue 2",
+				"fields": [
+					{
+						"id": "older2_cover",
+						"name": "Cover image",
+						"description": "Cover image",
+						"inline": true,
+						"type": "image_url",
+						"first": true,
+						"default": "https://images.dycdn.net/a8u5sf4p/You-Garden-Winter-2025_new_7sic8injki.jpg",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "older2_title",
+						"name": "Title",
+						"description": "Catalogue title",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Winter 2025",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "older2_url",
+						"name": "Catalogue URL",
+						"description": "URL to open the digital catalogue",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "https://content.yudu.com/web/433ma/0A44t64/YouGardenWinter2025/html/index.html",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 6
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

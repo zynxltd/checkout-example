@@ -1,0 +1,225 @@
+{
+	"name": "YG - Recent View Count Banner",
+	"slug": "b6e10h5",
+	"html": "",
+	"active": true,
+	"content_tag": null,
+	"content_type": "product",
+	"dt": "",
+	"template_style": "b6e10h5",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "Popular! page view count banner. Shows when product page views exceed minimum (default >50). Uses FR browsed data only. Sticky: Desktop/Mobile anchor top-right→top-right of #main-image-carousel slick active slide (see Epsilon Dynamic Social Proof v2).",
+		"sortOrder": 20,
+		"defaultSocialProofOptions": true,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": true,
+		"sections": [
+			{
+				"id": "bannerSection",
+				"name": "Banner",
+				"fields": [
+					{
+						"id": "banner",
+						"name": "Banner Style",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "backgroundColor", "name": "Background Color", "type": "color", "default": "#500A6F" },
+							{ "id": "textColor", "name": "Text Color", "type": "color", "default": "#FFFFFF" },
+							{ "id": "borderColor", "name": "Border Color", "type": "color", "default": "#FFFFFF" },
+							{ "id": "borderWidth", "name": "Border Width (px)", "type": "numeric", "default": 2 },
+							{ "id": "font", "name": "Font", "type": "font", "default": "Verdana" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 16, "unit": "px" } },
+							{ "id": "mobileFontSize", "name": "Mobile Font Size", "type": "font_size", "default": { "size": 14, "unit": "px" } },
+							{ "id": "width", "name": "Min Width", "type": "padding", "default": { "size": 250, "unit": "px" } },
+							{ "id": "height", "name": "Height", "type": "padding", "default": { "size": 40, "unit": "px" } },
+							{ "id": "mobileWidth", "name": "Mobile Min Width", "type": "padding", "default": { "size": 220, "unit": "px" } },
+							{ "id": "mobileHeight", "name": "Mobile Height", "type": "padding", "default": { "size": 36, "unit": "px" } },
+							{ "id": "paddingLeft", "name": "Padding Left", "type": "padding", "default": { "size": 13, "unit": "px" } },
+							{ "id": "paddingHorizontal", "name": "Padding Right", "type": "padding", "default": { "size": 7, "unit": "px" } },
+							{ "id": "mobilePaddingLeft", "name": "Mobile Padding Left", "type": "padding", "default": { "size": 11, "unit": "px" } },
+							{ "id": "mobilePaddingHorizontal", "name": "Mobile Padding Right", "type": "padding", "default": { "size": 6, "unit": "px" } },
+							{ "id": "gap", "name": "Text Gap (px)", "type": "numeric", "default": 4 },
+							{
+								"id": "borderRadius",
+								"name": "Corner Style",
+								"type": "select",
+								"default": "0px",
+								"options": [["8px", "Rounded"], ["4px", "Slightly Rounded"], ["0px", "Square"]]
+							}
+						],
+						"sortOrder": 1
+					},
+					{
+						"id": "prefix",
+						"name": "Popular Prefix",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "Popular!", "mergeJinja": true }
+						],
+						"sortOrder": 2
+					},
+					{
+						"id": "icon",
+						"name": "Flame Icon",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "url",
+								"name": "Icon Image",
+								"description": "Epsilon flame icon (24×15px display size)",
+								"type": "image_url",
+								"default": "https://assets-v2.yieldify.com/images/267876/2025/4/25/ccc96b46-00fb-4138-b161-7bfa0f52fdf3.png"
+							},
+							{ "id": "width", "name": "Icon Width (px)", "type": "numeric", "default": 24 },
+							{ "id": "height", "name": "Icon Height (px)", "type": "numeric", "default": 15 },
+							{ "id": "mobileWidth", "name": "Mobile Icon Width (px)", "type": "numeric", "default": 20 },
+							{ "id": "mobileHeight", "name": "Mobile Icon Height (px)", "type": "numeric", "default": 13 }
+						],
+						"sortOrder": 3
+					},
+					{
+						"id": "previewFallback",
+						"name": "Layout Preview Text",
+						"description": "Shown in layout editor preview only (e.g. 212 Recently viewed)",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Preview Text", "type": "text", "default": "212 Recently viewed" }
+						],
+						"sortOrder": 4
+					},
+					{
+						"id": "mobileBreakpoint",
+						"name": "Mobile Breakpoint",
+						"type": "numeric",
+						"default": 768,
+						"sortOrder": 5
+					}
+				],
+				"sortOrder": 0
+			},
+			{
+				"id": "socialProof",
+				"name": "Page View Count (>50)",
+				"fields": [
+					{
+						"id": "socialProofMessaging",
+						"name": "Show When Page Views Exceed Minimum",
+						"description": "Banner only appears on live PDP when browsed count exceeds Minimum Page Views below. Configure here or in SmartBlock slot after linking layout.",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "timePeriod",
+								"name": "Time Period",
+								"description": "Count page views within this window",
+								"type": "select",
+								"default": "last24Hours",
+								"options": [
+									["lastHour", "Last Hour"],
+									["last2Hours", "Last 2 Hours"],
+									["last4Hours", "Last 4 Hours"],
+									["last12Hours", "Last 12 Hours"],
+									["last24Hours", "Last 24 Hours"],
+									["last2Days", "Last 2 Days"],
+									["last3Days", "Last 3 Days"],
+									["last5Days", "Last 5 Days"],
+									["last7Days", "Last 7 Days"]
+								]
+							},
+							{
+								"id": "purchasedData",
+								"name": "Purchased Data",
+								"type": "custom",
+								"default": false,
+								"active": false,
+								"displayActive": false,
+								"subFields": [
+									{ "id": "minimumPurchased", "name": "Minimum Purchased", "type": "numeric", "default": 999999 }
+								]
+							},
+							{
+								"id": "cartedData",
+								"name": "Carted Data",
+								"type": "custom",
+								"default": false,
+								"active": false,
+								"displayActive": false,
+								"subFields": [
+									{ "id": "minimumCarted", "name": "Minimum Carted", "type": "numeric", "default": 999999 }
+								]
+							},
+							{
+								"id": "browsedData",
+								"name": "Page Views (Browsed)",
+								"description": "Product page view count from FR browsed data",
+								"type": "custom",
+								"default": true,
+								"active": true,
+								"displayActive": true,
+								"subFields": [
+									{
+										"id": "minimumBrowsed",
+										"name": "Minimum Page Views (show above this)",
+										"description": "Epsilon rule: show when views > 50. Set to 50 — FR shows from 51 upward in the selected time period.",
+										"type": "numeric",
+										"default": 50
+									},
+									{
+										"id": "displayNumber",
+										"name": "Display Count",
+										"description": "Show the page view number in the banner",
+										"type": "boolean",
+										"default": true
+									},
+									{
+										"id": "text",
+										"name": "Suffix Text",
+										"description": "Text after the count, e.g. \"212 Recently viewed\"",
+										"type": "text",
+										"default": "Recently viewed"
+									}
+								]
+							},
+							{
+								"id": "fallbackData",
+								"name": "Fallback",
+								"type": "custom",
+								"default": false,
+								"active": false,
+								"displayActive": false,
+								"subFields": [
+									{ "id": "text", "name": "Text", "type": "text", "default": "" }
+								]
+							}
+						],
+						"sortOrder": 1
+					}
+				],
+				"sortOrder": 1
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

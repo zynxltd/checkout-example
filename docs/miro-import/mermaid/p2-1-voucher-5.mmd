@@ -1,0 +1,10 @@
+flowchart TD
+    START([£5 voucher issued to member]) --> D7[Delay 7 days]
+    D7 --> USED1{Redeemed?}
+    USED1 -->|Yes| EXIT1([Exit])
+    USED1 -->|No| E1[Email — voucher + personalised picks]
+    E1 --> D14[Delay 14 days]
+    D14 --> USED2{Redeemed?}
+    USED2 -->|Yes| EXIT2([Exit])
+    USED2 -->|No| E2[Email 2 — last chance this season]
+    E2 --> EXIT3([Exit])

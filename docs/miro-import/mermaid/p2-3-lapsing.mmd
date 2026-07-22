@@ -1,0 +1,9 @@
+flowchart TD
+    START([Expected spring buyer — no order by mid-Feb]) --> E1[Email 1 — planting window open]
+    E1 --> D1[Delay 2 weeks]
+    D1 --> E2[Email 2 — category picks from history]
+    E2 --> CLUB{club_member?}
+    CLUB -->|Yes| E3M[Email 3 — voucher + early access]
+    CLUB -->|No| E3N[Email 3 — seasonal bestsellers]
+    E3M --> EXIT([Exit])
+    E3N --> EXIT

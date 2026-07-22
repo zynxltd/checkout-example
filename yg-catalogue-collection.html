@@ -1,0 +1,151 @@
+<div class="catalogue-collection-block">
+    <style>
+      .catalogue-collection-block { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.5; color: #333; width: 100%; max-width: 100%; text-align: left; margin-bottom: 3rem; padding-top: 1.5rem; padding-bottom: 2rem; }
+      .catalogue-collection-block .intro { margin-bottom: 1.5rem; color: #555; font-size: 1.1rem; }
+      .catalogue-collection-block .catalogue-carousel { position: relative; width: 100%; max-width: 1280px; }
+      .catalogue-collection-block .carousel-controls { display: flex; gap: 0.5rem; justify-content: flex-start; margin-bottom: 0.8rem; padding: 0 2.25rem; }
+      .catalogue-collection-block .catalogue-grid { display: flex; align-items: stretch; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 0 2.25rem; scrollbar-width: none; -ms-overflow-style: none; cursor: grab; }
+      .catalogue-collection-block .catalogue-grid::-webkit-scrollbar { display: none; }
+      .catalogue-collection-block .catalogue-grid.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+      .catalogue-collection-block .catalogue-card { display: flex; flex-direction: column; flex: 0 0 clamp(240px, 24vw, 320px); color: inherit; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; width: 100%; scroll-snap-align: start; background: #fff; }
+      .catalogue-collection-block .catalogue-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.12); transform: translateY(-2px); }
+      .catalogue-collection-block .catalogue-card img { display: block; width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; object-position: top center; background: #fff; flex-shrink: 0; -webkit-user-drag: none; user-select: none; pointer-events: none; }
+      .catalogue-collection-block .catalogue-card .label { display: block; padding: 0.6rem 0.85rem 0.35rem; font-weight: 600; font-size: 0.9rem; line-height: 1.35; min-height: 2.7em; flex: 1 0 auto; }
+      .catalogue-collection-block .catalogue-card .view-link { display: inline-flex; align-items: center; align-self: flex-start; gap: 0.4rem; margin: auto 0.85rem 0.85rem; padding: 0.42rem 0.68rem; font-size: 0.78rem; letter-spacing: 0.01em; color: #4e5359; background: #f1f2f4; border: 1px solid #d7dbe0; border-radius: 999px; font-weight: 600; text-decoration: none; transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s; }
+      .catalogue-collection-block .catalogue-card .view-link:hover { background: #2d5016; border-color: #2d5016; color: #fff; transform: translateY(-1px); box-shadow: 0 3px 10px rgba(45, 80, 22, 0.25); text-decoration: none; }
+      .catalogue-collection-block .catalogue-card .view-link:focus-visible { outline: 2px solid #b8bec6; outline-offset: 2px; }
+      .catalogue-collection-block .carousel-arrow { width: 2rem; height: 2rem; border: 0; border-radius: 999px; background: rgba(45, 80, 22, 0.92); color: #fff; font-size: 1.2rem; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); }
+      .catalogue-collection-block .carousel-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
+      @media (max-width: 640px) {
+        .catalogue-collection-block .carousel-controls { padding: 0 1.85rem; }
+        .catalogue-collection-block .catalogue-grid { gap: 1rem; padding: 0 1.85rem; }
+        .catalogue-collection-block .catalogue-card { flex-basis: calc(100vw - 4rem); max-width: 360px; }
+        .catalogue-collection-block .catalogue-card .label { font-size: 0.95rem; min-height: 2.7em; }
+        .catalogue-collection-block .catalogue-card .view-link { font-size: 0.82rem; }
+        .catalogue-collection-block .carousel-arrow { width: 1.85rem; height: 1.85rem; font-size: 1.05rem; }
+      }
+    </style>
+  
+    <h2 class="intro">View our catalogues</h2>
+  
+    <div class="catalogue-carousel">
+      <div class="carousel-controls">
+        <button class="carousel-arrow prev" type="button" aria-label="Previous catalogue">‹</button>
+        <button class="carousel-arrow next" type="button" aria-label="Next catalogue">›</button>
+      </div>
+      <div class="catalogue-grid">
+      {# Hardcoded catalogue list — overrides saved SmartBlock field values when layout HTML is updated #}
+      <article class="catalogue-card">
+        <img src="https://images.dycdn.net/a8u5sf4p/sizzling_summer_sale_ofy694oph3.png" alt="Sizzling Summer Sale catalogue cover" loading="lazy">
+        <span class="label">Sizzling Summer Sale</span>
+        <a class="view-link" href="https://content.yudu.com/web/433ma/0A44t64/2026-Summer-Sale/html/index.html?origin=reader" target="_blank" rel="noopener">Open catalogue <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="catalogue-card">
+        <img src="https://images.dycdn.net/a8u5sf4p/Screenshot-2026-05-18-at-16.38.42_k8jjluqhu3.png" alt="Transform Your Summer Garden catalogue cover" loading="lazy">
+        <span class="label">Transform Your Summer Garden</span>
+        <a class="view-link" href="https://content.yudu.com/web/433ma/0A44t64/2026-Summer-Cata/html/index.html" target="_blank" rel="noopener">Open catalogue <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="catalogue-card">
+        <img src="https://images.dycdn.net/a8u5sf4p/April-26-Catalogue_9kz1d5cfns.png" alt="Feed Your Passion For Plants catalogue cover" loading="lazy">
+        <span class="label">Feed Your Passion For Plants</span>
+        <a class="view-link" href="https://content.yudu.com/web/433ma/0A44t64/2026-Mid-Spring-Cata/html/index.html?origin=reader" target="_blank" rel="noopener">Open catalogue <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="catalogue-card">
+        <img src="https://images.dycdn.net/a8u5sf4p/2026-Catalogue-1_kpqxf3pk3w.jpg" alt="Get Inspired... Get Gardening catalogue cover" loading="lazy">
+        <span class="label">Get Inspired... Get Gardening</span>
+        <a class="view-link" href="https://content.yudu.com/web/433ma/0A44t64/2026-Catalogue/index.html" target="_blank" rel="noopener">Open catalogue <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="catalogue-card">
+        <img src="https://images.dycdn.net/a8u5sf4p/Early-Spring-Sensations_new_at21atz68i.jpg" alt="Early Spring Sensations catalogue cover" loading="lazy">
+        <span class="label">Early Spring Sensations</span>
+        <a class="view-link" href="https://content.yudu.com/web/433ma/0A44t64/Early-Spring-Sens-26/html/index.html" target="_blank" rel="noopener">Open catalogue <span aria-hidden="true">→</span></a>
+      </article>
+      <article class="catalogue-card">
+        <img src="https://images.dycdn.net/a8u5sf4p/New-Year-2026-Catalogue_new_6q2w5ixt6d.jpg" alt="Your New Year Garden catalogue cover" loading="lazy">
+        <span class="label">Your New Year Garden</span>
+        <a class="view-link" href="https://content.yudu.com/web/433ma/0A44t64/New-Year-2026/html/index.html" target="_blank" rel="noopener">Open catalogue <span aria-hidden="true">→</span></a>
+      </article>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var block = document.querySelector('.catalogue-collection-block');
+        if (!block) return;
+
+        var track = block.querySelector('.catalogue-grid');
+        var prevBtn = block.querySelector('.carousel-arrow.prev');
+        var nextBtn = block.querySelector('.carousel-arrow.next');
+        if (!track || !prevBtn || !nextBtn) return;
+
+        var scrollAmount = function () {
+          var firstCard = track.querySelector('.catalogue-card');
+          if (!firstCard) return 280;
+          var cardStyles = window.getComputedStyle(firstCard);
+          var gap = parseFloat(window.getComputedStyle(track).columnGap || window.getComputedStyle(track).gap || '20');
+          return firstCard.getBoundingClientRect().width + (Number.isFinite(gap) ? gap : parseFloat(cardStyles.marginRight) || 20);
+        };
+
+        var updateButtons = function () {
+          var maxLeft = track.scrollWidth - track.clientWidth;
+          prevBtn.disabled = track.scrollLeft <= 2;
+          nextBtn.disabled = track.scrollLeft >= maxLeft - 2;
+        };
+
+        prevBtn.addEventListener('click', function () {
+          track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', function () {
+          track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+        });
+
+        var isPointerDown = false;
+        var startX = 0;
+        var startScrollLeft = 0;
+        var dragged = false;
+
+        track.addEventListener('mousedown', function (event) {
+          if (event.button !== 0) return;
+          event.preventDefault();
+          isPointerDown = true;
+          dragged = false;
+          startX = event.clientX;
+          startScrollLeft = track.scrollLeft;
+          track.classList.add('is-dragging');
+        });
+
+        track.addEventListener('mousemove', function (event) {
+          if (!isPointerDown) return;
+          event.preventDefault();
+          var delta = event.clientX - startX;
+          if (Math.abs(delta) > 4) dragged = true;
+          track.scrollLeft = startScrollLeft - delta;
+        });
+
+        var endDrag = function () {
+          isPointerDown = false;
+          track.classList.remove('is-dragging');
+        };
+
+        track.addEventListener('mouseup', endDrag);
+        track.addEventListener('mouseleave', endDrag);
+        window.addEventListener('mouseup', endDrag);
+
+        track.addEventListener('click', function (event) {
+          if (!dragged) return;
+          event.preventDefault();
+          event.stopPropagation();
+          dragged = false;
+        }, true);
+
+        track.addEventListener('dragstart', function (event) {
+          event.preventDefault();
+        });
+
+        track.addEventListener('scroll', updateButtons, { passive: true });
+        window.addEventListener('resize', updateButtons);
+        updateButtons();
+      })();
+    </script>
+  </div>
+  

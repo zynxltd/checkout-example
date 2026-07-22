@@ -1,0 +1,315 @@
+{# YG Home — Category Blocks (browse-personalised)
+   FR SmartBlock content_type: category
+   Data source (FR admin): Frequently Browsed categories (or Best Tag Value on category tags).
+   Hides on live site when categories is empty (no browse history).
+ #}
+
+{% if (categories|default([]))|length > 0 or meta.preview == "true" %}
+
+{% if meta.preview == "true" %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endif %}
+
+{% set columnCount = fields.columns or 4 %}
+
+<div class="{{safeid}} promotional-wrapper{% if fields.categoryName and fields.categoryName.active %} {{safeid}}--show-names{% endif %}">
+    {% if fields.headline and fields.headline.active %}
+    <h2 class="{{safeid}}__headline">{{ mergeField(fields.headline.text) }}</h2>
+    {% elif meta.preview == "true" %}
+    <h2 class="{{safeid}}__headline">Transform Your Summer Garden</h2>
+    {% endif %}
+
+    <div class="promotional-blocks four img-only-row">
+        {% if (categories|default([]))|length > 0 %}
+            {% for category in categories|limit(columnCount) %}
+            {% if loop.index == 1 and fields.card1 %}
+                {% set slotImage = fields.card1.image %}
+                {% set slotLink = fields.card1.linkUrl %}
+            {% elif loop.index == 2 and fields.card2 %}
+                {% set slotImage = fields.card2.image %}
+                {% set slotLink = fields.card2.linkUrl %}
+            {% elif loop.index == 3 and fields.card3 %}
+                {% set slotImage = fields.card3.image %}
+                {% set slotLink = fields.card3.linkUrl %}
+            {% elif loop.index == 4 and fields.card4 %}
+                {% set slotImage = fields.card4.image %}
+                {% set slotLink = fields.card4.linkUrl %}
+            {% else %}
+                {% set slotImage = '' %}
+                {% set slotLink = '' %}
+            {% endif %}
+            {% if fields.imageSource == 'upload' %}
+                {% set displayImage = slotImage %}
+            {% elif fields.imageSource == 'browse' %}
+                {% set displayImage = category.img %}
+            {% else %}
+                {% set displayImage = category.img or slotImage %}
+            {% endif %}
+            <div class="item {{safeid}}__item">
+                <a href="{% if slotLink %}{{ mergeField(slotLink, { category: category })|set_ga_tracking(
+                    utm_campaign=mergeField(fields.utmCampaign, {}),
+                    utm_medium=mergeField(fields.utmMedium, {}),
+                    utm_source=mergeField(fields.utmSource, {})) }}{% else %}{{ mergeField(fields.redirectURL, { category: category })|set_ga_tracking(
+                    utm_campaign=mergeField(fields.utmCampaign, {}),
+                    utm_medium=mergeField(fields.utmMedium, {}),
+                    utm_source=mergeField(fields.utmSource, {})) }}{% endif %}"
+                   aria-label="{{ category.n }}">
+                    <div class="static-box">
+                        <div class="img-wrapper">
+                            <img class="lazyload"
+                                 width="300"
+                                 height="300"
+                                 src="{{ displayImage }}"
+                                 data-src="{{ displayImage }}"
+                                 loading="lazy"
+                                 alt="{{ category.n }}">
+                        </div>
+                        <div class="overlay">
+                            {% if fields.categoryName and fields.categoryName.active %}
+                            <h3>{{ category.n }}</h3>
+                            <p></p>
+                            {% else %}
+                            <h3></h3>
+                            <p></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        {% elif meta.preview == "true" %}
+            {% if fields.card1 and fields.card1.image %}
+            <div class="item {{safeid}}__item {{safeid}}__item--preview">
+                <a href="{% if fields.card1.linkUrl %}{{ fields.card1.linkUrl }}{% else %}#{% endif %}" aria-label="Category preview 1">
+                    <div class="static-box">
+                        <div class="img-wrapper">
+                            <img width="300" height="300" src="{{ fields.card1.image }}" alt="Category preview 1">
+                        </div>
+                        <div class="overlay"><h3></h3><p></p></div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            {% if fields.card2 and fields.card2.image %}
+            <div class="item {{safeid}}__item {{safeid}}__item--preview">
+                <a href="{% if fields.card2.linkUrl %}{{ fields.card2.linkUrl }}{% else %}#{% endif %}" aria-label="Category preview 2">
+                    <div class="static-box">
+                        <div class="img-wrapper">
+                            <img width="300" height="300" src="{{ fields.card2.image }}" alt="Category preview 2">
+                        </div>
+                        <div class="overlay"><h3></h3><p></p></div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            {% if fields.card3 and fields.card3.image %}
+            <div class="item {{safeid}}__item {{safeid}}__item--preview">
+                <a href="{% if fields.card3.linkUrl %}{{ fields.card3.linkUrl }}{% else %}#{% endif %}" aria-label="Category preview 3">
+                    <div class="static-box">
+                        <div class="img-wrapper">
+                            <img width="300" height="300" src="{{ fields.card3.image }}" alt="Category preview 3">
+                        </div>
+                        <div class="overlay"><h3></h3><p></p></div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            {% if fields.card4 and fields.card4.image %}
+            <div class="item {{safeid}}__item {{safeid}}__item--preview">
+                <a href="{% if fields.card4.linkUrl %}{{ fields.card4.linkUrl }}{% else %}#{% endif %}" aria-label="Category preview 4">
+                    <div class="static-box">
+                        <div class="img-wrapper">
+                            <img width="300" height="300" src="{{ fields.card4.image }}" alt="Category preview 4">
+                        </div>
+                        <div class="overlay"><h3></h3><p></p></div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .{{safeid}}.promotional-wrapper {
+        width: 100%;
+        max-width: {% if fields.fillSmartBlockParentContainer %}100%{% else %}{{ fields.width or 1300 }}px{% endif %};
+        margin: 0 auto;
+        box-sizing: border-box;
+        background-color: {{ fields.backgroundColor or 'transparent' }};
+    }
+
+    {% if fields.headline %}
+    .{{safeid}}__headline {
+        margin: 0 0 20px;
+        text-align: center;
+        font-family: {{ fields.headline.font or 'gelica' }}, 'gelica', 'Gelica', Georgia, 'Times New Roman', serif !important;
+        font-size: {{ fields.headline.size.size or 28 }}{{ fields.headline.size.unit or 'px' }} !important;
+        color: {{ fields.headline.colors.foreground or fields.headline.color or '#000000' }} !important;
+        {% if fields.headline.bold %}
+        font-weight: 700 !important;
+        {% else %}
+        font-weight: 400 !important;
+        {% endif %}
+        line-height: 1.3 !important;
+        letter-spacing: normal !important;
+        text-transform: none !important;
+    }
+
+    {% if fields.headline.alignment %}
+    .{{safeid}}__headline {
+        text-align: {{ fields.headline.alignment|lower }};
+    }
+    {% endif %}
+
+    .fp-section .{{safeid}}__headline,
+    .centralWrapper .{{safeid}}__headline,
+    #wrapper .fp-section .{{safeid}}.promotional-wrapper .{{safeid}}__headline {
+        font-family: {{ fields.headline.font or 'gelica' }}, 'gelica', 'Gelica', Georgia, 'Times New Roman', serif !important;
+        font-size: {{ fields.headline.size.size or 28 }}{{ fields.headline.size.unit or 'px' }} !important;
+        line-height: 1.3 !important;
+        letter-spacing: normal !important;
+        text-transform: none !important;
+    }
+    {% else %}
+    .{{safeid}}__headline {
+        margin: 0 0 20px;
+        text-align: center;
+        font-family: 'gelica', 'Gelica', Georgia, 'Times New Roman', serif !important;
+        font-size: 28px !important;
+        color: #000000 !important;
+        font-weight: 400 !important;
+        line-height: 1.3 !important;
+    }
+    {% endif %}
+
+    /* Match YG promotional-blocks layout */
+    .{{safeid}}.promotional-wrapper .promotional-blocks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .{{safeid}}.promotional-wrapper .promotional-blocks .item {
+        flex: 0 0 calc(25% - 12px);
+        max-width: calc(25% - 12px);
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .{{safeid}}.promotional-wrapper .promotional-blocks a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .{{safeid}}.promotional-wrapper .static-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        background: #ffffff;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .{{safeid}}.promotional-wrapper .img-wrapper {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        border-radius: 16px;
+        line-height: 0;
+    }
+
+    .{{safeid}}.promotional-wrapper .img-wrapper img {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 16px;
+        transition: transform 0.35s ease;
+    }
+
+    .{{safeid}}.promotional-wrapper a:hover .static-box,
+    .{{safeid}}.promotional-wrapper a:focus-visible .static-box {
+        box-shadow: 0 10px 24px rgba(38, 79, 28, 0.14);
+        transform: translateY(-2px);
+    }
+
+    .{{safeid}}.promotional-wrapper a:hover .img-wrapper img,
+    .{{safeid}}.promotional-wrapper a:focus-visible .img-wrapper img {
+        transform: scale(1.05);
+    }
+
+    .{{safeid}}.promotional-wrapper .overlay {
+        display: none;
+    }
+
+    .{{safeid}}.promotional-wrapper.{{safeid}}--show-names .overlay {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 12px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+    }
+
+    {% if fields.categoryName %}
+    .{{safeid}}.promotional-wrapper .overlay h3 {
+        margin: 0;
+        font-family: {{ fields.categoryName.font or 'proxima-nova' }}, 'proxima-nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        font-size: {{ fields.categoryName.size.size or 16 }}{{ fields.categoryName.size.unit or 'px' }} !important;
+        color: {{ fields.categoryName.color or '#483f3a' }} !important;
+        line-height: 1.4 !important;
+    }
+    {% endif %}
+
+    .{{safeid}}.promotional-wrapper.{{safeid}}--show-names .overlay h3 {
+        color: #ffffff !important;
+    }
+
+    /* Tablet: 2x2 grid */
+    @media only screen and (max-width: 1024px) {
+        .{{safeid}}.promotional-wrapper .promotional-blocks .item {
+            flex: 0 0 calc(50% - 8px);
+            max-width: calc(50% - 8px);
+        }
+    }
+
+    /* Mobile: horizontal swipe row (img-only-row behaviour) */
+    @media only screen and (max-width: 767px) {
+        .{{safeid}}.promotional-wrapper .promotional-blocks.img-only-row {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            gap: 12px;
+            padding: 0 0 8px;
+            scrollbar-width: none;
+        }
+
+        .{{safeid}}.promotional-wrapper .promotional-blocks.img-only-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .{{safeid}}.promotional-wrapper .promotional-blocks.img-only-row .item {
+            flex: 0 0 78%;
+            max-width: 78%;
+            scroll-snap-align: start;
+        }
+
+        .{{safeid}}.promotional-wrapper .static-box,
+        .{{safeid}}.promotional-wrapper .img-wrapper,
+        .{{safeid}}.promotional-wrapper .img-wrapper img {
+            border-radius: 12px;
+        }
+    }
+</style>
+
+{% endif %}

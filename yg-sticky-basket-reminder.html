@@ -1,0 +1,176 @@
+{# YG Sticky Basket Reminder — tooltip near basket icon.
+   FR admin: popover/fixed SmartBlock. Sticky campaign: anchor top of creative to bottom of div#top-basket (desktop) or #header > div.mobileNavBar (mobile). #}
+
+<div id="{{safeid}}__wrapper" class="{{safeid}}__wrapper">
+
+	<div class="{{safeid}}__tooltip" id="{{safeid}}__tooltip">
+		<span class="{{safeid}}__arrow" aria-hidden="true"></span>
+
+		<button type="button" class="{{safeid}}__close-button" aria-label="Close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" aria-hidden="true">
+				<path d="M27.1 1.1c-10.4 2-19.4 9.1-23.9 18.7C1 24.5.5 26.9.5 33.5c0 15.5-6.8 7.8 107.5 122l101 101-101.9 102C24.4 441.4 4.9 461.4 3 465.5c-3.4 7.1-3.5 19.9-.2 27 2.9 6.3 9.3 12.9 15.7 16.3 7.2 3.7 18.7 4.2 27 1.2 5.8-2.2 9.4-5.6 108.3-104.4L256 303.5l101.8 101.6c81.7 81.6 102.7 102.1 106.7 104 4.2 2 6.5 2.4 14.5 2.4 8.3 0 10.1-.4 14.5-2.7 6.2-3.2 12.9-10.3 15.8-16.6 3.2-6.8 3-19.7-.3-26.7-1.9-4.1-21.4-24.1-104.1-107L303 256.5l101-101C518.3 41.3 511.5 49 511.5 33.5c0-6.5-.5-9-2.6-13.5-8.1-17.2-28.4-24.2-45.4-15.8-2.6 1.3-39.1 37-105.7 103.6L256 209.5 154.3 107.8C87.6 41.2 51.1 5.5 48.5 4.2 45.1 2.5 34-.3 32.1.1c-.3.1-2.6.5-5 1z"/>
+			</svg>
+		</button>
+
+		{% if fields.headline.active %}
+		<h4 class="{{safeid}}__headline">{{ mergeField(fields.headline.text) }}</h4>
+		{% endif %}
+
+		{% if fields.message.active %}
+		<p class="{{safeid}}__message">{{ mergeField(fields.message.text) }}</p>
+		{% endif %}
+
+		{% if fields.checkoutButton.active %}
+		<a class="{{safeid}}__checkout-button" href="{{ mergeField(fields.checkoutHref)|set_ga_tracking(
+			utm_campaign=mergeField(fields.utmCampaign, {}),
+			utm_medium=mergeField(fields.utmMedium, {}),
+			utm_source=mergeField(fields.utmSource, {}) ) }}">
+			{{ fields.checkoutButton.text }}
+		</a>
+		{% endif %}
+	</div>
+
+</div>
+
+<style>
+	.{{safeid}}__wrapper * {
+		all: initial;
+		box-sizing: border-box;
+	}
+
+	.{{safeid}}__wrapper {
+		position: relative;
+		z-index: 2147483646;
+		{{ 'display: block;' if meta.preview == 'true' else 'display: block;' }}
+		font-family: Verdana, sans-serif;
+	}
+
+	.{{safeid}}__tooltip {
+		position: relative;
+		width: {{ fields.width.size }}{{ fields.width.unit }};
+		max-width: calc(100vw - 20px);
+		padding: {{ fields.padding.size }}{{ fields.padding.unit }};
+		background-color: {{ fields.backgroundColor }};
+		color: {{ fields.textColor }};
+		border-radius: {{ fields.borderRadius }};
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+		text-align: center;
+	}
+
+	span.{{safeid}}__arrow {
+		position: absolute;
+		top: -8px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 0;
+		height: 0;
+		border-left: 8px solid transparent;
+		border-right: 8px solid transparent;
+		border-bottom: 8px solid {{ fields.backgroundColor }};
+	}
+
+	button.{{safeid}}__close-button {
+		cursor: pointer;
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		border: none;
+		background: transparent;
+		height: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
+		width: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
+	}
+
+	button.{{safeid}}__close-button svg,
+	button.{{safeid}}__close-button svg * {
+		height: calc({{ fields.crossSize.size }}{{ fields.crossSize.unit }} * 0.55);
+		width: calc({{ fields.crossSize.size }}{{ fields.crossSize.unit }} * 0.55);
+		fill: {{ fields.crossColor }};
+	}
+
+	h4.{{safeid}}__headline {
+		display: block;
+		width: 100%;
+		margin: 0.15rem 0 0.35rem;
+		padding-top: 0.35rem;
+		font-family: {{ fields.headline.font or 'Verdana' }}, Verdana, sans-serif;
+		font-size: {{ fields.headline.fontSize.size }}{{ fields.headline.fontSize.unit }};
+		font-weight: bold;
+		color: {{ fields.headline.color }};
+		line-height: 1.2;
+	}
+
+	p.{{safeid}}__message {
+		display: block;
+		width: 100%;
+		margin: 0 0 0.85rem;
+		font-family: {{ fields.message.font or 'Verdana' }}, Verdana, sans-serif;
+		font-size: {{ fields.message.fontSize.size }}{{ fields.message.fontSize.unit }};
+		color: {{ fields.message.color }};
+		line-height: 1.35;
+	}
+
+	a.{{safeid}}__checkout-button {
+		display: inline-block;
+		cursor: pointer;
+		width: {{ fields.checkoutButton.width }}%;
+		padding: {{ fields.checkoutButton.padding.size }}{{ fields.checkoutButton.padding.unit }};
+		font-family: {{ fields.checkoutButton.font or 'Verdana' }}, Verdana, sans-serif;
+		font-size: {{ fields.checkoutButton.fontSize.size }}{{ fields.checkoutButton.fontSize.unit }};
+		font-weight: {{ 'bold' if fields.checkoutButton.bold else 'normal' }};
+		color: {{ fields.checkoutButton.colors.foreground }};
+		background-color: {{ fields.checkoutButton.colors.background }};
+		border-radius: {{ fields.checkoutButton.borderRadius }};
+		text-decoration: none;
+		line-height: 1.2;
+	}
+
+	a.{{safeid}}__checkout-button:hover {
+		opacity: 0.95;
+	}
+
+	@media (max-width: {{ fields.mobileBreakpoint if fields.mobileBreakpoint else 768 }}px) {
+		.{{safeid}}__tooltip {
+			width: {{ fields.mobileWidth.size }}{{ fields.mobileWidth.unit }};
+		}
+
+		span.{{safeid}}__arrow {
+			left: {{ fields.mobileArrowOffset }}%;
+		}
+	}
+</style>
+
+<script>
+	const {{safeid}}_rootElement = document.getElementById('{{safeid}}__wrapper');
+	const {{safeid}}_tooltipElement = document.getElementById('{{safeid}}__tooltip');
+
+	const {{safeid}}_dismiss = () => {
+		if ({{safeid}}_rootElement) {
+			{{safeid}}_rootElement.style.display = 'none';
+		}
+		try { $TB.popoverDismissed('{{ slotid }}'); } catch (e) {}
+		{% if fields.cookieName %}
+		try {
+			document.cookie = '{{ fields.cookieName }}=true; path=/; max-age=' + ({{ fields.daysBetweenShows|int }} * 86400);
+		} catch (e) {}
+		{% endif %}
+	};
+
+	const {{safeid}}_init = () => {
+		const closeBtn = {{safeid}}_rootElement && {{safeid}}_rootElement.querySelector('.{{safeid}}__close-button');
+		if (closeBtn) {
+			closeBtn.addEventListener('click', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				{{safeid}}_dismiss();
+			});
+		}
+		try { $TB.popoverShown('{{ slotid }}'); } catch (e) {}
+	};
+
+	{{safeid}}_init();
+</script>

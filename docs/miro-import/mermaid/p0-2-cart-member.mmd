@@ -1,0 +1,13 @@
+flowchart TD
+    START([Cart abandoned 15+ min]) --> CLUB{club_member = Y?}
+    CLUB -->|No| P01([Go to P0.1])
+    CLUB -->|Yes| E1["Email 1 — 45-90 min<br/>Member saving applied"]
+    E1 --> PURCH1{Purchased?}
+    PURCH1 -->|Yes| EXIT1([Exit])
+    PURCH1 -->|No| D1[Delay 24h]
+    D1 --> E2[Email 2 — stock / dispatch / guarantee]
+    E2 --> PURCH2{Purchased?}
+    PURCH2 -->|Yes| EXIT2([Exit])
+    PURCH2 -->|No| D2[Delay 48h]
+    D2 --> E3[Email 3 — final reminder, no extra discount]
+    E3 --> EXIT3([Exit])

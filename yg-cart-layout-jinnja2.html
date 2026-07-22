@@ -1,0 +1,91 @@
+{# Standard, default cart layout #}
+{% set max_products_to_show = 50 %}
+{% if trigger.contact_type == 'b' %}
+	{% if trigger.active_action_index == 1 %}
+		{% set ga_campaign_code = 'fr-cart-1' %}
+	{% elif trigger.active_action_index == 3 %}
+		{% set ga_campaign_code = 'fr-cart-2' %}
+	{% endif %}
+	{% set first_column_head = 'Items in your shopping basket' %}
+	{% if cart.u %}
+		{% set cart_url = cart.u %}
+	{% else %}
+		{% set cart_url = 'https://www.yougarden.com/csp/yougdn/web/vieword.csp' %}
+	{% endif %}
+{% elif trigger.contact_type == 'ba' %}
+	{% if trigger.active_action_index == 1 %}
+		{% set ga_campaign_code = 'fr-browse-1' %}
+	{% elif trigger.active_action_index == 3 %}
+		{% set ga_campaign_code = 'fr-browse-2' %}
+	{% endif %}
+	{% set first_column_head = 'Items you have browsed' %}
+{% endif %}
+
+{# Uncomment the line below to disable rating stars, You can uncomment by removing the {# and #}
+{# symbols at the beginning and end of the line below. #}
+{#{% set ratingsEnabled = False %} #}
+
+{# Uncomment and change the default values below to match your brand. You can uncomment by removing the {# and #}
+{# symbols around the '{{ update_review_options({...}) }}' function #}
+{# If you do not want bold or italic text, change the rating_count_weight and rating_count_style options to 'normal' #}
+{# The rating_count_text will be displayed after the ratings count (e.g. 3 ratings). Can be left blank: '' #}
+{# {{ update_review_options({
+     'icon_fill_color': '#D5A021',
+     'icon_empty_color': '#D5CFCE',
+     'max_stars': 5,
+     'icon_size': 20,
+     'show_rating_count': True,
+     'rating_count_weight': 'bold',
+     'rating_count_style': 'italic',
+     'rating_count_text': 'ratings'
+}) }} #}
+{% if products and products|length > 0 %}
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+	<tr>
+		<td style="border-bottom:1px solid #555555; padding-bottom:8px;"><!-- Header Row -->
+			<table cellspacing="0" cellpadding="0" border="0" width="100%">
+				<tr>
+					<td style="font-family:arial, sans-serif; font-size:17px; color:#555555; font-weight:bold;">{{ first_column_head }}</td>
+					{% if trigger.contact_type == 'b' %}<td width="50" align="center" style="font-family:arial, sans-serif; font-size:17px; color:#555555; font-weight:bold;">Qty</td>{% endif %}
+					<td width="90" align="right" style="font-family:arial, sans-serif; font-size:17px; color:#555555; font-weight:bold;">Price</td>
+				</tr>
+			</table>
+		<!-- Header Row --></td>
+	</tr>
+	{% for product in products|limit(max_products_to_show) %}
+	<tr>
+		<td style="padding:10px 0px;"><!-- Product {{ loop.index }} -->
+			<table cellspacing="0" cellpadding="0" border="0" width="100%">
+				<tr>
+					<td width="120" align="center"><a href="{{ product.u|set_ga_tracking(utm_campaign=ga_campaign_code, utm_medium='email', utm_source='fr') }}" target="_blank"><img src="{{ product.img }}" alt="{{ product.n }}" title="{{ product.n }}" width="120" border="0" align="top"></a></td>
+					<td width="20">&nbsp;</td>
+					<td style="font-family:arial, sans-serif; font-size:16px; color:#555555;"><a href="{{ product.u|set_ga_tracking(utm_campaign=ga_campaign_code, utm_medium='email', utm_source='fr') }}" target="_blank" style="color:#555555; text-decoration:none;">{{ product.n }} {{ product|starRatings }}</a></td>
+					{% if trigger.contact_type == 'b' %}<td width="50" align="center" style="font-family:arial, sans-serif; font-size:16px; color:#555555;">{{ product.qty }}</td>{% endif %}
+					<td width="90" align="right" style="font-family:arial, sans-serif; font-size:16px; color:#555555;">{% if product.ruv and (product.ruv > product.uv) %}Was<br><span style="text-decoration:line-through;">{{ product.ruv|format_currency(cart.curr,2) }}</span><br>Now<br><span style="color:#cc2222;">{{ product.uv|format_currency(cart.curr,2) }}</span>{% else %}{{ product.uv|format_currency(cart.curr,2) }}{% endif %}</td>
+				</tr>
+			</table>
+		<!-- /Product {{ loop.index }} --></td>
+	</tr>
+	{% endfor %}
+	{% if trigger.contact_type == 'b' %}<tr>
+		<td style="border-top:1px solid #555555; padding-top:8px;"><!-- Cart Total -->
+			<table cellspacing="0" cellpadding="0" border="0" align="right">
+				<tr>
+					<td style="font-family:arial, sans-serif; font-size:17px; color:#555555; font-weight:bold;">Total:</td>
+					<td width="90" align="right" style="font-family:arial, sans-serif; font-size:17px; color:#555555; font-weight:bold;">{{ cart.cv|format_currency(cart.curr,2) }}</td>
+				</tr>
+			</table>
+		<!-- /Cart Total --></td>
+	</tr>
+	<tr>
+		<td style="padding-top:8px;"><!-- Cart Button -->
+			<table cellspacing="0" cellpadding="0" border="0" align="right">
+				<tr>
+					<td width="250" height="32" align="center" bgcolor="#eeeeee" style="font-family:arial, sans-serif; font-size:17px;"><a href="{{ cart_url|set_ga_tracking(utm_campaign=ga_campaign_code, utm_medium='email', utm_source='fr') }}" target="_blank" style="color:#555555; text-decoration:none; display:block;">COMPLETE YOUR ORDER</a></td>
+				</tr>
+			</table>
+		<!-- Cart Button --></td>
+	</tr>{% endif %}
+</table>
+{% endif %}
+

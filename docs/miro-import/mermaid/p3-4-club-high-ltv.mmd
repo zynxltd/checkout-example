@@ -1,0 +1,6 @@
+flowchart TD
+    START([order_count >= 3 and LTV threshold<br/>club_member = N]) --> E1["Email — You'd have saved £X with Club"]
+    E1 --> D7[Delay 7 days]
+    D7 --> JOINED{Joined Club?}
+    JOINED -->|Yes| EXIT1([Exit])
+    JOINED -->|No| EXIT2([Exit — suppress pitch 90d])

@@ -1,0 +1,365 @@
+{# YG512 - YouGarden Cart Layout FANCY (Fresh Relevance trigger emails) #}
+{# Refined palette · square images · pink save badge below qty #}
+
+{% set max_products_to_show = 50 %}
+{% set yg_green = '#264f1c' %}
+{% set yg_green_dark = '#1a3d14' %}
+{% set yg_green_light = '#f3f7f1' %}
+{% set yg_pink = '#e3185d' %}
+{% set yg_gold = '#f5b301' %}
+{% set yg_text = '#2c3e50' %}
+{% set yg_muted = '#6b7280' %}
+{% set yg_bg = '#f5f6f4' %}
+{% set yg_white = '#ffffff' %}
+{% set yg_border = '#e8ece6' %}
+{% set yg_soft = '#f9faf8' %}
+{% set font_stack = 'Arial, Helvetica, sans-serif' %}
+
+{% if trigger.contact_type == 'b' %}
+	{% if trigger.active_action_index == 1 %}
+		{% set ga_campaign_code = 'fr-cart-1' %}
+	{% elif trigger.active_action_index == 3 %}
+		{% set ga_campaign_code = 'fr-cart-2' %}
+	{% else %}
+		{% set ga_campaign_code = 'fr-cart-1' %}
+	{% endif %}
+	{% set badge_label = 'Cart reminder' %}
+	{% set first_column_head = 'Your basket is waiting' %}
+	{% set intro_copy = 'These plants are reserved in your basket. Complete checkout now while stock lasts.' %}
+	{% set items_section_label = 'Your basket items' %}
+	{% set product_pill = 'qty' %}
+	{% set show_order_total = true %}
+	{% set show_return_link = true %}
+	{% set cta_label = 'Complete your order' %}
+	{% set footer_tagline = 'Your basket is saved. Checkout in minutes' %}
+	{% if cart.u %}
+		{% set cart_url = cart.u %}
+	{% else %}
+		{% set cart_url = 'https://www.yougarden.com/csp/yougdn/web/vieword.csp' %}
+	{% endif %}
+{% elif trigger.contact_type == 'ba' %}
+	{% if trigger.active_action_index == 1 %}
+		{% set ga_campaign_code = 'fr-browse-1' %}
+	{% elif trigger.active_action_index == 3 %}
+		{% set ga_campaign_code = 'fr-browse-2' %}
+	{% else %}
+		{% set ga_campaign_code = 'fr-browse-1' %}
+	{% endif %}
+	{% set badge_label = 'Browse reminder' %}
+	{% set first_column_head = 'Still thinking it over?' %}
+	{% set intro_copy = 'Your recently viewed favourites are ready when you are, hand-picked for British gardens.' %}
+	{% set items_section_label = '' %}
+	{% set product_pill = 'viewed' %}
+	{% set show_order_total = false %}
+	{% set show_return_link = false %}
+	{% set cta_label = 'Continue shopping' %}
+	{% set footer_tagline = 'Discover thousands of plants, bulbs &amp; garden essentials' %}
+	{% set cart_url = 'https://www.yougarden.com' %}
+{% elif trigger.contact_type == 't' %}
+	{% if trigger.active_action_index == 1 %}
+		{% set ga_campaign_code = 'fr-purchase-1' %}
+	{% elif trigger.active_action_index == 3 %}
+		{% set ga_campaign_code = 'fr-purchase-2' %}
+	{% else %}
+		{% set ga_campaign_code = 'fr-purchase-1' %}
+	{% endif %}
+	{% set badge_label = 'Order confirmation' %}
+	{% set first_column_head = 'Thanks for your order' %}
+	{% set intro_copy = 'Here&rsquo;s what you ordered. We&rsquo;ll get your plants ready for dispatch soon.' %}
+	{% set items_section_label = 'Your order' %}
+	{% set product_pill = 'purchased' %}
+	{% set show_order_total = true %}
+	{% set show_return_link = false %}
+	{% set cta_label = 'Continue shopping' %}
+	{% set footer_tagline = 'We&rsquo;re preparing your order. Delivery updates will follow shortly' %}
+	{% set cart_url = 'https://www.yougarden.com' %}
+{% elif trigger.contact_type == 'pcv' %}
+	{% set ga_campaign_code = 'fr-price-drop-1' %}
+	{% set badge_label = 'Price drop' %}
+	{% set first_column_head = 'Good news: it&rsquo;s on sale' %}
+	{% set intro_copy = 'A plant you were looking at has dropped in price. Grab it while stocks last.' %}
+	{% set items_section_label = '' %}
+	{% set product_pill = 'price_drop' %}
+	{% set show_order_total = false %}
+	{% set show_return_link = false %}
+	{% set cta_label = 'Shop now' %}
+	{% set footer_tagline = 'Prices can change, so don&rsquo;t miss out on this saving' %}
+	{% set cart_url = 'https://www.yougarden.com' %}
+{% elif trigger.contact_type == 'pcs' %}
+	{% set ga_campaign_code = 'fr-back-in-stock-1' %}
+	{% set badge_label = 'Back in stock' %}
+	{% set first_column_head = 'It&rsquo;s back in stock' %}
+	{% set intro_copy = 'Great news: a plant you viewed is available again. Order before it sells out.' %}
+	{% set items_section_label = '' %}
+	{% set product_pill = 'back_in_stock' %}
+	{% set show_order_total = false %}
+	{% set show_return_link = false %}
+	{% set cta_label = 'Buy now' %}
+	{% set footer_tagline = 'Popular plants sell fast. Secure yours today' %}
+	{% set cart_url = 'https://www.yougarden.com' %}
+{% elif trigger.contact_type == 'cu' %}
+	{% set ga_campaign_code = 'fr-custom-1' %}
+	{% set badge_label = 'Just for you' %}
+	{% set first_column_head = 'Picked for you' %}
+	{% set intro_copy = 'Take another look at these garden favourites, chosen with you in mind.' %}
+	{% set items_section_label = '' %}
+	{% set product_pill = 'viewed' %}
+	{% set show_order_total = false %}
+	{% set show_return_link = false %}
+	{% set cta_label = 'Shop now' %}
+	{% set footer_tagline = 'Discover thousands of plants, bulbs &amp; garden essentials' %}
+	{% set cart_url = 'https://www.yougarden.com' %}
+{% else %}
+	{% set ga_campaign_code = 'fr-trigger-1' %}
+	{% set badge_label = 'For you' %}
+	{% set first_column_head = 'Recommended for you' %}
+	{% set intro_copy = 'Take another look at these garden favourites.' %}
+	{% set items_section_label = '' %}
+	{% set product_pill = 'viewed' %}
+	{% set show_order_total = false %}
+	{% set show_return_link = false %}
+	{% set cta_label = 'Shop now' %}
+	{% set footer_tagline = 'Discover thousands of plants, bulbs &amp; garden essentials' %}
+	{% set cart_url = 'https://www.yougarden.com' %}
+{% endif %}
+
+{{ update_review_options({
+	'icon_fill_color': '#f5b301',
+	'icon_empty_color': '#d8d8d8',
+	'max_stars': 5,
+	'icon_size': 16,
+	'show_rating_count': true,
+	'rating_count_weight': 'normal',
+	'rating_count_style': 'normal',
+	'rating_count_text': ''
+}) }}
+
+{% if products and products|length > 0 %}
+<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; background-color:{{ yg_bg }};">
+	<tr>
+		<td align="center" style="padding:16px 12px 28px 12px;">
+
+			<table cellspacing="0" cellpadding="0" border="0" width="600" role="presentation" style="border-collapse:collapse; width:100%; max-width:600px; border:1px solid {{ yg_border }}; border-radius:20px; overflow:hidden; box-shadow:0 8px 32px #e4e9e2;">
+
+				{# Header - white with green accent, not full green block #}
+				<tr>
+					<td bgcolor="{{ yg_white }}" style="background-color:{{ yg_white }}; padding:0;">
+						<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation">
+							<tr>
+								<td height="4" bgcolor="{{ yg_green }}" style="font-size:0; line-height:0; background-color:{{ yg_green }};">&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="padding:26px 28px 22px 28px; font-family:{{ font_stack }};">
+									<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation">
+										<tr>
+											<td valign="middle">
+												<span style="display:inline-block; background-color:{{ yg_green_light }}; color:{{ yg_green }}; font-family:{{ font_stack }}; font-size:10px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:5px 10px; border-radius:999px; border:1px solid {{ yg_border }};">
+													{{ badge_label }}
+												</span>
+											</td>
+											<td align="right" valign="middle" style="font-family:{{ font_stack }}; font-size:12px; line-height:1.3; color:{{ yg_muted }}; font-weight:600;">
+												{{ products|length }} item{% if products|length != 1 %}s{% endif %}
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding-top:14px; font-size:26px; line-height:1.2; color:{{ yg_text }}; font-weight:700; letter-spacing:-0.5px;">
+												{{ first_column_head }}
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2" style="padding-top:8px; font-size:15px; line-height:1.55; color:{{ yg_muted }};">
+												{{ intro_copy }}
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				{# Body #}
+				<tr>
+					<td bgcolor="{{ yg_soft }}" style="background-color:{{ yg_soft }}; border-top:1px solid {{ yg_border }}; padding:20px 20px 12px 20px;">
+
+						{% if items_section_label %}
+						<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation" style="margin-bottom:12px;">
+							<tr>
+								<td style="font-family:{{ font_stack }}; font-size:11px; line-height:1.3; color:{{ yg_muted }}; font-weight:700; text-transform:uppercase; letter-spacing:0.8px;">
+									{{ items_section_label }}
+								</td>
+							</tr>
+						</table>
+						{% endif %}
+
+						{% for product in products|limit(max_products_to_show) %}
+						<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation" style="border-collapse:separate; margin-bottom:{% if loop.last %}4{% else %}12{% endif %}px; border:1px solid {{ yg_border }}; border-radius:16px; background-color:{{ yg_white }}; box-shadow:0 2px 10px #eceee9;">
+							<tr>
+								<td style="padding:14px 16px;">
+									<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation">
+										<tr>
+											{# Square image - clean, no badge overlay #}
+											<td width="108" valign="top" style="padding-right:14px;">
+												<a href="{{ product.u|set_ga_tracking(utm_campaign=ga_campaign_code, utm_medium='email', utm_source='fr') }}" target="_blank" style="text-decoration:none;">
+													<img src="{{ product.img }}" alt="{{ product.n }}" title="{{ product.n }}" width="108" height="108" border="0" style="display:block; width:108px; height:108px; max-width:108px; border:0; border-radius:14px; outline:none; object-fit:cover; object-position:center center; border:1px solid {{ yg_border }};">
+												</a>
+											</td>
+
+											{# Details #}
+											<td valign="top" style="font-family:{{ font_stack }};">
+												<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation">
+													<tr>
+														<td style="padding-bottom:5px;">
+															<a href="{{ product.u|set_ga_tracking(utm_campaign=ga_campaign_code, utm_medium='email', utm_source='fr') }}" target="_blank" style="color:{{ yg_text }}; text-decoration:none; font-size:15px; line-height:1.4; font-weight:700; letter-spacing:-0.2px;">
+																{{ product.n }}
+															</a>
+														</td>
+													</tr>
+													<tr>
+														<td style="padding-bottom:10px; font-size:13px; line-height:1.3; color:{{ yg_muted }};">
+															{{ product|starRatings }}
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation">
+																<tr>
+																	<td valign="top" style="font-family:{{ font_stack }};">
+																		{% if product_pill == 'qty' %}
+																		<span style="display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:{{ yg_muted }}; background-color:{{ yg_soft }}; border:1px solid {{ yg_border }}; border-radius:999px; padding:5px 10px;">
+																			Qty {{ product.qty }}
+																		</span>
+																		{% elif product_pill == 'purchased' %}
+																		<span style="display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:{{ yg_muted }}; background-color:{{ yg_soft }}; border:1px solid {{ yg_border }}; border-radius:999px; padding:5px 10px;">
+																			Qty {{ product.qty }}
+																		</span>
+																		{% elif product_pill == 'price_drop' %}
+																		<span style="display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:{{ yg_pink }}; background-color:#fdf2f6; border:1px solid #f9d0e0; border-radius:999px; padding:5px 10px;">
+																			Price dropped
+																		</span>
+																		{% elif product_pill == 'back_in_stock' %}
+																		<span style="display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:{{ yg_green }}; background-color:{{ yg_green_light }}; border:1px solid {{ yg_border }}; border-radius:999px; padding:5px 10px;">
+																			Back in stock
+																		</span>
+																		{% else %}
+																		<span style="display:inline-block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.6px; color:{{ yg_muted }}; background-color:{{ yg_soft }}; border:1px solid {{ yg_border }}; border-radius:999px; padding:5px 10px;">
+																			Viewed recently
+																		</span>
+																		{% endif %}
+																		{% if product.ruv and (product.ruv > product.uv) %}
+																		<br>
+																		<span style="display:inline-block; margin-top:6px; background-color:{{ yg_pink }}; color:#ffffff; font-family:{{ font_stack }}; font-size:10px; font-weight:700; line-height:1; padding:5px 9px; border-radius:999px; text-transform:uppercase; letter-spacing:0.4px;">
+																			Save {{ (((product.ruv - product.uv) / product.ruv) * 100)|round(0) }}%
+																		</span>
+																		{% endif %}
+																	</td>
+																	<td align="right" valign="top" width="110" style="font-family:{{ font_stack }}; white-space:nowrap; padding-left:8px;">
+																		{% if product.ruv and (product.ruv > product.uv) %}
+																		<span style="display:block; color:{{ yg_muted }}; font-size:12px; text-decoration:line-through; line-height:1.2;">
+																			{{ product.ruv|format_currency(cart.curr,2) }}
+																		</span>
+																		<span style="display:block; padding-top:3px; color:{{ yg_pink }}; font-size:18px; font-weight:800; line-height:1.1; letter-spacing:-0.4px;">
+																			{{ product.uv|format_currency(cart.curr,2) }}
+																		</span>
+																		{% else %}
+																		<span style="display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:{{ yg_muted }}; line-height:1.2;">
+																			From
+																		</span>
+																		<span style="display:block; padding-top:3px; font-size:18px; font-weight:800; color:{{ yg_text }}; line-height:1.1; letter-spacing:-0.4px;">
+																			{{ product.uv|format_currency(cart.curr,2) }}
+																		</span>
+																		{% endif %}
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						{% endfor %}
+
+					</td>
+				</tr>
+
+				{# Footer - light, green CTA only #}
+				<tr>
+					<td bgcolor="{{ yg_white }}" style="background-color:{{ yg_white }}; border-top:1px solid {{ yg_border }}; padding:0;">
+						<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation">
+							{% if show_order_total %}
+							<tr>
+								<td style="padding:20px 24px 8px 24px;">
+									<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation" style="background-color:{{ yg_soft }}; border-radius:14px; border:1px solid {{ yg_border }};">
+										<tr>
+											<td style="padding:16px 18px; font-family:{{ font_stack }};">
+												<table cellspacing="0" cellpadding="0" border="0" width="100%" role="presentation">
+													<tr>
+														<td style="font-size:11px; line-height:1.3; color:{{ yg_muted }}; font-weight:700; text-transform:uppercase; letter-spacing:0.7px;">
+															Order total
+														</td>
+														<td align="right" style="font-size:26px; line-height:1.1; color:{{ yg_text }}; font-weight:800; letter-spacing:-0.5px;">
+															{{ cart.cv|format_currency(cart.curr,2) }}
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							{% endif %}
+
+							<tr>
+								<td align="center" style="padding:{% if show_order_total %}6px{% else %}24px{% endif %} 24px 12px 24px;">
+									<table cellspacing="0" cellpadding="0" border="0" role="presentation">
+										<tr>
+											<td align="center" bgcolor="{{ yg_green }}" style="background-color:{{ yg_green }}; border-radius:999px;">
+												<a href="{{ cart_url|set_ga_tracking(utm_campaign=ga_campaign_code, utm_medium='email', utm_source='fr') }}" target="_blank" style="display:inline-block; min-width:260px; padding:15px 38px; font-family:{{ font_stack }}; font-size:16px; line-height:1.2; color:#ffffff; text-decoration:none; font-weight:700; border-radius:999px; text-align:center;">
+													{{ cta_label }} &rarr;
+												</a>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+
+							{% if show_return_link %}
+							<tr>
+								<td align="center" style="padding:0 24px 8px 24px; font-family:{{ font_stack }}; font-size:12px; line-height:1.5;">
+									<a href="{{ cart_url|set_ga_tracking(utm_campaign=ga_campaign_code, utm_medium='email', utm_source='fr') }}" target="_blank" style="color:{{ yg_green }}; text-decoration:underline; font-weight:600;">
+										Return to your basket
+									</a>
+								</td>
+							</tr>
+							{% endif %}
+
+							<tr>
+								<td align="center" style="padding:0 24px 10px 24px; font-family:{{ font_stack }}; font-size:12px; line-height:1.5; color:{{ yg_muted }};">
+									{{ footer_tagline }}
+								</td>
+							</tr>
+
+							<tr>
+								<td align="center" style="padding:0 24px 22px 24px;">
+									<table cellspacing="0" cellpadding="0" border="0" role="presentation">
+										<tr>
+											<td style="font-family:{{ font_stack }}; font-size:11px; line-height:1.4; color:{{ yg_muted }}; padding:0 10px;">&#10003;&nbsp;Secure checkout</td>
+											<td style="font-family:{{ font_stack }}; font-size:11px; line-height:1.4; color:{{ yg_muted }}; padding:0 10px;">&#10003;&nbsp;Gardeners&rsquo; Choice</td>
+											<td style="font-family:{{ font_stack }}; font-size:11px; line-height:1.4; color:{{ yg_muted }}; padding:0 10px;">&#10003;&nbsp;Expert advice</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+			</table>
+		</td>
+	</tr>
+</table>
+{% endif %}

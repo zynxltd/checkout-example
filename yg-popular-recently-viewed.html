@@ -1,0 +1,75 @@
+{# YG Popular — PDP social proof banner: "Popular! X Recently viewed"
+   FR admin: product SmartBlock on PDP. Enable Social Proof (browsed data) in slot + layout.
+   Sticky positioning: configure in campaign (anchor top-right of #main-image-carousel). #}
+
+{% set hasProof = product and socialProof(product) %}
+{% set showBlock = hasProof or meta.preview == 'true' %}
+
+{% if showBlock %}
+
+<div class="{{safeid}}__root" data-fr-block="{{safeid}}">
+	<div class="{{safeid}}__banner" role="status">
+		{% if fields.icon.active %}
+		<span class="{{safeid}}__icon" aria-hidden="true">{{ fields.icon.character }}</span>
+		{% endif %}
+		<span class="{{safeid}}__text">
+			{% if hasProof %}
+				{% if fields.prefix.active %}<strong class="{{safeid}}__prefix">{{ mergeField(fields.prefix.text) }}</strong>{% endif %}
+				{{ socialProof(product) }}
+			{% elif meta.preview == 'true' %}
+				{% if fields.prefix.active %}<strong class="{{safeid}}__prefix">{{ mergeField(fields.prefix.text) }}</strong>{% endif %}
+				{{ fields.previewFallback.text }}
+			{% endif %}
+		</span>
+	</div>
+</div>
+
+<style>
+	.{{safeid}}__root * {
+		box-sizing: border-box;
+	}
+
+	.{{safeid}}__banner {
+		display: inline-flex;
+		align-items: center;
+		gap: {{ fields.banner.gap }}px;
+		padding: {{ fields.banner.padding.size }}{{ fields.banner.padding.unit }} {{ fields.banner.paddingHorizontal.size }}{{ fields.banner.paddingHorizontal.unit }};
+		background-color: {{ fields.banner.backgroundColor }};
+		color: {{ fields.banner.textColor }};
+		font-family: {{ fields.banner.font or 'Verdana' }}, Verdana, sans-serif;
+		font-size: {{ fields.banner.fontSize.size }}{{ fields.banner.fontSize.unit }};
+		font-weight: {{ 'bold' if fields.banner.bold else 'normal' }};
+		line-height: 1.25;
+		border-radius: {{ fields.banner.borderRadius }};
+		max-width: {{ fields.banner.maxWidth.size }}{{ fields.banner.maxWidth.unit }};
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+	}
+
+	span.{{safeid}}__icon {
+		flex: 0 0 auto;
+		font-size: {{ fields.icon.size }}px;
+		line-height: 1;
+	}
+
+	strong.{{safeid}}__prefix {
+		font-weight: bold;
+		margin-right: 0.25em;
+	}
+
+	span.{{safeid}}__text {
+		display: inline;
+	}
+
+	@media (max-width: {{ fields.mobileBreakpoint if fields.mobileBreakpoint else 768 }}px) {
+		.{{safeid}}__banner {
+			font-size: {{ fields.banner.mobileFontSize.size }}{{ fields.banner.mobileFontSize.unit }};
+			padding: {{ fields.banner.mobilePadding.size }}{{ fields.banner.mobilePadding.unit }} {{ fields.banner.mobilePaddingHorizontal.size }}{{ fields.banner.mobilePaddingHorizontal.unit }};
+		}
+
+		span.{{safeid}}__icon {
+			font-size: {{ fields.icon.mobileSize }}px;
+		}
+	}
+</style>
+
+{% endif %}

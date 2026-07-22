@@ -1,0 +1,2684 @@
+{
+	"name": "HRK - Home - dedupe",
+	"slug": "srsttdv",
+	"html": "",
+	"active": true,
+	"content_tag": null,
+	"content_type": "product",
+	"dt": "",
+	"template_style": "srsttdv",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "https://images.dycdn.net/w3o8at90/Multi column thumbnail_qotdrqoq49.jpg",
+		"hoverText": "Multi-Column Carousel Responsive Layout with an optional header. Which adds additional rows as the number of products increases",
+		"sortOrder": 499,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "layout",
+				"name": "Core Settings",
+				"fields": [
+					{
+						"id": "width",
+						"name": "SmartBlock Width",
+						"description": "Set the maximum width of the SmartBlock",
+						"inline": true,
+						"type": "numeric",
+						"first": true,
+						"default": 1300,
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": [],
+						"allowNegative": false
+					},
+					{
+						"id": "fillSmartBlockParentContainer",
+						"name": "Fill SmartBlock Parent Container ",
+						"description": "If active the SmartBlock will fill in the parent container's width.",
+						"inline": true,
+						"type": "boolean",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "backgroundColor",
+						"name": "Background Color",
+						"description": "Set the background color for the SmartBlock",
+						"inline": true,
+						"type": "color",
+						"first": false,
+						"default": "#ffffffff",
+						"value": "",
+						"sortOrder": 3,
+						"meta": {
+							"tabTitles": {
+								"foreground": "",
+								"background": ""
+							},
+							"transparencyEnabled": [
+								false
+							]
+						}
+					}
+				],
+				"sortOrder": 0
+			},
+			{
+				"id": "9lci7rr",
+				"name": "Borders & Dividers",
+				"fields": [
+					{
+						"id": "borders",
+						"name": "Borders",
+						"description": "Enable / Disable the Borders ",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 0,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the Border color",
+								"inline": true,
+								"type": "color",
+								"first": false,
+								"default": "#979797ff",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "weight",
+								"name": "Weight",
+								"description": "Set the thickness of the Borders",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 2,
+								"value": "",
+								"sortOrder": 0
+							}
+						]
+					},
+					{
+						"id": "divider",
+						"name": "Dividers",
+						"description": "Enable / Disable the Dividers",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 1,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the color of the Dividers",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#979797",
+								"value": "",
+								"sortOrder": 1,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "weight",
+								"name": "Weight",
+								"description": "Set the thickness of the Dividers",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 3,
+								"value": "",
+								"sortOrder": 2
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 1
+			},
+			{
+				"id": "a28dpsh",
+				"name": "Headline",
+				"fields": [
+					{
+						"id": "headline",
+						"name": "Headline",
+						"description": "Enable / Disable the main Headline",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 0,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the main Headline",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "Popular Items",
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the main Headline",
+								"inline": true,
+								"type": "font",
+								"first": false,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "size",
+								"name": "Font Size",
+								"description": "Adjust the font size for the main Headline",
+								"inline": true,
+								"type": "font_size",
+								"first": false,
+								"default": {
+									"size": 21,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the main Headline",
+								"inline": true,
+								"type": "multiple_color",
+								"first": false,
+								"default": {
+									"foreground": "#444444",
+									"background": "#ffffffff"
+								},
+								"value": "",
+								"sortOrder": 0,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the main Headline text",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the main Headline text",
+								"inline": true,
+								"type": "italics",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the position of the main Headline",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "Center",
+								"value": "",
+								"sortOrder": 0,
+								"options": [
+									[
+										"Left",
+										"Left"
+									],
+									[
+										"Center",
+										"Center"
+									],
+									[
+										"Right",
+										"Right"
+									]
+								]
+							},
+							{
+								"id": "topMargin",
+								"name": "Top Margin",
+								"description": "Set the top margin on the Headline",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 0
+								},
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "bottomMargin",
+								"name": "Bottom Margin",
+								"description": "Set the bottom margin on the Headline",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 10,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "Set the padding around the main Headline",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 10,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 1
+							}
+						]
+					},
+					{
+						"id": "subHeadline",
+						"name": "Sub Headline",
+						"description": "Enable / Disable the sub Headline",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 0,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the sub Headline",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "We think you'll love",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the sub Headline",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Verdana",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "size",
+								"name": "Font Size",
+								"description": "Adjust the font size for the sub Headline",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 13
+								},
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the sub Headline",
+								"inline": true,
+								"type": "multiple_color",
+								"first": true,
+								"default": {
+									"foreground": "#000000",
+									"background": "#FFFFFF"
+								},
+								"value": "",
+								"sortOrder": 0,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the sub Headline text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the sub Headline text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the position of the sub Headline",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "Left",
+								"value": "",
+								"sortOrder": 0,
+								"options": [
+									[
+										"Left",
+										"Left"
+									],
+									[
+										"Center",
+										"Center"
+									],
+									[
+										"Right",
+										"Right"
+									]
+								]
+							},
+							{
+								"id": "topMargin",
+								"name": "Top Margin",
+								"description": "Set the top margin on the sub Headline",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 0
+								},
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "bottomMargin",
+								"name": "Bottom Margin",
+								"description": "Set the bottom margin on the sub Headline",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 0
+								},
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "Set the padding around the sub Headline",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 5
+								},
+								"value": "",
+								"sortOrder": 1
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 2
+			},
+			{
+				"id": "oc6n2vj",
+				"name": "Product Cards",
+				"fields": [
+					{
+						"id": "productName",
+						"name": "Product Name",
+						"description": "Enable / Disable the Product Name",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 0,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Product Name",
+								"inline": true,
+								"type": "font",
+								"first": false,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "size",
+								"name": "Font Size",
+								"description": "Adjust the font size for the Product Name",
+								"inline": true,
+								"type": "font_size",
+								"first": false,
+								"default": {
+									"size": 14,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the Product Name",
+								"inline": true,
+								"type": "color",
+								"first": false,
+								"default": "#2a2a2a",
+								"value": "",
+								"sortOrder": 0,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Product Name",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Product Name",
+								"inline": true,
+								"type": "italics",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the position of the Product Name",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "Left",
+								"value": "",
+								"sortOrder": 0,
+								"options": [
+									[
+										"Left",
+										"Left"
+									],
+									[
+										"Center",
+										"Center"
+									],
+									[
+										"Right",
+										"Right"
+									]
+								]
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "productPrice",
+						"name": "Product Price",
+						"description": "Enable / Disable the Product Price",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 0,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Product Price",
+								"inline": true,
+								"type": "font",
+								"first": false,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "size",
+								"name": "Font Size",
+								"description": "Adjust the font size for the Product Price",
+								"inline": true,
+								"type": "font_size",
+								"first": false,
+								"default": {
+									"size": 15,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the Product Price",
+								"inline": true,
+								"type": "color",
+								"first": false,
+								"default": "#2a2a2a",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "bold",
+								"name": "Bold ",
+								"description": "Bold the Product Price",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Product Price",
+								"inline": true,
+								"type": "italics",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					},
+					{
+						"id": "productWasPrice",
+						"name": "Product 'was' Price",
+						"description": "Enable / Disable the Product 'was' Price",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 0,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Product 'was' Price",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "size",
+								"name": "Font Size",
+								"description": "Adjust the font style of the Product 'was' Price",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 13
+								},
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the Product 'was' Price",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#979797",
+								"value": "",
+								"sortOrder": 0,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Product 'was' Price",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Product 'was' Price",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "strikethrough",
+								"name": "Strikethrough",
+								"description": "Strikethrough the Product 'was' Price",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 1
+							}
+						]
+					},
+					{
+						"id": "image",
+						"name": "Image",
+						"description": "Enable/Disable Product Image",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "height",
+								"name": "Height",
+								"description": "Set fixed image height",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 250,
+								"value": "",
+								"sortOrder": 1,
+								"meta": {
+									"min": 25,
+									"max": 999
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "salesBadge",
+								"name": "Sales Badge",
+								"description": "Choose which brand sale badge you would like to show",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "yougarden",
+								"value": "",
+								"sortOrder": 2,
+								"options": [
+									[
+										"yougarden",
+										"You Garden"
+									],
+									[
+										"gardeningdirect",
+										"Gardening Direct "
+									],
+									[
+										"plantsmailshop",
+										"Plantsmailshop"
+									],
+									[
+										"roses.co.uk",
+										"Roses.co.uk"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "cardStyling",
+						"name": "Card Styling",
+						"description": "Enable / Disable edge styling for the Product Cards",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "toggleBorder",
+								"name": "Toggle Border",
+								"description": "Enable / Disable visible card borders",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "borderWidth",
+								"name": "Border Width",
+								"description": "Set the thickness of the border",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 1,
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "shadowtoggle",
+								"name": "Shadow toggle",
+								"description": "Enable / Disable shadow to the Product Cards",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "borderStyle",
+								"name": "Border Style",
+								"description": "Set the border style for the cards",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "solid",
+								"value": "",
+								"sortOrder": 3,
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dotted",
+										"Dotted"
+									],
+									[
+										"dashed",
+										"Dashed"
+									]
+								]
+							},
+							{
+								"id": "borderColor",
+								"name": "Border Color",
+								"description": "Set the border color",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#979797",
+								"value": "",
+								"sortOrder": 4,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"id": "backgroundColor",
+								"name": "Background Color",
+								"description": "Set the background color for the Product Cards",
+								"inline": true,
+								"type": "color",
+								"first": false,
+								"default": "#ffffff",
+								"value": "",
+								"sortOrder": 4,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "cornerStyle",
+								"name": "Corner Style",
+								"description": "Adjust the shape of the card's corners e.g. square or rounded",
+								"inline": true,
+								"type": "select",
+								"first": false,
+								"default": "0px",
+								"value": "",
+								"sortOrder": 7,
+								"options": [
+									[
+										"8px",
+										"Rounded"
+									],
+									[
+										"0px",
+										"Square"
+									]
+								]
+							}
+						]
+					}
+				],
+				"sortOrder": 3
+			},
+			{
+				"id": "4452y13",
+				"name": "Call To Action Button",
+				"fields": [
+					{
+						"id": "callToAction",
+						"name": "Call To Action Button",
+						"description": "Enable / Disable the Call to Action Buttons",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 0,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "CTA Text",
+								"description": "Enter the text to show in the buttons",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "More Info",
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the buttons",
+								"inline": true,
+								"type": "font",
+								"first": false,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "size",
+								"name": "Font Size",
+								"description": "Adjust the font size for the buttons",
+								"inline": true,
+								"type": "font_size",
+								"first": false,
+								"default": {
+									"unit": "px",
+									"size": 14
+								},
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderColor",
+								"name": "Border Color",
+								"description": "Set the border color for the button",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#000000",
+								"value": "",
+								"sortOrder": 2,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"id": "borderWeight",
+								"name": "Border Weight",
+								"description": "Set the border weight for the button",
+								"inline": true,
+								"type": "numeric",
+								"first": false,
+								"default": 2,
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "cornerStyle",
+								"name": "Corner Style",
+								"description": "Adjust the shape of the buttons e.g. square or rounded",
+								"inline": true,
+								"type": "select",
+								"first": false,
+								"default": "rounded",
+								"value": "",
+								"sortOrder": 3,
+								"options": [
+									[
+										"rounded",
+										"Rounded"
+									],
+									[
+										"square",
+										"Square"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderStyle",
+								"name": "Border Style",
+								"description": "Set the border style for the button",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "solid",
+								"value": "",
+								"sortOrder": 4,
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dotted",
+										"Dotted"
+									],
+									[
+										"dashed",
+										"Dashed"
+									]
+								]
+							},
+							{
+								"id": "buttonOutline",
+								"name": "Button Style",
+								"description": "Adjust the style of the buttons e.g. filled or outline ",
+								"inline": true,
+								"type": "select",
+								"first": false,
+								"default": "filled",
+								"value": "",
+								"sortOrder": 5,
+								"options": [
+									[
+										"filled",
+										"Filled"
+									],
+									[
+										"outline",
+										"Outline"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the buttons",
+								"inline": true,
+								"type": "multiple_color",
+								"first": false,
+								"default": {
+									"foreground": "#ffffff",
+									"background": "#000000"
+								},
+								"value": "",
+								"sortOrder": 6,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										false,
+										false
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the button text",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 7,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the button text",
+								"inline": true,
+								"type": "italics",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 8,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					},
+					{
+						"id": "callToActionButtonHover",
+						"name": "Call To Action Button Hover",
+						"description": "Enable / Disable call to action button hover effects",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 2,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "buttonOutline",
+								"name": "Button Style",
+								"description": "Select the button style when hovered",
+								"inline": true,
+								"type": "select",
+								"first": false,
+								"default": "outline",
+								"value": "",
+								"sortOrder": 1,
+								"options": [
+									[
+										"filled",
+										"Filled"
+									],
+									[
+										"outline",
+										"Outline"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the button when hovered",
+								"inline": true,
+								"type": "multiple_color",
+								"first": false,
+								"default": {
+									"foreground": "#000000",
+									"background": "#ffffff"
+								},
+								"value": "",
+								"sortOrder": 2,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										true,
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderColor",
+								"name": "Border Color",
+								"description": "Set the border color for the button",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#000000",
+								"value": "",
+								"sortOrder": 2,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"id": "borderWeight",
+								"name": "Border Weight",
+								"description": "Set the border weight for the button",
+								"inline": true,
+								"type": "numeric",
+								"first": false,
+								"default": 2,
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "borderStyle",
+								"name": "Border Style",
+								"description": "Set the border style for the button",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "solid",
+								"value": "",
+								"sortOrder": 4,
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dotted",
+										"Dotted"
+									],
+									[
+										"dashed",
+										"Dashed"
+									]
+								]
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 4
+			},
+			{
+				"id": "bdwtf7g",
+				"name": "Carousel Options",
+				"fields": [
+					{
+						"id": "columns",
+						"name": "Number of Columns",
+						"description": "Set the number of columns of products you want to display. Head over to the Data tab to change the number of products to display",
+						"inline": true,
+						"type": "columns",
+						"first": true,
+						"default": 5,
+						"value": "",
+						"sortOrder": 1,
+						"meta": {
+							"min": 1,
+							"max": 6
+						},
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "carouselActive",
+						"name": "Carousel Active",
+						"description": "If active it allows you to see the recommended products in one line with the specified number of products through which you can scroll by clicking the arrows.",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "autoplay",
+								"name": "Autoplay",
+								"description": "Enable/Disable Carousel Autoplay",
+								"inline": true,
+								"type": "boolean",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "loop",
+								"name": "Loop",
+								"description": "Enable/Disable Carousel Loop",
+								"inline": true,
+								"type": "boolean",
+								"first": true,
+								"default": true,
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "navigationColor",
+								"name": "Navigation Color",
+								"description": "Set the color of the arrows",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#000000",
+								"value": "",
+								"sortOrder": 3,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "arrowSize",
+								"name": "Arrow Size (px)",
+								"description": "Adjust arrow size",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 24,
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "arrowOffset",
+								"name": "Arrow Offset (px)",
+								"description": "Adjust arrow offset",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 10,
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "carouselPagination",
+						"name": "Show Pagination",
+						"description": "Enable / Disable the carousel pagination display",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 3,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "color",
+								"name": "Pagination Color",
+								"description": "Set the default pagination color (for the non-active slides)",
+								"inline": true,
+								"type": "color",
+								"first": false,
+								"default": "#000000",
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "activeColor",
+								"name": "Active Slide Color",
+								"description": "Set the color of the pagination for the active slide",
+								"inline": true,
+								"type": "color",
+								"first": false,
+								"default": "#979797",
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "clickable",
+								"name": "Clickable",
+								"description": "Make the pagination clickable",
+								"inline": true,
+								"type": "boolean",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					},
+					{
+						"id": "breakpoint1",
+						"name": "Breakpoint 1",
+						"description": "Enable/Disable the first breakpoint",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 4,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "columnCount",
+								"name": "Column Count",
+								"description": "Set the number of columns of products you want to display",
+								"inline": true,
+								"type": "columns",
+								"first": true,
+								"default": 3,
+								"value": "",
+								"sortOrder": 1,
+								"meta": {
+									"min": 1,
+									"max": 6
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "minWindowWidth",
+								"name": "Max Window Width (px)",
+								"description": "The maximum window width in pixels that the column count should be applied.",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 1024,
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": [],
+								"allowNegative": false
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "breakpoint2",
+						"name": "Breakpoint 2",
+						"description": "Enable/Disable the second breakpoint",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 5,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "columnCount",
+								"name": "Column Count",
+								"description": "Set the number of columns of products you want to display",
+								"inline": true,
+								"type": "columns",
+								"first": true,
+								"default": 2,
+								"value": "",
+								"sortOrder": 1,
+								"meta": {
+									"min": 1,
+									"max": 6
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "minWindowWidth",
+								"name": "Max Window Width (px)",
+								"description": "The maximum window width in pixels that the column count should be applied.",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 450,
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": [],
+								"allowNegative": false
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 5
+			},
+			{
+				"id": "ratings",
+				"name": "Ratings",
+				"fields": [
+					{
+						"id": "ratingIcons",
+						"name": "Ratings",
+						"description": "Enable / Disable ratings",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 1,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "maxRating",
+								"name": "Max Rating",
+								"description": "Specify the maximum rating you can be given e.g. rated out of X. You will only need to change this if your rating scale is not out of 5. Minimum of 1, maximum of 20",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 5,
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "noRatingBehavior",
+								"name": "No Rating Behavior",
+								"description": "Select what should display if an item is not yet rated",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "empty",
+								"value": "",
+								"sortOrder": 3,
+								"options": [
+									[
+										"empty",
+										"Empty Icons"
+									],
+									[
+										"nothing",
+										"Display Nothing"
+									],
+									[
+										"text",
+										"Text"
+									]
+								]
+							},
+							{
+								"id": "noRatingText",
+								"name": "No Rating Text",
+								"description": "Enter text to be shown if 'No rating behavior' is set to Text",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "",
+								"value": "",
+								"sortOrder": 4
+							},
+							{
+								"id": "noRatingFont",
+								"name": "No Rating Font",
+								"description": "Adjust the font style of the no rating text",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Verdana",
+								"value": "",
+								"sortOrder": 5
+							},
+							{
+								"id": "noRatingFontSize",
+								"name": "No Rating Font Size",
+								"description": "Adjust the font size for the no rating text",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 15
+								},
+								"value": "",
+								"sortOrder": 6
+							},
+							{
+								"id": "noRatingTextColor",
+								"name": "No Rating Font Color",
+								"description": "Set the text color for the no rating text",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#000000",
+								"value": "",
+								"sortOrder": 7,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "iconShape",
+								"name": "Icon Shape",
+								"description": "Select an existing Rating Icon Shape, or upload an image using the ‘Icon Image’ field",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "&starf;",
+								"value": "",
+								"sortOrder": 8,
+								"options": [
+									[
+										"&starf;",
+										"★ 5-Point Star"
+									],
+									[
+										"&#x2738;",
+										"✸ 8-Point Star"
+									],
+									[
+										"&#9787;",
+										"☻ Smiley Face"
+									],
+									[
+										"&#x2764;",
+										"❤ Heart"
+									],
+									[
+										"&#x273d;",
+										"✽ Flower"
+									],
+									[
+										"&#x2746;",
+										"❆ Snowflake"
+									]
+								]
+							},
+							{
+								"id": "iconImage",
+								"name": "Icon Image",
+								"description": "Optionally, upload a custom image for your rating Icons. Image must be 22px by 50px and formatted as shown in the help section",
+								"inline": true,
+								"type": "image_url",
+								"first": true,
+								"default": "",
+								"value": "",
+								"sortOrder": 9
+							},
+							{
+								"id": "iconWidth",
+								"name": "Icon Width",
+								"description": "Adjust the width of the Icon in pixels",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 16,
+								"value": "",
+								"sortOrder": 10
+							},
+							{
+								"id": "iconSpacing",
+								"name": "Icon Spacing",
+								"description": "Adjust the spacing between Icons",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 1,
+								"value": "",
+								"sortOrder": 11
+							},
+							{
+								"id": "iconFillColor",
+								"name": "Icon Fill Color",
+								"description": "Select the fill color of your Icons e.g. a score of 4/5 would have 4 filled icons",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#b4be00",
+								"value": "",
+								"sortOrder": 12,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "iconEmptyColor",
+								"name": "Icon Empty Color",
+								"description": "Select the empty color of your Icons e.g. a score of 4/5 would have 1 empty icon",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#b5b5b5",
+								"value": "",
+								"sortOrder": 13,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "iconBorderColor",
+								"name": "Icon Border Color",
+								"description": "Adjust the color of the Icon Border",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#00000000",
+								"value": "",
+								"sortOrder": 14,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the position of the Ratings, this will align both the text and rating icons",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "center",
+								"value": "",
+								"sortOrder": 15,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								]
+							}
+						]
+					},
+					{
+						"id": "ratingAverage",
+						"name": "Rating Average",
+						"description": "Enable / Disable the average rating number for the product",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "rounding",
+								"name": "Rounding",
+								"description": "Round ratings to the nearest full or half",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "noRound",
+								"value": "",
+								"sortOrder": 1,
+								"options": [
+									[
+										"noRound",
+										"Don't Round"
+									],
+									[
+										"nearestHalf",
+										"Nearest Half"
+									],
+									[
+										"nearestFull",
+										"Nearest Full"
+									]
+								]
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Rating Average",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Verdana",
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size for the Rating Average",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 15
+								},
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the Rating Average",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#000000",
+								"value": "",
+								"sortOrder": 3,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Rating Average",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 4
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Rating Average",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 5
+							}
+						]
+					},
+					{
+						"id": "ratingCount",
+						"name": "Rating Count",
+						"description": "Enable / Disable the number of ratings that each product has",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 3,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Specify the text to follow the rating number e.g. for \"4 ratings\" type 'ratings' into the box",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "reviews",
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Rating Count",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Verdana",
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size for the Rating Count",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 15
+								},
+								"value": "",
+								"sortOrder": 3
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the Rating Count",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#000000",
+								"value": "",
+								"sortOrder": 4,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Rating Count",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 5
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Rating Count",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 6
+							}
+						]
+					}
+				],
+				"sortOrder": 20
+			},
+			{
+				"id": "socialProof",
+				"name": "Social Proof Messaging",
+				"fields": [
+					{
+						"id": "socialProofMessaging",
+						"name": "Social Proof Messaging",
+						"description": "Enable / Disable Social Proof Messaging",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 1,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "timePeriod",
+								"name": "Time Period",
+								"description": "Set the time period for which you'd like to use to count product purchased / carted / browsed data",
+								"inline": true,
+								"type": "select",
+								"first": false,
+								"default": "last24Hours",
+								"value": "",
+								"sortOrder": 1,
+								"options": [
+									[
+										"lastHour",
+										"Last Hour"
+									],
+									[
+										"last2Hours",
+										"Last 2 Hours"
+									],
+									[
+										"last4Hours",
+										"Last 4 Hours"
+									],
+									[
+										"last12Hours",
+										"Last 12 Hours"
+									],
+									[
+										"last24Hours",
+										"Last 24 Hours"
+									],
+									[
+										"last2Days",
+										"Last 2 Days"
+									],
+									[
+										"last3Days",
+										"Last 3 Days"
+									],
+									[
+										"last5Days",
+										"Last 5 Days"
+									],
+									[
+										"last7Days",
+										"Last 7 Days"
+									]
+								]
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the messaging",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Verdana",
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size for the messaging",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 12
+								},
+								"value": "",
+								"sortOrder": 3
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "Adjust the padding for the messaging",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 5
+								},
+								"value": "",
+								"sortOrder": 4
+							},
+							{
+								"id": "iconWidth",
+								"name": "Icon Size",
+								"description": "Adjust the size of the Icon",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 10,
+								"value": "",
+								"sortOrder": 5
+							},
+							{
+								"id": "iconColor",
+								"name": "Icon Color",
+								"description": "Set the Icon color. Only applies when one of the pre-defined 'Icon Shape' values is used.\n",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#000000",
+								"value": "",
+								"sortOrder": 6,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "iconShape",
+								"name": "Icon Shape",
+								"description": "Select an existing Icon Shape, or upload an image using the ‘Icon Image’ field",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "rt4q9wp",
+								"value": "",
+								"sortOrder": 7,
+								"options": [
+									[
+										"rt4q9wp",
+										"Default"
+									],
+									[
+										"&starf;",
+										"★ 5-Point Star"
+									],
+									[
+										"&#x2738;",
+										"✸ 8-Point Star"
+									],
+									[
+										"&#9787;",
+										"☻ Smiley Face"
+									],
+									[
+										"&#x2764;",
+										"❤ Heart"
+									],
+									[
+										"&#x273d;",
+										"✽ Flower"
+									],
+									[
+										"&#x2746;",
+										"❆ Snowflake"
+									]
+								]
+							},
+							{
+								"id": "iconImage",
+								"name": "Icon Image",
+								"description": "Optionally, upload a custom image for your social proof messaging",
+								"inline": true,
+								"type": "image_url",
+								"first": true,
+								"default": "",
+								"value": "",
+								"sortOrder": 8
+							}
+						]
+					},
+					{
+						"id": "purchasedData",
+						"name": "Purchased Data",
+						"description": "Enable / Disable Purchased Messaging",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "minimumPurchased",
+								"name": "Minimum Purchased",
+								"description": "Specify the minimum number of times a product must be purchased within the Time Period for this messaging to be displayed. If the product has been purchased fewer times, carted then browsed data will be reviewed before issuing fallback messaging (if enabled)",
+								"inline": true,
+								"type": "numeric",
+								"first": false,
+								"default": 5,
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "displayNumber",
+								"name": "Display Number",
+								"description": "Enable/Disable the display of number of items",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Specify the text to follow the number purchased e.g. for \"4 purchased in last 24 hours\" type 'purchased in last 24 hours' into the box. If you are based in the UK, make sure you comply with guidance from the CMA.",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "purchased in last 24 hours",
+								"value": "",
+								"sortOrder": 3
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the Purchased Messaging",
+								"inline": true,
+								"type": "multiple_color",
+								"first": false,
+								"default": {
+									"foreground": "#000000",
+									"background": "#FFFFFF"
+								},
+								"value": "",
+								"sortOrder": 4,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										false,
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Purchased Messaging",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 5
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Purchased Messaging",
+								"inline": true,
+								"type": "italics",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 6
+							}
+						]
+					},
+					{
+						"id": "cartedData",
+						"name": "Carted Data",
+						"description": "Enable / Disable Carted Messaging",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 3,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "minimumCarted",
+								"name": "Minimum Carted",
+								"description": "Specify the minimum number of times a product must be carted within the Time Period for this messaging to be displayed. If the product has been carted fewer times, browsed data will be reviewed before issuing fallback messaging (if enabled)",
+								"inline": true,
+								"type": "numeric",
+								"first": false,
+								"default": 5,
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "displayNumber",
+								"name": "Display Number",
+								"description": "Enable/Disable the display of number of items",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Specify the text to follow the number carted e.g. for \"4 carted in last 24 hours\" type 'carted in last 24 hours' into the box. If you are based in the UK, make sure you comply with guidance from the CMA.",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "carted in last 24 hours",
+								"value": "",
+								"sortOrder": 3
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the Carted Messaging",
+								"inline": true,
+								"type": "multiple_color",
+								"first": false,
+								"default": {
+									"foreground": "#000000",
+									"background": "#FFFFFF"
+								},
+								"value": "",
+								"sortOrder": 4,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										false,
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Carted Messaging",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 5
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Carted Messaging",
+								"inline": true,
+								"type": "italics",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 6
+							}
+						]
+					},
+					{
+						"id": "browsedData",
+						"name": "Browsed Data",
+						"description": "Enable / Disable Browsed Messaging",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 4,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "minimumBrowsed",
+								"name": "Minimum Browsed",
+								"description": "Specify the minimum number of times a product must be browsed within the Time Period for this messaging to be displayed. If the product has been browsed fewer times, fallback messaging will be displayed (if enabled)",
+								"inline": true,
+								"type": "numeric",
+								"first": false,
+								"default": 5,
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "displayNumber",
+								"name": "Display Number",
+								"description": "Enable/Disable the display of number of items",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Specify the text to follow the number browsed e.g. for \"4 browsed in last 24 hours\" type 'browsed in last 24 hours' into the box. If you are based in the UK, make sure you comply with guidance from the CMA.",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "browsed in last 24 hours",
+								"value": "",
+								"sortOrder": 3
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the Browsed Messaging",
+								"inline": true,
+								"type": "multiple_color",
+								"first": false,
+								"default": {
+									"foreground": "#000000",
+									"background": "#FFFFFF"
+								},
+								"value": "",
+								"sortOrder": 4,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										false,
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Browsed Messaging",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 5
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Browsed Messaging",
+								"inline": true,
+								"type": "italics",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 6
+							}
+						]
+					},
+					{
+						"id": "fallbackData",
+						"name": "Fallback",
+						"description": "Enable / Disable Fallback Messaging. If enabled this will only display if no Purchased / Carted / Browsed messaging is applicable based on the thresholds set above",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 5,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Specify the text to show for the Fallback",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "Fallback Text",
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the Fallback Messaging",
+								"inline": true,
+								"type": "multiple_color",
+								"first": false,
+								"default": {
+									"foreground": "#000000",
+									"background": "#FFFFFF"
+								},
+								"value": "",
+								"sortOrder": 2,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										false,
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Fallback Messaging",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 3
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Fallback Messaging",
+								"inline": true,
+								"type": "italics",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 4
+							}
+						]
+					}
+				],
+				"sortOrder": 10
+			},
+			{
+				"id": "redirects",
+				"name": "Links",
+				"fields": [
+					{
+						"id": "redirectURL",
+						"name": "Link URL",
+						"description": "Redirect to this URL when somebody clicks on each product",
+						"inline": true,
+						"type": "url",
+						"first": false,
+						"default": "{{ product.u }}",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": true,
+						"jinjaMergeFields": [
+							"product"
+						]
+					},
+					{
+						"id": "utmCampaign",
+						"name": "UTM Campaign",
+						"description": "The name of the Google Analytics campaign",
+						"inline": true,
+						"type": "text",
+						"first": true,
+						"default": "",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmSource",
+						"name": "UTM Source",
+						"description": "The name of the Google Analytics referrer source",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmMedium",
+						"name": "UTM Medium",
+						"description": "The name of the Google Analytics medium",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "",
+						"value": "",
+						"sortOrder": 4,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 8
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

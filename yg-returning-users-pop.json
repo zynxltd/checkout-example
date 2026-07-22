@@ -1,0 +1,420 @@
+{
+	"name": "YG - Returning Users Pop Up",
+	"slug": "2klj5x1",
+	"html": "",
+	"active": true,
+	"content_tag": null,
+	"content_type": "product",
+	"dt": "",
+	"template_style": "2klj5x1",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "Returning users overlay — shows previously carted products with checkout CTA. Matches Epsilon Returning Users overlay.",
+		"sortOrder": 10,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "coreSection",
+				"name": "Core Settings",
+				"fields": [
+					{
+						"id": "width",
+						"name": "Desktop Width",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 520, "unit": "px" },
+						"sortOrder": 1
+					},
+					{
+						"id": "height",
+						"name": "Minimum Height",
+						"description": "Minimum overlay height",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 480, "unit": "px" },
+						"sortOrder": 2
+					},
+					{
+						"id": "mobileWidth",
+						"name": "Mobile Max Width",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 700, "unit": "px" },
+						"sortOrder": 3
+					},
+					{
+						"id": "mobileBreakpoint",
+						"name": "Mobile Breakpoint",
+						"type": "numeric",
+						"inline": true,
+						"default": 768,
+						"sortOrder": 4
+					},
+					{
+						"id": "popoverMargin",
+						"name": "Margin from page edge",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 10, "unit": "px" },
+						"sortOrder": 5
+					},
+					{
+						"id": "borderRadius",
+						"name": "Outer Corner Style",
+						"type": "select",
+						"inline": true,
+						"default": "8px",
+						"options": [["8px", "Rounded"], ["4px", "Slightly Rounded"], ["0px", "Square"]],
+						"sortOrder": 6
+					},
+					{
+						"id": "innerBorderRadius",
+						"name": "Inner Panel Corner Style",
+						"type": "select",
+						"inline": true,
+						"default": "4px",
+						"options": [["8px", "Rounded"], ["4px", "Slightly Rounded"], ["0px", "Square"]],
+						"sortOrder": 7
+					},
+					{
+						"id": "borderPadding",
+						"name": "Floral Border Padding",
+						"description": "Padding between floral border frame and inner purple panel. Increase for a wider flower border (Epsilon-style ~20px).",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 22, "unit": "px" },
+						"sortOrder": 8
+					},
+					{
+						"id": "panelPadding",
+						"name": "Panel Padding",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 28, "unit": "px" },
+						"sortOrder": 9
+					},
+					{
+						"id": "mobilePanelPadding",
+						"name": "Mobile Panel Padding",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 22, "unit": "px" },
+						"sortOrder": 10
+					},
+					{
+						"id": "panelBackground",
+						"name": "Panel Background",
+						"type": "custom",
+						"inline": true,
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "color",
+								"name": "Color",
+								"type": "color",
+								"default": "#81038E"
+							}
+						],
+						"sortOrder": 11
+					},
+					{
+						"id": "borderImage",
+						"name": "Floral Border Image",
+						"description": "Toggle off to remove the floral border — shows purple panel only with no outer frame padding.",
+						"type": "custom",
+						"inline": true,
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "url",
+								"name": "Image URL",
+								"description": "Floral frame image — upload Epsilon border asset or a full-bleed flower photo; stretches as outer frame.",
+								"type": "image_url",
+								"default": "https://images.unsplash.com/photo-1490750967868-88aa4486c946?fm=jpg&fit=crop&w=960&h=720&q=85"
+							}
+						],
+						"sortOrder": 12
+					},
+					{
+						"id": "maxProducts",
+						"name": "Max Products",
+						"description": "Maximum number of carted products to show",
+						"type": "numeric",
+						"inline": true,
+						"default": 3,
+						"sortOrder": 13
+					},
+					{
+						"id": "crossSize",
+						"name": "Close Button Size",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 28, "unit": "px" },
+						"sortOrder": 14
+					},
+					{
+						"id": "crossInset",
+						"name": "Close Button Inset",
+						"type": "padding",
+						"inline": true,
+						"default": { "size": 8, "unit": "px" },
+						"sortOrder": 15
+					},
+					{
+						"id": "crossColor",
+						"name": "Close Button Icon Color",
+						"type": "color",
+						"inline": true,
+						"default": "#81038E",
+						"sortOrder": 16
+					}
+				],
+				"sortOrder": 0
+			},
+			{
+				"id": "copySection",
+				"name": "Copy",
+				"fields": [
+					{
+						"id": "headline",
+						"name": "Headline",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "Welcome Back!", "mergeJinja": true },
+							{ "id": "font", "name": "Font", "type": "font", "default": "proxima-nova" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 28, "unit": "px" } },
+							{ "id": "mobileFontSize", "name": "Mobile Font Size", "type": "font_size", "default": { "size": 24, "unit": "px" } },
+							{ "id": "bold", "name": "Bold", "type": "bold", "default": true },
+							{ "id": "color", "name": "Color", "type": "color", "default": "#FFFFFF" }
+						],
+						"sortOrder": 1
+					},
+					{
+						"id": "subHeadline",
+						"name": "Sub-headline",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "We've saved your basket for you", "mergeJinja": true },
+							{ "id": "font", "name": "Font", "type": "font", "default": "proxima-nova" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 18, "unit": "px" } },
+							{ "id": "bold", "name": "Bold", "type": "bold", "default": true },
+							{ "id": "color", "name": "Color", "type": "color", "default": "#FFFFFF" }
+						],
+						"sortOrder": 2
+					},
+					{
+						"id": "message",
+						"name": "Message",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "Get them now, while still in stock!", "mergeJinja": true },
+							{ "id": "font", "name": "Font", "type": "font", "default": "Verdana" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 14, "unit": "px" } },
+							{ "id": "color", "name": "Color", "type": "color", "default": "#FFFFFF" }
+						],
+						"sortOrder": 3
+					},
+					{
+						"id": "pricePrefix",
+						"name": "Price Prefix",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "just", "mergeJinja": true }
+						],
+						"sortOrder": 4
+					}
+				],
+				"sortOrder": 1
+			},
+			{
+				"id": "productsSection",
+				"name": "Products",
+				"fields": [
+					{
+						"id": "productName",
+						"name": "Product Name",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "font", "name": "Font", "type": "font", "default": "Verdana" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 13, "unit": "px" } },
+							{ "id": "color", "name": "Color", "type": "color", "default": "#333333" }
+						],
+						"sortOrder": 1
+					},
+					{
+						"id": "productPrice",
+						"name": "Product Price",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "font", "name": "Font", "type": "font", "default": "Verdana" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 14, "unit": "px" } },
+							{ "id": "color", "name": "Color", "type": "color", "default": "#CC0000" }
+						],
+						"sortOrder": 2
+					}
+				],
+				"sortOrder": 2
+			},
+			{
+				"id": "ctaSection",
+				"name": "Checkout Button",
+				"fields": [
+					{
+						"id": "checkoutButton",
+						"name": "Checkout Button",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "CHECKOUT NOW!" },
+							{ "id": "font", "name": "Font", "type": "font", "default": "proxima-nova" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 16, "unit": "px" } },
+							{ "id": "bold", "name": "Bold", "type": "bold", "default": true },
+							{ "id": "textAlignment", "name": "Text Alignment", "type": "select", "default": "center", "options": [["center", "Center"], ["left", "Left"], ["right", "Right"]] },
+							{ "id": "width", "name": "Width (%)", "type": "numeric", "default": 90 },
+							{ "id": "padding", "name": "Padding", "type": "padding", "default": { "size": 14, "unit": "px" } },
+							{ "id": "borderRadius", "name": "Corner Style", "type": "select", "default": "4px", "options": [["8px", "Rounded"], ["4px", "Slightly Rounded"], ["0px", "Square"]] },
+							{
+								"id": "colors",
+								"name": "Colors",
+								"type": "multiple_color",
+								"default": { "foreground": "#81038E", "background": "#FFFFFF" }
+							}
+						],
+						"sortOrder": 1
+					}
+				],
+				"sortOrder": 3
+			},
+			{
+				"id": "behavior",
+				"name": "Behavior",
+				"fields": [
+					{
+						"id": "popoverFixedDelay",
+						"name": "Show After Fixed Time (Seconds)",
+						"type": "numeric",
+						"default": 3,
+						"sortOrder": 1
+					},
+					{
+						"id": "displayOnExitIntent",
+						"name": "Show On Exit Intent",
+						"type": "boolean",
+						"default": false,
+						"sortOrder": 2
+					},
+					{
+						"id": "daysBetweenPopovers",
+						"name": "Minimum Days Between Showing",
+						"type": "numeric",
+						"default": 7,
+						"sortOrder": 3
+					},
+					{
+						"id": "cookieName",
+						"name": "Cookie Name",
+						"type": "text",
+						"default": "yg_returning_users_pop",
+						"sortOrder": 4
+					},
+					{
+						"id": "animationType",
+						"name": "Animation Type",
+						"type": "select",
+						"default": "fadeIn",
+						"options": [["fadeIn", "Fade"], ["none", "None"]],
+						"sortOrder": 5
+					},
+					{
+						"id": "animationDuration",
+						"name": "Animation Duration (seconds)",
+						"type": "numeric",
+						"default": 0.5,
+						"sortOrder": 6
+					},
+					{
+						"id": "showEverytime",
+						"name": "Show on Every Page Load",
+						"type": "boolean",
+						"default": false,
+						"sortOrder": 7
+					}
+				],
+				"sortOrder": 4
+			},
+			{
+				"id": "links",
+				"name": "Links",
+				"fields": [
+					{
+						"id": "checkoutHref",
+						"name": "Checkout URL",
+						"type": "url",
+						"default": "/checkout",
+						"mergeJinja": true,
+						"sortOrder": 1
+					},
+					{
+						"id": "utmCampaign",
+						"name": "UTM Campaign",
+						"type": "text",
+						"default": "yg_returning_users",
+						"mergeJinja": true,
+						"sortOrder": 2
+					},
+					{
+						"id": "utmSource",
+						"name": "UTM Source",
+						"type": "text",
+						"default": "freshrelevance",
+						"mergeJinja": true,
+						"sortOrder": 3
+					},
+					{
+						"id": "utmMedium",
+						"name": "UTM Medium",
+						"type": "text",
+						"default": "popover",
+						"mergeJinja": true,
+						"sortOrder": 4
+					}
+				],
+				"sortOrder": 5
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

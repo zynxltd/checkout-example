@@ -1,0 +1,146 @@
+{
+	"name": "YG - Popular Recently Viewed",
+	"slug": "ygpoprv1",
+	"html": "",
+	"active": true,
+	"content_tag": null,
+	"content_type": "product",
+	"dt": "",
+	"template_style": "ygpoprv1",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "PDP sticky social proof banner — Popular! X Recently viewed. Anchor top-right of main image carousel in campaign sticky settings.",
+		"sortOrder": 20,
+		"defaultSocialProofOptions": true,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": true,
+		"sections": [
+			{
+				"id": "bannerSection",
+				"name": "Banner",
+				"fields": [
+					{
+						"id": "banner",
+						"name": "Banner Style",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "backgroundColor", "name": "Background Color", "type": "color", "default": "#81038E" },
+							{ "id": "textColor", "name": "Text Color", "type": "color", "default": "#FFFFFF" },
+							{ "id": "font", "name": "Font", "type": "font", "default": "Verdana" },
+							{ "id": "fontSize", "name": "Font Size", "type": "font_size", "default": { "size": 14, "unit": "px" } },
+							{ "id": "mobileFontSize", "name": "Mobile Font Size", "type": "font_size", "default": { "size": 12, "unit": "px" } },
+							{ "id": "bold", "name": "Bold", "type": "bold", "default": false },
+							{ "id": "padding", "name": "Vertical Padding", "type": "padding", "default": { "size": 8, "unit": "px" } },
+							{ "id": "paddingHorizontal", "name": "Horizontal Padding", "type": "padding", "default": { "size": 14, "unit": "px" } },
+							{ "id": "mobilePadding", "name": "Mobile Vertical Padding", "type": "padding", "default": { "size": 6, "unit": "px" } },
+							{ "id": "mobilePaddingHorizontal", "name": "Mobile Horizontal Padding", "type": "padding", "default": { "size": 10, "unit": "px" } },
+							{ "id": "gap", "name": "Icon Gap (px)", "type": "numeric", "default": 8 },
+							{ "id": "borderRadius", "name": "Corner Style", "type": "select", "default": "0px", "options": [["8px", "Rounded"], ["4px", "Slightly Rounded"], ["0px", "Square"]] },
+							{ "id": "maxWidth", "name": "Max Width", "type": "padding", "default": { "size": 320, "unit": "px" } }
+						],
+						"sortOrder": 1
+					},
+					{
+						"id": "prefix",
+						"name": "Popular Prefix",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "Popular!", "mergeJinja": true }
+						],
+						"sortOrder": 2
+					},
+					{
+						"id": "icon",
+						"name": "Icon",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{ "id": "character", "name": "Icon Character", "description": "Unicode emoji or character before text", "type": "text", "default": "🔥" },
+							{ "id": "size", "name": "Icon Size (px)", "type": "numeric", "default": 16 },
+							{ "id": "mobileSize", "name": "Mobile Icon Size (px)", "type": "numeric", "default": 14 }
+						],
+						"sortOrder": 3
+					},
+					{
+						"id": "previewFallback",
+						"name": "Preview Fallback Text",
+						"description": "Shown in FR preview when social proof data is unavailable",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{ "id": "text", "name": "Text", "type": "text", "default": "9999 Recently viewed" }
+						],
+						"sortOrder": 4
+					},
+					{
+						"id": "mobileBreakpoint",
+						"name": "Mobile Breakpoint",
+						"type": "numeric",
+						"default": 768,
+						"sortOrder": 5
+					}
+				],
+				"sortOrder": 0
+			},
+			{
+				"id": "socialProof",
+				"name": "Social Proof Messaging",
+				"fields": [
+					{
+						"id": "socialProofMessaging",
+						"name": "Social Proof Messaging",
+						"description": "Uses FR socialProof() — configure browsed data thresholds in slot settings",
+						"type": "custom",
+						"default": true,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "timePeriod",
+								"name": "Time Period",
+								"type": "select",
+								"default": "last24Hours",
+								"options": [
+									["lastHour", "Last Hour"],
+									["last24Hours", "Last 24 Hours"],
+									["last7Days", "Last 7 Days"]
+								]
+							},
+							{
+								"id": "browsedData",
+								"name": "Browsed Threshold",
+								"type": "custom",
+								"default": true,
+								"active": true,
+								"subFields": [
+									{ "id": "minimum", "name": "Minimum Views", "type": "numeric", "default": 1 },
+									{ "id": "text", "name": "Suffix Text", "type": "text", "default": "Recently viewed" }
+								]
+							}
+						],
+						"sortOrder": 1
+					}
+				],
+				"sortOrder": 1
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

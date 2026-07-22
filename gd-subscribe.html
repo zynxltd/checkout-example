@@ -1,0 +1,1062 @@
+<div id="{{safeid}}__wrapper" class="{{safeid}}__wrapper">
+
+	<div class="{{safeid}}__popover-overlay">
+
+		<div id="{{safeid}}__popover" class="{{safeid}}__popover thumbcontainer">
+
+			<div id="{{safeid}}__initial-content" class="{{safeid}}__initial-content">
+
+				{% if fields.headline.active %}
+				{# headline start #}
+
+				<h4 class="{{safeid}}__initial-headline">
+					{{ mergeField(fields.headline.text) }}
+				</h4>
+				
+				{# headline end #}
+				{% endif %}
+
+				{% if fields.subheadline.active %}
+				{# subheadline start #}
+
+				<h4 class="{{safeid}}__subheadline">
+					{{ mergeField(fields.subheadline.text) }}
+				</h4>
+
+				{# subheadline end #}
+				{% endif %}
+
+				{% if fields.message.active %}
+				{# message start #}
+				
+				<p class="{{safeid}}__initial-message">
+					{{ mergeField(fields.message.text) }}
+				</p>
+
+				{# message end #}
+				{% endif %}
+
+				{% if fields.footer.active %}
+				{# footer start #}
+
+				<p class="{{safeid}}__footer">
+					
+					{% if fields.footer.url and fields.footer.url != '' %}
+						<a href="{{ fields.footer.url }}">
+					{% endif %}
+
+					{{ mergeField(fields.footer.text) }}
+					
+					{% if fields.footer.url and fields.footer.url != '' %}
+						</a>
+					{% endif %}
+
+				</p>
+
+				{# footer end #}
+				{% endif %}
+
+				<form id="{{safeid}}__form" class="{{safeid}}__form" method="POST">
+
+					{% if fields.firstName.active %}
+					{# first name start #}
+
+					<input type="text" placeholder="{{ mergeField(fields.firstName.placeholder) }}{{ '*' if fields.firstName.required }}" 
+						class="{{safeid}}__input" name="fn" {{ 'required' if fields.firstName.required }} />
+
+					{# first name end #}
+					{% endif %}
+
+					{% if fields.lastName.active %}
+					{# last name start #}
+
+					<input type="text" placeholder="{{ mergeField(fields.lastName.placeholder) }}{{ '*' if fields.lastName.required }}" 
+						class="{{safeid}}__input" name="ln" {{ 'required' if fields.lastName.required }} />
+
+					{# last name end #}
+					{% endif %}
+
+					{% if fields.email.active %}
+					{# email start #}
+
+					<label class="{{safeid}}__email-label" for="{{safeid}}__email">
+						{{ mergeField(fields.email.label) }}{{ ' (Required)' if fields.email.required else '' }}
+					</label>
+
+					<input type="email" id="{{safeid}}__email" placeholder="{{ mergeField(fields.email.placeholder) }}" 
+						class="{{safeid}}__input" name="email" {{ 'required' if fields.email.required }} />
+
+					{# email end #}
+					{% endif %}
+
+					{% if fields.mobileNo.active %}
+					{# mobile number start #}
+
+					<input type="tel" placeholder="{{ mergeField(fields.mobileNo.placeholder) }}{{ '*' if fields.mobileNo.required }}" 
+						id="{{safeid}}__mobile-no" class="{{safeid}}__input" name="mobile" {{ 'required' if fields.mobileNo.required }} />
+					<p id="{{safeid}}__mobile-error" class="{{safeid}}__mobile-error {{safeid}}__hidden"></p>
+
+					{# mobile number end #}
+					{% endif %}
+
+					{% if fields.submit.active %}
+					{# submit button start #}
+
+					<button type="submit" class="{{safeid}}__submit-button">
+						{{ fields.submit.text }}
+					</button>
+					
+					{# submit button end #}
+					{% endif %}
+
+					{% if fields.declineButton.active %}
+					{# decline button start #}
+
+					<button type="button" class="{{safeid}}__decline-button" id="{{safeid}}__decline-button">
+						{{ fields.declineButton.text }}
+					</button>
+
+					{# decline button end #}
+					{% endif %}
+
+				</form>
+			</div>
+
+			<div id="{{safeid}}__submitted-content" class="{{safeid}}__submitted-content">
+
+				{% if fields.submittedHeadline.active %}
+				{# submitted headline start #}
+
+				<h4 class="{{safeid}}__submitted-headline">
+					{{ mergeField(fields.submittedHeadline.text) }}
+				</h4>
+
+				{# submitted headline end #}
+				{% endif %}
+
+				{% if fields.submittedMessage.active %}
+				{# submitted message start #}
+				
+				<p class="{{safeid}}__submitted-message">
+					{{ mergeField(fields.submittedMessage.text) }}
+				</p>
+
+				{# submitted message end #}
+				{% endif %}
+
+				{% if fields.submittedDiscountCode.active %}
+				{# submitted discount code start #}
+
+				<button type="button" class="{{safeid}}__submitted-code" id="{{safeid}}__submitted-code" data-code="{{ mergeField(fields.submittedDiscountCode.text) }}" title="Click to copy" aria-label="Copy discount code">
+					{{ mergeField(fields.submittedDiscountCode.text) }}
+				</button>
+
+				{# submitted discount code end #}
+				{% endif %}
+
+				{% if fields.submittedButton.active %}
+				{# submitted button start #}
+
+				<button type="button" class="{{safeid}}__submitted-button" id="{{safeid}}__submitted-button">
+					{{ fields.submittedButton.text }}
+				</button>
+				
+				{# submitted button end #}
+				{% endif %}
+
+			</div>
+
+			{% if fields.image.active %}
+			{# start image #}
+			
+			<div class="{{safeid}}__image"></div>
+
+			{#end image #}
+			{% endif %}
+
+			<button class="{{safeid}}__close-button">
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 512 512">
+					<path style='d:path("M27.1 1.1c-10.4 2-19.4 9.1-23.9 18.7C1 24.5.5 26.9.5 33.5c0 15.5-6.8 7.8 107.5 122l101 101-101.9 102C24.4 441.4 4.9 461.4 3 465.5c-3.4 7.1-3.5 19.9-.2 27 2.9 6.3 9.3 12.9 15.7 16.3 7.2 3.7 18.7 4.2 27 1.2 5.8-2.2 9.4-5.6 108.3-104.4L256 303.5l101.8 101.6c81.7 81.6 102.7 102.1 106.7 104 4.2 2 6.5 2.4 14.5 2.4 8.3 0 10.1-.4 14.5-2.7 6.2-3.2 12.9-10.3 15.8-16.6 3.2-6.8 3-19.7-.3-26.7-1.9-4.1-21.4-24.1-104.1-107L303 256.5l101-101C518.3 41.3 511.5 49 511.5 33.5c0-6.5-.5-9-2.6-13.5-8.1-17.2-28.4-24.2-45.4-15.8-2.6 1.3-39.1 37-105.7 103.6L256 209.5 154.3 107.8C87.6 41.2 51.1 5.5 48.5 4.2 45.1 2.5 34-.3 32.1.1c-.3.1-2.6.5-5 1z")' d="M27.1 1.1c-10.4 2-19.4 9.1-23.9 18.7C1 24.5.5 26.9.5 33.5c0 15.5-6.8 7.8 107.5 122l101 101-101.9 102C24.4 441.4 4.9 461.4 3 465.5c-3.4 7.1-3.5 19.9-.2 27 2.9 6.3 9.3 12.9 15.7 16.3 7.2 3.7 18.7 4.2 27 1.2 5.8-2.2 9.4-5.6 108.3-104.4L256 303.5l101.8 101.6c81.7 81.6 102.7 102.1 106.7 104 4.2 2 6.5 2.4 14.5 2.4 8.3 0 10.1-.4 14.5-2.7 6.2-3.2 12.9-10.3 15.8-16.6 3.2-6.8 3-19.7-.3-26.7-1.9-4.1-21.4-24.1-104.1-107L303 256.5l101-101C518.3 41.3 511.5 49 511.5 33.5c0-6.5-.5-9-2.6-13.5-8.1-17.2-28.4-24.2-45.4-15.8-2.6 1.3-39.1 37-105.7 103.6L256 209.5 154.3 107.8C87.6 41.2 51.1 5.5 48.5 4.2 45.1 2.5 34-.3 32.1.1c-.3.1-2.6.5-5 1z"/>
+				</svg>
+			</button>
+
+		</div>
+
+	</div>
+
+</div>
+
+<style>
+
+	/* layout styles */
+
+	:root {
+		--default-margin: 0.75rem;
+	}
+
+	.{{safeid}}__wrapper * {
+		all: initial;
+		box-sizing: border-box;
+	}
+
+    .{{safeid}}__popover-overlay {
+	    overflow: auto;
+    }
+
+	.{{safeid}}__wrapper {
+		position: fixed !important;
+		inset: 0 !important;
+		z-index: 2147483647 !important;
+		pointer-events: none;
+		/* purely used as Ouibounce only uses display: block */
+		{{ 'display: block;' if meta.preview == 'true' else 'display: none;' }}
+	}
+
+	.{{safeid}}__popover-overlay {
+		display: flex;
+		position: fixed;
+		inset: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		align-items: {{ 'flex-start' if 'top' in fields.popoverPosition else ('flex-end' if 'bottom' in fields.popoverPosition else 'center') }};
+		justify-content: {{ 'flex-start' if 'left' in fields.popoverPosition else ('flex-end' if 'right' in fields.popoverPosition else 'center') }};
+		z-index: 2147483647 !important;
+		pointer-events: auto;
+        {% if fields.tactic == 'fixed' %}
+			{{ 'top: 0;' if 'top' in fields.popoverPosition else (
+				'bottom: 0;' if 'bottom' in fields.popoverPosition else 'top: 0' ) }}
+			{{ 'left: 0;' if 'left' in fields.popoverPosition else (
+				'right: 0;' if 'right' in fields.popoverPosition else 'left: calc(50% - ' + (fields.width.size / 2) + fields.width.unit + ');' ) }}
+		{% endif %}
+	}
+
+	.{{safeid}}__popover * {
+		box-sizing: border-box;
+		border: 0;
+		padding: 0;
+		margin: 0;
+		background: transparent;
+	}
+
+	.{{safeid}}__popover-overlay {
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.{{safeid}}__popover {
+		box-sizing: border-box;
+		position: relative;
+		width: {{ fields.width.size }}{{ fields.width.unit }};
+		min-height: {{ fields.height.size }}{{ fields.height.unit }};
+		max-height: calc(100dvh - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }});
+		height: auto;
+		margin: auto {{ fields.popoverMargin.size }}{{ fields.popoverMargin.unit }};
+		padding: {{ fields.padding.size }}{{ fields.padding.unit }};
+		box-shadow: none;
+		display: grid;
+		border-radius: {{ fields.borderRadius }};
+		overflow: hidden;
+		background-color: {{ fields.popoverBackground.color if fields.popoverBackground.active else 'transparent' }};
+		{% if fields.image.position in ['top', 'bottom'] %}
+			grid-template-rows: auto minmax(0, 1fr);
+		{% elif fields.image.position in ['left', 'right'] %}
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: minmax(0, 1fr);
+		{% endif %}
+		{% if fields.outerBorder.active %}
+			border: {{ fields.outerBorder.weight }}px {{ fields.outerBorder.style }} {{ fields.outerBorder.color }};
+		{% endif %}
+	}
+
+	button.{{safeid}}__close-button {
+		cursor: pointer;
+		position: absolute;
+		top: {{ fields.crossInset.size }}{{ fields.crossInset.unit }};
+		right: {{ fields.crossInset.size }}{{ fields.crossInset.unit }};
+		border: none;
+		background: transparent;
+		height: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
+		width: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
+		padding: 0;
+		line-height: 1;
+	}
+
+    button.{{safeid}}__close-button * {
+        cursor: pointer;
+    }
+
+	button.{{safeid}}__close-button svg,
+	button.{{safeid}}__close-button svg * {
+		height: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
+		width: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
+		fill: {{ fields.crossColor }};
+	}
+
+	.{{safeid}}__initial-content,
+	.{{safeid}}__submitted-content {
+		order: {{ '-1' if fields.image.position in ['right', 'bottom'] else '1'}};
+		padding: 35px 40px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		align-self: stretch;
+		min-height: 0;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		background-color: {{ fields.backgroundColor }};
+		{% if fields.backgroundImage.active %}
+			background-image: url('{{ fields.backgroundImage.url }}');
+			background-position: {{ fields.backgroundImage.position }};
+			background-size: {{ fields.backgroundImage.size }};
+			background-repeat: {{ fields.backgroundImage.repeatBackground }};
+		{% endif %}
+	}
+
+	.{{safeid}}__submitted-content {
+		display: none;
+		background-image: none;
+		align-items: center;
+		justify-content: center;
+	}
+
+	h4.{{safeid}}__initial-headline {
+		width: 100%;
+		margin-bottom: 0.35rem;
+		line-height: 1.15;
+		font-family: {{ fields.headline.font or 'proxima-nova' }}, 'proxima-nova', 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-size: {{ fields.headline.fontSize.size }}{{ fields.headline.fontSize.unit }};
+		padding: {{ fields.headline.padding.size }}{{ fields.headline.padding.unit }};
+		font-style: {{ 'italic' if fields.headline.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.headline.bold else 'normal' }};
+		color: {{ fields.headline.color }};
+		text-align: {{ fields.headline.alignment }};
+	}
+
+	h4.{{safeid}}__subheadline {
+		width: 100%;
+		margin-bottom: 0.75rem;
+		line-height: 1.15;
+		font-family: {{ fields.subheadline.font or 'proxima-nova' }}, 'proxima-nova', 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-size: {{ fields.subheadline.fontSize.size }}{{ fields.subheadline.fontSize.unit }};
+		padding: {{ fields.subheadline.padding.size }}{{ fields.subheadline.padding.unit }};
+		font-style: {{ 'italic' if fields.subheadline.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.subheadline.bold else 'normal' }};
+		color: {{ fields.subheadline.color }};
+		text-align: {{ fields.subheadline.alignment }};
+	}
+
+	p.{{safeid}}__initial-message {
+		width: 100%;
+		margin-bottom: 1rem;
+		line-height: 1.2;
+		font-family: {{ fields.message.font }};
+		font-size: {{ fields.message.fontSize.size }}{{ fields.message.fontSize.unit }};
+		padding: {{ fields.message.padding.size }}{{ fields.message.padding.unit }};
+		font-style: {{ 'italic' if fields.message.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.message.bold else 'normal' }};
+		color: {{ fields.message.color }};
+		text-align: {{ fields.message.alignment }};
+	}
+
+	.{{safeid}}__image {
+		order: {{ '-1' if fields.image.position in ['left', 'top'] else '1'}};
+		background-image: url({{ fields.image.url }});
+		background-size: cover;
+		background-position: {{ fields.image.alignment }};
+		background-repeat: no-repeat;
+		{% if fields.image.width > 0 %}
+			width: {{ fields.image.width }}px;
+		{% else %}
+			width: 100%;
+		{% endif %}
+		{% if fields.image.position in ['top', 'bottom'] %}
+			{% if fields.image.height > 0 %}
+				height: {{ fields.image.height }}px;
+				min-height: {{ fields.image.height }}px;
+				max-height: {{ fields.image.height }}px;
+				flex-shrink: 0;
+			{% else %}
+				aspect-ratio: 16 / 9;
+				height: auto;
+				max-height: min(280px, calc({{ fields.height.size }}{{ fields.height.unit }} * 0.5));
+				min-height: 0;
+				flex-shrink: 0;
+			{% endif %}
+		{% else %}
+			{% if fields.image.height > 0 %}
+				height: {{ fields.image.height }}px;
+				min-height: {{ fields.image.height }}px;
+			{% else %}
+				min-height: 0;
+				height: 100%;
+			{% endif %}
+			align-self: stretch;
+		{% endif %}
+	}
+
+	.{{safeid}}__form {
+		width: 100%;
+		text-align: left;
+		flex-shrink: 0;
+	}
+
+	label.{{safeid}}__email-label {
+		display: block;
+		width: 100%;
+		margin-bottom: 0.35rem;
+		font-family: {{ fields.fieldFont }};
+		font-size: {{ fields.fieldFontSize.size }}{{ fields.fieldFontSize.unit }};
+		color: #FFFFFF;
+		font-weight: normal;
+		line-height: 1.3;
+	}
+
+	input[type="text"].{{safeid}}__input,
+	input[type="email"].{{safeid}}__input,
+	input[type="tel"].{{safeid}}__input {
+		margin-bottom: 1rem;
+		font-family: {{ fields.fieldFont }};
+		font-size: {{ fields.fieldFontSize.size }}{{ fields.fieldFontSize.unit }};
+		text-align: {{ fields.alignPlaceholder }};
+		color: {{ fields.fieldColors.foreground }};
+		background-color: {{ fields.fieldColors.background }};
+		font-style: {{ 'italic' if fields.fieldItalics else 'normal' }};
+		font-weight: {{ 'bold' if fields.fieldBold else 'normal' }};
+		width: {{ fields.fieldWidth }}%;
+		padding: {{ fields.fieldPadding.size }}{{ fields.fieldPadding.unit }};
+		border-radius: {{ fields.fieldBorderRadius }};
+		height: auto;
+		line-height: 1;
+		{% if fields.fieldBorderToggle.active %}
+			border: {{ fields.fieldBorderToggle.borderWeight }}px {{ fields.fieldBorderToggle.borderStyle }} {{ fields.fieldBorderToggle.borderColor }};
+		{% endif %}
+	}
+
+	.{{safeid}}__popover .iti {
+		margin-bottom: var(--default-margin);
+		width: {{ fields.fieldWidth }}%;
+	}
+
+	.{{safeid}}__popover .iti input {
+		width: 100%;
+	}
+
+	.{{safeid}}__popover .iti__country {
+		display: block;
+	}
+
+	.{{safeid}}__popover .iti__flag {
+		display: inline-block;
+	}
+
+	.{{safeid}}__popover .iti__country-name,
+	.{{safeid}}__popover .iti__dial-code {
+		font-family: {{ fields.fieldFont }};
+	}
+
+	.{{safeid}}__input:focus-visible {
+		outline: none;
+	}
+
+	input[type="text"].{{safeid}}__input::placeholder,
+	input[type="email"].{{safeid}}__input::placeholder,
+	input[type="tel"].{{safeid}}__input::placeholder {
+		font-family: {{ fields.fieldFont }};
+		font-size: {{ fields.fieldFontSize }};
+		text-align: {{ fields.alignPlaceholder }};
+		color: {{ fields.fieldColors.foreground }};
+		font-style: {{ 'italic' if fields.fieldItalics else 'normal' }};
+		font-weight: {{ 'bold' if fields.fieldBold else 'normal' }};
+		opacity: 0.5;
+	}
+
+	button[type="submit"].{{safeid}}__submit-button {
+		cursor: pointer;
+		font-family: {{ fields.submit.font }};
+		font-size: {{ fields.submit.fontSize.size }}{{ fields.submit.fontSize.unit }};
+		text-align: {{ fields.submit.textAlignment }};
+		font-style: {{ 'italic' if fields.submit.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.submit.bold else 'normal' }};
+		color: {{ fields.submit.colors.foreground }};
+		background-color: {{ fields.submit.colors.background }};
+		width: {{ fields.submit.width }}%;
+		padding: {{ fields.submit.padding.size }}{{ fields.submit.padding.unit }};
+		margin: {{ fields.submit.margin.size }}{{ fields.submit.margin.unit }} 0 0.5rem;
+		border-radius: {{ fields.submit.borderRadius }};
+		line-height: 1.2;
+		height: auto;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		{% if fields.submitButtonBorderToggle.active %}
+			border: {{ fields.submitButtonBorderToggle.borderWeight }}px {{ fields.submitButtonBorderToggle.borderStyle }} {{ fields.submitButtonBorderToggle.borderColor }};
+		{% endif %}
+	}
+
+	p.{{safeid}}__footer {
+		width: 100%;
+		margin-top: 0;
+		margin-bottom: 1.25rem;
+		line-height: 1.45;
+		font-family: {{ fields.footer.font }};
+		font-size: {{ fields.footer.fontSize.size }}{{ fields.footer.fontSize.unit }};
+		padding: {{ fields.footer.padding.size }}{{ fields.footer.padding.unit }};
+		font-style: {{ 'italic' if fields.footer.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.footer.bold else 'normal' }};
+		color: {{ fields.footer.color }};
+		text-align: {{ fields.footer.alignment }};
+	}
+
+	p.{{safeid}}__footer a {
+		text-decoration: underline;
+		color: {{ fields.footer.color }};
+		font-family: inherit;
+		font-size: inherit;
+		font-style: inherit;
+		font-weight: inherit;
+		text-align: inherit;
+		cursor: pointer;
+	}
+
+	button.{{safeid}}__decline-button {
+		cursor: pointer;
+		font-family: {{ fields.declineButton.font }};
+		font-size: {{ fields.declineButton.fontSize.size }}{{ fields.declineButton.fontSize.unit }};
+		text-align: {{ fields.declineButton.textAlignment }};
+		font-style: {{ 'italic' if fields.declineButton.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.declineButton.bold else 'normal' }};
+		color: {{ fields.declineButton.colors.foreground }};
+		background-color: {{ fields.declineButton.colors.background }};
+		width: {{ fields.declineButton.width }}%;
+		padding: {{ fields.declineButton.padding.size }}{{ fields.declineButton.padding.unit }};
+		margin: 0;
+		border-radius: {{ fields.declineButton.borderRadius }};
+		line-height: 1.2;
+		height: auto;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		{% if fields.declineButtonBorderToggle.active %}
+			border: {{ fields.declineButtonBorderToggle.borderWeight }}px {{ fields.declineButtonBorderToggle.borderStyle }} {{ fields.declineButtonBorderToggle.borderColor }};
+		{% endif %}
+	}
+
+	h4.{{safeid}}__submitted-headline {
+		width: 100%;
+		margin-bottom: var(--default-margin);
+		font-family: {{ fields.submittedHeadline.font }};
+		font-size: {{ fields.submittedHeadline.fontSize.size }}{{ fields.submittedHeadline.fontSize.unit }};
+		padding: {{ fields.submittedHeadline.padding.size }}{{ fields.submittedHeadline.padding.unit }};
+		font-style: {{ 'italic' if fields.submittedHeadline.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.submittedHeadline.bold else 'normal' }};
+		color: {{ fields.submittedHeadline.color }};
+		text-align: {{ fields.submittedHeadline.alignment }};
+	}
+
+	p.{{safeid}}__submitted-message {
+		width: 100%;
+		margin-bottom: var(--default-margin);
+		font-family: {{ fields.submittedMessage.font }};
+		font-size: {{ fields.submittedMessage.fontSize.size }}{{ fields.submittedMessage.fontSize.unit }};
+		padding: {{ fields.submittedMessage.padding.size }}{{ fields.submittedMessage.padding.unit }};
+		font-style: {{ 'italic' if fields.submittedMessage.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.submittedMessage.bold else 'normal' }};
+		color: {{ fields.submittedMessage.color }};
+		text-align: {{ fields.submittedMessage.alignment }};
+	}
+
+	.{{safeid}}__submitted-code {
+		box-sizing: border-box;
+		display: block;
+		width: {{ fields.submittedDiscountCode.width }}%;
+		max-width: 320px;
+		margin: 0.35rem auto 1.25rem;
+		padding: 14px 18px;
+		font-family: {{ fields.submittedDiscountCode.font or 'proxima-nova' }}, 'proxima-nova', 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-size: {{ fields.submittedDiscountCode.fontSize.size }}{{ fields.submittedDiscountCode.fontSize.unit }};
+		font-style: {{ 'italic' if fields.submittedDiscountCode.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.submittedDiscountCode.bold else 'normal' }};
+		color: {{ fields.submittedDiscountCode.color }};
+		background-color: {{ fields.submittedDiscountCode.background }};
+		border: {{ fields.submittedDiscountCode.borderWeight }}px dashed {{ fields.submittedDiscountCode.borderColor }};
+		border-radius: 0;
+		text-align: {{ fields.submittedDiscountCode.alignment }};
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		align-self: center;
+		line-height: 1.2;
+		cursor: pointer;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+
+	button.{{safeid}}__submitted-code:hover {
+		opacity: 0.92;
+	}
+
+	button.{{safeid}}__submitted-code--copied {
+		opacity: 1;
+	}
+
+	.{{safeid}}__submitted-button {
+		cursor: pointer;
+		font-family: {{ fields.submittedButton.font }};
+		font-size: {{ fields.submittedButton.fontSize.size }}{{ fields.submittedButton.fontSize.unit }};
+		text-align: {{ fields.submittedButton.textAlignment }};
+		font-style: {{ 'italic' if fields.submittedButton.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.submittedButton.bold else 'normal' }};
+		color: {{ fields.submittedButton.colors.foreground }};
+		background-color: {{ fields.submittedButton.colors.background }};
+		width: {{ fields.submittedButton.width }}%;
+		padding: {{ fields.submittedButton.padding.size }}{{ fields.submittedButton.padding.unit }};
+		margin: {{ fields.submittedButton.margin.size }}{{ fields.submittedButton.margin.unit }} 0;
+		border-radius: {{ fields.submittedButton.borderRadius }};
+		align-self: {{ 'center' if fields.submittedButton.textAlignment == 'center' else ('flex-end' if fields.submittedButton.textAlignment == 'right' else 'flex-start') }};
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		line-height: 1.2;
+		{% if fields.submittedButtonBorderToggle.active %}
+			border: {{ fields.submittedButtonBorderToggle.borderWeight }}px {{ fields.submittedButtonBorderToggle.borderStyle }} {{ fields.submittedButtonBorderToggle.borderColor }};
+		{% endif %}
+	}
+
+	/* mobile styles */
+
+	@media (max-width: {{ fields.mobileBreakpoint if fields.mobileBreakpoint else 768 }}px) {
+
+		.{{safeid}}__popover {
+			width: calc(100vw - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }});
+			max-width: {{ fields.mobileWidth.size if fields.mobileWidth.size else 700 }}{{ fields.mobileWidth.unit if fields.mobileWidth.unit else 'px' }};
+			height: auto;
+			min-height: 0;
+			max-height: min({{ fields.mobileHeight.size if fields.mobileHeight.size else 1200 }}{{ fields.mobileHeight.unit if fields.mobileHeight.unit else 'px' }}, calc(100dvh - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }}));
+			grid-template-columns: 1fr !important;
+			grid-template-rows: auto minmax(0, 1fr) !important;
+			margin: auto {{ fields.popoverMargin.size }}{{ fields.popoverMargin.unit }};
+        }
+
+		.{{safeid}}__initial-content,
+		.{{safeid}}__submitted-content {
+			padding: 28px 24px;
+			min-height: 0;
+		}
+
+		{% if fields.headline.mobileFontSize.size > 0 %}
+		h4.{{safeid}}__initial-headline {
+			font-size: {{ fields.headline.mobileFontSize.size }}{{ fields.headline.mobileFontSize.unit }};
+		}
+		{% endif %}
+
+		{% if fields.subheadline.mobileFontSize.size > 0 %}
+		h4.{{safeid}}__subheadline {
+			font-size: {{ fields.subheadline.mobileFontSize.size }}{{ fields.subheadline.mobileFontSize.unit }};
+		}
+		{% endif %}
+
+		{% if fields.submittedHeadline.mobileFontSize.size > 0 %}
+		h4.{{safeid}}__submitted-headline {
+			font-size: {{ fields.submittedHeadline.mobileFontSize.size }}{{ fields.submittedHeadline.mobileFontSize.unit }};
+		}
+		{% endif %}
+
+		.{{safeid}}__image {
+			order: -1 !important;
+			width: 100% !important;
+			height: auto !important;
+			min-height: 0 !important;
+			align-self: auto !important;
+			flex: none !important;
+			{% if fields.image.mobileHeight > 0 %}
+				height: {{ fields.image.mobileHeight }}px !important;
+				max-height: {{ fields.image.mobileHeight }}px !important;
+				aspect-ratio: auto;
+			{% else %}
+				aspect-ratio: 16 / 9;
+				max-height: min(420px, 35dvh);
+			{% endif %}
+		}
+    }
+
+	/* animation styles */
+
+    .{{safeid}}__none {
+        animation: fadeIn 0s linear;
+    }
+
+	.{{safeid}}__fadeIn {
+		animation: fadeIn {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
+
+	.{{safeid}}__fadeOut {
+		animation: fadeOut {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes fadeOut {
+		from {
+			opacity: 1;
+		}
+
+		to {
+			opacity: 0;
+		}
+	}
+
+	.{{safeid}}__slideInSideways {
+		animation: slideInSideways {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes slideInSideways {
+		from {
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ 'calc((50vw + ' + (fields.width.size / 2) + fields.width.unit + ') * -1)' if 
+				(fields.tactic == 'popover') else '-' + fields.width.size + fields.width.unit }};
+		}
+
+		to {
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ '0' if ('left' in fields.popoverPosition) or ('right' in fields.popoverPosition) or 
+				(fields.tactic == 'popover') else 'calc(50vw - ' + (fields.width.size / 2) + fields.width.unit + ')' }};
+		}
+	}
+
+	.{{safeid}}__slideOutSideways {
+		animation: slideOutSideways {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes slideOutSideways {
+		from {
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ '0' if ('left' in fields.popoverPosition) or ('right' in fields.popoverPosition)  or 
+			(fields.tactic == 'popover') else 'calc(50vw - ' + (fields.width.size / 2) + fields.width.unit + ')' }};
+		}
+
+		to {
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ 'calc((50vw + ' + (fields.width.size / 2) + fields.width.unit + ') * -1)' if 
+				(fields.tactic == 'popover') else '-' + fields.width.size + fields.width.unit }};
+		}
+	}
+
+	.{{safeid}}__slideInVertical {
+		animation: slideInVertical {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes slideInVertical {
+		from {
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ 'calc((50vh + ' + (fields.height.size / 2) + fields.height.unit + ') * -1)' if 
+				(fields.tactic == 'popover') else '-' + fields.height.size + fields.height.unit }};
+		}
+
+		to {
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ '0' if ('bottom' in fields.popoverPosition) or ('top' in fields.popoverPosition) or 
+			(fields.tactic == 'popover') else 'calc(50vh - ' + (fields.height.size / 2) + fields.height.unit + ')' }};
+		}
+	}
+
+	.{{safeid}}__slideOutVertical {
+		animation: slideOutVertical {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes slideOutVertical {
+		from {
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ '0' if ('bottom' in fields.popoverPosition) or ('top' in fields.popoverPosition) or 
+			(fields.tactic == 'popover') else 'calc(50vh - ' + (fields.height.size / 2) + fields.height.unit + ')' }};
+		}
+
+		to {
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ 'calc((50vh + ' + (fields.height.size / 2) + fields.height.unit + ') * -1)' if 
+				(fields.tactic == 'popover') else '-' + fields.height.size + fields.height.unit }};
+		}
+	}
+
+	/* Utility classes */
+
+	.{{safeid}}__mobile-error {
+		font-family: {{ fields.fieldFont }};
+		font-size: {{ fields.fieldFontSize.size }}{{ fields.fieldFontSize.unit }};
+		color: red;
+		margin-bottom: var(--default-margin);
+	}
+
+	.{{safeid}}__hidden {
+		display: none;
+	}
+
+</style>
+<link rel="stylesheet" href="//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" >
+
+<script>
+
+	const {{safeid}}_rootElement = document.getElementById('{{safeid}}__wrapper');
+	const {{safeid}}_popoverElement = document.getElementById('{{safeid}}__popover');
+	const {{safeid}}_showAfterFixedDelay = {{ 'true' if fields.popoverFixedDelay|int > 0 else 'false' }};
+	const {{safeid}}_mobileNoActive = {{ 'true' if fields.mobileNo.active else 'false' }};
+	const {{safeid}}_itiErrorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+	const {{safeid}}_errorElement = document.getElementById('{{safeid}}__mobile-error');
+	const {{safeid}}_appearAnimationClass = '{{safeid}}__{{ fields.animationType }}';
+	const {{safeid}}_disappearAnimationClass = '{{safeid}}__{{ fields.animationType|replace('In', 'Out') }}';
+	
+	const {{safeid}}_ouibounceCallback = () => {
+		const popoverElementState = {{safeid}}_popoverElement.getAttribute('data-triggered-state') == 'loaded';
+		if (!popoverElementState) {
+			const animatedElement = {{safeid}}_popoverElement;
+			animatedElement.addEventListener("animationend", function {{safeid}}_showPopover() {
+				animatedElement.classList.remove({{safeid}}_appearAnimationClass);
+				animatedElement.removeEventListener('animationend', {{safeid}}_showPopover);
+			});
+			animatedElement.classList.add({{safeid}}_appearAnimationClass);
+			animatedElement.setAttribute('data-triggered-state', 'loaded');
+			{% if fields.tactic != 'fixed' %}
+				document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+			{% endif %}
+			try {
+				$TB.popoverShown('{{ slotid }}');
+			} catch(e) {
+				console.warn('Unable to record popover shown, most likely script not loaded');
+			}
+		}
+	};
+
+	const {{safeid}}_ouibounceOptions = {
+        cookieName: "{{fields.cookieName}}",
+        cookieExpire: {{ fields.daysBetweenPopovers if fields.daysBetweenPopovers else 0 }},
+        callback: {{ safeid }}_ouibounceCallback,
+        sitewide: true,
+        aggressive: {{ 'true' if fields.showEverytime else 'false' }},
+		timer: 1000,
+		delay: {{ '250' if fields.displayOnExitIntent else '3600000' }},
+    };
+
+	const {{safeid}}_copyDiscountCode = async (el) => {
+		const text = el.dataset.code || el.textContent.trim();
+		try {
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				await navigator.clipboard.writeText(text);
+			} else {
+				throw new Error('clipboard unavailable');
+			}
+		} catch (e) {
+			const ta = document.createElement('textarea');
+			ta.value = text;
+			ta.setAttribute('readonly', '');
+			ta.style.position = 'absolute';
+			ta.style.left = '-9999px';
+			document.body.appendChild(ta);
+			ta.select();
+			document.execCommand('copy');
+			document.body.removeChild(ta);
+		}
+		const original = text;
+		el.textContent = 'Copied!';
+		el.classList.add('{{safeid}}__submitted-code--copied');
+		window.setTimeout(() => {
+			el.textContent = original;
+			el.classList.remove('{{safeid}}__submitted-code--copied');
+		}, 2000);
+	};
+
+	const {{safeid}}_init = () => {
+		if ({{safeid}}_rootElement && {{safeid}}_rootElement.parentElement !== document.body) {
+			document.body.appendChild({{safeid}}_rootElement);
+		}
+		if ({{safeid}}_mobileNoActive) {
+			try {
+				const mobileInput = document.getElementById("{{safeid}}__mobile-no");
+				const excludeCountries = '{{ fields.mobileNo.excludeCountries }}';
+				window.iti = intlTelInput(mobileInput, {
+					nationalMode: true,
+					utilsScript: "https://im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/utils.min.js",
+						initialCountry: '{{ fields.mobileNo.initialCountry }}',
+						excludeCountries: excludeCountries.split(',').map((country) => { return country.trim().toLowerCase();})
+				});
+				mobileInput.addEventListener('input', () => {
+					{{safeid}}_errorElement.innerHTML = '';
+					{{safeid}}_errorElement.classList.add('{{safeid}}__hidden');
+				});
+			} catch(e) {
+				console.error('Failed to initialize intlTelInput');
+			}
+		}
+		try {
+			{{safeid}}_popover = ouibounce(
+				{{safeid}}_rootElement, 
+				{{safeid}}_ouibounceOptions
+			);
+		} catch(e) {
+			console.error('Failed to initialize Ouibounce');
+		}
+		if ({{safeid}}_showAfterFixedDelay) {
+			{{safeid}}_popoverTimeout();
+		}
+		document.addEventListener('keyup', (e) => {
+			if (e.keyCode === 27) { // escape key
+				{{safeid}}_dismissModal();
+			}
+		});
+		{{safeid}}_rootElement.addEventListener('click', {{safeid}}_popoverClick);
+		{{safeid}}_rootElement.addEventListener('touchstart', {{safeid}}_popoverClick);
+		{{safeid}}__form.addEventListener('submit', {{ safeid }}_submitHandler);
+		const {{safeid}}_declineButton = document.getElementById('{{safeid}}__decline-button');
+		if ({{safeid}}_declineButton) {
+			{{safeid}}_declineButton.addEventListener('click', {{safeid}}_dismissModal);
+		}
+		const {{safeid}}_codeEl = document.getElementById('{{safeid}}__submitted-code');
+		if ({{safeid}}_codeEl) {
+			{{safeid}}_codeEl.addEventListener('click', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				{{safeid}}_copyDiscountCode({{safeid}}_codeEl);
+			});
+		}
+	};
+
+	const {{safeid}}_showSuccessMessage = () => {
+		const initialEl = document.getElementById('{{safeid}}__initial-content');
+		const successEl = document.getElementById('{{safeid}}__submitted-content');
+    	const successButton = document.getElementById('{{safeid}}__submitted-button');
+		const redirectUrl = '{{ fields.successButtonHref }}';
+		if (successButton) {
+			if (redirectUrl && redirectUrl.length > 0) {
+				successButton.addEventListener('click', () => { 
+					const url = new URL(redirectUrl);
+					url.searchParams.append('utm_campaign', "{{ fields.utmCampaign }}");
+					url.searchParams.append('utm_source', "{{ fields.utmSource }}");
+					url.searchParams.append('utm_medium', "{{ fields.utmMedium }}");
+					location.href = url;
+				});
+			} else {
+				successButton.addEventListener('click', {{safeid}}_closePopover);
+			}
+		}
+		initialEl.style.display = "none";
+        successEl.style.display = "flex";
+	}
+
+	const {{ safeid }}_popoverTimeout = () => {
+        window.setTimeout(() => {
+			// const popoverAlreadyVisible = {{safeid}}_rootElement.style.display == 'block';
+        	if (
+				(
+					document.cookie.replace(/(?:(?:^|.*;\s*){{ fields.cookieName }}\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== "true" 
+					|| {{ 'true' if fields.showEverytime else 'false' }}
+				) 
+			) {
+            	{{safeid}}_popover.fire();
+        	}
+        }, {{ fields.popoverFixedDelay|int * 1000 }});
+    };
+
+	const {{safeid}}_popoverClick = (e) => {
+		// close modal on close button/background click
+		const targetClasses = e.target.classList;
+		if (targetClasses.contains('{{safeid}}__wrapper') 
+			|| targetClasses.contains('{{safeid}}__popover-overlay') 
+			|| targetClasses.contains('{{safeid}}__close-button')
+			|| ['text', 'g', 'svg', 'path'].includes(e.target.tagName.toLowerCase()) && e.target.closest('button').classList.contains('{{safeid}}__close-button')) {
+			e.preventDefault();
+			{{safeid}}_dismissModal();
+		}
+	}
+
+	const {{safeid}}_closePopover = () => {
+		const root = {{safeid}}_rootElement;
+		const animatedElement = {{safeid}}_popoverElement;
+		animatedElement.addEventListener("animationend", function {{safeid}}_hidePopover() {
+			root.style.display = 'none';
+			animatedElement.classList.remove({{safeid}}_disappearAnimationClass);
+			animatedElement.removeEventListener('animationend', {{safeid}}_hidePopover);
+		});
+		animatedElement.classList.add({{safeid}}_disappearAnimationClass);
+		{% if fields.tactic != 'fixed' %}
+			document.getElementsByTagName('body')[0].style.overflow = 'initial';
+		{% endif %}
+	}
+	
+	const {{safeid}}_dismissModal = () => {
+		{{safeid}}_closePopover();
+		try{
+			$TB.popoverDismissed('{{ slotid }}');
+		} catch(e){}
+	}
+
+	const {{safeid}}_submitHandler = (e) => {
+		e.preventDefault();
+		const formdata = new FormData(document.getElementById(e.target.id));
+    	const emailAddress = formdata.get('email');
+		const rootDetails = Object.fromEntries(formdata.entries());
+		const mobileNoRequired = {{ fields.mobileNo.required }};
+		let isValid = true;
+		if ({{safeid}}_mobileNoActive && (mobileNoRequired || iti.getNumber().length > 0)) {
+			if (!iti.isValidNumber()) {
+				isValid = false;
+				const errorCode = iti.getValidationError();
+				const errorMsg = {{safeid}}_itiErrorMap[errorCode];
+				{{safeid}}_errorElement.innerHTML = errorMsg;
+				{{safeid}}_errorElement.classList.remove('{{safeid}}__hidden');
+			}
+			if (iti.isValidNumber()) {
+				rootDetails.mobile = iti.getNumber();
+			}
+		}
+		if (isValid) {
+			try {
+				$TB.popoverSubmitted('{{ slotid }}', emailAddress, rootDetails);
+				$TB.raiseSignal("{{ fields.customSignal or 'DefaultCustomSignalName' }}");
+			} catch(e) {
+				console.error('Unable to register submission or raise signal, check the script is present');
+			}
+			{{safeid}}_showSuccessMessage();
+		}
+    }
+
+	try {
+		if (typeof requirejs === "function") {
+			requirejs.config({
+				paths: {
+					"ouibounce": "//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min",
+					"intlTelInput": "//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min"
+				}
+			});
+			requirejs(['intlTelInput', 'ouibounce'], (intlTelInput, ouibounce) => {
+				window.ouibounce = ouibounce;
+				{{safeid}}_init();
+			});
+		} else if (typeof $TB !== "undefined" && typeof $TB.getScript === "function") {
+			$TB.getScript("//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js", () => {
+				$TB.getScript("//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min.js", () => {
+					{{safeid}}_init();
+				});
+			});
+		} else {
+			console.error("Failed to load one or more required libraries - ouibounce and intlTelInput - using usual methods");
+			{% if meta.preview != 'true' %}
+				const telScriptEl = document.createElement('script');
+				telScriptEl.src = '//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js';
+				const ouibounceScriptEl = document.createElement('script');
+				ouibounceScriptEl.src = '//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min.js';
+				const headEl = document.getElementsByTagName('head')[0];
+				headEl.appendChild(telScriptEl);
+				headEl.appendChild(ouibounceScriptEl);
+				const ouibounceScriptCheck = window.setInterval(() => {
+					if (typeof ouibounce !== 'undefined') {
+						window.clearTimeout(ouibounceScriptCheck);
+						{{safeid}}_init();
+					}
+				}, 100);
+			{% endif %}
+		}
+	} catch(e) {
+		console.error('There was an error initialising the ouibounce library or settings', e);
+	}
+
+</script>
+
+{% if meta.preview == 'true' %}
+	<script src="//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+	<script src="//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min.js"></script>
+	<script>{{safeid}}_init();</script>
+{% endif %}

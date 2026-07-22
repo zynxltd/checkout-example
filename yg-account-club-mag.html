@@ -1,0 +1,124 @@
+<div id="fr-yg-club-mag-root">
+  <style>
+    #fr-yg-club-mag-root {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      clear: both;
+      flex: 0 0 100%;
+      flex-basis: 100%;
+      grid-column: 1 / -1;
+      margin: 1.25rem 0 0;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      box-sizing: border-box;
+    }
+    #fr-yg-club-mag-root #fr-yg-club-mag-panel {
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 0 0.85rem 1.15rem;
+      background: transparent;
+      border: 0;
+      box-sizing: border-box;
+    }
+    #fr-yg-club-mag-root #fr-yg-club-mag-hdr {
+      display: block;
+      width: 100%;
+      margin: 0;
+      padding: 0.75rem 0 0.35rem;
+      border-top: 1px solid #d8d8d8;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: #333;
+      background: transparent;
+      text-align: left;
+    }
+    #fr-yg-club-mag-root #fr-yg-club-mag-intro {
+      display: block;
+      width: 100%;
+      margin: 0.75rem 0 1rem;
+      color: #555;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      text-align: left;
+    }
+    #fr-yg-club-mag-root #fr-yg-club-mag-card {
+      display: flex;
+      gap: 1rem;
+      align-items: stretch;
+      width: 100%;
+      padding: 0.85rem;
+      border: 1px solid #e2e2e2;
+      border-radius: 6px;
+      background: #fff;
+      box-sizing: border-box;
+    }
+    #fr-yg-club-mag-root #fr-yg-club-mag-cover {
+      flex: 0 0 clamp(110px, 22vw, 150px);
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      text-decoration: none;
+    }
+    #fr-yg-club-mag-root #fr-yg-club-mag-cover img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 150px;
+      object-fit: cover;
+      object-position: top center;
+    }
+    #fr-yg-club-mag-root #fr-yg-club-mag-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    #fr-yg-club-mag-root #fr-yg-club-mag-series { margin: 0 0 0.15rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; color: #666; }
+    #fr-yg-club-mag-root #fr-yg-club-mag-issue { margin: 0 0 0.25rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #5c2d6e; }
+    #fr-yg-club-mag-root #fr-yg-club-mag-title { margin: 0 0 0.45rem; font-size: 1.05rem; font-weight: 700; line-height: 1.3; color: #222; }
+    #fr-yg-club-mag-root #fr-yg-club-mag-teaser { margin: 0 0 0.65rem; padding: 0; list-style: none; font-size: 0.82rem; line-height: 1.45; color: #555; }
+    #fr-yg-club-mag-root #fr-yg-club-mag-teaser li { position: relative; padding-left: 0.85rem; margin-bottom: 0.2rem; }
+    #fr-yg-club-mag-root #fr-yg-club-mag-teaser li::before { content: '•'; position: absolute; left: 0; color: #5c2d6e; font-weight: 700; }
+    #fr-yg-club-mag-root #fr-yg-club-mag-cta { display: inline-flex; align-items: center; align-self: flex-start; gap: 0.35rem; padding: 0.48rem 0.85rem; font-size: 0.82rem; font-weight: 700; color: #fff; background: #6baa1a; border: 1px solid #5f9617; border-radius: 4px; text-decoration: none; }
+    #fr-yg-club-mag-root #fr-yg-club-mag-cta:hover { background: #5a9114; border-color: #4f8012; color: #fff; text-decoration: none; }
+    @media (max-width: 768px) {
+      #fr-yg-club-mag-root { margin-top: 1.5rem; }
+      #fr-yg-club-mag-root #fr-yg-club-mag-panel { padding: 0 0.65rem 1rem; }
+      #fr-yg-club-mag-root #fr-yg-club-mag-hdr { padding-top: 1rem; font-size: 1rem; }
+      #fr-yg-club-mag-root #fr-yg-club-mag-intro { margin-top: 0.85rem; margin-bottom: 1.1rem; font-size: 0.95rem; }
+      #fr-yg-club-mag-root #fr-yg-club-mag-card { flex-direction: column; align-items: center; text-align: center; padding: 1rem 0.85rem; gap: 1.1rem; }
+      #fr-yg-club-mag-root #fr-yg-club-mag-cover { flex: 0 0 auto; width: min(220px, 72vw); }
+      #fr-yg-club-mag-root #fr-yg-club-mag-cover img { min-height: 0; aspect-ratio: 3 / 4; }
+      #fr-yg-club-mag-root #fr-yg-club-mag-copy { align-items: center; width: 100%; }
+      #fr-yg-club-mag-root #fr-yg-club-mag-teaser { text-align: left; display: inline-block; margin-left: auto; margin-right: auto; }
+      #fr-yg-club-mag-root #fr-yg-club-mag-cta { align-self: center; padding: 0.55rem 1rem; font-size: 0.88rem; }
+    }
+  </style>
+
+  <div id="fr-yg-club-mag-panel">
+    <div id="fr-yg-club-mag-hdr">{{ fields.headline }}</div>
+    <p id="fr-yg-club-mag-intro">{{ fields.intro }}</p>
+
+    <div id="fr-yg-club-mag-card">
+      <a id="fr-yg-club-mag-cover" href="{{ fields.latest_url }}" target="_blank" rel="noopener" aria-label="Open {{ fields.latest_title }}">
+        <img src="{{ fields.latest_cover }}" alt="{{ fields.latest_title }} cover" loading="lazy">
+      </a>
+      <div id="fr-yg-club-mag-copy">
+        <p id="fr-yg-club-mag-series">{{ fields.latest_series }}</p>
+        <p id="fr-yg-club-mag-issue">{{ fields.latest_issue }}</p>
+        <div id="fr-yg-club-mag-title">{{ fields.latest_title }}</div>
+        <ul id="fr-yg-club-mag-teaser">
+          <li>{{ fields.latest_teaser_1 }}</li>
+          <li>{{ fields.latest_teaser_2 }}</li>
+          <li>{{ fields.latest_teaser_3 }}</li>
+        </ul>
+        <a id="fr-yg-club-mag-cta" href="{{ fields.latest_url }}" target="_blank" rel="noopener">{{ fields.latest_cta }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+flowchart TD
+    START([FR — viewed OOS product back in stock]) --> E1[Email — immediate product + dispatch]
+    E1 --> CLUB{club_member?}
+    CLUB -->|Yes| MEM[Member price shown]
+    CLUB -->|No| NOM[Standard price + Club footer]
+    MEM --> EXIT([Exit — 1 email])
+    NOM --> EXIT

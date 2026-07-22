@@ -1,0 +1,8 @@
+flowchart TD
+    START([club_payment_failed = Y]) --> FE1[Email — immediate update payment]
+    FE1 --> D1[Delay 3 days]
+    D1 --> FE2[Email 2 — discounts paused]
+    FE2 --> FIXED{Payment fixed?}
+    FIXED -->|Yes| EXIT1([Exit])
+    FIXED -->|No| FE3[Email 3 — final before lapse]
+    FE3 --> LAPSE([Route to P2.4 Club lapsed])

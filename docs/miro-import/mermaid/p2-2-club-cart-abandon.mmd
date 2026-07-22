@@ -1,0 +1,10 @@
+flowchart TD
+    START([Club SKU 820001 in cart — abandoned<br/>club_member = N]) --> MIX{Plants also in cart?}
+    MIX -->|Yes| E1A[Email 1 — combined savings maths]
+    MIX -->|No| E1B[Email 1 — perks only £10/yr]
+    E1A --> D1[Delay 24h]
+    E1B --> D1
+    D1 --> PURCH{Purchased?}
+    PURCH -->|Yes| EXIT1([Exit → P1.2 Club welcome])
+    PURCH -->|No| E2[Email 2 — price lock + voucher pack]
+    E2 --> EXIT2([Exit])

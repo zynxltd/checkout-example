@@ -1,0 +1,11 @@
+flowchart TD
+    START([Club membership purchased]) --> E1["Email 1 — immediate<br/>Perks + log in with membership email"]
+    E1 --> D1[Delay 3 days]
+    D1 --> LOG1{Logged-in purchase since join?}
+    LOG1 -->|Yes| EXIT1([Exit — activated])
+    LOG1 -->|No| E2[Email 2 — login how-to + support]
+    E2 --> D2[Delay 4 days]
+    D2 --> LOG2{Logged-in purchase?}
+    LOG2 -->|Yes| EXIT2([Exit])
+    LOG2 -->|No| E3[Email 3 — CS contact offer]
+    E3 --> EXIT3([Exit])

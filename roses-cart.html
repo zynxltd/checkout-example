@@ -1,0 +1,1365 @@
+{# Basket slot: Append to `#orderForm` (before Gift Options) or `#cartpage-nosto-1` (after). NEVER `.wrapper` direct child or `.product-content > :last-child` #}
+
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+{# VARIABLES #}
+{% set yougardenBlue = "#264f1c" %}
+{% set yougardenBlueDark = "#1a3d14" %}
+{% set yougardenDark = "#2c3e50" %}
+{% set priceWeight = fields.productPrice.fontWeight|default(0)|int %}
+{% if fields.productPrice.bold and priceWeight < 700 %}
+    {% set priceWeight = 700 %}
+{% elif priceWeight == 0 %}
+    {% set priceWeight = 400 %}
+{% endif %}
+
+{% if fields.image.salesBadge == "yougarden" %}
+    {% set salesBadgeColor = "#e3185d" %}
+{% elif fields.image.salesBadge == "gardeningdirect" %}
+    {% set salesBadgeColor = "#d00" %}
+{% elif fields.image.salesBadge == "plantsmailshop" %}
+    {% set salesBadgeColor = "#de6926" %}
+{% elif fields.image.salesBadge == "roses.co.uk" %}
+    {% set salesBadgeColor = "#f2eadd" %}
+{% endif %}
+
+{% set isHarkness = true %}
+
+
+<div class="{{safeid}}__basket-host">
+<div class="{{safeid}}__container">
+<div id="{{safeid}}__root" class="{{safeid}} {{safeid}}__sb-wrapper {% if isHarkness %}{{safeid}}__sb-wrapper--harkness{% endif %}" data-fr-block="{{safeid}}">
+
+    {# headline start #}
+	{% if fields.headline.active %}
+
+    <div class="{{safeid}}__headline-wrapper" style="{% if isHarkness %}margin: 0 0 {{ fields.headline.bottomMargin.size }}{{ fields.headline.bottomMargin.unit }} 0; padding: 0; width: 100%;{% else %}margin-bottom: {{ fields.headline.bottomMargin.size }}{{ fields.headline.bottomMargin.unit }};{% endif %}">
+		<span class="{{safeid}}__headline-text" style="font-size: {{ fields.headline.size.size }}{{ fields.headline.size.unit }};{% if isHarkness %} color: {{ fields.headline.colors.foreground or '#474747' }};{% endif %}">{{ mergeField(fields.headline.text) }}</span>
+    </div>
+
+{% endif %}
+{# headline end #}
+
+{# sub-headline start #}
+{% if fields.subHeadline.active %}
+
+    <div class="{{safeid}}__sub-headline">
+        {{ fields.subHeadline.text }}
+    </div>
+
+{% endif %}
+{# sub-headline end #}
+
+{% if fields.divider.active %}
+
+    {% if fields.divider.active %}
+        <div class="{{safeid}}__divider"></div>
+    {% endif %}
+
+{% endif %}
+
+    {# products start #}
+
+    <div class="{{safeid}}__slick">
+
+        {% for row in products|batch(cols) %}
+            {% for product in row %}
+                {# product card start #}
+                <div class="{{safeid}}__slide">
+                    <div class="{{safeid}}__custom-product-box">
+
+
+                        {# product image start #}
+                        {% if fields.image.active %}
+                            <div class="{{safeid}}__product-image">
+                                <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                    utm_campaign=mergeField(fields.utmCampaign, {}),
+                                    utm_medium=mergeField(fields.utmMedium, {}),
+                                    utm_source=mergeField(fields.utmSource, {})) }}">
+                                    {% set saving = (product.ruv - product.uv) / product.ruv * 100 %}
+                                    {% if saving > 0 and not isHarkness %}
+                                    <div class="{{safeid}}__savings-badge"><div class="{{safeid}}__save"><span class="{{safeid}}__percentage">{{ saving|round(0) }}<span class="{{safeid}}__symbol">%</span></span><br>OFF</div></div>
+                                    {% endif %}
+                                    <img src="{{ product.img }}" loading="lazy" alt="{{ product.n }}">
+                                </a>
+                            </div>
+                        {% endif %}
+                        {# product image end #}
+
+                        {# social proof start #}
+                        {% if fields.socialProofMessaging.active  %}
+                            <div class="{{safeid}}__social-proof">
+                                {{ socialProof(product) }}
+                            </div>
+                        {% endif %}
+                        {# social proof end #}
+
+                        {# ratings start #}
+                        {% if fields.ratingIcons.active %}
+                            <div class="{{safeid}}__ratings">
+                                {% if product|addProductRatings %}
+                                    {{ product| addProductRatings }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        {# ratings end #}
+
+                        {# product name start #}
+                        {% if fields.productName.active  %}
+                            <div class="{{safeid}}__product-name">
+                                <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                    utm_campaign=mergeField(fields.utmCampaign, {}),
+                                    utm_medium=mergeField(fields.utmMedium, {}),
+                                    utm_source=mergeField(fields.utmSource, {})) }}">
+                                    {{ product.n }}
+                                </a>
+                            </div>
+                        {% endif %}
+                        {# product name end #}
+
+                        {# Fancy Centered Price Container #}
+                        <div class="{{safeid}}__product-price-container-fancy">
+                            {# product was price start - hidden for Harkness (no discount badge) #}
+                            {% if fields.productWasPrice.active and not isHarkness %}
+                                <div class="{{safeid}}__product-was-price">
+                                    {% if product.ruv and product.ruv > product.uv %}
+                                         <span>{{ product.ruv|format_currency(product.curr, 2) }}</span>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {# product was price end #}
+
+                            {# product price start #}
+                            {% if fields.productPrice.active %}
+                                <div class="{{safeid}}__product-price-fancy">
+                                    <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                        utm_campaign=mergeField(fields.utmCampaign, {}),
+                                        utm_medium=mergeField(fields.utmMedium, {}),
+                                        utm_source=mergeField(fields.utmSource, {})) }}" target="_blank" style="font-weight: {{ priceWeight }};">
+                                        <span class="{{safeid}}__price-label" style="font-weight: {{ priceWeight }};">From</span>
+                                        <span class="{{safeid}}__price-amount" style="font-weight: {{ priceWeight }};">{{ product.uv|format_currency(product.curr,2) }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {# product price end #}
+                        </div>
+                        {# product price end #}
+
+
+
+                            {# cta start #}
+                            {% if fields.callToAction.active %}
+                                <a class="{{safeid}}__product-cta-button" href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                        utm_campaign=mergeField(fields.utmCampaign, {}),
+                                        utm_medium=mergeField(fields.utmMedium, {}),
+                                        utm_source=mergeField(fields.utmSource, {})) }}" target="_blank">
+                                    {{ fields.callToAction.text }}
+                                </a>
+                            {% endif %}
+                            {# cta end #}
+                    </div>
+
+                </div>
+                {# product card end #}
+            {% endfor %}
+        {% endfor %}
+
+    </div>
+    {# products end #}
+
+</div>
+</div>
+</div>
+
+<style>
+    .{{safeid}}__basket-host {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        clear: both;
+        float: none !important;
+        position: relative;
+        margin: 12px 0 16px;
+        box-sizing: border-box;
+        overflow: hidden;
+        contain: layout style;
+    }
+
+    .{{safeid}}__container {
+        display: block;
+        width: 100%;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 0;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .{{safeid}}__container {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .basket .wrapper > .{{safeid}}__basket-host {
+        grid-column: 1 / -1;
+        float: none !important;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .basket .col-lg-7 > .{{safeid}}__basket-host,
+    .basket .col-lg-7 .{{safeid}}__basket-host {
+        float: none !important;
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .basket .col-lg-7:has(.{{safeid}}__basket-host),
+    .basket .wrapper > .col-lg-7:has(.{{safeid}}__basket-host) {
+        min-width: 0;
+    }
+
+    .basket #orderForm > .{{safeid}}__basket-host,
+    .basket .product-table + .{{safeid}}__basket-host {
+        clear: both;
+    }
+
+    .basket .{{safeid}}__basket-host #{{safeid}}__root .{{safeid}}__headline-wrapper {
+        margin-top: 0;
+        margin-bottom: 12px;
+        padding-bottom: 0;
+    }
+
+    /* Harkness — match roses-home-mp styling, no green section background */
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness {
+        background-color: transparent !important;
+        background: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__headline-wrapper {
+        width: 100% !important;
+        padding: 0 !important;
+        float: none !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__headline-text {
+        font-family: "Forum", 'Times New Roman', Georgia, serif !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.6px !important;
+        text-transform: none !important;
+        color: {{ fields.headline.colors.foreground or '#474747' }} !important;
+        border: 0 !important;
+        display: block !important;
+        width: 100% !important;
+        line-height: 1.2 !important;
+        text-align: center !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__sub-headline {
+        font-family: 'Forum', 'Times New Roman', Georgia, serif !important;
+        color: #504e4e;
+        background-color: transparent !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name a {
+        font-family: {{ fields.productName.font or 'Raleway' }}, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        color: #504e4e !important;
+        font-weight: 400 !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name a:hover {
+        color: #b4b199 !important;
+        opacity: 1;
+        transform: none;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name a::after {
+        background: linear-gradient(90deg, transparent, #b4b199, transparent) !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name a:hover::after {
+        transform: translateX(-50%) scaleX(1);
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-price-fancy a,
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__price-label,
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__price-amount {
+        font-family: {{ fields.productPrice.font or 'Raleway' }}, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+        color: #504e4e !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-cta-button {
+        font-family: 'Raleway', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        background-color: #504e4e !important;
+        color: #ffffff !important;
+        border: 1px solid #504e4e !important;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-cta-button:hover {
+        background-color: #b4b199 !important;
+        color: #ffffff !important;
+        border-color: #b4b199 !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__swipe-hint {
+        background: #504e4e;
+        color: #ffffff;
+        font-family: 'Raleway', sans-serif;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__savings-badge {
+        display: none !important;
+    }
+
+    #{{safeid}}__root .{{safeid}}__swipe-hint {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        opacity: 0 !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image,
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image a,
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image img {
+        border-radius: 0 !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+        padding: 10px !important;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image img {
+        width: 100%;
+        height: auto;
+        max-height: {% if fields.image.height > 50 %}{{ fields.image.height }}{% else %}180{% endif %}px;
+        object-fit: contain;
+        display: block;
+    }
+
+    #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__most-popular-badge {
+        background-color: #504e4e !important;
+    }
+
+    #{{safeid}}__root {
+        box-sizing: border-box;
+        display: block;
+        clear: both;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        flex: none;
+        overflow-x: hidden;
+        overflow-x: clip;
+        isolation: isolate;
+    }
+
+    /* Slick carousel — scoped to this block only (no global slick.css) */
+    #{{safeid}}__root .{{safeid}}__slick.slick-slider { position: relative; display: block; box-sizing: border-box; -webkit-user-select: none; user-select: none; touch-action: pan-y; -webkit-tap-highlight-color: transparent; }
+    #{{safeid}}__root .{{safeid}}__slick:not(.slick-initialized) {
+        overflow: hidden;
+        max-width: 100%;
+    }
+
+    #{{safeid}}__root .{{safeid}}__slick:not(.slick-initialized) > .{{safeid}}__slide:nth-child(n+2) {
+        display: none;
+    }
+
+    #{{safeid}}__root .{{safeid}}__slick .slick-list {
+        position: relative;
+        display: block;
+        overflow: hidden !important;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #{{safeid}}__root .{{safeid}}__slick .slick-list:focus { outline: none; }
+    #{{safeid}}__root .{{safeid}}__slick .slick-list.dragging { cursor: pointer; cursor: hand; }
+    #{{safeid}}__root .{{safeid}}__slick.slick-slider .slick-track,
+    #{{safeid}}__root .{{safeid}}__slick.slick-slider .slick-list { transform: translate3d(0, 0, 0); }
+    #{{safeid}}__root .{{safeid}}__slick .slick-track { position: relative; left: 0; top: 0; display: block; margin-left: auto; margin-right: auto; }
+    #{{safeid}}__root .{{safeid}}__slick .slick-track:before,
+    #{{safeid}}__root .{{safeid}}__slick .slick-track:after { display: table; content: ''; }
+    #{{safeid}}__root .{{safeid}}__slick .slick-track:after { clear: both; }
+    #{{safeid}}__root .{{safeid}}__slick.slick-loading .slick-track { visibility: hidden; }
+    #{{safeid}}__root .{{safeid}}__slick .slick-slide { display: none; float: left; height: 100%; min-height: 1px; }
+    #{{safeid}}__root .{{safeid}}__slick .slick-slide img { display: block; }
+    #{{safeid}}__root .{{safeid}}__slick .slick-slide.slick-loading img { display: none; }
+    #{{safeid}}__root .{{safeid}}__slick .slick-slide.dragging img { pointer-events: none; }
+    #{{safeid}}__root .{{safeid}}__slick.slick-initialized .slick-slide { display: block; }
+    #{{safeid}}__root .{{safeid}}__slick.slick-loading .slick-slide { visibility: hidden; }
+    #{{safeid}}__root .{{safeid}}__slick.slick-vertical .slick-slide { display: block; height: auto; border: 1px solid transparent; }
+    #{{safeid}}__root .{{safeid}}__slick .slick-arrow.slick-hidden { display: none; }
+
+    #{{safeid}}__root .{{safeid}}__slick {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow: hidden;
+        position: relative;
+    }
+
+    #{{safeid}}__root .{{safeid}}__slick .slick-list {
+        width: 100% !important;
+        max-width: 100%;
+    }
+
+    #{{safeid}}__root .{{safeid}}__slick .slick-track {
+        max-width: none;
+    }
+
+    #{{safeid}}__root .{{safeid}}__slick .slick-slide {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        {% if fields.cardStyling.active %}
+            background-color: {{ fields.cardStyling.backgroundColor }};
+            border-radius: {{ fields.cardStyling.cornerStyle }};
+            {% if fields.cardStyling.shadowtoggle %}
+                box-shadow: 0px 0px 10px 0px;
+            {% endif %}
+            {% if fields.cardStyling.toggleBorder %}
+                border: {{ fields.cardStyling.borderWidth }}px {{ fields.cardStyling.borderStyle }} {{ fields.cardStyling.borderColor }};
+            {% endif %}
+        {% endif %}
+        align-items: unset;
+    }
+
+    #{{safeid}}__root .{{safeid}}__slick.slick-initialized .slick-slide,
+    #{{safeid}}__root .{{safeid}}__slick .slick-track {
+        display: flex;
+        max-width: none;
+    }
+
+
+    /* slick arrows styling - centered with product images */
+    #{{safeid}}__root .{{safeid}}__slick .slick-arrow {
+        position: absolute;
+        top: 0;
+        z-index: 2;
+        width: 40px;
+        height: 40px;
+        background: rgba(38, 79, 28, 0.9);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        font-size: 0;
+        opacity: 0.9;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        margin: 0;
+    }
+    
+    /* Center arrows with product images using the first slide's image as reference */
+    #{{safeid}}__root .{{safeid}}__slick .slick-slide:first-child .{{safeid}}__product-image {
+        position: relative;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__slick .slick-arrow {
+        transform: translateY(calc(10px + {% if fields.image.height > 50 %}{{ fields.image.height }}{% else %}50{% endif %}px / 2 - 20px));
+    }
+    
+    #{{safeid}}__root .{{safeid}}__slick .slick-arrow.show-hint {
+        opacity: 0.9;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__slick .slick-arrow:hover {
+        background: rgba(38, 79, 28, 1);
+        opacity: 1;
+        transform: translateY(calc(10px + {% if fields.image.height > 50 %}{{ fields.image.height }}{% else %}50{% endif %}px / 2 - 20px)) scale(1.1);
+        box-shadow: 0 4px 12px rgba(38, 79, 28, 0.4);
+    }
+    
+    #{{safeid}}__root .{{safeid}}__slick .slick-prev {
+        left: 10px;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__slick .slick-next {
+        right: 10px;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__slick .slick-arrow:before {
+        display: none;
+    }
+    
+    /* Arrow icons using CSS */
+    #{{safeid}}__root .{{safeid}}__slick .slick-prev:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-right: 10px solid #fff;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin-left: -2px;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__slick .slick-next:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 10px solid #fff;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin-left: 2px;
+    }
+    
+    /* Swipe hint message - positioned relative to this smart block only */
+    #{{safeid}}__root .{{safeid}}__swipe-hint {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(38, 79, 28, 0.95);
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 10;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        pointer-events: none;
+        box-shadow: 0 4px 16px rgba(38, 79, 28, 0.3);
+        white-space: nowrap;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__swipe-hint.show-hint {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Hide carousel arrows on mobile */
+    @media only screen and (max-width: 767px) {
+        #{{safeid}}__root .{{safeid}}__slick .slick-arrow,
+        #{{safeid}}__root .{{safeid}}__slick .slick-prev,
+        #{{safeid}}__root .{{safeid}}__slick .slick-next {
+            display: none !important;
+        }
+    }
+    
+    #{{safeid}}__root .{{safeid}}__swipe-hint-icon {
+        font-size: 18px;
+        animation: {{safeid}}__swipe-hint-bounce 1.5s ease-in-out infinite;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__swipe-hint-text {
+        font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
+    @keyframes {{safeid}}__swipe-hint-bounce {
+        0%, 100% {
+            transform: translateX(0);
+        }
+        50% {
+            transform: translateX(5px);
+        }
+    }
+    
+    @media only screen and (max-width: 768px) {
+        #{{safeid}}__root .{{safeid}}__swipe-hint {
+            bottom: 10px;
+            font-size: 12px;
+            padding: 8px 16px;
+        }
+        
+        #{{safeid}}__root .{{safeid}}__slick .slick-arrow {
+            width: 36px;
+            height: 36px;
+        }
+        
+        #{{safeid}}__root .{{safeid}}__slick .slick-prev:after {
+            border-top-width: 7px;
+            border-bottom-width: 7px;
+            border-right-width: 9px;
+        }
+        
+        #{{safeid}}__root .{{safeid}}__slick .slick-next:after {
+            border-top-width: 7px;
+            border-bottom-width: 7px;
+            border-left-width: 9px;
+        }
+    }
+
+    /* slick dots styling */
+    #{{safeid}}__root .{{safeid}}__slick .slick-dots {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 20px 0 0 0;
+    }
+    #{{safeid}}__root .{{safeid}}__slick .slick-dots li {
+        display: inline-block;
+        margin: 0 5px;
+        padding: 0;
+    }
+    #{{safeid}}__root .{{safeid}}__slick .slick-dots li button {
+        font-size: 0;
+        line-height: 0;
+        display: block;
+        width: 12px;
+        height: 12px;
+        padding: 0;
+        cursor: pointer;
+        color: transparent;
+        border: 0;
+        outline: none;
+        background: #ccc;
+        border-radius: 50%;
+        transition: background 0.3s;
+    }
+    #{{safeid}}__root .{{safeid}}__slick .slick-dots li button:hover,
+    #{{safeid}}__root .{{safeid}}__slick .slick-dots li.slick-active button {
+        background: #333;
+    }
+    #{{safeid}}__root .{{safeid}}__slick .slick-dots li button:before {
+        display: none !important;
+    }
+
+    /* header styles */
+
+	#{{safeid}}__root {
+		display: block;
+		clear: both;
+		flex: none;
+		margin: 0 auto;
+		background-color: {{ fields.backgroundColor or '#FFFFFF' }};
+		position: relative;
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 100%;
+		min-width: 0;
+		overflow-x: hidden;
+		overflow-x: clip;
+		{% if fields.carouselActive  %}
+			max-height: fit-content;
+		{% endif %}
+		{% if not fields.fillSmartBlockParentContainer %}
+			max-width: min(100%, min(1000px, {{ fields.width }}px));
+		{% endif %}
+		{% if fields.borders.active %}
+			border:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+		{% endif %}
+	}
+
+	/* Fancy Headline Styles - Solid Green Color */
+	#{{safeid}}__root .{{safeid}}__headline-wrapper {
+		text-align: center;
+		margin-bottom: 20px;
+		position: relative;
+		padding-bottom: 15px;
+		margin-top: {{ fields.headline.topMargin.size }}{{ fields.headline.topMargin.unit }};
+		margin-bottom: {{ fields.headline.bottomMargin.size }}{{ fields.headline.bottomMargin.unit }};
+	}
+
+	#{{safeid}}__root .{{safeid}}__headline-text {
+		display: inline-block;
+		font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-size: 21px;
+		font-weight: 700;
+		color: #483F3A;
+		letter-spacing: -0.6px;
+		line-height: 1.3;
+		position: relative;
+		z-index: 2;
+	}
+
+	#{{safeid}}__root .{{safeid}}__headline-underline {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 140px;
+		height: 3px;
+		background: linear-gradient(90deg, transparent 0%, {{ yougardenBlue }} 30%, {{ yougardenBlueDark }} 50%, {{ yougardenBlue }} 70%, transparent 100%);
+		border-radius: 2px;
+		box-shadow: 0 1px 4px rgba(38, 79, 28, 0.2);
+		animation: {{safeid}}__underline-pulse 2s ease-in-out infinite;
+	}
+	
+	@keyframes {{safeid}}__underline-pulse {
+		0%, 100% {
+			opacity: 1;
+			width: 140px;
+			box-shadow: 0 1px 4px rgba(38, 79, 28, 0.2);
+		}
+		50% {
+			opacity: 0.8;
+			width: 160px;
+			box-shadow: 0 2px 8px rgba(38, 79, 28, 0.4);
+		}
+	}
+	
+	@keyframes {{safeid}}__underline-glow {
+		0%, 100% {
+			box-shadow: 0 1px 4px rgba(38, 79, 28, 0.2);
+		}
+		50% {
+			box-shadow: 0 2px 12px rgba(38, 79, 28, 0.5);
+		}
+	}
+
+	#{{safeid}}__root .{{safeid}}__sub-headline {
+		text-align: {{ fields.subHeadline.alignment }};
+		padding: {{ fields.subHeadline.padding.size }}{{ fields.subHeadline.padding.unit }};
+		margin-top: {{ fields.subHeadline.topMargin.size }}{{ fields.subHeadline.topMargin.unit }};
+		margin-bottom: {{ fields.subHeadline.bottomMargin.size }}{{ fields.subHeadline.bottomMargin.unit }};
+		color: {{ fields.subHeadline.colors.foreground or '#000000' }};
+		background-color: {{ fields.subHeadline.colors.background or '#FFFFFF' }};
+		font-family: {{ fields.subHeadline.font }};
+		font-size: {{ fields.subHeadline.size.size }}{{ fields.subHeadline.size.unit }};
+		{% if fields.subHeadline.bold %}
+			font-weight:bold;
+		{% endif %}
+		{% if fields.subHeadline.italics %}
+			font-style: italic;
+		{% endif %}
+	}
+
+	/* divider styles */
+
+    #{{safeid}}__root .{{safeid}}__divider {
+        height: {{fields.divider.weight}}px;
+        background-color: {{fields.divider.color}};
+        border-radius: 10px;
+        margin-bottom: 1em;
+	}
+
+
+    /* product styles — scoped to this block only */
+    #{{safeid}}__root .{{safeid}}__custom-product-box,
+    #{{safeid}}__root .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+        display: flex !important;
+        flex-direction: column !important;
+		padding: 10px !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        overflow: visible !important;
+    }
+
+	#{{safeid}}__root .{{safeid}}__product-image {
+		position: relative;
+		display: inline-block;
+		width: fit-content;
+		max-width: 100%;
+		align-self: center;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+		border-radius: 16px;
+	}
+
+	#{{safeid}}__root .{{safeid}}__product-image a {
+		position: static;
+		display: inline-block;
+		width: fit-content;
+		max-width: 100%;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+		border-radius: 16px;
+	}
+
+	#{{safeid}}__root .{{safeid}}__product-image img {
+		height: {% if fields.image.height > 50 %}{{ fields.image.height }}{% else %}50{% endif %}px;
+        width: auto;
+        display: block;
+		margin: 0;
+		padding: 0;
+		border-radius: 16px;
+    }
+
+	/* MOST POPULAR badge overlay - top left with rounded corners */
+	#{{safeid}}__root .{{safeid}}__most-popular-badge {
+		position: absolute;
+		top: 0 !important;
+		left: 0 !important;
+		z-index: 10 !important;
+		background-color: #264f1c !important; /* YouGarden green color */
+		color: #ffffff !important;
+		font-family: Arial, sans-serif !important;
+		font-size: 12px !important;
+		font-weight: bold !important;
+		text-transform: uppercase !important;
+		padding: 8px 12px !important;
+		border-radius: 0 0 12px 0 !important;
+		box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+		display: block !important;
+		margin: 0 !important;
+		line-height: 1 !important;
+		white-space: nowrap !important;
+	}
+
+    #{{safeid}}__root .{{safeid}}__savings-badge {
+        position: absolute;
+        top: -11px;
+        right: -10px;
+        z-index: 2;
+        width: 72px;
+        height: 72px;
+        background: #e3185d;
+        border-radius: 50%;
+        border: solid 2px #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    @keyframes {{safeid}}__badge-pulse {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        50% {
+            transform: scale(1.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        }
+    }
+    
+    #{{safeid}}__root .{{safeid}}__savings-badge #{{safeid}}__root .{{safeid}}__save {
+        text-align: center;
+        font-size: 16px;
+        line-height: 0.8;
+        color: #fff;
+        font-weight: 900;
+        display: block;
+        margin-top: 8px;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__savings-badge #{{safeid}}__root .{{safeid}}__save #{{safeid}}__root .{{safeid}}__percentage {
+        display: block;
+        font-size: 16px;
+        line-height: 0.2;
+        margin-bottom: 0;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__savings-badge #{{safeid}}__root .{{safeid}}__save #{{safeid}}__root .{{safeid}}__symbol {
+        font-size: 15px;
+        vertical-align: top;
+    }
+
+	/* Fancy Centered Product Name - Enhanced Visual Design */
+	#{{safeid}}__root .{{safeid}}__product-name {
+		text-align: center;
+        line-height: 1.5;
+		min-height: 48px;
+        margin-top: 6px;
+        margin-bottom: 4px;
+        padding: 0 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+	}
+
+    #{{safeid}}__root .{{safeid}}__product-name a {
+		font-family: 'Rubik', {{ fields.productName.font }}, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-size: {{ fields.productName.size.size }}{{ fields.productName.size.unit }};
+		color: {{ fields.productName.color or '#1a1a1a' }};
+		font-weight: 700;
+		{% if fields.productName.italics %}
+			font-style: italic;
+		{% endif %}
+        vertical-align: baseline;
+        background: 0 0;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-align: center;
+        line-height: 1.5;
+        letter-spacing: -0.2px;
+        position: relative;
+        padding: 4px 0;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__product-name a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 60%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, {{ yougardenBlue }}, transparent);
+        transition: transform 0.3s ease;
+    }
+    
+    #{{safeid}}__root .{{safeid}}__product-name a:hover {
+        color: {{ yougardenBlue }};
+        transform: translateY(-1px);
+    }
+    
+    #{{safeid}}__root .{{safeid}}__product-name a:hover::after {
+        transform: translateX(-50%) scaleX(1);
+    }
+
+	/* Fancy Centered Price Container */
+	#{{safeid}}__root .{{safeid}}__product-price-container-fancy {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		margin-top: 4px;
+		padding: 4px 0 6px;
+		text-align: center;
+	}
+
+	/* Fancy Price Styling */
+	#{{safeid}}__root .{{safeid}}__product-price-fancy {
+		display: inline-flex;
+		align-items: baseline;
+		justify-content: center;
+		gap: 6px;
+		font-family: {{ fields.productPrice.font }};
+		position: relative;
+	}
+
+	#{{safeid}}__root .{{safeid}}__product-price-fancy a {
+		text-decoration: none;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 6px;
+		transition: transform 0.2s ease;
+	}
+
+	#{{safeid}}__root .{{safeid}}__price-label {
+		font-size: 13px;
+		color: #666;
+		font-weight: 500;
+		letter-spacing: 0.3px;
+		text-transform: uppercase;
+		opacity: 0.8;
+	}
+
+	#{{safeid}}__root .{{safeid}}__price-amount {
+		font-size: {{ fields.productPrice.size.size}}{{ fields.productPrice.size.unit }};
+		font-weight: 700;
+		color: #264F1C;
+		letter-spacing: -0.5px;
+		position: relative;
+		display: inline-block;
+	}
+
+	#{{safeid}}__root .{{safeid}}__product-price-fancy a:hover {
+		transform: scale(1.05);
+	}
+
+	#{{safeid}}__root .{{safeid}}__product-price-fancy a:hover #{{safeid}}__root .{{safeid}}__price-amount {
+		color: #264F1C;
+	}
+
+	/* Was Price Styling - Above main price */
+	#{{safeid}}__root .{{safeid}}__product-was-price {
+		font-family: {{ fields.productWasPrice.font }};
+		font-size: {{fields.productWasPrice.size.size }}{{ fields.productWasPrice.size.unit }};
+		color: {{ fields.productWasPrice.color or '#999999' }};
+		{% if fields.productWasPrice.bold %}
+			font-weight: 600;
+		{% else %}
+			font-weight: 400;
+		{% endif %}
+		{% if fields.productWasPrice.italics %}
+			font-style: italic;
+		{% endif %}
+		text-align: center;
+		line-height: 1.2;
+	}
+
+	#{{safeid}}__root .{{safeid}}__product-was-price span {
+		{% if fields.productWasPrice.strikethrough %}
+			text-decoration: line-through;
+		{% endif %}
+		position: relative;
+		opacity: 0.7;
+	}
+
+	#{{safeid}}__root .{{safeid}}__product-was-price span::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 100%;
+		height: 1.5px;
+		background: #999;
+		transform: translateY(-50%);
+	}
+
+	#{{safeid}}__root .{{safeid}}__product-cta-button {
+		display: block;
+		text-decoration: none;
+		{% if fields.callToAction.bold %}
+			font-weight: bold;
+		{% endif %}
+		{% if fields.callToAction.italics %}
+			font-style: italic;
+		{% endif %}
+		padding:10px 0px;
+		margin-left: 5px;
+		margin-right: 5px;
+		width: 90%;
+		text-align: center;
+		font-family: {{ fields.callToAction.font }};
+		font-size: {{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+		color: {{ fields.callToAction.colors.foreground or '#979797'}};
+		border: {{ fields.callToAction.borderWeight }}px {{ fields.callToAction.borderStyle }} {{ fields.callToAction.borderColor or '#979797' }};
+		{% if fields.callToAction.cornerStyle  == 'rounded' %}
+			border-radius: 24px;
+		{% endif %}
+		{% if fields.callToAction.buttonOutline == 'filled' %}
+			background-color: {{ fields.callToAction.colors.background or '#000000'}};
+		{% endif %}
+		{% if fields.callToAction.buttonOutline == 'outline' %}
+			background-color: transparent;
+		{% endif %}
+	}
+
+	{%if fields.callToActionButtonHover.active %}
+		#{{safeid}}__root .{{safeid}}__product-cta-button:hover {
+			color:  {{ fields.callToActionButtonHover.colors.foreground }};
+			{% if fields.callToActionButtonHover.buttonOutline == 'filled' %}
+				border: {{ fields.callToActionButtonHover.borderWeight }}px {{ fields.callToActionButtonHover.borderStyle }} {{ fields.callToActionButtonHover.borderColor }};
+				background-color: {{ fields.callToActionButtonHover.colors.background }};
+			{% endif %}
+			{% if fields.callToActionButtonHover.buttonOutline == 'outline' %}
+				border: {{ fields.callToActionButtonHover.borderWeight }}px {{ fields.callToActionButtonHover.borderStyle }} {{ fields.callToActionButtonHover.borderColor }};
+				background-color: transparent;
+			{% endif %}
+		}
+	{% endif %}
+
+	/* ratings styles */
+
+	#{{safeid}}__root .{{safeid}}__ratings {
+		padding: 0.5em;
+		margin-top: auto;
+        text-align: {{ fields.ratingIcons.alignment }};
+        width: 100%;
+    }
+
+    .{{ safeid }}__ratings * {
+        text-shadow: none;
+    }
+
+    .{{ safeid }}__ratings text {
+        stroke: {{ fields.ratingIcons.iconBorderColor }};
+        stroke-width: 5%;
+    }
+
+	/* Responsive Headline — non-Harkness only; Harkness uses field sizes below */
+	@media only screen and (max-width: 1024px) {
+		#{{safeid}}__root:not(.{{safeid}}__sb-wrapper--harkness) .{{safeid}}__headline-text {
+			font-size: 21px;
+		}
+	}
+
+	@media only screen and (max-width: 768px) {
+		#{{safeid}}__root:not(.{{safeid}}__sb-wrapper--harkness) .{{safeid}}__headline-wrapper {
+			margin-top: 4px;
+			margin-bottom: 0;
+		}
+
+		#{{safeid}}__root:not(.{{safeid}}__sb-wrapper--harkness) .{{safeid}}__headline-text {
+			font-size: 21px;
+		}
+        
+        #{{safeid}}__root .{{safeid}}__sub-headline {
+            margin-top: 0;
+            margin-bottom: 8px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+	}
+
+	@media only screen and (max-width: 480px) {
+		#{{safeid}}__root:not(.{{safeid}}__sb-wrapper--harkness) .{{safeid}}__headline-wrapper {
+			margin-top: 4px;
+			margin-bottom: 0;
+		}
+
+		#{{safeid}}__root:not(.{{safeid}}__sb-wrapper--harkness) .{{safeid}}__headline-text {
+			font-size: 20px;
+		}
+        
+        #{{safeid}}__root .{{safeid}}__sub-headline {
+            margin-top: 0;
+            margin-bottom: 8px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+	}
+
+    @media only screen and (max-width: 1000px) {
+        #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__headline-text {
+            font-size: {{ fields.headline.tabletSize.size }}{{ fields.headline.tabletSize.unit }} !important;
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__headline-text {
+            font-size: {{ fields.headline.mobileSize.size }}{{ fields.headline.mobileSize.unit }} !important;
+        }
+        #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name a {
+            font-size: {{ fields.productName.mobileSize.size }}{{ fields.productName.mobileSize.unit }} !important;
+        }
+        #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__price-label,
+        #{{safeid}}__root.{{safeid}}__sb-wrapper--harkness .{{safeid}}__price-amount {
+            font-size: {{ fields.productPrice.mobileSize.size }}{{ fields.productPrice.mobileSize.unit }} !important;
+        }
+    }
+
+    #{{safeid}}__root .{{safeid}}__product-price-fancy a,
+    #{{safeid}}__root .{{safeid}}__product-price-fancy a .{{safeid}}__price-label,
+    #{{safeid}}__root .{{safeid}}__product-price-fancy a .{{safeid}}__price-amount {
+        font-weight: {{ priceWeight }} !important;
+        font-synthesis: weight;
+        font-synthesis-weight: auto;
+    }
+     /* Hide carousel arrows on mobile */
+    @media only screen and (max-width: 767px) {
+        #{{safeid}}__root .{{safeid}}__slick .slick-arrow,
+        #{{safeid}}__root .{{safeid}}__slick .slick-prev,
+        #{{safeid}}__root .{{safeid}}__slick .slick-next {
+            display: none !important;
+        }
+        }
+
+    @media only screen and (max-width: 769px){
+        /* On mobile, use a fixed 250px image height to center arrows */
+        #{{safeid}}__root .{{safeid}}__slick .slick-arrow {
+            transform: translateY(calc(10px + 250px / 2 - 40px));
+        }
+
+        #{{safeid}}__root .{{safeid}}__slick .slick-arrow:hover {
+            transform: translateY(calc(10px + 250px / 2 - 40px)) scale(1.1);
+        }
+
+        #{{safeid}}__root .{{safeid}}__slick .slick-slide img {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        }
+        #{{safeid}}__root {
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        position: relative;
+        }
+        #{{safeid}}__root .{{safeid}}__product-image img {
+		height: auto!important;
+    }
+
+		#{{safeid}}__root .{{safeid}}__most-popular-badge {
+			font-size: 10px !important;
+			padding: 6px 10px !important;
+			border-radius: 0 0 6px 0 !important;
+		}
+}
+
+    @media only screen and (max-width: 1000px){
+        #{{safeid}}__root .{{safeid}}__custom-product-box,
+        #{{safeid}}__root .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+  		display: flex !important;
+      	flex-direction: column !important;
+		padding: 10px !important;
+        box-sizing: border-box !important;
+    }
+    }
+</style>
+
+<script>
+(function() {
+    var inactivityTimer;
+    var inactivityDelay = 6000;
+    var $slick, $arrows, $swipeHint;
+    var hasShownSwipeHint = false;
+    var hasUserInteracted = false;
+    var slickSelector = '#{{safeid}}__root .{{safeid}}__slick';
+    var bootAttempts = 0;
+
+    function getJq() {
+        return window.jQuery || window.$;
+    }
+
+    function initSlick() {
+        var $ = getJq();
+        if (!$ || !$.fn || !$.fn.slick) {
+            return false;
+        }
+
+        $slick = $(slickSelector);
+        if (!$slick.length) {
+            return false;
+        }
+        if ($slick.hasClass('slick-initialized')) {
+            return true;
+        }
+
+        $slick.slick({
+            mobileFirst: true,
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            swipeToSlide: true,
+            swipe: true,
+            touchMove: true,
+            draggable: true,
+            touchThreshold: 5,
+            waitForAnimate: false,
+            speed: 400,
+            cssEase: 'ease-out',
+            arrows: {{ fields.carouselActive.active }},
+            dots: {{ fields.carouselPagination.active }},
+            autoplay: true,
+            autoplaySpeed: 3000,
+            infinite: {{ fields.carouselActive.loop }},
+            responsive: [
+                {
+                    breakpoint: 480,
+                    settings: { slidesToShow: 3, slidesToScroll: 1 }
+                },
+                {
+                    breakpoint: 1024,
+                    settings: { slidesToShow: 4, slidesToScroll: 1 }
+                }
+            ]
+        });
+
+        setTimeout(function() {
+            $arrows = $slick.find('.slick-arrow');
+            $swipeHint = $('#{{safeid}}__root .{{safeid}}__swipe-hint');
+            trackInteractions();
+            startInactivityTimer();
+        }, 100);
+
+        return true;
+    }
+
+    function boot() {
+        bootAttempts += 1;
+        if (initSlick()) {
+            return;
+        }
+        if (bootAttempts < 40) {
+            setTimeout(boot, 150);
+        }
+    }
+    
+    function trackInteractions() {
+        // Track carousel-specific interactions only
+        $slick.on('swipe', function() {
+            onUserInteraction();
+        });
+        
+        $slick.on('afterChange', function() {
+            onUserInteraction();
+        });
+        
+        $slick.on('beforeChange', function() {
+            onUserInteraction();
+        });
+        
+        // Track interactions within the carousel area
+        $slick.on('mousedown touchstart click', function() {
+            onUserInteraction();
+        });
+        
+        // Track arrow clicks
+        if ($arrows && $arrows.length) {
+            $arrows.on('click', function() {
+                onUserInteraction();
+            });
+        }
+        
+        // Track mouse movement over carousel (but debounced)
+        var mouseMoveTimeout;
+        $slick.on('mousemove', function() {
+            clearTimeout(mouseMoveTimeout);
+            mouseMoveTimeout = setTimeout(function() {
+                onUserInteraction();
+            }, 500); // Only reset if mouse stops moving for 500ms
+        });
+    }
+    
+    function onUserInteraction() {
+        hasUserInteracted = true;
+        hideHints();
+        clearTimeout(inactivityTimer);
+        // Don't restart timer if user has interacted - swipe hint should only show once
+    }
+    
+    function startInactivityTimer() {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(function() {
+            if (!hasUserInteracted && !hasShownSwipeHint) {
+                showHints();
+                hasShownSwipeHint = true;
+            }
+        }, inactivityDelay);
+    }
+    
+    function showHints() {
+        if ($arrows && $arrows.length) {
+            $arrows.addClass('show-hint');
+        }
+        if ($swipeHint && $swipeHint.length && !hasShownSwipeHint) {
+            $swipeHint.addClass('show-hint');
+        }
+    }
+    
+    function hideHints() {
+        if ($arrows && $arrows.length) {
+            $arrows.removeClass('show-hint');
+        }
+        if ($swipeHint && $swipeHint.length) {
+            $swipeHint.removeClass('show-hint');
+        }
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', boot);
+    } else {
+        boot();
+    }
+})();
+</script>

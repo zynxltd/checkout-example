@@ -1,0 +1,16 @@
+flowchart TD
+    START([Cart abandoned 15+ min]) --> CLUB{club_member?}
+    CLUB -->|Yes| P02([Go to P0.2])
+    CLUB -->|No| E1["Email 1 — 45-90 min<br/>Cart layout + images"]
+    E1 --> PURCH1{Purchased?}
+    PURCH1 -->|Yes| EXIT1([Exit — recovered])
+    PURCH1 -->|No| D1[Delay 24h]
+    D1 --> RFM{rfm_segment?}
+    RFM -->|Repeat| E2A[Email 2 — reminder only]
+    RFM -->|First-time| E2B[Email 2 — reminder + reviews]
+    E2A --> PURCH2{Purchased?}
+    E2B --> PURCH2
+    PURCH2 -->|Yes| EXIT2([Exit])
+    PURCH2 -->|No| D2[Delay 48h]
+    D2 --> E3[Email 3 — Club upsell or modest offer]
+    E3 --> EXIT3([Exit — max 3 emails])

@@ -1,0 +1,16 @@
+flowchart LR
+    AMO[AMO / m tech ecommerce]
+
+    AMO -->|Order placed plants| P11[P1.1 Post-purchase]
+    AMO -->|Club SKU 820001| P12[P1.2 Club welcome]
+    AMO -->|club_renewal_date T-30| P13[P1.3 Club renewal]
+    P13 -->|Payment failed| P13F[P1.3b Failed payment]
+    FR[Fresh Relevance custom events] --> P14[P1.4 Plant Finder / guide / video]
+
+    TX[Transactional emails<br/>order confirm / dispatch] -.->|AMO only — not in DD programs| AMO
+
+    P11 --> DD[Dotdigital sends]
+    P12 --> DD
+    P13 --> DD
+    P13F --> DD
+    P14 --> DD

@@ -1,0 +1,3391 @@
+{
+	"name": "YG - Email Pop up",
+	"slug": "iy3sm2p",
+	"html": "",
+	"active": true,
+	"content_tag": null,
+	"content_type": "popover",
+	"dt": "",
+	"template_style": "",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "YouGarden email capture popup with image, purple panel, and email signup.",
+		"sortOrder": 1,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "coreSection",
+				"name": "Core Settings",
+				"fields": [
+					{
+						"id": "width",
+						"name": "Desktop Width",
+						"description": "Desktop popover width",
+						"inline": true,
+						"type": "padding",
+						"first": true,
+						"default": {
+							"size": 960,
+							"unit": "px"
+						},
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "height",
+						"name": "Desktop Height",
+						"description": "Minimum desktop popover height. Grows taller if content needs more space (up to viewport).",
+						"inline": true,
+						"type": "padding",
+						"first": false,
+						"default": {
+							"size": 600,
+							"unit": "px"
+						},
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "mobileWidth",
+						"name": "Mobile Width",
+						"description": "Maximum mobile popover width. On narrow viewports the popover fills the screen minus margin.",
+						"inline": true,
+						"type": "padding",
+						"first": false,
+						"default": {
+							"size": 700,
+							"unit": "px"
+						},
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "mobileHeight",
+						"name": "Mobile Height",
+						"description": "Maximum mobile popover height. Content can be shorter; taller content scrolls within the overlay.",
+						"inline": true,
+						"type": "padding",
+						"first": false,
+						"default": {
+							"size": 1200,
+							"unit": "px"
+						},
+						"value": "",
+						"sortOrder": 4,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "mobileBreakpoint",
+						"name": "Mobile Breakpoint",
+						"description": "Viewport width (px) below which mobile dimensions apply",
+						"inline": true,
+						"type": "numeric",
+						"first": false,
+						"default": 768,
+						"value": "",
+						"sortOrder": 5,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "padding",
+						"name": "Padding",
+						"description": "Set the padding on the form element of the popover",
+						"inline": true,
+						"type": "padding",
+						"first": false,
+						"default": {
+							"size": 0,
+							"unit": "px"
+						},
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "borderRadius",
+						"name": "Corner Style",
+						"description": "Adjust Corner Style of the entire popover",
+						"inline": true,
+						"type": "select",
+						"first": false,
+						"default": "0px",
+						"value": "",
+						"sortOrder": 4,
+						"options": [
+							[
+								"8px",
+								"Rounded"
+							],
+							[
+								"0px",
+								"Square"
+							]
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "outerBorder",
+						"name": "Outer Border",
+						"description": "Enable / Disable the popover's border",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 5,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "weight",
+								"name": "Weight",
+								"description": "Set the thickness of the border",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 2,
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "style",
+								"name": "Style",
+								"description": "Adjust the border style",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "solid",
+								"value": "",
+								"sortOrder": 2,
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dashed",
+										"Dashed"
+									],
+									[
+										"dotted",
+										"Dotted"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the border color",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 3,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "popoverPosition",
+						"name": "Position on page",
+						"description": "Set the popover's position on the screen",
+						"inline": true,
+						"type": "select",
+						"first": true,
+						"default": "center",
+						"value": "",
+						"sortOrder": 6,
+						"options": [
+							[
+								"top left",
+								"Top Left"
+							],
+							[
+								"top",
+								"Top"
+							],
+							[
+								"top right",
+								"Top Right"
+							],
+							[
+								"left",
+								"Left"
+							],
+							[
+								"center",
+								"Center"
+							],
+							[
+								"right",
+								"Right"
+							],
+							[
+								"bottom left",
+								"Bottom Left"
+							],
+							[
+								"bottom",
+								"Bottom"
+							],
+							[
+								"bottom right",
+								"Bottom Right"
+							]
+						]
+					},
+					{
+						"id": "popoverMargin",
+						"name": "Margin from page edge",
+						"description": "How far the popover should sit away from the viewport's edges",
+						"inline": true,
+						"type": "padding",
+						"first": false,
+						"default": {
+							"unit": "px",
+							"size": 10
+						},
+						"value": "",
+						"sortOrder": 7
+					},
+					{
+						"id": "backgroundColor",
+						"name": "Form Background Color",
+						"description": "Set the color of the background",
+						"inline": true,
+						"type": "color",
+						"first": true,
+						"default": "#4C1D7A",
+						"value": "",
+						"sortOrder": 8,
+						"meta": {
+							"tabTitles": {
+								"foreground": "",
+								"background": ""
+							},
+							"transparencyEnabled": [
+								true
+							]
+						},
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "backgroundImage",
+						"name": "Form Background Image",
+						"description": "Enable / Disable the Form Background Image",
+						"inline": true,
+						"type": "custom",
+						"first": false,
+						"default": false,
+						"value": "",
+						"sortOrder": 9,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "url",
+								"name": "URL",
+								"description": "Set the image that will be used as a background",
+								"inline": true,
+								"type": "image_url",
+								"first": true,
+								"default": "",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "position",
+								"name": "Position",
+								"description": "Set the position of the image",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "left",
+								"value": "",
+								"sortOrder": 2,
+								"options": [
+									[
+										"center",
+										"Center"
+									],
+									[
+										"top left",
+										"Top Left"
+									],
+									[
+										"top",
+										"Top"
+									],
+									[
+										"top right",
+										"Top Right"
+									],
+									[
+										"right",
+										"Right"
+									],
+									[
+										"bottom right",
+										"Bottom Right"
+									],
+									[
+										"bottom",
+										"Bottom"
+									],
+									[
+										"bottom left",
+										"Bottom Left"
+									],
+									[
+										"left",
+										"Left"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "size",
+								"name": "Scale",
+								"description": "Set the scale of the image",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "100%",
+								"value": "",
+								"sortOrder": 3,
+								"options": [
+									[
+										"auto",
+										"Don't Scale"
+									],
+									[
+										"100%",
+										"Horizontal Fit"
+									],
+									[
+										"auto 100%",
+										"Vertical Fit"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "repeatBackground",
+								"name": "Repeat Background",
+								"description": "Determine if the image should be repeated and how (if smaller than the form)",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "no-repeat",
+								"value": "",
+								"sortOrder": 4,
+								"options": [
+									[
+										"no-repeat",
+										"No Repeat"
+									],
+									[
+										"repeat-x",
+										"Horizontal"
+									],
+									[
+										"repeat-y",
+										"Vertical"
+									],
+									[
+										"repeat",
+										"All"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "popoverBackground",
+						"name": "Popover Background",
+						"description": "Enable / Disable the popover background, if disabled it's transparent",
+						"inline": true,
+						"type": "custom",
+						"first": false,
+						"default": true,
+						"value": "",
+						"sortOrder": 13,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the color of the background",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#4C1D7A",
+								"value": "",
+								"sortOrder": 1,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "crossSize",
+						"name": "Cross Size",
+						"description": "Set the size of the closing cross icon",
+						"inline": true,
+						"type": "padding",
+						"first": true,
+						"default": {
+							"size": 18,
+							"unit": "px"
+						},
+						"value": "",
+						"sortOrder": 13,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "crossColor",
+						"name": "Cross Color",
+						"description": "Set the color of the closing cross icon",
+						"inline": true,
+						"type": "color",
+						"first": false,
+						"default": "#FFFFFF",
+						"value": "",
+						"sortOrder": 15,
+						"meta": {
+							"tabTitles": {
+								"foreground": "",
+								"background": ""
+							},
+							"transparencyEnabled": [
+								true
+							]
+						},
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "crossInset",
+						"name": "Cross Inset",
+						"description": "Set the distance the closing cross icon sits away from the popover's edges",
+						"inline": true,
+						"type": "font_size",
+						"first": false,
+						"default": {
+							"unit": "px",
+							"size": 15
+						},
+						"value": "",
+						"sortOrder": 17,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 1
+			},
+			{
+				"id": "headlineSection",
+				"name": "Headline",
+				"fields": [
+					{
+						"id": "headline",
+						"name": "Headline",
+						"description": "Enable / Disable the headline",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show as the headline",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Unlock 10% Off",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the headline",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "proxima-nova",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Set the font size of the headline",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 36
+								},
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "mobileFontSize",
+								"name": "Mobile Font Size",
+								"description": "Headline font size on mobile. Set to 0 to use desktop size.",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 0
+								},
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "Adjust the padding around the headline",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 0,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the headline text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 6,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the headline text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": true,
+								"value": "",
+								"sortOrder": 7,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the headline",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 9,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the text alignment within the headline",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "left",
+								"value": "",
+								"sortOrder": 10,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "subheadline",
+						"name": "Subheadline",
+						"description": "Enable / Disable the subheadline",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 3,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show as the subheadline",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Your First Order",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the subheadline",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "proxima-nova",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Set the font size of the subheadline",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 36
+								},
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "mobileFontSize",
+								"name": "Mobile Font Size",
+								"description": "Subheadline font size on mobile. Set to 0 to use desktop size.",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 0
+								},
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "Adjust the padding around the subheadline",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 0,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the subheadline text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 6,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the subheadline text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": true,
+								"value": "",
+								"sortOrder": 7,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the subheadline",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 9,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the text alignment within the subheadline",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "left",
+								"value": "",
+								"sortOrder": 10,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 3
+			},
+			{
+				"id": "messageSection",
+				"name": "Message",
+				"fields": [
+					{
+						"id": "message",
+						"name": "Message",
+						"description": "Enable / Disable the message",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the message",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "By filling out the form above you agree to our Terms and Conditions.",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": [
+									"fields"
+								]
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the message",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size of the message",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 22
+								},
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "Adjust the padding around the message",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 0,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the message text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the message text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": true,
+								"value": "",
+								"sortOrder": 6,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the message",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 8,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Adjust the text position of the message",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "left",
+								"value": "",
+								"sortOrder": 9,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 4
+			},
+			{
+				"id": "imageSection",
+				"name": "Image",
+				"fields": [
+					{
+						"id": "image",
+						"name": "Image",
+						"description": "Enable / Disable the image",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "url",
+								"name": "URL",
+								"description": "Set the image that will be used ",
+								"inline": true,
+								"type": "image_url",
+								"first": true,
+								"default": "https://images.unsplash.com/photo-1490750967868-88aa4486c946?fm=jpg&fit=crop&w=960&h=540&q=80",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "position",
+								"name": "Position",
+								"description": "Set the position of the image",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "left",
+								"value": "",
+								"sortOrder": 2,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"right",
+										"Right"
+									],
+									[
+										"top",
+										"Top"
+									],
+									[
+										"bottom",
+										"Bottom"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the position of the image",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "center",
+								"value": "",
+								"sortOrder": 2,
+								"options": [
+									[
+										"top",
+										"Top"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"bottom",
+										"Bottom"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "width",
+								"name": "Width",
+								"description": "Adjust the width of the image, set to zero for auto sizing",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 0,
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "height",
+								"name": "Height",
+								"description": "Desktop image height (px). Set to zero for automatic 16:9 crop (max 280px). When set, this value is used exactly.",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 0,
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "mobileHeight",
+								"name": "Mobile Height",
+								"description": "Mobile image height (px). Set to zero for automatic 16:9 crop.",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 400,
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 5
+			},
+			{
+				"id": "dataFieldsSection",
+				"name": "Data Fields",
+				"fields": [
+					{
+						"id": "fieldFont",
+						"name": "Font",
+						"description": "Set the font style of all fields",
+						"inline": true,
+						"type": "font",
+						"first": true,
+						"default": "Arial",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "fieldFontSize",
+						"name": "Font Size",
+						"description": "Set the font size of all fields",
+						"inline": true,
+						"type": "font_size",
+						"first": false,
+						"default": {
+							"unit": "px",
+							"size": 13
+						},
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "alignPlaceholder",
+						"name": "Align Text",
+						"description": "Set the text position of all fields",
+						"inline": true,
+						"type": "select",
+						"first": false,
+						"default": "left",
+						"value": "",
+						"sortOrder": 3,
+						"options": [
+							[
+								"left",
+								"Left"
+							],
+							[
+								"center",
+								"Center"
+							],
+							[
+								"right",
+								"Right"
+							]
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "fieldColors",
+						"name": "Colors",
+						"description": "Set the text and background color of all fields",
+						"inline": true,
+						"type": "multiple_color",
+						"first": false,
+						"default": {
+							"foreground": "#666666",
+							"background": "#FFFFFF"
+						},
+						"value": "",
+						"sortOrder": 4,
+						"meta": {
+							"tabTitles": {
+								"foreground": "Text",
+								"background": "Background"
+							},
+							"transparencyEnabled": [
+								true,
+								true
+							]
+						},
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "fieldItalics",
+						"name": "Italics",
+						"description": "Italicize the field text",
+						"inline": true,
+						"type": "italics",
+						"first": false,
+						"default": false,
+						"value": "",
+						"sortOrder": 5,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "fieldBold",
+						"name": "Bold",
+						"description": "Bold the field text",
+						"inline": true,
+						"type": "bold",
+						"first": false,
+						"default": false,
+						"value": "",
+						"sortOrder": 6,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "fieldWidth",
+						"name": "Width (%)",
+						"description": "Set the width (as a percentage of the total form width) of the fields",
+						"inline": true,
+						"type": "numeric",
+						"first": false,
+						"default": 100,
+						"value": "",
+						"sortOrder": 7,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "fieldPadding",
+						"name": "Padding",
+						"description": "Set the padding within the data fields",
+						"inline": true,
+						"type": "padding",
+						"first": false,
+						"default": {
+							"size": 7,
+							"unit": "px"
+						},
+						"value": "",
+						"sortOrder": 8,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "fieldBorderRadius",
+						"name": "Corner Style",
+						"description": "Adjust the corner style of the fields",
+						"inline": true,
+						"type": "select",
+						"first": false,
+						"default": "0px",
+						"value": "",
+						"sortOrder": 9,
+						"options": [
+							[
+								"8px",
+								"Rounded"
+							],
+							[
+								"0px",
+								"Square"
+							]
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "fieldBorderToggle",
+						"name": "Border",
+						"description": "Enable / Disable the field border on all fields",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 10,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "borderWeight",
+								"name": "Weight",
+								"description": "Set the thickness of the border on all fields",
+								"inline": true,
+								"type": "numeric",
+								"first": false,
+								"default": 1,
+								"value": "",
+								"sortOrder": 11,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderStyle",
+								"name": "Style",
+								"description": "Set the border style of all fields",
+								"inline": true,
+								"type": "select",
+								"first": false,
+								"default": "solid",
+								"value": "",
+								"sortOrder": 12,
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dashed",
+										"Dashed"
+									],
+									[
+										"dotted",
+										"Dotted"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderColor",
+								"name": "Color",
+								"description": "Set the border color of all fields",
+								"inline": true,
+								"type": "color",
+								"first": false,
+								"default": "#CCCCCC",
+								"value": "",
+								"sortOrder": 13,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					},
+					{
+						"id": "firstName",
+						"name": "First Name",
+						"description": "Enable / Disable First Name field",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 11,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "placeholder",
+								"name": "Placeholder Text",
+								"description": "Enter the text to show in the First Name field",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "First name",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "required",
+								"name": "Required Field?",
+								"description": "Set whether this field is required",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "lastName",
+						"name": "Last Name",
+						"description": "Enable / Disable Last Name field",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 12,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "placeholder",
+								"name": "Placeholder Text",
+								"description": "Enter the text to show in the Last Name field",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "Last name",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "required",
+								"name": "Required Field?",
+								"description": "Set whether this field is required",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					},
+					{
+						"id": "email",
+						"name": "Email",
+						"description": "Enable / Disable Email field",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 13,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "label",
+								"name": "Label Text",
+								"description": "Enter the text to show above the Email Address field",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "Email Address",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "placeholder",
+								"name": "Placeholder Text",
+								"description": "Enter the text to show in the Email Address field",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "user@email.com",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "required",
+								"name": "Required Field?",
+								"description": "Set whether this field is required",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					},
+					{
+						"id": "mobileNo",
+						"name": "Mobile/Cell Number",
+						"description": "Enable / Disable Mobile/Cell Number field",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 13,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "placeholder",
+								"name": "Placeholder Text",
+								"description": "Enter the text to show in the Mobile/Cell Number field",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "Mobile/Cell Number",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "required",
+								"name": "Required Field?",
+								"description": "Set whether this field is required",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "initialCountry",
+								"name": "Default Country",
+								"description": "Set the <a href='https://www.iso.org/obp/ui/#search/code/'>ISO country code</a> to use as the default phone number type, e.g. gb, us, fr Default: gb",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "gb",
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "excludeCountries",
+								"name": "Exclude Countries",
+								"description": "Comma-separated list of <a href='https://www.iso.org/obp/ui/#search/code/'>ISO country codes</a> to exclude from the phone number dropdown, e.g. gb,us,fr",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					}
+				],
+				"sortOrder": 6
+			},
+			{
+				"id": "submitButtonSection",
+				"name": "Submit Button",
+				"fields": [
+					{
+						"id": "submit",
+						"name": "Submit",
+						"description": "Enable / Disable the Submit Button",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the Submit Button",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "CONTINUE",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Submit Button",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size of the Submit Button",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 14
+								},
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "textAlignment",
+								"name": "Text Alignment",
+								"description": "Adjust the text position of the Submit Button",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "center",
+								"value": "",
+								"sortOrder": 3,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Submit Button text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Submit Button text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": true,
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the Submit Button",
+								"inline": true,
+								"type": "multiple_color",
+								"first": true,
+								"default": {
+									"foreground": "#FFFFFF",
+									"background": "#A4D233"
+								},
+								"value": "",
+								"sortOrder": 6,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										true,
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "width",
+								"name": "Width (%)",
+								"description": "Set the width (as a percentage of the total form width) of the Submit Button",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 100,
+								"value": "",
+								"sortOrder": 7,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "The padding within the Submit Button",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 14,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 8,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "margin",
+								"name": "Vertical Margin",
+								"description": "Adjust the vertical margin above and below the Submit Button",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 0,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 10,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderRadius",
+								"name": "Corner Style",
+								"description": "Adjust the corner style of the Submit Button",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "0px",
+								"value": "",
+								"sortOrder": 11,
+								"options": [
+									[
+										"8px",
+										"Rounded"
+									],
+									[
+										"0px",
+										"Square"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "submitButtonBorderToggle",
+						"name": "Border",
+						"description": "Enable / Disable the border for the Submit Button",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 2,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "borderWeight",
+								"name": "Weight",
+								"description": "Set the thickness of the border",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 1,
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderStyle",
+								"name": "Style",
+								"description": "Set the border style ",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "solid",
+								"value": "",
+								"sortOrder": 2,
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dashed",
+										"Dashed"
+									],
+									[
+										"dotted",
+										"Dotted"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderColor",
+								"name": "Color",
+								"description": "Set the border color ",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 3,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "declineButton",
+						"name": "Decline Button",
+						"description": "Enable / Disable the Decline Button",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 3,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the Decline Button",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "NO, I'LL PAY FULL PRICE",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Decline Button",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size of the Decline Button",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 14
+								},
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "textAlignment",
+								"name": "Text Alignment",
+								"description": "Adjust the text position of the Decline Button",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "center",
+								"value": "",
+								"sortOrder": 3,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Decline Button text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Decline Button text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": true,
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the Decline Button",
+								"inline": true,
+								"type": "multiple_color",
+								"first": true,
+								"default": {
+									"foreground": "#FFFFFF",
+									"background": "#A4D233"
+								},
+								"value": "",
+								"sortOrder": 6,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										true,
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "width",
+								"name": "Width (%)",
+								"description": "Set the width (as a percentage of the total form width) of the Decline Button",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 100,
+								"value": "",
+								"sortOrder": 7,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "The padding within the Decline Button",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 14,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 8,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "margin",
+								"name": "Vertical Margin",
+								"description": "Adjust the vertical margin above and below the Decline Button",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 0,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 10,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderRadius",
+								"name": "Corner Style",
+								"description": "Adjust the corner style of the Decline Button",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "0px",
+								"value": "",
+								"sortOrder": 11,
+								"options": [
+									[
+										"8px",
+										"Rounded"
+									],
+									[
+										"0px",
+										"Square"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "declineButtonBorderToggle",
+						"name": "Decline Button Border",
+						"description": "Enable / Disable the border for the Decline Button",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 4,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "borderWeight",
+								"name": "Weight",
+								"description": "Set the thickness of the border",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 1,
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderStyle",
+								"name": "Style",
+								"description": "Set the border style ",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "solid",
+								"value": "",
+								"sortOrder": 2,
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dashed",
+										"Dashed"
+									],
+									[
+										"dotted",
+										"Dotted"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderColor",
+								"name": "Color",
+								"description": "Set the border color ",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#51575F",
+								"value": "",
+								"sortOrder": 3,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 7
+			},
+			{
+				"id": "footerSection",
+				"name": "Footer",
+				"fields": [
+					{
+						"id": "footer",
+						"name": "Footer",
+						"description": "Enable / Disable the Footer",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the Footer",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "By submitting your email address, you agree to receive marketing emails from YouGarden. We may use information collected about you on our site to suggest other products and offers based on your profile and in accordance with our Privacy Policy. You can unsubscribe at any time. View Terms & Privacy for more information on the processing of your data and you privacy rights.",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "url",
+								"name": "Terms and Conditions URL",
+								"description": "Enter the Terms and Conditions URL",
+								"inline": true,
+								"type": "url",
+								"first": true,
+								"default": "",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Footer",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size of the Footer",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 11
+								},
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "Adjust the padding within the Footer",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 0,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Footer text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 6,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Footer text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 7,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the Footer",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 9,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Adjust the text position of the Footer",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "left",
+								"value": "",
+								"sortOrder": 10,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 8
+			},
+			{
+				"id": "submittedSection",
+				"name": "Submitted",
+				"fields": [
+					{
+						"id": "submittedHeadline",
+						"name": "Submitted Headline",
+						"description": "Enable / Disable the Submitted Headline",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the Submitted Headline",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Thank you for signing up",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Submitted Headline",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "proxima-nova",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size of the Submitted Headline",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 32
+								},
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "mobileFontSize",
+								"name": "Mobile Font Size",
+								"description": "Submitted headline font size on mobile. Set to 0 to use desktop size.",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 0
+								},
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "Adjust the padding within the Submitted Headline",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 0,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Submitted Headline text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 6,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Submitted Headline text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": true,
+								"value": "",
+								"sortOrder": 7,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the Submitted Headline",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 9,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Adjust the text position of the Submitted Headline",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "center",
+								"value": "",
+								"sortOrder": 10,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "submittedMessage",
+						"name": "Submitted Message",
+						"description": "Enable / Disable the Submitted Message",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the Submitted Message. In order to preview this section, please fill the Data Capture form with example data and press the Submit button.",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Here is your 10% Discount Code",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": [
+									"fields"
+								]
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Submitted Message",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "proxima-nova",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size of the Submitted Message",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 18
+								},
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "Adjust the padding around the Submitted Message",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 5,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Submitted Message text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Submitted Message text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 6,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the Submitted Message",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 7,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Adjust the text position of the Submitted Message",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "center",
+								"value": "",
+								"sortOrder": 9,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "submittedDiscountCode",
+						"name": "Discount Code",
+						"description": "Enable / Disable the dashed discount code box on the submitted view. Clicking the code copies it to the clipboard.",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 3,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Code",
+								"description": "Discount code to display, e.g. WELCOME10",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "WELCOME10",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the discount code",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "proxima-nova",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size of the discount code",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 22
+								},
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the discount code text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": true,
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Text Color",
+								"description": "Set the text color for the discount code",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#81038E",
+								"value": "",
+								"sortOrder": 5,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "background",
+								"name": "Background Color",
+								"description": "Set the background color inside the code box",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 6,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderColor",
+								"name": "Border Color",
+								"description": "Set the dashed border color for the code box",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 7,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderWeight",
+								"name": "Border Weight",
+								"description": "Set the dashed border thickness in pixels",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 2,
+								"value": "",
+								"sortOrder": 8,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "width",
+								"name": "Width (%)",
+								"description": "The width of the code box as a percentage of the submitted content container",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 90,
+								"value": "",
+								"sortOrder": 9,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Adjust the text position within the code box",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "center",
+								"value": "",
+								"sortOrder": 10,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "submittedButton",
+						"name": "Submitted Button",
+						"description": "Enable / Disable a button in the submitted view. By default it will close the popover, but if you enter a link on the Links tab the button will redirect instead",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 5,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the Button",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "START SHOPPING",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Button",
+								"inline": true,
+								"type": "font",
+								"first": true,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size of the Button",
+								"inline": true,
+								"type": "font_size",
+								"first": true,
+								"default": {
+									"unit": "px",
+									"size": 14
+								},
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "textAlignment",
+								"name": "Text Alignment",
+								"description": "Adjust the text position of the Button",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "center",
+								"value": "",
+								"sortOrder": 3,
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Button text",
+								"inline": true,
+								"type": "italics",
+								"first": true,
+								"default": false,
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Button text",
+								"inline": true,
+								"type": "bold",
+								"first": true,
+								"default": true,
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the Button",
+								"inline": true,
+								"type": "multiple_color",
+								"first": true,
+								"default": {
+									"foreground": "#FFFFFF",
+									"background": "#A4D233"
+								},
+								"value": "",
+								"sortOrder": 6,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										true,
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "width",
+								"name": "Width (%)",
+								"description": "The width of the Button as a percentage of the submitted content container",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 90,
+								"value": "",
+								"sortOrder": 7,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "padding",
+								"name": "Padding",
+								"description": "The padding within the Button",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 10,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 8,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "margin",
+								"name": "Vertical Margin",
+								"description": "Adjust the margin above and below the Button",
+								"inline": true,
+								"type": "padding",
+								"first": true,
+								"default": {
+									"size": 5,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 10,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderRadius",
+								"name": "Corner Style",
+								"description": "Adjust the corner style of the Button",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "0px",
+								"value": "",
+								"sortOrder": 11,
+								"options": [
+									[
+										"8px",
+										"Rounded"
+									],
+									[
+										"0px",
+										"Square"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "submittedButtonBorderToggle",
+						"name": "Submitted Button Border",
+						"description": "Enable / Disable the border for the Button",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 6,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "borderWeight",
+								"name": "Weight",
+								"description": "Set the thickness of the border",
+								"inline": true,
+								"type": "numeric",
+								"first": true,
+								"default": 1,
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderStyle",
+								"name": "Style",
+								"description": "Set the border style",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "solid",
+								"value": "",
+								"sortOrder": 2,
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dashed",
+										"Dashed"
+									],
+									[
+										"dotted",
+										"Dotted"
+									]
+								],
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "borderColor",
+								"name": "Color",
+								"description": "Set the border color",
+								"inline": true,
+								"type": "color",
+								"first": true,
+								"default": "#FFFFFF",
+								"value": "",
+								"sortOrder": 3,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 9
+			},
+			{
+				"id": "behavior",
+				"name": "Behavior",
+				"fields": [
+					{
+						"id": "tactic",
+						"name": "Tactic/Behavior",
+						"description": "Set if this SmartBlock should Popover and interrupt the visitor journey or Overlay in a fixed position, but allow the visitor to continue without interacting",
+						"inline": true,
+						"type": "select",
+						"first": true,
+						"default": "popover",
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"options": [
+							[
+								"popover",
+								"Popover"
+							],
+							[
+								"fixed",
+								"Fixed Overlay"
+							]
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "popoverFixedDelay",
+						"name": "Show After Fixed Time (Seconds)",
+						"description": "Display the popover after this number of seconds, even if there has been no intent to exit. Set to 0 if you don't wish to have a fixed delay.",
+						"inline": true,
+						"type": "numeric",
+						"first": true,
+						"default": 120,
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "displayOnExitIntent",
+						"name": "Show On Exit Intent",
+						"description": "Show the Popover when the user shows an intent to leave the page by moving their mouse towards the close page button.",
+						"inline": true,
+						"type": "boolean",
+						"first": false,
+						"default": false,
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "daysBetweenPopovers",
+						"name": "Minimum Days Between Showing",
+						"description": "Once the user has seen the SmartBlock, they will not be shown it again for this number of days, on the current device. Setting this to 0 or Cookie Name being blank will result in it always showing.",
+						"inline": true,
+						"type": "numeric",
+						"first": true,
+						"default": 90,
+						"value": "",
+						"sortOrder": 4,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "cookieName",
+						"name": "Cookie Name",
+						"description": "Set the cookie name to be set when the user sees the SmartBlock, to prevent it appearing again within the time period set. Popover SmartBlocks that share a cookie name will all be hidden for the period, when one is dismissed. Ensure this name is different to display multiple popover SmartBlocks on the same site, simultaneously. These cookies are first party cookies, whose settings can be found <a href='/settings/cookies/' target='_blank'>here</a>.",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "popover_cookie_name",
+						"value": "",
+						"sortOrder": 5,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "animationType",
+						"name": "Animation Type",
+						"description": "Set how the popover appears on screen",
+						"inline": true,
+						"type": "select",
+						"first": false,
+						"default": "fadeIn",
+						"value": "",
+						"sortOrder": 8,
+						"options": [
+							[
+								"fadeIn",
+								"Fade"
+							],
+							[
+								"slideInSideways",
+								"Slide Sideways"
+							],
+							[
+								"slideInVertical",
+								"Slide Vertical"
+							],
+							[
+								"none",
+								"None"
+							]
+						]
+					},
+					{
+						"id": "animationDuration",
+						"name": "Animation Duration",
+						"description": "Set the duration over which the animation runs (in seconds)",
+						"inline": true,
+						"type": "numeric",
+						"first": false,
+						"default": 1,
+						"value": "",
+						"sortOrder": 9
+					},
+					{
+						"id": "showEverytime",
+						"name": "Show on Every Page Load",
+						"description": "Determines whether the cookie value is ignored. If set, the popup / form is shown each time a person visits the page regardless of their history. Useful for testing.",
+						"inline": true,
+						"type": "boolean",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 10,
+						"active": false,
+						"displayActive": false
+					},
+					{
+						"id": "customSignal",
+						"name": "Custom Signal/Trigger",
+						"description": "This is a custom signal that will be raised against the person, each time the data capture form is submitted. The custom signal will be linked to a custom Trigger, which can be configured to send the data to a third party, such as an ESP. The custom signal can also be used within Slot rules, to show different content to people that have submitted, and Segment rules, to build a segment of all those that have submitted.",
+						"inline": true,
+						"type": "custom_signal",
+						"first": false,
+						"default": "",
+						"value": "",
+						"sortOrder": 11,
+						"options": [
+							[
+								"",
+								"No Signal/Trigger"
+							]
+						],
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 15
+			},
+			{
+				"id": "redirects",
+				"name": "Links",
+				"fields": [
+					{
+						"id": "successButtonHref",
+						"name": "Submitted Page Button URL",
+						"description": "Redirect to this URL when somebody clicks on the button in the success message",
+						"inline": true,
+						"type": "url",
+						"first": true,
+						"default": "",
+						"value": "",
+						"sortOrder": 0,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmCampaign",
+						"name": "UTM Campaign",
+						"description": "The name of the Google Analytics campaign",
+						"inline": true,
+						"type": "text",
+						"first": true,
+						"default": "",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmSource",
+						"name": "UTM Source",
+						"description": "The name of the Google Analytics referrer source",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmMedium",
+						"name": "UTM Medium",
+						"description": "The name of the Google Analytics medium",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "",
+						"value": "",
+						"sortOrder": 4,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 16
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

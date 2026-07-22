@@ -1,0 +1,11 @@
+flowchart TD
+    START([No purchase 12+ months]) --> E1[Email 1 — soft, what's new]
+    E1 --> D1[Delay 7 days]
+    D1 --> E2[Email 2 — personalised from history]
+    E2 --> ENG{Opened E1 or E2?}
+    ENG -->|No| E3A[Email 3 — modest offer]
+    ENG -->|Yes| E3B[Email 3 — value-led]
+    E3A --> D2[Delay 7 days]
+    E3B --> D2
+    D2 --> E4[Email 4 — sunset / breakup]
+    E4 --> EXIT([Exit])

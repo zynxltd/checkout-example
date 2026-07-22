@@ -1,0 +1,7 @@
+flowchart TD
+    START([T-30 days before renewal<br/>club_auto_renew = Y]) --> E30[Email — savings recap + £10 locked]
+    E30 --> E14[Email T-14 — renewal reminder]
+    E14 --> E7[Email T-7 — short reminder]
+    E7 --> RENEW{Renewal successful?}
+    RENEW -->|Yes| EXIT1([Exit])
+    RENEW -->|No payment failed| FAIL([P1-CLUB-PAYMENT-FAILED])

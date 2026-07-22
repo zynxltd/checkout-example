@@ -1,0 +1,942 @@
+{# Recently Viewed — Recommendation SmartBlock
+    Data source (FR admin): Frequently Browsed only (not carted/purchased/abandoned).
+    Hidden on live site when products is empty (no browse history).
+ #}
+ 
+ {% if products|length > 0 or meta.preview == "true" %}
+ 
+ {% if meta.preview == "true" %}
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+ {% endif %}
+ 
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+{# VARIABLES #}
+ {% set yougardenBlue = "#002D72" %}
+ {% set yougardenBlueDark = "#001F4D" %}
+ {% set yougardenDark = "#2c3e50" %}
+ 
+ {% if fields.image.salesBadge == "yougarden" %}
+     {% set salesBadgeColor = "#e3185d" %}
+ {% elif fields.image.salesBadge == "gardeningdirect" %}
+     {% set salesBadgeColor = "#d00" %}
+ {% elif fields.image.salesBadge == "plantsmailshop" %}
+     {% set salesBadgeColor = "#de6926" %}
+{% elif fields.image.salesBadge == "roses.co.uk" %}
+    {% set salesBadgeColor = "#f2eadd" %}
+{% endif %}
+
+{% set isHarkness = (fields.image.salesBadge == "roses.co.uk") %}
+
+
+<div class="{{safeid}} {{safeid}}__sb-wrapper {% if isHarkness %}{{safeid}}__sb-wrapper--harkness{% endif %}">
+ 
+     <div class="{{safeid}}__header">
+         {# headline start #}
+         {% if fields.headline.active %}
+        <div class="{{safeid}}__headline-wrapper">
+            <span class="{{safeid}}__headline-text">{{ mergeField(fields.headline.text) }}</span>
+        </div>
+         {% endif %}
+         {# headline end #}
+ 
+         {# sub-headline / empty state — one line only #}
+         {% if products|length == 0 and meta.preview == "true" %}
+         <div class="{{safeid}}__preview-empty" style="font-family: {{ fields.subHeadline.font }}, sans-serif !important; font-size: 15px !important; font-weight: 400 !important; font-style: normal !important; line-height: 1.4 !important; letter-spacing: normal !important; text-transform: none !important;">You have no browse history.</div>
+         {% elif fields.subHeadline.active %}
+         <div class="{{safeid}}__sub-headline" style="color: {{ fields.subHeadline.colors.foreground or '#000000' }} !important; font-family: {{ fields.subHeadline.font }}, sans-serif !important; font-size: {{ fields.subHeadline.size.size }}{{ fields.subHeadline.size.unit }} !important; font-weight: {% if fields.subHeadline.bold %}700{% else %}400{% endif %} !important; font-style: {% if fields.subHeadline.italics %}italic{% else %}normal{% endif %} !important; line-height: 1.4 !important; letter-spacing: normal !important; text-transform: none !important;">
+             {{ fields.subHeadline.text }}
+         </div>
+         {% endif %}
+     </div>
+ 
+ {% if fields.divider.active %}
+         <div class="{{safeid}}__divider"></div>
+ {% endif %}
+ 
+     {# products start #}
+ 
+     <div class="{{safeid}}__slick">
+ 
+         {% for product in products %}
+                 {# product card start #}
+                 <div class="slick-slide imagecontainer">
+                     <div class="custom-product-box {{safeid}}__custom-product-box">
+ 
+ 
+                         {# product image start #}
+                         {% if fields.image.active %}
+                             <div class="{{safeid}}__product-image">
+                                 <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                     utm_campaign=mergeField(fields.utmCampaign, {}),
+                                     utm_medium=mergeField(fields.utmMedium, {}),
+                                     utm_source=mergeField(fields.utmSource, {})) }}">
+                                     {% set saving = (product.ruv - product.uv) / product.ruv * 100 %}
+                                    {% if saving > 0 and not isHarkness %}
+                                    <div class="{{ safeid }}__savings-badge"><div class="save"><span class="percentage">{{ saving|round(0) }}<span class="symbol">%</span></span><br>OFF</div></div>
+                                    {% endif %}
+                                     <img src="{{ product.img }}" loading="lazy" alt="{{ product.n }}">
+                                 </a>
+                             </div>
+                         {% endif %}
+                         {# product image end #}
+ 
+                         {# social proof start #}
+                         {% if fields.socialProofMessaging.active  %}
+                             <div class="{{safeid}}__social-proof">
+                                 {{ socialProof(product) }}
+                             </div>
+                         {% endif %}
+                         {# social proof end #}
+ 
+                         {# ratings start #}
+                         {% if fields.ratingIcons.active %}
+                             <div class="{{safeid}}__ratings">
+                                 {% if product|addProductRatings %}
+                                     {{ product| addProductRatings }}
+                                 {% endif %}
+                             </div>
+                         {% endif %}
+                         {# ratings end #}
+ 
+                         {# product name start #}
+                         {% if fields.productName.active  %}
+                             <div class="{{safeid}}__product-name">
+                                 <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                     utm_campaign=mergeField(fields.utmCampaign, {}),
+                                     utm_medium=mergeField(fields.utmMedium, {}),
+                                     utm_source=mergeField(fields.utmSource, {})) }}">
+                                     {{ product.n }}
+                                 </a>
+                             </div>
+                         {% endif %}
+                         {# product name end #}
+ 
+                         {# Fancy Centered Price Container #}
+                         <div class="{{safeid}}__product-price-container-fancy">
+                             {# product was price start #}
+                            {% if fields.productWasPrice.active and not isHarkness %}
+                                <div class="{{safeid}}__product-was-price">
+                                     {% if product.ruv and product.ruv > product.uv %}
+                                          <span>{{ product.ruv|format_currency(product.curr, 2) }}</span>
+                                     {% endif %}
+                                 </div>
+                             {% endif %}
+                             {# product was price end #}
+ 
+                             {# product price start #}
+                             {% if fields.productPrice.active %}
+                                 <div class="{{safeid}}__product-price-fancy">
+                                     <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                         utm_campaign=mergeField(fields.utmCampaign, {}),
+                                         utm_medium=mergeField(fields.utmMedium, {}),
+                                         utm_source=mergeField(fields.utmSource, {})) }}" target="_blank">
+                                         <span class="{{safeid}}__price-label">From</span>
+                                         <span class="{{safeid}}__price-amount">{{ product.uv|format_currency(product.curr,2) }}</span>
+                                     </a>
+                                 </div>
+                             {% endif %}
+                             {# product price end #}
+                         </div>
+                         {# product price end #}
+ 
+ 
+ 
+                             {# cta start #}
+                             {% if fields.callToAction.active %}
+                                 <a class="{{safeid}}__product-cta-button" href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                         utm_campaign=mergeField(fields.utmCampaign, {}),
+                                         utm_medium=mergeField(fields.utmMedium, {}),
+                                         utm_source=mergeField(fields.utmSource, {})) }}" target="_blank">
+                                     {{ fields.callToAction.text }}
+                                 </a>
+                             {% endif %}
+                             {# cta end #}
+                     </div>
+ 
+                 </div>
+                 {# product card end #}
+ 
+         {% endfor %}
+ 
+     </div>
+     {# products end #}
+     
+     {# Swipe message hint - inside wrapper for this smart block only #}
+    
+ 
+ </div>
+ 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<style>
+    /* Harkness Roses brand kit: Forum = main body; Raleway = impact/headlines. Colours: Charcoal #504e4e, French Grey #b4b199, White #ffffff only. No rounded corners on images. */
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__headline-text {
+        text-align: center !important;
+        margin-bottom: 12px !important;
+        letter-spacing: 1.2px !important;
+        color: #504e4e !important;
+        line-height: 1.3 !important;
+        text-transform: none !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__sub-headline,
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__preview-empty {
+        font-family: 'Forum', 'Times New Roman', Georgia, serif !important;
+        color: #504e4e !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name a {
+        font-family: 'Forum', 'Times New Roman', Georgia, serif !important;
+        color: #504e4e !important;
+        font-weight: 400 !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name a:hover {
+        color: #b4b199 !important;
+        opacity: 1;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name a::after {
+        background: linear-gradient(90deg, transparent, #b4b199, transparent) !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name a:hover::after {
+        transform: translateX(-50%) scaleX(1);
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-price-fancy a,
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__price-label,
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__price-amount {
+        font-family: 'Forum', 'Times New Roman', Georgia, serif !important;
+        color: #504e4e !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__price-amount {
+        font-weight: 600 !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-cta-button {
+        font-family: 'Raleway', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        background-color: #504e4e !important;
+        color: #ffffff !important;
+        border: 1px solid #504e4e !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-cta-button:hover {
+        background-color: #b4b199 !important;
+        color: #ffffff !important;
+        border-color: #b4b199 !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{ safeid }}__savings-badge {
+        display: none !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image,
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image a,
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image img {
+        border-radius: 0 !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image {
+        width: 100% !important;
+        align-self: stretch !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image a {
+        width: 100% !important;
+        display: block !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+        padding: 4px !important;
+        height: auto !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-image img {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        object-fit: contain !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-name {
+        min-height: 0 !important;
+        margin-top: 6px !important;
+        margin-bottom: 4px !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__product-price-container-fancy {
+        margin-top: 0 !important;
+        padding: 0 0 4px !important;
+    }
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__slick.slick-initialized .slick-slide,
+    .{{safeid}}__sb-wrapper--harkness .{{safeid}}__slick .slick-track {
+        align-items: flex-start !important;
+    }
+    @media only screen and (min-width: 1024px) {
+        .{{safeid}}__sb-wrapper--harkness .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+            padding: 6px !important;
+        }
+    }
+
+    .{{safeid}}__slick {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .{{safeid}}__slick .slick-slide {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        {% if fields.cardStyling.active %}
+            background-color: {{ fields.cardStyling.backgroundColor }};
+            border-radius: {{ fields.cardStyling.cornerStyle }};
+            {% if fields.cardStyling.shadowtoggle %}
+                box-shadow: 0px 0px 10px 0px;
+            {% endif %}
+            {% if fields.cardStyling.toggleBorder %}
+                border: {{ fields.cardStyling.borderWidth }}px {{ fields.cardStyling.borderStyle }} {{ fields.cardStyling.borderColor }};
+            {% endif %}
+        {% endif %}
+        align-items: unset;
+    }
+
+    .{{safeid}}__slick.slick-initialized .slick-slide, .slick-track {
+        display: flex;
+    }
+
+
+    /* slick arrows styling */
+    .{{safeid}}__slick .slick-arrow {
+        position: absolute;
+        top: 50%;
+        z-index: 2;
+        width: 36px;
+        height: 36px;
+        background: rgba(0,0,0,0.5);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        transition: background 0.2s;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        opacity: 0.8;
+display: none!important;
+    }
+    .{{safeid}}__slick .slick-arrow:hover {
+        background: rgba(0,0,0,0.8);
+        opacity: 1;
+    }
+    .{{safeid}}__slick .slick-prev {
+        left: 10px;
+    }
+    .{{safeid}}__slick .slick-next {
+        right: 10px;
+    }
+    .{{safeid}}__slick .slick-arrow:before {
+        display: none;
+    }
+
+    /* slick dots styling */
+    .{{safeid}}__slick .slick-dots {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 20px 0 0 0;
+    }
+    .{{safeid}}__slick .slick-dots li {
+        display: inline-block;
+        margin: 0 5px;
+        padding: 0;
+    }
+    .{{safeid}}__slick .slick-dots li button {
+        font-size: 0;
+        line-height: 0;
+        display: block;
+        width: 12px;
+        height: 12px;
+        padding: 0;
+        cursor: pointer;
+        color: transparent;
+        border: 0;
+        outline: none;
+        background: #ccc;
+        border-radius: 50%;
+        transition: background 0.3s;
+    }
+    .{{safeid}}__slick .slick-dots li button:hover,
+    .{{safeid}}__slick .slick-dots li.slick-active button {
+        background: #333;
+    }
+    .{{safeid}}__slick .slick-dots li button:before {
+        display: none !important;
+    }
+
+    /* header styles */
+
+	.{{safeid}}__sb-wrapper {
+		display:flex;
+		flex-direction: column;
+		margin: 0 auto;
+		background-color:{{ fields.backgroundColor or '#FFFFFF' }};
+		position: relative;
+		{% if fields.carouselActive  %}
+			max-height: fit-content;
+		{% endif %}
+		{% if not fields.fillSmartBlockParentContainer %}
+			max-width: {{ fields.width }}px;
+		{% endif %}
+		{% if fields.fillSmartBlockParentContainer == false %}
+			width:  {{ fields.width }}px;
+		{% endif %}
+		{% if fields.borders.active %}
+			border:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+		{% endif %}
+		{% if fields.fillSmartBlockParentContainer == false %}
+			max-width: {{ email_width }}px;
+            {%endif %}
+width: 100%;
+
+	}
+
+    .{{safeid}}__header {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+	.{{safeid}}__headline-wrapper {
+		width: 100%;
+		text-align: {{ fields.headline.alignment|lower }};
+		position: relative;
+		padding: {{ fields.headline.padding.size }}{{ fields.headline.padding.unit }};
+		margin-top: {{ fields.headline.topMargin.size }}{{ fields.headline.topMargin.unit }};
+		margin-bottom: {{ fields.headline.bottomMargin.size }}{{ fields.headline.bottomMargin.unit }};
+        box-sizing: border-box;
+	}
+
+	.{{safeid}}__headline-text {
+		display: block;
+		width: 100%;
+		margin: 0;
+		font-family: {{ fields.headline.font }}, sans-serif !important;
+		font-size: {{ fields.headline.size.size }}{{ fields.headline.size.unit }} !important;
+		color: {{ fields.headline.color or fields.headline.colors.foreground or yougardenDark }} !important;
+		background-color: {{ fields.headline.colors.background or 'transparent' }};
+		text-align: {{ fields.headline.alignment|lower }};
+		{% if fields.headline.bold %}
+			font-weight: 700 !important;
+		{% else %}
+			font-weight: 400 !important;
+		{% endif %}
+		{% if fields.headline.italics %}
+			font-style: italic !important;
+		{% else %}
+			font-style: normal !important;
+		{% endif %}
+		line-height: 1.3 !important;
+		letter-spacing: normal !important;
+		text-transform: none !important;
+	}
+
+	.{{safeid}}__sb-wrapper--harkness .{{safeid}}__headline-text {
+		font-family: {{ fields.headline.font }}, 'Times New Roman', Georgia, serif !important;
+		{% if not fields.headline.bold %}
+			font-weight: 300 !important;
+		{% endif %}
+	}
+
+    .{{safeid}}__preview-empty {
+        width: 100%;
+        margin: 0;
+        padding: {{ fields.subHeadline.padding.size }}{{ fields.subHeadline.padding.unit }};
+        text-align: {{ fields.subHeadline.alignment|lower }};
+        font-family: {{ fields.subHeadline.font }}, sans-serif !important;
+        font-size: 15px !important;
+        line-height: 1.4 !important;
+        color: #666666 !important;
+        box-sizing: border-box;
+		letter-spacing: normal !important;
+		text-transform: none !important;
+		font-weight: 400 !important;
+		font-style: normal !important;
+    }
+
+	.{{safeid}}__sub-headline {
+		width: 100%;
+		text-align: {{ fields.subHeadline.alignment|lower }};
+		padding: {{ fields.subHeadline.padding.size }}{{ fields.subHeadline.padding.unit }};
+		margin-top: {{ fields.subHeadline.topMargin.size }}{{ fields.subHeadline.topMargin.unit }};
+		margin-bottom: {{ fields.subHeadline.bottomMargin.size }}{{ fields.subHeadline.bottomMargin.unit }};
+		color: {{ fields.subHeadline.colors.foreground or '#000000' }} !important;
+		background-color: {{ fields.subHeadline.colors.background or '#FFFFFF' }};
+		font-family: {{ fields.subHeadline.font }}, sans-serif !important;
+		font-size: {{ fields.subHeadline.size.size }}{{ fields.subHeadline.size.unit }} !important;
+		line-height: 1.4 !important;
+        box-sizing: border-box;
+		letter-spacing: normal !important;
+		text-transform: none !important;
+		{% if fields.subHeadline.bold %}
+			font-weight: 700 !important;
+		{% else %}
+			font-weight: 400 !important;
+		{% endif %}
+		{% if fields.subHeadline.italics %}
+			font-style: italic !important;
+		{% else %}
+			font-style: normal !important;
+		{% endif %}
+	}
+
+	/* Override GD site fp-section typography leaking into this block */
+	.fp-section .{{safeid}}__headline-text,
+	.centralWrapper .{{safeid}}__headline-text {
+		font-family: {{ fields.headline.font }}, sans-serif !important;
+		font-size: {{ fields.headline.size.size }}{{ fields.headline.size.unit }} !important;
+		line-height: 1.3 !important;
+		letter-spacing: normal !important;
+		text-transform: none !important;
+	}
+
+	.fp-section .{{safeid}}__sub-headline,
+	.centralWrapper .{{safeid}}__sub-headline {
+		font-family: {{ fields.subHeadline.font }}, sans-serif !important;
+		font-size: {{ fields.subHeadline.size.size }}{{ fields.subHeadline.size.unit }} !important;
+		line-height: 1.4 !important;
+	}
+
+	.fp-section .{{safeid}}__preview-empty,
+	.centralWrapper .{{safeid}}__preview-empty {
+		font-family: {{ fields.subHeadline.font }}, sans-serif !important;
+		font-size: 15px !important;
+		line-height: 1.4 !important;
+	}
+
+	.fp-section .{{safeid}}__product-name a,
+	.centralWrapper .{{safeid}}__product-name a,
+	.fp-section .{{safeid}}__sb-wrapper .{{safeid}}__product-name a,
+	.centralWrapper .{{safeid}}__sb-wrapper .{{safeid}}__product-name a {
+		font-family: {{ fields.productName.font }}, sans-serif !important;
+		font-size: {{ fields.productName.size.size }}{{ fields.productName.size.unit }} !important;
+		line-height: 1.4 !important;
+		letter-spacing: normal !important;
+		text-transform: none !important;
+		text-decoration: none !important;
+	}
+
+	.fp-section .{{safeid}}__price-label,
+	.centralWrapper .{{safeid}}__price-label {
+		font-family: {{ fields.productPrice.font }}, sans-serif !important;
+		font-size: 13px !important;
+		line-height: 1.2 !important;
+	}
+
+	.fp-section .{{safeid}}__price-amount,
+	.centralWrapper .{{safeid}}__price-amount,
+	.fp-section .{{safeid}}__sb-wrapper .{{safeid}}__price-amount,
+	.centralWrapper .{{safeid}}__sb-wrapper .{{safeid}}__price-amount {
+		font-family: {{ fields.productPrice.font }}, sans-serif !important;
+		font-size: {{ fields.productPrice.size.size }}{{ fields.productPrice.size.unit }} !important;
+		line-height: 1.2 !important;
+		letter-spacing: -0.5px !important;
+		text-transform: none !important;
+	}
+
+	.fp-section .{{safeid}}__product-was-price,
+	.fp-section .{{safeid}}__product-was-price span,
+	.centralWrapper .{{safeid}}__product-was-price,
+	.centralWrapper .{{safeid}}__product-was-price span {
+		font-family: {{ fields.productWasPrice.font }}, sans-serif !important;
+		font-size: {{ fields.productWasPrice.size.size }}{{ fields.productWasPrice.size.unit }} !important;
+		line-height: 1.2 !important;
+	}
+
+	/* divider styles */
+
+    .{{safeid}}__divider {
+        height: {{fields.divider.weight}}px;
+        background-color: {{fields.divider.color}};
+        border-radius: 10px;
+        margin-bottom: 1em;
+	}
+
+
+    /* product styles */
+    .custom-product-box,
+    .{{safeid}}__custom-product-box,
+    .{{safeid}}__slick .slick-slide .custom-product-box,
+    .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+        display: flex !important;
+        flex-direction: column !important;
+		padding: 10px !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        overflow: visible !important;
+    }
+
+	.{{safeid}}__product-image {
+		position: relative;
+		display: inline-block;
+		width: fit-content;
+		max-width: 100%;
+		align-self: center;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+	}
+
+	.{{safeid}}__product-image a {
+		position: relative;
+		display: inline-block;
+		width: fit-content;
+		max-width: 100%;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+	}
+
+	.{{safeid}}__product-image img {
+		height: {% if fields.image.height > 50 %}{{ fields.image.height }}{% else %}50{% endif %}px;
+        width: auto;
+        max-width: 100%;
+        display: block;
+		margin: 0;
+		padding: 0;
+    }
+
+    .{{ safeid}}__savings-badge {
+        position: absolute;
+        top: 0 !important;
+        right: 0 !important;
+        z-index: 10;
+        width: 70px;
+        height: 70px;
+        background: {{ salesBadgeColor }};
+        border-radius: 40px;
+        border: solid 2px #fff;
+        }
+    .{{ safeid}}__savings-badge .save {
+        float: left;
+        width: 99%;
+        text-align: center;
+        font-size: 16px;
+        line-height: 18px;
+        color: #fff;
+        padding: 15px 0 0;
+        font-weight: 700;
+        }
+
+	/* Fancy Centered Product Name */
+	.{{safeid}}__product-name {
+		text-align: center;
+        line-height: 1.4;
+		min-height: 40px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        padding: 0 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+    .{{safeid}}__product-name a {
+		font-family: {{ fields.productName.font }}, sans-serif !important;
+		font-size: {{ fields.productName.size.size }}{{ fields.productName.size.unit }} !important;
+		color: {{ fields.productName.color or '#2c3e50' }} !important;
+		{% if fields.productName.bold %}
+			font-weight: 700 !important;
+        {% else %}
+            font-weight: 500 !important;
+		{% endif %}
+		{% if fields.productName.italics %}
+			font-style: italic !important;
+		{% else %}
+			font-style: normal !important;
+		{% endif %}
+        vertical-align: baseline;
+        background: 0 0 !important;
+        text-decoration: none !important;
+        transition: color 0.3s ease;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-align: center;
+        line-height: 1.4 !important;
+		letter-spacing: normal !important;
+		text-transform: none !important;
+        position: relative;
+        padding: 4px 0;
+    }
+
+    .{{safeid}}__product-name a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 60%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, {{ yougardenBlue }}, transparent);
+        transition: transform 0.3s ease;
+    }
+    
+    .{{safeid}}__product-name a:hover {
+        color: {{ yougardenBlue }};
+    }
+
+    .{{safeid}}__product-name a:hover::after {
+        transform: translateX(-50%) scaleX(1);
+    }
+
+	/* Fancy Centered Price Container */
+	.{{safeid}}__product-price-container-fancy {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		margin-top: auto;
+		padding: 12px 0 8px;
+		text-align: center;
+	}
+
+	/* Fancy Price Styling */
+	.{{safeid}}__product-price-fancy {
+		display: inline-flex;
+		align-items: baseline;
+		justify-content: center;
+		gap: 6px;
+		font-family: {{ fields.productPrice.font }}, sans-serif !important;
+		position: relative;
+	}
+
+	.{{safeid}}__product-price-fancy a {
+		text-decoration: none !important;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 6px;
+		transition: transform 0.2s ease;
+		font-family: inherit !important;
+	}
+
+	.{{safeid}}__price-label {
+		font-family: {{ fields.productPrice.font }}, sans-serif !important;
+		font-size: 13px !important;
+		color: #666 !important;
+		font-weight: 500 !important;
+		letter-spacing: 0.3px !important;
+		text-transform: uppercase !important;
+		opacity: 0.8;
+		line-height: 1.2 !important;
+	}
+
+	.{{safeid}}__price-amount {
+		font-family: {{ fields.productPrice.font }}, sans-serif !important;
+		font-size: {{ fields.productPrice.size.size}}{{ fields.productPrice.size.unit }} !important;
+		font-weight: 700 !important;
+		color: {{ fields.productPrice.color or yougardenBlue }} !important;
+		letter-spacing: -0.5px !important;
+		position: relative;
+		display: inline-block;
+		line-height: 1.2 !important;
+		text-transform: none !important;
+	}
+
+	.{{safeid}}__product-price-fancy a:hover {
+		transform: scale(1.05);
+	}
+
+	.{{safeid}}__product-price-fancy a:hover .{{safeid}}__price-amount {
+		color: {{ yougardenBlueDark }};
+	}
+
+	/* Was Price Styling - Above main price */
+	.{{safeid}}__product-was-price {
+		font-family: {{ fields.productWasPrice.font }}, sans-serif !important;
+		font-size: {{fields.productWasPrice.size.size }}{{ fields.productWasPrice.size.unit }} !important;
+		color: {{ fields.productWasPrice.color or '#999999' }} !important;
+		{% if fields.productWasPrice.bold %}
+			font-weight: 600 !important;
+		{% else %}
+			font-weight: 400 !important;
+		{% endif %}
+		{% if fields.productWasPrice.italics %}
+			font-style: italic !important;
+		{% else %}
+			font-style: normal !important;
+		{% endif %}
+		text-align: center;
+		line-height: 1.2 !important;
+		letter-spacing: normal !important;
+		text-transform: none !important;
+	}
+
+	.{{safeid}}__product-was-price span {
+		{% if fields.productWasPrice.strikethrough %}
+			text-decoration: line-through !important;
+		{% endif %}
+		position: relative;
+		opacity: 0.7;
+		font-size: inherit !important;
+		font-family: inherit !important;
+		color: inherit !important;
+	}
+
+	.{{safeid}}__product-was-price span::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 100%;
+		height: 1.5px;
+		background: #999;
+		transform: translateY(-50%);
+	}
+
+	.{{safeid}}__product-cta-button {
+		display: block;
+		text-decoration: none;
+		{% if fields.callToAction.bold %}
+			font-weight: bold;
+		{% endif %}
+		{% if fields.callToAction.italics %}
+			font-style: italic;
+		{% endif %}
+		padding:10px 0px;
+		margin-left: 5px;
+		margin-right: 5px;
+		width: 90%;
+		text-align: center;
+		font-family: {{ fields.callToAction.font }};
+		font-size: {{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+		color: {{ fields.callToAction.colors.foreground or '#979797'}};
+		border: {{ fields.callToAction.borderWeight }}px {{ fields.callToAction.borderStyle }} {{ fields.callToAction.borderColor or '#979797' }};
+		{% if fields.callToAction.cornerStyle  == 'rounded' %}
+			border-radius: 24px;
+		{% endif %}
+		{% if fields.callToAction.buttonOutline == 'filled' %}
+			background-color: {{ fields.callToAction.colors.background or '#000000'}};
+		{% endif %}
+		{% if fields.callToAction.buttonOutline == 'outline' %}
+			background-color: transparent;
+		{% endif %}
+	}
+
+	{%if fields.callToActionButtonHover.active %}
+		.{{safeid}}__product-cta-button:hover {
+			color:  {{ fields.callToActionButtonHover.colors.foreground }};
+			{% if fields.callToActionButtonHover.buttonOutline == 'filled' %}
+				border: {{ fields.callToActionButtonHover.borderWeight }}px {{ fields.callToActionButtonHover.borderStyle }} {{ fields.callToActionButtonHover.borderColor }};
+				background-color: {{ fields.callToActionButtonHover.colors.background }};
+			{% endif %}
+			{% if fields.callToActionButtonHover.buttonOutline == 'outline' %}
+				border: {{ fields.callToActionButtonHover.borderWeight }}px {{ fields.callToActionButtonHover.borderStyle }} {{ fields.callToActionButtonHover.borderColor }};
+				background-color: transparent;
+			{% endif %}
+		}
+	{% endif %}
+
+	/* ratings styles */
+
+	.{{safeid}}__ratings {
+		padding: 0.5em;
+		margin-top: auto;
+        text-align: {{ fields.ratingIcons.alignment }};
+        width: 100%;
+    }
+
+    .{{ safeid }}__ratings * {
+        text-shadow: none;
+    }
+
+    .{{ safeid }}__ratings text {
+        stroke: {{ fields.ratingIcons.iconBorderColor }};
+        stroke-width: 5%;
+    }
+
+    @media only screen and (max-width: 769px){
+        .{{ safeid }}__sb-wrapper {
+        margin: auto !important;
+        width: 96%;
+        position: relative;
+        }
+        .{{safeid}}__product-image,
+        .{{safeid}}__product-image a {
+            width: 100%;
+        }
+        .{{safeid}}__product-image img {
+            width: 100%;
+            height: auto !important;
+        }
+
+        .{{ safeid }} .nosto-block{
+        padding: 6px;
+        }
+    }
+
+    @media only screen and (max-width: 1000px){
+		.custom-product-box,
+        .{{safeid}}__custom-product-box,
+        .{{safeid}}__slick .slick-slide .custom-product-box,
+        .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+  		display: flex !important;
+      	flex-direction: column !important;
+		padding: 10px !important;
+        box-sizing: border-box !important;
+    }
+    }
+    
+    /* Hide featured section heading */
+    #wrapper > div.fp-section.featured > div.centralWrapper.text > h2 {
+        display: none !important;
+    }
+</style>
+ 
+<script>
+(function() {
+    function initSlick() {
+        var $slick = $('.{{safeid}}__slick');
+        if (!$slick.length || !$slick.children().length) return;
+        if ($slick.hasClass('slick-initialized')) return;
+        $slick.slick({
+            mobileFirst: true,
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            arrows: {{ fields.carouselActive.active }},
+            dots: {{ fields.carouselPagination.active }},
+            autoplay: {{ fields.carouselActive.autoplay }},
+            autoplaySpeed: 3000,
+            infinite: {{ fields.carouselActive.loop }},
+            swipeToSlide: true,
+            speed: 280,
+            cssEase: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            edgeFriction: 0.08,
+            useTransform: true,
+            useCSS: true,
+            responsive: [
+                {
+                    breakpoint: 480,
+                    settings: { slidesToShow: 3, slidesToScroll: 1 }
+                },
+                {
+                    breakpoint: 1024,
+                    settings: { slidesToShow: 4, slidesToScroll: 1 }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: { slidesToShow: {{ fields.columns }}, slidesToScroll: 1 }
+                }
+            ]
+        });
+    }
+    if (typeof jQuery !== "undefined") {
+        jQuery(document).ready(initSlick);
+    } else {
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof jQuery !== "undefined") initSlick();
+        });
+    }
+})();
+</script>
+ 
+ {% endif %}

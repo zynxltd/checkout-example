@@ -1,0 +1,15 @@
+flowchart TD
+    START([New newsletter subscriber]) --> E1["Email 1 — immediate<br/>Thank you + USPs + code if promised"]
+    E1 --> D1[Delay 2-3 days]
+    D1 --> PURCH1{First purchase?}
+    PURCH1 -->|Yes| EXIT1([Exit → P1.1 Post-purchase])
+    PURCH1 -->|No| E2[Email 2 — brand story + seasonal inspiration]
+    E2 --> D2[Delay 3-4 days]
+    D2 --> PURCH2{First purchase?}
+    PURCH2 -->|Yes| EXIT2([Exit])
+    PURCH2 -->|No| E3[Email 3 — Shop now or Club £10/yr]
+    E3 --> D3[Delay 7 days]
+    D3 --> PURCH3{First purchase?}
+    PURCH3 -->|Yes| EXIT3([Exit])
+    PURCH3 -->|No| REM[Code expiry reminder if issued]
+    REM --> EXIT4([Exit welcome track])

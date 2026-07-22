@@ -1,0 +1,19 @@
+Program ID,Priority,Build order,Name,Platform,Status,Owner,Live date,Notes
+P0-CART-ABANDON-NON-MEMBER,P0,1,Cart abandon non-member,FR + Dotdigital,Not started,,,RFM branch on E2/E3
+P0-CART-ABANDON-MEMBER,P0,2,Cart abandon Club member,FR + Dotdigital,Not started,,,No discount escalation
+P0-BROWSE-ABANDON,P0,3,Browse abandon,FR + Dotdigital,Not started,,,Max 2 emails
+P0-WELCOME-SIGNUP,P0,4,Welcome signup series,Dotdigital,Not started,,,Code expiry sub-track
+P1-POST-PURCHASE,P1,5,Post-purchase care,Dotdigital,Not started,,,Exclude Club SKU only
+P1-CLUB-WELCOME,P1,6,Club welcome + login,Dotdigital,Not started,,,SKU 820001
+P1-CLUB-RENEWAL,P1,7,Club pre-renewal,Dotdigital,Not started,,,T-30/14/7
+P1-CLUB-PAYMENT-FAILED,P1,7b,Club failed payment,Dotdigital,Not started,,,Branch of renewal
+P1-CT-PLANT-FINDER,P1,8,Custom: Plant Finder,FR custom trigger,Not started,,,Requires JS event
+P2-CLUB-VOUCHER-5,P2,9,Club £5 voucher reminder,Dotdigital,Not started,,,
+P2-CLUB-CART-ABANDON,P2,10,Club cart abandon,FR + Dotdigital,Not started,,,
+P2-LAPSING-SEASONAL,P2,11,Lapsing seasonal,Jemma segment,Not started,,,
+P2-LAPSED-WINBACK,P2,11b,Lapsed win-back,Jemma segment,Not started,,,4 email sequence
+P2-CLUB-LAPSED,P2,12,Club lapsed rejoin,Dotdigital,Not started,,,
+P3-BACK-IN-STOCK,P3,13,Back in stock,FR trigger,Not started,,,
+P3-PRICE-DROP,P3,14,Price drop,FR trigger,Not started,,,
+P3-MEMBER-EARLY-ACCESS,P3,15,Member early access,Dotdigital,Not started,,,Gary coordination
+P3-CLUB-HIGH-LTV,P3,16,High-LTV Club pitch,Dotdigital,Not started,,,

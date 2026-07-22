@@ -1,0 +1,185 @@
+{
+	"name": "YG - Account - Club Mag",
+	"slug": "14s5ph3",
+	"html": "",
+	"active": true,
+	"content_tag": null,
+	"content_type": "product",
+	"dt": "",
+	"template_style": "14s5ph3",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "",
+		"sortOrder": -1,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "settings",
+				"name": "Section copy",
+				"fields": [
+					{
+						"id": "headline",
+						"name": "Section headline",
+						"description": "Grey bar heading shown on the Club Membership page",
+						"inline": true,
+						"type": "text",
+						"first": true,
+						"default": "Your Club Magazine",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "intro",
+						"name": "Intro text",
+						"description": "Short description below the section heading",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Read the latest Club Magazine, exclusive to Discount Club members.",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 1
+			},
+			{
+				"id": "latest",
+				"name": "Latest issue",
+				"fields": [
+					{
+						"id": "latest_cover",
+						"name": "Cover image",
+						"description": "Upload docs/club-mag-issue-5-june-2026-cover.png to dycdn and paste the URL here",
+						"inline": true,
+						"type": "image_url",
+						"first": true,
+						"default": "https://images.dycdn.net/a8u5sf4p/club-mag-issue-5-june-2026-cover_k8m2p4x1qz.png",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_series",
+						"name": "Series name",
+						"description": "Magazine series label shown above the issue",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Club Members Exclusive",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_issue",
+						"name": "Issue label",
+						"description": "e.g. Issue 5 | June 2026",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Issue 5 | June 2026",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_title",
+						"name": "Title",
+						"description": "Cover headline for the latest issue",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Your June Garden Starts Here",
+						"value": "",
+						"sortOrder": 4,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_teaser_1",
+						"name": "In this issue — item 1",
+						"description": "First teaser from the cover",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "New Roses Fresh From Chelsea",
+						"value": "",
+						"sortOrder": 5,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_teaser_2",
+						"name": "In this issue — item 2",
+						"description": "Second teaser from the cover",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Money-Saving, Long Flowering Perennials",
+						"value": "",
+						"sortOrder": 6,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_teaser_3",
+						"name": "In this issue — item 3",
+						"description": "Third teaser from the cover",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Tales From Gardening Trips Abroad",
+						"value": "",
+						"sortOrder": 7,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_url",
+						"name": "Magazine URL",
+						"description": "Yudu reader URL for the latest issue",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "https://content.yudu.com/web/433ma/0A44t64/CM-June-Iss-5-26/index.html",
+						"value": "",
+						"sortOrder": 8,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "latest_cta",
+						"name": "CTA button text",
+						"description": "Text for the featured read button",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "Read latest issue",
+						"value": "",
+						"sortOrder": 9,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 2
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

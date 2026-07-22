@@ -1,0 +1,783 @@
+{# Multi-Column Carousel -- Web with Fancy Price #}
+
+{% if meta.preview == "true" %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+{% endif %}
+
+{# VARIABLES #}
+{% set yougardenBlue = "#002D72" %}
+{% set yougardenBlueDark = "#001F4D" %}
+{% set yougardenDark = "#2c3e50" %}
+
+{% if fields.image.salesBadge == "yougarden" %}
+    {% set salesBadgeColor = "#e3185d" %}
+{% elif fields.image.salesBadge == "gardeningdirect" %}
+    {% set salesBadgeColor = "#d00" %}
+{% elif fields.image.salesBadge == "plantsmailshop" %}
+    {% set salesBadgeColor = "#de6926" %}
+{% elif fields.image.salesBadge == "roses.co.uk" %}
+    {% set salesBadgeColor = "#f2eadd" %}
+{% endif %}
+
+
+<div class="{{safeid}} {{safeid}}__sb-wrapper">
+
+    {# headline start #}
+	{% if fields.headline.active %}
+
+    <div class="{{safeid}}__headline-wrapper">
+        <span class="{{safeid}}__headline-text">{{ mergeField(fields.headline.text) }}</span>
+        <div class="{{safeid}}__headline-underline"></div>
+    </div>
+
+{% endif %}
+{# headline end #}
+
+{# sub-headline start #}
+{% if fields.subHeadline.active %}
+
+    <div class="{{safeid}}__sub-headline">
+        {{ fields.subHeadline.text }}
+    </div>
+
+{% endif %}
+{# sub-headline end #}
+
+{% if fields.divider.active %}
+
+    {% if fields.divider.active %}
+        <div class="{{safeid}}__divider"></div>
+    {% endif %}
+
+{% endif %}
+
+    {# products start #}
+
+    <div class="{{safeid}}__slick">
+
+        {% for row in products|batch(cols) %}
+            {% for product in row %}
+                {# product card start #}
+                <div class="slick-slide imagecontainer">
+                    <div class="custom-product-box {{safeid}}__custom-product-box">
+
+
+                        {# product image start #}
+                        {% if fields.image.active %}
+                            <div class="{{safeid}}__product-image">
+                                <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                    utm_campaign=mergeField(fields.utmCampaign, {}),
+                                    utm_medium=mergeField(fields.utmMedium, {}),
+                                    utm_source=mergeField(fields.utmSource, {})) }}">
+                                    {# Top left badge overlay #}
+                                    {% if fields.image.popularBadgeText %}
+                                    <div class="{{safeid}}__most-popular-badge">{{ fields.image.popularBadgeText }}</div>
+                                    {% endif %}
+                                    {% set saving = (product.ruv - product.uv) / product.ruv * 100 %}
+                                    {% if saving > 0 %}
+                                    <div class="{{ safeid }}__savings-badge"><div class="save"><span class="percentage">{{ saving|round(0) }}<span class="symbol">%</span></span><br>OFF</div></div>
+                                    {% endif %}
+                                    <img src="{{ product.img }}" loading="lazy" alt="{{ product.n }}">
+                                </a>
+                            </div>
+                        {% endif %}
+                        {# product image end #}
+
+                        {# social proof start #}
+                        {% if fields.socialProofMessaging.active  %}
+                            <div class="{{safeid}}__social-proof">
+                                {{ socialProof(product) }}
+                            </div>
+                        {% endif %}
+                        {# social proof end #}
+
+                        {# ratings start #}
+                        {% if fields.ratingIcons.active %}
+                            <div class="{{safeid}}__ratings">
+                                {% if product|addProductRatings %}
+                                    {{ product| addProductRatings }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        {# ratings end #}
+
+                        {# product name start #}
+                        {% if fields.productName.active  %}
+                            <div class="{{safeid}}__product-name">
+                                <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                    utm_campaign=mergeField(fields.utmCampaign, {}),
+                                    utm_medium=mergeField(fields.utmMedium, {}),
+                                    utm_source=mergeField(fields.utmSource, {})) }}">
+                                    {{ product.n }}
+                                </a>
+                            </div>
+                        {% endif %}
+                        {# product name end #}
+
+                        {# Fancy Centered Price Container #}
+                        <div class="{{safeid}}__product-price-container-fancy">
+                            {# product was price start #}
+                            {% if fields.productWasPrice.active %}
+                                <div class="{{safeid}}__product-was-price">
+                                    {% if product.ruv and product.ruv > product.uv %}
+                                         <span>{{ product.ruv|format_currency(product.curr, 2) }}</span>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {# product was price end #}
+
+                            {# product price start #}
+                            {% if fields.productPrice.active %}
+                                <div class="{{safeid}}__product-price-fancy">
+                                    <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                        utm_campaign=mergeField(fields.utmCampaign, {}),
+                                        utm_medium=mergeField(fields.utmMedium, {}),
+                                        utm_source=mergeField(fields.utmSource, {})) }}" target="_blank">
+                                        <span class="{{safeid}}__price-label">From</span>
+                                        <span class="{{safeid}}__price-amount">{{ product.uv|format_currency(product.curr,2) }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {# product price end #}
+                        </div>
+                        {# product price end #}
+
+
+
+                            {# cta start #}
+                            {% if fields.callToAction.active %}
+                                <a class="{{safeid}}__product-cta-button" href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                        utm_campaign=mergeField(fields.utmCampaign, {}),
+                                        utm_medium=mergeField(fields.utmMedium, {}),
+                                        utm_source=mergeField(fields.utmSource, {})) }}" target="_blank">
+                                    {{ fields.callToAction.text }}
+                                </a>
+                            {% endif %}
+                            {# cta end #}
+                    </div>
+
+                </div>
+                {# product card end #}
+            {% endfor %}
+        {% endfor %}
+
+    </div>
+    {# products end #}
+
+</div>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<style>
+    .{{safeid}}__slick {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .{{safeid}}__slick .slick-slide {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        {% if fields.cardStyling.active %}
+            background-color: {{ fields.cardStyling.backgroundColor }};
+            border-radius: {{ fields.cardStyling.cornerStyle }};
+            {% if fields.cardStyling.shadowtoggle %}
+                box-shadow: 0px 0px 10px 0px;
+            {% endif %}
+            {% if fields.cardStyling.toggleBorder %}
+                border: {{ fields.cardStyling.borderWidth }}px {{ fields.cardStyling.borderStyle }} {{ fields.cardStyling.borderColor }};
+            {% endif %}
+        {% endif %}
+        align-items: unset;
+    }
+
+    .{{safeid}}__slick.slick-initialized .slick-slide, .slick-track {
+        display: flex;
+    }
+
+
+    /* slick arrows styling */
+    .{{safeid}}__slick .slick-arrow {
+        position: absolute;
+        top: 50%;
+        z-index: 2;
+        width: 36px;
+        height: 36px;
+        background: rgba(0,0,0,0.5);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        transition: background 0.2s;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        opacity: 0.8;
+display: none!important;
+    }
+    .{{safeid}}__slick .slick-arrow:hover {
+        background: rgba(0,0,0,0.8);
+        opacity: 1;
+    }
+    .{{safeid}}__slick .slick-prev {
+        left: 10px;
+    }
+    .{{safeid}}__slick .slick-next {
+        right: 10px;
+    }
+    .{{safeid}}__slick .slick-arrow:before {
+        display: none;
+    }
+
+    /* slick dots styling */
+    .{{safeid}}__slick .slick-dots {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 20px 0 0 0;
+    }
+    .{{safeid}}__slick .slick-dots li {
+        display: inline-block;
+        margin: 0 5px;
+        padding: 0;
+    }
+    .{{safeid}}__slick .slick-dots li button {
+        font-size: 0;
+        line-height: 0;
+        display: block;
+        width: 12px;
+        height: 12px;
+        padding: 0;
+        cursor: pointer;
+        color: transparent;
+        border: 0;
+        outline: none;
+        background: #ccc;
+        border-radius: 50%;
+        transition: background 0.3s;
+    }
+    .{{safeid}}__slick .slick-dots li button:hover,
+    .{{safeid}}__slick .slick-dots li.slick-active button {
+        background: #333;
+    }
+    .{{safeid}}__slick .slick-dots li button:before {
+        display: none !important;
+    }
+
+    /* header styles */
+
+	.{{safeid}}__sb-wrapper {
+		display:flex;
+		flex-direction: column;
+		margin: 0 auto;
+		background-color:{{ fields.backgroundColor or '#FFFFFF' }};
+		{% if fields.carouselActive  %}
+			max-height: fit-content;
+		{% endif %}
+		{% if not fields.fillSmartBlockParentContainer %}
+			max-width: {{ fields.width }}px;
+		{% endif %}
+		{% if fields.fillSmartBlockParentContainer == false %}
+			width:  {{ fields.width }}px;
+		{% endif %}
+		{% if fields.borders.active %}
+			border:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+		{% endif %}
+		{% if fields.fillSmartBlockParentContainer == false %}
+			max-width: {{ email_width }}px;
+            {%endif %}
+width: 100%;
+
+	}
+
+	/* Fancy Headline Styles with Blue Line */
+	.{{safeid}}__headline-wrapper {
+		text-align: center;
+		margin-bottom: 20px;
+		position: relative;
+		padding-bottom: 15px;
+		margin-top: {{ fields.headline.topMargin.size }}{{ fields.headline.topMargin.unit }};
+		margin-bottom: {{ fields.headline.bottomMargin.size }}{{ fields.headline.bottomMargin.unit }};
+	}
+
+	.{{safeid}}__headline-text {
+		display: inline-block;
+		font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-size: 26px;
+		font-weight: 700;
+		color: {{ yougardenDark }};
+		letter-spacing: -0.6px;
+		line-height: 1.3;
+		position: relative;
+		z-index: 2;
+		background: linear-gradient(135deg, {{ yougardenDark }} 0%, {{ yougardenBlue }} 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.{{safeid}}__headline-underline {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 140px;
+		height: 3px;
+		background: linear-gradient(90deg, transparent 0%, {{ yougardenBlue }} 30%, {{ yougardenBlueDark }} 50%, {{ yougardenBlue }} 70%, transparent 100%);
+		border-radius: 2px;
+		box-shadow: 0 1px 4px rgba(0, 45, 114, 0.2);
+		animation: underline-pulse 2s ease-in-out infinite;
+	}
+	
+	@keyframes underline-pulse {
+		0%, 100% {
+			opacity: 1;
+			width: 140px;
+			box-shadow: 0 1px 4px rgba(0, 45, 114, 0.2);
+		}
+		50% {
+			opacity: 0.8;
+			width: 160px;
+			box-shadow: 0 2px 8px rgba(0, 45, 114, 0.4);
+		}
+	}
+	
+	@keyframes underline-glow {
+		0%, 100% {
+			box-shadow: 0 1px 4px rgba(0, 45, 114, 0.2);
+		}
+		50% {
+			box-shadow: 0 2px 12px rgba(0, 45, 114, 0.5);
+		}
+	}
+
+	.{{safeid}}__sub-headline {
+		text-align: {{ fields.subHeadline.alignment }};
+		padding: {{ fields.subHeadline.padding.size }}{{ fields.subHeadline.padding.unit }};
+		margin-top: {{ fields.subHeadline.topMargin.size }}{{ fields.subHeadline.topMargin.unit }};
+		margin-bottom: {{ fields.subHeadline.bottomMargin.size }}{{ fields.subHeadline.bottomMargin.unit }};
+		color: {{ fields.subHeadline.colors.foreground or '#000000' }};
+		background-color: {{ fields.subHeadline.colors.background or '#FFFFFF' }};
+		font-family: {{ fields.subHeadline.font }};
+		font-size: {{ fields.subHeadline.size.size }}{{ fields.subHeadline.size.unit }};
+		{% if fields.subHeadline.bold %}
+			font-weight:bold;
+		{% endif %}
+		{% if fields.subHeadline.italics %}
+			font-style: italic;
+		{% endif %}
+	}
+
+	/* divider styles */
+
+    .{{safeid}}__divider {
+        height: {{fields.divider.weight}}px;
+        background-color: {{fields.divider.color}};
+        border-radius: 10px;
+        margin-bottom: 1em;
+	}
+
+
+    /* product styles */
+    .custom-product-box,
+    .{{safeid}}__custom-product-box,
+    .{{safeid}}__slick .slick-slide .custom-product-box,
+    .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+        display: flex !important;
+        flex-direction: column !important;
+		padding: 10px !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        overflow: visible !important;
+    }
+
+	.{{safeid}}__product-image {
+		position: relative;
+		display: inline-block;
+		width: fit-content;
+		max-width: 100%;
+		align-self: center;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+	}
+
+	.{{safeid}}__product-image a {
+		position: relative;
+		display: inline-block;
+		width: fit-content;
+		max-width: 100%;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+	}
+
+	.{{safeid}}__product-image img {
+		height: {% if fields.image.height > 50 %}{{ fields.image.height }}{% else %}50{% endif %}px;
+        width: auto;
+        max-width: 100%;
+        display: block;
+		margin: 0;
+		padding: 0;
+    }
+
+	/* Top left badge overlay - flush with image corner */
+	.{{safeid}}__most-popular-badge {
+		position: absolute;
+		top: 0 !important;
+		left: 0 !important;
+		z-index: 10 !important;
+		background-color: #002d72 !important; /* Gardening Direct dark blue color */
+		color: #ffffff !important;
+		font-family: Arial, sans-serif !important;
+		font-size: 12px !important;
+		font-weight: bold !important;
+		text-transform: uppercase !important;
+		padding: 8px 12px !important;
+		border-radius: 0 !important;
+		box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+		display: block !important;
+		margin: 0 !important;
+		line-height: 1 !important;
+		white-space: nowrap !important;
+	}
+
+    .{{ safeid}}__savings-badge {
+        position: absolute;
+        top: 0 !important;
+        right: 0 !important;
+        z-index: 10;
+        width: 70px;
+        height: 70px;
+        background: {{ salesBadgeColor }};
+        border-radius: 40px;
+        /* box-shadow: 0 0 20px #fff; */
+        border: solid 2px #fff;
+        }
+    .{{ safeid}}__savings-badge .save {
+        float: left;
+        width: 99%;
+        text-align: center;
+        font-size: 16px;
+        line-height: 18px;
+        color: #fff;
+        padding: 15px 0 0;
+        font-weight: 700;
+        }
+
+	/* Fancy Centered Product Name */
+	.{{safeid}}__product-name {
+		text-align: center;
+        line-height: 1.4;
+		min-height: 40px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        padding: 0 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+    .{{safeid}}__product-name a {
+		font-family: {{ fields.productName.font }};
+		font-size: {{ fields.productName.size.size }}{{ fields.productName.size.unit }};
+		color: {{ fields.productName.color or '#2c3e50' }};
+		{% if fields.productName.bold %}
+			font-weight: 700;
+        {% else %}
+            font-weight: 500;
+		{% endif %}
+		{% if fields.productName.italics %}
+			font-style: italic;
+		{% endif %}
+        vertical-align: baseline;
+        background: 0 0;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-align: center;
+        line-height: 1.4;
+    }
+    
+    .{{safeid}}__product-name a:hover {
+        color: {{ yougardenBlue }};
+    }
+
+	/* Fancy Centered Price Container */
+	.{{safeid}}__product-price-container-fancy {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		margin-top: auto;
+		padding: 12px 0 8px;
+		text-align: center;
+	}
+
+	/* Fancy Price Styling */
+	.{{safeid}}__product-price-fancy {
+		display: inline-flex;
+		align-items: baseline;
+		justify-content: center;
+		gap: 6px;
+		font-family: {{ fields.productPrice.font }};
+		position: relative;
+	}
+
+	.{{safeid}}__product-price-fancy a {
+		text-decoration: none;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 6px;
+		transition: transform 0.2s ease;
+	}
+
+	.{{safeid}}__price-label {
+		font-size: 13px;
+		color: #666;
+		font-weight: 500;
+		letter-spacing: 0.3px;
+		text-transform: uppercase;
+		opacity: 0.8;
+	}
+
+	.{{safeid}}__price-amount {
+		font-size: {{ fields.productPrice.size.size}}{{ fields.productPrice.size.unit }};
+		font-weight: 700;
+		color: {{ yougardenBlue }};
+		letter-spacing: -0.5px;
+		position: relative;
+		display: inline-block;
+	}
+
+	.{{safeid}}__product-price-fancy a:hover {
+		transform: scale(1.05);
+	}
+
+	.{{safeid}}__product-price-fancy a:hover .{{safeid}}__price-amount {
+		color: {{ yougardenBlueDark }};
+	}
+
+	/* Was Price Styling - Above main price */
+	.{{safeid}}__product-was-price {
+		font-family: {{ fields.productWasPrice.font }};
+		font-size: {{fields.productWasPrice.size.size }}{{ fields.productWasPrice.size.unit }};
+		color: {{ fields.productWasPrice.color or '#999999' }};
+		{% if fields.productWasPrice.bold %}
+			font-weight: 600;
+		{% else %}
+			font-weight: 400;
+		{% endif %}
+		{% if fields.productWasPrice.italics %}
+			font-style: italic;
+		{% endif %}
+		text-align: center;
+		line-height: 1.2;
+	}
+
+	.{{safeid}}__product-was-price span {
+		{% if fields.productWasPrice.strikethrough %}
+			text-decoration: line-through;
+		{% endif %}
+		position: relative;
+		opacity: 0.7;
+	}
+
+	.{{safeid}}__product-was-price span::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 100%;
+		height: 1.5px;
+		background: #999;
+		transform: translateY(-50%);
+	}
+
+	.{{safeid}}__product-cta-button {
+		display: block;
+		text-decoration: none;
+		{% if fields.callToAction.bold %}
+			font-weight: bold;
+		{% endif %}
+		{% if fields.callToAction.italics %}
+			font-style: italic;
+		{% endif %}
+		padding:10px 0px;
+		margin-left: 5px;
+		margin-right: 5px;
+		width: 90%;
+		text-align: center;
+		font-family: {{ fields.callToAction.font }};
+		font-size: {{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+		color: {{ fields.callToAction.colors.foreground or '#979797'}};
+		border: {{ fields.callToAction.borderWeight }}px {{ fields.callToAction.borderStyle }} {{ fields.callToAction.borderColor or '#979797' }};
+		{% if fields.callToAction.cornerStyle  == 'rounded' %}
+			border-radius: 24px;
+		{% endif %}
+		{% if fields.callToAction.buttonOutline == 'filled' %}
+			background-color: {{ fields.callToAction.colors.background or '#000000'}};
+		{% endif %}
+		{% if fields.callToAction.buttonOutline == 'outline' %}
+			background-color: transparent;
+		{% endif %}
+	}
+
+	{%if fields.callToActionButtonHover.active %}
+		.{{safeid}}__product-cta-button:hover {
+			color:  {{ fields.callToActionButtonHover.colors.foreground }};
+			{% if fields.callToActionButtonHover.buttonOutline == 'filled' %}
+				border: {{ fields.callToActionButtonHover.borderWeight }}px {{ fields.callToActionButtonHover.borderStyle }} {{ fields.callToActionButtonHover.borderColor }};
+				background-color: {{ fields.callToActionButtonHover.colors.background }};
+			{% endif %}
+			{% if fields.callToActionButtonHover.buttonOutline == 'outline' %}
+				border: {{ fields.callToActionButtonHover.borderWeight }}px {{ fields.callToActionButtonHover.borderStyle }} {{ fields.callToActionButtonHover.borderColor }};
+				background-color: transparent;
+			{% endif %}
+		}
+	{% endif %}
+
+	/* ratings styles */
+
+	.{{safeid}}__ratings {
+		padding: 0.5em;
+		margin-top: auto;
+        text-align: {{ fields.ratingIcons.alignment }};
+        width: 100%;
+    }
+
+    .{{ safeid }}__ratings * {
+        text-shadow: none;
+    }
+
+    .{{ safeid }}__ratings text {
+        stroke: {{ fields.ratingIcons.iconBorderColor }};
+        stroke-width: 5%;
+    }
+
+	/* Responsive Headline */
+	@media only screen and (max-width: 1024px) {
+		.{{safeid}}__headline-text {
+			font-size: 24px;
+		}
+	}
+
+	@media only screen and (max-width: 768px) {
+		.{{safeid}}__headline-wrapper {
+			margin-bottom: 30px;
+		}
+
+		.{{safeid}}__headline-text {
+			font-size: 22px;
+		}
+	}
+
+	@media only screen and (max-width: 480px) {
+		.{{safeid}}__headline-wrapper {
+			margin-bottom: 25px;
+		}
+
+		.{{safeid}}__headline-text {
+			font-size: 20px;
+		}
+	}
+
+    @media only screen and (max-width: 769px){
+        .{{ safeid }}__sb-wrapper {
+        margin: auto !important;
+        width: 96%;
+        position: relative;
+        }
+        .{{safeid}}__product-image,
+        .{{safeid}}__product-image a {
+            width: 100%;
+        }
+        .{{safeid}}__product-image img {
+            width: 100%;
+            height: auto !important;
+        }
+
+		.{{safeid}}__most-popular-badge {
+			font-size: 10px !important;
+			padding: 6px 10px !important;
+		}
+
+        .{{ safeid }} .nosto-block{
+        padding: 6px;
+        }
+    }
+
+    @media only screen and (max-width: 1000px){
+		.custom-product-box,
+        .{{safeid}}__custom-product-box,
+        .{{safeid}}__slick .slick-slide .custom-product-box,
+        .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+  		display: flex !important;
+      	flex-direction: column !important;
+		padding: 10px !important;
+        box-sizing: border-box !important;
+    }
+    }
+    
+    /* Hide featured section heading */
+    #wrapper > div.fp-section.featured > div.centralWrapper.text > h2 {
+        display: none !important;
+    }
+</style>
+
+<script>
+(function() {
+    function initSlick() {
+        var $slick = $('.{{safeid}}__slick');
+        if ($slick.hasClass('slick-initialized')) return;
+        $slick.slick({
+            slidesToShow: {{ fields.columns }},
+            slidesToScroll: {{ fields.columns }},
+            arrows: {{ fields.carouselActive.active }},
+            dots: {{ fields.carouselPagination.active }},
+            autoplay: {{ fields.carouselActive.autoplay }},
+            autoplaySpeed: 3000,
+            infinite: {{ fields.carouselActive.loop }},
+            responsive: [
+                {% if fields.breakpoint1.active %}
+                {
+                    breakpoint: {{ fields.breakpoint1.minWindowWidth }},
+                    settings: {
+                        slidesToShow: {{ fields.breakpoint1.columnCount }},
+                        slidesToScroll: {{ fields.breakpoint1.columnCount }}
+                    }
+                },
+                {% endif %}
+                {% if fields.breakpoint2.active %}
+                {
+                    breakpoint: {{ fields.breakpoint2.minWindowWidth }},
+                    settings: {
+                        slidesToShow: {{ fields.breakpoint2.columnCount }},
+                        slidesToScroll: {{ fields.breakpoint2.columnCount }}
+                    }
+                },
+                {% endif %}
+            ]
+        });
+    }
+    if (typeof jQuery !== "undefined") {
+        jQuery(document).ready(initSlick);
+    } else {
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof jQuery !== "undefined") initSlick();
+        });
+    }
+})();
+</script>
+

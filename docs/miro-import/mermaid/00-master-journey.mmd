@@ -1,0 +1,34 @@
+flowchart TD
+    VISIT([Visitor on yougarden.com])
+
+    VISIT --> BROWSE[Browse PDP]
+    VISIT --> CART[Add to cart and leave]
+    VISIT --> SIGNUP[Newsletter signup]
+    VISIT --> CUSTOM[Plant Finder / PDF / Video]
+
+    BROWSE --> P03[P0.3 Browse abandon]
+    CART --> P01[P0.1 Cart abandon non-member]
+    CART --> P02[P0.2 Cart abandon member]
+    CART --> P22[P2.2 Club cart abandon]
+    SIGNUP --> P04[P0.4 Welcome series]
+    CUSTOM --> P14[P1.4 Custom triggers]
+
+    VISIT --> BUYPLANT[Purchase plants]
+    VISIT --> BUYCLUB[Purchase Club 820001]
+    VISIT --> NOPURCH[No purchase seasonal / 12mo+]
+    VISIT --> FRPROD[FR product signal]
+
+    BUYPLANT --> P11[P1.1 Post-purchase care]
+    BUYCLUB --> P12[P1.2 Club welcome]
+    P12 --> MEMBER[Active member]
+    MEMBER --> P21[P2.1 Voucher reminders]
+    MEMBER --> P13[P1.3 Club renewal]
+    P13 -->|Payment failed| P13F[P1.3 Failed payment]
+    MEMBER --> P24[P2.4 Club lapsed]
+
+    NOPURCH --> P23[P2.3 Lapsing / Lapsed]
+    FRPROD --> P31[P3.1 Back in stock]
+    FRPROD --> P32[P3.2 Price drop]
+
+    GARY[Gary broadcasts] -.->|suppress where noted| P01
+    GARY -.-> P03

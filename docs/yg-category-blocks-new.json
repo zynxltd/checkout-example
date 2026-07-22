@@ -1,0 +1,568 @@
+{
+	"name": "YG - Category Blocks - Home",
+	"slug": "qrth9vk",
+	"html": "",
+	"active": true,
+	"content_tag": null,
+	"content_type": "category",
+	"dt": "",
+	"template_style": "qrth9vk",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "https://images.dycdn.net/w3o8at90/Multi column thumbnail_qotdrqoq49.jpg",
+		"hoverText": "Browse-personalised category blocks — Frequently Browsed categories for the current visitor. Hides when browse history is empty.",
+		"sortOrder": 500,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "layout",
+				"name": "Core Settings",
+				"fields": [
+					{
+						"id": "width",
+						"name": "SmartBlock Width",
+						"description": "Set the maximum width of the SmartBlock",
+						"inline": true,
+						"type": "numeric",
+						"first": true,
+						"default": 1300,
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": [],
+						"allowNegative": false
+					},
+					{
+						"id": "fillSmartBlockParentContainer",
+						"name": "Fill SmartBlock Parent Container ",
+						"description": "If active the SmartBlock will fill in the parent container's width.",
+						"inline": true,
+						"type": "boolean",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "backgroundColor",
+						"name": "Background Color",
+						"description": "Set the background color for the SmartBlock",
+						"inline": true,
+						"type": "color",
+						"first": false,
+						"default": "#ffffffff",
+						"value": "",
+						"sortOrder": 3,
+						"meta": {
+							"tabTitles": {
+								"foreground": "",
+								"background": ""
+							},
+							"transparencyEnabled": [
+								false
+							]
+						}
+					}
+				],
+				"sortOrder": 0
+			},
+			{
+				"id": "headlineSection",
+				"name": "Headline",
+				"fields": [
+					{
+						"id": "headline",
+						"name": "Headline",
+						"description": "Enable / Disable the main Headline",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 0,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the text to show in the main Headline",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "Transform Your Summer Garden",
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the main Headline",
+								"inline": true,
+								"type": "font",
+								"first": false,
+								"default": "gelica",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "size",
+								"name": "Font Size",
+								"description": "Adjust the font size for the main Headline",
+								"inline": true,
+								"type": "font_size",
+								"first": false,
+								"default": {
+									"size": 28,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text and background color for the main Headline",
+								"inline": true,
+								"type": "multiple_color",
+								"first": false,
+								"default": {
+									"foreground": "#000000",
+									"background": "#ffffffff"
+								},
+								"value": "",
+								"sortOrder": 3,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the main Headline text",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 4
+							},
+							{
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the main Headline text",
+								"inline": true,
+								"type": "italics",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 5
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the position of the main Headline",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "Center",
+								"value": "",
+								"sortOrder": 6,
+								"options": [
+									[
+										"Left",
+										"Left"
+									],
+									[
+										"Center",
+										"Center"
+									],
+									[
+										"Right",
+										"Right"
+									]
+								]
+							}
+						]
+					}
+				],
+				"sortOrder": 1
+			},
+			{
+				"id": "categoryLayout",
+				"name": "Category Blocks",
+				"fields": [
+					{
+						"id": "columns",
+						"name": "Number of Columns",
+						"description": "Set the number of category blocks to display in a row. Head over to the Data tab to change the number of categories returned.",
+						"inline": true,
+						"type": "columns",
+						"first": true,
+						"default": 4,
+						"value": "",
+						"sortOrder": 0,
+						"meta": {
+							"min": 1,
+							"max": 4
+						},
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "imageSource",
+						"name": "Image Source",
+						"description": "Choose whether each card uses the category image from browse data, your uploaded image per slot, or uploaded image as fallback when the feed image is missing.",
+						"inline": true,
+						"type": "select",
+						"first": false,
+						"default": "browse_then_upload",
+						"value": "",
+						"sortOrder": 1,
+						"options": [
+							[
+								"browse",
+								"Category feed only"
+							],
+							[
+								"upload",
+								"Uploaded images only"
+							],
+							[
+								"browse_then_upload",
+								"Feed image, else uploaded fallback"
+							]
+						]
+					}
+				],
+				"sortOrder": 2
+			},
+			{
+				"id": "categoryCardImages",
+				"name": "Card Images",
+				"fields": [
+					{
+						"id": "card1",
+						"name": "Card 1",
+						"description": "Image and optional link for the first category block (left on desktop).",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 0,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{
+								"id": "image",
+								"name": "Image",
+								"description": "Upload or enter the image URL for card 1. Used in preview and as fallback on live site.",
+								"inline": true,
+								"type": "image_url",
+								"first": true,
+								"default": "https://www.yougarden.com/csp/yougdn/web/images/pagecontent/YG/frontpage/65/Image-1.jpg",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "linkUrl",
+								"name": "Link URL",
+								"description": "Optional. Overrides the category link for this slot when set.",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": [
+									"category"
+								]
+							}
+						]
+					},
+					{
+						"id": "card2",
+						"name": "Card 2",
+						"description": "Image and optional link for the second category block.",
+						"inline": true,
+						"type": "custom",
+						"first": false,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{
+								"id": "image",
+								"name": "Image",
+								"description": "Upload or enter the image URL for card 2.",
+								"inline": true,
+								"type": "image_url",
+								"first": true,
+								"default": "https://www.yougarden.com/csp/yougdn/web/images/pagecontent/YG/frontpage/65/Image-2.jpg",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "linkUrl",
+								"name": "Link URL",
+								"description": "Optional. Overrides the category link for this slot when set.",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": [
+									"category"
+								]
+							}
+						]
+					},
+					{
+						"id": "card3",
+						"name": "Card 3",
+						"description": "Image and optional link for the third category block.",
+						"inline": true,
+						"type": "custom",
+						"first": false,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{
+								"id": "image",
+								"name": "Image",
+								"description": "Upload or enter the image URL for card 3.",
+								"inline": true,
+								"type": "image_url",
+								"first": true,
+								"default": "https://www.yougarden.com/csp/yougdn/web/images/pagecontent/YG/frontpage/65/Image-3.jpg",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "linkUrl",
+								"name": "Link URL",
+								"description": "Optional. Overrides the category link for this slot when set.",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": [
+									"category"
+								]
+							}
+						]
+					},
+					{
+						"id": "card4",
+						"name": "Card 4",
+						"description": "Image and optional link for the fourth category block (right on desktop).",
+						"inline": true,
+						"type": "custom",
+						"first": false,
+						"default": true,
+						"value": "",
+						"sortOrder": 3,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{
+								"id": "image",
+								"name": "Image",
+								"description": "Upload or enter the image URL for card 4.",
+								"inline": true,
+								"type": "image_url",
+								"first": true,
+								"default": "https://www.yougarden.com/csp/yougdn/web/images/pagecontent/YG/frontpage/65/Image-4.jpg",
+								"value": "",
+								"sortOrder": 0
+							},
+							{
+								"id": "linkUrl",
+								"name": "Link URL",
+								"description": "Optional. Overrides the category link for this slot when set.",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": [
+									"category"
+								]
+							}
+						]
+					}
+				],
+				"sortOrder": 3
+			},
+			{
+				"id": "categoryCards",
+				"name": "Category Cards",
+				"fields": [
+					{
+						"id": "categoryName",
+						"name": "Category Name",
+						"description": "Show the category name in the image overlay (off by default for image-only blocks)",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 0,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Category Name",
+								"inline": true,
+								"type": "font",
+								"first": false,
+								"default": "proxima-nova",
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "size",
+								"name": "Font Size",
+								"description": "Adjust the font size for the Category Name",
+								"inline": true,
+								"type": "font_size",
+								"first": false,
+								"default": {
+									"size": 16,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "color",
+								"name": "Color",
+								"description": "Set the text color for the Category Name",
+								"inline": true,
+								"type": "color",
+								"first": false,
+								"default": "#483f3a",
+								"value": "",
+								"sortOrder": 2,
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										false
+									]
+								},
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					}
+				],
+				"sortOrder": 4
+			},
+			{
+				"id": "redirects",
+				"name": "Links",
+				"fields": [
+					{
+						"id": "redirectURL",
+						"name": "Link URL",
+						"description": "Redirect to this URL when somebody clicks on each category block",
+						"inline": true,
+						"type": "url",
+						"first": false,
+						"default": "{{ category.u }}",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": true,
+						"jinjaMergeFields": [
+							"category"
+						]
+					},
+					{
+						"id": "utmCampaign",
+						"name": "UTM Campaign",
+						"description": "The name of the Google Analytics campaign",
+						"inline": true,
+						"type": "text",
+						"first": true,
+						"default": "yg-home-category-blocks",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmSource",
+						"name": "UTM Source",
+						"description": "The name of the Google Analytics referrer source",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "freshrelevance",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmMedium",
+						"name": "UTM Medium",
+						"description": "The name of the Google Analytics medium",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "smartblock",
+						"value": "",
+						"sortOrder": 4,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 5
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}
