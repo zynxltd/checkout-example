@@ -54,7 +54,7 @@
                 <label class="yg-drawer-theme__label" for="dt-item-bg">Product cards</label>
             </li>
             <li class="yg-drawer-theme__field">
-                <input type="color" id="dt-qty-bg" data-drawer-theme="qtyBg" value="#ccea81" aria-label="Quantity buttons">
+                <input type="color" id="dt-qty-bg" data-drawer-theme="qtyBg" value="#fafafa" aria-label="Quantity buttons">
                 <label class="yg-drawer-theme__label" for="dt-qty-bg">Quantity buttons</label>
             </li>
             <li class="yg-drawer-theme__field">

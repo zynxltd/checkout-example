@@ -58,7 +58,7 @@ body.yg-drawer-open {
     --yg-theme-accent-text: var(--yg-forest);
     --yg-theme-price: var(--yg-pink);
     --yg-theme-item-bg: #ffffff;
-    --yg-theme-qty-bg: var(--yg-moss);
+    --yg-theme-qty-bg: #fafafa;
     --yg-theme-qty-icon: var(--yg-forest);
     --yg-theme-club-bg: var(--yg-club-purple);
     --yg-theme-club-text: #ffffff;

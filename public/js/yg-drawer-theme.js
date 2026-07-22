@@ -1,5 +1,5 @@
 (function () {
-    const STORAGE_KEY = 'yg_drawer_theme_v2';
+    const STORAGE_KEY = 'yg_drawer_theme_v5';
 
     const FIELDS = [
         { key: 'headerBg', var: '--yg-theme-header-bg', label: 'Header background', default: '#ffffff' },
@@ -12,7 +12,7 @@
         { key: 'accentText', var: '--yg-theme-accent-text', label: 'Accent text', default: '#264f1c' },
         { key: 'price', var: '--yg-theme-price', label: 'Prices', default: '#e3185d' },
         { key: 'itemBg', var: '--yg-theme-item-bg', label: 'Product cards', default: '#ffffff' },
-        { key: 'qtyBg', var: '--yg-theme-qty-bg', label: 'Quantity buttons', default: '#ccea81' },
+        { key: 'qtyBg', var: '--yg-theme-qty-bg', label: 'Quantity buttons', default: '#fafafa' },
         { key: 'qtyIcon', var: '--yg-theme-qty-icon', label: 'Quantity text', default: '#264f1c' },
         { key: 'clubBg', var: '--yg-theme-club-bg', label: 'Club banner', default: '#812881' },
         { key: 'clubText', var: '--yg-theme-club-text', label: 'Club banner text', default: '#ffffff' },
