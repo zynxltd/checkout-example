@@ -1478,7 +1478,7 @@ body.yg-drawer-open {
 .yg-qty__btn {
     width: 32px;
     height: 32px;
-    border: none;
+    border: 1px solid #e5e5e5;
     border-radius: 999px;
     background: var(--yg-theme-qty-bg);
     cursor: pointer;
@@ -1535,6 +1535,7 @@ body.yg-drawer-open {
     .yg-qty {
         gap: 0;
         background: var(--yg-theme-qty-bg);
+        border: 1px solid #e5e5e5;
         border-radius: 999px;
         overflow: hidden;
         padding: 0 2px;
@@ -1543,6 +1544,7 @@ body.yg-drawer-open {
     .yg-qty__btn {
         width: 36px;
         height: 36px;
+        border: none;
         border-radius: 0;
         background: transparent;
     }
