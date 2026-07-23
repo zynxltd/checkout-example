@@ -49,6 +49,17 @@
                     <span>10 seconds</span>
                 </label>
 
+                <p class="demo-controls__label">Hero CRO experiments</p>
+                <p class="demo-controls__hint">Quirky hero treatments — toggle on/off to compare.</p>
+                <label class="demo-toggle">
+                    <input type="checkbox" name="yg-argos-hero-fx-wakeup" value="1" data-hero-fx="wakeup">
+                    <span>1. Plant wake-up (blur → colour)</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="checkbox" name="yg-argos-hero-fx-ticker" value="1" data-hero-fx="ticker">
+                    <span>2. Seasonal planting ticker</span>
+                </label>
+
                 <p class="demo-controls__label">TV Live entry</p>
                 <p class="demo-controls__hint">Original site puts Live / TV in the green nav. Hidden by default — pick a placement to show it.</p>
                 <label class="demo-toggle">
