@@ -20,10 +20,10 @@
 
 <div class="cr">
     <header class="co-header">
-        <a href="{{ route('demo.pdp') }}" class="co-header__logo" aria-label="YouGarden home">
+        <a href="{{ route('demo.home') }}" class="co-header__logo" aria-label="YouGarden home">
             <img src="{{ asset('images/yougarden-logo.png') }}" alt="YouGarden" width="180" height="48">
         </a>
-        <a href="{{ route('demo.pdp') }}" class="co-header__cart" aria-label="Return to shop">
+        <a href="{{ route('demo.home') }}" class="co-header__cart" aria-label="Return to shop">
             @include('demo.partials.icon', ['name' => 'cart', 'width' => 24, 'height' => 24])
         </a>
     </header>
@@ -180,7 +180,7 @@
             @endif
 
             <div class="cr-actions">
-                <a href="{{ route('demo.pdp') }}" class="cr-btn cr-btn--primary">Continue shopping</a>
+                <a href="{{ route('demo.home') }}" class="cr-btn cr-btn--primary">Continue shopping</a>
                 @unless($v40)
                 <a href="#" class="cr-btn cr-btn--secondary" data-prototype-link>View order status</a>
                 @endunless
@@ -283,7 +283,7 @@
         (function bindConfirmationRecos() {
             const csrf = document.querySelector('meta[name="csrf-token"]')?.content || '';
             const addUrl = window.YG_DEMO_ROUTES?.add;
-            const pdpUrl = @json(route('demo.pdp'));
+            const pdpUrl = @json(route('demo.home'));
             const feedback = document.getElementById('cr-recos-feedback');
             const scroller = document.querySelector('.cr-recos__scroller');
 

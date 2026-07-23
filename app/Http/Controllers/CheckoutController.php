@@ -19,7 +19,7 @@ class CheckoutController extends Controller
 
         if ($cart['is_empty']) {
             return redirect()
-                ->route('demo.pdp')
+                ->route('demo.home')
                 ->with('checkout_notice', 'Your basket is empty — add items before checkout.');
         }
 
@@ -51,7 +51,7 @@ class CheckoutController extends Controller
 
         if (DemoCart::state()['is_empty']) {
             return redirect()
-                ->route('demo.pdp')
+                ->route('demo.home')
                 ->with('checkout_notice', 'Your basket is empty — add items before checkout.');
         }
 
@@ -68,7 +68,7 @@ class CheckoutController extends Controller
 
         if (! $order) {
             return redirect()
-                ->route('demo.pdp')
+                ->route('demo.home')
                 ->with('checkout_notice', 'No recent order to show.');
         }
 

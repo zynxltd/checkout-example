@@ -14,7 +14,9 @@ Route::post('/login', [PreviewLoginController::class, 'login'])->name('demo.logi
 Route::post('/logout', [PreviewLoginController::class, 'logout'])->name('demo.logout');
 
 Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
-    Route::get('/', [DemoController::class, 'pdp'])->name('demo.pdp');
+    Route::get('/', [DemoController::class, 'homeArgos'])->name('demo.home');
+    Route::get('/home-argos-preview', fn () => redirect()->route('demo.home'))->name('demo.home-argos');
+    Route::get('/pdp', [DemoController::class, 'pdp'])->name('demo.pdp');
     Route::get('/about-us', [DemoController::class, 'aboutUs'])->name('demo.about-us');
     Route::get('/standard-delivery', [DemoController::class, 'standardDelivery'])->name('demo.standard-delivery');
     Route::get('/lifetime-guarantee', [DemoController::class, 'lifetimeGuarantee'])->name('demo.lifetime-guarantee');

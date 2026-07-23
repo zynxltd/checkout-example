@@ -16,7 +16,7 @@
 
     <main class="demo-about-us-main">
         <nav class="demo-about-us__crumb" aria-label="Breadcrumb">
-            <a href="{{ route('demo.pdp') }}">Home</a>
+            <a href="{{ route('demo.home') }}">Home</a>
             <span class="demo-about-us__crumb-sep">/</span>
             <span aria-current="page">About Us</span>
         </nav>

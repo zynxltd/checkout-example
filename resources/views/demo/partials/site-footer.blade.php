@@ -41,7 +41,7 @@
         <div class="demo-footer__col">
             <h2 class="demo-footer__title">Shopping</h2>
             <ul>
-                <li><a href="{{ route('demo.pdp') }}">Shop plants</a></li>
+                <li><a href="{{ route('demo.home') }}">Shop plants</a></li>
                 <li><a href="{{ route('demo.tv-live') }}">TV Live shows</a></li>
                 <li><a href="#">Special offers</a></li>
             </ul>

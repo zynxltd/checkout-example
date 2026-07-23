@@ -1,0 +1,1229 @@
+/* Argos-inspired YouGarden homepage above-the-fold preview */
+
+body.demo-home-argos {
+    margin: 0;
+    font-family: var(--yg-body);
+    background: #fff;
+    color: var(--yg-pebble);
+    --yg-argos-content-width: 1520px;
+    --yg-argos-content-pad: 24px;
+}
+
+.demo-home-argos {
+    background: #fff;
+    color: var(--yg-pebble);
+    margin: 0;
+}
+
+.demo-site--argos-home {
+    margin: 0;
+    padding: 0;
+    overflow-x: clip;
+}
+
+/* USP / trust bar — full bleed (no side gaps) */
+body.demo-home-argos .usp-wrapper,
+body.demo-home-argos .demo-trust {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 10px 0;
+    background: var(--yg-stone, #f2e7d8);
+    box-sizing: border-box;
+}
+
+body.demo-home-argos .usp-inner-wrapper {
+    width: 100%;
+    max-width: var(--yg-argos-content-width);
+    margin: 0 auto;
+    padding: 0 var(--yg-argos-content-pad);
+    box-sizing: border-box;
+}
+
+body.demo-home-argos .usp-track {
+    width: 100%;
+    justify-content: space-between;
+}
+
+body.demo-home-argos .usp-box {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.demo-home-argos__main {
+    max-width: var(--yg-argos-content-width);
+    margin: 0 auto;
+    padding: 16px var(--yg-argos-content-pad) 48px;
+    box-sizing: border-box;
+}
+
+/* —— Argos-style primary nav (Shop dropdown + Trending) —— */
+.demo-header--argos {
+    border-bottom: 1px solid var(--yg-border);
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+.demo-home-argos .demo-header__inner--argos {
+    display: grid;
+    grid-template-columns: auto auto minmax(200px, 1fr) auto;
+    grid-template-areas: 'logo nav search utilities';
+    align-items: center;
+    column-gap: 22px;
+    row-gap: 12px;
+    max-width: var(--yg-argos-content-width);
+    margin: 0 auto;
+    padding: 18px var(--yg-argos-content-pad);
+    width: 100%;
+    min-height: 88px;
+    box-sizing: border-box;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__logo-img {
+    height: 64px;
+    max-width: 300px;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__search {
+    grid-area: search;
+    position: relative;
+    transform: none;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    justify-self: stretch;
+    z-index: auto;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__search-input {
+    padding: 14px 48px 14px 18px;
+    font-size: 15px;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utilities {
+    grid-area: utilities;
+    gap: 32px;
+    flex-shrink: 0;
+    min-width: max-content;
+    margin-left: 0;
+    position: static;
+    z-index: auto;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utility,
+.demo-home-argos .demo-header--argos .demo-header__basket {
+    line-height: 1.4;
+    flex-shrink: 0;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utility-copy,
+.demo-home-argos .demo-header--argos .demo-header__basket-text {
+    gap: 4px;
+    min-width: max-content;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utility-title,
+.demo-home-argos .demo-header--argos .demo-header__utility-sub {
+    white-space: nowrap;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utility-title {
+    font-size: 15px;
+    line-height: 1.3;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utility-sub {
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__basket-img {
+    width: 58px;
+    max-height: 52px;
+}
+
+.demo-home-argos .yg-argos-nav__link {
+    padding: 10px 10px;
+    font-size: 15px;
+}
+
+.demo-header--argos .demo-header__logo {
+    grid-area: logo;
+    flex-shrink: 0;
+    position: static;
+    z-index: auto;
+}
+
+.demo-header--argos .yg-argos-nav {
+    grid-area: nav;
+    flex-shrink: 0;
+    position: static;
+    z-index: auto;
+}
+
+.demo-header--argos .demo-header__search {
+    width: 100%;
+    min-width: 0;
+}
+
+.yg-argos-nav {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--yg-body);
+}
+
+.yg-argos-nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 10px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    color: var(--yg-forest);
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.yg-argos-nav__link:hover,
+.yg-argos-nav__item.is-open .yg-argos-nav__link--btn {
+    background: var(--yg-stone);
+}
+
+.yg-argos-nav__link--sale {
+    color: var(--yg-rose);
+}
+
+.yg-argos-nav__chev {
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    margin-top: -4px;
+}
+
+.yg-argos-nav__item--shop {
+    position: relative;
+}
+
+.yg-argos-nav__panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 40;
+    width: min(920px, calc(100vw - 40px));
+    background: #fff;
+    border: 1px solid var(--yg-border);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(72, 63, 58, 0.14);
+    padding: 20px 20px 14px;
+}
+
+.yg-argos-nav__panel-inner {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.yg-argos-nav__col-title {
+    display: block;
+    margin: 0 0 10px;
+    color: var(--yg-forest);
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.yg-argos-nav__col-title:hover {
+    color: var(--yg-rose);
+}
+
+.yg-argos-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.yg-argos-nav__list a {
+    display: block;
+    padding: 5px 0;
+    color: var(--yg-pebble);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    line-height: 1.3;
+}
+
+.yg-argos-nav__list a:hover {
+    color: var(--yg-forest);
+}
+
+.yg-argos-nav__panel-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 20px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--yg-border);
+}
+
+.yg-argos-nav__panel-foot a {
+    color: var(--yg-forest);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.yg-argos-nav__sale-link {
+    color: var(--yg-rose) !important;
+}
+
+.demo-mobile-nav__link--sub {
+    padding-left: 28px !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    color: var(--yg-muted) !important;
+}
+
+@media (min-width: 960px) {
+    .yg-argos-nav {
+        display: flex;
+    }
+
+    .demo-header--argos .demo-header__menu--mobile,
+    .demo-header--argos .demo-header__actions {
+        display: none !important;
+    }
+}
+
+@media (max-width: 959px) {
+    .demo-home-argos .demo-header__inner--argos {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+            'menu logo actions'
+            'search search search';
+        column-gap: 14px;
+        row-gap: 12px;
+        padding: 14px 16px;
+        min-height: 0;
+    }
+
+    .demo-home-argos .demo-header--argos .demo-header__logo-img {
+        height: 48px;
+    }
+
+    .demo-home-argos .demo-header--argos .demo-header__search {
+        grid-area: search;
+        width: 100%;
+        max-width: none;
+    }
+
+    .demo-header--argos .demo-header__logo {
+        grid-area: logo;
+        justify-self: center;
+    }
+
+    .demo-header--argos .demo-header__menu--mobile {
+        grid-area: menu;
+        display: inline-flex !important;
+    }
+
+    .demo-header--argos .demo-header__actions {
+        grid-area: actions;
+        display: flex !important;
+    }
+
+    .demo-header--argos .demo-header__utilities,
+    .demo-home-argos .demo-header--argos .demo-header__utilities {
+        display: none;
+    }
+}
+
+/* —— Category icon strip (Argos-style scroll carousel) —— */
+.yg-cat-strip {
+    position: relative;
+    margin: 0 0 20px;
+}
+
+.yg-cat-strip__track {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 4px 52px 12px 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+}
+
+.yg-cat-strip__track::-webkit-scrollbar {
+    display: none;
+}
+
+.yg-cat-strip__item {
+    flex: 0 0 auto;
+    width: 148px;
+    text-decoration: none;
+    color: var(--yg-pebble);
+    text-align: center;
+    scroll-snap-align: start;
+    font-family: var(--yg-body);
+}
+
+.yg-cat-strip__item:hover .yg-cat-strip__thumb,
+.yg-cat-strip__item:focus-visible .yg-cat-strip__thumb {
+    box-shadow: 0 0 0 2px var(--yg-forest);
+}
+
+.yg-cat-strip__thumb {
+    display: block;
+    width: 148px;
+    height: 148px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #f0ebe3;
+    margin: 0 auto 10px;
+    transition: box-shadow 0.15s ease;
+}
+
+.yg-cat-strip__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.yg-cat-strip__thumb--sale {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--yg-rose);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    padding: 12px;
+}
+
+.yg-cat-strip__label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.25;
+    padding: 0 2px;
+}
+
+.yg-cat-strip__nav {
+    position: absolute;
+    top: 56px;
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: var(--yg-forest);
+    color: #fff;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 8px rgba(38, 79, 28, 0.25);
+}
+
+.yg-cat-strip__nav--next {
+    right: 0;
+}
+
+.yg-cat-strip__nav--prev {
+    left: 0;
+}
+
+.yg-cat-strip__nav:hover {
+    background: #1e3f16;
+}
+
+.yg-cat-strip__nav[hidden] {
+    display: none !important;
+}
+
+.yg-cat-strip__nav:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.yg-cat-strip__nav-arrow {
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg);
+    margin-left: -2px;
+}
+
+.yg-cat-strip__nav-arrow--prev {
+    transform: rotate(135deg);
+    margin-left: 2px;
+}
+
+/* Soft fade so the next button reads as “more to scroll” */
+.yg-cat-strip::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 12px;
+    width: 72px;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 70%);
+    z-index: 1;
+}
+
+.yg-cat-strip.is-at-end::after {
+    opacity: 0;
+}
+
+.yg-cat-strip.is-at-start::before {
+    opacity: 0;
+}
+
+.yg-cat-strip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 12px;
+    width: 48px;
+    pointer-events: none;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0), #fff 75%);
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.yg-cat-strip:not(.is-at-start)::before {
+    opacity: 1;
+}
+
+@media (max-width: 720px) {
+    .yg-cat-strip__nav {
+        display: none;
+    }
+
+    .yg-cat-strip::before,
+    .yg-cat-strip::after {
+        display: none;
+    }
+
+    .yg-cat-strip__track {
+        padding-right: 4px;
+    }
+
+    .yg-cat-strip__item {
+        width: 112px;
+    }
+
+    .yg-cat-strip__thumb {
+        width: 112px;
+        height: 112px;
+        border-radius: 18px;
+    }
+}
+
+/* —— Hero carousel (Argos pattern: banner + CTAs change together) —— */
+.yg-hero-argos {
+    margin: 0 0 28px;
+}
+
+.yg-hero-argos__slides {
+    position: relative;
+}
+
+.yg-hero-argos__slide {
+    display: none;
+}
+
+.yg-hero-argos__slide.is-active {
+    display: block;
+    animation: yg-hero-fade 0.35s ease;
+}
+
+@keyframes yg-hero-fade {
+    from { opacity: 0.35; }
+    to { opacity: 1; }
+}
+
+.yg-hero-argos__banner--full {
+    display: block;
+    line-height: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f2e7d8;
+}
+
+.yg-hero-argos__banner--full img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1920 / 600;
+    object-fit: contain;
+    object-position: center center;
+    background: #f2e7d8;
+}
+
+/* Four CTAs under the banner — change with each slide */
+.yg-hero-argos__ctas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.yg-hero-argos__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: var(--yg-rose);
+    color: #fff;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.yg-hero-argos__cta:hover {
+    background: #c41452;
+}
+
+.yg-hero-argos__cta:focus-visible {
+    outline: 2px solid var(--yg-forest);
+    outline-offset: 2px;
+}
+
+/* Argos-style controls: arrows + dots centred, Pause on the right */
+.yg-hero-argos__controls {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    min-height: 40px;
+}
+
+.yg-hero-argos__controls-nav {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.yg-hero-argos__pause {
+    grid-column: 3;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 1px solid var(--yg-forest);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--yg-forest);
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.yg-hero-argos__pause:hover {
+    background: var(--yg-stone);
+}
+
+.yg-hero-argos__pause-icon {
+    display: inline-block;
+    width: 10px;
+    height: 12px;
+    position: relative;
+}
+
+/* Pause = two bars */
+.yg-hero-argos__pause-icon::before,
+.yg-hero-argos__pause-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 3px;
+    height: 12px;
+    border-radius: 1px;
+    background: currentColor;
+}
+
+.yg-hero-argos__pause-icon::before {
+    left: 0;
+}
+
+.yg-hero-argos__pause-icon::after {
+    right: 0;
+}
+
+/* Play = triangle when paused */
+.yg-hero-argos__pause[aria-pressed="true"] .yg-hero-argos__pause-icon::before,
+.yg-hero-argos__pause[aria-pressed="true"] .yg-hero-argos__pause-icon::after {
+    display: none;
+}
+
+.yg-hero-argos__pause[aria-pressed="true"] .yg-hero-argos__pause-icon {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent currentColor;
+    background: none;
+}
+
+.yg-hero-argos__arrow {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--yg-forest);
+    cursor: pointer;
+}
+
+.yg-hero-argos__arrow--next {
+    border: 1.5px solid var(--yg-forest);
+}
+
+.yg-hero-argos__arrow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translate(-40%, -50%) rotate(-45deg);
+}
+
+.yg-hero-argos__arrow--prev::before {
+    transform: translate(-20%, -50%) rotate(135deg);
+}
+
+.yg-hero-argos__arrow:hover {
+    background: var(--yg-stone);
+}
+
+.yg-hero-argos__dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.yg-hero-argos__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: #cfc5b8;
+    cursor: pointer;
+    transition: width 0.2s ease, background 0.2s ease, border-radius 0.2s ease;
+}
+
+.yg-hero-argos__dot.is-active {
+    width: 22px;
+    border-radius: 999px;
+    background: var(--yg-forest);
+}
+
+/* —— Below the fold (live yougarden.com modules) —— */
+.yg-home-below {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 8px;
+    padding-bottom: 24px;
+}
+
+.yg-home-row4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.yg-home-tile {
+    position: relative;
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--yg-stone);
+    text-decoration: none;
+    color: #fff;
+    aspect-ratio: 1 / 1;
+    min-width: 0;
+}
+
+.yg-home-tile img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+}
+
+.yg-home-tile:hover img {
+    transform: scale(1.04);
+}
+
+.yg-home-tile__cta {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    padding: 14px 16px;
+    background: linear-gradient(transparent, rgba(38, 79, 28, 0.88));
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.yg-home-tile__cta span {
+    margin-left: 4px;
+}
+
+.yg-home-philosophy__copy {
+    max-width: 860px;
+    margin: 8px auto 0;
+    padding: 0 8px;
+    text-align: center;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--yg-pebble);
+}
+
+.yg-home-philosophy__copy p {
+    margin: 0 0 12px;
+}
+
+.yg-home-strip,
+.yg-home-banner img,
+.yg-home-promo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.yg-home-banner {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.yg-home-banner:hover {
+    opacity: 0.96;
+}
+
+/* Same 4-column rhythm as the row below: Roses spans 2×2, four small tiles fill the rest */
+.yg-home-featured {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(2, auto);
+    gap: 14px;
+    align-items: stretch;
+}
+
+.yg-home-tile--feature {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 0;
+}
+
+.yg-home-featured__grid {
+    display: contents;
+}
+
+.yg-home-featured__grid .yg-home-tile {
+    aspect-ratio: 1 / 1;
+}
+
+.yg-home-promo-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.yg-home-promo {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.yg-home-promo:hover {
+    opacity: 0.96;
+}
+
+@media (max-width: 960px) {
+    .yg-hero-argos__banner--full img {
+        aspect-ratio: 1920 / 600;
+    }
+
+    .yg-hero-argos__ctas {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .yg-home-row4 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .yg-home-featured {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: auto;
+    }
+
+    .yg-home-tile--feature {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        aspect-ratio: 16 / 10;
+        height: auto;
+    }
+}
+
+@media (max-width: 520px) {
+    .demo-home-argos__main {
+        padding: 12px 12px 40px;
+    }
+
+    .yg-hero-argos__ctas {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .yg-hero-argos__cta {
+        min-height: 48px;
+    }
+
+    .yg-hero-argos__controls {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 10px;
+    }
+
+    .yg-hero-argos__controls-nav {
+        grid-column: 1;
+    }
+
+    .yg-hero-argos__pause {
+        grid-column: 1;
+        justify-self: center;
+    }
+
+    .yg-home-promo-pair {
+        grid-template-columns: 1fr;
+    }
+
+    .yg-home-tile__cta {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+
+    .yg-home-row4,
+    .yg-home-featured {
+        grid-template-columns: 1fr;
+    }
+
+    .yg-home-tile--feature {
+        aspect-ratio: 16 / 10;
+    }
+}
+
+/* —— Top picks this month (live YouGarden most-popular styling) —— */
+.yg-top-picks {
+    margin: 8px 0 28px;
+    padding: 8px 0 4px;
+}
+
+.yg-top-picks__title {
+    margin: 0 0 22px;
+    text-align: center;
+    font-family: var(--yg-body);
+    font-size: clamp(22px, 2.4vw, 28px);
+    font-weight: 700;
+    color: #333;
+    line-height: 1.2;
+}
+
+.yg-top-picks__grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px 14px;
+    align-items: start;
+}
+
+.yg-top-picks__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    min-width: 0;
+}
+
+.yg-top-picks__media {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 16px;
+    overflow: visible;
+    margin-bottom: 12px;
+}
+
+.yg-top-picks__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px;
+    background: #f3f0ea;
+}
+
+.yg-top-picks__popular {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding: 8px 12px;
+    border-radius: 0 0 12px 0;
+    background: #264f1c;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.yg-top-picks__save {
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    z-index: 3;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: solid 2px #fff;
+    background: #e3185d;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    line-height: 0.85;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+}
+
+.yg-top-picks__save-pct {
+    font-size: 18px;
+}
+
+.yg-top-picks__save-sym {
+    font-size: 12px;
+}
+
+.yg-top-picks__save-off {
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    margin-top: 2px;
+}
+
+.yg-top-picks__name {
+    display: block;
+    margin: 0 0 6px;
+    padding: 0 4px;
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    line-height: 1.3;
+}
+
+.yg-top-picks__price {
+    display: block;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 700;
+    color: #264f1c;
+    line-height: 1.3;
+}
+
+.yg-top-picks__from {
+    font-size: 12px;
+    font-weight: 400;
+    color: #888;
+    letter-spacing: 0.04em;
+    margin-right: 4px;
+}
+
+@media (max-width: 960px) {
+    .yg-top-picks__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px 12px;
+    }
+}
+
+@media (max-width: 520px) {
+    .yg-top-picks__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .yg-top-picks__save {
+        width: 54px;
+        height: 54px;
+        top: -6px;
+        right: -4px;
+    }
+
+    .yg-top-picks__save-pct {
+        font-size: 15px;
+    }
+
+    .yg-top-picks__popular {
+        font-size: 10px;
+        padding: 6px 8px;
+    }
+}
+
+/* —— TV Live (replaces green-nav LIVE NOW) —— */
+.yg-argos-nav__live {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 4px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: var(--yg-rose);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.yg-argos-nav__live:hover {
+    background: #c41450;
+    color: #fff;
+}
+
+.yg-argos-nav__live[hidden],
+.yg-argos-live-float[hidden] {
+    display: none !important;
+}
+
+.yg-argos-nav__live-dot,
+.yg-argos-live-float__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    animation: yg-argos-live-pulse 1.6s ease-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes yg-argos-live-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.65);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+.yg-argos-live-float {
+    position: fixed;
+    right: 20px;
+    bottom: 24px;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 999px;
+    background: var(--yg-rose);
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(227, 24, 93, 0.35);
+    font-family: var(--yg-body);
+}
+
+.yg-argos-live-float:hover {
+    background: #c41450;
+    color: #fff;
+}
+
+.yg-argos-live-float__copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    gap: 2px;
+}
+
+.yg-argos-live-float__copy strong {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.yg-argos-live-float__copy span {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.92;
+}
+
+@media (max-width: 959px) {
+    .yg-argos-live-float {
+        right: 14px;
+        bottom: 72px;
+        padding: 10px 14px;
+    }
+}

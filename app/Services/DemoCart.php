@@ -207,7 +207,7 @@ class DemoCart
             'image' => $p['image'],
             'image_alt' => "Petunia 'Easy Wave' Ultimate Mix in a hanging basket",
             'breadcrumb' => [
-                ['label' => 'Home', 'url' => route('demo.pdp'), 'icon' => true],
+                ['label' => 'Home', 'url' => route('demo.home'), 'icon' => true],
                 ['label' => 'Bestsellers', 'url' => route('demo.listing.perennials')],
                 ['label' => 'Petunia Easy Wave Mix', 'url' => null],
             ],
@@ -634,7 +634,7 @@ class DemoCart
                 'Even smaller spaces can benefit from perennial plants. Compact varieties suit pots, patio corners and balcony gardens, delivering reliable colour with little effort. Many perennial flowers are also excellent for pollinators, encouraging bees and butterflies into your outdoor space from spring to autumn. If you are building a border from scratch, a collection of hardy perennials is one of the easiest and most cost-effective ways to achieve instant impact. At YouGarden, you can explore a wide choice of perennial plants UK gardeners rely on, from shade-loving hosta and ferns to sun-loving verbena and echinacea. Every plant is selected for reliability, performance and ease of care, helping you build a garden that looks good from year to year.',
             ],
             'breadcrumb' => [
-                ['label' => 'Home', 'url' => route('demo.pdp'), 'icon' => 'home'],
+                ['label' => 'Home', 'url' => route('demo.home'), 'icon' => 'home'],
                 ['label' => 'Garden Plants', 'url' => route('demo.listing.perennials')],
                 ['label' => 'Perennial Plants & Flowers', 'url' => null],
             ],
@@ -940,7 +940,7 @@ class DemoCart
             'title' => 'Plant Finder',
             'intro' => 'Answer a few quick questions and we will suggest plants that suit your space — or jump straight to the filters below.',
             'breadcrumb' => [
-                ['label' => 'Home', 'url' => route('demo.pdp')],
+                ['label' => 'Home', 'url' => route('demo.home')],
                 ['label' => 'Plant Finder', 'url' => null],
             ],
             'months' => self::plantFinderMonths(),

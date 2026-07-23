@@ -11,7 +11,7 @@ class PreviewLoginController extends Controller
     public function show(Request $request): View|RedirectResponse
     {
         if (! config('demo-preview.auth_enabled')) {
-            return redirect()->route('demo.pdp');
+            return redirect()->route('demo.home');
         }
 
         if ($request->session()->get('demo_preview_authenticated') === true) {
@@ -26,7 +26,7 @@ class PreviewLoginController extends Controller
     public function login(Request $request): RedirectResponse
     {
         if (! config('demo-preview.auth_enabled')) {
-            return redirect()->route('demo.pdp');
+            return redirect()->route('demo.home');
         }
 
         $request->validate([
@@ -77,6 +77,6 @@ class PreviewLoginController extends Controller
             }
         }
 
-        return route('demo.pdp');
+        return route('demo.home');
     }
 }

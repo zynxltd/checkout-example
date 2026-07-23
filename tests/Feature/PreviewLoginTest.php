@@ -31,7 +31,7 @@ class PreviewLoginTest extends TestCase
         $this->post('/login', [
             'username' => 'web',
             'password' => 'letmein2',
-        ])->assertRedirect(route('demo.pdp'));
+        ])->assertRedirect(route('demo.home'));
 
         $this->get('/')->assertOk();
     }

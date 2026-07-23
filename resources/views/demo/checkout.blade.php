@@ -53,10 +53,10 @@ data-co-line-count="{{ count($cart['items']) }}"
         })();
     </script>
     <header class="co-header">
-        <a href="{{ route('demo.pdp') }}" class="co-header__logo" aria-label="YouGarden home">
+        <a href="{{ route('demo.home') }}" class="co-header__logo" aria-label="YouGarden home">
             <img src="{{ asset('images/yougarden-logo.png') }}" alt="YouGarden" width="180" height="48">
         </a>
-        <a href="{{ route('demo.pdp') }}" class="co-header__cart" aria-label="Return to shop">
+        <a href="{{ route('demo.home') }}" class="co-header__cart" aria-label="Return to shop">
             @include('demo.partials.icon', ['name' => 'cart', 'width' => 24, 'height' => 24])
         </a>
     </header>
@@ -637,7 +637,7 @@ data-co-line-count="{{ count($cart['items']) }}"
     </div>
 
     <footer class="co-footer">
-        <a href="{{ route('demo.pdp') }}">← Return to shop</a>
+        <a href="{{ route('demo.home') }}">← Return to shop</a>
         <span class="co-footer__badge">Prototype checkout</span>
     </footer>
 

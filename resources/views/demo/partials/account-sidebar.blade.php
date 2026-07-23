@@ -42,7 +42,7 @@
     </nav>
 
     <div class="demo-account-nav__actions">
-        <a href="{{ route('demo.pdp') }}" class="demo-account-nav__btn demo-account-nav__btn--secondary">&laquo; Continue Shopping</a>
+        <a href="{{ route('demo.home') }}" class="demo-account-nav__btn demo-account-nav__btn--secondary">&laquo; Continue Shopping</a>
         <form method="post" action="{{ route('demo.account.logout') }}" data-demo-form-loading>
             @csrf
             <button type="submit" class="demo-account-nav__btn demo-account-nav__btn--logout">Log Out</button>

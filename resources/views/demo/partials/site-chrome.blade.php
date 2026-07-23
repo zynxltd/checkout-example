@@ -17,7 +17,7 @@
             aria-controls="demo-mobile-nav"
         >@include('demo.partials.icon', ['name' => 'menu'])</button>
 
-        <a href="{{ route('demo.pdp') }}" class="demo-header__logo" aria-label="YouGarden home">
+        <a href="{{ route('demo.home') }}" class="demo-header__logo" aria-label="YouGarden home">
             <img
                 class="demo-header__logo-img"
                 src="{{ asset('images/yougarden-logo.png') }}"

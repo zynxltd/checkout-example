@@ -17,7 +17,7 @@
                 >
                 <h2 class="demo-account-panel__title">Club Membership</h2>
                 <p class="demo-account-panel__lead">You are not currently a Discount Club member. Join today to unlock member-only discounts, vouchers and the exclusive Club Magazine.</p>
-                <p><a href="{{ route('demo.pdp') }}" class="demo-account-btn demo-account-btn--save">Join the Discount Club</a></p>
+                <p><a href="{{ route('demo.home') }}" class="demo-account-btn demo-account-btn--save">Join the Discount Club</a></p>
             </div>
         </div>
     @else
