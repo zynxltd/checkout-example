@@ -79,7 +79,7 @@
                                 @if ($index !== 0) loading="lazy" @endif
                             >
                         </a>
-                        <div class="yg-hero-argos__ctas" role="navigation" aria-label="{{ $slide['alt'] }} shopping shortcuts">
+                        <div class="yg-hero-argos__ctas yg-hero-argos__ctas--{{ $slide['cta_theme'] ?? 'rose' }}" role="navigation" aria-label="{{ $slide['alt'] }} shopping shortcuts">
                             @foreach ($slide['ctas'] as $cta)
                                 <a
                                     href="{{ $cta['url'] }}"
@@ -125,37 +125,6 @@
                         <span class="yg-home-tile__cta">{{ $tile['label'] }} <span aria-hidden="true">›</span></span>
                     </a>
                 @endforeach
-            </section>
-
-            <section class="yg-top-picks" aria-label="Top picks this month">
-                <h2 class="yg-top-picks__title">Top picks this month</h2>
-                <div class="yg-top-picks__grid">
-                    @foreach ($top_picks as $pick)
-                        <a href="{{ $pick['url'] }}" class="yg-top-picks__card" target="_blank" rel="noopener">
-                            <span class="yg-top-picks__media">
-                                @if (! empty($pick['saving_pct']))
-                                    <span class="yg-top-picks__save" aria-hidden="true">
-                                        <span class="yg-top-picks__save-pct">{{ (int) $pick['saving_pct'] }}<span class="yg-top-picks__save-sym">%</span></span>
-                                        <span class="yg-top-picks__save-off">OFF</span>
-                                    </span>
-                                @endif
-                                <span class="yg-top-picks__popular">MOST POPULAR</span>
-                                <img
-                                    src="{{ asset($pick['image']) }}?v={{ filemtime(public_path($pick['image'])) }}"
-                                    alt=""
-                                    width="500"
-                                    height="500"
-                                    loading="lazy"
-                                >
-                            </span>
-                            <span class="yg-top-picks__name">{{ $pick['name'] }}</span>
-                            <span class="yg-top-picks__price">
-                                <span class="yg-top-picks__from">FROM</span>
-                                £{{ number_format($pick['price'], 2) }}
-                            </span>
-                        </a>
-                    @endforeach
-                </div>
             </section>
 
             <section class="yg-home-philosophy" aria-label="Our philosophy">

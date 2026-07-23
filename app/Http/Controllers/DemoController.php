@@ -197,6 +197,7 @@ class DemoController extends Controller
                     'image' => 'images/home-preview/live/hero-1.jpg',
                     'alt' => "Wallflower 'Sugar Rush' Mix",
                     'url' => 'https://www.yougarden.com/item-s-pa372/wallflower-sugar-rush-mix?Option=PA372',
+                    'cta_theme' => 'rose',
                     'ctas' => [
                         ['label' => 'Shop wallflowers', 'url' => 'https://www.yougarden.com/item-s-pa372/wallflower-sugar-rush-mix?Option=PA372'],
                         ['label' => 'Shop autumn bedding', 'url' => 'https://www.yougarden.com/garden-plants/bedding-plants/autumn-bedding-plants'],
@@ -208,6 +209,7 @@ class DemoController extends Controller
                     'image' => 'images/home-preview/live/hero-2.jpg',
                     'alt' => 'Orange and Lemon Collection',
                     'url' => 'https://www.yougarden.com/item-p-300326/citrus-orange-and-lemon-tree-collection-with-feed',
+                    'cta_theme' => 'forest',
                     'ctas' => [
                         ['label' => 'Shop citrus trees', 'url' => 'https://www.yougarden.com/item-p-300326/citrus-orange-and-lemon-tree-collection-with-feed'],
                         ['label' => 'Shop Mediterranean', 'url' => 'https://www.yougarden.com/trees-and-shrubs/mediterranean-plants-for-uk-gardens'],
@@ -219,6 +221,7 @@ class DemoController extends Controller
                     'image' => 'images/home-preview/live/hero-3.jpg',
                     'alt' => 'Oleander Plants',
                     'url' => 'https://www.yougarden.com/trees-and-shrubs/mediterranean-plants-for-uk-gardens/oleander-plants',
+                    'cta_theme' => 'stone',
                     'ctas' => [
                         ['label' => 'Shop oleander', 'url' => 'https://www.yougarden.com/trees-and-shrubs/mediterranean-plants-for-uk-gardens/oleander-plants'],
                         ['label' => 'Shop Mediterranean', 'url' => 'https://www.yougarden.com/trees-and-shrubs/mediterranean-plants-for-uk-gardens'],
@@ -249,43 +252,6 @@ class DemoController extends Controller
                     'label' => 'Drought Tolerant Plants',
                     'url' => 'https://www.yougarden.com/garden-plants/popular-garden-plants/drought-tolerant-plants',
                     'image' => 'images/home-preview/live/79-4.jpg',
-                ],
-            ],
-            'top_picks' => [
-                [
-                    'name' => 'Pre-Planted White Aster Alpha in Decopot',
-                    'url' => 'https://www.yougarden.com/garden-plants/bedding-plants/autumn-bedding-plants',
-                    'image' => 'images/home-preview/top-picks/pick-1.jpg',
-                    'price' => 12.99,
-                    'saving_pct' => 8,
-                ],
-                [
-                    'name' => "Harkness Climbing Rose 'New Dawn'",
-                    'url' => 'https://www.yougarden.com/item-p-780104/harkness-climbing-rose-new-dawn',
-                    'image' => 'images/home-preview/top-picks/pick-2.jpg',
-                    'price' => 22.99,
-                    'saving_pct' => 8,
-                ],
-                [
-                    'name' => "Hardy Gerbera 'Garvinea' Sweet Collection",
-                    'url' => 'https://www.yougarden.com/item-p-561198/hardy-gerbera-garvinea-bright-collection',
-                    'image' => 'images/home-preview/top-picks/pick-3.jpg',
-                    'price' => 14.99,
-                    'saving_pct' => 25,
-                ],
-                [
-                    'name' => 'Twin Pack Multipurpose Compost 40L',
-                    'url' => 'https://www.yougarden.com/item-p-100102/twin-pack-multipurpose-compost-40l',
-                    'image' => 'images/home-preview/top-picks/pick-4.jpg',
-                    'price' => 24.99,
-                    'saving_pct' => 32,
-                ],
-                [
-                    'name' => "Pre-Planted 'Tumbling Tom' Mix Tomato Hanging Baskets",
-                    'url' => 'https://www.yougarden.com/item-p-280006/pre-planted-tumbling-tom-mix-tomato-hanging-baskets',
-                    'image' => 'images/home-preview/top-picks/pick-5.jpg',
-                    'price' => 14.99,
-                    'saving_pct' => null,
                 ],
             ],
             'philosophy_banner' => 'images/home-preview/live/74.jpg',
