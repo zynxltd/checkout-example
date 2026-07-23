@@ -56,15 +56,7 @@
 
             {{-- Hero carousel: banner + CTAs change together (Argos pattern)
                  Previous lifestyle split banner: images/home-preview/hero-garden-original-backup.jpg --}}
-            <section
-                class="yg-hero-argos"
-                aria-roledescription="carousel"
-                aria-label="Featured offers"
-                data-hero-carousel
-                data-above-block="hero"
-                data-fx-wakeup="off"
-                data-fx-ticker="off"
-            >
+            <section class="yg-hero-argos" aria-roledescription="carousel" aria-label="Featured offers" data-hero-carousel data-above-block="hero">
                 <div class="yg-hero-argos__slides">
                     @foreach ($hero_slides as $index => $slide)
                         <div
@@ -82,12 +74,10 @@
                                 rel="noopener"
                             >
                                 <img
-                                    class="yg-hero-argos__img"
                                     src="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
                                     alt="{{ $slide['alt'] }}"
                                     width="1920"
                                     height="600"
-                                    data-hero-main-img
                                     @if ($index !== 0) loading="lazy" @endif
                                 >
                             </a>
@@ -104,14 +94,6 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
-
-                <div class="yg-hero-argos__ticker" data-hero-ticker hidden aria-hidden="true">
-                    <div class="yg-hero-argos__ticker-track">
-                        @foreach (array_merge($hero_ticker, $hero_ticker) as $item)
-                            <span class="yg-hero-argos__ticker-item">{{ $item }}</span>
-                        @endforeach
-                    </div>
                 </div>
 
                 <div class="yg-hero-argos__controls">
@@ -304,10 +286,6 @@
 (function () {
     var TV_KEY = 'yg_argos_tv_live_placement';
     var ABOVE_KEY = 'yg_argos_above_layout';
-    var FX_KEYS = {
-        wakeup: 'yg_argos_hero_fx_wakeup',
-        ticker: 'yg_argos_hero_fx_ticker'
-    };
 
     function applyTvPlacement(mode) {
         document.querySelectorAll('[data-tv-live-placement]').forEach(function (el) {
@@ -344,29 +322,6 @@
         } catch (e) { /* ignore */ }
     }
 
-    function applyHeroFx(name, on) {
-        var hero = document.querySelector('[data-hero-carousel]');
-        if (hero) {
-            hero.setAttribute('data-fx-' + name, on ? 'on' : 'off');
-        }
-        var input = document.querySelector('[data-hero-fx="' + name + '"]');
-        if (input) input.checked = !!on;
-
-        var ticker = document.querySelector('[data-hero-ticker]');
-        if (name === 'ticker' && ticker) {
-            ticker.hidden = !on;
-            ticker.setAttribute('aria-hidden', on ? 'false' : 'true');
-        }
-
-        try {
-            localStorage.setItem(FX_KEYS[name], on ? '1' : '0');
-        } catch (e) { /* ignore */ }
-
-        if (name === 'wakeup' && on && typeof window.ygHeroReplayWakeup === 'function') {
-            window.ygHeroReplayWakeup();
-        }
-    }
-
     function bootPrototypeOptions() {
         var tvSaved = 'menu';
         var aboveSaved = 'cats-first';
@@ -383,14 +338,6 @@
         applyTvPlacement(tvSaved);
         applyAboveLayout(aboveSaved);
 
-        Object.keys(FX_KEYS).forEach(function (name) {
-            var on = false;
-            try {
-                on = localStorage.getItem(FX_KEYS[name]) === '1';
-            } catch (e) { /* ignore */ }
-            applyHeroFx(name, on);
-        });
-
         document.querySelectorAll('[data-tv-live-option]').forEach(function (input) {
             input.addEventListener('change', function () {
                 if (input.checked) applyTvPlacement(input.value);
@@ -399,11 +346,6 @@
         document.querySelectorAll('[data-above-layout-option]').forEach(function (input) {
             input.addEventListener('change', function () {
                 if (input.checked) applyAboveLayout(input.value);
-            });
-        });
-        document.querySelectorAll('[data-hero-fx]').forEach(function (input) {
-            input.addEventListener('change', function () {
-                applyHeroFx(input.getAttribute('data-hero-fx'), input.checked);
             });
         });
     }
@@ -623,26 +565,6 @@
         });
     });
 
-    function fxOn(name) {
-        return root.getAttribute('data-fx-' + name) === 'on';
-    }
-
-    function replayWakeup() {
-        if (!fxOn('wakeup')) return;
-        var slide = slides[index];
-        if (!slide) return;
-        var img = slide.querySelector('[data-hero-main-img]');
-        var ctas = slide.querySelector('.yg-hero-argos__ctas');
-        [img, ctas].forEach(function (el) {
-            if (!el) return;
-            el.style.animation = 'none';
-            void el.offsetWidth;
-            el.style.animation = '';
-        });
-    }
-
-    window.ygHeroReplayWakeup = replayWakeup;
-
     function show(i) {
         index = (i + slides.length) % slides.length;
         slides.forEach(function (slide, n) {
@@ -659,7 +581,6 @@
             dot.classList.toggle('is-active', on);
             dot.setAttribute('aria-selected', on ? 'true' : 'false');
         });
-        replayWakeup();
     }
 
     function stopAuto() {

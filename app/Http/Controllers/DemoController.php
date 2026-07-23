@@ -187,15 +187,6 @@ class DemoController extends Controller
                     ],
                 ],
             ],
-            'hero_ticker' => [
-                'Planting now',
-                'Wallflowers',
-                'Autumn bedding',
-                'Citrus trees',
-                'Oleander',
-                'Mediterranean favourites',
-                'Drought-tolerant picks',
-            ],
             // Previous lifestyle hero kept at images/home-preview/hero-garden-original-backup.jpg
             // Below-the-fold modules mirrored from live yougarden.com homepage
             'row4' => [
