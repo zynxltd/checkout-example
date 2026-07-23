@@ -551,6 +551,7 @@
     var timer = null;
     var HERO_INTERVAL_KEY = 'yg_argos_hero_interval';
     var INTERVAL = 5000;
+    var VIDEO_INTERVAL = 5000;
 
     function readHeroInterval() {
         try {
@@ -578,6 +579,12 @@
             if (input.checked) applyHeroInterval(parseInt(input.value, 10) || 5000);
         });
     });
+
+    function slideDelay(i) {
+        var slide = slides[i];
+        if (slide && slide.querySelector('[data-hero-video]')) return VIDEO_INTERVAL;
+        return INTERVAL;
+    }
 
     function syncHeroVideos() {
         slides.forEach(function (slide, n) {
@@ -618,7 +625,7 @@
 
     function stopAuto() {
         if (timer) {
-            clearInterval(timer);
+            clearTimeout(timer);
             timer = null;
         }
     }
@@ -626,9 +633,10 @@
     function startAuto() {
         stopAuto();
         if (paused) return;
-        timer = setInterval(function () {
+        timer = setTimeout(function () {
             show(index + 1);
-        }, INTERVAL);
+            startAuto();
+        }, slideDelay(index));
     }
 
     function setPaused(nextPaused) {
