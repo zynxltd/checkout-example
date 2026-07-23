@@ -186,20 +186,6 @@ class DemoController extends Controller
                         ['label' => 'Shop drought tolerant', 'url' => 'https://www.yougarden.com/garden-plants/popular-garden-plants/drought-tolerant-plants'],
                     ],
                 ],
-                [
-                    'type' => 'video',
-                    'video' => 'videos/home-preview/hero-garden-plants.mp4',
-                    'image' => 'images/home-preview/live/hero-4-poster.jpg',
-                    'alt' => 'Gardening with plants — greenhouse watering',
-                    'url' => 'https://www.yougarden.com/garden-plants',
-                    'cta_theme' => 'forest',
-                    'ctas' => [
-                        ['label' => 'Shop garden plants', 'url' => 'https://www.yougarden.com/garden-plants'],
-                        ['label' => 'Shop bedding plants', 'url' => 'https://www.yougarden.com/garden-plants/bedding-plants'],
-                        ['label' => 'Shop perennials', 'url' => 'https://www.yougarden.com/garden-plants/perennial-plants-and-flowers'],
-                        ['label' => 'Shop the sale', 'url' => 'https://www.yougarden.com/sale'],
-                    ],
-                ],
             ],
             // Previous lifestyle hero kept at images/home-preview/hero-garden-original-backup.jpg
             // Below-the-fold modules mirrored from live yougarden.com homepage

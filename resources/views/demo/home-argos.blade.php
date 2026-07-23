@@ -69,32 +69,17 @@
                         >
                             <a
                                 href="{{ $slide['url'] }}"
-                                class="yg-hero-argos__banner yg-hero-argos__banner--full{{ ($slide['type'] ?? '') === 'video' ? ' yg-hero-argos__banner--video' : '' }}"
+                                class="yg-hero-argos__banner yg-hero-argos__banner--full"
                                 target="_blank"
                                 rel="noopener"
                             >
-                                @if (($slide['type'] ?? '') === 'video')
-                                    <video
-                                        class="yg-hero-argos__video"
-                                        data-hero-video
-                                        poster="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
-                                        muted
-                                        playsinline
-                                        loop
-                                        preload="metadata"
-                                        aria-label="{{ $slide['alt'] }}"
-                                    >
-                                        <source src="{{ asset($slide['video']) }}?v={{ filemtime(public_path($slide['video'])) }}" type="video/mp4">
-                                    </video>
-                                @else
-                                    <img
-                                        src="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
-                                        alt="{{ $slide['alt'] }}"
-                                        width="1920"
-                                        height="600"
-                                        @if ($index !== 0) loading="lazy" @endif
-                                    >
-                                @endif
+                                <img
+                                    src="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
+                                    alt="{{ $slide['alt'] }}"
+                                    width="1920"
+                                    height="600"
+                                    @if ($index !== 0) loading="lazy" @endif
+                                >
                             </a>
                             <div class="yg-hero-argos__ctas yg-hero-argos__ctas--{{ $slide['cta_theme'] ?? 'rose' }}" role="navigation" aria-label="{{ $slide['alt'] }} shopping shortcuts">
                                 @foreach ($slide['ctas'] as $cta)
@@ -551,7 +536,6 @@
     var timer = null;
     var HERO_INTERVAL_KEY = 'yg_argos_hero_interval';
     var INTERVAL = 5000;
-    var VIDEO_INTERVAL = 5000;
 
     function readHeroInterval() {
         try {
@@ -580,30 +564,6 @@
         });
     });
 
-    function slideDelay(i) {
-        var slide = slides[i];
-        if (slide && slide.querySelector('[data-hero-video]')) return VIDEO_INTERVAL;
-        return INTERVAL;
-    }
-
-    function syncHeroVideos() {
-        slides.forEach(function (slide, n) {
-            var video = slide.querySelector('[data-hero-video]');
-            if (!video) return;
-            if (n === index && !paused) {
-                var playPromise = video.play();
-                if (playPromise && typeof playPromise.catch === 'function') {
-                    playPromise.catch(function () { /* autoplay may be blocked */ });
-                }
-            } else {
-                video.pause();
-                if (n !== index) {
-                    try { video.currentTime = 0; } catch (e) { /* ignore */ }
-                }
-            }
-        });
-    }
-
     function show(i) {
         index = (i + slides.length) % slides.length;
         slides.forEach(function (slide, n) {
@@ -620,7 +580,6 @@
             dot.classList.toggle('is-active', on);
             dot.setAttribute('aria-selected', on ? 'true' : 'false');
         });
-        syncHeroVideos();
     }
 
     function stopAuto() {
@@ -636,7 +595,7 @@
         timer = setTimeout(function () {
             show(index + 1);
             startAuto();
-        }, slideDelay(index));
+        }, INTERVAL);
     }
 
     function setPaused(nextPaused) {
@@ -648,7 +607,6 @@
         } else {
             startAuto();
         }
-        syncHeroVideos();
     }
 
     if (prevBtn) prevBtn.addEventListener('click', function () { show(index - 1); if (!paused) startAuto(); });
