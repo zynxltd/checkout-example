@@ -15,6 +15,17 @@
         <div class="demo-prototype-stack__content">
             <aside class="demo-controls" aria-label="Homepage prototype controls">
                 <h3>Homepage layout</h3>
+                <p class="demo-controls__label">Above-the-fold order</p>
+                <p class="demo-controls__hint">Default keeps category carousel above the hero.</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="yg-argos-above-layout" value="cats-first" data-above-layout-option checked>
+                    <span>Categories → hero + buttons</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="yg-argos-above-layout" value="hero-first" data-above-layout-option>
+                    <span>Hero + buttons → categories</span>
+                </label>
+
                 <p class="demo-controls__label">Hero slider timing</p>
                 <p class="demo-controls__hint">Autoplay interval between slides.</p>
                 <label class="demo-toggle">

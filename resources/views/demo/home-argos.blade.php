@@ -17,104 +17,122 @@
         'show_trust' => true,
         'search_placeholder' => 'Search plants, trees or outdoor living',
         'shop_menu' => $shop_menu,
+        'trending_links' => $trending_links,
     ])
 
     <main class="demo-home-argos__main">
-        {{-- Category icon strip --}}
-        <section class="yg-cat-strip" aria-label="Shop by category" data-cat-strip>
-            <button type="button" class="yg-cat-strip__nav yg-cat-strip__nav--prev" data-cat-prev aria-label="Previous categories" hidden>
-                <span class="yg-cat-strip__nav-arrow yg-cat-strip__nav-arrow--prev" aria-hidden="true"></span>
-            </button>
-            <div class="yg-cat-strip__track" id="yg-cat-track" data-cat-track tabindex="0">
-                @foreach ($categories as $category)
-                    <a href="{{ $category['url'] }}" class="yg-cat-strip__item" @if (str_starts_with($category['url'], 'http')) target="_blank" rel="noopener" @endif>
-                        @if (! empty($category['sale']))
-                            <span class="yg-cat-strip__thumb yg-cat-strip__thumb--sale" aria-hidden="true">
-                                Sale<br>up to<br>50% off
-                            </span>
-                        @else
-                            <span class="yg-cat-strip__thumb">
-                                <img
-                                    src="{{ asset($category['image']) }}?v={{ filemtime(public_path($category['image'])) }}"
-                                    alt=""
-                                    width="208"
-                                    height="208"
-                                    loading="lazy"
-                                >
-                            </span>
-                        @endif
-                        <span class="yg-cat-strip__label">{{ $category['label'] }}</span>
-                    </a>
-                @endforeach
-            </div>
-            <button type="button" class="yg-cat-strip__nav yg-cat-strip__nav--next" data-cat-next aria-label="Show more categories">
-                <span class="yg-cat-strip__nav-arrow" aria-hidden="true"></span>
-            </button>
-        </section>
-
-        {{-- Hero carousel: banner + CTAs change together (Argos pattern)
-             Previous lifestyle split banner: images/home-preview/hero-garden-original-backup.jpg --}}
-        <section class="yg-hero-argos" aria-roledescription="carousel" aria-label="Featured offers" data-hero-carousel>
-            <div class="yg-hero-argos__slides">
-                @foreach ($hero_slides as $index => $slide)
-                    <div
-                        class="yg-hero-argos__slide{{ $index === 0 ? ' is-active' : '' }}"
-                        data-hero-slide
-                        role="group"
-                        aria-roledescription="slide"
-                        aria-label="{{ $index + 1 }} of {{ count($hero_slides) }}: {{ $slide['alt'] }}"
-                        @if ($index !== 0) hidden @endif
-                    >
-                        <a
-                            href="{{ $slide['url'] }}"
-                            class="yg-hero-argos__banner yg-hero-argos__banner--full"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            <img
-                                src="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
-                                alt="{{ $slide['alt'] }}"
-                                width="1920"
-                                height="600"
-                                @if ($index !== 0) loading="lazy" @endif
-                            >
+        <div class="yg-home-above" data-above-layout="cats-first">
+            {{-- Category icon strip --}}
+            <section class="yg-cat-strip" aria-label="Shop by category" data-cat-strip data-above-block="cats">
+                <button type="button" class="yg-cat-strip__nav yg-cat-strip__nav--prev" data-cat-prev aria-label="Previous categories" hidden>
+                    <span class="yg-cat-strip__nav-arrow yg-cat-strip__nav-arrow--prev" aria-hidden="true"></span>
+                </button>
+                <div class="yg-cat-strip__track" id="yg-cat-track" data-cat-track tabindex="0">
+                    @foreach ($categories as $category)
+                        <a href="{{ $category['url'] }}" class="yg-cat-strip__item" @if (str_starts_with($category['url'], 'http')) target="_blank" rel="noopener" @endif>
+                            @if (! empty($category['sale']))
+                                <span class="yg-cat-strip__thumb yg-cat-strip__thumb--sale" aria-hidden="true">
+                                    Sale<br>up to<br>50% off
+                                </span>
+                            @else
+                                <span class="yg-cat-strip__thumb">
+                                    <img
+                                        src="{{ asset($category['image']) }}?v={{ filemtime(public_path($category['image'])) }}"
+                                        alt=""
+                                        width="208"
+                                        height="208"
+                                        loading="lazy"
+                                    >
+                                </span>
+                            @endif
+                            <span class="yg-cat-strip__label">{{ $category['label'] }}</span>
                         </a>
-                        <div class="yg-hero-argos__ctas yg-hero-argos__ctas--{{ $slide['cta_theme'] ?? 'rose' }}" role="navigation" aria-label="{{ $slide['alt'] }} shopping shortcuts">
-                            @foreach ($slide['ctas'] as $cta)
-                                <a
-                                    href="{{ $cta['url'] }}"
-                                    class="yg-hero-argos__cta"
-                                    target="_blank"
-                                    rel="noopener"
-                                >{{ $cta['label'] }}</a>
+                    @endforeach
+                </div>
+                <button type="button" class="yg-cat-strip__nav yg-cat-strip__nav--next" data-cat-next aria-label="Show more categories">
+                    <span class="yg-cat-strip__nav-arrow" aria-hidden="true"></span>
+                </button>
+            </section>
+
+            {{-- Hero carousel: banner + CTAs change together (Argos pattern)
+                 Previous lifestyle split banner: images/home-preview/hero-garden-original-backup.jpg --}}
+            <section class="yg-hero-argos" aria-roledescription="carousel" aria-label="Featured offers" data-hero-carousel data-above-block="hero">
+                <div class="yg-hero-argos__slides">
+                    @foreach ($hero_slides as $index => $slide)
+                        <div
+                            class="yg-hero-argos__slide{{ $index === 0 ? ' is-active' : '' }}"
+                            data-hero-slide
+                            role="group"
+                            aria-roledescription="slide"
+                            aria-label="{{ $index + 1 }} of {{ count($hero_slides) }}: {{ $slide['alt'] }}"
+                            @if ($index !== 0) hidden @endif
+                        >
+                            <a
+                                href="{{ $slide['url'] }}"
+                                class="yg-hero-argos__banner yg-hero-argos__banner--full{{ ($slide['type'] ?? '') === 'video' ? ' yg-hero-argos__banner--video' : '' }}"
+                                target="_blank"
+                                rel="noopener"
+                            >
+                                @if (($slide['type'] ?? '') === 'video')
+                                    <video
+                                        class="yg-hero-argos__video"
+                                        data-hero-video
+                                        poster="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
+                                        muted
+                                        playsinline
+                                        loop
+                                        preload="metadata"
+                                        aria-label="{{ $slide['alt'] }}"
+                                    >
+                                        <source src="{{ asset($slide['video']) }}?v={{ filemtime(public_path($slide['video'])) }}" type="video/mp4">
+                                    </video>
+                                @else
+                                    <img
+                                        src="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
+                                        alt="{{ $slide['alt'] }}"
+                                        width="1920"
+                                        height="600"
+                                        @if ($index !== 0) loading="lazy" @endif
+                                    >
+                                @endif
+                            </a>
+                            <div class="yg-hero-argos__ctas yg-hero-argos__ctas--{{ $slide['cta_theme'] ?? 'rose' }}" role="navigation" aria-label="{{ $slide['alt'] }} shopping shortcuts">
+                                @foreach ($slide['ctas'] as $cta)
+                                    <a
+                                        href="{{ $cta['url'] }}"
+                                        class="yg-hero-argos__cta"
+                                        target="_blank"
+                                        rel="noopener"
+                                    >{{ $cta['label'] }}</a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="yg-hero-argos__controls">
+                    <div class="yg-hero-argos__controls-nav">
+                        <button type="button" class="yg-hero-argos__arrow yg-hero-argos__arrow--prev" data-hero-prev aria-label="Previous slide"></button>
+                        <div class="yg-hero-argos__dots" role="tablist" aria-label="Slide picker">
+                            @foreach ($hero_slides as $index => $slide)
+                                <button
+                                    type="button"
+                                    class="yg-hero-argos__dot{{ $index === 0 ? ' is-active' : '' }}"
+                                    data-hero-dot="{{ $index }}"
+                                    aria-label="Go to slide {{ $index + 1 }}: {{ $slide['alt'] }}"
+                                    aria-selected="{{ $index === 0 ? 'true' : 'false' }}"
+                                ></button>
                             @endforeach
                         </div>
+                        <button type="button" class="yg-hero-argos__arrow yg-hero-argos__arrow--next" data-hero-next aria-label="Next slide"></button>
                     </div>
-                @endforeach
-            </div>
-
-            <div class="yg-hero-argos__controls">
-                <div class="yg-hero-argos__controls-nav">
-                    <button type="button" class="yg-hero-argos__arrow yg-hero-argos__arrow--prev" data-hero-prev aria-label="Previous slide"></button>
-                    <div class="yg-hero-argos__dots" role="tablist" aria-label="Slide picker">
-                        @foreach ($hero_slides as $index => $slide)
-                            <button
-                                type="button"
-                                class="yg-hero-argos__dot{{ $index === 0 ? ' is-active' : '' }}"
-                                data-hero-dot="{{ $index }}"
-                                aria-label="Go to slide {{ $index + 1 }}: {{ $slide['alt'] }}"
-                                aria-selected="{{ $index === 0 ? 'true' : 'false' }}"
-                            ></button>
-                        @endforeach
-                    </div>
-                    <button type="button" class="yg-hero-argos__arrow yg-hero-argos__arrow--next" data-hero-next aria-label="Next slide"></button>
+                    <button type="button" class="yg-hero-argos__pause" data-hero-pause aria-pressed="false">
+                        <span class="yg-hero-argos__pause-icon" aria-hidden="true" data-hero-pause-icon></span>
+                        <span data-hero-pause-label>Pause</span>
+                    </button>
                 </div>
-                <button type="button" class="yg-hero-argos__pause" data-hero-pause aria-pressed="false">
-                    <span class="yg-hero-argos__pause-icon" aria-hidden="true" data-hero-pause-icon></span>
-                    <span data-hero-pause-label>Pause</span>
-                </button>
-            </div>
-        </section>
+            </section>
+        </div>
 
         <div class="yg-home-fold-mark" aria-hidden="true">
             <span class="yg-home-fold-mark__line"></span>
@@ -281,6 +299,7 @@
 <script>
 (function () {
     var TV_KEY = 'yg_argos_tv_live_placement';
+    var ABOVE_KEY = 'yg_argos_above_layout';
 
     function applyTvPlacement(mode) {
         document.querySelectorAll('[data-tv-live-placement]').forEach(function (el) {
@@ -301,26 +320,54 @@
         } catch (e) { /* ignore */ }
     }
 
-    function bootTvPlacement() {
-        var saved = 'menu';
-        try {
-            saved = localStorage.getItem(TV_KEY) || 'menu';
-        } catch (e) { /* ignore */ }
-        if (saved !== 'header' && saved !== 'float' && saved !== 'menu') {
-            saved = 'menu';
+    function applyAboveLayout(mode) {
+        if (mode !== 'hero-first' && mode !== 'cats-first') {
+            mode = 'cats-first';
         }
-        applyTvPlacement(saved);
+        var wrap = document.querySelector('[data-above-layout]');
+        if (wrap) {
+            wrap.setAttribute('data-above-layout', mode);
+        }
+        document.querySelectorAll('[data-above-layout-option]').forEach(function (input) {
+            input.checked = input.value === mode;
+        });
+        try {
+            localStorage.setItem(ABOVE_KEY, mode);
+        } catch (e) { /* ignore */ }
+    }
+
+    function bootPrototypeOptions() {
+        var tvSaved = 'menu';
+        var aboveSaved = 'cats-first';
+        try {
+            tvSaved = localStorage.getItem(TV_KEY) || 'menu';
+            aboveSaved = localStorage.getItem(ABOVE_KEY) || 'cats-first';
+        } catch (e) { /* ignore */ }
+        if (tvSaved !== 'header' && tvSaved !== 'float' && tvSaved !== 'menu') {
+            tvSaved = 'menu';
+        }
+        if (aboveSaved !== 'hero-first' && aboveSaved !== 'cats-first') {
+            aboveSaved = 'cats-first';
+        }
+        applyTvPlacement(tvSaved);
+        applyAboveLayout(aboveSaved);
+
         document.querySelectorAll('[data-tv-live-option]').forEach(function (input) {
             input.addEventListener('change', function () {
                 if (input.checked) applyTvPlacement(input.value);
             });
         });
+        document.querySelectorAll('[data-above-layout-option]').forEach(function (input) {
+            input.addEventListener('change', function () {
+                if (input.checked) applyAboveLayout(input.value);
+            });
+        });
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootTvPlacement);
+        document.addEventListener('DOMContentLoaded', bootPrototypeOptions);
     } else {
-        bootTvPlacement();
+        bootPrototypeOptions();
     }
 })();
 </script>
@@ -371,34 +418,123 @@
         updateNav();
     }
 
-    // Shop dropdown (Argos-style)
-    var shopItem = document.querySelector('[data-shop-dropdown]');
-    var shopTrigger = document.getElementById('yg-shop-trigger');
-    var shopPanel = document.getElementById('yg-shop-panel');
-    if (shopItem && shopTrigger && shopPanel) {
-        function closeShop() {
-            shopItem.classList.remove('is-open');
-            shopTrigger.setAttribute('aria-expanded', 'false');
-            shopPanel.hidden = true;
+    // Header nav dropdowns (Shop + Trending)
+    var navDropdowns = Array.prototype.slice.call(document.querySelectorAll('[data-nav-dropdown]'));
+
+    function closeAllNavDropdowns(except) {
+        navDropdowns.forEach(function (item) {
+            if (except && item === except) return;
+            var trigger = item.querySelector('.yg-argos-nav__link--btn');
+            var panel = item.querySelector('.yg-argos-nav__panel');
+            if (!trigger || !panel) return;
+            item.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+            panel.hidden = true;
+        });
+    }
+
+    navDropdowns.forEach(function (item) {
+        var trigger = item.querySelector('.yg-argos-nav__link--btn');
+        var panel = item.querySelector('.yg-argos-nav__panel');
+        if (!trigger || !panel) return;
+
+        var closeTimer = null;
+
+        function closeDropdown() {
+            clearTimeout(closeTimer);
+            closeTimer = null;
+            item.classList.remove('is-open');
+            trigger.setAttribute('aria-expanded', 'false');
+            panel.hidden = true;
         }
-        function openShop() {
-            shopItem.classList.add('is-open');
-            shopTrigger.setAttribute('aria-expanded', 'true');
-            shopPanel.hidden = false;
+
+        function openDropdown() {
+            clearTimeout(closeTimer);
+            closeTimer = null;
+            closeAllNavDropdowns(item);
+            item.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+            panel.hidden = false;
         }
-        shopTrigger.addEventListener('click', function (e) {
+
+        function scheduleClose() {
+            clearTimeout(closeTimer);
+            closeTimer = setTimeout(closeDropdown, 160);
+        }
+
+        trigger.addEventListener('click', function (e) {
             e.stopPropagation();
-            if (shopPanel.hidden) openShop();
-            else closeShop();
+            if (panel.hidden) openDropdown();
+            else closeDropdown();
         });
-        shopItem.addEventListener('mouseenter', openShop);
-        shopItem.addEventListener('mouseleave', closeShop);
-        document.addEventListener('click', function (e) {
-            if (!shopItem.contains(e.target)) closeShop();
+        item.addEventListener('mouseenter', openDropdown);
+        item.addEventListener('mouseleave', scheduleClose);
+        item.addEventListener('focusin', openDropdown);
+        item.addEventListener('focusout', function (e) {
+            if (!item.contains(e.relatedTarget)) scheduleClose();
         });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeShop();
-        });
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('[data-nav-dropdown]')) closeAllNavDropdowns();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeAllNavDropdowns();
+    });
+
+    // Shop mega: department tabs + category → subcategory flyout
+    var shopPanel = document.getElementById('yg-shop-panel');
+    if (shopPanel) {
+        var mega = shopPanel.querySelector('[data-shop-mega]');
+        if (mega) {
+            function activateDept(index) {
+                mega.querySelectorAll('[data-mega-dept]').forEach(function (btn) {
+                    var on = btn.getAttribute('data-mega-dept') === String(index);
+                    btn.classList.toggle('is-active', on);
+                    btn.setAttribute('aria-selected', on ? 'true' : 'false');
+                });
+                mega.querySelectorAll('[data-mega-dept-panel]').forEach(function (panel) {
+                    var on = panel.getAttribute('data-mega-dept-panel') === String(index);
+                    panel.classList.toggle('is-active', on);
+                    panel.hidden = !on;
+                });
+            }
+
+            function activateCat(panel, catId) {
+                panel.querySelectorAll('[data-mega-cat]').forEach(function (cat) {
+                    cat.classList.toggle('is-active', cat.getAttribute('data-mega-cat-id') === catId);
+                });
+                panel.querySelectorAll('[data-mega-sub]').forEach(function (sub) {
+                    var on = sub.getAttribute('data-mega-sub') === catId;
+                    sub.classList.toggle('is-active', on);
+                    sub.hidden = !on;
+                });
+            }
+
+            mega.querySelectorAll('[data-mega-dept]').forEach(function (btn) {
+                btn.addEventListener('mouseenter', function () {
+                    activateDept(btn.getAttribute('data-mega-dept'));
+                });
+                btn.addEventListener('focus', function () {
+                    activateDept(btn.getAttribute('data-mega-dept'));
+                });
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    activateDept(btn.getAttribute('data-mega-dept'));
+                });
+            });
+
+            mega.querySelectorAll('[data-mega-dept-panel]').forEach(function (panel) {
+                panel.querySelectorAll('[data-mega-cat]').forEach(function (cat) {
+                    cat.addEventListener('mouseenter', function () {
+                        activateCat(panel, cat.getAttribute('data-mega-cat-id'));
+                    });
+                    cat.addEventListener('focus', function () {
+                        activateCat(panel, cat.getAttribute('data-mega-cat-id'));
+                    });
+                });
+            });
+        }
     }
 
     var root = document.querySelector('[data-hero-carousel]');
@@ -443,6 +579,24 @@
         });
     });
 
+    function syncHeroVideos() {
+        slides.forEach(function (slide, n) {
+            var video = slide.querySelector('[data-hero-video]');
+            if (!video) return;
+            if (n === index && !paused) {
+                var playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(function () { /* autoplay may be blocked */ });
+                }
+            } else {
+                video.pause();
+                if (n !== index) {
+                    try { video.currentTime = 0; } catch (e) { /* ignore */ }
+                }
+            }
+        });
+    }
+
     function show(i) {
         index = (i + slides.length) % slides.length;
         slides.forEach(function (slide, n) {
@@ -459,6 +613,7 @@
             dot.classList.toggle('is-active', on);
             dot.setAttribute('aria-selected', on ? 'true' : 'false');
         });
+        syncHeroVideos();
     }
 
     function stopAuto() {
@@ -485,6 +640,7 @@
         } else {
             startAuto();
         }
+        syncHeroVideos();
     }
 
     if (prevBtn) prevBtn.addEventListener('click', function () { show(index - 1); if (!paused) startAuto(); });

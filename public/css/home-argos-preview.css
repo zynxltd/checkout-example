@@ -19,6 +19,7 @@ body.demo-home-argos {
     margin: 0;
     padding: 0;
     overflow-x: clip;
+    overflow-y: visible;
 }
 
 /* USP / trust bar — full bleed (no side gaps) */
@@ -63,6 +64,9 @@ body.demo-home-argos .usp-box {
     width: 100%;
     max-width: none;
     margin: 0;
+    position: relative;
+    z-index: 80;
+    overflow: visible;
 }
 
 .demo-home-argos .demo-header__inner--argos {
@@ -78,6 +82,7 @@ body.demo-home-argos .usp-box {
     width: 100%;
     min-height: 88px;
     box-sizing: border-box;
+    overflow: visible;
 }
 
 .demo-home-argos .demo-header--argos .demo-header__logo-img {
@@ -161,8 +166,9 @@ body.demo-home-argos .usp-box {
 .demo-header--argos .yg-argos-nav {
     grid-area: nav;
     flex-shrink: 0;
-    position: static;
-    z-index: auto;
+    position: relative;
+    z-index: 2;
+    overflow: visible;
 }
 
 .demo-header--argos .demo-header__search {
@@ -210,71 +216,262 @@ body.demo-home-argos .usp-box {
     border-bottom: 2px solid currentColor;
     transform: rotate(45deg);
     margin-top: -4px;
+    transition: transform 0.18s ease;
 }
 
-.yg-argos-nav__item--shop {
+.yg-argos-nav__item.is-open .yg-argos-nav__chev {
+    transform: rotate(225deg);
+    margin-top: 2px;
+}
+
+.yg-argos-nav__item--shop,
+.yg-argos-nav__item--trending {
     position: relative;
 }
 
-.yg-argos-nav__panel {
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    z-index: 40;
-    width: min(920px, calc(100vw - 40px));
-    background: #fff;
-    border: 1px solid var(--yg-border);
-    border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(72, 63, 58, 0.14);
-    padding: 20px 20px 14px;
+.yg-argos-nav__item--shop.is-open,
+.yg-argos-nav__item--trending.is-open {
+    z-index: 90;
 }
 
-.yg-argos-nav__panel-inner {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 18px;
+.yg-argos-nav__panel--compact {
+    width: min(320px, calc(100vw - 32px));
 }
 
-.yg-argos-nav__col-title {
-    display: block;
-    margin: 0 0 10px;
+.yg-argos-nav__panel--compact .yg-argos-nav__panel-card {
+    padding: 14px 0 10px;
+}
+
+.yg-argos-nav__panel-heading {
+    margin: 0 0 6px;
+    padding: 0 16px 8px;
+    border-bottom: 1px solid var(--yg-border);
     color: var(--yg-forest);
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 800;
-    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
 }
 
-.yg-argos-nav__col-title:hover {
-    color: var(--yg-rose);
-}
-
-.yg-argos-nav__list {
+.yg-argos-nav__simple-list {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 4px 0;
 }
 
-.yg-argos-nav__list a {
+.yg-argos-nav__simple-list a {
     display: block;
-    padding: 5px 0;
+    padding: 10px 16px;
     color: var(--yg-pebble);
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
     text-decoration: none;
     line-height: 1.3;
 }
 
-.yg-argos-nav__list a:hover {
+.yg-argos-nav__simple-list a:hover {
+    background: #f0f3ef;
     color: var(--yg-forest);
+}
+
+/* Outer shell includes a transparent hover bridge so the cursor can
+   travel from Shop → panel without leaving the open hit area. */
+.yg-argos-nav__panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 90;
+    width: min(920px, calc(100vw - 32px));
+    padding: 10px 0 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+.yg-argos-nav__item.is-open .yg-argos-nav__panel {
+    pointer-events: auto;
+}
+
+.yg-argos-nav__panel[hidden] {
+    display: none !important;
+}
+
+.yg-argos-nav__panel-card {
+    padding: 0;
+    background: #fff;
+    border: 1px solid var(--yg-border);
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(38, 79, 28, 0.12);
+    animation: yg-argos-nav-in 0.16s ease;
+    overflow: hidden;
+}
+
+@keyframes yg-argos-nav-in {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* YouGarden-style 2-pane mega menu */
+.yg-argos-mega__depts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-bottom: 1px solid var(--yg-border);
+    background: #f7faf5;
+    padding: 0 8px;
+}
+
+.yg-argos-mega__dept {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--yg-forest);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 12px 12px 10px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+}
+
+.yg-argos-mega__dept:hover {
+    color: var(--yg-rose);
+}
+
+.yg-argos-mega__dept.is-active {
+    color: var(--yg-forest);
+    border-bottom-color: var(--yg-forest);
+    background: #fff;
+}
+
+.yg-argos-mega__body {
+    display: none;
+    grid-template-columns: minmax(240px, 0.95fr) minmax(280px, 1.15fr);
+    min-height: 320px;
+}
+
+.yg-argos-mega__body.is-active {
+    display: grid;
+}
+
+.yg-argos-mega__cats {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-right: 1px solid var(--yg-border);
+    background: #fff;
+}
+
+.yg-argos-mega__cat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 11px 16px;
+    border-bottom: 1px solid #ecefe9;
+    color: var(--yg-pebble);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1.3;
+}
+
+.yg-argos-mega__cat:hover,
+.yg-argos-mega__cat.is-active {
+    background: #f0f3ef;
+    color: var(--yg-forest);
+}
+
+.yg-argos-mega__cat--viewall {
+    color: var(--yg-forest);
+    font-weight: 800;
+}
+
+.yg-argos-mega__cat-chev {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-top: 2px solid currentColor;
+    transform: rotate(45deg);
+    opacity: 0.55;
+}
+
+.yg-argos-mega__subs {
+    padding: 18px 20px 20px;
+    background: #fff;
+}
+
+.yg-argos-mega__sub[hidden] {
+    display: none !important;
+}
+
+.yg-argos-mega__sub-title {
+    margin: 0 0 12px;
+    color: var(--yg-forest);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.yg-argos-mega__sub-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    columns: 1;
+}
+
+.yg-argos-mega__sub-list a {
+    display: block;
+    padding: 6px 0;
+    color: var(--yg-pebble);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.35;
+}
+
+.yg-argos-mega__sub-list a:hover {
+    color: var(--yg-forest);
+}
+
+.yg-argos-mega__sub-link--viewall {
+    display: inline-block;
+    margin-top: 4px;
+    color: var(--yg-rose);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.yg-argos-mega__sub-link--viewall:hover {
+    text-decoration: underline;
 }
 
 .yg-argos-nav__panel-foot {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px 20px;
-    margin-top: 16px;
-    padding-top: 14px;
+    align-items: center;
+    gap: 10px 18px;
+    padding: 12px 18px 14px;
     border-top: 1px solid var(--yg-border);
+    background: #fafbf8;
 }
 
 .yg-argos-nav__panel-foot a {
@@ -282,6 +479,10 @@ body.demo-home-argos .usp-box {
     font-size: 13px;
     font-weight: 700;
     text-decoration: none;
+}
+
+.yg-argos-nav__panel-foot a:hover {
+    text-decoration: underline;
 }
 
 .yg-argos-nav__sale-link {
@@ -295,6 +496,13 @@ body.demo-home-argos .usp-box {
     color: var(--yg-muted) !important;
 }
 
+.demo-mobile-nav__link--sub2 {
+    padding-left: 44px !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    color: #8a9184 !important;
+}
+
 @media (min-width: 960px) {
     .yg-argos-nav {
         display: flex;
@@ -303,6 +511,21 @@ body.demo-home-argos .usp-box {
     .demo-header--argos .demo-header__menu--mobile,
     .demo-header--argos .demo-header__actions {
         display: none !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .yg-argos-nav__panel {
+        width: min(860px, calc(100vw - 24px));
+    }
+
+    .yg-argos-mega__body {
+        grid-template-columns: minmax(210px, 0.9fr) minmax(240px, 1.1fr);
+    }
+
+    .yg-argos-mega__dept {
+        font-size: 11px;
+        padding: 10px 8px 8px;
     }
 }
 
@@ -348,6 +571,40 @@ body.demo-home-argos .usp-box {
     .demo-home-argos .demo-header--argos .demo-header__utilities {
         display: none;
     }
+}
+
+/* —— Above-the-fold stack (categories ↔ hero order toggle) —— */
+.yg-home-above {
+    display: flex;
+    flex-direction: column;
+}
+
+.yg-home-above[data-above-layout='cats-first'] [data-above-block='cats'] {
+    order: 1;
+}
+
+.yg-home-above[data-above-layout='cats-first'] [data-above-block='hero'] {
+    order: 2;
+}
+
+.yg-home-above[data-above-layout='hero-first'] [data-above-block='hero'] {
+    order: 1;
+}
+
+.yg-home-above[data-above-layout='hero-first'] [data-above-block='cats'] {
+    order: 2;
+}
+
+.yg-home-above[data-above-layout='cats-first'] .yg-cat-strip {
+    margin: 0 0 20px;
+}
+
+.yg-home-above[data-above-layout='hero-first'] .yg-cat-strip {
+    margin: 20px 0 0;
+}
+
+.yg-home-above[data-above-layout='hero-first'] .yg-hero-argos {
+    margin: 0;
 }
 
 /* —— Category icon strip (Argos-style scroll carousel) —— */
@@ -602,14 +859,27 @@ body.demo-home-argos .usp-box {
     background: #f2e7d8;
 }
 
-.yg-hero-argos__banner--full img {
+.yg-hero-argos__banner--full img,
+.yg-hero-argos__banner--full .yg-hero-argos__video {
     display: block;
     width: 100%;
     height: auto;
     aspect-ratio: 1920 / 600;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
     background: #f2e7d8;
+}
+
+.yg-hero-argos__banner--full img {
+    object-fit: contain;
+}
+
+.yg-hero-argos__banner--video {
+    position: relative;
+}
+
+.yg-hero-argos__video {
+    pointer-events: none;
 }
 
 /* Four CTAs under the banner — change with each slide */
@@ -954,7 +1224,8 @@ body.demo-home-argos .usp-box {
         line-height: 1.3;
     }
 
-    .yg-hero-argos__banner--full img {
+    .yg-hero-argos__banner--full img,
+    .yg-hero-argos__banner--full .yg-hero-argos__video {
         aspect-ratio: 1920 / 600;
     }
 
