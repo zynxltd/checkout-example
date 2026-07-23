@@ -1,0 +1,198 @@
+{# YG — Abandoned Cart Trigger SmartBlock (email) #}
+{# Brand: YouGarden mockups — forest green, magenta CTA, Arial #}
+{# Paste into FR: Trigger SmartBlocks → HTML. Do not edit abandon-cart-template-original.* #}
+
+{% set yg_green = '#264f1c' %}
+{% set yg_green_dark = '#1a3d14' %}
+{% set yg_green_light = '#eef4eb' %}
+{% set yg_pink = '#e3185d' %}
+{% set yg_text = '#2c3e50' %}
+{% set yg_muted = '#6b7280' %}
+{% set yg_bg = '#f4f7f2' %}
+{% set yg_white = '#ffffff' %}
+{% set yg_border = '#d9e5d4' %}
+{% set font_fallback = 'Arial, Helvetica, sans-serif' %}
+
+{% set email_width = (fields.width - 2) if fields.border.active else fields.width %}
+
+{% if products and products|length > 0 %}
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center" role="presentation" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; width:100%; max-width:{{ email_width }}px; background-color:{{ fields.backgroundColor }};{% if fields.border.active %} border:1px solid {{ fields.border.color }};{% endif %}">
+
+	{# Headline #}
+	{% if fields.headline.active %}
+	<tr>
+		<td style="padding:20px 20px 8px 20px;{% if fields.border.active %} border-bottom:1px solid {{ fields.border.color }};{% endif %}">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+				<tr>
+					<td align="{{ fields.headline.alignment }}" style="font-family:{{ fields.headline.font }}, {{ font_fallback }}; font-size:{{ fields.headline.size.size }}{{ fields.headline.size.unit }}; line-height:1.25; color:{{ fields.headline.color }}; font-weight:{{ 'bold' if fields.headline.bold else 'normal' }}; font-style:{{ 'italic' if fields.headline.italics else 'normal' }}; letter-spacing:-0.3px;">
+						{{ mergeField(fields.headline.text) }}
+					</td>
+				</tr>
+				<tr>
+					<td align="{{ fields.headline.alignment }}" style="padding-top:10px;">
+						<table cellpadding="0" cellspacing="0" border="0" role="presentation" {% if fields.headline.alignment == 'center' %}align="center"{% elif fields.headline.alignment == 'right' %}align="right"{% endif %}>
+							<tr>
+								<td height="3" width="56" bgcolor="{{ yg_pink }}" style="font-size:0; line-height:0; background-color:{{ yg_pink }}; border-radius:999px;">&nbsp;</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endif %}
+
+	{# Products #}
+	{% for product in products|sort(fields.reverseSortDirection, false, fields.productSortField)|allowOutOfStockProducts(fields.allowOutOfStockProducts)|limit((fields.maximumProducts|default(20))|int) %}
+	<tr>
+		<td style="padding:12px 16px {% if loop.last %}8{% else %}0{% endif %}px 16px;">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation" style="border-collapse:separate; border:1px solid {{ yg_border }}; border-radius:12px; background-color:{{ yg_white }};">
+				<tr>
+					<td style="padding:14px;">
+						<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+							<tr>
+								{% if fields.productImage.active %}
+								<!--[if (gte mso 9)|(IE)]>
+								<td width="104" valign="top">
+								<![endif]-->
+								<td width="104" valign="top" style="width:104px; padding-right:14px;">
+									<a href="{{ mergeField(fields.productHref, { product: product })|urlWithTrackingParams }}" target="_blank" title="{{ product.n }}" style="text-decoration:none;">
+										<img src="{{ product.img }}" alt="{{ mergeField(fields.productImage.altText, { product: product }) }}" title="{{ product.n }}" width="90" border="0" style="display:block; width:90px; max-width:90px; height:auto; border:0; border-radius:10px; outline:none;">
+									</a>
+								</td>
+								<!--[if (gte mso 9)|(IE)]>
+								</td>
+								<![endif]-->
+								{% endif %}
+
+								<!--[if (gte mso 9)|(IE)]>
+								<td valign="top">
+								<![endif]-->
+								<td valign="top" style="font-family:{{ font_fallback }};">
+									{% if fields.productName.active %}
+									<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+										<tr>
+											<td align="{{ fields.productName.alignment }}" style="padding-bottom:8px; font-family:{{ fields.productName.font }}, {{ font_fallback }}; font-size:{{ fields.productName.size.size }}{{ fields.productName.size.unit }}; line-height:1.35; color:{{ fields.productName.color }}; font-weight:{{ 'bold' if fields.productName.bold else 'normal' }}; font-style:{{ 'italic' if fields.productName.italics else 'normal' }};">
+												<a href="{{ mergeField(fields.productHref, { product: product })|urlWithTrackingParams }}" target="_blank" title="{{ product.n }}" style="color:{{ fields.productName.color }}; text-decoration:none;">
+													{{ product.n }}
+												</a>
+											</td>
+										</tr>
+									</table>
+									{% endif %}
+
+									{% if fields.prices.active and fields.prices.quantity and product.qty %}
+									<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin-bottom:8px;">
+										<tr>
+											<td style="font-family:{{ fields.prices.quantityFont }}, {{ font_fallback }}; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:{{ yg_green }}; background-color:{{ yg_green_light }}; border:1px solid {{ yg_border }}; border-radius:999px; padding:5px 10px;">
+												<span style="font-family:{{ fields.prices.quantityFont }}, {{ font_fallback }}; font-size:{{ fields.prices.quantitySize.size }}{{ fields.prices.quantitySize.unit }}; color:{{ fields.prices.quantityColor }}; font-weight:{{ 'bold' if fields.prices.quantityBold else 'normal' }}; font-style:{{ 'italic' if fields.prices.quantityItalics else 'normal' }};">Qty {{ product.qty }}</span>
+											</td>
+										</tr>
+									</table>
+									{% endif %}
+
+									{% if fields.prices.active %}
+									<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+										<tr>
+											<td align="{{ fields.prices.alignment }}" style="font-family:{{ fields.prices.font }}, {{ font_fallback }}; font-size:{{ fields.prices.size.size }}{{ fields.prices.size.unit }}; line-height:1.3; color:{{ fields.prices.color }}; font-weight:{{ 'bold' if fields.prices.bold else 'normal' }}; font-style:{{ 'italic' if fields.prices.italics else 'normal' }};">
+												{% if fields.prices.wasPrice and fields.prices.wasPriceAlignment == 'above' %}
+													{% if product.ruv and (product.ruv > product.uv) %}<span style="display:block; text-decoration:line-through; font-family:{{ fields.prices.wasPriceFont }}, {{ font_fallback }}; font-size:{{ fields.prices.wasPriceSize.size }}{{ fields.prices.wasPriceSize.unit }}; color:{{ fields.prices.wasPriceColor }}; font-weight:{{ 'bold' if fields.prices.wasPriceBold else 'normal' }}; font-style:{{ 'italic' if fields.prices.wasPriceItalics else 'normal' }};">{{ product.ruv|format_currency(cart.curr,2) }}</span>{% endif %}
+												{% endif %}
+												{% if fields.prices.wasPrice and fields.prices.wasPriceAlignment == 'left' %}
+													{% if product.ruv and (product.ruv > product.uv) %}<span style="text-decoration:line-through; font-family:{{ fields.prices.wasPriceFont }}, {{ font_fallback }}; font-size:{{ fields.prices.wasPriceSize.size }}{{ fields.prices.wasPriceSize.unit }}; color:{{ fields.prices.wasPriceColor }}; font-weight:{{ 'bold' if fields.prices.wasPriceBold else 'normal' }}; font-style:{{ 'italic' if fields.prices.wasPriceItalics else 'normal' }};">{{ product.ruv|format_currency(cart.curr,2) }}</span> {% endif %}
+												{% endif %}
+												{% if product.ruv and (product.ruv > product.uv) %}
+													<span style="color:{{ yg_pink }}; font-weight:700;">{{ product.uv|format_currency(cart.curr,2) }}</span>
+												{% else %}
+													<span style="color:{{ yg_green }}; font-weight:700;">{{ product.uv|format_currency(cart.curr,2) }}</span>
+												{% endif %}
+												{% if fields.prices.wasPrice and fields.prices.wasPriceAlignment == 'right' %}
+													{% if product.ruv and (product.ruv > product.uv) %} <span style="text-decoration:line-through; font-family:{{ fields.prices.wasPriceFont }}, {{ font_fallback }}; font-size:{{ fields.prices.wasPriceSize.size }}{{ fields.prices.wasPriceSize.unit }}; color:{{ fields.prices.wasPriceColor }}; font-weight:{{ 'bold' if fields.prices.wasPriceBold else 'normal' }}; font-style:{{ 'italic' if fields.prices.wasPriceItalics else 'normal' }};">{{ product.ruv|format_currency(cart.curr,2) }}</span>{% endif %}
+												{% endif %}
+												{% if fields.prices.wasPrice and fields.prices.wasPriceAlignment == 'below' %}
+													{% if product.ruv and (product.ruv > product.uv) %}<br><span style="text-decoration:line-through; font-family:{{ fields.prices.wasPriceFont }}, {{ font_fallback }}; font-size:{{ fields.prices.wasPriceSize.size }}{{ fields.prices.wasPriceSize.unit }}; color:{{ fields.prices.wasPriceColor }}; font-weight:{{ 'bold' if fields.prices.wasPriceBold else 'normal' }}; font-style:{{ 'italic' if fields.prices.wasPriceItalics else 'normal' }};">{{ product.ruv|format_currency(cart.curr,2) }}</span>{% endif %}
+												{% endif %}
+											</td>
+										</tr>
+									</table>
+									{% endif %}
+								</td>
+								<!--[if (gte mso 9)|(IE)]>
+								</td>
+								<![endif]-->
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endfor %}
+
+	{# Total #}
+	{% if fields.total.active %}
+	<tr>
+		<td style="padding:12px 20px 4px 20px;{% if fields.border.active %} border-top:1px solid {{ fields.border.color }};{% endif %}">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation" style="background-color:{{ yg_green_light }}; border:1px solid {{ yg_border }}; border-radius:12px;">
+				<tr>
+					<td style="padding:14px 16px;">
+						<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+							<tr>
+								<td align="left" style="font-family:{{ fields.total.font }}, {{ font_fallback }}; font-size:12px; line-height:1.3; color:{{ yg_muted }}; font-weight:700; text-transform:uppercase; letter-spacing:0.6px;">
+									{{ fields.total.text }}
+								</td>
+								<td align="right" style="font-family:{{ fields.total.font }}, {{ font_fallback }}; font-size:{{ fields.total.size.size }}{{ fields.total.size.unit }}; line-height:1.1; color:{{ fields.total.color }}; font-weight:{{ 'bold' if fields.total.bold else 'normal' }}; font-style:{{ 'italic' if fields.total.italics else 'normal' }}; letter-spacing:-0.4px;">
+									{{ cart.cv|format_currency(cart.curr,2) }}
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endif %}
+
+	{# CTA #}
+	{% if fields.callToAction.active %}
+		{% set arcsize = 0 %}
+		{% if fields.callToAction.borderRadius == '8px' %}
+			{% set arcsize = 8 / fields.callToAction.height * 100 %}
+		{% elif fields.callToAction.borderRadius == '999px' %}
+			{% set arcsize = 50 %}
+		{% endif %}
+	<tr>
+		<td style="padding:16px 20px 22px 20px;" align="{{ fields.callToAction.alignment }}">
+			<div>
+				<!--[if mso]>
+				<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ mergeField(fields.callToActionHref, { cart: cart })|cartRebuildUrl(cart)|urlWithTrackingParams }}" target="_blank" style="height:{{ fields.callToAction.height }}px;v-text-anchor:middle;width:{{ fields.callToAction.width }}px;" arcsize="{{ arcsize }}%" stroked="{{ 't' if fields.callToAction.border else 'f' }}" {% if fields.callToAction.border %}strokecolor="{{ fields.callToAction.borderColor }}" strokeweight="{{ fields.callToAction.borderWeight }}px"{% endif %} fillcolor="{{ fields.callToAction.colors.background }}">
+				{% if fields.callToAction.border and fields.callToAction.borderStyle in ['dashed', 'dotted'] %}<v:stroke dashstyle="{{ fields.callToAction.borderStyle }}"/>{% endif %}
+				<w:anchorlock/>
+				<center style="color:{{ fields.callToAction.colors.foreground }}; font-family:{{ fields.callToAction.font }}, {{ font_fallback }}; font-size:{{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }}; font-weight:{{ 'bold' if fields.callToAction.bold else 'normal' }}; font-style:{{ 'italic' if fields.callToAction.italics else 'normal' }};">
+					{{ fields.callToAction.text }}
+				</center>
+				</v:roundrect>
+				<![endif]-->
+				<a href="{{ mergeField(fields.callToActionHref, { cart: cart })|cartRebuildUrl(cart)|urlWithTrackingParams }}" target="_blank"
+					style="background-color:{{ fields.callToAction.colors.background }};
+					{% if fields.callToAction.border %}border:{{ fields.callToAction.borderWeight }}px {{ fields.callToAction.borderStyle }} {{ fields.callToAction.borderColor }};{% endif %}
+					border-radius:{{ fields.callToAction.borderRadius }};
+					color:{{ fields.callToAction.colors.foreground }};
+					display:inline-block;
+					font-family:{{ fields.callToAction.font }}, {{ font_fallback }};
+					font-size:{{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+					font-weight:{{ 'bold' if fields.callToAction.bold else 'normal' }};
+					font-style:{{ 'italic' if fields.callToAction.italics else 'normal' }};
+					line-height:{{ fields.callToAction.height }}px;
+					text-align:center;
+					text-decoration:none;
+					width:{{ fields.callToAction.width }}px;
+					-webkit-text-size-adjust:none;
+					mso-hide:all;">{{ fields.callToAction.text }}</a>
+			</div>
+		</td>
+	</tr>
+	{% endif %}
+
+</table>
+{% endif %}

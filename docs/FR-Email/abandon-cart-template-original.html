@@ -1,0 +1,213 @@
+{# Responsive Abandoned Cart email #}
+
+{# Calculate percentage widths based on which elements are enabled/disabled #}
+{% set image_percentage = 0 %}
+{% set name_percentage = 0 %}
+{% set price_percentage = 0 %}
+
+{% if fields.productImage.active %}
+    {% if fields.productName.active %}
+        {% if fields.prices.active %}
+            {# image, name and price are enabled #}
+            {% set image_percentage = 25 %}
+            {% set name_percentage = 57 %}
+            {% set price_percentage = 18 %}
+        {% else %}
+            {# price is disabled, image and name are enabled #}
+            {% set image_percentage = 34 %}
+            {% set name_percentage = 66 %}
+        {% endif %}
+    {% else %}
+        {% if fields.prices.active %}
+            {# name is disabled, image and price are enabled #}
+            {% set image_percentage = 53 %}
+            {% set price_percentage = 47 %}
+        {% else %}
+            {# name and price are disabled, image is enabled #}
+            {% set image_percentage = 100 %}
+        {% endif %}
+    {% endif %}
+{% else %}
+    {% if fields.productName.active %}
+        {% if fields.prices.active %}
+            {# image is disabled, name and price are enabled #}
+            {% set name_percentage = 70 %}
+            {% set price_percentage = 30 %}
+        {% else %}
+            {# image and price are disabled, name is enabled #}
+            {% set name_percentage = 100 %}
+        {% endif %}
+    {% else %}
+        {% if fields.prices.active %}
+            {# image and name are disabled, price is enabled #}
+            {% set price_percentage = 100 %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{# Set the maximum space available to the template in your email, with border enable/disable #}
+{% set email_width = (fields.width - 2) if fields.border.active else fields.width %}
+
+{# Dimensions of all the other elements will be calculated based on email width #}
+{% set image_width = ((email_width / 100) * image_percentage)|round(0, "floor") %}
+{% set name_width = ((email_width / 100) * name_percentage)|round(0, "floor") %}
+{% set price_width = ((email_width / 100) * price_percentage)|round(0, "floor") %}
+
+{% if products and products|length > 0 %}
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" align="center" style="{% if fields.border.active %}border: 1px solid {{ fields.border.color }};{% endif %} width:100%; max-width:{{ email_width }}px; background-color:{{ fields.backgroundColor }};">
+        {% if fields.headline.active %}
+            <tr>
+                <td style="{% if fields.border.active %}border-bottom:1px solid {{ fields.border.color }};{% endif %} padding-bottom:8px;"><!-- Header Row -->
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tr>
+                            <td align="{{ fields.headline.alignment }}" style="font-family:{{ fields.headline.font }}; font-size:{{ fields.headline.size.size }}{{ fields.headline.size.unit }}; color: {{ fields.headline.color }} ; font-weight:{{ "bold" if fields.headline.bold else "normal" }};font-style:{{ "italic" if fields.headline.italics else "normal" }};">
+                                {{ mergeField(fields.headline.text) }}
+                            </td>
+                        </tr>
+                    </table>
+                <!-- Header Row --></td>
+            </tr>
+        {% endif %}
+
+    	{% for product in products|sort(fields.reverseSortDirection, false, fields.productSortField)|allowOutOfStockProducts(fields.allowOutOfStockProducts)|limit((fields.maximumProducts|default(50))|int) %}
+            <tr>
+                <td style="font-size:0px; text-align:center; padding:10px 0px;">
+                    <!--[if (gte mso 9)|(IE)]>
+                    <table cellpadding="0" cellspacing="0" border="0" width="{{ email_width }}">
+                    <tr>
+                    <![endif]-->
+                    {% if fields.productImage.active %}
+                        <!--[if (gte mso 9)|(IE)]>
+                        <td width="{{ image_width }}">
+                        <![endif]-->
+                        <!-- Product {{ loop.index }} Image -->
+                        <div style="display:inline-block; width:100%; max-width:{{ image_width - 2 }}px; vertical-align:middle; padding-right: 2px">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td><a href="{{ mergeField(fields.productHref, { product: product })|urlWithTrackingParams }}" target="_blank" title="{{ product.n }}"><img src="{{ product.img }}" alt="{{ mergeField(fields.productImage.altText, { product: product }) }}" title="{{ product.n }}" width="{{ image_width }}" border="0" align="top" style="width:100%; max-width:100%;"></a></td>
+                                </tr>
+                            </table>
+                        </div><!-- /Product {{ loop.index }} Image -->
+                        <!--[if (gte mso 9)|(IE)]>
+                        </td>
+                        <![endif]-->
+                    {% endif %}
+                    {% if fields.productName.active %}
+                        <!--[if (gte mso 9)|(IE)]>
+                        <td width="{{ name_width }}">
+                        <![endif]-->
+                        <!-- Product {{ loop.index }} Name -->
+                        <div style="display:inline-block; width:100%; max-width:{{ name_width }}px;vertical-align:middle;">
+                            <table cellpadding="0" cellspacing="0" border="0" align="{{ fields.productName.alignment }}">
+                                <tr>
+                                    <td align="{{ fields.productName.alignment }}" style="font-family:{{ fields.productName.font }}; font-size:{{ fields.productName.size.size }}{{ fields.productName.size.unit }}; color:{{ fields.productName.color }}; font-weight:{{ "bold" if fields.productName.bold else "normal" }}; font-style:{{ "italic" if fields.productName.italics else "normal" }};">
+                                        <a href="{{ mergeField(fields.productHref, { product: product })|urlWithTrackingParams }}" target="_blank" title="{{ product.n }}" style="color:{{ fields.productName.color }}; text-decoration:none;">
+                                            {{ product.n }}
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div><!-- /Product {{ loop.index }} Name -->
+                        <!--[if (gte mso 9)|(IE)]>
+                        </td>
+                        <![endif]-->
+                    {% endif %}
+                    {% if fields.prices.active %}
+                        <!--[if (gte mso 9)|(IE)]><td width="{{ price_width }}"><![endif]-->
+                        <!-- Product {{ loop.index }} Price -->
+                        <div style="display:inline-block; width:100%; max-width:{{ price_width }}px;vertical-align:middle;">
+                            <table cellpadding="0" cellspacing="0" border="0" align="{{ fields.prices.alignment }}">
+                                <tr>
+                                    <td align="{{ fields.prices.alignment }}" style="font-family:{{ fields.prices.font }}; font-size:{{ fields.prices.size.size }}{{ fields.prices.size.unit }}; color:{{ fields.prices.color }}; font-weight:{{ "bold" if fields.prices.bold else "normal" }}; font-style:{{ "italic" if fields.prices.italics else "normal" }};">
+                                        {% if fields.prices.quantity and product.uv and product.qty %}
+                                            <span style="font-family:{{ fields.prices.quantityFont }}; font-size:{{ fields.prices.quantitySize.size }}{{ fields.prices.quantitySize.unit }}; color:{{ fields.prices.quantityColor }}; font-weight:{{ "bold" if fields.prices.quantityBold else "normal" }}; font-style:{{ "italic" if fields.prices.quantityItalics else "normal" }};">{{ product.qty }} x </span>
+                                        {% endif %}
+                                        {% if fields.prices.wasPrice and fields.prices.wasPriceAlignment == 'above' %}
+                                            {% if product.ruv and (product.ruv > product.uv) %}<span style="text-decoration:line-through; font-family:{{ fields.prices.wasPriceFont }}; font-size:{{ fields.prices.wasPriceSize.size }}{{ fields.prices.wasPriceSize.unit }}; color:{{ fields.prices.wasPriceColor }}; font-weight:{{ "bold" if fields.prices.wasPriceBold else "normal" }}; font-style:{{ "italic" if fields.prices.wasPriceItalics else "normal" }};">Was {{ product.ruv|format_currency(cart.curr,2) }}</span><br>{% endif %}
+                                        {% endif %}
+                                        {% if fields.prices.wasPrice and fields.prices.wasPriceAlignment == 'left' %}
+                                            {% if product.ruv and (product.ruv > product.uv) %}<span style="text-decoration:line-through; font-family:{{ fields.prices.wasPriceFont }}; font-size:{{ fields.prices.wasPriceSize.size }}{{ fields.prices.wasPriceSize.unit }}; color:{{ fields.prices.wasPriceColor }}; font-weight:{{ "bold" if fields.prices.wasPriceBold else "normal" }}; font-style:{{ "italic" if fields.prices.wasPriceItalics else "normal" }};">Was {{ product.ruv|format_currency(cart.curr,2) }}</span> {% endif %}
+                                        {% endif %}
+                                        {{ product.uv|format_currency(cart.curr,2) }}
+                                        {% if fields.prices.wasPrice and fields.prices.wasPriceAlignment == 'right' %}
+                                            {% if product.ruv and (product.ruv > product.uv) %} <span style="text-decoration:line-through; font-family:{{ fields.prices.wasPriceFont }}; font-size:{{ fields.prices.wasPriceSize.size }}{{ fields.prices.wasPriceSize.unit }}; color:{{ fields.prices.wasPriceColor }}; font-weight:{{ "bold" if fields.prices.wasPriceBold else "normal" }}; font-style:{{ "italic" if fields.prices.wasPriceItalics else "normal" }};">Was {{ product.ruv|format_currency(cart.curr,2) }}</span>{% endif %}
+                                        {% endif %}
+                                        {% if fields.prices.wasPrice and fields.prices.wasPriceAlignment == 'below' %}
+                                            {% if product.ruv and (product.ruv > product.uv) %}<br><span style="text-decoration:line-through; font-family:{{ fields.prices.wasPriceFont }}; font-size:{{ fields.prices.wasPriceSize.size }}{{ fields.prices.wasPriceSize.unit }}; color:{{ fields.prices.wasPriceColor }}; font-weight:{{ "bold" if fields.prices.wasPriceBold else "normal" }}; font-style:{{ "italic" if fields.prices.wasPriceItalics else "normal" }};">Was {{ product.ruv|format_currency(cart.curr,2) }}</span>{% endif %}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div><!-- /Product {{ loop.index }} Price -->
+                        <!--[if (gte mso 9)|(IE)]></td><![endif]-->
+                    {% endif %}
+                    <!--[if (gte mso 9)|(IE)]>
+                    </tr>
+                </table>
+                <![endif]-->
+                </td>
+            </tr>
+        {% endfor %}
+        {% if fields.total.active %}
+            <tr>
+                <td style="{% if fields.border.active %}border-top:1px solid {{ fields.border.color }};{% endif %} padding-top:8px;"><!-- Cart Total -->
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" align="center">
+                        <tr>
+                            <td align="{{ fields.total.alignment }}" style="font-family:{{ fields.total.font }}; font-size:{{ fields.total.size.size }}{{ fields.total.size.unit }}; color:{{ fields.total.color }}; font-weight:{{ "bold" if fields.total.bold else "normal" }}; font-style:{{ "italic" if fields.total.italics else "normal" }};">
+                                {{ fields.total.text }} {{ cart.cv|format_currency(cart.curr,2) }}
+                            </td>
+                        </tr>
+                    </table>
+                <!-- Cart Total --></td>
+            </tr>
+        {% endif %}
+        {% if fields.callToAction.active %}
+            {% set arcsize = 0 %}
+            {% if fields.callToAction.borderRadius == "8px" %}
+                {% set arcsize = 8 / fields.callToAction.height * 100 %}
+            {% endif %}
+            <tr>
+                <td style="padding-top:8px;"><!-- Cart Button -->
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%" align="center">
+                        <tr>
+                            <td align="{{ fields.callToAction.alignment }}">
+                                <div><!--[if mso]>
+                                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ mergeField(fields.callToActionHref, { cart: cart })|cartRebuildUrl(cart)|urlWithTrackingParams }}" target="_blank" style="height:{{ fields.callToAction.height }}px;v-text-anchor:middle;width:{{ fields.callToAction.width }}px;" arcsize="{{ arcsize }}%" stroked="{{ 't' if fields.callToAction.border else 'f' }}" {% if fields.callToAction.border %}strokecolor="{{ fields.callToAction.borderColor }}" strokeweight="{{ fields.callToAction.borderWeight }}px"{% endif %} fillcolor="{{ fields.callToAction.colors.background }}">
+                                    {% if fields.callToAction.border and fields.callToAction.borderStyle in ["dashed", "dotted"] %}<v:stroke dashstyle="{{ fields.callToAction.borderStyle }}"/>{% endif %}
+                                    <w:anchorlock/>
+                                    <center style="color:{{ fields.callToAction.colors.foreground }};
+                                    font-family:{{ fields.callToAction.font }};
+                                    font-size:{{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+                                    font-weight:{{ "bold" if fields.callToAction.bold else "normal" }};
+                                    font-style:{{ "italic" if fields.callToAction.italics else "normal" }};">
+                                        {{ fields.callToAction.text }}
+                                    </center>
+                                </v:roundrect>
+                                <![endif]-->
+                                    <a href="{{ mergeField(fields.callToActionHref, { cart: cart })|cartRebuildUrl(cart)|urlWithTrackingParams }}" target="_blank"
+                                        style="background-color:{{ fields.callToAction.colors.background }};
+                                        {% if fields.callToAction.border %}
+                                        border:{{ fields.callToAction.borderWeight }}px {{ fields.callToAction.borderStyle }} {{ fields.callToAction.borderColor }};
+                                        {% endif %}
+                                        border-radius:{{ fields.callToAction.borderRadius }};
+                                        color:{{ fields.callToAction.colors.foreground }};
+                                        display:inline-block;
+                                        font-family:{{ fields.callToAction.font }};
+                                        font-size:{{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+                                        font-weight:{{ "bold" if fields.callToAction.bold else "normal" }};
+                                        font-style:{{ "italic" if fields.callToAction.italics else "normal" }};
+                                        line-height:{{ fields.callToAction.height }}px;
+                                        text-align:center;
+                                        text-decoration:none;
+                                        width:{{ fields.callToAction.width }}px;
+                                        -webkit-text-size-adjust:none;
+                                        mso-hide:all;">{{ fields.callToAction.text }}</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                <!-- Cart Button --></td>
+            </tr>
+        {% endif %}
+    </table>
+{% endif %}
