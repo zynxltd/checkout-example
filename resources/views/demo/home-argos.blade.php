@@ -408,14 +408,14 @@
     var paused = false;
     var timer = null;
     var HERO_INTERVAL_KEY = 'yg_argos_hero_interval';
-    var INTERVAL = 4000;
+    var INTERVAL = 5000;
 
     function readHeroInterval() {
         try {
-            var saved = parseInt(localStorage.getItem(HERO_INTERVAL_KEY) || '4000', 10);
-            if ([4000, 6000, 8000, 10000].indexOf(saved) !== -1) return saved;
+            var saved = parseInt(localStorage.getItem(HERO_INTERVAL_KEY) || '5000', 10);
+            if ([4000, 5000, 6000, 8000, 10000].indexOf(saved) !== -1) return saved;
         } catch (e) { /* ignore */ }
-        return 4000;
+        return 5000;
     }
 
     function applyHeroInterval(ms) {
@@ -433,7 +433,7 @@
     document.querySelectorAll('[data-hero-interval-option]').forEach(function (input) {
         input.checked = parseInt(input.value, 10) === INTERVAL;
         input.addEventListener('change', function () {
-            if (input.checked) applyHeroInterval(parseInt(input.value, 10) || 4000);
+            if (input.checked) applyHeroInterval(parseInt(input.value, 10) || 5000);
         });
     });
 
