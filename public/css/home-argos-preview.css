@@ -544,7 +544,36 @@ body.demo-home-argos .usp-box {
 
 /* —— Hero carousel (Argos pattern: banner + CTAs change together) —— */
 .yg-hero-argos {
-    margin: 0 0 28px;
+    margin: 0;
+}
+
+/* Demo fold marker: keeps hero clear of below-fold tiles */
+.yg-home-fold-mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 36px 0 28px;
+    padding: 0 4px;
+}
+
+.yg-home-fold-mark__line {
+    flex: 1;
+    height: 0;
+    border-top: 1px dashed #c5d0be;
+}
+
+.yg-home-fold-mark__label {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6b7a66;
+    background: #eef3eb;
+    border: 1px dashed #b8c7b2;
+    border-radius: 999px;
+    padding: 6px 14px;
+    white-space: nowrap;
 }
 
 .yg-hero-argos__slides {
@@ -781,7 +810,7 @@ body.demo-home-argos .usp-box {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin-top: 8px;
+    margin-top: 0;
     padding-bottom: 24px;
 }
 
@@ -911,6 +940,20 @@ body.demo-home-argos .usp-box {
 }
 
 @media (max-width: 960px) {
+    .yg-home-fold-mark {
+        margin: 28px 0 22px;
+        gap: 10px;
+    }
+
+    .yg-home-fold-mark__label {
+        font-size: 10px;
+        padding: 5px 10px;
+        white-space: normal;
+        text-align: center;
+        max-width: 12rem;
+        line-height: 1.3;
+    }
+
     .yg-hero-argos__banner--full img {
         aspect-ratio: 1920 / 600;
     }

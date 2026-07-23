@@ -116,6 +116,12 @@
             </div>
         </section>
 
+        <div class="yg-home-fold-mark" aria-hidden="true">
+            <span class="yg-home-fold-mark__line"></span>
+            <span class="yg-home-fold-mark__label">Hero section only · rest of page below</span>
+            <span class="yg-home-fold-mark__line"></span>
+        </div>
+
         {{-- Below the fold — live yougarden.com homepage modules --}}
         <div class="yg-home-below">
             <section class="yg-home-row4" aria-label="Shop popular categories">
