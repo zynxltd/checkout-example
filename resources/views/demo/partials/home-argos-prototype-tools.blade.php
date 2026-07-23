@@ -15,19 +15,38 @@
         <div class="demo-prototype-stack__content">
             <aside class="demo-controls" aria-label="Homepage prototype controls">
                 <h3>Homepage layout</h3>
-                <p class="demo-controls__label">TV Live entry</p>
-                <p class="demo-controls__hint">Original site puts Live / TV in the green nav. Without that bar, pick a replacement.</p>
+                <p class="demo-controls__label">Hero slider timing</p>
+                <p class="demo-controls__hint">Autoplay interval between slides.</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="yg-argos-tv-live" value="header" data-tv-live-option checked>
+                    <input type="radio" name="yg-argos-hero-interval" value="4000" data-hero-interval-option checked>
+                    <span>4 seconds</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="yg-argos-hero-interval" value="6000" data-hero-interval-option>
+                    <span>6 seconds</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="yg-argos-hero-interval" value="8000" data-hero-interval-option>
+                    <span>8 seconds</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="yg-argos-hero-interval" value="10000" data-hero-interval-option>
+                    <span>10 seconds</span>
+                </label>
+
+                <p class="demo-controls__label">TV Live entry</p>
+                <p class="demo-controls__hint">Original site puts Live / TV in the green nav. Hidden by default — pick a placement to show it.</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="yg-argos-tv-live" value="menu" data-tv-live-option checked>
+                    <span>Hidden (Shop menu only)</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="yg-argos-tv-live" value="header" data-tv-live-option>
                     <span>Header — Live now</span>
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="yg-argos-tv-live" value="float" data-tv-live-option>
                     <span>Floating chip</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="yg-argos-tv-live" value="menu" data-tv-live-option>
-                    <span>Shop menu only</span>
                 </label>
                 <p class="demo-controls__hint">Mobile menu always keeps YouGarden TV.</p>
             </aside>

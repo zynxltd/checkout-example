@@ -86,6 +86,8 @@
                 class="yg-argos-nav__live"
                 href="{{ route('demo.tv-live') }}"
                 data-tv-live-placement="header"
+                hidden
+                aria-hidden="true"
                 aria-label="YouGarden TV — Live now"
             >
                 <span class="yg-argos-nav__live-dot" aria-hidden="true"></span>

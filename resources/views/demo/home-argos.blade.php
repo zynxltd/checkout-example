@@ -296,12 +296,12 @@
     }
 
     function bootTvPlacement() {
-        var saved = 'header';
+        var saved = 'menu';
         try {
-            saved = localStorage.getItem(TV_KEY) || 'header';
+            saved = localStorage.getItem(TV_KEY) || 'menu';
         } catch (e) { /* ignore */ }
         if (saved !== 'header' && saved !== 'float' && saved !== 'menu') {
-            saved = 'header';
+            saved = 'menu';
         }
         applyTvPlacement(saved);
         document.querySelectorAll('[data-tv-live-option]').forEach(function (input) {
@@ -407,7 +407,35 @@
     var index = 0;
     var paused = false;
     var timer = null;
-    var INTERVAL = 6000;
+    var HERO_INTERVAL_KEY = 'yg_argos_hero_interval';
+    var INTERVAL = 4000;
+
+    function readHeroInterval() {
+        try {
+            var saved = parseInt(localStorage.getItem(HERO_INTERVAL_KEY) || '4000', 10);
+            if ([4000, 6000, 8000, 10000].indexOf(saved) !== -1) return saved;
+        } catch (e) { /* ignore */ }
+        return 4000;
+    }
+
+    function applyHeroInterval(ms) {
+        INTERVAL = ms;
+        document.querySelectorAll('[data-hero-interval-option]').forEach(function (input) {
+            input.checked = parseInt(input.value, 10) === ms;
+        });
+        try {
+            localStorage.setItem(HERO_INTERVAL_KEY, String(ms));
+        } catch (e) { /* ignore */ }
+        if (!paused) startAuto();
+    }
+
+    INTERVAL = readHeroInterval();
+    document.querySelectorAll('[data-hero-interval-option]').forEach(function (input) {
+        input.checked = parseInt(input.value, 10) === INTERVAL;
+        input.addEventListener('change', function () {
+            if (input.checked) applyHeroInterval(parseInt(input.value, 10) || 4000);
+        });
+    });
 
     function show(i) {
         index = (i + slides.length) % slides.length;
