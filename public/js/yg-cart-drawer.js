@@ -535,7 +535,13 @@
             const total = Number(cart.basket_total ?? 0).toFixed(2);
 
             if (trigger) {
-                trigger.setAttribute('aria-label', `Your basket, ${count} item(s)`);
+                const totalLabel = Number(cart.basket_total ?? 0).toFixed(2);
+                trigger.setAttribute('aria-label', `Your basket, ${count} item(s), £${totalLabel}`);
+            }
+
+            const countLabel = root.querySelector('#yg-mini-basket-count-label');
+            if (countLabel) {
+                countLabel.textContent = String(count);
             }
 
             if (!scroll) {
@@ -568,7 +574,7 @@
                         </div>
                         <div class="yg-mini-basket__pricing">
                             <span class="yg-mini-basket__price">£${price}</span>
-                            <span class="yg-mini-basket__qty">QTY: ${qty}</span>
+                            <span class="yg-mini-basket__qty">Qty ${qty}</span>
                         </div>
                     </li>`;
                 })

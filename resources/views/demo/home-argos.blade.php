@@ -29,27 +29,29 @@
                 <button type="button" class="yg-cat-strip__nav yg-cat-strip__nav--prev" data-cat-prev aria-label="Previous categories" hidden>
                     <span class="yg-cat-strip__nav-arrow yg-cat-strip__nav-arrow--prev" aria-hidden="true"></span>
                 </button>
-                <div class="yg-cat-strip__track" id="yg-cat-track" data-cat-track tabindex="0">
-                    @foreach ($categories as $category)
-                        <a href="{{ $category['url'] }}" class="yg-cat-strip__item" @if (str_starts_with($category['url'], 'http')) target="_blank" rel="noopener" @endif>
-                            @if (! empty($category['sale']))
-                                <span class="yg-cat-strip__thumb yg-cat-strip__thumb--sale" aria-hidden="true">
-                                    Sale<br>up to<br>50% off
-                                </span>
-                            @else
-                                <span class="yg-cat-strip__thumb">
-                                    <img
-                                        src="{{ asset($category['image']) }}?v={{ filemtime(public_path($category['image'])) }}"
-                                        alt=""
-                                        width="208"
-                                        height="208"
-                                        loading="lazy"
-                                    >
-                                </span>
-                            @endif
-                            <span class="yg-cat-strip__label">{{ $category['label'] }}</span>
-                        </a>
-                    @endforeach
+                <div class="yg-cat-strip__viewport" data-cat-viewport>
+                    <div class="yg-cat-strip__track" id="yg-cat-track" data-cat-track tabindex="0">
+                        @foreach ($categories as $category)
+                            <a href="{{ $category['url'] }}" class="yg-cat-strip__item" @if (str_starts_with($category['url'], 'http')) target="_blank" rel="noopener" @endif>
+                                @if (! empty($category['sale']))
+                                    <span class="yg-cat-strip__thumb yg-cat-strip__thumb--sale" aria-hidden="true">
+                                        Sale<br>up to<br>50% off
+                                    </span>
+                                @else
+                                    <span class="yg-cat-strip__thumb">
+                                        <img
+                                            src="{{ asset($category['image']) }}?v={{ filemtime(public_path($category['image'])) }}"
+                                            alt=""
+                                            width="208"
+                                            height="208"
+                                            loading="lazy"
+                                        >
+                                    </span>
+                                @endif
+                                <span class="yg-cat-strip__label">{{ $category['label'] }}</span>
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
                 <button type="button" class="yg-cat-strip__nav yg-cat-strip__nav--next" data-cat-next aria-label="Show more categories">
                     <span class="yg-cat-strip__nav-arrow" aria-hidden="true"></span>
@@ -60,6 +62,7 @@
                  Previous lifestyle split banner: images/home-preview/hero-garden-original-backup.jpg --}}
             <section class="yg-hero-argos" aria-roledescription="carousel" aria-label="Featured offers" data-hero-carousel data-above-block="hero">
                 <div class="yg-hero-argos__slides">
+                    <div class="yg-hero-argos__track" data-hero-track>
                     @foreach ($hero_slides as $index => $slide)
                         <div
                             class="yg-hero-argos__slide{{ $index === 0 ? ' is-active' : '' }}"
@@ -67,13 +70,14 @@
                             role="group"
                             aria-roledescription="slide"
                             aria-label="{{ $index + 1 }} of {{ count($hero_slides) }}: {{ $slide['alt'] }}"
-                            @if ($index !== 0) hidden @endif
+                            @if ($index !== 0) aria-hidden="true" @endif
                         >
                             <a
                                 href="{{ $slide['url'] }}"
                                 class="yg-hero-argos__banner yg-hero-argos__banner--full"
                                 target="_blank"
                                 rel="noopener"
+                                @if ($index !== 0) tabindex="-1" @endif
                             >
                                 <img
                                     src="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
@@ -91,11 +95,13 @@
                                         class="yg-hero-argos__cta"
                                         target="_blank"
                                         rel="noopener"
+                                        @if ($index !== 0) tabindex="-1" @endif
                                     >{{ $cta['label'] }}</a>
                                 @endforeach
                             </div>
                         </div>
                     @endforeach
+                    </div>
                 </div>
 
                 <div class="yg-hero-argos__controls">
@@ -362,48 +368,150 @@
 <script>
 (function () {
     var strip = document.querySelector('[data-cat-strip]');
-    var track = strip && strip.querySelector('[data-cat-track]');
-    var next = strip && strip.querySelector('[data-cat-next]');
-    var prev = strip && strip.querySelector('[data-cat-prev]');
+    var viewport = strip && strip.querySelector('[data-cat-viewport]');
+    var catTrack = strip && strip.querySelector('[data-cat-track]');
+    var catNext = strip && strip.querySelector('[data-cat-next]');
+    var catPrev = strip && strip.querySelector('[data-cat-prev]');
 
-    if (strip && track && next && prev) {
+    if (strip && viewport && catTrack && catNext && catPrev) {
+        var offset = 0;
+
         function step() {
-            // Scroll by ~3–4 tiles
-            var item = track.querySelector('.yg-cat-strip__item');
+            var item = catTrack.querySelector('.yg-cat-strip__item');
             var width = item ? item.getBoundingClientRect().width + 14 : 240;
-            return Math.max(width * 3, Math.floor(track.clientWidth * 0.7));
+            return Math.max(width * 3, Math.floor(viewport.clientWidth * 0.7));
+        }
+
+        function maxOffset() {
+            return Math.max(0, catTrack.scrollWidth - viewport.clientWidth);
+        }
+
+        function applyOffset(animate) {
+            catTrack.style.transition = animate === false ? 'none' : '';
+            catTrack.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
+            updateNav();
+        }
+
+        function moveBy(delta, animate) {
+            offset = Math.max(0, Math.min(maxOffset(), offset + delta));
+            applyOffset(animate !== false);
         }
 
         function updateNav() {
-            var max = track.scrollWidth - track.clientWidth;
+            var max = maxOffset();
             var hasOverflow = max > 4;
-            var atStart = track.scrollLeft <= 4;
-            var atEnd = track.scrollLeft >= max - 4;
+            var atStart = offset <= 4;
+            var atEnd = offset >= max - 4;
 
             strip.classList.toggle('is-at-start', atStart || !hasOverflow);
             strip.classList.toggle('is-at-end', atEnd || !hasOverflow);
 
             if (!hasOverflow) {
-                prev.hidden = true;
-                next.hidden = true;
+                catPrev.hidden = true;
+                catNext.hidden = true;
                 return;
             }
 
-            prev.hidden = atStart;
-            next.hidden = atEnd;
-            prev.disabled = atStart;
-            next.disabled = atEnd;
+            catPrev.hidden = atStart;
+            catNext.hidden = atEnd;
+            catPrev.disabled = atStart;
+            catNext.disabled = atEnd;
         }
 
-        next.addEventListener('click', function () {
-            track.scrollBy({ left: step(), behavior: 'smooth' });
+        catNext.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moveBy(step(), true);
         });
-        prev.addEventListener('click', function () {
-            track.scrollBy({ left: -step(), behavior: 'smooth' });
+        catPrev.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            moveBy(-step(), true);
         });
-        track.addEventListener('scroll', updateNav, { passive: true });
-        window.addEventListener('resize', updateNav);
+        window.addEventListener('resize', function () {
+            offset = Math.max(0, Math.min(maxOffset(), offset));
+            applyOffset(false);
+        });
         updateNav();
+
+        var drag = {
+            active: false,
+            moved: false,
+            pointerId: null,
+            startX: 0,
+            startOffset: 0,
+        };
+        var DRAG_THRESHOLD = 8;
+        var ignoreClickUntil = 0;
+
+        // After a swipe/drag, block the synthetic click that would open a category link
+        catTrack.addEventListener(
+            'click',
+            function (e) {
+                if (Date.now() < ignoreClickUntil) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                }
+            },
+            true
+        );
+
+        viewport.addEventListener('pointerdown', function (e) {
+            if (e.button != null && e.button !== 0) return;
+            // Don't start a strip-drag from the arrow buttons
+            if (e.target.closest && e.target.closest('.yg-cat-strip__nav')) return;
+            drag.active = true;
+            drag.moved = false;
+            drag.pointerId = e.pointerId;
+            drag.startX = e.clientX;
+            drag.startOffset = offset;
+            try {
+                viewport.setPointerCapture(e.pointerId);
+            } catch (err) { /* ignore */ }
+        });
+
+        viewport.addEventListener('pointermove', function (e) {
+            if (!drag.active || e.pointerId !== drag.pointerId) return;
+            var dx = e.clientX - drag.startX;
+            if (!drag.moved && Math.abs(dx) >= DRAG_THRESHOLD) {
+                drag.moved = true;
+                viewport.classList.add('is-dragging');
+            }
+            if (!drag.moved) return;
+            e.preventDefault();
+            offset = Math.max(0, Math.min(maxOffset(), drag.startOffset - dx));
+            applyOffset(false);
+        });
+
+        function endDrag(e) {
+            if (!drag.active) return;
+            if (e && drag.pointerId != null && e.pointerId !== drag.pointerId) return;
+            var wasMoved = drag.moved;
+            drag.active = false;
+            drag.pointerId = null;
+            viewport.classList.remove('is-dragging');
+            catTrack.style.transition = '';
+            if (wasMoved) {
+                // Cover delayed synthetic clicks on touch + mouse
+                ignoreClickUntil = Date.now() + 450;
+            }
+            drag.moved = false;
+            updateNav();
+        }
+
+        viewport.addEventListener('pointerup', endDrag);
+        viewport.addEventListener('pointercancel', endDrag);
+        viewport.addEventListener('lostpointercapture', endDrag);
+
+        catTrack.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                moveBy(step(), true);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                moveBy(-step(), true);
+            }
+        });
     }
 
     // Header nav dropdowns (Shop + Trending)
@@ -573,6 +681,7 @@
     if (!root) return;
 
     var slides = Array.prototype.slice.call(root.querySelectorAll('[data-hero-slide]'));
+    var heroTrack = root.querySelector('[data-hero-track]');
     var dots = Array.prototype.slice.call(root.querySelectorAll('[data-hero-dot]'));
     var prevBtn = root.querySelector('[data-hero-prev]');
     var nextBtn = root.querySelector('[data-hero-next]');
@@ -587,7 +696,7 @@
     function readHeroInterval() {
         try {
             var saved = parseInt(localStorage.getItem(HERO_INTERVAL_KEY) || '5000', 10);
-            if ([4000, 5000, 6000, 8000, 10000].indexOf(saved) !== -1) return saved;
+            if ([3000, 4000, 5000, 6000, 8000, 10000].indexOf(saved) !== -1) return saved;
         } catch (e) { /* ignore */ }
         return 5000;
     }
@@ -613,14 +722,20 @@
 
     function show(i) {
         index = (i + slides.length) % slides.length;
+        if (heroTrack) {
+            heroTrack.style.transform = 'translateX(-' + (index * 100) + '%)';
+        }
         slides.forEach(function (slide, n) {
             var on = n === index;
             slide.classList.toggle('is-active', on);
-            if (on) {
-                slide.removeAttribute('hidden');
-            } else {
-                slide.setAttribute('hidden', '');
-            }
+            slide.setAttribute('aria-hidden', on ? 'false' : 'true');
+            slide.querySelectorAll('a').forEach(function (link) {
+                if (on) {
+                    link.removeAttribute('tabindex');
+                } else {
+                    link.setAttribute('tabindex', '-1');
+                }
+            });
         });
         dots.forEach(function (dot, n) {
             var on = n === index;

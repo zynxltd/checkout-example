@@ -18,8 +18,7 @@ body.demo-home-argos {
 .demo-site--argos-home {
     margin: 0;
     padding: 0;
-    overflow-x: clip;
-    overflow-y: visible;
+    overflow: visible;
 }
 
 /* USP / trust bar — full bleed (no side gaps) */
@@ -28,9 +27,13 @@ body.demo-home-argos .demo-trust {
     width: 100%;
     max-width: none;
     margin: 0;
-    padding: 10px 0;
+    padding: 12px 0;
+    min-height: 0;
+    height: auto;
     background: var(--yg-stone, #f2e7d8);
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 
 body.demo-home-argos .usp-inner-wrapper {
@@ -44,11 +47,22 @@ body.demo-home-argos .usp-inner-wrapper {
 body.demo-home-argos .usp-track {
     width: 100%;
     justify-content: space-between;
+    align-items: center;
 }
 
 body.demo-home-argos .usp-box {
     flex: 1 1 0;
     min-width: 0;
+    align-items: center;
+}
+
+body.demo-home-argos .usp-text {
+    line-height: 1;
+}
+
+/* Source icons have extra empty space below the glyph — nudge for optical center */
+body.demo-home-argos .usp-icon {
+    transform: translateY(2px);
 }
 
 .demo-home-argos__main {
@@ -56,6 +70,8 @@ body.demo-home-argos .usp-box {
     margin: 0 auto;
     padding: 16px var(--yg-argos-content-pad) 48px;
     box-sizing: border-box;
+    /* Clip carousel bleed here (not on .demo-site) so sticky header works */
+    overflow-x: clip;
 }
 
 /* —— Argos-style primary nav (Shop dropdown + Trending) —— */
@@ -64,9 +80,11 @@ body.demo-home-argos .usp-box {
     width: 100%;
     max-width: none;
     margin: 0;
-    position: relative;
-    z-index: 200;
+    position: sticky;
+    top: 0;
+    z-index: 300;
     overflow: visible;
+    background: #fff;
 }
 
 body.demo-home-argos .usp-wrapper {
@@ -96,25 +114,27 @@ body.demo-home-argos .usp-wrapper {
 }
 
 .demo-home-argos .demo-header__inner--argos {
-    display: flex;
-    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 440px) minmax(0, 1fr);
+    grid-template-areas: 'brand search utilities';
     align-items: center;
-    gap: 16px;
+    column-gap: 28px;
     max-width: var(--yg-argos-content-width);
     margin: 0 auto;
-    padding: 18px var(--yg-argos-content-pad);
+    padding: 28px var(--yg-argos-content-pad);
     width: 100%;
-    min-height: 88px;
+    min-height: 108px;
     box-sizing: border-box;
     overflow: visible;
 }
 
 .demo-home-argos .demo-header--argos .demo-header__brand {
+    grid-area: brand;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 20px;
     min-width: 0;
-    flex: 0 1 auto;
+    justify-self: start;
 }
 
 .demo-home-argos .demo-header--argos .demo-header__logo-img {
@@ -123,21 +143,29 @@ body.demo-home-argos .usp-wrapper {
 }
 
 .demo-home-argos .demo-header--argos .demo-header__search {
+    grid-area: search;
     position: relative;
     transform: none;
     left: auto;
     top: auto;
-    flex: 1 1 auto;
-    width: auto;
-    max-width: none;
-    min-width: 160px;
+    width: 100%;
+    max-width: 440px;
+    min-width: 0;
     min-height: 48px;
-    z-index: auto;
+    justify-self: center;
+    z-index: 210;
+    box-shadow: 0 2px 10px rgba(38, 79, 28, 0.08);
+}
+
+.demo-home-argos .demo-header--argos .demo-header__search.is-suggest-open {
+    z-index: 250;
 }
 
 .demo-home-argos .demo-header--argos .demo-header__search:focus-within {
     border-color: var(--yg-forest);
-    box-shadow: 0 0 0 2px rgba(38, 79, 28, 0.3);
+    box-shadow:
+        0 2px 10px rgba(38, 79, 28, 0.1),
+        0 0 0 2px rgba(38, 79, 28, 0.28);
 }
 
 .demo-home-argos .demo-header--argos .demo-header__search-input {
@@ -150,16 +178,18 @@ body.demo-home-argos .usp-wrapper {
 }
 
 .demo-home-argos .demo-header--argos .demo-header__utilities {
+    grid-area: utilities;
     display: flex;
-    gap: 14px;
+    gap: 22px;
     flex: 0 0 auto;
     min-width: 0;
-    max-width: none;
+    max-width: 100%;
     margin-left: 0;
     margin-right: 0;
     position: static;
     z-index: auto;
     align-items: center;
+    justify-self: end;
 }
 
 .demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__utility--stacked {
@@ -184,7 +214,7 @@ body.demo-home-argos .usp-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 28px;
+    height: 36px;
     color: inherit;
 }
 
@@ -208,6 +238,22 @@ body.demo-home-argos .usp-wrapper {
     width: 86px;
     height: auto;
     max-height: 24px;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__utility-img--tv {
+    width: 28px;
+    height: 28px;
+    max-width: 28px;
+    max-height: 28px;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__utility--tv {
+    min-width: 86px;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__utility--tv:hover .demo-header__utility-label {
+    color: var(--yg-forest);
+    text-decoration: underline;
 }
 
 .demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__utility-label {
@@ -241,24 +287,43 @@ body.demo-home-argos .usp-wrapper {
     min-width: 92px;
 }
 
-.demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__basket--end {
+.demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__basket--stacked {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-left: 4px;
-    min-width: max-content;
+    justify-content: flex-end;
+    gap: 6px;
+    min-width: 72px;
+    margin-left: 0;
     padding: 0;
     border: 0;
     background: none;
     cursor: pointer;
-    text-align: left;
+    text-decoration: none;
+    color: #2c2c2c;
+    line-height: 1.15;
+    text-align: center;
     font: inherit;
-    color: var(--yg-text);
-    line-height: 1.3;
 }
 
-/* —— Mini basket hover preview (YouGarden live pattern) —— */
+.demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__basket-img {
+    width: 40px;
+    max-height: 34px;
+}
+
+.demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* —— Mini basket hover preview (YouGarden brand theme) —— */
 .yg-mini-basket {
     position: relative;
     flex-shrink: 0;
@@ -273,7 +338,7 @@ body.demo-home-argos .usp-wrapper {
     position: absolute;
     top: calc(100% + 2px);
     right: 0;
-    width: min(360px, calc(100vw - 24px));
+    width: min(380px, calc(100vw - 24px));
     padding-top: 12px;
     z-index: 240;
 }
@@ -284,11 +349,13 @@ body.demo-home-argos .usp-wrapper {
 
 .yg-mini-basket__caret {
     position: absolute;
-    top: 4px;
-    right: 36px;
+    top: 5px;
+    right: 34px;
     width: 14px;
     height: 14px;
-    background: #5c554e;
+    background: #fff;
+    border-left: 1px solid var(--yg-border);
+    border-top: 1px solid var(--yg-border);
     transform: rotate(45deg);
     border-radius: 2px;
     z-index: 0;
@@ -297,11 +364,40 @@ body.demo-home-argos .usp-wrapper {
 .yg-mini-basket__card {
     position: relative;
     z-index: 1;
-    background: #5c554e;
-    color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    background: #fff;
+    color: var(--yg-pebble);
+    border: 1px solid var(--yg-border);
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(38, 79, 28, 0.14);
     overflow: hidden;
+    font-family: var(--yg-body);
+}
+
+.yg-mini-basket__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px 12px;
+    background: var(--yg-stone);
+    border-bottom: 1px solid var(--yg-border);
+}
+
+.yg-mini-basket__heading {
+    margin: 0;
+    font-family: var(--yg-heading);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--yg-forest);
+    line-height: 1.2;
+}
+
+.yg-mini-basket__count {
+    margin: 0;
+    font-size: 13px;
+    color: var(--yg-muted);
+    font-weight: 500;
+    white-space: nowrap;
 }
 
 .yg-mini-basket__scroll {
@@ -309,7 +405,8 @@ body.demo-home-argos .usp-wrapper {
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.35) transparent;
+    scrollbar-color: #c5d0be transparent;
+    background: #fff;
 }
 
 .yg-mini-basket__list {
@@ -324,7 +421,7 @@ body.demo-home-argos .usp-wrapper {
     gap: 12px;
     align-items: start;
     padding: 14px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    border-bottom: 1px solid #efe8df;
 }
 
 .yg-mini-basket__item:last-child {
@@ -335,8 +432,9 @@ body.demo-home-argos .usp-wrapper {
     width: 56px;
     height: 56px;
     object-fit: cover;
-    border-radius: 2px;
-    background: #fff;
+    border-radius: 10px;
+    background: var(--yg-stone);
+    border: 1px solid var(--yg-border);
 }
 
 .yg-mini-basket__meta {
@@ -345,16 +443,17 @@ body.demo-home-argos .usp-wrapper {
 
 .yg-mini-basket__name {
     margin: 0 0 4px;
-    font-size: 14px;
-    font-weight: 600;
+    font-family: var(--yg-heading);
+    font-size: 15px;
+    font-weight: 400;
     line-height: 1.3;
-    color: #fff;
+    color: var(--yg-pebble);
 }
 
 .yg-mini-basket__sku {
     margin: 0;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.78);
+    color: var(--yg-muted);
     line-height: 1.3;
 }
 
@@ -370,21 +469,22 @@ body.demo-home-argos .usp-wrapper {
 .yg-mini-basket__price {
     font-size: 14px;
     font-weight: 700;
+    color: var(--yg-forest);
 }
 
 .yg-mini-basket__qty {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.78);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
+    color: var(--yg-muted);
+    letter-spacing: 0.01em;
 }
 
 .yg-mini-basket__empty {
     margin: 0;
-    padding: 28px 18px;
+    padding: 32px 18px;
     text-align: center;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--yg-heading);
+    font-size: 16px;
+    color: var(--yg-muted);
 }
 
 .yg-mini-basket__foot {
@@ -393,51 +493,49 @@ body.demo-home-argos .usp-wrapper {
     justify-content: space-between;
     gap: 12px;
     padding: 14px 16px;
-    background: #4f4943;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    background: #fff;
+    border-top: 1px solid var(--yg-border);
 }
 
 .yg-mini-basket__total {
-    font-size: 15px;
-    font-weight: 700;
-    color: #fff;
+    font-family: var(--yg-heading);
+    font-size: 16px;
+    color: var(--yg-pebble);
+}
+
+.yg-mini-basket__total strong {
+    font-weight: 400;
+    color: var(--yg-forest);
 }
 
 .yg-mini-basket__cta {
     appearance: none;
     border: none;
-    border-radius: 4px;
-    padding: 10px 14px;
-    background: var(--yg-checkout, #468900);
+    border-radius: 999px;
+    padding: 11px 18px;
+    background: var(--yg-rose);
     color: #fff;
-    font: inherit;
+    font-family: var(--yg-body);
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
     white-space: nowrap;
+    transition: background 0.15s ease, transform 0.15s ease;
 }
 
 .yg-mini-basket__cta:hover {
-    background: var(--yg-checkout-dark, #3a7000);
+    background: #c41452;
+}
+
+.yg-mini-basket__cta:focus-visible {
+    outline: 2px solid var(--yg-forest);
+    outline-offset: 2px;
 }
 
 @media (max-width: 959px) {
     .yg-mini-basket__panel {
         display: none !important;
     }
-}
-
-.demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__basket-img {
-    width: 52px;
-    max-height: 46px;
-}
-
-.demo-home-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__basket-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-    min-width: max-content;
 }
 
 .demo-home-argos .demo-header--argos .demo-header__utility-title,
@@ -480,7 +578,7 @@ body.demo-home-argos .usp-wrapper {
 .yg-argos-nav {
     display: none;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
     font-family: var(--yg-body);
 }
 
@@ -889,6 +987,7 @@ body.demo-home-argos .usp-wrapper {
 .yg-home-above {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .yg-home-above[data-above-layout='cats-first'] [data-above-block='cats'] {
@@ -923,23 +1022,42 @@ body.demo-home-argos .usp-wrapper {
 .yg-cat-strip {
     position: relative;
     margin: 0 0 20px;
+    min-width: 0;
+    width: 100%;
+}
+
+.yg-cat-strip__viewport {
+    overflow: hidden;
+    min-width: 0;
+    width: 100%;
+    padding: 4px 0 12px;
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+}
+
+.yg-cat-strip__viewport.is-dragging {
+    cursor: grabbing;
+}
+
+.yg-cat-strip__viewport.is-dragging .yg-cat-strip__track {
+    transition: none;
+}
+
+.yg-cat-strip__viewport.is-dragging .yg-cat-strip__item {
+    pointer-events: none;
 }
 
 .yg-cat-strip__track {
     display: flex;
     gap: 14px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    padding: 4px 52px 12px 4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    overscroll-behavior-x: contain;
-}
-
-.yg-cat-strip__track::-webkit-scrollbar {
-    display: none;
+    width: max-content;
+    max-width: none;
+    padding: 0 52px 0 4px;
+    box-sizing: content-box;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.35s ease;
+    will-change: transform;
 }
 
 .yg-cat-strip__item {
@@ -948,7 +1066,6 @@ body.demo-home-argos .usp-wrapper {
     text-decoration: none;
     color: var(--yg-pebble);
     text-align: center;
-    scroll-snap-align: start;
     font-family: var(--yg-body);
 }
 
@@ -1147,20 +1264,22 @@ body.demo-home-argos .usp-wrapper {
 
 .yg-hero-argos__slides {
     position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.yg-hero-argos__track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
 }
 
 .yg-hero-argos__slide {
-    display: none;
-}
-
-.yg-hero-argos__slide.is-active {
-    display: block;
-    animation: yg-hero-fade 0.35s ease;
-}
-
-@keyframes yg-hero-fade {
-    from { opacity: 0.35; }
-    to { opacity: 1; }
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
 }
 
 .yg-hero-argos__banner--full {

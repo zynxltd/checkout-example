@@ -27,9 +27,24 @@
             >
         </a>
 
-        <div class="demo-header__search" role="search">
-            <input type="search" class="demo-header__search-input" placeholder="{{ $search_placeholder ?? 'hanging baskets' }}" aria-label="Search">
+        <div class="demo-header__search" role="search" data-search-suggest>
+            <input
+                type="search"
+                class="demo-header__search-input"
+                placeholder="{{ $search_placeholder ?? 'hanging baskets' }}"
+                aria-label="Search"
+                autocomplete="off"
+            >
             <button type="button" class="demo-header__search-btn" aria-label="Search">@include('demo.partials.icon', ['name' => 'search'])</button>
+            <div
+                class="yg-search-suggest"
+                id="yg-search-suggest"
+                data-search-suggest-panel
+                hidden
+            >
+                <p class="yg-search-suggest__label">Recommended searches</p>
+                <ul class="yg-search-suggest__list" data-search-suggest-list role="listbox" aria-label="Recommended searches"></ul>
+            </div>
         </div>
 
         <div class="demo-header__utilities">

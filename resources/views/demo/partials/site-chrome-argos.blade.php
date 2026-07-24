@@ -202,12 +202,44 @@
         </nav>
         </div>
 
-        <div class="demo-header__search" role="search">
-            <input type="search" class="demo-header__search-input" placeholder="{{ $search_placeholder ?? 'Search plants, trees or outdoor living' }}" aria-label="Search">
+        <div class="demo-header__search" role="search" data-search-suggest>
+            <input
+                type="search"
+                class="demo-header__search-input"
+                placeholder="{{ $search_placeholder ?? 'Search plants, trees or outdoor living' }}"
+                aria-label="Search"
+                autocomplete="off"
+            >
             <button type="button" class="demo-header__search-btn" aria-label="Search">@include('demo.partials.icon', ['name' => 'search'])</button>
+            <div
+                class="yg-search-suggest"
+                id="yg-search-suggest"
+                data-search-suggest-panel
+                hidden
+            >
+                <p class="yg-search-suggest__label">Recommended searches</p>
+                <ul class="yg-search-suggest__list" data-search-suggest-list role="listbox" aria-label="Recommended searches"></ul>
+            </div>
         </div>
 
         <div class="demo-header__utilities demo-header__utilities--yg-icons">
+            <a
+                href="{{ route('demo.tv-live') }}"
+                class="demo-header__utility demo-header__utility--stacked demo-header__utility--tv"
+                aria-label="YouGarden TV"
+            >
+                <span class="demo-header__utility-icon" aria-hidden="true">
+                    <img
+                        class="demo-header__utility-img demo-header__utility-img--tv"
+                        src="{{ asset('images/icons/icon-tv-play.png') }}?v={{ filemtime(public_path('images/icons/icon-tv-play.png')) }}"
+                        alt=""
+                        width="28"
+                        height="28"
+                    >
+                </span>
+                <span class="demo-header__utility-label">YouGarden TV</span>
+            </a>
+
             <a
                 href="{{ $accountLoggedIn ? route('demo.account.club') : route('demo.account.login') }}"
                 class="demo-header__utility demo-header__utility--stacked demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"

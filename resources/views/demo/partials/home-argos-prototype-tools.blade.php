@@ -29,6 +29,10 @@
                 <p class="demo-controls__label">Hero slider timing</p>
                 <p class="demo-controls__hint">Autoplay interval between slides.</p>
                 <label class="demo-toggle">
+                    <input type="radio" name="yg-argos-hero-interval" value="3000" data-hero-interval-option>
+                    <span>3 seconds</span>
+                </label>
+                <label class="demo-toggle">
                     <input type="radio" name="yg-argos-hero-interval" value="4000" data-hero-interval-option>
                     <span>4 seconds</span>
                 </label>

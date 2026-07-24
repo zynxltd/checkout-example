@@ -35,6 +35,7 @@
         };
     </script>
     <script src="{{ asset('js/yg-cart-drawer.js') }}" defer></script>
+    <script src="{{ asset('js/demo-search-suggest.js') }}?v={{ filemtime(public_path('js/demo-search-suggest.js')) }}" defer></script>
     <script src="{{ asset('js/demo-usp.js') }}?v={{ filemtime(public_path('js/demo-usp.js')) }}" defer></script>
     <script src="{{ asset('js/demo-mobile-nav.js') }}?v={{ filemtime(public_path('js/demo-mobile-nav.js')) }}" defer></script>
     @stack('scripts')
