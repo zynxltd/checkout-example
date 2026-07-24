@@ -245,24 +245,7 @@
                 </span>
             </div>
 
-            <button type="button" class="demo-header__basket demo-header__basket--end" data-open-drawer aria-label="Open your basket">
-                <span class="demo-header__basket-icon" aria-hidden="true">
-                    <img
-                        class="demo-header__basket-img"
-                        src="{{ asset('images/icons/icon-wheelbarrow.png') }}?v={{ filemtime(public_path('images/icons/icon-wheelbarrow.png')) }}"
-                        alt=""
-                        width="48"
-                        height="42"
-                    >
-                </span>
-                <span class="demo-header__basket-text">
-                    <span class="demo-header__utility-title">Your Basket</span>
-                    <span class="demo-header__utility-sub">
-                        <span id="topbar-cart-count">{{ $cart['item_count'] }}</span> item(s)
-                        £{{ number_format($cart['basket_total'], 2) }}
-                    </span>
-                </span>
-            </button>
+            @include('demo.partials.mini-basket', ['cart' => $cart])
         </div>
 
         <div class="demo-header__actions">

@@ -463,6 +463,14 @@
             clearTimeout(closeTimer);
             closeTimer = null;
             closeAllNavDropdowns(item);
+            var mini = document.querySelector('[data-mini-basket]');
+            if (mini) {
+                mini.classList.remove('is-open');
+                var miniPanel = mini.querySelector('[data-mini-basket-panel]');
+                var miniTrigger = mini.querySelector('[data-mini-basket-trigger]');
+                if (miniPanel) miniPanel.hidden = true;
+                if (miniTrigger) miniTrigger.setAttribute('aria-expanded', 'false');
+            }
             item.classList.add('is-open');
             trigger.setAttribute('aria-expanded', 'true');
             panel.hidden = false;
@@ -471,7 +479,7 @@
 
         function scheduleClose() {
             clearTimeout(closeTimer);
-            closeTimer = setTimeout(closeDropdown, 160);
+            closeTimer = setTimeout(closeDropdown, 240);
         }
 
         trigger.addEventListener('click', function (e) {

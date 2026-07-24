@@ -56,6 +56,7 @@
             if (this.mount) {
                 this.wireDrawer(this.mount);
             }
+            this.initMiniBasket();
         },
 
         isRecoHidden() {
@@ -255,6 +256,8 @@
                 alert('Control: would navigate to basket page');
                 return;
             }
+
+            this.closeMiniBasket();
 
             const drawer = document.getElementById('yg-cart-drawer');
             if (!drawer) {
@@ -494,10 +497,156 @@
                 el.textContent = count;
             });
 
+            const total = cart?.basket_total;
+            if (total != null) {
+                const formatted = Number(total).toFixed(2);
+                document.querySelectorAll('#topbar-cart-total, [data-mini-basket-total]').forEach((el) => {
+                    el.textContent = formatted;
+                });
+            }
+
             const viewBasket = document.getElementById('demo-view-basket');
             if (viewBasket) {
                 viewBasket.textContent = `View basket (${count})`;
             }
+
+            this.renderMiniBasket(cart);
+        },
+
+        escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        },
+
+        renderMiniBasket(cart) {
+            const root = document.querySelector('[data-mini-basket]');
+            if (!root || !cart) {
+                return;
+            }
+
+            const scroll = root.querySelector('[data-mini-basket-scroll]');
+            const trigger = root.querySelector('[data-mini-basket-trigger]');
+            const items = Array.isArray(cart.items) ? cart.items : [];
+            const count = cart.item_count ?? 0;
+            const total = Number(cart.basket_total ?? 0).toFixed(2);
+
+            if (trigger) {
+                trigger.setAttribute('aria-label', `Your basket, ${count} item(s)`);
+            }
+
+            if (!scroll) {
+                return;
+            }
+
+            if (!items.length || count < 1) {
+                scroll.innerHTML = '<p class="yg-mini-basket__empty" data-mini-basket-empty>Your basket is empty</p>';
+                return;
+            }
+
+            const rows = items
+                .map((item) => {
+                    const price = Number(item.unit_price ?? item.price ?? 0).toFixed(2);
+                    const imgSrc = (() => {
+                        const raw = String(item.image || '');
+                        if (!raw) return '';
+                        if (raw.startsWith('http') || raw.startsWith('/')) return this.escapeHtml(raw);
+                        return '/' + this.escapeHtml(raw.replace(/^\//, ''));
+                    })();
+                    const name = this.escapeHtml(item.name || '');
+                    const sku = this.escapeHtml(item.sku || '');
+                    const qty = this.escapeHtml(item.qty ?? 1);
+
+                    return `<li class="yg-mini-basket__item" data-sku="${sku}">
+                        <img class="yg-mini-basket__img" src="${imgSrc}" alt="" width="56" height="56" loading="lazy">
+                        <div class="yg-mini-basket__meta">
+                            <p class="yg-mini-basket__name">${name}</p>
+                            <p class="yg-mini-basket__sku">Product No. ${sku}</p>
+                        </div>
+                        <div class="yg-mini-basket__pricing">
+                            <span class="yg-mini-basket__price">£${price}</span>
+                            <span class="yg-mini-basket__qty">QTY: ${qty}</span>
+                        </div>
+                    </li>`;
+                })
+                .join('');
+
+            scroll.innerHTML = `<ul class="yg-mini-basket__list" data-mini-basket-list>${rows}</ul>`;
+        },
+
+        initMiniBasket() {
+            const root = document.querySelector('[data-mini-basket]');
+            if (!root || root.dataset.miniBasketReady === '1') {
+                return;
+            }
+            root.dataset.miniBasketReady = '1';
+
+            const trigger = root.querySelector('[data-mini-basket-trigger]');
+            const panel = root.querySelector('[data-mini-basket-panel]');
+            if (!trigger || !panel) {
+                return;
+            }
+
+            let closeTimer = null;
+
+            const open = () => {
+                clearTimeout(closeTimer);
+                closeTimer = null;
+                root.classList.add('is-open');
+                panel.hidden = false;
+                trigger.setAttribute('aria-expanded', 'true');
+            };
+
+            const close = () => {
+                clearTimeout(closeTimer);
+                closeTimer = null;
+                root.classList.remove('is-open');
+                panel.hidden = true;
+                trigger.setAttribute('aria-expanded', 'false');
+            };
+
+            const scheduleClose = () => {
+                clearTimeout(closeTimer);
+                closeTimer = setTimeout(close, 180);
+            };
+
+            root.addEventListener('mouseenter', open);
+            root.addEventListener('mouseleave', scheduleClose);
+            root.addEventListener('focusin', open);
+            root.addEventListener('focusout', (e) => {
+                if (!root.contains(e.relatedTarget)) {
+                    scheduleClose();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && root.classList.contains('is-open')) {
+                    close();
+                    trigger.focus();
+                }
+            });
+
+            // Keep preview open when interacting with scroll area
+            panel.addEventListener('wheel', (e) => e.stopPropagation(), { passive: true });
+
+            this._closeMiniBasket = close;
+        },
+
+        closeMiniBasket() {
+            if (typeof this._closeMiniBasket === 'function') {
+                this._closeMiniBasket();
+                return;
+            }
+            const root = document.querySelector('[data-mini-basket]');
+            if (!root) return;
+            const trigger = root.querySelector('[data-mini-basket-trigger]');
+            const panel = root.querySelector('[data-mini-basket-panel]');
+            root.classList.remove('is-open');
+            if (panel) panel.hidden = true;
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
         },
 
         preserveExtendOnRefresh() {
@@ -770,6 +919,7 @@
         close: () => Drawer.close(),
         refresh: () => Drawer.refresh(),
         isOpen: () => document.getElementById('yg-cart-drawer')?.classList.contains('is-open'),
+        closeMiniBasket: () => Drawer.closeMiniBasket(),
         init: () => Drawer.init(),
     };
 
