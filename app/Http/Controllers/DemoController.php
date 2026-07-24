@@ -632,32 +632,32 @@ class DemoController extends Controller
                     [
                         'label' => 'Garden Tools',
                         'url' => $yg.'/outdoor-living/garden-tools',
-                        'image' => $img('outdoor.jpg'),
-                        'children' => $withChildImages($img('outdoor.jpg'), [
+                        'image' => $img('garden-tools.jpg'),
+                        'children' => $withChildImages($img('garden-tools.jpg'), [
                             ['label' => 'Lawnmowers', 'url' => $yg.'/outdoor-living/garden-tools/lawnmowers'],
                             ['label' => 'Strimmers & Trimmers', 'url' => $yg.'/outdoor-living/garden-tools/garden-strimmers-and-trimmers'],
                             ['label' => 'Other Tools', 'url' => $yg.'/outdoor-living/garden-tools/other-tools'],
                             ['label' => 'View All Garden Tools', 'url' => $yg.'/outdoor-living/garden-tools'],
                         ]),
                     ],
-                    ['label' => 'Pots and Planters', 'url' => $yg.'/outdoor-living/pots-and-planters', 'image' => $img('outdoor.jpg')],
-                    ['label' => 'Hanging Baskets', 'url' => $yg.'/outdoor-living/hanging-baskets', 'image' => $prod('404220.jpg')],
-                    ['label' => 'Feeds & Fertilisers', 'url' => $yg.'/outdoor-living/feeds-and-fertilisers', 'image' => $img('feeds.jpg')],
+                    ['label' => 'Pots and Planters', 'url' => $yg.'/outdoor-living/pots-and-planters', 'image' => $img('pots-planters.jpg')],
+                    ['label' => 'Hanging Baskets', 'url' => $yg.'/outdoor-living/hanging-baskets', 'image' => $img('hanging-baskets.jpg')],
+                    ['label' => 'Feeds & Fertilisers', 'url' => $yg.'/outdoor-living/feeds-and-fertilisers', 'image' => $img('feeds-fertilisers.jpg')],
                     [
                         'label' => 'Plant Protection / Pest Control',
                         'url' => $yg.'/outdoor-living/plant-protection-and-pest-control',
-                        'image' => $img('feeds.jpg'),
-                        'children' => $withChildImages($img('feeds.jpg'), [
+                        'image' => $img('plant-protection.jpg'),
+                        'children' => $withChildImages($img('plant-protection.jpg'), [
                             ['label' => 'Organic Gardening', 'url' => $yg.'/outdoor-living/plant-protection-and-pest-control/organic-gardening'],
                             ['label' => 'Garden Pest Control', 'url' => $yg.'/outdoor-living/plant-protection-and-pest-control/garden-pest-control'],
                             ['label' => 'Cold Frames & Frost Protection', 'url' => $yg.'/outdoor-living/plant-protection-and-pest-control/cold-frames-and-frost-protection'],
                             ['label' => 'View All Plant Protection', 'url' => $yg.'/outdoor-living/plant-protection-and-pest-control'],
                         ]),
                     ],
-                    ['label' => 'Compost', 'url' => $yg.'/outdoor-living/compost', 'image' => '/images/compost.jpg'],
-                    ['label' => 'Garden Furniture', 'url' => $yg.'/outdoor-living/garden-furniture', 'image' => $img('outdoor.jpg')],
-                    ['label' => 'Gifts', 'url' => $yg.'/outdoor-living/gifts', 'image' => $img('new.jpg')],
-                    ['label' => 'Bird Feeders & Feed', 'url' => $yg.'/outdoor-living/bird-feeders-and-feed', 'image' => $img('feeds.jpg')],
+                    ['label' => 'Compost', 'url' => $yg.'/outdoor-living/compost', 'image' => $img('compost.jpg')],
+                    ['label' => 'Garden Furniture', 'url' => $yg.'/outdoor-living/garden-furniture', 'image' => $img('garden-furniture.jpg')],
+                    ['label' => 'Gifts', 'url' => $yg.'/outdoor-living/gifts', 'image' => $img('gifts.jpg')],
+                    ['label' => 'Bird Feeders & Feed', 'url' => $yg.'/outdoor-living/bird-feeders-and-feed', 'image' => $img('bird-feeders.jpg')],
                 ],
             ],
         ];

@@ -18,7 +18,7 @@
         sale: '/images/home-preview/cat-sale.jpg',
         news: '/images/home-preview/cats/new.jpg',
         veg: '/images/home-preview/cats/fruit-veg.jpg',
-        compost: '/images/compost.jpg',
+        compost: '/images/home-preview/cats/compost.jpg',
         garden: '/images/home-preview/cats/garden-plants.jpg',
         bedding: '/images/home-preview/cats/autumn-bedding.jpg',
         climbing: '/images/home-preview/cats/climbing.jpg',

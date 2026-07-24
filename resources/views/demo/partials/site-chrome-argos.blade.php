@@ -161,10 +161,10 @@
                                                     <a class="yg-argos-mega__tile yg-argos-mega__tile--featured" href="{{ $cat['url'] }}" target="_blank" rel="noopener">
                                                         @if (! empty($cat['image']))
                                                             <span class="yg-argos-mega__tile-media">
-                                                                <img src="{{ $cat['image'] }}" alt="" width="160" height="160" loading="lazy" decoding="async">
+                                                                <img src="{{ $cat['image'] }}" alt="" width="200" height="200" loading="lazy" decoding="async">
                                                             </span>
                                                         @endif
-                                                        <span class="yg-argos-mega__tile-label">View All {{ $cat['label'] }}</span>
+                                                        <span class="yg-argos-mega__tile-label">Shop all {{ $cat['label'] }}</span>
                                                     </a>
                                                 @endif
                                             </div>
