@@ -60,18 +60,6 @@
                             </div>
 
                             @foreach ($shop_menu as $deptIndex => $dept)
-                                @php
-                                    $firstWithKids = null;
-                                    foreach ($dept['children'] as $ci => $cat) {
-                                        if (! empty($cat['children'])) {
-                                            $firstWithKids = $ci;
-                                            break;
-                                        }
-                                    }
-                                    if ($firstWithKids === null) {
-                                        $firstWithKids = 0;
-                                    }
-                                @endphp
                                 <div
                                     class="yg-argos-mega__body{{ $deptIndex === 0 ? ' is-active' : '' }}"
                                     id="yg-shop-dept-panel-{{ $deptIndex }}"
@@ -83,18 +71,23 @@
                                     <ul class="yg-argos-mega__cats">
                                         <li>
                                             <a
-                                                class="yg-argos-mega__cat yg-argos-mega__cat--viewall"
+                                                class="yg-argos-mega__cat yg-argos-mega__cat--viewall is-active"
                                                 href="{{ $dept['url'] }}"
                                                 target="_blank"
                                                 rel="noopener"
                                                 data-mega-cat
                                                 data-mega-cat-id="viewall-{{ $deptIndex }}"
-                                            >View All {{ $dept['title'] }}</a>
+                                            >
+                                                @if (! empty($dept['image']))
+                                                    <img class="yg-argos-mega__cat-thumb" src="{{ $dept['image'] }}" alt="" width="40" height="40" loading="lazy" decoding="async">
+                                                @endif
+                                                <span class="yg-argos-mega__cat-label">View All {{ $dept['title'] }}</span>
+                                            </a>
                                         </li>
                                         @foreach ($dept['children'] as $catIndex => $cat)
                                             <li>
                                                 <a
-                                                    class="yg-argos-mega__cat{{ ! empty($cat['children']) ? ' has-children' : '' }}{{ $catIndex === $firstWithKids ? ' is-active' : '' }}"
+                                                    class="yg-argos-mega__cat{{ ! empty($cat['children']) ? ' has-children' : '' }}"
                                                     href="{{ $cat['url'] }}"
                                                     target="_blank"
                                                     rel="noopener"
@@ -102,7 +95,10 @@
                                                     data-mega-cat-id="{{ $deptIndex }}-{{ $catIndex }}"
                                                     @if (! empty($cat['children'])) aria-haspopup="true" @endif
                                                 >
-                                                    <span>{{ $cat['label'] }}</span>
+                                                    @if (! empty($cat['image']))
+                                                        <img class="yg-argos-mega__cat-thumb" src="{{ $cat['image'] }}" alt="" width="40" height="40" loading="lazy" decoding="async">
+                                                    @endif
+                                                    <span class="yg-argos-mega__cat-label">{{ $cat['label'] }}</span>
                                                     @if (! empty($cat['children']))
                                                         <span class="yg-argos-mega__cat-chev" aria-hidden="true"></span>
                                                     @endif
@@ -113,33 +109,62 @@
 
                                     <div class="yg-argos-mega__subs">
                                         <div
-                                            class="yg-argos-mega__sub"
+                                            class="yg-argos-mega__sub is-active"
                                             data-mega-sub="viewall-{{ $deptIndex }}"
-                                            hidden
                                         >
                                             <p class="yg-argos-mega__sub-title">{{ $dept['title'] }}</p>
                                             <a class="yg-argos-mega__sub-link yg-argos-mega__sub-link--viewall" href="{{ $dept['url'] }}" target="_blank" rel="noopener">
                                                 Shop all {{ $dept['title'] }}
                                             </a>
+                                            <ul class="yg-argos-mega__tiles">
+                                                @foreach ($dept['children'] as $cat)
+                                                    <li>
+                                                        <a class="yg-argos-mega__tile" href="{{ $cat['url'] }}" target="_blank" rel="noopener">
+                                                            @if (! empty($cat['image']))
+                                                                <span class="yg-argos-mega__tile-media">
+                                                                    <img src="{{ $cat['image'] }}" alt="" width="120" height="120" loading="lazy" decoding="async">
+                                                                </span>
+                                                            @endif
+                                                            <span class="yg-argos-mega__tile-label">{{ $cat['label'] }}</span>
+                                                        </a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                         @foreach ($dept['children'] as $catIndex => $cat)
                                             <div
-                                                class="yg-argos-mega__sub{{ $catIndex === $firstWithKids ? ' is-active' : '' }}"
+                                                class="yg-argos-mega__sub"
                                                 data-mega-sub="{{ $deptIndex }}-{{ $catIndex }}"
-                                                @if ($catIndex !== $firstWithKids) hidden @endif
+                                                hidden
                                             >
                                                 <p class="yg-argos-mega__sub-title">{{ $cat['label'] }}</p>
                                                 @if (! empty($cat['children']))
-                                                    <ul class="yg-argos-mega__sub-list">
+                                                    <ul class="yg-argos-mega__tiles">
                                                         @foreach ($cat['children'] as $sub)
                                                             <li>
-                                                                <a href="{{ $sub['url'] }}" target="_blank" rel="noopener">{{ $sub['label'] }}</a>
+                                                                <a class="yg-argos-mega__tile" href="{{ $sub['url'] }}" target="_blank" rel="noopener">
+                                                                    @if (! empty($sub['image']))
+                                                                        <span class="yg-argos-mega__tile-media">
+                                                                            <img src="{{ $sub['image'] }}" alt="" width="120" height="120" loading="lazy" decoding="async">
+                                                                        </span>
+                                                                    @elseif (! empty($cat['image']))
+                                                                        <span class="yg-argos-mega__tile-media">
+                                                                            <img src="{{ $cat['image'] }}" alt="" width="120" height="120" loading="lazy" decoding="async">
+                                                                        </span>
+                                                                    @endif
+                                                                    <span class="yg-argos-mega__tile-label">{{ $sub['label'] }}</span>
+                                                                </a>
                                                             </li>
                                                         @endforeach
                                                     </ul>
                                                 @else
-                                                    <a class="yg-argos-mega__sub-link yg-argos-mega__sub-link--viewall" href="{{ $cat['url'] }}" target="_blank" rel="noopener">
-                                                        View All {{ $cat['label'] }}
+                                                    <a class="yg-argos-mega__tile yg-argos-mega__tile--featured" href="{{ $cat['url'] }}" target="_blank" rel="noopener">
+                                                        @if (! empty($cat['image']))
+                                                            <span class="yg-argos-mega__tile-media">
+                                                                <img src="{{ $cat['image'] }}" alt="" width="160" height="160" loading="lazy" decoding="async">
+                                                            </span>
+                                                        @endif
+                                                        <span class="yg-argos-mega__tile-label">View All {{ $cat['label'] }}</span>
                                                     </a>
                                                 @endif
                                             </div>

@@ -387,115 +387,152 @@ class DemoController extends Controller
      */
     private function argosShopMenu(string $yg): array
     {
+        $img = fn (string $file) => '/images/home-preview/cats/'.$file;
+        $prod = fn (string $file) => '/images/products/'.$file;
+
+        $withChildImages = function (string $parentImage, array $children) use ($prod, $img): array {
+            $pool = [
+                $parentImage,
+                $prod('404220.jpg'),
+                $prod('401842.jpg'),
+                $prod('402156.jpg'),
+                $prod('403891.jpg'),
+                $prod('510317.png'),
+                $img('perennials.jpg'),
+                $img('roses.jpg'),
+            ];
+            $i = 0;
+            foreach ($children as &$child) {
+                if (empty($child['image'])) {
+                    $child['image'] = $pool[$i % count($pool)];
+                    $i++;
+                }
+            }
+            unset($child);
+
+            return $children;
+        };
+
         return [
             [
                 'title' => 'Garden Plants',
                 'url' => $yg.'/garden-plants',
+                'image' => $img('garden-plants.jpg'),
                 'children' => [
                     [
                         'label' => 'Garden Bulbs',
                         'url' => $yg.'/garden-plants/garden-bulbs',
-                        'children' => [
+                        'image' => $img('bulbs.jpg'),
+                        'children' => $withChildImages($img('bulbs.jpg'), [
                             ['label' => 'Summer Flowering Bulbs', 'url' => $yg.'/garden-plants/garden-bulbs/summer-flowering-bulbs'],
                             ['label' => 'Spring Flowering Bulbs', 'url' => $yg.'/garden-plants/garden-bulbs/spring-flowering-bulbs'],
                             ['label' => '3 for 2 Bulb Packs', 'url' => $yg.'/garden-plants/garden-bulbs/3-for-2-bulb-packs-offer'],
                             ['label' => 'Drop In Bulb Pods', 'url' => $yg.'/garden-plants/garden-bulbs/drop-in-bulb-pods'],
                             ['label' => 'View All Garden Bulbs', 'url' => $yg.'/garden-plants/garden-bulbs'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Bedding Plants',
                         'url' => $yg.'/garden-plants/bedding-plants',
-                        'children' => [
+                        'image' => $img('autumn-bedding.jpg'),
+                        'children' => $withChildImages($img('autumn-bedding.jpg'), [
                             ['label' => 'Spring Bedding Plants', 'url' => $yg.'/garden-plants/bedding-plants/spring-bedding-plants'],
                             ['label' => 'Garden Ready Bedding', 'url' => $yg.'/garden-plants/bedding-plants/garden-ready-bedding-plants'],
-                            ['label' => 'Pre-Planted Hanging Baskets', 'url' => $yg.'/garden-plants/bedding-plants/pre-planted-hanging-baskets'],
+                            ['label' => 'Pre-Planted Hanging Baskets', 'url' => $yg.'/garden-plants/bedding-plants/pre-planted-hanging-baskets', 'image' => $prod('404220.jpg')],
                             ['label' => 'Autumn Bedding Plants', 'url' => $yg.'/garden-plants/bedding-plants/autumn-bedding-plants'],
                             ['label' => 'View All Bedding Plants', 'url' => $yg.'/garden-plants/bedding-plants'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Perennial Plants & Flowers',
                         'url' => $yg.'/garden-plants/perennial-plants-and-flowers',
-                        'children' => [
+                        'image' => $img('perennials.jpg'),
+                        'children' => $withChildImages($img('perennials.jpg'), [
                             ['label' => 'Agapanthus Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/agapanthus-plants'],
                             ['label' => 'Chrysanthemum Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/chrysanthemum-plants'],
                             ['label' => 'Echinacea Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/echinacea-plants'],
                             ['label' => 'Fern Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/fern-plants'],
-                            ['label' => 'Perennial Geranium Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/perennial-geranium-plants'],
+                            ['label' => 'Perennial Geranium Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/perennial-geranium-plants', 'image' => $prod('510317.png')],
                             ['label' => 'Gerbera Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/gerbera-plants'],
                             ['label' => 'Hellebore Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/hellebore-plants'],
                             ['label' => 'Peony Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/peony-plants'],
                             ['label' => 'Perennial Plants', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers/perennial-plants'],
                             ['label' => 'View All Perennial Plants & Flowers', 'url' => $yg.'/garden-plants/perennial-plants-and-flowers'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Popular Garden Plants',
                         'url' => $yg.'/garden-plants/popular-garden-plants',
-                        'children' => [
+                        'image' => $img('drought.jpg'),
+                        'children' => $withChildImages($img('drought.jpg'), [
                             ['label' => 'Drought Tolerant Plants', 'url' => $yg.'/garden-plants/popular-garden-plants/drought-tolerant-plants'],
                             ['label' => 'Plants For Containers', 'url' => $yg.'/garden-plants/popular-garden-plants/plants-for-containers'],
                             ['label' => 'Ground Cover Plants', 'url' => $yg.'/garden-plants/popular-garden-plants/ground-cover-plants'],
-                            ['label' => 'Plants for Hanging Baskets', 'url' => $yg.'/garden-plants/popular-garden-plants/plants-for-hanging-baskets'],
+                            ['label' => 'Plants for Hanging Baskets', 'url' => $yg.'/garden-plants/popular-garden-plants/plants-for-hanging-baskets', 'image' => $prod('401842.jpg')],
                             ['label' => 'Low Maintenance Plants', 'url' => $yg.'/garden-plants/popular-garden-plants/low-maintenance-plants'],
                             ['label' => 'Patio Plants', 'url' => $yg.'/garden-plants/popular-garden-plants/patio-plants'],
                             ['label' => 'Shade Loving Plants', 'url' => $yg.'/garden-plants/popular-garden-plants/shade-loving-plants'],
                             ['label' => 'Border Plants', 'url' => $yg.'/garden-plants/popular-garden-plants/border-plants'],
                             ['label' => 'View All Popular Garden Plants', 'url' => $yg.'/garden-plants/popular-garden-plants'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Roses',
                         'url' => $yg.'/garden-plants/roses',
-                        'children' => [
+                        'image' => $img('roses.jpg'),
+                        'children' => $withChildImages($img('roses.jpg'), [
                             ['label' => 'Bare Root Roses', 'url' => $yg.'/garden-plants/roses/bare-root-roses'],
                             ['label' => 'Potted Roses', 'url' => $yg.'/garden-plants/roses/potted-roses'],
                             ['label' => 'Bush & Shrub Roses', 'url' => $yg.'/garden-plants/roses/bush-and-shrub-roses'],
-                            ['label' => 'Climbing Roses', 'url' => $yg.'/garden-plants/roses/climbing-roses'],
+                            ['label' => 'Climbing Roses', 'url' => $yg.'/garden-plants/roses/climbing-roses', 'image' => $img('climbing.jpg')],
                             ['label' => 'Standard Roses', 'url' => $yg.'/garden-plants/roses/standard-roses'],
                             ['label' => 'Celebration Roses', 'url' => $yg.'/garden-plants/roses/celebration-roses'],
                             ['label' => 'View All Roses', 'url' => $yg.'/garden-plants/roses'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Climbing Plants',
                         'url' => $yg.'/garden-plants/climbing-plants',
-                        'children' => [
+                        'image' => $img('climbing.jpg'),
+                        'children' => $withChildImages($img('climbing.jpg'), [
                             ['label' => 'Clematis Plants', 'url' => $yg.'/garden-plants/climbing-plants/clematis-plants'],
                             ['label' => 'Honeysuckle Plants', 'url' => $yg.'/garden-plants/climbing-plants/honeysuckle-plants'],
                             ['label' => 'Jasmine', 'url' => $yg.'/garden-plants/climbing-plants/jasmine'],
                             ['label' => 'Passion Flowers', 'url' => $yg.'/garden-plants/climbing-plants/passion-flowers'],
                             ['label' => 'Wisteria Plants', 'url' => $yg.'/garden-plants/climbing-plants/wisteria-plants'],
                             ['label' => 'View All Climbing Plants', 'url' => $yg.'/garden-plants/climbing-plants'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Pond Plants',
                         'url' => $yg.'/garden-plants/pond-plants',
+                        'image' => $img('garden-plants.jpg'),
                     ],
                 ],
             ],
             [
                 'title' => 'Trees & Shrubs',
                 'url' => $yg.'/trees-and-shrubs',
+                'image' => $img('trees.jpg'),
                 'children' => [
                     [
                         'label' => 'Garden Trees',
                         'url' => $yg.'/trees-and-shrubs/garden-trees',
-                        'children' => [
+                        'image' => $img('trees.jpg'),
+                        'children' => $withChildImages($img('trees.jpg'), [
                             ['label' => 'Standard Trees and Plants', 'url' => $yg.'/trees-and-shrubs/garden-trees/standard-trees-and-plants'],
                             ['label' => 'Evergreen Trees', 'url' => $yg.'/trees-and-shrubs/garden-trees/evergreen-trees'],
                             ['label' => 'Flowering Cherry', 'url' => $yg.'/trees-and-shrubs/garden-trees/flowering-cherry'],
-                            ['label' => 'Japanese Acer Trees', 'url' => $yg.'/trees-and-shrubs/garden-trees/japanese-acer-trees'],
+                            ['label' => 'Japanese Acer Trees', 'url' => $yg.'/trees-and-shrubs/garden-trees/japanese-acer-trees', 'image' => $img('acers.jpg')],
                             ['label' => 'Ornamental Trees', 'url' => $yg.'/trees-and-shrubs/garden-trees/ornamental-trees'],
                             ['label' => 'View All Garden Trees', 'url' => $yg.'/trees-and-shrubs/garden-trees'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Garden Shrubs',
                         'url' => $yg.'/trees-and-shrubs/garden-shrubs',
-                        'children' => [
+                        'image' => $img('shrubs.jpg'),
+                        'children' => $withChildImages($img('shrubs.jpg'), [
                             ['label' => 'Buddleia Plants & Bushes', 'url' => $yg.'/trees-and-shrubs/garden-shrubs/buddleia-plants-and-bushes'],
                             ['label' => 'Evergreen Shrubs', 'url' => $yg.'/trees-and-shrubs/garden-shrubs/evergreen-shrubs'],
                             ['label' => 'Flowering Shrubs', 'url' => $yg.'/trees-and-shrubs/garden-shrubs/flowering-shrubs'],
@@ -503,12 +540,13 @@ class DemoController extends Controller
                             ['label' => 'Lavender Plants', 'url' => $yg.'/trees-and-shrubs/garden-shrubs/lavender-plants'],
                             ['label' => 'Rhododendron Plants', 'url' => $yg.'/trees-and-shrubs/garden-shrubs/rhododendron-plants'],
                             ['label' => 'View All Garden Shrubs', 'url' => $yg.'/trees-and-shrubs/garden-shrubs'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Mediterranean Plants',
                         'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens',
-                        'children' => [
+                        'image' => $img('mediterranean.jpg'),
+                        'children' => $withChildImages($img('mediterranean.jpg'), [
                             ['label' => 'Palm Trees', 'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens/palm-trees'],
                             ['label' => 'Oleander Plants', 'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens/oleander-plants'],
                             ['label' => 'Italian Cypress Trees', 'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens/italian-cypress-trees'],
@@ -516,43 +554,48 @@ class DemoController extends Controller
                             ['label' => 'Olive Trees', 'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens/olive-trees'],
                             ['label' => 'Bay Trees', 'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens/bay-trees'],
                             ['label' => 'View All Mediterranean Plants', 'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Hedging',
                         'url' => $yg.'/trees-and-shrubs/hedging-plants',
-                        'children' => [
+                        'image' => $img('shrubs.jpg'),
+                        'children' => $withChildImages($img('shrubs.jpg'), [
                             ['label' => 'Bare Root Hedging Plants', 'url' => $yg.'/trees-and-shrubs/hedging-plants/bare-root-hedging-plants'],
                             ['label' => 'Potted Hedging', 'url' => $yg.'/trees-and-shrubs/hedging-plants/potted-hedging'],
                             ['label' => 'Instant Hedging', 'url' => $yg.'/trees-and-shrubs/hedging-plants/instant-hedging'],
                             ['label' => 'View All Hedging', 'url' => $yg.'/trees-and-shrubs/hedging-plants'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Statement Plants',
                         'url' => $yg.'/trees-and-shrubs/statement-plants',
+                        'image' => $img('acers.jpg'),
                     ],
                 ],
             ],
             [
                 'title' => 'Houseplants',
                 'url' => $yg.'/houseplants',
+                'image' => $img('houseplants.jpg'),
                 'children' => [
-                    ['label' => 'Indoor Flowering Plants', 'url' => $yg.'/houseplants/indoor-flowering-plants'],
-                    ['label' => 'Indoor Foliage Plants', 'url' => $yg.'/houseplants/indoor-foliage-plants'],
-                    ['label' => 'Large Houseplants', 'url' => $yg.'/houseplants/large-houseplants'],
-                    ['label' => 'Carnivorous Houseplants', 'url' => $yg.'/houseplants/carnivorous-houseplants'],
-                    ['label' => 'Indoor Houseplant Pots', 'url' => $yg.'/houseplants/indoor-houseplant-pots'],
+                    ['label' => 'Indoor Flowering Plants', 'url' => $yg.'/houseplants/indoor-flowering-plants', 'image' => $img('houseplants.jpg')],
+                    ['label' => 'Indoor Foliage Plants', 'url' => $yg.'/houseplants/indoor-foliage-plants', 'image' => $img('houseplants.jpg')],
+                    ['label' => 'Large Houseplants', 'url' => $yg.'/houseplants/large-houseplants', 'image' => $img('houseplants.jpg')],
+                    ['label' => 'Carnivorous Houseplants', 'url' => $yg.'/houseplants/carnivorous-houseplants', 'image' => $img('houseplants.jpg')],
+                    ['label' => 'Indoor Houseplant Pots', 'url' => $yg.'/houseplants/indoor-houseplant-pots', 'image' => $img('outdoor.jpg')],
                 ],
             ],
             [
                 'title' => 'Fruits & Veg',
                 'url' => $yg.'/grow-your-own-fruit-and-veg',
+                'image' => $img('fruit-veg.jpg'),
                 'children' => [
                     [
                         'label' => 'Fruit Trees',
                         'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees',
-                        'children' => [
+                        'image' => $img('fruit-trees.jpg'),
+                        'children' => $withChildImages($img('fruit-trees.jpg'), [
                             ['label' => 'Bare Root Fruit Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/bare-root-fruit-trees'],
                             ['label' => 'Potted Fruit Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/potted-fruit-trees'],
                             ['label' => 'Apple Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/apple-trees'],
@@ -560,57 +603,61 @@ class DemoController extends Controller
                             ['label' => 'Pear Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/pear-trees'],
                             ['label' => 'Plum Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/plum-trees'],
                             ['label' => 'View All Fruit Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees'],
-                        ],
+                        ]),
                     ],
                     [
                         'label' => 'Fruit Bushes',
                         'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes',
-                        'children' => [
+                        'image' => $img('fruit-veg.jpg'),
+                        'children' => $withChildImages($img('fruit-veg.jpg'), [
                             ['label' => 'Strawberry Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/strawberry-plants'],
                             ['label' => 'Raspberry Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/raspberry-plants'],
                             ['label' => 'Currant Bushes', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/currant-bushes'],
                             ['label' => 'Blackberry Plants & Other Berries', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/blackberry-plants-and-other-berries'],
                             ['label' => 'View All Fruit Bushes', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes'],
-                        ],
+                        ]),
                     ],
-                    ['label' => 'Seed Potatoes', 'url' => $yg.'/grow-your-own-fruit-and-veg/seed-potatoes'],
-                    ['label' => 'Tomato Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/tomato-plants'],
-                    ['label' => 'Vegetable Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/vegetable-plants'],
-                    ['label' => 'Herb Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/herb-plants'],
-                    ['label' => 'Superfruit Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/superfruit-plants'],
+                    ['label' => 'Seed Potatoes', 'url' => $yg.'/grow-your-own-fruit-and-veg/seed-potatoes', 'image' => $img('fruit-veg.jpg')],
+                    ['label' => 'Tomato Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/tomato-plants', 'image' => $img('fruit-veg.jpg')],
+                    ['label' => 'Vegetable Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/vegetable-plants', 'image' => $img('fruit-veg.jpg')],
+                    ['label' => 'Herb Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/herb-plants', 'image' => $img('perennials.jpg')],
+                    ['label' => 'Superfruit Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/superfruit-plants', 'image' => $img('fruit-trees.jpg')],
                 ],
             ],
             [
                 'title' => 'Outdoor Living',
                 'url' => $yg.'/outdoor-living',
+                'image' => $img('outdoor.jpg'),
                 'children' => [
                     [
                         'label' => 'Garden Tools',
                         'url' => $yg.'/outdoor-living/garden-tools',
-                        'children' => [
+                        'image' => $img('outdoor.jpg'),
+                        'children' => $withChildImages($img('outdoor.jpg'), [
                             ['label' => 'Lawnmowers', 'url' => $yg.'/outdoor-living/garden-tools/lawnmowers'],
                             ['label' => 'Strimmers & Trimmers', 'url' => $yg.'/outdoor-living/garden-tools/garden-strimmers-and-trimmers'],
                             ['label' => 'Other Tools', 'url' => $yg.'/outdoor-living/garden-tools/other-tools'],
                             ['label' => 'View All Garden Tools', 'url' => $yg.'/outdoor-living/garden-tools'],
-                        ],
+                        ]),
                     ],
-                    ['label' => 'Pots and Planters', 'url' => $yg.'/outdoor-living/pots-and-planters'],
-                    ['label' => 'Hanging Baskets', 'url' => $yg.'/outdoor-living/hanging-baskets'],
-                    ['label' => 'Feeds & Fertilisers', 'url' => $yg.'/outdoor-living/feeds-and-fertilisers'],
+                    ['label' => 'Pots and Planters', 'url' => $yg.'/outdoor-living/pots-and-planters', 'image' => $img('outdoor.jpg')],
+                    ['label' => 'Hanging Baskets', 'url' => $yg.'/outdoor-living/hanging-baskets', 'image' => $prod('404220.jpg')],
+                    ['label' => 'Feeds & Fertilisers', 'url' => $yg.'/outdoor-living/feeds-and-fertilisers', 'image' => $img('feeds.jpg')],
                     [
                         'label' => 'Plant Protection / Pest Control',
                         'url' => $yg.'/outdoor-living/plant-protection-and-pest-control',
-                        'children' => [
+                        'image' => $img('feeds.jpg'),
+                        'children' => $withChildImages($img('feeds.jpg'), [
                             ['label' => 'Organic Gardening', 'url' => $yg.'/outdoor-living/plant-protection-and-pest-control/organic-gardening'],
                             ['label' => 'Garden Pest Control', 'url' => $yg.'/outdoor-living/plant-protection-and-pest-control/garden-pest-control'],
                             ['label' => 'Cold Frames & Frost Protection', 'url' => $yg.'/outdoor-living/plant-protection-and-pest-control/cold-frames-and-frost-protection'],
                             ['label' => 'View All Plant Protection', 'url' => $yg.'/outdoor-living/plant-protection-and-pest-control'],
-                        ],
+                        ]),
                     ],
-                    ['label' => 'Compost', 'url' => $yg.'/outdoor-living/compost'],
-                    ['label' => 'Garden Furniture', 'url' => $yg.'/outdoor-living/garden-furniture'],
-                    ['label' => 'Gifts', 'url' => $yg.'/outdoor-living/gifts'],
-                    ['label' => 'Bird Feeders & Feed', 'url' => $yg.'/outdoor-living/bird-feeders-and-feed'],
+                    ['label' => 'Compost', 'url' => $yg.'/outdoor-living/compost', 'image' => '/images/compost.jpg'],
+                    ['label' => 'Garden Furniture', 'url' => $yg.'/outdoor-living/garden-furniture', 'image' => $img('outdoor.jpg')],
+                    ['label' => 'Gifts', 'url' => $yg.'/outdoor-living/gifts', 'image' => $img('new.jpg')],
+                    ['label' => 'Bird Feeders & Feed', 'url' => $yg.'/outdoor-living/bird-feeders-and-feed', 'image' => $img('feeds.jpg')],
                 ],
             ],
         ];

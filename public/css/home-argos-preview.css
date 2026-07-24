@@ -680,7 +680,7 @@ body.demo-home-argos .usp-wrapper {
     top: 100%;
     left: 0;
     z-index: 220;
-    width: min(920px, calc(100vw - 32px));
+    width: min(1180px, calc(100vw - 40px));
     padding: 14px 0 0;
     margin: 0;
     background: transparent;
@@ -701,8 +701,8 @@ body.demo-home-argos .usp-wrapper {
     padding: 0;
     background: #fff;
     border: 1px solid var(--yg-border);
-    border-radius: 14px;
-    box-shadow: 0 16px 40px rgba(38, 79, 28, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 20px 48px rgba(38, 79, 28, 0.14);
     animation: yg-argos-nav-in 0.16s ease;
     overflow: hidden;
 }
@@ -756,9 +756,9 @@ body.demo-home-argos .usp-wrapper {
 
 .yg-argos-mega__body {
     display: none;
-    grid-template-columns: minmax(260px, 0.95fr) minmax(300px, 1.15fr);
-    min-height: 320px;
-    max-height: min(520px, calc(100vh - 220px));
+    grid-template-columns: minmax(300px, 0.78fr) minmax(520px, 1.42fr);
+    min-height: 380px;
+    max-height: min(560px, calc(100vh - 200px));
 }
 
 .yg-argos-mega__body.is-active {
@@ -770,7 +770,7 @@ body.demo-home-argos .usp-wrapper {
     margin: 0;
     padding: 0;
     border-right: 1px solid var(--yg-border);
-    background: #fff;
+    background: #fafbf8;
     overflow-y: auto;
     overscroll-behavior: contain;
 }
@@ -778,9 +778,8 @@ body.demo-home-argos .usp-wrapper {
 .yg-argos-mega__cat {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 12px;
-    padding: 13px 18px;
+    padding: 11px 18px;
     border-bottom: 1px solid #ecefe9;
     color: var(--yg-pebble);
     font-size: 12px;
@@ -789,23 +788,41 @@ body.demo-home-argos .usp-wrapper {
     text-transform: uppercase;
     text-decoration: none;
     line-height: 1.35;
+    transition: background 0.12s ease, color 0.12s ease;
 }
 
 .yg-argos-mega__cat:hover,
 .yg-argos-mega__cat.is-active {
-    background: #f0f3ef;
+    background: #fff;
     color: var(--yg-forest);
+    box-shadow: inset 3px 0 0 var(--yg-forest);
 }
 
 .yg-argos-mega__cat--viewall {
     color: var(--yg-forest);
     font-weight: 800;
+    background: #fff;
+}
+
+.yg-argos-mega__cat-thumb {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #eef2ea;
+}
+
+.yg-argos-mega__cat-label {
+    flex: 1;
+    min-width: 0;
 }
 
 .yg-argos-mega__cat-chev {
     flex-shrink: 0;
     width: 6px;
     height: 6px;
+    margin-left: auto;
     border-right: 2px solid currentColor;
     border-top: 2px solid currentColor;
     transform: rotate(45deg);
@@ -813,7 +830,7 @@ body.demo-home-argos .usp-wrapper {
 }
 
 .yg-argos-mega__subs {
-    padding: 22px 24px 24px;
+    padding: 22px 28px 28px;
     background: #fff;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -824,9 +841,9 @@ body.demo-home-argos .usp-wrapper {
 }
 
 .yg-argos-mega__sub-title {
-    margin: 0 0 14px;
+    margin: 0 0 4px;
     color: var(--yg-forest);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 800;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -857,7 +874,7 @@ body.demo-home-argos .usp-wrapper {
 
 .yg-argos-mega__sub-link--viewall {
     display: inline-block;
-    margin-top: 4px;
+    margin: 0 0 14px;
     color: var(--yg-rose);
     font-size: 13px;
     font-weight: 700;
@@ -866,6 +883,62 @@ body.demo-home-argos .usp-wrapper {
 
 .yg-argos-mega__sub-link--viewall:hover {
     text-decoration: underline;
+}
+
+/* Farmer Gracy–style image tiles */
+.yg-argos-mega__tiles {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px 14px;
+}
+
+.yg-argos-mega__tile {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    color: var(--yg-pebble);
+    text-decoration: none;
+}
+
+.yg-argos-mega__tile:hover {
+    color: var(--yg-forest);
+}
+
+.yg-argos-mega__tile:hover .yg-argos-mega__tile-media img {
+    transform: scale(1.05);
+}
+
+.yg-argos-mega__tile-media {
+    display: block;
+    aspect-ratio: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #eef2ea;
+    box-shadow: 0 1px 0 rgba(38, 79, 28, 0.06);
+}
+
+.yg-argos-mega__tile-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.28s ease;
+}
+
+.yg-argos-mega__tile-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.35;
+}
+
+.yg-argos-mega__tile--featured {
+    max-width: 180px;
 }
 
 .yg-argos-nav__panel-foot {
@@ -918,18 +991,38 @@ body.demo-home-argos .usp-wrapper {
     }
 }
 
+@media (max-width: 1400px) {
+    .yg-argos-nav__panel {
+        width: min(1080px, calc(100vw - 36px));
+    }
+
+    .yg-argos-mega__tiles {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
 @media (max-width: 1200px) {
     .yg-argos-nav__panel {
-        width: min(860px, calc(100vw - 24px));
+        width: min(960px, calc(100vw - 24px));
     }
 
     .yg-argos-mega__body {
-        grid-template-columns: minmax(210px, 0.9fr) minmax(240px, 1.1fr);
+        grid-template-columns: minmax(240px, 0.85fr) minmax(360px, 1.25fr);
+    }
+
+    .yg-argos-mega__tiles {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .yg-argos-mega__dept {
         font-size: 11px;
         padding: 10px 8px 8px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .yg-argos-mega__tiles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
