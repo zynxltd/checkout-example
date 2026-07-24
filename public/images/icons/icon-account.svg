@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-  <circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.75"/>
-  <path d="M5 20c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+  <!-- Solid flat account mark — matches YouGarden utility icon style -->
+  <circle cx="14" cy="8.2" r="5.1" fill="currentColor"/>
+  <path
+    fill="currentColor"
+    d="M3.2 24.8c0-5.1 4.3-8.6 10.8-8.6s10.8 3.5 10.8 8.6c0 .7-.5 1.2-1.2 1.2H4.4c-.7 0-1.2-.5-1.2-1.2Z"
+  />
 </svg>

@@ -37,7 +37,7 @@
                 href="{{ $accountLoggedIn ? route('demo.account.club') : route('demo.account.login') }}"
                 class="demo-header__utility demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"
             >
-                @include('demo.partials.account-club-star', ['modifier' => 'header', 'size' => 28])
+                @include('demo.partials.account-club-save', ['modifier' => 'header'])
                 <span class="demo-header__utility-copy">
                     <span class="demo-header__utility-title">Club Discounts</span>
                     @unless ($accountClubMember)
@@ -72,10 +72,10 @@
                 <span class="demo-header__basket-icon" aria-hidden="true">
                     <img
                         class="demo-header__basket-img"
-                        src="{{ asset('images/icons/icon-wheelbarrow.png') }}?v={{ filemtime(public_path('images/icons/icon-wheelbarrow.png')) }}"
+                        src="{{ asset('images/icons/icon-wheelbarrow.svg') }}?v={{ filemtime(public_path('images/icons/icon-wheelbarrow.svg')) }}"
                         alt=""
-                        width="55"
-                        height="48"
+                        width="48"
+                        height="40"
                     >
                 </span>
                 <span class="demo-header__basket-text">
@@ -91,7 +91,7 @@
         <div class="demo-header__actions">
             <a href="{{ $accountLoggedIn ? route('demo.account.home') : route('demo.account.login') }}" class="demo-header__icon" aria-label="{{ $accountLoggedIn ? 'My account' : 'Account login' }}">@include('demo.partials.icon', ['name' => 'account'])</a>
             <button type="button" class="demo-header__cart" data-open-drawer aria-label="Open basket">
-                @include('demo.partials.icon', ['name' => 'cart'])
+                @include('demo.partials.icon', ['name' => 'wheelbarrow', 'width' => 28, 'height' => 24])
                 <span class="demo-header__badge" id="header-cart-count">{{ $cart['item_count'] }}</span>
             </button>
         </div>

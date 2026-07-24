@@ -18,6 +18,7 @@
             aria-controls="demo-mobile-nav"
         >@include('demo.partials.icon', ['name' => 'menu'])</button>
 
+        <div class="demo-header__brand">
         <a href="{{ route('demo.home') }}" class="demo-header__logo" aria-label="YouGarden home">
             <img
                 class="demo-header__logo-img"
@@ -184,7 +185,7 @@
             </div>
 
             <a class="yg-argos-nav__link yg-argos-nav__link--sale" href="{{ $yg }}/sale" target="_blank" rel="noopener">
-                Shop the Sale
+                Sale
             </a>
 
             <a
@@ -199,56 +200,59 @@
                 Live now
             </a>
         </nav>
+        </div>
 
         <div class="demo-header__search" role="search">
             <input type="search" class="demo-header__search-input" placeholder="{{ $search_placeholder ?? 'Search plants, trees or outdoor living' }}" aria-label="Search">
             <button type="button" class="demo-header__search-btn" aria-label="Search">@include('demo.partials.icon', ['name' => 'search'])</button>
         </div>
 
-        <div class="demo-header__utilities">
+        <div class="demo-header__utilities demo-header__utilities--yg-icons">
             <a
                 href="{{ $accountLoggedIn ? route('demo.account.club') : route('demo.account.login') }}"
-                class="demo-header__utility demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"
+                class="demo-header__utility demo-header__utility--stacked demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"
             >
-                @include('demo.partials.account-club-star', ['modifier' => 'header', 'size' => 28])
-                <span class="demo-header__utility-copy">
-                    <span class="demo-header__utility-title">Club Discounts</span>
-                    @unless ($accountClubMember)
-                        <span class="demo-header__utility-sub">Join Now</span>
-                    @endunless
+                <span class="demo-header__utility-icon" aria-hidden="true">
+                    <img
+                        class="demo-header__utility-img demo-header__utility-img--club"
+                        src="{{ asset('images/icons/icon-club-save.png') }}?v={{ filemtime(public_path('images/icons/icon-club-save.png')) }}"
+                        alt=""
+                        width="88"
+                        height="22"
+                    >
                 </span>
+                <span class="demo-header__utility-label">Join Our Club</span>
             </a>
-            <div class="demo-header__utility demo-header__utility--account">
-                <span class="demo-header__utility-icon" aria-hidden="true">@include('demo.partials.icon', ['name' => 'account', 'width' => 28, 'height' => 28])</span>
-                <span class="demo-header__utility-copy">
+
+            <div class="demo-header__utility demo-header__utility--stacked demo-header__utility--account">
+                <span class="demo-header__utility-icon" aria-hidden="true">
+                    <img
+                        class="demo-header__utility-img demo-header__utility-img--account"
+                        src="{{ asset('images/icons/icon-account-flat.png') }}?v={{ filemtime(public_path('images/icons/icon-account-flat.png')) }}"
+                        alt=""
+                        width="22"
+                        height="24"
+                    >
+                </span>
+                <span class="demo-header__utility-label demo-header__utility-label--account">
                     @if ($accountLoggedIn)
-                        <span class="demo-header__utility-title">Welcome, {{ $accountFirstName }}</span>
-                        <span class="demo-header__utility-sub">
-                            <a href="{{ route('demo.account.home') }}" class="demo-header__utility-link">My Account</a>
-                            <span aria-hidden="true"> | </span>
-                            <form method="post" action="{{ route('demo.account.logout') }}" class="demo-header__logout-form">
-                                @csrf
-                                <button type="submit" class="demo-header__utility-link demo-header__utility-link--button">Log out</button>
-                            </form>
-                        </span>
+                        <a href="{{ route('demo.account.home') }}" class="demo-header__utility-link">{{ $accountFirstName ?: 'Account' }}</a>
                     @else
-                        <span class="demo-header__utility-title">Welcome</span>
-                        <span class="demo-header__utility-sub">
-                            <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
-                            <span aria-hidden="true"> | </span>
-                            <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
-                        </span>
+                        <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
+                        <span aria-hidden="true"> | </span>
+                        <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
                     @endif
                 </span>
             </div>
-            <button type="button" class="demo-header__basket" data-open-drawer aria-label="Open your basket">
+
+            <button type="button" class="demo-header__basket demo-header__basket--end" data-open-drawer aria-label="Open your basket">
                 <span class="demo-header__basket-icon" aria-hidden="true">
                     <img
                         class="demo-header__basket-img"
                         src="{{ asset('images/icons/icon-wheelbarrow.png') }}?v={{ filemtime(public_path('images/icons/icon-wheelbarrow.png')) }}"
                         alt=""
-                        width="55"
-                        height="48"
+                        width="48"
+                        height="42"
                     >
                 </span>
                 <span class="demo-header__basket-text">
@@ -264,7 +268,13 @@
         <div class="demo-header__actions">
             <a href="{{ $accountLoggedIn ? route('demo.account.home') : route('demo.account.login') }}" class="demo-header__icon" aria-label="{{ $accountLoggedIn ? 'My account' : 'Account login' }}">@include('demo.partials.icon', ['name' => 'account'])</a>
             <button type="button" class="demo-header__cart" data-open-drawer aria-label="Open basket">
-                @include('demo.partials.icon', ['name' => 'cart'])
+                <img
+                    class="demo-header__cart-img"
+                    src="{{ asset('images/icons/icon-wheelbarrow.png') }}?v={{ filemtime(public_path('images/icons/icon-wheelbarrow.png')) }}"
+                    alt=""
+                    width="28"
+                    height="24"
+                >
                 <span class="demo-header__badge" id="header-cart-count">{{ $cart['item_count'] }}</span>
             </button>
         </div>
