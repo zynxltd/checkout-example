@@ -75,7 +75,7 @@ class DemoController extends Controller
                 ],
                 [
                     'label' => 'Top deals',
-                    'url' => 'https://www.yougarden.com/sale',
+                    'url' => route('demo.sale'),
                     'sale' => true,
                 ],
                 [
@@ -159,7 +159,7 @@ class DemoController extends Controller
                         ['label' => 'Shop wallflowers', 'url' => 'https://www.yougarden.com/item-s-pa372/wallflower-sugar-rush-mix?Option=PA372'],
                         ['label' => 'Shop autumn bedding', 'url' => 'https://www.yougarden.com/garden-plants/bedding-plants/autumn-bedding-plants'],
                         ['label' => 'Shop garden plants', 'url' => 'https://www.yougarden.com/garden-plants'],
-                        ['label' => 'Shop the sale', 'url' => 'https://www.yougarden.com/sale'],
+                        ['label' => 'Shop the sale', 'url' => route('demo.sale')],
                     ],
                 ],
                 [
@@ -270,7 +270,7 @@ class DemoController extends Controller
                 ],
             ],
             'sale_banner' => [
-                'url' => 'https://www.yougarden.com/sale',
+                'url' => route('demo.sale'),
                 'image' => 'images/home-preview/live/70.jpg',
                 'label' => 'Sale',
             ],
@@ -303,6 +303,237 @@ class DemoController extends Controller
                     'label' => 'YouGarden Blog',
                 ],
             ],
+        ]);
+    }
+
+    /**
+     * CRO-optimised /sale landing page.
+     * Above-the-fold: category image strip + PLP filters, then sale product grid.
+     */
+    public function sale(): View
+    {
+        DemoCart::seed();
+
+        $yg = 'https://www.yougarden.com';
+        $img = fn (string $file) => 'images/home-preview/sale/'.$file;
+
+        $deal = function (
+            string $name,
+            string $url,
+            string $image,
+            string $price,
+            int $discount,
+            array $categories,
+            float $rating,
+            int $reviews,
+            bool $bestseller = false,
+            bool $featured = false,
+        ) use ($img): array {
+            return [
+                'name' => $name,
+                'url' => $url,
+                'image' => $img($image),
+                'price' => $price,
+                'discount' => $discount,
+                'categories' => $categories,
+                'rating' => $rating,
+                'reviews' => $reviews,
+                'bestseller' => $bestseller,
+                'featured' => $featured,
+            ];
+        };
+
+        $topDeals = [
+            $deal(
+                "Imperata 'Red Baron' — Blood Grass",
+                $yg.'/item-p-560017/imperata-red-baron--blood-grass',
+                'imperata-red-baron.jpg',
+                'From £9.99',
+                58,
+                ['bestsellers', 'garden', 'clearance'],
+                4.7,
+                312,
+                true,
+                true,
+            ),
+            $deal(
+                "The 'Best Ever' Hybrid Tea Rose Bush Collection",
+                $yg.'/item-p-780034/the-best-ever-hybrid-tea-rose-bush-collection',
+                'rose-best-ever.jpg',
+                'Just £9.99',
+                66,
+                ['bestsellers', 'roses'],
+                4.6,
+                891,
+                true,
+                true,
+            ),
+            $deal(
+                "Geranium 'Rozanne' — RHS Plant of the Centenary",
+                $yg.'/item-p-480120/geranium-rozanne--rhs-plant-of-the-centenary',
+                'geranium-rozanne.jpg',
+                'From £9.99',
+                33,
+                ['bestsellers', 'garden'],
+                4.8,
+                1240,
+                true,
+            ),
+            $deal(
+                'Strawberry Plants — Sweet Summer Collection',
+                $yg.'/item-p-320011/strawberry-plants',
+                'sale-strawberries.jpg',
+                'From £9.99',
+                40,
+                ['fruit', 'bestsellers'],
+                4.5,
+                478,
+                true,
+            ),
+        ];
+
+        $moreDeals = [
+            $deal(
+                "Rudbeckia 'Goldsturm'",
+                $yg.'/item-p-560076/rudbeckia-goldsturm',
+                'rudbeckia-goldsturm.jpg',
+                'Just £14.97',
+                50,
+                ['garden', 'clearance'],
+                4.4,
+                186,
+            ),
+            $deal(
+                "Nandina 'Obsessed' — Sacred Bamboo",
+                $yg.'/item-p-510759/nandina-obsessed--sacred-bamboo',
+                'nandina-obsessed.jpg',
+                'Just £14.99',
+                25,
+                ['garden'],
+                4.3,
+                94,
+            ),
+            $deal(
+                "Plum 'Victoria'",
+                $yg.'/item-p-300025/plum-victoria',
+                'sale-plum.jpg',
+                'From £19.99',
+                30,
+                ['fruit', 'bare-root'],
+                4.6,
+                265,
+            ),
+            $deal(
+                'Pre-Planted Tumbling Tom Tomato Baskets',
+                $yg.'/item-p-280006/pre-planted-tumbling-tom-mix-tomato-hanging-baskets',
+                'sale-tomatoes.jpg',
+                'Just £19.99',
+                33,
+                ['fruit', 'garden'],
+                4.5,
+                512,
+            ),
+            $deal(
+                'Pair of Italian Cypress Trees',
+                $yg.'/item-p-510471/pair-of-italian-cypress-trees',
+                'italian-cypress.jpg',
+                'From £24.99',
+                20,
+                ['garden', 'bare-root'],
+                4.4,
+                733,
+            ),
+            $deal(
+                'Bottlebrush Plant Callistemon citrinus',
+                $yg.'/item-p-510046/bottlebrush-plant-callistemon-citrinus',
+                'bottlebrush.jpg',
+                'Just £19.99',
+                20,
+                ['bestsellers', 'garden'],
+                4.5,
+                401,
+                true,
+            ),
+            $deal(
+                "Ophiopogon 'Black Dragon Grass'",
+                $yg.'/item-p-560219/ophiopogon-black-dragon-grass',
+                'black-dragon-grass.jpg',
+                'From £9.99',
+                16,
+                ['garden', 'clearance'],
+                4.2,
+                67,
+            ),
+            $deal(
+                'Pond Plant Collection',
+                $yg.'/item-p-560559/pond-plant-collection',
+                'pond-collection.jpg',
+                'Just £24.99',
+                28,
+                ['garden', 'clearance'],
+                4.3,
+                118,
+            ),
+            $deal(
+                "Coronilla glauca 'Citrina'",
+                $yg.'/item-p-511488/coronilla-glauca-citrina',
+                'coronilla-citrina.jpg',
+                'From £9.99',
+                33,
+                ['garden'],
+                4.4,
+                152,
+            ),
+            $deal(
+                "Cordyline 'Charlie Boy'",
+                $yg.'/item-p-680295/cordyline-charlie-boy',
+                'cordyline-charlie.jpg',
+                'From £14.99',
+                37,
+                ['garden', 'clearance'],
+                4.3,
+                89,
+            ),
+            $deal(
+                "Magnolia 'Susan'",
+                $yg.'/item-p-510157/magnolia-susan',
+                'magnolia-susan.jpg',
+                'Just £19.99',
+                20,
+                ['garden', 'bare-root'],
+                4.5,
+                210,
+            ),
+            $deal(
+                'Acorn Planters 25cm Copper Tone × 4',
+                $yg.'/item-p-130361/acorn-planters-25cm-copper-tone-x-4',
+                'acorn-planters.jpg',
+                'Just £14.96',
+                37,
+                ['clearance'],
+                4.1,
+                54,
+            ),
+        ];
+
+        $allDeals = array_merge($topDeals, $moreDeals);
+
+        return view('demo.sale', [
+            'cart' => DemoCart::state(),
+            'shop_menu' => $this->argosShopMenu($yg),
+            'trending_links' => [
+                ['label' => 'Popular Garden Plants', 'url' => $yg.'/garden-plants/popular-garden-plants'],
+                ['label' => 'Oleander Plants', 'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens/oleander-plants'],
+                ['label' => 'Autumn Bedding', 'url' => $yg.'/garden-plants/bedding-plants/autumn-bedding-plants'],
+                ['label' => 'Citrus Trees', 'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens/citrus-trees-and-plants'],
+                ['label' => 'Drought Tolerant Plants', 'url' => $yg.'/garden-plants/popular-garden-plants/drought-tolerant-plants'],
+            ],
+            'listing' => [
+                'products' => $allDeals,
+                'filters' => DemoCart::listingFilters(),
+                'sort_options' => DemoCart::listingSortOptions(),
+            ],
+            'all_deals' => $allDeals,
         ]);
     }
 
@@ -579,11 +810,11 @@ class DemoController extends Controller
                 'url' => $yg.'/houseplants',
                 'image' => $img('houseplants.jpg'),
                 'children' => [
-                    ['label' => 'Indoor Flowering Plants', 'url' => $yg.'/houseplants/indoor-flowering-plants', 'image' => $img('houseplants.jpg')],
-                    ['label' => 'Indoor Foliage Plants', 'url' => $yg.'/houseplants/indoor-foliage-plants', 'image' => $img('houseplants.jpg')],
-                    ['label' => 'Large Houseplants', 'url' => $yg.'/houseplants/large-houseplants', 'image' => $img('houseplants.jpg')],
-                    ['label' => 'Carnivorous Houseplants', 'url' => $yg.'/houseplants/carnivorous-houseplants', 'image' => $img('houseplants.jpg')],
-                    ['label' => 'Indoor Houseplant Pots', 'url' => $yg.'/houseplants/indoor-houseplant-pots', 'image' => $img('outdoor.jpg')],
+                    ['label' => 'Indoor Flowering Plants', 'url' => $yg.'/houseplants/indoor-flowering-plants', 'image' => $img('flowering-houseplants.jpg')],
+                    ['label' => 'Indoor Foliage Plants', 'url' => $yg.'/houseplants/indoor-foliage-plants', 'image' => $img('foliage-houseplants.jpg')],
+                    ['label' => 'Large Houseplants', 'url' => $yg.'/houseplants/large-houseplants', 'image' => $img('large-houseplants.jpg')],
+                    ['label' => 'Carnivorous Houseplants', 'url' => $yg.'/houseplants/carnivorous-houseplants', 'image' => $img('carnivorous.jpg')],
+                    ['label' => 'Indoor Houseplant Pots', 'url' => $yg.'/houseplants/indoor-houseplant-pots', 'image' => $img('houseplant-pots.jpg')],
                 ],
             ],
             [
@@ -595,33 +826,33 @@ class DemoController extends Controller
                         'label' => 'Fruit Trees',
                         'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees',
                         'image' => $img('fruit-trees.jpg'),
-                        'children' => $withChildImages($img('fruit-trees.jpg'), [
-                            ['label' => 'Bare Root Fruit Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/bare-root-fruit-trees'],
-                            ['label' => 'Potted Fruit Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/potted-fruit-trees'],
-                            ['label' => 'Apple Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/apple-trees'],
-                            ['label' => 'Cherry Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/cherry-trees'],
-                            ['label' => 'Pear Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/pear-trees'],
-                            ['label' => 'Plum Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/plum-trees'],
-                            ['label' => 'View All Fruit Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees'],
-                        ]),
+                        'children' => [
+                            ['label' => 'Bare Root Fruit Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/bare-root-fruit-trees', 'image' => $img('fruit-trees.jpg')],
+                            ['label' => 'Potted Fruit Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/potted-fruit-trees', 'image' => $img('fruit-trees.jpg')],
+                            ['label' => 'Apple Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/apple-trees', 'image' => $img('apple-trees.jpg')],
+                            ['label' => 'Cherry Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/cherry-trees', 'image' => $img('cherry-trees.jpg')],
+                            ['label' => 'Pear Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/pear-trees', 'image' => $img('pear-trees.jpg')],
+                            ['label' => 'Plum Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees/plum-trees', 'image' => $img('plum-trees.jpg')],
+                            ['label' => 'View All Fruit Trees', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-trees', 'image' => $img('fruit-trees.jpg')],
+                        ],
                     ],
                     [
                         'label' => 'Fruit Bushes',
                         'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes',
-                        'image' => $img('fruit-veg.jpg'),
-                        'children' => $withChildImages($img('fruit-veg.jpg'), [
-                            ['label' => 'Strawberry Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/strawberry-plants'],
-                            ['label' => 'Raspberry Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/raspberry-plants'],
-                            ['label' => 'Currant Bushes', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/currant-bushes'],
-                            ['label' => 'Blackberry Plants & Other Berries', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/blackberry-plants-and-other-berries'],
-                            ['label' => 'View All Fruit Bushes', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes'],
-                        ]),
+                        'image' => $img('fruit-bushes.jpg'),
+                        'children' => [
+                            ['label' => 'Strawberry Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/strawberry-plants', 'image' => $img('strawberries.jpg')],
+                            ['label' => 'Raspberry Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/raspberry-plants', 'image' => $img('raspberries.jpg')],
+                            ['label' => 'Currant Bushes', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/currant-bushes', 'image' => $img('currants.jpg')],
+                            ['label' => 'Blackberry Plants & Other Berries', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes/blackberry-plants-and-other-berries', 'image' => $img('blackberries.jpg')],
+                            ['label' => 'View All Fruit Bushes', 'url' => $yg.'/grow-your-own-fruit-and-veg/fruit-bushes', 'image' => $img('fruit-bushes.jpg')],
+                        ],
                     ],
-                    ['label' => 'Seed Potatoes', 'url' => $yg.'/grow-your-own-fruit-and-veg/seed-potatoes', 'image' => $img('fruit-veg.jpg')],
-                    ['label' => 'Tomato Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/tomato-plants', 'image' => $img('fruit-veg.jpg')],
-                    ['label' => 'Vegetable Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/vegetable-plants', 'image' => $img('fruit-veg.jpg')],
-                    ['label' => 'Herb Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/herb-plants', 'image' => $img('perennials.jpg')],
-                    ['label' => 'Superfruit Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/superfruit-plants', 'image' => $img('fruit-trees.jpg')],
+                    ['label' => 'Seed Potatoes', 'url' => $yg.'/grow-your-own-fruit-and-veg/seed-potatoes', 'image' => $img('seed-potatoes.jpg')],
+                    ['label' => 'Tomato Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/tomato-plants', 'image' => $img('tomatoes.jpg')],
+                    ['label' => 'Vegetable Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/vegetable-plants', 'image' => $img('vegetables.jpg')],
+                    ['label' => 'Herb Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/herb-plants', 'image' => $img('herbs.jpg')],
+                    ['label' => 'Superfruit Plants', 'url' => $yg.'/grow-your-own-fruit-and-veg/superfruit-plants', 'image' => $img('superfruit.jpg')],
                 ],
             ],
             [

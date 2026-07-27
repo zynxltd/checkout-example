@@ -48,7 +48,7 @@
         { label: 'Houseplants', meta: 'Category', image: IMG.house, url: 'https://www.yougarden.com/houseplants' },
         { label: 'Compost', meta: 'Product', image: IMG.compost, url: 'https://www.yougarden.com/' },
         { label: 'Plant food', meta: 'Product', image: IMG.compost, url: 'https://www.yougarden.com/' },
-        { label: 'Sale', meta: 'Category', image: IMG.sale, url: 'https://www.yougarden.com/sale' },
+        { label: 'Sale', meta: 'Category', image: IMG.sale, url: '/sale' },
         { label: 'New arrivals', meta: 'Category', image: IMG.news, url: 'https://www.yougarden.com/new' },
         { label: 'Wallflowers', meta: 'Category', image: IMG.bedding, url: 'https://www.yougarden.com/' },
         { label: 'Fuchsias', meta: 'Category', image: IMG.hanging, url: 'https://www.yougarden.com/' },

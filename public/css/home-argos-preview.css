@@ -801,7 +801,7 @@ body.demo-home-argos .usp-wrapper {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 11px 18px;
+    padding: 12px 18px;
     border-bottom: 1px solid #ecefe9;
     color: var(--yg-pebble);
     font-size: 12px;
@@ -827,12 +827,7 @@ body.demo-home-argos .usp-wrapper {
 }
 
 .yg-argos-mega__cat-thumb {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    object-fit: cover;
-    background: #eef2ea;
+    display: none;
 }
 
 .yg-argos-mega__cat-label {
@@ -942,6 +937,43 @@ body.demo-home-argos .usp-wrapper {
     gap: 16px 14px;
 }
 
+/* Text-only Shop mega menu (no category / product images) */
+.yg-argos-mega__tiles--text {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 28px;
+}
+
+.yg-argos-mega__tiles--text .yg-argos-mega__tile {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #ecefe9;
+}
+
+.yg-argos-mega__tiles--text .yg-argos-mega__tile:hover {
+    color: var(--yg-forest);
+}
+
+.yg-argos-mega__tiles--text .yg-argos-mega__tile-media {
+    display: none;
+}
+
+.yg-argos-mega__tiles--text .yg-argos-mega__tile-label {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.yg-argos-mega__tile--text-only {
+    display: inline-flex;
+    max-width: none;
+    margin-top: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ecefe9;
+}
+
 .yg-argos-mega__tile {
     display: flex;
     flex-direction: column;
@@ -1021,18 +1053,241 @@ body.demo-home-argos .usp-wrapper {
     color: var(--yg-rose) !important;
 }
 
-.demo-mobile-nav__link--sub {
-    padding-left: 28px !important;
-    font-weight: 500 !important;
-    font-size: 14px !important;
-    color: var(--yg-muted) !important;
+/* —— Currys-style mobile nav (YouGarden) —— */
+.demo-mobile-nav--currys .demo-mobile-nav__panel {
+    width: min(88vw, 360px);
+    box-shadow: 4px 0 32px rgba(0, 0, 0, 0.12);
 }
 
-.demo-mobile-nav__link--sub2 {
-    padding-left: 44px !important;
-    font-weight: 500 !important;
-    font-size: 13px !important;
-    color: #8a9184 !important;
+.demo-mobile-nav--currys .demo-mobile-nav__stack {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__view {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: #fff;
+    transform: translateX(8%);
+    opacity: 0;
+    transition: transform 0.22s ease, opacity 0.22s ease;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__view.is-active {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__head {
+    border-bottom: 1px solid #e8e8e8;
+    padding: 16px 18px;
+    min-height: 56px;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__head--root {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__head--sub {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-top: 14px;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__subtitle {
+    margin: 0;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.3;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__close {
+    color: #1a1a1a;
+    padding: 8px;
+    margin: -8px -8px -8px 0;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: #1a1a1a;
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__back-icon {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    margin-right: 2px;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__scroll {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 24px;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__divider {
+    height: 1px;
+    margin: 8px 18px;
+    background: #ebebeb;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 18px;
+    border: none;
+    background: #fff;
+    color: #1a1a1a;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    text-align: left;
+    text-decoration: none;
+    text-transform: none;
+    letter-spacing: 0;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__row--link {
+    cursor: pointer;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__row:hover,
+.demo-mobile-nav--currys .demo-mobile-nav__row:focus-visible {
+    background: #f5f5f5;
+    color: #1a1a1a;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__row--sale .demo-mobile-nav__label {
+    color: var(--yg-rose);
+    font-weight: 600;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__icon {
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f0ebe3;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__label {
+    flex: 1;
+    min-width: 0;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__chev {
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid #b0b0b0;
+    border-bottom: 2px solid #b0b0b0;
+    transform: rotate(-45deg);
+    margin-left: auto;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__view-all {
+    display: block;
+    padding: 14px 18px 8px;
+    color: var(--yg-forest);
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__view-all:hover {
+    text-decoration: underline;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__list--footer {
+    padding: 8px 0 16px;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__footer-link {
+    display: block;
+    padding: 12px 18px;
+    color: #1a1a1a;
+    font-family: var(--yg-body);
+    font-size: 15px;
+    font-weight: 400;
+    text-decoration: none;
+    text-transform: none;
+    letter-spacing: 0;
+    border: none;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__footer-link:hover,
+.demo-mobile-nav--currys .demo-mobile-nav__footer-link:focus-visible {
+    background: #f5f5f5;
+    color: #1a1a1a;
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__overlay {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.demo-mobile-nav--currys .demo-mobile-nav__panel {
+    display: flex;
+    flex-direction: column;
 }
 
 @media (min-width: 960px) {
@@ -1379,6 +1634,8 @@ body.demo-home-argos .usp-wrapper {
 /* —— Hero carousel (Argos pattern: banner + CTAs change together) —— */
 .yg-hero-argos {
     margin: 0;
+    min-width: 0;
+    width: 100%;
 }
 
 /* Demo fold marker: keeps hero clear of below-fold tiles */
@@ -1414,6 +1671,12 @@ body.demo-home-argos .usp-wrapper {
     position: relative;
     overflow: hidden;
     width: 100%;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.yg-hero-argos__slides.is-dragging .yg-hero-argos__banner {
+    pointer-events: none;
 }
 
 .yg-hero-argos__track {
@@ -1587,11 +1850,14 @@ body.demo-home-argos .usp-wrapper {
     position: relative;
     width: 32px;
     height: 32px;
+    min-width: 32px;
+    min-height: 32px;
     border: none;
     border-radius: 50%;
     background: transparent;
     color: var(--yg-forest);
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .yg-hero-argos__arrow--next {
@@ -1627,11 +1893,14 @@ body.demo-home-argos .usp-wrapper {
 .yg-hero-argos__dot {
     width: 8px;
     height: 8px;
+    min-width: 8px;
+    min-height: 8px;
     border-radius: 50%;
     border: none;
     padding: 0;
     background: #cfc5b8;
     cursor: pointer;
+    flex-shrink: 0;
     transition: width 0.2s ease, background 0.2s ease, border-radius 0.2s ease;
 }
 
@@ -1776,6 +2045,22 @@ body.demo-home-argos .usp-wrapper {
 }
 
 @media (max-width: 960px) {
+    body.demo-home-argos {
+        --yg-argos-content-pad: 16px;
+    }
+
+    .demo-home-argos__main {
+        padding-top: 12px;
+    }
+
+    .yg-home-above[data-above-layout='cats-first'] .yg-cat-strip {
+        margin-bottom: 14px;
+    }
+
+    .yg-home-above[data-above-layout='hero-first'] .yg-cat-strip {
+        margin-top: 14px;
+    }
+
     .yg-home-fold-mark {
         margin: 28px 0 22px;
         gap: 10px;
@@ -1790,12 +2075,73 @@ body.demo-home-argos .usp-wrapper {
         line-height: 1.3;
     }
 
+    /* Full-bleed banner; CTAs + controls stay inset */
+    .yg-hero-argos__banner--full {
+        margin-left: calc(-1 * var(--yg-argos-content-pad));
+        margin-right: calc(-1 * var(--yg-argos-content-pad));
+        width: calc(100% + (2 * var(--yg-argos-content-pad)));
+        max-width: none;
+        border-radius: 0;
+        aspect-ratio: 5 / 4;
+        min-height: clamp(300px, 68vw, 420px);
+    }
+
     .yg-hero-argos__banner--full img {
-        aspect-ratio: 1920 / 600;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: unset;
+        min-height: 100%;
+        max-height: none;
+        object-fit: cover;
+        object-position: center center;
     }
 
     .yg-hero-argos__ctas {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 12px;
+    }
+
+    .yg-hero-argos__cta {
+        min-height: 48px;
+        padding: 10px 12px;
+        font-size: 14px;
+        line-height: 1.25;
+    }
+
+    .yg-hero-argos__controls {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        gap: 10px;
+        margin-top: 12px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .yg-hero-argos__controls-nav {
+        grid-column: 1;
+        justify-self: center;
+    }
+
+    .yg-hero-argos__pause {
+        grid-column: 1;
+        justify-self: center;
+        min-height: 44px;
+        padding: 10px 16px;
+    }
+
+    .yg-hero-argos__arrow {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+
+    .yg-hero-argos__dot {
+        width: 10px;
+        height: 10px;
+        min-width: 10px;
+        min-height: 10px;
     }
 
     .yg-home-row4 {
@@ -1816,32 +2162,42 @@ body.demo-home-argos .usp-wrapper {
 }
 
 @media (max-width: 520px) {
+    body.demo-home-argos {
+        --yg-argos-content-pad: 12px;
+    }
+
     .demo-home-argos__main {
-        padding: 12px 12px 40px;
+        padding: 10px 12px 40px;
+    }
+
+    .yg-hero-argos__banner--full {
+        aspect-ratio: 4 / 3;
+        min-height: clamp(280px, 72vw, 400px);
+    }
+
+    .yg-hero-argos__banner--full img {
+        min-height: 100%;
     }
 
     .yg-hero-argos__ctas {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 8px;
     }
 
     .yg-hero-argos__cta {
-        min-height: 48px;
-    }
-
-    .yg-hero-argos__controls {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        gap: 10px;
+        min-height: 44px;
+        padding: 10px 8px;
+        font-size: 13px;
+        border-radius: 6px;
     }
 
     .yg-hero-argos__controls-nav {
-        grid-column: 1;
+        gap: 12px;
+        max-width: 100%;
     }
 
     .yg-hero-argos__pause {
-        grid-column: 1;
-        justify-self: center;
+        font-size: 13px;
     }
 
     .yg-home-promo-pair {
@@ -1961,5 +2317,236 @@ body.demo-home-argos .usp-wrapper {
         right: 14px;
         bottom: 72px;
         padding: 10px 14px;
+    }
+}
+
+/* —— Header v2 (Currys layout) —— */
+.demo-header--argos[data-header-layout='currys'] [data-header-v1-nav],
+.demo-header--argos[data-header-layout='argos'] [data-header-v2-nav] {
+    display: none !important;
+}
+
+.demo-header--argos[data-header-layout='currys'] [data-header-v2-nav] {
+    display: block !important;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__inner--argos,
+.demo-header--argos[data-header-layout='currys'] .demo-header__inner--argos {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 440px) minmax(0, 1fr);
+    grid-template-areas: 'brand search utilities';
+    column-gap: 24px;
+    padding: 14px var(--yg-argos-content-pad);
+    min-height: 0;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__brand,
+.demo-header--argos[data-header-layout='currys'] .demo-header__brand {
+    gap: 0;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__logo-img,
+.demo-header--argos[data-header-layout='currys'] .demo-header__logo-img {
+    height: 44px;
+    max-width: 200px;
+}
+
+/* Keep the same pill search as v1 — centred, capped width (not full-bleed) */
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__search,
+.demo-header--argos[data-header-layout='currys'] .demo-header__search {
+    width: 100%;
+    max-width: 440px;
+    justify-self: center;
+    min-height: 48px;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons {
+    gap: 8px;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utility--tv,
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utility--club,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utility--tv,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utility--club {
+    display: none !important;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility--stacked,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility--stacked {
+    min-width: 56px;
+    gap: 4px;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-icon,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-icon {
+    height: 28px;
+}
+
+.demo-header__utility-label-short {
+    display: none;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utility-label-full,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utility-label-full {
+    display: none;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utility-label-short,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utility-label-short {
+    display: inline;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-label,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #2c2c2c;
+    max-width: 72px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-label--account,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-label--account {
+    font-size: 11px;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-img--club,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-img--club {
+    max-height: 18px;
+}
+
+.demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-img--tv,
+.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-img--tv {
+    max-height: 24px;
+}
+
+.yg-currys-nav {
+    border-top: none;
+    border-bottom: none;
+    background: #fff;
+}
+
+.yg-currys-nav[hidden] {
+    display: none !important;
+}
+
+.yg-currys-nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: var(--yg-argos-content-width);
+    margin: 0 auto;
+    padding: 0 var(--yg-argos-content-pad);
+    min-height: 48px;
+    box-sizing: border-box;
+}
+
+.yg-currys-nav__cats {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    min-width: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.yg-currys-nav__cats::-webkit-scrollbar {
+    display: none;
+}
+
+.yg-currys-nav__link {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 12px;
+    color: #2c2c2c;
+    font-family: var(--yg-body);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+}
+
+.yg-currys-nav__link:hover {
+    color: var(--yg-forest);
+    border-bottom-color: var(--yg-forest);
+}
+
+.yg-currys-nav__pills {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.yg-currys-nav__pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid #c9d0c4;
+    background: #fff;
+    color: #2c2c2c;
+    font-family: var(--yg-body);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.yg-currys-nav__pill:hover {
+    border-color: var(--yg-forest);
+    color: var(--yg-forest);
+}
+
+.yg-currys-nav__pill--deals {
+    background: var(--yg-rose);
+    border-color: var(--yg-rose);
+    color: #fff;
+}
+
+.yg-currys-nav__pill--deals:hover {
+    background: #c41452;
+    border-color: #c41452;
+    color: #fff;
+}
+
+@media (max-width: 1100px) {
+    .demo-header--argos[data-header-layout='currys'] .yg-currys-nav__link {
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 13px;
+    }
+
+    .demo-header--argos[data-header-layout='currys'] .yg-currys-nav__pill:not(.yg-currys-nav__pill--deals) {
+        display: none;
+    }
+}
+
+@media (max-width: 959px) {
+    .demo-header--argos[data-header-layout='currys'] .yg-currys-nav {
+        display: none !important;
+    }
+
+    .demo-home-argos .demo-header--argos[data-header-layout='currys'] .demo-header__inner--argos,
+    .demo-header--argos[data-header-layout='currys'] .demo-header__inner--argos {
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas:
+            'menu brand actions'
+            'search search search';
+        column-gap: 14px;
+        row-gap: 12px;
+        padding: 14px 16px;
     }
 }

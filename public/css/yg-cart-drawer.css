@@ -52,7 +52,7 @@ body.yg-drawer-open {
     --yg-theme-header-badge-bg: #264f1c;
     --yg-theme-header-badge-text: #ffffff;
     --yg-theme-close-icon-filter: none;
-    --yg-theme-panel-bg: #f2e7d8;
+    --yg-theme-panel-bg: #fafafa;
     --yg-theme-body-text: var(--yg-text);
     --yg-theme-muted-text: var(--yg-muted);
     --yg-theme-accent-text: var(--yg-forest);
@@ -65,7 +65,7 @@ body.yg-drawer-open {
     --yg-theme-club-btn: var(--yg-rose);
     --yg-theme-apply-btn-bg: var(--yg-green-header);
     --yg-theme-apply-btn-text: #ffffff;
-    --yg-theme-checkout-bg: var(--yg-checkout);
+    --yg-theme-checkout-bg: var(--yg-green-header);
     --yg-theme-checkout-text: #ffffff;
     --yg-theme-reco-heading: var(--yg-forest);
     --yg-theme-summary-bg: #ffffff;
@@ -299,6 +299,8 @@ body.yg-drawer-open {
         scroll-padding-inline: 6px 14px;
         scrollbar-width: none;
         -ms-overflow-style: none;
+        container-type: inline-size;
+        container-name: yg-reco-inline;
     }
 
     .yg-reco-inline__scroller::-webkit-scrollbar {
@@ -315,8 +317,10 @@ body.yg-drawer-open {
     }
 
     .yg-reco-inline__item {
-        flex: 0 0 auto;
-        width: min(148px, 42vw);
+        /* Exactly 2 cards visible; swipe for more */
+        flex: 0 0 calc((100cqw - 10px) / 2);
+        width: calc((100cqw - 10px) / 2);
+        max-width: calc((100cqw - 10px) / 2);
         scroll-snap-align: start;
     }
 

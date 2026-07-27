@@ -1,12 +1,12 @@
 (function () {
-    const STORAGE_KEY = 'yg_drawer_theme_v5';
+    const STORAGE_KEY = 'yg_drawer_theme_v6';
 
     const FIELDS = [
         { key: 'headerBg', var: '--yg-theme-header-bg', label: 'Header background', default: '#ffffff' },
         { key: 'headerText', var: '--yg-theme-header-text', label: 'Header text', default: '#264f1c' },
         { key: 'headerBadgeBg', var: '--yg-theme-header-badge-bg', label: 'Item count badge', default: '#264f1c' },
         { key: 'headerBadgeText', var: '--yg-theme-header-badge-text', label: 'Count badge text', default: '#ffffff' },
-        { key: 'panelBg', var: '--yg-theme-panel-bg', label: 'Drawer background', default: '#f2e7d8' },
+        { key: 'panelBg', var: '--yg-theme-panel-bg', label: 'Drawer background', default: '#fafafa' },
         { key: 'bodyText', var: '--yg-theme-body-text', label: 'Body text', default: '#483f3a' },
         { key: 'mutedText', var: '--yg-theme-muted-text', label: 'Muted text', default: '#7a726c' },
         { key: 'accentText', var: '--yg-theme-accent-text', label: 'Accent text', default: '#264f1c' },
@@ -19,7 +19,7 @@
         { key: 'clubBtn', var: '--yg-theme-club-btn', label: 'Club button', default: '#e3185d' },
         { key: 'applyBtnBg', var: '--yg-theme-apply-btn-bg', label: 'Apply code button', default: '#264f1c' },
         { key: 'applyBtnText', var: '--yg-theme-apply-btn-text', label: 'Apply code text', default: '#ffffff' },
-        { key: 'checkoutBg', var: '--yg-theme-checkout-bg', label: 'Checkout button', default: '#468900' },
+        { key: 'checkoutBg', var: '--yg-theme-checkout-bg', label: 'Checkout button', default: '#264f1c' },
         { key: 'checkoutText', var: '--yg-theme-checkout-text', label: 'Checkout text', default: '#ffffff' },
         { key: 'recoHeading', var: '--yg-theme-reco-heading', label: 'Recommendations title', default: '#264f1c' },
         { key: 'summaryBg', var: '--yg-theme-summary-bg', label: 'Summary area', default: '#ffffff' },

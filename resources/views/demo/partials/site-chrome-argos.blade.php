@@ -7,7 +7,7 @@
     $accountFirstName = $accountLoggedIn ? (DemoAccount::user()['first_name'] ?? '') : '';
     $yg = 'https://www.yougarden.com';
 @endphp
-<header class="demo-header demo-header--argos" role="banner">
+<header class="demo-header demo-header--argos" role="banner" data-header-layout="argos">
     <div class="demo-header__inner demo-header__inner--argos">
         <button
             type="button"
@@ -29,7 +29,8 @@
             >
         </a>
 
-        <nav class="yg-argos-nav" aria-label="Primary">
+        {{-- v1 (Argos): Shop / Trending / Sale beside logo --}}
+        <nav class="yg-argos-nav" aria-label="Primary" data-header-v1-nav>
             <div class="yg-argos-nav__item yg-argos-nav__item--shop" data-nav-dropdown data-shop-dropdown>
                 <button
                     type="button"
@@ -78,9 +79,6 @@
                                                 data-mega-cat
                                                 data-mega-cat-id="viewall-{{ $deptIndex }}"
                                             >
-                                                @if (! empty($dept['image']))
-                                                    <img class="yg-argos-mega__cat-thumb" src="{{ $dept['image'] }}" alt="" width="40" height="40" loading="lazy" decoding="async">
-                                                @endif
                                                 <span class="yg-argos-mega__cat-label">View All {{ $dept['title'] }}</span>
                                             </a>
                                         </li>
@@ -95,9 +93,6 @@
                                                     data-mega-cat-id="{{ $deptIndex }}-{{ $catIndex }}"
                                                     @if (! empty($cat['children'])) aria-haspopup="true" @endif
                                                 >
-                                                    @if (! empty($cat['image']))
-                                                        <img class="yg-argos-mega__cat-thumb" src="{{ $cat['image'] }}" alt="" width="40" height="40" loading="lazy" decoding="async">
-                                                    @endif
                                                     <span class="yg-argos-mega__cat-label">{{ $cat['label'] }}</span>
                                                     @if (! empty($cat['children']))
                                                         <span class="yg-argos-mega__cat-chev" aria-hidden="true"></span>
@@ -116,15 +111,10 @@
                                             <a class="yg-argos-mega__sub-link yg-argos-mega__sub-link--viewall" href="{{ $dept['url'] }}" target="_blank" rel="noopener">
                                                 Shop all {{ $dept['title'] }}
                                             </a>
-                                            <ul class="yg-argos-mega__tiles">
+                                            <ul class="yg-argos-mega__tiles yg-argos-mega__tiles--text">
                                                 @foreach ($dept['children'] as $cat)
                                                     <li>
                                                         <a class="yg-argos-mega__tile" href="{{ $cat['url'] }}" target="_blank" rel="noopener">
-                                                            @if (! empty($cat['image']))
-                                                                <span class="yg-argos-mega__tile-media">
-                                                                    <img src="{{ $cat['image'] }}" alt="" width="120" height="120" loading="lazy" decoding="async">
-                                                                </span>
-                                                            @endif
                                                             <span class="yg-argos-mega__tile-label">{{ $cat['label'] }}</span>
                                                         </a>
                                                     </li>
@@ -139,31 +129,17 @@
                                             >
                                                 <p class="yg-argos-mega__sub-title">{{ $cat['label'] }}</p>
                                                 @if (! empty($cat['children']))
-                                                    <ul class="yg-argos-mega__tiles">
+                                                    <ul class="yg-argos-mega__tiles yg-argos-mega__tiles--text">
                                                         @foreach ($cat['children'] as $sub)
                                                             <li>
                                                                 <a class="yg-argos-mega__tile" href="{{ $sub['url'] }}" target="_blank" rel="noopener">
-                                                                    @if (! empty($sub['image']))
-                                                                        <span class="yg-argos-mega__tile-media">
-                                                                            <img src="{{ $sub['image'] }}" alt="" width="120" height="120" loading="lazy" decoding="async">
-                                                                        </span>
-                                                                    @elseif (! empty($cat['image']))
-                                                                        <span class="yg-argos-mega__tile-media">
-                                                                            <img src="{{ $cat['image'] }}" alt="" width="120" height="120" loading="lazy" decoding="async">
-                                                                        </span>
-                                                                    @endif
                                                                     <span class="yg-argos-mega__tile-label">{{ $sub['label'] }}</span>
                                                                 </a>
                                                             </li>
                                                         @endforeach
                                                     </ul>
                                                 @else
-                                                    <a class="yg-argos-mega__tile yg-argos-mega__tile--featured" href="{{ $cat['url'] }}" target="_blank" rel="noopener">
-                                                        @if (! empty($cat['image']))
-                                                            <span class="yg-argos-mega__tile-media">
-                                                                <img src="{{ $cat['image'] }}" alt="" width="200" height="200" loading="lazy" decoding="async">
-                                                            </span>
-                                                        @endif
+                                                    <a class="yg-argos-mega__tile yg-argos-mega__tile--featured yg-argos-mega__tile--text-only" href="{{ $cat['url'] }}" target="_blank" rel="noopener">
                                                         <span class="yg-argos-mega__tile-label">Shop all {{ $cat['label'] }}</span>
                                                     </a>
                                                 @endif
@@ -175,7 +151,7 @@
                         </div>
 
                         <div class="yg-argos-nav__panel-foot">
-                            <a href="{{ $yg }}/sale" target="_blank" rel="noopener" class="yg-argos-nav__sale-link">Shop the Sale</a>
+                            <a href="{{ route('demo.sale') }}" class="yg-argos-nav__sale-link">Shop the Sale</a>
                             <a href="{{ $yg }}/new" target="_blank" rel="noopener">New arrivals</a>
                             <a href="{{ route('demo.tv-live') }}">YouGarden TV</a>
                         </div>
@@ -209,7 +185,7 @@
                 </div>
             </div>
 
-            <a class="yg-argos-nav__link yg-argos-nav__link--sale" href="{{ $yg }}/sale" target="_blank" rel="noopener">
+            <a class="yg-argos-nav__link yg-argos-nav__link--sale" href="{{ route('demo.sale') }}">
                 Sale
             </a>
 
@@ -262,7 +238,10 @@
                         height="28"
                     >
                 </span>
-                <span class="demo-header__utility-label">YouGarden TV</span>
+                <span class="demo-header__utility-label">
+                    <span class="demo-header__utility-label-full">YouGarden TV</span>
+                    <span class="demo-header__utility-label-short">TV</span>
+                </span>
             </a>
 
             <a
@@ -278,7 +257,10 @@
                         height="22"
                     >
                 </span>
-                <span class="demo-header__utility-label">Join Our Club</span>
+                <span class="demo-header__utility-label">
+                    <span class="demo-header__utility-label-full">Join Our Club</span>
+                    <span class="demo-header__utility-label-short">Club</span>
+                </span>
             </a>
 
             <div class="demo-header__utility demo-header__utility--stacked demo-header__utility--account">
@@ -295,9 +277,14 @@
                     @if ($accountLoggedIn)
                         <a href="{{ route('demo.account.home') }}" class="demo-header__utility-link">{{ $accountFirstName ?: 'Account' }}</a>
                     @else
-                        <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
-                        <span aria-hidden="true"> | </span>
-                        <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
+                        <span class="demo-header__utility-label-full">
+                            <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
+                            <span aria-hidden="true"> | </span>
+                            <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
+                        </span>
+                        <span class="demo-header__utility-label-short">
+                            <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Account</a>
+                        </span>
                     @endif
                 </span>
             </div>
@@ -319,45 +306,33 @@
             </button>
         </div>
     </div>
+
+    {{-- v2 (Currys): white category bar under logo / search / icons --}}
+    <nav class="yg-currys-nav" data-header-v2-nav aria-label="Shop categories" hidden>
+        <div class="yg-currys-nav__inner">
+            <ul class="yg-currys-nav__cats">
+                @foreach ($shop_menu as $dept)
+                    <li>
+                        <a href="{{ $dept['url'] }}" class="yg-currys-nav__link" target="_blank" rel="noopener">{{ $dept['title'] }}</a>
+                    </li>
+                @endforeach
+                <li>
+                    <a href="{{ $yg }}/new" class="yg-currys-nav__link" target="_blank" rel="noopener">New arrivals</a>
+                </li>
+                <li>
+                    <a href="{{ route('demo.plant-finder') }}" class="yg-currys-nav__link">Plant finder</a>
+                </li>
+            </ul>
+            <div class="yg-currys-nav__pills">
+                <a href="{{ route('demo.sale') }}" class="yg-currys-nav__pill yg-currys-nav__pill--deals">Deals</a>
+                <a href="{{ route('demo.tv-live') }}" class="yg-currys-nav__pill">YouGarden TV</a>
+                <a href="{{ $accountLoggedIn ? route('demo.account.club') : route('demo.account.login') }}" class="yg-currys-nav__pill">Club</a>
+            </div>
+        </div>
+    </nav>
 </header>
 
-{{-- No green mega-nav strip — Argos pattern keeps primary links in the header --}}
-
-<div class="demo-mobile-nav" id="demo-mobile-nav" hidden>
-    <div class="demo-mobile-nav__overlay" id="demo-mobile-nav-overlay" tabindex="-1" aria-hidden="true"></div>
-    <aside
-        class="demo-mobile-nav__panel"
-        id="demo-mobile-nav-panel"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="demo-mobile-nav-title"
-    >
-        <header class="demo-mobile-nav__head">
-            <h2 class="demo-mobile-nav__title" id="demo-mobile-nav-title">Shop</h2>
-            <button type="button" class="demo-mobile-nav__close" id="demo-mobile-nav-close" aria-label="Close menu">
-                @include('demo.partials.icon', ['name' => 'close'])
-            </button>
-        </header>
-        <nav class="demo-mobile-nav__links" aria-label="Shop categories">
-            <a href="{{ $yg }}/garden-plants/popular-garden-plants" class="demo-mobile-nav__link" target="_blank" rel="noopener">Trending</a>
-            @foreach ($trending_links ?? [] as $link)
-                <a href="{{ $link['url'] }}" class="demo-mobile-nav__link demo-mobile-nav__link--sub" target="_blank" rel="noopener">{{ $link['label'] }}</a>
-            @endforeach
-            <a href="{{ $yg }}/sale" class="demo-mobile-nav__link demo-mobile-nav__link--sale" target="_blank" rel="noopener">Sale</a>
-            <a href="{{ $yg }}/new" class="demo-mobile-nav__link demo-mobile-nav__link--new" target="_blank" rel="noopener">New</a>
-            @foreach ($shop_menu as $column)
-                <a href="{{ $column['url'] }}" class="demo-mobile-nav__link" target="_blank" rel="noopener">{{ $column['title'] }}</a>
-                @foreach ($column['children'] ?? $column['links'] ?? [] as $link)
-                    <a href="{{ $link['url'] }}" class="demo-mobile-nav__link demo-mobile-nav__link--sub" target="_blank" rel="noopener">{{ $link['label'] }}</a>
-                    @foreach ($link['children'] ?? [] as $sub)
-                        <a href="{{ $sub['url'] }}" class="demo-mobile-nav__link demo-mobile-nav__link--sub2" target="_blank" rel="noopener">{{ $sub['label'] }}</a>
-                    @endforeach
-                @endforeach
-            @endforeach
-            <a href="{{ route('demo.tv-live') }}" class="demo-mobile-nav__link demo-mobile-nav__link--tv">YouGarden TV</a>
-        </nav>
-    </aside>
-</div>
+@include('demo.partials.mobile-nav-currys')
 
 @if ($show_trust ?? false)
 <div class="usp-wrapper" id="usp-wrapper" aria-label="Store promises">

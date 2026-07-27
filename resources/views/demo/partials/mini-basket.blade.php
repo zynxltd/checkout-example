@@ -25,7 +25,10 @@
                 height="34"
             >
         </span>
-        <span class="demo-header__utility-label">Your Basket</span>
+        <span class="demo-header__utility-label">
+            <span class="demo-header__utility-label-full">Your Basket</span>
+            <span class="demo-header__utility-label-short">Basket</span>
+        </span>
         <span class="visually-hidden">
             <span id="topbar-cart-count">{{ $miniCount }}</span> item(s)
             £<span id="topbar-cart-total">{{ number_format($miniTotal, 2) }}</span>

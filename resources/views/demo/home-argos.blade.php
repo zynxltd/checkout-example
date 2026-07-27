@@ -84,7 +84,8 @@
                                     alt="{{ $slide['alt'] }}"
                                     width="1920"
                                     height="600"
-                                    @if ($index !== 0) loading="lazy" @endif
+                                    sizes="(max-width: 960px) 100vw, 1440px"
+                                    @if ($index === 0) fetchpriority="high" @else loading="lazy" @endif
                                 >
                             </a>
 
@@ -93,8 +94,7 @@
                                     <a
                                         href="{{ $cta['url'] }}"
                                         class="yg-hero-argos__cta"
-                                        target="_blank"
-                                        rel="noopener"
+                                        @if (str_starts_with($cta['url'], 'http')) target="_blank" rel="noopener" @endif
                                         @if ($index !== 0) tabindex="-1" @endif
                                     >{{ $cta['label'] }}</a>
                                 @endforeach
@@ -215,8 +215,7 @@
             <a
                 class="yg-home-banner"
                 href="{{ $sale_banner['url'] }}"
-                target="_blank"
-                rel="noopener"
+                @if (str_starts_with($sale_banner['url'], 'http')) target="_blank" rel="noopener" @endif
                 aria-label="{{ $sale_banner['label'] }}"
             >
                 <img
@@ -290,6 +289,7 @@
 
 @push('scripts')
 <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
+<script src="{{ asset('js/yg-argos-nav.js') }}?v={{ filemtime(public_path('js/yg-argos-nav.js')) }}" defer></script>
 <script>
 (function () {
     var TV_KEY = 'yg_argos_tv_live_placement';
@@ -345,6 +345,23 @@
         }
         applyTvPlacement(tvSaved);
         applyAboveLayout(aboveSaved);
+
+        // Always use Argos header (v2 Currys toggle removed from prototype tools)
+        var header = document.querySelector('.demo-header--argos[data-header-layout]');
+        if (header) {
+            header.setAttribute('data-header-layout', 'argos');
+        }
+        document.body.classList.remove('yg-header-currys');
+        document.body.classList.add('yg-header-argos');
+        document.querySelectorAll('[data-header-v1-nav]').forEach(function (el) {
+            el.removeAttribute('hidden');
+        });
+        document.querySelectorAll('[data-header-v2-nav]').forEach(function (el) {
+            el.setAttribute('hidden', '');
+        });
+        try {
+            localStorage.removeItem('yg_argos_header_layout');
+        } catch (e) { /* ignore */ }
 
         document.querySelectorAll('[data-tv-live-option]').forEach(function (input) {
             input.addEventListener('change', function () {
@@ -514,169 +531,6 @@
         });
     }
 
-    // Header nav dropdowns (Shop + Trending)
-    var navDropdowns = Array.prototype.slice.call(document.querySelectorAll('[data-nav-dropdown]'));
-    var pageOverlay = document.querySelector('[data-nav-page-overlay]');
-
-    function syncNavPageOverlay() {
-        if (!pageOverlay) return;
-        var open = navDropdowns.some(function (item) {
-            return item.classList.contains('is-open');
-        });
-        var top = 0;
-        var usp = document.getElementById('usp-wrapper');
-        var header = document.querySelector('.demo-header--argos');
-        if (usp) {
-            top = usp.getBoundingClientRect().bottom;
-        } else if (header) {
-            top = header.getBoundingClientRect().bottom;
-        }
-        pageOverlay.style.top = Math.max(0, Math.round(top)) + 'px';
-        pageOverlay.classList.toggle('is-active', open);
-        pageOverlay.hidden = !open;
-        pageOverlay.setAttribute('aria-hidden', open ? 'false' : 'true');
-        document.body.classList.toggle('yg-nav-dropdown-open', open);
-    }
-
-    function closeAllNavDropdowns(except) {
-        navDropdowns.forEach(function (item) {
-            if (except && item === except) return;
-            var trigger = item.querySelector('.yg-argos-nav__link--btn');
-            var panel = item.querySelector('.yg-argos-nav__panel');
-            if (!trigger || !panel) return;
-            item.classList.remove('is-open');
-            trigger.setAttribute('aria-expanded', 'false');
-            panel.hidden = true;
-        });
-        syncNavPageOverlay();
-    }
-
-    navDropdowns.forEach(function (item) {
-        var trigger = item.querySelector('.yg-argos-nav__link--btn');
-        var panel = item.querySelector('.yg-argos-nav__panel');
-        if (!trigger || !panel) return;
-
-        var closeTimer = null;
-
-        function closeDropdown() {
-            clearTimeout(closeTimer);
-            closeTimer = null;
-            item.classList.remove('is-open');
-            trigger.setAttribute('aria-expanded', 'false');
-            panel.hidden = true;
-            syncNavPageOverlay();
-        }
-
-        function openDropdown() {
-            clearTimeout(closeTimer);
-            closeTimer = null;
-            closeAllNavDropdowns(item);
-            var mini = document.querySelector('[data-mini-basket]');
-            if (mini) {
-                mini.classList.remove('is-open');
-                var miniPanel = mini.querySelector('[data-mini-basket-panel]');
-                var miniTrigger = mini.querySelector('[data-mini-basket-trigger]');
-                if (miniPanel) miniPanel.hidden = true;
-                if (miniTrigger) miniTrigger.setAttribute('aria-expanded', 'false');
-            }
-            item.classList.add('is-open');
-            trigger.setAttribute('aria-expanded', 'true');
-            panel.hidden = false;
-            syncNavPageOverlay();
-        }
-
-        function scheduleClose() {
-            clearTimeout(closeTimer);
-            closeTimer = setTimeout(closeDropdown, 240);
-        }
-
-        trigger.addEventListener('click', function (e) {
-            e.stopPropagation();
-            if (panel.hidden) openDropdown();
-            else closeDropdown();
-        });
-        item.addEventListener('mouseenter', openDropdown);
-        item.addEventListener('mouseleave', scheduleClose);
-        item.addEventListener('focusin', openDropdown);
-        item.addEventListener('focusout', function (e) {
-            if (!item.contains(e.relatedTarget)) scheduleClose();
-        });
-    });
-
-    if (pageOverlay) {
-        pageOverlay.addEventListener('click', function () {
-            closeAllNavDropdowns();
-        });
-    }
-    window.addEventListener('resize', function () {
-        if (document.body.classList.contains('yg-nav-dropdown-open')) syncNavPageOverlay();
-    });
-    window.addEventListener('scroll', function () {
-        if (document.body.classList.contains('yg-nav-dropdown-open')) syncNavPageOverlay();
-    }, { passive: true });
-
-    document.addEventListener('click', function (e) {
-        if (!e.target.closest('[data-nav-dropdown]')) closeAllNavDropdowns();
-    });
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeAllNavDropdowns();
-    });
-
-    // Shop mega: department tabs + category → subcategory flyout
-    var shopPanel = document.getElementById('yg-shop-panel');
-    if (shopPanel) {
-        var mega = shopPanel.querySelector('[data-shop-mega]');
-        if (mega) {
-            function activateDept(index) {
-                mega.querySelectorAll('[data-mega-dept]').forEach(function (btn) {
-                    var on = btn.getAttribute('data-mega-dept') === String(index);
-                    btn.classList.toggle('is-active', on);
-                    btn.setAttribute('aria-selected', on ? 'true' : 'false');
-                });
-                mega.querySelectorAll('[data-mega-dept-panel]').forEach(function (panel) {
-                    var on = panel.getAttribute('data-mega-dept-panel') === String(index);
-                    panel.classList.toggle('is-active', on);
-                    panel.hidden = !on;
-                });
-            }
-
-            function activateCat(panel, catId) {
-                panel.querySelectorAll('[data-mega-cat]').forEach(function (cat) {
-                    cat.classList.toggle('is-active', cat.getAttribute('data-mega-cat-id') === catId);
-                });
-                panel.querySelectorAll('[data-mega-sub]').forEach(function (sub) {
-                    var on = sub.getAttribute('data-mega-sub') === catId;
-                    sub.classList.toggle('is-active', on);
-                    sub.hidden = !on;
-                });
-            }
-
-            mega.querySelectorAll('[data-mega-dept]').forEach(function (btn) {
-                btn.addEventListener('mouseenter', function () {
-                    activateDept(btn.getAttribute('data-mega-dept'));
-                });
-                btn.addEventListener('focus', function () {
-                    activateDept(btn.getAttribute('data-mega-dept'));
-                });
-                btn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    activateDept(btn.getAttribute('data-mega-dept'));
-                });
-            });
-
-            mega.querySelectorAll('[data-mega-dept-panel]').forEach(function (panel) {
-                panel.querySelectorAll('[data-mega-cat]').forEach(function (cat) {
-                    cat.addEventListener('mouseenter', function () {
-                        activateCat(panel, cat.getAttribute('data-mega-cat-id'));
-                    });
-                    cat.addEventListener('focus', function () {
-                        activateCat(panel, cat.getAttribute('data-mega-cat-id'));
-                    });
-                });
-            });
-        }
-    }
-
     var root = document.querySelector('[data-hero-carousel]');
     if (!root) return;
 
@@ -783,6 +637,78 @@
         pauseBtn.addEventListener('click', function () {
             setPaused(!paused);
         });
+    }
+
+    var slidesViewport = root.querySelector('.yg-hero-argos__slides');
+    var heroDrag = {
+        active: false,
+        moved: false,
+        pointerId: null,
+        startX: 0,
+    };
+    var HERO_SWIPE_THRESHOLD = 28;
+    var heroIgnoreClickUntil = 0;
+
+    if (slidesViewport) {
+        slidesViewport.addEventListener(
+            'click',
+            function (e) {
+                if (Date.now() < heroIgnoreClickUntil) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                }
+            },
+            true
+        );
+
+        slidesViewport.addEventListener('pointerdown', function (e) {
+            if (e.button != null && e.button !== 0) return;
+            if (e.target.closest && e.target.closest('.yg-hero-argos__controls')) return;
+            heroDrag.active = true;
+            heroDrag.moved = false;
+            heroDrag.pointerId = e.pointerId;
+            heroDrag.startX = e.clientX;
+            try {
+                slidesViewport.setPointerCapture(e.pointerId);
+            } catch (err) { /* ignore */ }
+        });
+
+        slidesViewport.addEventListener('pointermove', function (e) {
+            if (!heroDrag.active || e.pointerId !== heroDrag.pointerId) return;
+            var dx = e.clientX - heroDrag.startX;
+            if (!heroDrag.moved && Math.abs(dx) >= HERO_SWIPE_THRESHOLD) {
+                heroDrag.moved = true;
+                slidesViewport.classList.add('is-dragging');
+            }
+            if (heroDrag.moved) {
+                e.preventDefault();
+            }
+        });
+
+        function endHeroDrag(e) {
+            if (!heroDrag.active) return;
+            if (e && heroDrag.pointerId != null && e.pointerId !== heroDrag.pointerId) return;
+            var dx = e && e.clientX != null ? e.clientX - heroDrag.startX : 0;
+            var wasMoved = heroDrag.moved;
+            heroDrag.active = false;
+            heroDrag.pointerId = null;
+            slidesViewport.classList.remove('is-dragging');
+            if (wasMoved) {
+                heroIgnoreClickUntil = Date.now() + 450;
+                if (dx <= -HERO_SWIPE_THRESHOLD) {
+                    show(index + 1);
+                    if (!paused) startAuto();
+                } else if (dx >= HERO_SWIPE_THRESHOLD) {
+                    show(index - 1);
+                    if (!paused) startAuto();
+                }
+            }
+            heroDrag.moved = false;
+        }
+
+        slidesViewport.addEventListener('pointerup', endHeroDrag);
+        slidesViewport.addEventListener('pointercancel', endHeroDrag);
+        slidesViewport.addEventListener('lostpointercapture', endHeroDrag);
     }
 
     root.addEventListener('mouseenter', function () { if (!paused) stopAuto(); });

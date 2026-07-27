@@ -1,0 +1,103 @@
+/* /sale landing — category strip + PLP filters + product grid */
+
+body.demo-sale {
+    --yg-sale-accent: var(--yg-rose, #e3185d);
+}
+
+.demo-site--sale .demo-sale__main {
+    padding-bottom: 48px;
+}
+
+.demo-sale .demo-listing-toolbar {
+    margin: 0 0 12px;
+}
+
+.yg-sale-products__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px 16px;
+    margin: 0 0 14px;
+}
+
+.yg-sale-products__title {
+    margin: 0;
+    font-family: var(--yg-heading);
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    font-weight: 700;
+    color: var(--yg-pebble);
+}
+
+.yg-sale-products__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.yg-sale-empty {
+    margin: 24px 0 0;
+    padding: 18px;
+    border-radius: 10px;
+    background: var(--yg-stone, #f2e7d8);
+    font-family: var(--yg-body);
+    font-size: 15px;
+    text-align: center;
+    color: var(--yg-pebble);
+}
+
+.demo-sale .resListingWrapper .category-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.demo-sale .category-box.is-sale-hidden,
+.demo-sale .category-box[hidden] {
+    display: none !important;
+}
+
+.demo-sale .category-box > img.overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    width: min(42%, 140px);
+    height: auto;
+    pointer-events: none;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 980px) {
+    .yg-sale-products__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+}
+
+@media (max-width: 560px) {
+    .demo-sale .category-box > img.overlay {
+        top: 8px;
+        left: 8px;
+        width: min(48%, 120px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .demo-sale * {
+        scroll-behavior: auto !important;
+    }
+}

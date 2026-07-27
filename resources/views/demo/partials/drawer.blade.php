@@ -75,7 +75,6 @@
             <header class="yg-drawer__header">
                 <div class="yg-drawer__heading">
                     <h2 class="yg-drawer__title" id="yg-drawer-title">Your Basket</h2>
-                    <span class="yg-drawer__count" aria-label="{{ $cart['item_count'] }} items">{{ $cart['item_count'] }}</span>
                 </div>
                 <button type="button" class="yg-drawer__close" data-drawer-close aria-label="Close basket">@include('demo.partials.icon', ['name' => 'close'])</button>
             </header>
