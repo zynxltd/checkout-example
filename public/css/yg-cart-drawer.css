@@ -65,8 +65,8 @@ body.yg-drawer-open {
     --yg-theme-club-btn: var(--yg-rose);
     --yg-theme-apply-btn-bg: var(--yg-green-header);
     --yg-theme-apply-btn-text: #ffffff;
-    --yg-theme-checkout-bg: var(--yg-green-header);
-    --yg-theme-checkout-text: #ffffff;
+    --yg-theme-checkout-bg: #f2e7d8;
+    --yg-theme-checkout-text: #000000;
     --yg-theme-reco-heading: var(--yg-forest);
     --yg-theme-summary-bg: #ffffff;
 }
@@ -2204,7 +2204,7 @@ body.yg-drawer-open {
 }
 
 .yg-checkout:hover {
-    filter: brightness(0.92);
+    filter: brightness(0.96);
 }
 
 .yg-checkout__icon {
@@ -2213,7 +2213,8 @@ body.yg-drawer-open {
     display: block;
     flex-shrink: 0;
     object-fit: contain;
-    filter: none;
+    /* White PNG → black so it reads on stone */
+    filter: brightness(0);
 }
 
 .yg-checkout__label {
@@ -2221,6 +2222,7 @@ body.yg-drawer-open {
     font-size: 1.2rem;
     font-weight: 700;
     line-height: 1.2;
+    color: var(--yg-theme-checkout-text);
 }
 
 .yg-checkout__label--desktop {
