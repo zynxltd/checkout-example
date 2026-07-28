@@ -60,9 +60,21 @@
 <section class="demo-pdp__also" aria-labelledby="demo-also-title">
     <h2 class="demo-pdp__also-title" id="demo-also-title">Customers also bought</h2>
     <div class="demo-pdp__also-card">
-        <p class="demo-pdp__also-name">{{ $product['also_bought']['name'] }}</p>
-        <p class="demo-pdp__also-price">£{{ number_format($product['also_bought']['price'], 2) }}</p>
-        <button type="button" class="demo-pdp__also-add">Add</button>
+        @if (! empty($product['also_bought']['image']))
+            <img
+                src="{{ asset($product['also_bought']['image']) }}"
+                alt=""
+                class="demo-pdp__also-img"
+                width="72"
+                height="72"
+                loading="lazy"
+            >
+        @endif
+        <div class="demo-pdp__also-copy">
+            <p class="demo-pdp__also-name">{{ $product['also_bought']['name'] }}</p>
+            <p class="demo-pdp__also-price">£{{ number_format($product['also_bought']['price'], 2) }}</p>
+        </div>
+        <button type="button" class="demo-pdp__also-add" data-addon-sku="{{ $product['also_bought']['sku'] ?? '' }}">Add</button>
     </div>
 </section>
 
@@ -75,7 +87,7 @@
                 <div class="demo-pdp-addon-card__body">
                     <h3 class="demo-pdp-addon-card__name">{{ $addon['name'] }}</h3>
                     <p class="demo-pdp-addon-card__price">£{{ number_format($addon['price'], 2) }}</p>
-                    <button type="button" class="demo-pdp-addon-card__add" data-addon-sku="{{ $addon['sku'] }}">Add</button>
+                    <button type="button" class="demo-pdp-addon-card__add" data-addon-sku="{{ $addon['sku'] }}">Add to basket</button>
                 </div>
             </article>
         @endforeach

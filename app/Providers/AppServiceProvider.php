@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\DemoArgosNav;
 use App\Support\DemoDrawerVariant;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +29,16 @@ class AppServiceProvider extends ServiceProvider
         View::composer('demo.partials.drawer', function ($view): void {
             $view->with('drawerVariant21', DemoDrawerVariant::isActive());
             $view->with('drawerVariant30', DemoDrawerVariant::isV30Active());
+        });
+
+        View::composer('demo.partials.site-chrome-argos', function ($view): void {
+            $data = $view->getData();
+            if (empty($data['shop_menu'])) {
+                $view->with('shop_menu', DemoArgosNav::shopMenu());
+            }
+            if (empty($data['trending_links'])) {
+                $view->with('trending_links', DemoArgosNav::trendingLinks());
+            }
         });
     }
 }

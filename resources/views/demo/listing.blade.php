@@ -75,63 +75,81 @@
             @foreach ($listing['products'] as $product)
                 @php
                     $isOutOfStock = ! empty($product['out_of_stock']);
+                    $qvPayload = \App\Services\DemoCart::quickViewPayload($product);
                 @endphp
-                <a
-                    href="{{ $product['url'] }}"
+                <article
                     class="category-box{{ ! empty($product['featured']) ? ' is-featured' : '' }}{{ $isOutOfStock ? ' is-out-of-stock' : '' }}"
-                    @if ($isOutOfStock) aria-label="{{ $product['name'] }} — out of stock" @endif
+                    data-qv-card
+                    data-availability="{{ $isOutOfStock ? 'out-of-stock' : 'in-stock' }}"
+                    data-qv-json="{{ json_encode($qvPayload, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) }}"
                 >
-                    <div class="imgWrapper">
-                        <img
-                            src="{{ asset($product['image']) }}"
-                            alt="{{ $product['name'] }}"
-                            width="500"
-                            height="500"
-                            loading="lazy"
-                        >
-                    </div>
+                    <a
+                        href="{{ $product['url'] }}"
+                        class="category-box__hit"
+                        @if ($isOutOfStock) aria-label="{{ $product['name'] }} — out of stock" @endif
+                    >
+                        <div class="imgWrapper">
+                            <img
+                                src="{{ asset($product['image']) }}"
+                                alt="{{ $product['name'] }}"
+                                width="500"
+                                height="500"
+                                loading="lazy"
+                            >
+                        </div>
 
-                    @if ($isOutOfStock)
-                        <div class="outOfStock" aria-hidden="true">OUT<br>OF<br>STOCK</div>
-                    @else
-                        <div class="savingFlash" aria-hidden="true">{{ $product['discount'] }}%<br>OFF</div>
-                    @endif
+                        @if ($isOutOfStock)
+                            <div class="outOfStock" aria-hidden="true">OUT<br>OF<br>STOCK</div>
+                        @else
+                            <div class="savingFlash" aria-hidden="true">{{ $product['discount'] }}%<br>OFF</div>
+                        @endif
 
-                    <div class="category-box__content">
-                        <div class="title">{{ $product['name'] }}</div>
+                        <div class="category-box__content">
+                            <div class="title">{{ $product['name'] }}</div>
 
-                        <div class="category-box__meta">
-                            <div class="priceWrapper">
-                                <div class="price">{{ $product['price_label'] }} £{{ number_format($product['price'], 2) }}</div>
-                            </div>
-                            <div class="rating" aria-label="{{ number_format($product['rating'], 1) }} out of 5 stars, {{ number_format($product['reviews']) }} reviews">
-                                @include('demo.partials.feefo-stars', [
-                                    'rating' => $product['rating'],
-                                    'reviews' => $product['reviews'],
-                                ])
-                                @if (! empty($product['featured']))
-                                    <div class="demo-listing-card__tooltip" role="tooltip">
-                                        <p class="demo-listing-card__tooltip-title">{{ number_format($product['rating'], 1) }}/5 Stars</p>
-                                        @php
-                                            $bars = [5 => 62, 4 => 18, 3 => 8, 2 => 6, 1 => 6];
-                                        @endphp
-                                        @foreach ($bars as $star => $pct)
-                                            <div class="demo-listing-card__tooltip-row">
-                                                <span>{{ $star }}</span>
-                                                <div class="demo-listing-card__tooltip-bar"><span style="width: {{ $pct }}%"></span></div>
-                                                <span>{{ $pct }}%</span>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
+                            <div class="category-box__meta">
+                                <div class="priceWrapper">
+                                    <div class="price">{{ $product['price_label'] }} £{{ number_format($product['price'], 2) }}</div>
+                                </div>
+                                <div class="rating" aria-label="{{ number_format($product['rating'], 1) }} out of 5 stars, {{ number_format($product['reviews']) }} reviews">
+                                    @include('demo.partials.feefo-stars', [
+                                        'rating' => $product['rating'],
+                                        'reviews' => $product['reviews'],
+                                    ])
+                                    @if (! empty($product['featured']))
+                                        <div class="demo-listing-card__tooltip" role="tooltip">
+                                            <p class="demo-listing-card__tooltip-title">{{ number_format($product['rating'], 1) }}/5 Stars</p>
+                                            @php
+                                                $bars = [5 => 62, 4 => 18, 3 => 8, 2 => 6, 1 => 6];
+                                            @endphp
+                                            @foreach ($bars as $star => $pct)
+                                                <div class="demo-listing-card__tooltip-row">
+                                                    <span>{{ $star }}</span>
+                                                    <div class="demo-listing-card__tooltip-bar"><span style="width: {{ $pct }}%"></span></div>
+                                                    <span>{{ $pct }}%</span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="category-box__cta{{ $isOutOfStock ? ' category-box__cta--oos' : '' }}">
-                        {{ $isOutOfStock ? 'Email when available' : 'Find out more' }}
-                    </div>
-                </a>
+                        <div class="category-box__cta{{ $isOutOfStock ? ' category-box__cta--oos' : '' }}">
+                            {{ $isOutOfStock ? 'Email when available' : 'Find out more' }}
+                        </div>
+                    </a>
+
+                    <button
+                        type="button"
+                        class="category-box__qv"
+                        data-qv-open
+                        aria-haspopup="dialog"
+                        aria-controls="listing-quick-view"
+                    >
+                        Quick view
+                    </button>
+                </article>
             @endforeach
         </div>
     </main>
@@ -144,6 +162,8 @@
 <div id="yg-drawer-mount">
     @include('demo.partials.drawer', ['cart' => $cart])
 </div>
+
+@include('demo.partials.listing-quick-view')
 
 <div class="demo-prototype-stack" id="demo-listing-prototype-stack">
     <button type="button" class="demo-prototype-stack__dock" data-prototype-dock aria-expanded="false" aria-controls="demo-listing-prototype-stack-body">Prototype tools</button>
@@ -181,6 +201,7 @@
     <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
     <script src="{{ asset('js/demo-listing-filters.js') }}?v={{ filemtime(public_path('js/demo-listing-filters.js')) }}" defer></script>
     <script src="{{ asset('js/demo-listing-prototype.js') }}?v={{ filemtime(public_path('js/demo-listing-prototype.js')) }}" defer></script>
+    <script src="{{ asset('js/demo-listing-quick-view.js') }}?v={{ filemtime(public_path('js/demo-listing-quick-view.js')) }}" defer></script>
     <script>
     (function () {
         var btn = document.getElementById('demo-listing-back-top');

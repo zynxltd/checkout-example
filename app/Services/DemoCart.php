@@ -215,6 +215,7 @@ class DemoCart
                 'sku' => '401842',
                 'name' => "Upright Zonal Geranium 'Parade' Mix",
                 'price' => 9.99,
+                'image' => 'images/products/401842.jpg',
             ],
             'features' => [
                 ['label' => 'Perfect In Pots', 'icon' => 'pot'],
@@ -554,12 +555,174 @@ class DemoCart
         ];
 
         return array_map(function (array $product, int $index) use ($images) {
-            $product['image'] = $images[$index % count($images)];
+            $image = $images[$index % count($images)];
+            $sku = 'PLP'.str_pad((string) ($index + 1), 3, '0', STR_PAD_LEFT);
+            $price = (float) $product['price'];
+            $discount = (int) ($product['discount'] ?? 0);
+            $was = $discount > 0 && $discount < 100
+                ? round($price / (1 - ($discount / 100)), 2)
+                : round($price * 1.4, 2);
+            $save = round(max(0, $was - $price), 2);
+            $clubPrice = round($price * 0.85, 2);
+
+            $galleryPool = array_values(array_unique([
+                $image,
+                $images[($index + 1) % count($images)],
+                $images[($index + 2) % count($images)],
+                $images[($index + 3) % count($images)],
+                $images[($index + 4) % count($images)],
+            ]));
+
+            $product['sku'] = $sku;
+            $product['image'] = $image;
             $product['url'] = route('demo.pdp');
             $product['out_of_stock'] = ! empty($product['out_of_stock']);
+            $product['was_price'] = $was;
+            $product['save'] = $save;
+            $product['club_price'] = $clubPrice;
+            $product['variant'] = $product['variant'] ?? '1 × collection';
+            $product['blurb'] = $product['blurb'] ?? 'Garden-ready plants from YouGarden — easy to grow, selected for reliable results in UK gardens.';
+            $product['description'] = $product['description'] ?? ('Enjoy '.$product['name'].' with strong garden performance and colour you can count on. Supplied ready to plant, with clear care guidance so you get results even if you are new to gardening.');
+            $product['popular_views'] = 80 + (($index * 37) % 160);
+            $product['low_stock'] = ! $product['out_of_stock'] && in_array($index % 5, [0, 3], true);
+            $product['features'] = $product['features'] ?? [
+                ['label' => 'Easy To Grow'],
+                ['label' => 'Perfect In Pots'],
+                ['label' => 'Plant In Sunshine'],
+                ['label' => 'Wildlife Friendly'],
+            ];
+            $product['trust'] = [
+                'Free 30-day refund & replacement',
+                'Double guarantee on hardy plants',
+                'Standard delivery from £'.number_format(self::DELIVERY, 2),
+            ];
+            $product['gallery'] = array_map(static function (string $src, int $i) use ($product): array {
+                return [
+                    'image' => $src,
+                    'alt' => $product['name'].($i === 0 ? '' : ' — view '.($i + 1)),
+                ];
+            }, $galleryPool, array_keys($galleryPool));
+            $product['variants'] = [
+                [
+                    'id' => 'collection',
+                    'label' => '1 × collection',
+                    'sku' => $sku,
+                    'price' => $price,
+                    'was_price' => $was,
+                    'default' => true,
+                ],
+                [
+                    'id' => 'twin',
+                    'label' => '2 × collections (save more)',
+                    'sku' => $sku,
+                    'price' => round($price * 1.85, 2),
+                    'was_price' => round($was * 2, 2),
+                    'default' => false,
+                    'qty' => 2,
+                    'badge' => 'Best value',
+                ],
+            ];
 
             return $product;
         }, $products, array_keys($products));
+    }
+
+    /**
+     * Normalise a listing/sale/finder product into Quick View JSON payload.
+     *
+     * @param  array<string, mixed>  $product
+     * @return array<string, mixed>
+     */
+    public static function quickViewPayload(array $product): array
+    {
+        $isOutOfStock = ! empty($product['out_of_stock']) || ! empty($product['oos']);
+        $price = (float) ($product['price'] ?? $product['price_value'] ?? 0);
+        $wasPrice = $product['was_price'] ?? $product['was'] ?? null;
+        $image = (string) ($product['image'] ?? 'images/products/401842.jpg');
+        $name = (string) ($product['name'] ?? 'Product');
+        $sku = (string) ($product['sku'] ?? '401842');
+
+        $gallery = $product['gallery'] ?? null;
+        if (! is_array($gallery) || $gallery === []) {
+            $pool = [
+                $image,
+                'images/products/401842.jpg',
+                'images/products/402156.jpg',
+                'images/products/403891.jpg',
+                'images/products/404220.jpg',
+            ];
+            $gallery = array_map(static function (string $src, int $i) use ($name): array {
+                return [
+                    'image' => $src,
+                    'alt' => $name.($i === 0 ? '' : ' — view '.($i + 1)),
+                ];
+            }, $pool, array_keys($pool));
+        }
+
+        $features = $product['features'] ?? [
+            ['label' => 'Easy To Grow'],
+            ['label' => 'Perfect In Pots'],
+            ['label' => 'Plant In Sunshine'],
+        ];
+
+        return [
+            'sku' => $sku,
+            'name' => $name,
+            'image' => str_starts_with($image, 'http') ? $image : asset($image),
+            'price' => $price,
+            'price_label' => (string) ($product['price_label'] ?? ''),
+            'was' => $wasPrice !== null ? (float) $wasPrice : null,
+            'save' => (float) ($product['save'] ?? (($wasPrice && $price < $wasPrice) ? ((float) $wasPrice - $price) : 0)),
+            'club_price' => (float) ($product['club_price'] ?? round($price * 0.85, 2)),
+            'discount' => (int) ($product['discount'] ?? 0),
+            'rating' => (float) ($product['rating'] ?? 4.5),
+            'reviews' => (int) ($product['reviews'] ?? 0),
+            'variant' => (string) ($product['variant'] ?? '1 × collection'),
+            'blurb' => (string) ($product['blurb'] ?? 'Selected for the YouGarden show / sale — easy to grow and great value.'),
+            'description' => (string) ($product['description'] ?? ('Enjoy '.$name.' with reliable UK garden performance. Supplied ready to plant with clear care guidance.')),
+            'url' => (string) ($product['url'] ?? route('demo.pdp')),
+            'oos' => $isOutOfStock,
+            'popular_views' => (int) ($product['popular_views'] ?? 0),
+            'low_stock' => ! empty($product['low_stock']),
+            'features' => $features,
+            'trust' => $product['trust'] ?? [
+                'Free 30-day refund & replacement',
+                'Double guarantee on hardy plants',
+                'Standard delivery from £'.number_format(self::DELIVERY, 2),
+            ],
+            'gallery' => array_map(static function (array $g): array {
+                $src = (string) ($g['image'] ?? '');
+
+                return [
+                    'image' => str_starts_with($src, 'http') ? $src : asset($src),
+                    'alt' => (string) ($g['alt'] ?? ''),
+                ];
+            }, $gallery),
+            'variants' => $product['variants'] ?? [],
+        ];
+    }
+
+    /** @return array<string, array<string, mixed>> */
+    public static function listingCatalogueEntries(): array
+    {
+        $entries = [];
+        foreach (self::listingProducts() as $product) {
+            $sku = (string) ($product['sku'] ?? '');
+            if ($sku === '') {
+                continue;
+            }
+            $entries[$sku] = [
+                'sku' => $sku,
+                'name' => $product['name'],
+                'variant' => $product['variant'] ?? '1 × collection',
+                'image' => $product['image'],
+                'price' => (float) $product['price'],
+                'was_price' => (float) ($product['was_price'] ?? $product['price']),
+                'club_saving_per_unit' => round(((float) $product['price']) * 0.15, 2),
+            ];
+        }
+
+        return $entries;
     }
 
     /** @return list<array{id: string, label: string, options: array<string, string>}> */
@@ -574,6 +737,10 @@ class DemoCart
         };
 
         return [
+            $filter('availability', 'Availability', [
+                'in-stock' => 'In stock',
+                'out-of-stock' => 'Out of stock',
+            ]),
             $filter('awards', 'Awards', [
                 'rhs-agm' => 'RHS Award of Garden Merit',
                 'perfect-for-pollinators' => 'Perfect for Pollinators',
@@ -871,12 +1038,24 @@ class DemoCart
         ];
 
         return array_map(function (array $product, int $index) use ($images, $categoryLabels) {
+            $demoSkus = ['401842', '402156', '403891', '404220', '510317', '404221', '501004'];
+            $sku = $demoSkus[$index % count($demoSkus)];
+            $product['sku'] = $sku;
             $product['image'] = $images[$index % count($images)];
             $product['url'] = route('demo.pdp');
             $product['category_label'] = $categoryLabels[$product['category']] ?? 'Plants';
             $product['was_price'] = $product['discount'] > 0
                 ? round($product['price'] / (1 - ($product['discount'] / 100)), 2)
                 : null;
+            $product['variant'] = $product['variant'] ?? '1 × plant';
+            $product['blurb'] = $product['blurb'] ?? 'Matched by Plant Finder for your space and growing goals.';
+            $product['description'] = $product['description'] ?? ('Discover '.$product['name'].' — selected for UK gardens and easy planting success.');
+            $product['features'] = $product['features'] ?? array_map(
+                static fn (string $trait): array => ['label' => ucwords(str_replace('-', ' ', $trait))],
+                array_slice($product['traits'] ?? ['easy'], 0, 4)
+            );
+            $product['low_stock'] = ($index % 7) === 0;
+            $product['popular_views'] = 60 + (($index * 29) % 140);
 
             return $product;
         }, $products, array_keys($products));
@@ -971,7 +1150,7 @@ class DemoCart
 
     public static function catalogue(): array
     {
-        return [
+        return array_merge([
             '401842' => [
                 'sku' => '401842',
                 'name' => "Upright Zonal Geranium 'Parade' Mix",
@@ -1146,7 +1325,7 @@ class DemoCart
                 'was_price' => self::CLUB_WAS_PRICE,
                 'is_club' => true,
             ],
-        ];
+        ], self::listingCatalogueEntries());
     }
 
     public static function hasClubInCart(): bool

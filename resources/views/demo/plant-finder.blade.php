@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/demo-shared-enhanced.css') }}?v={{ filemtime(public_path('css/demo-shared-enhanced.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/yg-drawer-theme.css') }}?v={{ filemtime(public_path('css/yg-drawer-theme.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/demo-pdp-reviews-footer.css') }}?v={{ filemtime(public_path('css/demo-pdp-reviews-footer.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/demo-listing.css') }}?v={{ filemtime(public_path('css/demo-listing.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/demo-plant-finder.css') }}?v={{ filemtime(public_path('css/demo-plant-finder.css')) }}">
 @endpush
 
@@ -206,10 +207,12 @@
                     @foreach ($finder['products'] as $product)
                         @php
                             $topTraits = array_slice($product['traits'], 0, 3);
+                            $qvPayload = \App\Services\DemoCart::quickViewPayload($product);
                         @endphp
                         <article
                             class="demo-pf-card"
                             data-pf-card
+                            data-qv-card
                             data-name="{{ $product['name'] }}"
                             data-price="{{ $product['price'] }}"
                             data-category="{{ $product['category'] }}"
@@ -217,6 +220,7 @@
                             data-flowering="{{ implode(',', $product['flowering']) }}"
                             data-fruiting="{{ implode(',', $product['fruiting']) }}"
                             data-traits="{{ implode(' ', $product['traits']) }}"
+                            data-qv-json="{{ json_encode($qvPayload, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) }}"
                         >
                             <a href="{{ $product['url'] }}" class="demo-pf-card__media">
                                 <img
@@ -234,6 +238,14 @@
                                     <span class="demo-pf-card__badge demo-pf-card__badge--easy">Easy grow</span>
                                 @endif
                             </a>
+
+                            <button
+                                type="button"
+                                class="demo-pf-card__qv"
+                                data-qv-open
+                                aria-haspopup="dialog"
+                                aria-controls="listing-quick-view"
+                            >Quick view</button>
 
                             <div class="demo-pf-card__body">
                                 <span class="demo-pf-card__category">{{ $product['category_label'] }}</span>
@@ -281,10 +293,13 @@
 <div id="yg-drawer-mount">
     @include('demo.partials.drawer', ['cart' => $cart])
 </div>
+
+@include('demo.partials.listing-quick-view')
 @endsection
 
 @push('scripts')
     <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/demo-shared-enhanced.js') }}?v={{ filemtime(public_path('js/demo-shared-enhanced.js')) }}" defer></script>
     <script src="{{ asset('js/demo-plant-finder.js') }}?v={{ filemtime(public_path('js/demo-plant-finder.js')) }}" defer></script>
+    <script src="{{ asset('js/demo-listing-quick-view.js') }}?v={{ filemtime(public_path('js/demo-listing-quick-view.js')) }}" defer></script>
 @endpush

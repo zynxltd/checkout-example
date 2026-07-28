@@ -1,0 +1,27 @@
+{
+	"name": "yg email new",
+	"slug": "poaxwxj",
+	"html": "",
+	"active": true,
+	"content_tag": "",
+	"content_type": "product",
+	"dt": "",
+	"template_style": "",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "",
+		"sortOrder": -1,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": []
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

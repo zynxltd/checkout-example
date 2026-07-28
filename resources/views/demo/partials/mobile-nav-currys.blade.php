@@ -110,7 +110,7 @@
                         </li>
                         @foreach ($trending_links ?? [] as $link)
                             <li>
-                                <a href="{{ $link['url'] }}" class="demo-mobile-nav__row demo-mobile-nav__row--link" target="_blank" rel="noopener">
+                                <a href="{{ $link['url'] }}" class="demo-mobile-nav__row demo-mobile-nav__row--link">
                                     <span class="demo-mobile-nav__label">{{ $link['label'] }}</span>
                                     <span class="demo-mobile-nav__chev" aria-hidden="true"></span>
                                 </a>
@@ -131,7 +131,7 @@
                         <h2 class="demo-mobile-nav__subtitle">{{ $dept['title'] }}</h2>
                     </header>
                     <div class="demo-mobile-nav__scroll">
-                        <a href="{{ $dept['url'] }}" class="demo-mobile-nav__view-all" target="_blank" rel="noopener">
+                        <a href="{{ $dept['url'] }}" class="demo-mobile-nav__view-all">
                             View all {{ $dept['title'] }}
                         </a>
                         <ul class="demo-mobile-nav__list demo-mobile-nav__list--plain" role="list">
@@ -153,7 +153,7 @@
                                             <span class="demo-mobile-nav__chev" aria-hidden="true"></span>
                                         </button>
                                     @else
-                                        <a href="{{ $cat['url'] }}" class="demo-mobile-nav__row demo-mobile-nav__row--link" target="_blank" rel="noopener">
+                                        <a href="{{ $cat['url'] }}" class="demo-mobile-nav__row demo-mobile-nav__row--link">
                                             @if (! empty($cat['image']))
                                                 <span class="demo-mobile-nav__icon" aria-hidden="true">
                                                     <img src="{{ asset($cat['image']) }}" alt="" width="28" height="28" loading="lazy" decoding="async">
@@ -180,13 +180,13 @@
                                 <h2 class="demo-mobile-nav__subtitle">{{ $cat['label'] }}</h2>
                             </header>
                             <div class="demo-mobile-nav__scroll">
-                                <a href="{{ $cat['url'] }}" class="demo-mobile-nav__view-all" target="_blank" rel="noopener">
+                                <a href="{{ $cat['url'] }}" class="demo-mobile-nav__view-all">
                                     View all {{ $cat['label'] }}
                                 </a>
                                 <ul class="demo-mobile-nav__list demo-mobile-nav__list--plain" role="list">
                                     @foreach ($cat['children'] as $sub)
                                         <li>
-                                            <a href="{{ $sub['url'] }}" class="demo-mobile-nav__row demo-mobile-nav__row--link" target="_blank" rel="noopener">
+                                            <a href="{{ $sub['url'] }}" class="demo-mobile-nav__row demo-mobile-nav__row--link">
                                                 <span class="demo-mobile-nav__label">{{ $sub['label'] }}</span>
                                                 <span class="demo-mobile-nav__chev" aria-hidden="true"></span>
                                             </a>

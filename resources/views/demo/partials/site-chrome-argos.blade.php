@@ -69,17 +69,15 @@
                                     data-mega-dept-panel="{{ $deptIndex }}"
                                     @if ($deptIndex !== 0) hidden @endif
                                 >
-                                    <ul class="yg-argos-mega__cats">
+                                    <ul class="yg-argos-mega__cats" aria-label="{{ $dept['title'] }} categories">
                                         <li>
                                             <a
                                                 class="yg-argos-mega__cat yg-argos-mega__cat--viewall is-active"
                                                 href="{{ $dept['url'] }}"
-                                                target="_blank"
-                                                rel="noopener"
                                                 data-mega-cat
                                                 data-mega-cat-id="viewall-{{ $deptIndex }}"
                                             >
-                                                <span class="yg-argos-mega__cat-label">View All {{ $dept['title'] }}</span>
+                                                <span class="yg-argos-mega__cat-label">All {{ $dept['title'] }}</span>
                                             </a>
                                         </li>
                                         @foreach ($dept['children'] as $catIndex => $cat)
@@ -87,8 +85,6 @@
                                                 <a
                                                     class="yg-argos-mega__cat{{ ! empty($cat['children']) ? ' has-children' : '' }}"
                                                     href="{{ $cat['url'] }}"
-                                                    target="_blank"
-                                                    rel="noopener"
                                                     data-mega-cat
                                                     data-mega-cat-id="{{ $deptIndex }}-{{ $catIndex }}"
                                                     @if (! empty($cat['children'])) aria-haspopup="true" @endif
@@ -104,22 +100,16 @@
 
                                     <div class="yg-argos-mega__subs">
                                         <div
-                                            class="yg-argos-mega__sub is-active"
+                                            class="yg-argos-mega__sub yg-argos-mega__sub--overview is-active"
                                             data-mega-sub="viewall-{{ $deptIndex }}"
                                         >
+                                            <p class="yg-argos-mega__sub-kicker">Department</p>
                                             <p class="yg-argos-mega__sub-title">{{ $dept['title'] }}</p>
-                                            <a class="yg-argos-mega__sub-link yg-argos-mega__sub-link--viewall" href="{{ $dept['url'] }}" target="_blank" rel="noopener">
+                                            <p class="yg-argos-mega__sub-hint">Pick a category on the left, or shop the full range in one click.</p>
+                                            <a class="yg-argos-mega__cta" href="{{ $dept['url'] }}">
                                                 Shop all {{ $dept['title'] }}
                                             </a>
-                                            <ul class="yg-argos-mega__tiles yg-argos-mega__tiles--text">
-                                                @foreach ($dept['children'] as $cat)
-                                                    <li>
-                                                        <a class="yg-argos-mega__tile" href="{{ $cat['url'] }}" target="_blank" rel="noopener">
-                                                            <span class="yg-argos-mega__tile-label">{{ $cat['label'] }}</span>
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
+                                            <p class="yg-argos-mega__sub-count">{{ count($dept['children']) }} categories</p>
                                         </div>
                                         @foreach ($dept['children'] as $catIndex => $cat)
                                             <div
@@ -127,21 +117,20 @@
                                                 data-mega-sub="{{ $deptIndex }}-{{ $catIndex }}"
                                                 hidden
                                             >
+                                                <p class="yg-argos-mega__sub-kicker">Category</p>
                                                 <p class="yg-argos-mega__sub-title">{{ $cat['label'] }}</p>
+                                                <a class="yg-argos-mega__cta yg-argos-mega__cta--secondary" href="{{ $cat['url'] }}">
+                                                    Shop all {{ $cat['label'] }}
+                                                </a>
                                                 @if (! empty($cat['children']))
-                                                    <ul class="yg-argos-mega__tiles yg-argos-mega__tiles--text">
+                                                    <p class="yg-argos-mega__sub-section">Popular in this category</p>
+                                                    <ul class="yg-argos-mega__link-list">
                                                         @foreach ($cat['children'] as $sub)
                                                             <li>
-                                                                <a class="yg-argos-mega__tile" href="{{ $sub['url'] }}" target="_blank" rel="noopener">
-                                                                    <span class="yg-argos-mega__tile-label">{{ $sub['label'] }}</span>
-                                                                </a>
+                                                                <a href="{{ $sub['url'] }}">{{ $sub['label'] }}</a>
                                                             </li>
                                                         @endforeach
                                                     </ul>
-                                                @else
-                                                    <a class="yg-argos-mega__tile yg-argos-mega__tile--featured yg-argos-mega__tile--text-only" href="{{ $cat['url'] }}" target="_blank" rel="noopener">
-                                                        <span class="yg-argos-mega__tile-label">Shop all {{ $cat['label'] }}</span>
-                                                    </a>
                                                 @endif
                                             </div>
                                         @endforeach
@@ -151,7 +140,7 @@
                         </div>
 
                         <div class="yg-argos-nav__panel-foot">
-                            <a href="{{ route('demo.sale') }}" class="yg-argos-nav__sale-link">Shop the Sale</a>
+                            <a href="{{ route('demo.sale') }}" class="yg-argos-nav__sale-link">Sale</a>
                             <a href="{{ $yg }}/new" target="_blank" rel="noopener">New arrivals</a>
                             <a href="{{ route('demo.tv-live') }}">YouGarden TV</a>
                         </div>
@@ -177,7 +166,7 @@
                         <ul class="yg-argos-nav__simple-list">
                             @foreach ($trending_links ?? [] as $link)
                                 <li>
-                                    <a href="{{ $link['url'] }}" target="_blank" rel="noopener">{{ $link['label'] }}</a>
+                                    <a href="{{ $link['url'] }}">{{ $link['label'] }}</a>
                                 </li>
                             @endforeach
                         </ul>
@@ -313,7 +302,7 @@
             <ul class="yg-currys-nav__cats">
                 @foreach ($shop_menu as $dept)
                     <li>
-                        <a href="{{ $dept['url'] }}" class="yg-currys-nav__link" target="_blank" rel="noopener">{{ $dept['title'] }}</a>
+                        <a href="{{ $dept['url'] }}" class="yg-currys-nav__link">{{ $dept['title'] }}</a>
                     </li>
                 @endforeach
                 <li>
@@ -368,3 +357,5 @@
     </div>
 </div>
 @endif
+
+<div class="yg-argos-page-overlay" data-nav-page-overlay hidden aria-hidden="true"></div>

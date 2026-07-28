@@ -10,10 +10,11 @@
     @endif
     <link rel="stylesheet" href="{{ asset('css/yg-fonts.css') }}">
     <link rel="stylesheet" href="{{ asset('css/demo-site.css') }}?v={{ filemtime(public_path('css/demo-site.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/home-argos-preview.css') }}?v={{ filemtime(public_path('css/home-argos-preview.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/yg-cart-drawer.css') }}?v={{ filemtime(public_path('css/yg-cart-drawer.css')) }}">
     @stack('head')
 </head>
-<body class="@yield('body_class')" @yield('body_attrs')>
+<body class="@yield('body_class') yg-header-argos" @yield('body_attrs')>
     @yield('content')
     <script>
         window.__YG_CART_DRAWER_ENABLED = @json((bool) session('demo_drawer_enabled', true));
@@ -38,6 +39,7 @@
     <script src="{{ asset('js/demo-search-suggest.js') }}?v={{ filemtime(public_path('js/demo-search-suggest.js')) }}" defer></script>
     <script src="{{ asset('js/demo-usp.js') }}?v={{ filemtime(public_path('js/demo-usp.js')) }}" defer></script>
     <script src="{{ asset('js/demo-mobile-nav.js') }}?v={{ filemtime(public_path('js/demo-mobile-nav.js')) }}" defer></script>
+    <script src="{{ asset('js/yg-argos-nav.js') }}?v={{ filemtime(public_path('js/yg-argos-nav.js')) }}" defer></script>
     @stack('scripts')
 </body>
 </html>

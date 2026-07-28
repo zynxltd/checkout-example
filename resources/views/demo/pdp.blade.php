@@ -7,6 +7,7 @@
 @push('head')
     <link rel="stylesheet" href="{{ asset('css/demo-pdp-yg.css') }}?v={{ filemtime(public_path('css/demo-pdp-yg.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/yg-drawer-theme.css') }}?v={{ filemtime(public_path('css/yg-drawer-theme.css')) }}">
+    <link rel="stylesheet" href="{{ asset('css/demo-pdp-plant-calendar.css') }}?v={{ filemtime(public_path('css/demo-pdp-plant-calendar.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/demo-pdp-content.css') }}?v={{ filemtime(public_path('css/demo-pdp-content.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/demo-pdp-reviews-footer.css') }}?v={{ filemtime(public_path('css/demo-pdp-reviews-footer.css')) }}">
 @endpush

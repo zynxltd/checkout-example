@@ -1,12 +1,12 @@
 (function () {
-    const STORAGE_KEY = 'yg_drawer_theme_v9';
+    const STORAGE_KEY = 'yg_drawer_theme_v10';
 
     const FIELDS = [
         { key: 'headerBg', var: '--yg-theme-header-bg', label: 'Header background', default: '#ffffff' },
         { key: 'headerText', var: '--yg-theme-header-text', label: 'Header text', default: '#264f1c' },
         { key: 'headerBadgeBg', var: '--yg-theme-header-badge-bg', label: 'Item count badge', default: '#264f1c' },
         { key: 'headerBadgeText', var: '--yg-theme-header-badge-text', label: 'Count badge text', default: '#ffffff' },
-        { key: 'panelBg', var: '--yg-theme-panel-bg', label: 'Drawer background', default: '#fafafa' },
+        { key: 'panelBg', var: '--yg-theme-panel-bg', label: 'Drawer background', default: '#f2e7d8' },
         { key: 'bodyText', var: '--yg-theme-body-text', label: 'Body text', default: '#483f3a' },
         { key: 'mutedText', var: '--yg-theme-muted-text', label: 'Muted text', default: '#7a726c' },
         { key: 'accentText', var: '--yg-theme-accent-text', label: 'Accent text', default: '#264f1c' },

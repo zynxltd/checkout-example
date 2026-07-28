@@ -950,3 +950,52 @@ body.demo-plant-finder {
 .demo-pf-card__cta:hover {
     background: #1a3d14;
 }
+
+.demo-pf-card {
+    position: relative;
+}
+
+.demo-pf-card__qv {
+    position: absolute;
+    left: 50%;
+    top: 38%;
+    z-index: 4;
+    transform: translate(-50%, 8px);
+    appearance: none;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 16px;
+    min-height: 40px;
+    background: rgba(38, 79, 28, 0.94);
+    color: #fff;
+    font-family: var(--yg-body);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease, transform 0.15s ease, background 0.15s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    white-space: nowrap;
+}
+
+.demo-pf-card:hover .demo-pf-card__qv,
+.demo-pf-card:focus-within .demo-pf-card__qv {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+}
+
+.demo-pf-card__qv:hover,
+.demo-pf-card__qv:focus-visible {
+    background: #1f3f16;
+    outline: none;
+}
+
+@media (hover: none) {
+    .demo-pf-card__qv {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate(-50%, 0);
+    }
+}

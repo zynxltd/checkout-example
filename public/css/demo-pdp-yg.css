@@ -89,6 +89,8 @@ body.demo-pdp.demo-pdp--yg .demo-site {
     position: relative;
     background: #f5f5f5;
     border: 1px solid #e8e8e8;
+    border-radius: var(--yg-radius);
+    overflow: hidden;
 }
 
 .demo-pdp-gallery--yg .demo-pdp-gallery__main {
@@ -237,7 +239,7 @@ body.demo-pdp.demo-pdp--yg .demo-site {
     height: 72px;
     padding: 0;
     border: 2px solid transparent;
-    border-radius: 4px;
+    border-radius: var(--yg-radius);
     overflow: hidden;
     background: #f5f5f5;
     cursor: pointer;
@@ -462,7 +464,7 @@ body.demo-pdp.demo-pdp--yg .demo-site {
     gap: 8px;
     overflow-x: auto;
     padding: 12px 10px;
-    border-radius: 4px;
+    border-radius: var(--yg-radius);
     background: #ccea81;
     scrollbar-width: none;
 }
@@ -542,7 +544,7 @@ body.demo-pdp.demo-pdp--yg .demo-site {
 .demo-pdp-sticky__thumb {
     width: 48px;
     height: 48px;
-    border-radius: 4px;
+    border-radius: var(--yg-radius);
     object-fit: cover;
 }
 
@@ -585,5 +587,12 @@ body.demo-pdp.demo-pdp--yg .demo-site {
 .demo-pdp-below-wrap {
     max-width: 1180px;
     margin: 0 auto;
-    padding: 0 16px;
+    padding: 0 16px 48px;
+}
+
+@media (min-width: 900px) {
+    .demo-pdp-below-wrap {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
 }

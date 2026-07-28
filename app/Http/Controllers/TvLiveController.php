@@ -23,6 +23,7 @@ class TvLiveController extends Controller
             'categories' => TvLiveShow::filterCategories(),
             'youtubeEmbed' => TvLiveShow::youtubeEmbedSrc($schedule['is_live']),
             'youtubeChannelUrl' => TvLiveShow::YOUTUBE_CHANNEL_URL,
+            'youtubePoster' => TvLiveShow::youtubePosterUrl(),
         ]);
     }
 }

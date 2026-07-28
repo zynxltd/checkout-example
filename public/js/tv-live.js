@@ -45,7 +45,7 @@
             const left = Math.max(0, Math.floor((target - Date.now()) / 1000));
             countdownEl.textContent = formatClock(left);
             if (labelEl) {
-                labelEl.textContent = status === 'live' ? 'Show ends' : 'Show starts';
+                labelEl.textContent = status === 'live' ? 'Ends in' : 'Starts in';
             }
         };
 
@@ -77,8 +77,8 @@
             if (results) {
                 results.textContent =
                     visible === 1
-                        ? '1 item · Tap any card to order'
-                        : `${visible} items · Tap any card to order`;
+                        ? '1 item · Add any product straight to your basket'
+                        : `${visible} items · Add any product straight to your basket`;
             }
             if (empty) {
                 empty.hidden = visible > 0;
@@ -127,7 +127,7 @@
 
     function initStickyBar() {
         const bar = document.querySelector('[data-tv-sticky]');
-        const cinema = document.querySelector('.tv-shop__cinema');
+        const cinema = document.querySelector('.tv-live__watch') || document.querySelector('.tv-shop__cinema');
         if (!bar || !cinema) {
             return;
         }
@@ -169,6 +169,11 @@
 
             btn.textContent = 'Added';
             btn.classList.add('is-added');
+            window.setTimeout(function () {
+                btn.textContent = 'Add to basket';
+                btn.classList.remove('is-added');
+                btn.disabled = false;
+            }, 1600);
 
             const stickyCount = document.getElementById('tv-sticky-count');
             if (stickyCount && data.cart?.item_count != null) {

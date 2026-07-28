@@ -52,7 +52,7 @@ body.yg-drawer-open {
     --yg-theme-header-badge-bg: #264f1c;
     --yg-theme-header-badge-text: #ffffff;
     --yg-theme-close-icon-filter: none;
-    --yg-theme-panel-bg: #fafafa;
+    --yg-theme-panel-bg: #f2e7d8;
     --yg-theme-body-text: var(--yg-text);
     --yg-theme-muted-text: var(--yg-muted);
     --yg-theme-accent-text: var(--yg-forest);

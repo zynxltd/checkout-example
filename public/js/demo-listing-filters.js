@@ -6,12 +6,19 @@
     var form = document.getElementById('listing-filters-form');
     var resetBtn = document.getElementById('listing-filters-reset');
     var applyBtn = document.getElementById('listing-filters-apply');
+    var inlineForm = document.getElementById('listing-inline-filters');
+    var inlineReset = document.getElementById('listing-inline-reset');
+    var countEl = document.querySelector('.demo-listing-toolbar__count');
+    var grid = document.querySelector('.demo-listing__grid');
 
-    if (!root || !openBtn) {
+    if (!openBtn) {
         return;
     }
 
     function openFilters() {
+        if (!root) {
+            return;
+        }
         root.hidden = false;
         requestAnimationFrame(function () {
             root.classList.add('is-open');
@@ -22,6 +29,9 @@
     }
 
     function closeFilters() {
+        if (!root) {
+            return;
+        }
         root.classList.remove('is-open');
         document.body.classList.remove('demo-listing-filters-open');
         openBtn.setAttribute('aria-expanded', 'false');
@@ -34,27 +44,100 @@
         }, 280);
     }
 
-    openBtn.addEventListener('click', openFilters);
-    closeBtn?.addEventListener('click', closeFilters);
-    overlay?.addEventListener('click', closeFilters);
-    applyBtn?.addEventListener('click', closeFilters);
+    function getAvailabilityValue() {
+        var drawerSelect = form && form.querySelector('[data-filter="availability"]');
+        var inlineSelect = inlineForm && inlineForm.querySelector('[data-filter="availability"]');
+        var value = '';
 
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && root.classList.contains('is-open')) {
-            closeFilters();
+        if (document.body.classList.contains('demo-listing-inline-filters') && inlineSelect) {
+            value = inlineSelect.value || '';
+        } else if (drawerSelect) {
+            value = drawerSelect.value || '';
         }
-    });
 
-    resetBtn?.addEventListener('click', function () {
-        if (!form) {
+        return value;
+    }
+
+    function syncAvailabilitySelects(value) {
+        document.querySelectorAll('[data-filter="availability"]').forEach(function (select) {
+            select.value = value;
+        });
+    }
+
+    function updateCount(visible) {
+        if (!countEl) {
+            return;
+        }
+        countEl.textContent = visible + (visible === 1 ? ' item' : ' items');
+    }
+
+    function applyAvailabilityFilter() {
+        if (!grid) {
             return;
         }
 
-        window.setTimeout(function () {
-            var sort = document.getElementById('listing-sort');
-            if (sort) {
-                sort.value = 'popularity';
+        var availability = getAvailabilityValue();
+        var cards = grid.querySelectorAll('.category-box[data-availability]');
+        var visible = 0;
+
+        cards.forEach(function (card) {
+            var stock = card.getAttribute('data-availability') || 'in-stock';
+            var show = !availability || stock === availability;
+            card.hidden = !show;
+            card.style.display = show ? '' : 'none';
+            if (show) {
+                visible += 1;
             }
+        });
+
+        updateCount(visible);
+    }
+
+    if (root) {
+        openBtn.addEventListener('click', openFilters);
+        closeBtn?.addEventListener('click', closeFilters);
+        overlay?.addEventListener('click', closeFilters);
+
+        applyBtn?.addEventListener('click', function () {
+            var drawerSelect = form && form.querySelector('[data-filter="availability"]');
+            if (drawerSelect) {
+                syncAvailabilitySelects(drawerSelect.value || '');
+            }
+            applyAvailabilityFilter();
+            closeFilters();
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && root.classList.contains('is-open')) {
+                closeFilters();
+            }
+        });
+
+        resetBtn?.addEventListener('click', function () {
+            window.setTimeout(function () {
+                var sort = document.getElementById('listing-sort');
+                if (sort) {
+                    sort.value = 'popularity';
+                }
+                syncAvailabilitySelects('');
+                applyAvailabilityFilter();
+            }, 0);
+        });
+    }
+
+    inlineForm?.querySelectorAll('[data-filter]').forEach(function (select) {
+        select.addEventListener('change', function () {
+            if (select.getAttribute('data-filter') === 'availability') {
+                syncAvailabilitySelects(select.value || '');
+                applyAvailabilityFilter();
+            }
+        });
+    });
+
+    inlineReset?.addEventListener('click', function () {
+        window.setTimeout(function () {
+            syncAvailabilitySelects('');
+            applyAvailabilityFilter();
         }, 0);
     });
 })();

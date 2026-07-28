@@ -1,0 +1,479 @@
+{# Multi-Column #}
+
+{# variables used in styling #}
+
+{% set email_width = fields.width or 600 %} {# Max width of the SmartBlock in px #}
+{% set cols = (fields.columns|default(2)|int) %}
+{% if cols < 1 %}{% set cols = 1 %}{% endif %}
+{% if cols > 4 %}{% set cols = 4 %}{% endif %}
+{% set border_w = fields.borders.weight if fields.borders and fields.borders.active else 0 %}
+{% set col_width = ((email_width - (border_w * 2)) / cols)|round(1, floor)|int %}
+{% set col_spacing = fields.columnSpacing or 20 %}
+{% set col_pct = (100 / cols)|round(4) %}
+{% set img_size = (col_width - col_spacing)|int %}
+{% if img_size < 80 %}{% set img_size = 80 %}{% endif %}
+
+{# end of variables #}
+
+<style type="text/css">
+	/*
+	  Auto-scale columns with the email/preview width.
+	  Column count comes from FR UI (fields.columns → 1|2|3|4).
+	  Cards use % widths so they shrink in narrow previews (e.g. 460px);
+	  images fill their column (width:100%).
+	*/
+	.{{ safeid }} {
+		width: 100% !important;
+		max-width: {{ email_width }}px !important;
+		min-width: 0 !important;
+		table-layout: fixed !important;
+	}
+	.{{ safeid }} .imagecontainer {
+		width: {{ col_pct }}% !important;
+		max-width: {{ col_pct }}% !important;
+		min-width: 0 !important;
+		display: inline-block !important;
+		vertical-align: top !important;
+		box-sizing: border-box !important;
+		font-size: 14px !important;
+		line-height: normal !important;
+		overflow: hidden !important;
+	}
+	.{{ safeid }} .imagecontainer > table {
+		width: 100% !important;
+		max-width: 100% !important;
+		table-layout: fixed !important;
+	}
+	.{{ safeid }} .imagecontainer img,
+	.{{ safeid }} img {
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		display: block !important;
+		border: 0 !important;
+	}
+	/* Keep chosen column count; only tighten if extremely narrow */
+	@media only screen and (max-width: 320px) {
+		.{{ safeid }} .imagecontainer {
+			width: {% if cols >= 3 %}50{% else %}{{ col_pct }}{% endif %}% !important;
+			max-width: {% if cols >= 3 %}50{% else %}{{ col_pct }}{% endif %}% !important;
+		}
+	}
+</style>
+
+{# ----- Social Proof Messaging Macro start ---- #}
+{% macro socialProof(product) %}
+
+{# social proof icon setup start #}
+{% if fields.socialProofMessaging.iconImage %}
+	{% set socialProofIcon = '<img src="' + fields.socialProofMessaging.iconImage + '" alt="Social Icon" style="height: auto;
+			width: ' + fields.socialProofMessaging.iconWidth + 'px;" />' %}
+{% else %}
+	{% if fields.socialProofMessaging.iconShape != 'rt4q9wp' %}
+		{% set socialProofIcon = '<span style="height: auto;
+			width: ' + fields.socialProofMessaging.iconWidth + 'px; color: ' + fields.socialProofMessaging.iconColor + ';
+			font-size: ' + fields.socialProofMessaging.iconWidth + 'px;">' +
+			fields.socialProofMessaging.iconShape + '</span>' %}
+	{% else %}
+        {% set socialProofIcon = '<svg style="height: auto; padding: 0px !important; margin: 0px !important;
+			width: ' + fields.socialProofMessaging.iconWidth + 'px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 164 211.6" style="enable-background:new 0 0 164 211.6;" xml:space="preserve">
+				<path class="st0" fill="' + fields.socialProofMessaging.iconColor + '" d="M127.1,37.2c3.8,5.1,0.2,25.6-1,39.1C120.8,50.8,69.5,0,69.5,0c8.2,17.3-15,60.2-35.7,92.4  c-1.3-12-4.6-28.8-12.9-34.5c0,0-7.5,31.8-13.6,43.9c0,0-8,18.1-7.2,36c-0.1,0.2,0.6,5.4,1,7.1c6.6,36,39.7,55.8,57.3,66.7  c-0.7-2-2.6-4.9-4.9-8.2c-2-3-2.7-4-3.8-5.4c-1.2-1.8-2.5-3.6-3.6-5.4c-8.7-16-0.3-32.2,4.4-39.2c0.8-1,1.7-2.1,2.7-3.5  c0,0,0,0.1,0,0.1h0c4.4-7,10.4-17.1,11.1-29c0,0,13.2,21.1,6.8,31.5c0,0,18.8-30.3,14.4-60.3c0,0,44.1,34.7,38.6,85  c0,0-2.2,15.5-13.5,34.4C220.3,145.7,127.1,37.2,127.1,37.2z"/>
+			</svg>' %}
+	{% endif %}
+{% endif %}
+{# social proof icon setup end #}
+
+{# social proof start #}
+{% if fields.socialProofMessaging.active  %}
+{% if format in ["dynamichtml", "dynamicimage", "thumb"] %}
+	<tr>
+		<td style="padding-bottom:5px; padding-top:5px; text-align: center;">
+{% endif %}
+			{% set proof = product.social_proof %}
+            {#  Write out the message for the relevant type of social proof #}
+            {% if proof.purchased and (fields.purchasedData.active) and proof.purchased >= fields.purchasedData.minimumPurchased %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.purchasedData.colors.background }};
+                    color: {{ fields.purchasedData.colors.foreground }};
+                    {% if fields.purchasedData.bold %} font-weight:bold; {% endif %} {% if fields.purchasedData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {% if fields.purchasedData.displayNumber %} {{ proof.purchased }} {% endif %} {{ fields.purchasedData.text }}
+                </div>
+            {% elif proof.carted and ( fields.cartedData.active) and proof.carted >= fields.cartedData.minimumCarted %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.cartedData.colors.background }};
+                    color: {{ fields.cartedData.colors.foreground }};
+                    {% if fields.cartedData.bold %} font-weight:bold; {% endif %} {% if fields.cartedData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {% if fields.cartedData.displayNumber %} {{ proof.carted }} {% endif %} {{ fields.cartedData.text }}
+                </div>
+            {% elif proof.browsed and (fields.browsedData.active) and proof.browsed >= fields.browsedData.minimumBrowsed %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.browsedData.colors.background }};
+                    color: {{ fields.browsedData.colors.foreground }};
+                    {% if fields.browsedData.bold %} font-weight:bold; {% endif %} {% if fields.browsedData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {% if fields.browsedData.displayNumber %} {{ proof.browsed }} {% endif %} {{ fields.browsedData.text }}
+                </div>
+            {% elif fields.fallbackData.active %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.fallbackData.colors.background }};
+                    color: {{ fields.fallbackData.colors.foreground }};
+                    {% if fields.fallbackData.bold %} font-weight:bold; {% endif %} {% if fields.fallbackData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {{ fields.fallbackData.text }}
+                </div>
+            {% else %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};'>
+                    &nbsp;
+                </div>
+            {% endif %}
+{% if format in ["dynamichtml", "dynamicimage", "thumb"] %}
+		<td>
+	</tr>
+{% endif %}
+{% endif %}
+
+{% endmacro %}
+{# ----- Social Proof Messaging Macro end ---- #}
+
+<table class="{{ safeid }}" cellpadding="0" cellspacing="0" align="center" style="border: none; text-align: center;
+	width: 100% !important; max-width:{{ email_width }}px; min-width: 0; table-layout: fixed; background-color: {{ fields.backgroundColor or '#FFFFFF' }};">
+
+	{# headline start #}
+	{% if fields.headline.active %}
+
+		<tr>
+			<td style="text-align: {{ fields.headline.alignment }};
+					background-color: {{ fields.headline.colors.background or '#FFFFFF' }};
+					padding: 7px 25px 7px 25px; font-family:{{ fields.headline.font }};
+					font-size:{{ fields.headline.size.size }}{{ fields.headline.size.unit }};
+					color:{{ fields.headline.colors.foreground or '#000000' }};
+					{% if fields.headline.bold %} font-weight:bold; {% endif %}
+					{% if fields.headline.italics %}font-style: italic; {% endif %}
+					{% if fields.borders.active  %}
+						border-top:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+						border-left:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+						border-right:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+					{% endif %}">
+				{{ mergeField(fields.headline.text) }}
+			</td>
+		</tr>
+
+	{% endif %}
+	{# headline end #}
+
+	{# subheadline start #}
+	{% if fields.subHeadline.active %}
+
+		<tr>
+			<td style="text-align: {{ fields.subHeadline.alignment }};
+				background-color: {{ fields.subHeadline.colors.background or '#FFFFFF' }};
+				padding: 7px 25px 7px 25px;
+				font-family:{{ fields.subHeadline.font }};
+				font-size:{{ fields.subHeadline.size.size }}{{ fields.subHeadline.size.unit }};
+				color:{{ fields.subHeadline.colors.foreground or '#000000' }};
+				{% if fields.subHeadline.bold %} font-weight:bold; {% endif %}
+				{% if fields.subHeadline.italics %}font-style: italic; {% endif %}
+				{% if fields.borders.active  %}
+					{% if not fields.headline.active %} border-top:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+					{% endif %}
+					border-left:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+					border-right:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+				{% endif %} ">
+				{{ fields.subHeadline.text }}
+			</td>
+		</tr>
+
+	{% endif %}
+	{# subheadline end #}
+
+	{% if fields.divider.active and (fields.headline.active or fields.subheadline.active) %}
+
+		<tr>
+			<td style="text-align: center;
+				{% if not fields.headline.active %}
+					background-color: {{ fields.headline.colors.background }};
+				{% else %}
+					background-color: {{ fields.subHeadline.colors.background }};
+				{% endif %}
+				{% if fields.borders.active %}
+					border-left:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+					border-right:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+				{% endif %}">
+				<!-- table here -->
+				<hr width="90%" style="border-top: {{ fields.divider.weight }}px solid {{ fields.divider.color or '#979797' }};
+					border-radius: 5px;">
+			</td>
+		</tr>
+
+	{% endif %}
+
+	{# products start #}
+	{% for row in products|batch(cols) %}
+
+	{% set row_nr = loop.index0*cols %}
+	<tr>
+		<td style="text-align: center; vertical-align: top; font-size:0px;
+			{% if fields.borders.active %}
+				border-right:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#f0f0f0' }};
+			{% if loop.last %}border-bottom:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#f0f0f0' }};{% endif %}
+				border-left:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#f0f0f0' }};
+			{% endif %}
+			{% if (fields.borders.active and row_nr == 0 and not fields.headline.active and not fields.subHeadline.active) or 
+				(fields.divider.active and ((not fields.headline.active and not fields.subHeadline.active) or row_nr > 0)) %}
+				border-top:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#f0f0f0' }};
+			{% endif %}">
+
+			{% if fields.enableResponsiveness %}<!--[if (gte mso 9)|(IE)]>{% endif %}
+			<table cellpadding="0" cellspacing="0" border="0" width="{{ '100%' if not fields.enableResponsiveness else (email_width - 4) }}" align="center">
+			<tr>
+			<td width="{{ (100/cols + '%') if not fields.enableResponsiveness else col_width }}">
+			{% if fields.enableResponsiveness %}<![endif]-->{% endif %}
+
+			{# product card start #}
+			{% for product in row %}
+
+				<div style="width: {{ col_pct }}%; max-width: {{ col_pct }}%; display: inline-block; vertical-align: top; box-sizing: border-box; min-width: 0;"
+					class="imagecontainer fr_100pc" data-imageindex="{{ loop.index0+row_nr }}">
+
+					<table cellpadding="0" cellspacing="0" width="100%" style="border: none; text-align: center; width: 100%; max-width: 100%; table-layout: fixed;">
+
+						<tr>
+							<td height="{{ col_spacing }}" style="background-color: {{ fields.backgroundColor or '#FFFFFF' }};
+								font-size: 0px; line-height: 0px;">&nbsp;</td>
+						</tr>
+
+						<tr>
+							<td style="background-color: {{ fields.backgroundColor or '#FFFFFF' }}; padding:0px {{ (col_spacing / 2)|round|int }}px; box-sizing: border-box;">
+
+								<table cellpadding="0" cellspacing="0" style="border: none; width: 100%; table-layout: fixed;">
+
+									{# product image start #}
+									<tr>
+										<td style="padding: 0; margin: 0; line-height: 0; width: 100%;">
+											<!--[if gte mso 9]>
+											<v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false"
+												style="width:{{ img_size }}px; height:{{ img_size }}px">
+												<v:fill type="frame" src="{{ product.img }}" color="{{ fields.backgroundColor or '#FFFFFF'}}" />
+												<v:textbox inset="0,0,0,0">
+											<![endif]-->
+											<a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+												utm_campaign=mergeField(fields.utmCampaign, {}),
+												utm_medium=mergeField(fields.utmMedium, {}),
+												utm_source=mergeField(fields.utmSource, {})) }}" target="_blank"
+												style="display: block; width: 100%; max-width: 100%; text-decoration: none; line-height: 0;">
+												<img src="{{ product.img or product.img_tn }}" width="{{ img_size }}" alt="{{ product.n }}" border="0"
+													style="width: 100%; max-width: 100%; height: auto; display: block; border: 0; -ms-interpolation-mode: bicubic;" />
+											</a>
+											<!--[if gte mso 9]>
+												</v:textbox>
+											</v:rect>
+											<![endif]-->
+										</td>
+									</tr>
+									{# product image end #}
+
+									{# social proof #}
+									{{ socialProof(product) }}
+
+									{# ratings start #}
+									{% if fields.ratingIcons.active %}
+										{% if product|addProductRatings %}
+											<tr>
+												<td style="text-align: {{ fields.ratingIcons.alignment }}; vertical-align: top; padding: 5px;
+													height: {{ fields.ratingIcons.iconWidth + fields.ratingIcons.iconWidth + 10 }};">
+													{{ product| addProductRatings }}
+												</td>
+											</tr>
+										{% else %}
+											<tr>
+												<td style="text-align: center; vertical-align: top; padding: 5px;
+													background-color: {{ fields.backgroundColor or '#FFFFFF' }};
+													height: {{ fields.ratingIcons.iconWidth + fields.ratingIcons.iconWidth + 10 }}">
+													&nbsp;
+												</td>
+											</tr>
+										{% endif %}
+									{% endif %}
+									{# ratings end #}
+
+									{# product name start #}
+									{% if fields.productName.active %}
+										<tr>
+											<td style="text-align: {{ fields.productName.alignment }}; vertical-align: top;
+												padding: 15px 5px 25px 5px; font-family: {{ fields.productName.font }};
+												font-size: {{ fields.productName.size.size }}{{ fields.productName.size.unit }};
+												color: {{ fields.productName.color or '#000000' }};
+												max-width: 100%">
+												<div style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.4em;">
+													<a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+														utm_campaign=mergeField(fields.utmCampaign, {}),
+														utm_medium=mergeField(fields.utmMedium, {}),
+														utm_source=mergeField(fields.utmSource, {})) }}" target="_blank"
+														style="color: {{ fields.productName.color }}; text-decoration: none;
+															{% if fields.productName.bold %} font-weight: bold; {% endif %}
+															{% if fields.productName.italics %}font-style: italic; {% endif %}">
+														{{ product.n }}
+													</a>
+												</div>
+											</td>
+										</tr>
+									{% endif %}
+									{# product name end #}
+
+									{# product price start #}
+									{% if fields.productPrice.active %}
+										<tr>
+											<td>
+												<table cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
+													<tr>
+														<td style="text-align: center; width: 100%;
+															font-family:{{ fields.productPrice.font }};
+															font-size:{{ fields.productPrice.size.size }}{{ fields.productPrice.size.unit }};
+															color:{{ fields.productPrice.color or '#979797' }};
+															padding-bottom: 5px;
+															{% if fields.productPrice.bold %} font-weight:bold; {% endif %}
+															{% if fields.productPrice.italics %}font-style: italic; {% endif %}">
+															<a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+																utm_campaign=mergeField(fields.utmCampaign, {}),
+																utm_medium=mergeField(fields.utmMedium, {}),
+																utm_source=mergeField(fields.utmSource, {})) }}" target="_blank"
+																style="color: {{ fields.productPrice.color }}; text-decoration: none;">
+																{{ product.uv|format_currency(product.curr,2) }}
+															</a>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									{% endif %}
+									{# product price end #}
+
+									{# product cta start #}
+									{% if fields.callToAction.active %}
+									<tr>
+										<td>
+											<table cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
+												<tr>
+													<td style="text-align: center;padding: 0; ">
+														<!--[if mso]>
+															<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" 
+																href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+															utm_campaign=mergeField(fields.utmCampaign, {}), 
+															utm_medium=mergeField(fields.utmMedium, {}), 
+															utm_source=mergeField(fields.utmSource, {}))}}" style="height:{{ fields.callToAction.size.size * 2 }}px;
+															v-text-anchor:middle;width:{{ col_width - col_spacing - 10 }}px;" 
+																arcsize="{{ '0' if fields.callToAction.type == 'square' else '20%' }}" stroke="f" 
+																fillcolor="{{ fields.callToAction.colors.background or '#000000'}}">
+																<w:anchorlock/>
+																<center>
+															<![endif]-->
+																<a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+															utm_campaign=mergeField(fields.utmCampaign, {}), 
+															utm_medium=mergeField(fields.utmMedium, {}), 
+															utm_source=mergeField(fields.utmSource, {}))}}"
+																	style="padding: 5px; background-color:{{ fields.callToAction.colors.background or '#000000'}};
+																		color: {{ fields.callToAction.colors.foreground or '#979797'}};
+																		display: block; font-family:{{ fields.callToAction.font }};
+																		border-radius: {{ '0px' if fields.callToAction.type == 'square' else '8px' }};
+																		font-size: {{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+																		text-decoration:none; -webkit-text-size-adjust:none;
+																		{% if fields.callToAction.bold %}
+																			font-weight:bold;
+																		{% endif %}
+																		{% if fields.callToAction.italics %}
+																			font-style:italic;
+																		{% endif %}
+																		{% if fields.callToAction.border %}
+																			border: {{ fields.callToAction.borderWeight }}px {{ fields.callToAction.borderStyle }} {{ fields.callToAction.borderColor or '#979797'}};
+																		{% endif %}">
+																	{{ fields.callToAction.text }}
+																</a>
+															<!--[if mso]>
+																</center>
+															</v:roundrect>
+														<![endif]-->
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+									{% endif %}
+									{# product cta end #}
+
+									{# product was price start #}
+									{% if fields.productWasPrice.active and product.ruv and (product.ruv > product.uv) %}
+										<tr>
+											<td style="text-align: center; font-family:{{ fields.productWasPrice.font }};
+												font-size:{{ fields.productWasPrice.size.size }}{{ fields.productWasPrice.size.unit }};
+												color:{{ fields.productWasPrice.color or '#979797' }};
+												padding-top: 5px;
+												{% if fields.productWasPrice.bold %} font-weight:bold; {% endif %}
+												{% if fields.productWasPrice.italics %}font-style: italic; {% endif %}">
+												<a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+													utm_campaign=mergeField(fields.utmCampaign, {}),
+													utm_medium=mergeField(fields.utmMedium, {}),
+													utm_source=mergeField(fields.utmSource, {})) }}" target="_blank"
+													style="color: {{ fields.productWasPrice.color or '#979797' }}; text-decoration: none;">
+													Was <span style="{% if fields.productWasPrice.strikethrough %} text-decoration: line-through; {% endif %}">
+														{{ product.ruv|format_currency(product.curr,2) }}</span>
+												</a>
+											</td>
+										</tr>
+									{% endif %}
+									{# product was price end #}
+
+								</table>
+							</td>
+						</tr>
+
+						<tr>
+							<td style="height:{{ col_spacing }}px; background-color: {{ fields.backgroundColor or '#FFFFFF' }};
+								font-size:0px; line-height:0px;">&nbsp;</td>
+						</tr>
+
+					</table>
+
+				</div>
+
+				{% if not loop.last %}
+					{% if fields.enableResponsiveness %}<!--[if (gte mso 9)|(IE)]>{% endif %}
+					</td>
+					<td width="{{ (100/cols + '%') if not fields.enableResponsiveness else col_width }}">
+					{% if fields.enableResponsiveness %}<![endif]-->{% endif %}
+				{% endif %}
+
+			{% endfor %}
+			{# product card end #}
+
+			{% if fields.enableResponsiveness %}<!--[if (gte mso 9)|(IE)]>{% endif %}
+			</td>
+			</tr>
+			</table>
+			{% if fields.enableResponsiveness %}<![endif]-->{% endif %}
+		</td>
+	</tr>
+
+	{% endfor %}
+	{# products end #}
+
+</table>

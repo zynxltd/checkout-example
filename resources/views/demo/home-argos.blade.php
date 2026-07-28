@@ -20,8 +20,6 @@
         'trending_links' => $trending_links,
     ])
 
-    <div class="yg-argos-page-overlay" data-nav-page-overlay hidden aria-hidden="true"></div>
-
     <main class="demo-home-argos__main">
         <div class="yg-home-above" data-above-layout="cats-first">
             {{-- Category icon strip --}}
@@ -289,7 +287,6 @@
 
 @push('scripts')
 <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
-<script src="{{ asset('js/yg-argos-nav.js') }}?v={{ filemtime(public_path('js/yg-argos-nav.js')) }}" defer></script>
 <script>
 (function () {
     var TV_KEY = 'yg_argos_tv_live_placement';

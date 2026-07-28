@@ -23,6 +23,10 @@
     --yg-text: var(--yg-pebble);
     --yg-muted: #7a726c;
     --yg-border: #e0d6cb;
+
+    /* Shared surface radius — matches homepage category carousel thumbs */
+    --yg-radius: 20px;
+    --yg-radius-sm: 12px;
 }
 
 /* Self-hosted / local fallbacks (woff2 in public/fonts/ or activated via Creative Cloud) */

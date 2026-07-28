@@ -142,7 +142,7 @@ body.demo-pdp {
     z-index: 260;
     background: #fff;
     border: 1px solid var(--yg-border, #e0d6cb);
-    border-radius: 12px;
+    border-radius: var(--yg-radius, 20px);
     box-shadow: 0 14px 36px rgba(38, 79, 28, 0.16);
     overflow: hidden;
     text-align: left;

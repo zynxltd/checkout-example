@@ -1,0 +1,704 @@
+{# Detailed Products -- Email #}
+
+{# variables used in the layout #}
+
+{% set email_width = fields.width or 600 %} {# Total width of the SmartBlock in px #}
+{% set cols = (fields.columns|default(2)|int) %}
+{% if cols < 1 %}{% set cols = 1 %}{% endif %}
+{% if cols > 4 %}{% set cols = 4 %}{% endif %}
+{% set pad_w = fields.padding.size if fields.padding else 0 %}
+{% set border_w = fields.borders.weight if fields.borders and fields.borders.active else 0 %}
+{% set col_width = ((email_width - (pad_w * 2) - (border_w * 2)) / cols)|round(1, floor)|int %}
+{% set col_spacing = fields.columnSpacing or 20 %}
+{% set col_pct = (100 / cols)|round(4) %}
+
+{# VARIABLES #}
+
+{% if fields.image.salesBadge == "yougarden" %}
+    {% set salesBadgeColor = "#e3185d" %}
+{% elif fields.image.salesBadge == "gardeningdirect" %}
+    {% set salesBadgeColor = "#d00" %}
+{% elif fields.image.salesBadge == "plantsmailshop" %}
+    {% set salesBadgeColor = "#de6926" %}
+{% elif fields.image.salesBadge == "roses.co.uk" %}
+    {% set salesBadgeColor = "#f2eadd" %}
+{% else %}
+    {% set salesBadgeColor = "#002d72" %}
+{% endif %}
+
+{% set wasPricesShow = [] %}
+{% set descriptionShow = [] %}
+{% for product in products %}
+	{% if product.ruv and product.ruv > product.uv %}
+		{% if wasPricesShow.push('true') %}{% endif %}
+	{% endif %}
+	{% if product.desc and product.desc|length > 0 %}
+		{% if descriptionShow.push('true') %}{% endif %}
+	{% endif %}
+{% endfor %}
+
+{# end of variables #}
+
+{# ----- Social Proof Messaging Macro start ---- #}
+{% macro socialProof(product) %}
+
+{# social proof icon setup start #}
+{% if fields.socialProofMessaging.iconImage %}
+    {% set socialProofIcon = '<img src="' + fields.socialProofMessaging.iconImage + '" alt="Social Icon" style="height: auto;
+            width: ' + fields.socialProofMessaging.iconWidth + 'px;" />' %}
+{% else %}
+    {% if fields.socialProofMessaging.iconShape != 'rt4q9wp' %}
+        {% set socialProofIcon = '<span style="height: auto;
+            width: ' + fields.socialProofMessaging.iconWidth + 'px; color: ' + fields.socialProofMessaging.iconColor + ';
+            font-size: ' + fields.socialProofMessaging.iconWidth + 'px;">' +
+            fields.socialProofMessaging.iconShape + '</span>' %}
+    {% else %}
+        {% set socialProofIcon = '<svg style="height: auto; padding: 0px !important; margin: 0px !important;
+            width: ' + fields.socialProofMessaging.iconWidth + 'px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 164 211.6" style="enable-background:new 0 0 164 211.6;" xml:space="preserve">
+                <path class="st0" fill="' + fields.socialProofMessaging.iconColor + '" d="M127.1,37.2c3.8,5.1,0.2,25.6-1,39.1C120.8,50.8,69.5,0,69.5,0c8.2,17.3-15,60.2-35.7,92.4  c-1.3-12-4.6-28.8-12.9-34.5c0,0-7.5,31.8-13.6,43.9c0,0-8,18.1-7.2,36c-0.1,0.2,0.6,5.4,1,7.1c6.6,36,39.7,55.8,57.3,66.7  c-0.7-2-2.6-4.9-4.9-8.2c-2-3-2.7-4-3.8-5.4c-1.2-1.8-2.5-3.6-3.6-5.4c-8.7-16-0.3-32.2,4.4-39.2c0.8-1,1.7-2.1,2.7-3.5  c0,0,0,0.1,0,0.1h0c4.4-7,10.4-17.1,11.1-29c0,0,13.2,21.1,6.8,31.5c0,0,18.8-30.3,14.4-60.3c0,0,44.1,34.7,38.6,85  c0,0-2.2,15.5-13.5,34.4C220.3,145.7,127.1,37.2,127.1,37.2z"/>
+            </svg>' %}
+    {% endif %}
+{% endif %}
+{# social proof icon setup end #}
+
+{# social proof start #}
+{% if fields.socialProofMessaging.active  %}
+{% if format in ["dynamichtml", "dynamicimage"] %}
+    <tr>
+        <td style='padding-bottom:5px; padding-top:5px; text-align: center;'>
+{% endif %}
+            {% set proof = product.social_proof %}
+            {#  Write out the message for the relevant type of social proof #}
+            {% if proof.purchased and (fields.purchasedData.active) and proof.purchased >= fields.purchasedData.minimumPurchased %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.purchasedData.colors.background }};
+                    color: {{ fields.purchasedData.colors.foreground }};
+                    {% if fields.purchasedData.bold %} font-weight:bold; {% endif %} {% if fields.purchasedData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {% if fields.purchasedData.displayNumber %} {{ proof.purchased }} {% endif %} {{ fields.purchasedData.text }}
+                </div>
+            {% elif proof.carted and ( fields.cartedData.active) and proof.carted >= fields.cartedData.minimumCarted %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.cartedData.colors.background }};
+                    color: {{ fields.cartedData.colors.foreground }};
+                    {% if fields.cartedData.bold %} font-weight:bold; {% endif %} {% if fields.cartedData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {% if fields.cartedData.displayNumber %} {{ proof.carted }} {% endif %} {{ fields.cartedData.text }}
+                </div>
+            {% elif proof.browsed and (fields.browsedData.active) and proof.browsed >= fields.browsedData.minimumBrowsed %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.browsedData.colors.background }};
+                    color: {{ fields.browsedData.colors.foreground }};
+                    {% if fields.browsedData.bold %} font-weight:bold; {% endif %} {% if fields.browsedData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {% if fields.browsedData.displayNumber %} {{ proof.browsed }} {% endif %} {{ fields.browsedData.text }}
+                </div>
+            {% elif fields.fallbackData.active %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.fallbackData.colors.background }};
+                    color: {{ fields.fallbackData.colors.foreground }};
+                    {% if fields.fallbackData.bold %} font-weight:bold; {% endif %} {% if fields.fallbackData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {{ fields.fallbackData.text }}
+                </div>
+            {% else %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};'>
+                    &nbsp;
+                </div>
+            {% endif %}
+{% if format in ["dynamichtml", "dynamicimage"] %}
+        <td>
+    </tr>
+{% endif %}
+{% endif %}
+
+{% endmacro %}
+{# ----- Social Proof Messaging Macro end ---- #}
+
+<style type="text/css">
+	/* Auto-scale: % columns from FR UI (1–4) + fluid images */
+	.{{ safeid }} {
+		width: 100% !important;
+		max-width: {{ email_width }}px !important;
+		min-width: 0 !important;
+		table-layout: fixed !important;
+	}
+	.{{ safeid }} .imagecontainer {
+		width: {{ col_pct }}% !important;
+		max-width: {{ col_pct }}% !important;
+		min-width: 0 !important;
+		display: inline-block !important;
+		vertical-align: top !important;
+		box-sizing: border-box !important;
+		overflow: hidden !important;
+	}
+	.{{ safeid }} .imagecontainer > table {
+		width: 100% !important;
+		max-width: 100% !important;
+		table-layout: fixed !important;
+	}
+	.{{ safeid }} .imagecontainer img,
+	.{{ safeid }} img {
+		width: 100% !important;
+		max-width: 100% !important;
+		height: auto !important;
+		display: block !important;
+		border: 0 !important;
+	}
+	@media only screen and (max-width: 600px) {
+		.{{ safeid }} {
+			width: 100% !important;
+			max-width: 100% !important;
+		}
+		.{{ safeid }} .imagecontainer {
+			width: {{ col_pct }}% !important;
+			max-width: {{ col_pct }}% !important;
+		}
+		/* Smaller sale badge on mobile */
+		.{{ safeid }} [style*="position: absolute"][style*="top: 0"][style*="left: 0"][style*="SALE"] {
+			font-size: 10px !important;
+			padding: 6px 10px !important;
+			border-radius: 0 0 6px 0 !important;
+		}
+	}
+</style>
+
+<table class="{{ safeid }}" cellpadding="0" cellspacing="0" align="center" style="border: none; text-align: center; 
+	width: 100% !important; max-width:{{ email_width }}px; min-width: 0; table-layout: fixed; background-color: {{ fields.backgroundColor or '#FFFFFF' }};">
+
+	<tr>
+		<td style="padding: {{ fields.padding.size }}{{ fields.padding.unit }};
+			{% if fields.borders.active  %} 
+				border: {{ fields.borders.weight }}px {{ fields.borders.style }} {{ fields.borders.color or '#979797' }}; 
+			{% endif %} ">
+			
+			<table cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
+
+				{# header start #}
+				{% if fields.headerStyling.active %}
+				<tr>
+					<td style="padding: {{ fields.headerStyling.padding.size }}{{ fields.headerStyling.padding.unit }};
+						border-radius: {{ fields.headerStyling.borderRadius }};
+						background-color: {{ fields.headerStyling.backgroundColor }};
+						{% if fields.headerStyling.border %}
+							border: {{ fields.headerStyling.borderWeight }}px {{ fields.headerStyling.borderStyle }} {{ fields.headerStyling.borderColor }};
+						{% endif %}">
+
+						<table cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
+
+							{# headline start #}
+							{% if fields.headline.active %}
+
+								<tr>
+									<td style="text-align: {{ fields.headline.alignment }};
+											background-color: {{ fields.headline.colors.background or '#FFFFFF' }};
+											padding: 0 {{ fields.headline.padding.size }}{{ fields.headline.padding.unit }};
+											padding-top: {{ fields.headline.topMargin.size }}{{ fields.headline.topMargin.unit }}; 
+											padding-bottom: {{ fields.headline.bottomMargin.size }}{{ fields.headline.bottomMargin.unit }}; 
+											font-family: {{ fields.headline.font}}; 
+											font-size: {{ fields.headline.size.size}}{{ fields.headline.size.unit}}; 
+											color: {{ fields.headline.colors.foreground or '#000000' }};
+											{% if fields.headline.bold %} font-weight:bold; {% endif %} 
+											{% if fields.headline.italics %}font-style: italic; {% endif %}">
+										{{ mergeField(fields.headline.text) }}
+									</td>
+								</tr>
+								
+							{% endif %}
+							{# headline end #}
+
+							{# subheadline start #}
+							{% if fields.subHeadline.active %}
+
+								<tr>
+									<td style="text-align: {{ fields.subHeadline.alignment }}; 
+										background-color: {{ fields.subHeadline.colors.background or '#FFFFFF' }};
+										padding: 0 {{ fields.subHeadline.padding.size }}{{ fields.subHeadline.padding.unit }};
+										padding-top: {{ fields.subHeadline.topMargin.size }}{{ fields.subHeadline.topMargin.unit }}; 
+										padding-bottom: {{ fields.subHeadline.bottomMargin.size }}{{ fields.subHeadline.bottomMargin.unit }}; 
+										font-family: {{ fields.subHeadline.font }}; 
+										font-size: {{ fields.subHeadline.size.size }}{{ fields.subHeadline.size.unit }}; 
+										color: {{ fields.subHeadline.colors.foreground or '#000000' }}; 
+										{% if fields.subHeadline.bold %} font-weight:bold; {% endif %} 
+										{% if fields.subHeadline.italics %}font-style: italic; {% endif %}">
+										{{ fields.subHeadline.text }}
+									</td>
+								</tr>
+
+							{% endif %}
+							{# subheadline end #}
+							
+							{% if fields.divider.active %}
+								
+								<tr>
+									<td style="text-align: center; 
+										{% if not fields.subHeadline.active and not fields.headline.active %} 
+											background-color: {{ fields.backgroundColor }}; 
+										{% elif not fields.headline.active %} 
+											background-color: {{ fields.subHeadline.colors.background }}; 
+										{% else %} 
+											background-color: {{ fields.subHeadline.colors.background }}; 
+										{% endif %}">
+										<!-- table here -->
+										<hr width="90%" style="border-top: {{ fields.divider.weight }}px solid {{ fields.divider.color or '#979797'}}; 
+											border-radius: 5px;">
+									</td>
+								</tr>
+								
+							{% endif %}
+
+						</table>
+
+					</td>
+				<tr>
+				{% endif %}
+				{# header end #}
+				
+				<tr>
+					<td style="text-align: center; vertical-align: top; font-size:0px;">
+						
+						{# products start #}
+						{% for row in products|batch(cols) %}
+		
+						{% set row_nr = loop.index0*cols %}
+						<!--[if gte mso 9]><table cellpadding="0" cellspacing="0" border="0" width="{{ email_width - 4 }}" align="center">
+							<tr>
+								<td width="{{ col_width }}" valign="top"><![endif]-->
+									
+						{# product card start #}
+						{% for product in row %}
+
+							<div style="width: {{ col_pct }}%; max-width: {{ col_pct }}%; display: inline-block; vertical-align: top; box-sizing: border-box; min-width: 0;" 
+								class="imagecontainer" data-imageindex="{{ loop.index0+row_nr }}">
+
+								<table cellpadding="0" cellspacing="0" width="100%" style="border: none; text-align: center; width: 100%; max-width: 100%; table-layout: fixed;">
+
+									<tr>
+										<td height="{{ col_spacing / 4 }}" style="background-color: {{ fields.backgroundColor or '#FFFFFF'}}; 
+											font-size: 0px; line-height: 0px;">&nbsp;</td>
+									</tr>
+
+									<tr>
+										<td style="background-color: {{ fields.backgroundColor or '#FFFFFF'}}; 
+											padding: 0px {{ col_spacing / 2 }}px;">
+
+											<table cellpadding="0" cellspacing="0" style="width: 100%; 
+												background-color: {{ fields.cardStyling.backgroundColor }};
+												border: 0;
+												border-radius: 0;">
+
+												{# product image start #}
+												{% if fields.productImage.active %}
+												<tr>
+													<td style="padding: 0; margin: 0; line-height: 0; width: 100%;">
+														<table cellpadding="0" cellspacing="0" style="width: 100%; border: 0;">
+															<tr>
+																<td style="padding: 0; margin: 0; line-height: 0; position: relative; border-radius: 12px; overflow: hidden;">
+																	<table cellpadding="0" cellspacing="0" style="width: 100%; border: 0; border-radius: 12px; overflow: hidden;">
+																		<tr>
+																			<td style="padding: 0; margin: 0; line-height: 0; border-radius: 12px; overflow: hidden;">
+																				<a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+																					utm_campaign=mergeField(fields.utmCampaign, {}), 
+																					utm_medium=mergeField(fields.utmMedium, {}), 
+																					utm_source=mergeField(fields.utmSource, {})) }}" target="_blank" 
+																					style="display: block; width: 100%; text-decoration: none; padding: 0; margin: 0; border-radius: 12px; overflow: hidden;">
+																					<img src="{{ product.img or product.img_tn }}" style="width: 100%; height: auto; display: block; padding: 0; margin: 0; border: 0; max-width: 100%; border-radius: 12px; -ms-interpolation-mode: bicubic;" />
+																				</a>
+																			</td>
+																		</tr>
+																	</table>
+																	{# SALE badge overlay - top left - only when Top Left Badge is ON #}
+																	{% if fields.topLeftBadge.active %}
+																	<table cellpadding="0" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 10; border: 0;">
+																		<tr>
+																				<td style="background-color: {{ fields.topLeftBadge.backgroundColor or '#002d72' }}; color: {{ fields.topLeftBadge.textColor or '#ffffff' }}; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; padding: 8px 12px; border-radius: 0 0 8px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.2); line-height: 1; white-space: nowrap; border: 0;">{{ fields.topLeftBadge.text or 'SALE' }}</td>
+																		
+																		</tr>
+																	</table>
+																	{% endif %}
+																	{% set saving = (product.ruv - product.uv) / product.ruv * 100 %}
+                                                                    {% if fields.image.active and saving > 0 %}
+                                                                    {# Savings badge overlay - top right - only when Discount Badge Settings is ON #}
+                                                                    <table cellpadding="0" cellspacing="0" border="0" style="position: absolute; top: -11px; right: -10px; z-index: 2; width: 72px; height: 72px; ">
+                                                                        <tr>
+                                                                            <td align="center" valign="middle" style="background-color: {{ salesBadgeColor }}; border-radius: 50%; border: 2px solid #fff; width: 72px; height: 72px; text-align: center; vertical-align: middle; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-family: Arial, sans-serif;">
+                                                                                <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; height: 100%; border-collapse: collapse;">
+                                                                                    <tr>
+                                                                                        <td align="center" valign="middle" style="text-align: center; vertical-align: middle; font-size: 16px; line-height: 18px; font-weight: 900; color: {{ fields.image.textColor or '#ffffff' }}; padding: 0;">
+                                                                                            <span style="display: block; font-size: 16px; line-height: 0.9;">{{ saving|round(0) }}<span style="font-size: 15px; vertical-align: top;">%</span></span><br style="line-height:0;font-size:0;">OFF
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    {% endif %}
+
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												{% endif %}
+												{# product image end #}
+
+												{% if fields.socialProofMessaging.active  %}
+													{{ socialProof(product) }}
+												{% endif %}
+												
+												{# ratings start #}
+												{% if fields.ratingIcons.active %}
+													{% if product|addProductRatings %}
+														<tr>
+															<td style="text-align: {{ fields.ratingIcons.alignment }}; vertical-align: top; padding: 2px {{ col_spacing / 2 }}px 2px {{ col_spacing / 2 }}px;
+																height: {{ fields.ratingIcons.iconWidth + fields.ratingIcons.iconWidth + 10 }};">
+																{{ product| addProductRatings }}
+															</td>
+														</tr>
+													{% else %}
+														<tr>	
+															<td style="text-align: center; vertical-align: top; padding: 2px {{ col_spacing / 2 }}px 2px {{ col_spacing / 2 }}px; 
+																background-color: {{ fields.backgroundColor or '#FFFFFF'}}; 
+																height: {{ fields.ratingIcons.iconWidth + fields.ratingIcons.iconWidth + 10 }}">
+																&nbsp;
+															</td>
+														</tr>
+													{% endif %}
+												{% endif %}
+												{# ratings end #}
+												
+                                                {# product name start #}
+                                                {% if fields.productName.active %}
+                                                <tr>
+                                                    <td style="text-align: {{ fields.productName.alignment|lower }}; vertical-align: top; 
+                                                        padding: 2px {{ col_spacing / 2 }}px 2px {{ col_spacing / 2 }}px; 
+                                                        font-family: {{ fields.productName.font}}; 
+                                                        font-size: {{ fields.productName.size.size}}{{ fields.productName.size.unit}}; 
+                                                        color: {{ fields.productName.color or '#000000'}}; 
+                                                        line-height: 1.2;
+                                                        height: {{ fields.productName.size.size * 2.4 }}{{ fields.productName.size.unit }}; /* Always 2 lines high */
+                                                        margin: 0;
+                                                        overflow: hidden;">
+                                                
+                                                        <div style="display: -webkit-box;
+                                                            -webkit-line-clamp: 2;          /* Limit to 2 lines */
+                                                            -webkit-box-orient: vertical;
+                                                            text-overflow: ellipsis;
+                                                            line-height: 1.2;
+                                                            overflow: hidden;
+                                                            word-break: break-word;
+                                                            text-align: {{ fields.productName.alignment|lower }};
+                                                            font-size: {{ fields.productName.size.size}}{{ fields.productName.size.unit}};">
+                                                            <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                                                utm_campaign=mergeField(fields.utmCampaign, {}), 
+                                                                utm_medium=mergeField(fields.utmMedium, {}), 
+                                                                utm_source=mergeField(fields.utmSource, {})) }}" target="_blank" 
+                                                                style="color: {{ fields.productName.color}}; text-decoration: none; 
+                                                                    font-size: {{ fields.productName.size.size}}{{ fields.productName.size.unit}};
+                                                                    {% if fields.productName.bold %} font-weight: bold; {% endif %} 
+                                                                    {% if fields.productName.italics %} font-style: italic; {% endif %}
+                                                                    display: block; margin: 0; padding: 0; text-align: {{ fields.productName.alignment|lower }};">
+                                                                {{ product.n }}
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                {% endif %}
+                                                {# product name end #}
+                                                
+
+
+												{# product description start #}
+												{% if fields.productDescription.active and descriptionShow|length > 0 %}
+													<tr>
+														<td style="vertical-align: {{ fields.productDescription.alignment }};
+															font-family: {{ fields.productDescription.font }};
+															font-size: {{ fields.productDescription.fontSize.size }}{{ fields.productDescription.fontSize.unit }};;
+															color: {{ fields.productDescription.color }};
+															height: {{ fields.productDescription.height }}px;
+															padding: 2px {{ col_spacing / 2 }}px 2px {{ col_spacing / 2 }}px;
+															line-height: 1.5;
+															{% if fields.productDescription.bold %}
+																font-weight: bold;
+															{% endif %}
+															{% if fields.productDescription.italics %}
+																font-style: italic;
+															{% endif %}">
+																<div style="height: {{ fields.productDescription.height }}px;; overflow: hidden;">
+																	{{ product.desc }}
+																</div>
+														</td>
+													</tr>
+												{% else %}
+													{% if fields.productDescription.active %}
+													<tr>
+														<td style="height: {{ fields.productDescription.height }}px; padding: 0; margin: 0; line-height: 0; font-size: 1px;">&nbsp;</td>
+													</tr>
+													{% endif %}
+												{% endif %}
+												{# product description end #}
+												
+												{# product price start #}
+												{% if fields.productPrice.active %}
+													{% if fields.productPrice.spacingAbove|default(0) > 0 %}
+													<tr>
+														<td style="height: {{ fields.productPrice.spacingAbove|default(0) }}px; padding: 0; margin: 0; line-height: 0; font-size: 1px;">&nbsp;</td>
+													</tr>
+													{% endif %}
+													<tr>
+														<td style="padding: 0px {{ col_spacing / 2 }}px {{ fields.productPrice.spacingBelow|default(0) }}px {{ col_spacing / 2 }}px; margin: 0; line-height: 0;">
+															<table cellpadding="0" cellspacing="0" style="border: none; width: 100%; margin: 0;">
+																<tr>
+																	<td style="text-align: center; width: 100%; margin: 0; padding: 0;">
+																		<!--[if mso]>
+																		<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" 
+																			href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+																		utm_campaign=mergeField(fields.utmCampaign, {}), 
+																		utm_medium=mergeField(fields.utmMedium, {}), 
+																		utm_source=mergeField(fields.utmSource, {}))}}" style="height:{{ fields.productPrice.size.size * 2 }}px;
+																		v-text-anchor:middle;width:{{ col_width - col_spacing - 10 }}px;" 
+																			arcsize="{{ '0' if fields.productPrice.borderRadius == '0px' else '20%' }}" stroke="f" 
+																			fillcolor="{{ fields.productPrice.colors.background or '#000000'}}">
+																			<w:anchorlock/>
+																			<center>
+																		<![endif]-->
+																			<p
+																				style="padding:2px 12px; background-color:{{ fields.productPrice.colors.background or '#000000'}};color:{{ fields.productPrice.colors.foreground or '#979797'}};
+																					display:block; font-family:{{ fields.productPrice.font }};
+																					border-radius:{{ fields.productPrice.borderRadius }};
+																					font-size:{{ fields.productPrice.size.size}}{{ fields.productPrice.size.unit}};
+																					text-align:center;-webkit-text-size-adjust:none;
+																					margin: 0;
+																					line-height: 1;
+																					{% if fields.productPrice.bold %} font-weight:bold; {% endif %}
+																					{% if fields.productPrice.italics %}font-style:italic; {% endif %}">
+																				{{ product.uv|format_currency(product.curr,2) }}
+																			</p>
+																		<!--[if mso]>
+																			</center>
+																		</v:roundrect>
+																	<![endif]-->
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												{% endif %}
+												{# product price end #}
+
+												{# product cta start #}
+												{% if fields.callToAction.active %}
+												<tr>
+													<td style="padding: 2px {{ col_spacing / 2 }}px 2px {{ col_spacing / 2 }}px;">
+														<table cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
+															<tr>
+																<td style="text-align: center;padding: 0; ">
+																	<!--[if mso]>
+																		<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" 
+																			href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+																		utm_campaign=mergeField(fields.utmCampaign, {}), 
+																		utm_medium=mergeField(fields.utmMedium, {}), 
+																		utm_source=mergeField(fields.utmSource, {}))}}" style="height:{{ fields.callToAction.size.size * 2 }}px;
+																		v-text-anchor:middle;width:{{ col_width - col_spacing - 10 }}px;" 
+																			arcsize="{{ '0' if fields.callToAction.borderRadius == '0px' else '20%' }}" stroke="f" 
+																			fillcolor="{{ fields.callToAction.colors.background or '#000000'}}">
+																			<w:anchorlock/>
+																			<center>
+																		<![endif]-->
+																			<a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+																		utm_campaign=mergeField(fields.utmCampaign, {}), 
+																		utm_medium=mergeField(fields.utmMedium, {}), 
+																		utm_source=mergeField(fields.utmSource, {}))}}"
+																				style="padding:10px 15px; background-color:{{ fields.callToAction.colors.background or '#000000'}};color:{{ fields.callToAction.colors.foreground or '#979797'}};
+																					display: block; font-family:{{ fields.callToAction.font }};
+																					border-radius: {{ fields.callToAction.borderRadius }};
+																					font-size: {{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+																					text-align: {{ fields.callToAction.textAlignment }};
+																					text-decoration:none; -webkit-text-size-adjust:none;
+																					box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+																					{% if fields.callToAction.bold %}
+																						font-weight:bold;
+																					{% endif %}
+																					{% if fields.callToAction.italics %}
+																						font-style:italic;
+																					{% endif %}
+																					{% if fields.callToAction.border %}
+																						border: {{ fields.callToAction.borderWeight }}px {{ fields.callToAction.borderStyle }} {{ fields.callToAction.borderColor or '#979797'}};
+																					{% endif %}">
+																				{{ fields.callToAction.text }}
+																			</a>
+																		<!--[if mso]>
+																			</center>
+																		</v:roundrect>
+																	<![endif]-->
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+												{% endif %}
+												{# product cta end #}
+
+												{# product was price start #}
+												{% if fields.productWasPrice.active %}
+													{% if wasPricesShow|length > 0 %}
+													<tr>
+														<td style="text-align: center; padding: 0px {{ col_spacing / 0 }}px 0px {{ col_spacing / 2 }}px; margin: 0; line-height: 1;">
+															<!--[if mso]>
+																<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" 
+																	href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+																utm_campaign=mergeField(fields.utmCampaign, {}), 
+																utm_medium=mergeField(fields.utmMedium, {}), 
+																utm_source=mergeField(fields.utmSource, {}))}}" style="height:{{ fields.productWasPrice.size.size * 2 }}px;
+																v-text-anchor:middle;width:{{ col_width - col_spacing - 10 }}px;" 
+																	arcsize="{{ '0' if fields.productWasPrice.borderRadius == '0px' else '20%' }}" stroke="f" 
+																	fillcolor="{{ fields.productWasPrice.colors.background or '#000000'}}">
+																	<w:anchorlock/>
+																	<center>
+																<![endif]-->
+																	<a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+																utm_campaign=mergeField(fields.utmCampaign, {}), 
+																utm_medium=mergeField(fields.utmMedium, {}), 
+																utm_source=mergeField(fields.utmSource, {}))}}"
+																		style="padding:2px 10px; color:{{ fields.productWasPrice.colors.foreground or '#979797'}};
+																			background-color: {{ fields.productWasPrice.colors.background or '#FFFFFF' }}; 
+																			display:block; font-family:{{ fields.productWasPrice.font }};
+																			border-radius: {{ fields.productWasPrice.borderRadius }};
+																			font-size:{{ fields.productWasPrice.size.size}}{{ fields.productWasPrice.size.unit}};
+																			text-align:center;text-decoration:none;-webkit-text-size-adjust:none;
+																			margin: 0;
+																			{% if fields.productWasPrice.bold %} font-weight:bold; {% endif %}
+																			{% if fields.productWasPrice.italics %}font-style:italic; {% endif %}">
+																		{% if product.ruv and product.ruv > product.uv %}
+																			Was <span style="{% if fields.productWasPrice.strikethrough %} text-decoration: line-through; opacity: 0.7; {% endif %}">
+																			{{ product.ruv|format_currency(product.curr,2) }}</span>
+																		{% else %}
+																			&nbsp;
+																		{% endif %}
+																	</a>
+																<!--[if mso]>
+																	</center>
+																</v:roundrect>
+															<![endif]-->
+														</td>
+													</tr>
+													{% else %}
+													<tr>
+														<td style="height: 30px; padding: 0; margin: 0; line-height: 0; font-size: 1px;">&nbsp;</td>
+													</tr>
+													{% endif %}
+												{% else %}
+													{% if fields.productWasPrice.active %}
+													<tr>
+														<td style="height: 30px; padding: 0; margin: 0; line-height: 0; font-size: 1px;">&nbsp;</td>
+													</tr>
+													{% endif %}
+												{% endif %}
+												{# product was price end #}
+
+												<tr><td style="font-size:1px; padding: 0; margin: 0; height: {{ fields.cardBottomSpacing|default(0) }}px;">&nbsp;</td></tr>
+												
+											</table>
+										</td>
+									</tr>
+
+									<tr>
+										<td style="height:{{ col_spacing / 4 }}px; background-color: {{ fields.backgroundColor or '#FFFFFF'}}; 
+											font-size:0px; line-height:0px;">&nbsp;</td>
+									</tr>
+
+								</table>
+
+							</div>
+
+							{% if not loop.last %}
+								<!--[if (gte mso 9)|(IE)]></td>
+								<td width="{{ col_width }}"><![endif]-->
+							{% endif %}
+
+						{% endfor %}
+						{# product card end #}
+
+						<!--[if (gte mso 9)|(IE)]></td>
+						</tr>
+						</table><![endif]-->
+						{% endfor %}
+						{# products end #}
+					</td>
+				</tr>
+
+
+</table>
+{% if fields.bottomCallToAction.active  %}
+
+			<table cellpadding="0" cellspacing="0" style="border: none; width: 100%;">
+				<tr>
+					<td align="center" style="text-align: center; padding-top: 10px; padding-bottom: 10px;">
+						<table cellpadding="0" cellspacing="0" style="border: none;" align="center">
+							<tr>
+								<td style="text-align: center;padding: 0; " align="center">
+									<!--[if mso]>
+										<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" 
+											href="{{ mergeField(fields.BottomCTAURL, { product: product })|set_ga_tracking(
+										utm_campaign=mergeField(fields.utmCampaign, {}), 
+										utm_medium=mergeField(fields.utmMedium, {}), 
+										utm_source=mergeField(fields.utmSource, {}))}}" style="height:{{ fields.bottomCallToAction.size.size * 2 }}px;
+										v-text-anchor:middle;width:{{ col_width - col_spacing - 10 }}px;" 
+											arcsize="{{ '0' if fields.bottomCallToAction.borderRadius == '0px' else '20%' }}" stroke="f" 
+											fillcolor="{{ fields.bottomCallToAction.colors.background or '#000000'}}">
+											<w:anchorlock/>
+											<center>
+										<![endif]-->
+											<a href="{{ mergeField(fields.BottomCTAURL, { product: product })|set_ga_tracking(
+										utm_campaign=mergeField(fields.utmCampaign, {}), 
+										utm_medium=mergeField(fields.utmMedium, {}), 
+										utm_source=mergeField(fields.utmSource, {}))}}"
+												style="padding:5px; background-color:{{ fields.bottomCallToAction.colors.background or '#000000'}};color:{{ fields.bottomCallToAction.colors.foreground or '#979797'}};
+													display: block; font-family:{{ fields.bottomCallToAction.font }};
+													border-radius: {{ fields.bottomCallToAction.borderRadius }};
+													font-size: {{ fields.bottomCallToAction.size.size }}{{ fields.bottomCallToAction.size.unit }};
+													text-align: {{ fields.bottomCallToAction.textAlignment }};
+													text-decoration:none; -webkit-text-size-adjust:none;
+													{% if fields.bottomCallToAction.bold %}
+														font-weight:bold;
+													{% endif %}
+													{% if fields.bottomCallToAction.italics %}
+														font-style:italic;
+													{% endif %}
+													{% if fields.bottomCallToAction.border %}
+														border: {{ fields.bottomCallToAction.borderWeight }}px {{ fields.bottomCallToAction.borderStyle }} {{ fields.bottomCallToAction.borderColor or '#979797'}};
+													{% endif %}">
+												{{ fields.bottomCallToAction.text }}
+											</a>
+										<!--[if mso]>
+											</center>
+										</v:roundrect>
+									<![endif]-->
+								</td>
+							</tr>
+                            </table>
+							
+						</td>
+					</tr>
+				</td>
+			</tr>
+		</table>
+{% endif %}
