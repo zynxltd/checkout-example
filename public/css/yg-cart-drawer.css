@@ -275,13 +275,13 @@ body.yg-drawer-open {
     .yg-reco-inline {
         display: block;
         margin: 16px 0 16px;
-        padding-top: 12px;
+        padding: 12px 14px 0;
         border-top: 1px solid var(--yg-border);
     }
 
     .yg-reco-inline__heading {
         margin: 0 0 12px;
-        padding-left: 6px;
+        padding-left: 0;
         font-family: var(--yg-heading);
         font-size: 1rem;
         font-weight: 700;
@@ -291,7 +291,7 @@ body.yg-drawer-open {
 
     .yg-reco-inline__scroller {
         margin: 0 -14px 0 0;
-        padding: 0 14px 4px 6px;
+        padding: 0 14px 4px 0;
         overflow-x: auto;
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
@@ -1093,7 +1093,8 @@ body.yg-drawer-open {
     min-height: 0;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 14px 14px 14px;
+    /* Item cards are full-bleed; keep horizontal padding off the body */
+    padding: 0 0 14px;
 }
 
 /* v4.0 — returning visitor basket note */
@@ -1101,7 +1102,7 @@ body.yg-drawer-open {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin: -14px -14px 10px;
+    margin: 0 0 0;
     padding: 8px 10px 8px 12px;
     background: var(--yg-theme-item-bg);
     border-bottom: 1px solid var(--yg-border);
@@ -1169,7 +1170,7 @@ body.yg-drawer-open {
 
 /* V2 — free delivery progress (£50 milestone, £80 goal) */
 .yg-delivery-bar {
-    margin: 0 -14px 16px;
+    margin: 0;
     padding: 0;
     background: var(--yg-stone);
     border-bottom: 1px solid var(--yg-border);
@@ -1327,18 +1328,19 @@ body.yg-drawer-open {
     color: var(--yg-text);
 }
 
-/* Product cards */
+/* Product cards — full drawer width, no side inset */
 .yg-drawer__items {
     list-style: none;
-    margin: 0 0 0;
+    margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0;
 }
 
 .yg-item--club {
-    border: 1px solid var(--yg-club-purple);
+    border-bottom-color: var(--yg-border);
+    box-shadow: inset 3px 0 0 var(--yg-club-purple);
     background: #faf5fa;
 }
 
@@ -1353,18 +1355,24 @@ body.yg-drawer-open {
     grid-template-rows: 1fr;
     align-items: stretch;
     gap: 10px 14px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
     padding: 14px 14px 12px;
     min-height: 116px;
     background: var(--yg-theme-item-bg);
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: none;
+    border-bottom: 1px solid var(--yg-border);
+    border-radius: 0;
+    box-shadow: none;
 }
 
 @media (min-width: 768px) {
     .yg-item {
-        border-radius: 12px;
+        border-radius: 0;
         box-shadow: none;
-        border: 1px solid var(--yg-border);
+        border: none;
+        border-bottom: 1px solid var(--yg-border);
     }
 }
 

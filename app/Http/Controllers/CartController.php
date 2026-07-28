@@ -21,7 +21,7 @@ class CartController extends Controller
         return response()->json([
             'html' => $html,
             'cart' => DemoCart::state(),
-        ]);
+        ])->header('Cache-Control', 'no-store, private');
     }
 
     public function add(Request $request): JsonResponse
@@ -49,7 +49,7 @@ class CartController extends Controller
 
         $items = collect(session('demo_cart_items', []))
             ->map(function ($row) use ($sku, $qty) {
-                if ($row['sku'] === $sku) {
+                if ((string) ($row['sku'] ?? '') === $sku) {
                     $row['qty'] = $qty;
                 }
 
@@ -60,6 +60,7 @@ class CartController extends Controller
             ->all();
 
         session(['demo_cart_items' => $items]);
+        DemoCart::syncClubInCartFlag();
 
         return $this->fragment($request);
     }
@@ -70,7 +71,7 @@ class CartController extends Controller
         $sku = $request->string('sku')->toString();
 
         $items = collect(session('demo_cart_items', []))
-            ->reject(fn ($row) => $row['sku'] === $sku)
+            ->reject(fn ($row) => (string) ($row['sku'] ?? '') === $sku)
             ->values()
             ->all();
 

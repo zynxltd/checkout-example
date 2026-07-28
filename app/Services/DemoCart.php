@@ -711,14 +711,23 @@ class DemoCart
             if ($sku === '') {
                 continue;
             }
+            $price = (float) $product['price'];
+            $clubSaving = isset($product['club_price'])
+                ? round(max(0, $price - (float) $product['club_price']), 2)
+                : round($price * 0.15, 2);
+            $clubPrice = isset($product['club_price'])
+                ? (float) $product['club_price']
+                : round($price - $clubSaving, 2);
+
             $entries[$sku] = [
                 'sku' => $sku,
                 'name' => $product['name'],
                 'variant' => $product['variant'] ?? '1 × collection',
                 'image' => $product['image'],
-                'price' => (float) $product['price'],
+                'price' => $price,
                 'was_price' => (float) ($product['was_price'] ?? $product['price']),
-                'club_saving_per_unit' => round(((float) $product['price']) * 0.15, 2),
+                'club_price' => $clubPrice,
+                'club_saving_per_unit' => $clubSaving,
             ];
         }
 
@@ -1159,6 +1168,7 @@ class DemoCart
                 'image' => 'images/products/401842.jpg',
                 'price' => 9.99,
                 'was_price' => 14.99,
+                'club_price' => 8.49,
                 'club_saving_per_unit' => 1.50,
             ],
             '402156' => [
@@ -1168,6 +1178,7 @@ class DemoCart
                 'image' => 'images/products/402156.jpg',
                 'price' => 14.97,
                 'was_price' => 29.97,
+                'club_price' => 9.72,
                 'club_saving_per_unit' => 5.25,
             ],
             '403891' => [
@@ -1177,6 +1188,7 @@ class DemoCart
                 'image' => 'images/products/403891.jpg',
                 'price' => 14.97,
                 'was_price' => 29.97,
+                'club_price' => 12.72,
                 'club_saving_per_unit' => 2.25,
             ],
             'PA255' => [
@@ -1334,7 +1346,7 @@ class DemoCart
         self::seed();
 
         foreach (session('demo_cart_items', []) as $row) {
-            if (in_array($row['sku'], self::clubSkus(), true)) {
+            if (in_array((string) ($row['sku'] ?? ''), self::clubSkus(), true)) {
                 return true;
             }
         }
@@ -1614,6 +1626,16 @@ class DemoCart
 
         if ($clubPrice !== null && (float) $clubPrice < $price) {
             return (float) $clubPrice;
+        }
+
+        // Fall back to explicit per-unit club saving when club_price is omitted.
+        $saving = 0.0;
+        if (isset($product['club_saving_per_unit'])) {
+            $saving = (float) $product['club_saving_per_unit'];
+        }
+
+        if ($saving > 0 && $saving < $price) {
+            return round($price - $saving, 2);
         }
 
         return $price;

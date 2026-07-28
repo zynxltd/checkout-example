@@ -431,12 +431,39 @@
                 return;
             }
 
+            // Cancel a pending extend-close hide so a freshly mounted club/reco
+            // panel is not immediately hidden by a stale timer from add-club.
+            if (this.extendCloseTimer) {
+                clearTimeout(this.extendCloseTimer);
+                this.extendCloseTimer = null;
+            }
+
             this.mount.innerHTML = html;
             this.wireDrawer(this.mount, { preserveExtend });
 
             if (preserveExtend) {
                 this.restoreExtend(preserveExtend);
             }
+        },
+
+        applyCartResponse(data, { preserveExtend = null, keepOpen = false } = {}) {
+            if (!data?.html) {
+                return false;
+            }
+
+            this.applyMountHtml(data.html, { preserveExtend });
+            this.updateCartBadges(data.cart);
+
+            if (keepOpen) {
+                const drawer = document.getElementById('yg-cart-drawer');
+                if (drawer) {
+                    drawer.hidden = false;
+                    drawer.classList.add('is-open');
+                    document.body.classList.add('yg-drawer-open');
+                }
+            }
+
+            return true;
         },
 
         reopenExtend(id) {
@@ -669,22 +696,13 @@
 
             try {
                 const res = await fetch(window.YG_DEMO_ROUTES.fragment, {
+                    cache: 'no-store',
+                    credentials: 'same-origin',
                     headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
                 });
                 const data = await res.json();
 
-                this.applyMountHtml(data.html, { preserveExtend });
-
-                this.updateCartBadges(data.cart);
-
-                if (wasOpen) {
-                    const drawer = document.getElementById('yg-cart-drawer');
-                    if (drawer) {
-                        drawer.hidden = false;
-                        drawer.classList.add('is-open');
-                        document.body.classList.add('yg-drawer-open');
-                    }
-                }
+                this.applyCartResponse(data, { preserveExtend, keepOpen: wasOpen });
             } catch (err) {
                 console.error('[demo] cart refresh failed', err);
             }
@@ -737,17 +755,11 @@
                         alert(data.error || 'Could not add membership.');
                         return;
                     }
-                    if (data.html) {
-                        this.applyMountHtml(data.html);
-                        this.updateCartBadges(data.cart);
-                        const drawer = document.getElementById('yg-cart-drawer');
-                        if (drawer) {
-                            drawer.hidden = false;
-                            drawer.classList.add('is-open');
-                            document.body.classList.add('yg-drawer-open');
-                        }
-                    }
-                    this.closeExtend();
+                    // Remount replaces the club panel; skip closeExtend() so its
+                    // delayed hide timer cannot race a later remove/refresh.
+                    this.applyCartResponse(data, { keepOpen: true });
+                    this.activeExtend = null;
+                    this.setSheetOpen(false);
                 });
             });
 
@@ -775,19 +787,10 @@
                             return;
                         }
 
-                        if (data.html) {
-                            this.applyMountHtml(data.html, {
-                                preserveExtend: this.preserveExtendOnRefresh(),
-                            });
-                            this.updateCartBadges(data.cart);
-
-                            const drawer = document.getElementById('yg-cart-drawer');
-                            if (drawer) {
-                                drawer.hidden = false;
-                                drawer.classList.add('is-open');
-                                document.body.classList.add('yg-drawer-open');
-                            }
-                        }
+                        this.applyCartResponse(data, {
+                            preserveExtend: this.preserveExtendOnRefresh(),
+                            keepOpen: true,
+                        });
                     } catch (err) {
                         unmarkRecoAdded(btn);
                         console.error('[demo] reco add failed', err);
@@ -865,8 +868,30 @@
 
             root.querySelectorAll('[data-remove]').forEach((btn) => {
                 btn.addEventListener('click', async () => {
-                    await post(window.YG_DEMO_ROUTES.remove, { sku: btn.getAttribute('data-remove') });
-                    await this.refresh();
+                    const sku = btn.getAttribute('data-remove');
+                    const wasOpen = document.getElementById('yg-cart-drawer')?.classList.contains('is-open');
+                    // Don't preserve the club panel after removing membership — the
+                    // join-club bar must remount cleanly from the remove response.
+                    const preserveExtend = this.activeExtend === 'club'
+                        ? null
+                        : this.preserveExtendOnRefresh();
+
+                    try {
+                        const res = await post(window.YG_DEMO_ROUTES.remove, { sku });
+                        const data = await res.json().catch(() => ({}));
+
+                        if (!res.ok) {
+                            alert(data.error || 'Could not remove item.');
+                            return;
+                        }
+
+                        if (!this.applyCartResponse(data, { preserveExtend, keepOpen: wasOpen })) {
+                            await this.refresh();
+                        }
+                    } catch (err) {
+                        console.error('[demo] cart remove failed', err);
+                        await this.refresh();
+                    }
                 });
             });
 
