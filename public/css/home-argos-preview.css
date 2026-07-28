@@ -1826,7 +1826,7 @@ body.yg-header-argos .usp-wrapper {
     justify-content: center;
     min-height: 52px;
     padding: 12px 14px;
-    border-radius: var(--yg-radius);
+    border-radius: 8px;
     background: var(--yg-rose);
     color: #fff;
     font-family: var(--yg-body);
@@ -2336,7 +2336,7 @@ body.yg-header-argos .usp-wrapper {
         min-height: 44px;
         padding: 10px 8px;
         font-size: 13px;
-        border-radius: var(--yg-radius);
+        border-radius: 6px;
     }
 
     .yg-hero-argos__controls-nav {

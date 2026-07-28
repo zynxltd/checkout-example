@@ -1150,7 +1150,8 @@ class DemoCart
 
     public static function catalogue(): array
     {
-        return array_merge([
+        // Use + (not array_merge): numeric SKU keys must stay string keys.
+        return [
             '401842' => [
                 'sku' => '401842',
                 'name' => "Upright Zonal Geranium 'Parade' Mix",
@@ -1325,7 +1326,7 @@ class DemoCart
                 'was_price' => self::CLUB_WAS_PRICE,
                 'is_club' => true,
             ],
-        ], self::listingCatalogueEntries());
+        ] + self::listingCatalogueEntries();
     }
 
     public static function hasClubInCart(): bool
