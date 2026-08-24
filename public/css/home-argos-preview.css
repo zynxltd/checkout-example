@@ -2389,6 +2389,10 @@ body.yg-header-argos .usp-wrapper {
         gap: 10px;
     }
 
+    .yg-home-row4--five .yg-home-tile:nth-child(5) {
+        display: none;
+    }
+
     .yg-home-featured {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-template-rows: auto;
