@@ -21,9 +21,9 @@
     ])
 
     <main class="demo-home-argos__main">
-        <div class="yg-home-above" data-above-layout="cats-first">
-            {{-- Category icon strip --}}
-            <section class="yg-cat-strip" aria-label="Shop by category" data-cat-strip data-above-block="cats">
+        <div class="yg-home-above" data-above-layout="hero-first" data-hero-layout="banner">
+            {{-- Category icon strip — hidden to match yougarden.com (hero then tiles) --}}
+            <section class="yg-cat-strip" aria-label="Shop by category" data-cat-strip data-above-block="cats" hidden>
                 <button type="button" class="yg-cat-strip__nav yg-cat-strip__nav--prev" data-cat-prev aria-label="Previous categories" hidden>
                     <span class="yg-cat-strip__nav-arrow yg-cat-strip__nav-arrow--prev" aria-hidden="true"></span>
                 </button>
@@ -56,7 +56,7 @@
                 </button>
             </section>
 
-            {{-- Hero carousel: banner + CTAs change together (Argos pattern)
+            {{-- Default: yougarden.com 1920×600 banners. Variant: Argos banner + shortcut CTAs.
                  Previous lifestyle split banner: images/home-preview/hero-garden-original-backup.jpg --}}
             <section class="yg-hero-argos" aria-roledescription="carousel" aria-label="Featured offers" data-hero-carousel data-above-block="hero">
                 <div class="yg-hero-argos__slides">
@@ -82,7 +82,7 @@
                                     alt="{{ $slide['alt'] }}"
                                     width="1920"
                                     height="600"
-                                    sizes="(max-width: 960px) 100vw, 1440px"
+                                    sizes="100vw"
                                     @if ($index === 0) fetchpriority="high" @else loading="lazy" @endif
                                 >
                             </a>
@@ -282,103 +282,9 @@
     @include('demo.partials.drawer', ['cart' => $cart])
 </div>
 
-@include('demo.partials.home-argos-prototype-tools')
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
-<script>
-(function () {
-    var TV_KEY = 'yg_argos_tv_live_placement';
-    var ABOVE_KEY = 'yg_argos_above_layout';
-
-    function applyTvPlacement(mode) {
-        document.querySelectorAll('[data-tv-live-placement]').forEach(function (el) {
-            var match = el.getAttribute('data-tv-live-placement') === mode;
-            if (match) {
-                el.removeAttribute('hidden');
-                el.setAttribute('aria-hidden', 'false');
-            } else {
-                el.setAttribute('hidden', '');
-                el.setAttribute('aria-hidden', 'true');
-            }
-        });
-        document.querySelectorAll('[data-tv-live-option]').forEach(function (input) {
-            input.checked = input.value === mode;
-        });
-        try {
-            localStorage.setItem(TV_KEY, mode);
-        } catch (e) { /* ignore */ }
-    }
-
-    function applyAboveLayout(mode) {
-        if (mode !== 'hero-first' && mode !== 'cats-first') {
-            mode = 'cats-first';
-        }
-        var wrap = document.querySelector('[data-above-layout]');
-        if (wrap) {
-            wrap.setAttribute('data-above-layout', mode);
-        }
-        document.querySelectorAll('[data-above-layout-option]').forEach(function (input) {
-            input.checked = input.value === mode;
-        });
-        try {
-            localStorage.setItem(ABOVE_KEY, mode);
-        } catch (e) { /* ignore */ }
-    }
-
-    function bootPrototypeOptions() {
-        var tvSaved = 'menu';
-        var aboveSaved = 'cats-first';
-        try {
-            tvSaved = localStorage.getItem(TV_KEY) || 'menu';
-            aboveSaved = localStorage.getItem(ABOVE_KEY) || 'cats-first';
-        } catch (e) { /* ignore */ }
-        if (tvSaved !== 'header' && tvSaved !== 'float' && tvSaved !== 'menu') {
-            tvSaved = 'menu';
-        }
-        if (aboveSaved !== 'hero-first' && aboveSaved !== 'cats-first') {
-            aboveSaved = 'cats-first';
-        }
-        applyTvPlacement(tvSaved);
-        applyAboveLayout(aboveSaved);
-
-        // Always use Argos header (v2 Currys toggle removed from prototype tools)
-        var header = document.querySelector('.demo-header--argos[data-header-layout]');
-        if (header) {
-            header.setAttribute('data-header-layout', 'argos');
-        }
-        document.body.classList.remove('yg-header-currys');
-        document.body.classList.add('yg-header-argos');
-        document.querySelectorAll('[data-header-v1-nav]').forEach(function (el) {
-            el.removeAttribute('hidden');
-        });
-        document.querySelectorAll('[data-header-v2-nav]').forEach(function (el) {
-            el.setAttribute('hidden', '');
-        });
-        try {
-            localStorage.removeItem('yg_argos_header_layout');
-        } catch (e) { /* ignore */ }
-
-        document.querySelectorAll('[data-tv-live-option]').forEach(function (input) {
-            input.addEventListener('change', function () {
-                if (input.checked) applyTvPlacement(input.value);
-            });
-        });
-        document.querySelectorAll('[data-above-layout-option]').forEach(function (input) {
-            input.addEventListener('change', function () {
-                if (input.checked) applyAboveLayout(input.value);
-            });
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', bootPrototypeOptions);
-    } else {
-        bootPrototypeOptions();
-    }
-})();
-</script>
 <script>
 (function () {
     var strip = document.querySelector('[data-cat-strip]');
@@ -541,35 +447,7 @@
     var index = 0;
     var paused = false;
     var timer = null;
-    var HERO_INTERVAL_KEY = 'yg_argos_hero_interval';
     var INTERVAL = 5000;
-
-    function readHeroInterval() {
-        try {
-            var saved = parseInt(localStorage.getItem(HERO_INTERVAL_KEY) || '5000', 10);
-            if ([3000, 4000, 5000, 6000, 8000, 10000].indexOf(saved) !== -1) return saved;
-        } catch (e) { /* ignore */ }
-        return 5000;
-    }
-
-    function applyHeroInterval(ms) {
-        INTERVAL = ms;
-        document.querySelectorAll('[data-hero-interval-option]').forEach(function (input) {
-            input.checked = parseInt(input.value, 10) === ms;
-        });
-        try {
-            localStorage.setItem(HERO_INTERVAL_KEY, String(ms));
-        } catch (e) { /* ignore */ }
-        if (!paused) startAuto();
-    }
-
-    INTERVAL = readHeroInterval();
-    document.querySelectorAll('[data-hero-interval-option]').forEach(function (input) {
-        input.checked = parseInt(input.value, 10) === INTERVAL;
-        input.addEventListener('change', function () {
-            if (input.checked) applyHeroInterval(parseInt(input.value, 10) || 5000);
-        });
-    });
 
     function show(i) {
         index = (i + slides.length) % slides.length;

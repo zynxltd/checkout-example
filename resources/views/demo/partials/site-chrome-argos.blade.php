@@ -7,7 +7,7 @@
     $accountFirstName = $accountLoggedIn ? (DemoAccount::user()['first_name'] ?? '') : '';
     $yg = 'https://www.yougarden.com';
 @endphp
-<header class="demo-header demo-header--argos" role="banner" data-header-layout="argos">
+<header class="demo-header demo-header--argos" role="banner">
     <div class="demo-header__inner demo-header__inner--argos">
         <button
             type="button"
@@ -29,8 +29,8 @@
             >
         </a>
 
-        {{-- v1 (Argos): Shop / Trending / Sale beside logo --}}
-        <nav class="yg-argos-nav" aria-label="Primary" data-header-v1-nav>
+        {{-- Argos: Shop / Trending / Sale beside logo — hidden; green YouGarden category bar is primary --}}
+        <nav class="yg-argos-nav" aria-label="Primary" hidden>
             <div class="yg-argos-nav__item yg-argos-nav__item--shop" data-nav-dropdown data-shop-dropdown>
                 <button
                     type="button"
@@ -296,27 +296,25 @@
         </div>
     </div>
 
-    {{-- v2 (Currys): white category bar under logo / search / icons --}}
-    <nav class="yg-currys-nav" data-header-v2-nav aria-label="Shop categories" hidden>
-        <div class="yg-currys-nav__inner">
-            <ul class="yg-currys-nav__cats">
-                @foreach ($shop_menu as $dept)
-                    <li>
-                        <a href="{{ $dept['url'] }}" class="yg-currys-nav__link">{{ $dept['title'] }}</a>
-                    </li>
-                @endforeach
-                <li>
-                    <a href="{{ $yg }}/new" class="yg-currys-nav__link" target="_blank" rel="noopener">New arrivals</a>
-                </li>
-                <li>
-                    <a href="{{ route('demo.plant-finder') }}" class="yg-currys-nav__link">Plant finder</a>
-                </li>
-            </ul>
-            <div class="yg-currys-nav__pills">
-                <a href="{{ route('demo.sale') }}" class="yg-currys-nav__pill yg-currys-nav__pill--deals">Deals</a>
-                <a href="{{ route('demo.tv-live') }}" class="yg-currys-nav__pill">YouGarden TV</a>
-                <a href="{{ $accountLoggedIn ? route('demo.account.club') : route('demo.account.login') }}" class="yg-currys-nav__pill">Club</a>
-            </div>
+    <nav class="demo-nav" aria-label="Shop categories">
+        <div class="demo-nav__track">
+            <a href="https://www.yougarden.com/new" class="demo-nav__new">New</a>
+            <a href="{{ route('demo.listing.perennials') }}">Garden Plants</a>
+            <a href="https://www.yougarden.com/houseplants">Houseplants</a>
+            <a href="https://www.yougarden.com/trees-and-shrubs">Trees and Shrubs</a>
+            <a href="https://www.yougarden.com/grow-your-own-fruit-and-veg">Fruits and Veg</a>
+            <a href="https://www.yougarden.com/outdoor-living">Outdoor Living</a>
+            <a href="{{ route('demo.sale') }}" class="demo-nav__sale">Sale</a>
+            <a href="{{ route('demo.about-us') }}">Contact</a>
+            <a href="{{ route('demo.tv-live') }}" class="demo-nav__tv" aria-label="YouGarden TV">
+                <img
+                    class="demo-nav__tv-logo"
+                    src="{{ asset('images/icons/YGTV.png') }}?v={{ filemtime(public_path('images/icons/YGTV.png')) }}"
+                    alt="YouGarden TV"
+                    width="170"
+                    height="44"
+                >
+            </a>
         </div>
     </nav>
 </header>

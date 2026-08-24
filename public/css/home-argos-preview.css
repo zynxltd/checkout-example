@@ -74,17 +74,32 @@ body.yg-header-argos .usp-icon {
 }
 
 .demo-home-argos__main {
-    max-width: var(--yg-argos-content-width);
-    margin: 0 auto;
-    padding: 16px var(--yg-argos-content-pad) 48px;
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0 0 48px;
     box-sizing: border-box;
     /* Clip carousel bleed here (not on .demo-site) so sticky header works */
     overflow-x: clip;
 }
 
+/* Inset column for everything except the YouGarden full-bleed hero */
+.yg-cat-strip,
+.yg-home-fold-mark,
+.yg-home-below,
+.yg-home-above[data-hero-layout='variant'] .yg-hero-argos {
+    max-width: var(--yg-argos-content-width);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--yg-argos-content-pad);
+    padding-right: var(--yg-argos-content-pad);
+    box-sizing: border-box;
+}
+
 /* —— Argos-style primary nav (Shop dropdown + Trending) —— */
 .demo-header--argos {
-    border-bottom: 1px solid var(--yg-border);
+    border-bottom: none;
     width: 100%;
     max-width: none;
     margin: 0;
@@ -585,7 +600,7 @@ body.yg-header-argos .usp-wrapper {
 }
 
 .yg-argos-nav {
-    display: none;
+    display: none !important;
     align-items: center;
     gap: 10px;
     font-family: var(--yg-body);
@@ -1392,10 +1407,6 @@ body.yg-header-argos .usp-wrapper {
 }
 
 @media (min-width: 960px) {
-    .yg-argos-nav {
-        display: flex;
-    }
-
     .demo-header--argos .demo-header__menu--mobile,
     .demo-header--argos .demo-header__actions {
         display: none !important;
@@ -1511,11 +1522,13 @@ body.yg-header-argos .usp-wrapper {
 }
 
 .yg-home-above[data-above-layout='cats-first'] .yg-cat-strip {
-    margin: 0 0 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
 }
 
 .yg-home-above[data-above-layout='hero-first'] .yg-cat-strip {
-    margin: 20px 0 0;
+    margin-top: 20px;
+    margin-bottom: 0;
 }
 
 .yg-home-above[data-above-layout='hero-first'] .yg-hero-argos {
@@ -1525,7 +1538,8 @@ body.yg-header-argos .usp-wrapper {
 /* —— Category icon strip (Argos-style scroll carousel) —— */
 .yg-cat-strip {
     position: relative;
-    margin: 0 0 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
     min-width: 0;
     width: 100%;
 }
@@ -1744,8 +1758,8 @@ body.yg-header-argos .usp-wrapper {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin: 36px 0 28px;
-    padding: 0 4px;
+    margin-top: 36px;
+    margin-bottom: 28px;
 }
 
 .yg-home-fold-mark__line {
@@ -2011,6 +2025,85 @@ body.yg-header-argos .usp-wrapper {
     background: var(--yg-forest);
 }
 
+/* Default hero: yougarden.com full-bleed 1920×600 banner slider */
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos {
+    position: relative;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__ctas,
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__pause,
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__dots {
+    display: none;
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__banner--full {
+    border-radius: 0;
+    background: #fff;
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__banner--full img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1920 / 600;
+    object-fit: cover;
+    object-position: center center;
+    background: #fff;
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__controls {
+    position: absolute;
+    inset: 0;
+    display: block;
+    margin: 0;
+    min-height: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__controls-nav {
+    display: contents;
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: auto;
+    width: 46px;
+    height: 78px;
+    min-width: 46px;
+    min-height: 78px;
+    border: none;
+    border-radius: 0;
+    background: rgba(70, 70, 70, 0.42);
+    color: #111;
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__arrow--prev {
+    left: 0;
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__arrow--next {
+    right: 0;
+    border: none;
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__arrow:hover {
+    background: rgba(50, 50, 50, 0.58);
+}
+
+.yg-home-above[data-hero-layout='banner'] .yg-hero-argos__arrow::before {
+    width: 10px;
+    height: 10px;
+    border-right-width: 2.5px;
+    border-bottom-width: 2.5px;
+    border-color: #111;
+}
+
 /* —— Below the fold (live yougarden.com modules) —— */
 .yg-home-below {
     display: flex;
@@ -2157,7 +2250,7 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .demo-home-argos__main {
-        padding-top: 12px;
+        padding: 0 0 48px;
     }
 
     .yg-home-above[data-above-layout='cats-first'] .yg-cat-strip {
@@ -2169,7 +2262,8 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-fold-mark {
-        margin: 28px 0 22px;
+        margin-top: 28px;
+        margin-bottom: 22px;
         gap: 10px;
     }
 
@@ -2201,6 +2295,42 @@ body.yg-header-argos .usp-wrapper {
         max-height: none;
         object-fit: cover;
         object-position: center center;
+    }
+
+    /* YouGarden banner default: keep the full 1920×600 artwork, never crop */
+    .yg-home-above[data-hero-layout='banner'] .yg-hero-argos__banner--full {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        aspect-ratio: 1920 / 600;
+        min-height: 0;
+        border-radius: 0;
+        background: #fff;
+    }
+
+    .yg-home-above[data-hero-layout='banner'] .yg-hero-argos__banner--full img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1920 / 600;
+        min-height: 0;
+        max-height: none;
+        object-fit: cover;
+        object-position: center center;
+        background: #fff;
+    }
+
+    .yg-home-above[data-hero-layout='banner'] .yg-hero-argos__controls {
+        position: absolute;
+        inset: 0;
+        display: block;
+        padding: 0;
+    }
+
+    .yg-home-above[data-hero-layout='banner'] .yg-hero-argos__arrow {
+        width: 36px;
+        height: 56px;
+        min-width: 36px;
+        min-height: 56px;
     }
 
     .yg-hero-argos__ctas {
@@ -2315,7 +2445,7 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .demo-home-argos__main {
-        padding: 10px 12px 40px;
+        padding: 0 0 40px;
     }
 
     .yg-hero-argos__banner--full {
@@ -2325,6 +2455,20 @@ body.yg-header-argos .usp-wrapper {
 
     .yg-hero-argos__banner--full img {
         min-height: 100%;
+    }
+
+    .yg-home-above[data-hero-layout='banner'] .yg-hero-argos__banner--full {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        aspect-ratio: 1920 / 600;
+        min-height: 0;
+    }
+
+    .yg-home-above[data-hero-layout='banner'] .yg-hero-argos__banner--full img {
+        min-height: 0;
+        height: auto;
+        object-fit: cover;
     }
 
     .yg-hero-argos__ctas {
@@ -2506,233 +2650,6 @@ body.yg-header-argos .usp-wrapper {
     }
 }
 
-/* —— Header v2 (Currys layout) —— */
-.demo-header--argos[data-header-layout='currys'] [data-header-v1-nav],
-.demo-header--argos[data-header-layout='argos'] [data-header-v2-nav] {
-    display: none !important;
-}
-
-.demo-header--argos[data-header-layout='currys'] [data-header-v2-nav] {
-    display: block !important;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__inner--argos,
-.demo-header--argos[data-header-layout='currys'] .demo-header__inner--argos {
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 440px) minmax(0, 1fr);
-    grid-template-areas: 'brand search utilities';
-    column-gap: 24px;
-    padding: 14px var(--yg-argos-content-pad);
-    min-height: 0;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__brand,
-.demo-header--argos[data-header-layout='currys'] .demo-header__brand {
-    gap: 0;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__logo-img,
-.demo-header--argos[data-header-layout='currys'] .demo-header__logo-img {
-    height: 44px;
-    max-width: 200px;
-}
-
-/* Keep the same pill search as v1 — centred, capped width (not full-bleed) */
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__search,
-.demo-header--argos[data-header-layout='currys'] .demo-header__search {
-    width: 100%;
-    max-width: 440px;
-    justify-self: center;
-    min-height: 48px;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons {
-    gap: 8px;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utility--tv,
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utility--club,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utility--tv,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utility--club {
-    display: none !important;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility--stacked,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility--stacked {
-    min-width: 56px;
-    gap: 4px;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-icon,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-icon {
-    height: 28px;
-}
-
 .demo-header__utility-label-short {
     display: none;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utility-label-full,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utility-label-full {
-    display: none;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utility-label-short,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utility-label-short {
-    display: inline;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-label,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #2c2c2c;
-    max-width: 72px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-label--account,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-label--account {
-    font-size: 11px;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-img--club,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-img--club {
-    max-height: 18px;
-}
-
-.yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-img--tv,
-.demo-header--argos[data-header-layout='currys'] .demo-header__utilities--yg-icons .demo-header__utility-img--tv {
-    max-height: 24px;
-}
-
-.yg-currys-nav {
-    border-top: none;
-    border-bottom: none;
-    background: #fff;
-}
-
-.yg-currys-nav[hidden] {
-    display: none !important;
-}
-
-.yg-currys-nav__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    max-width: var(--yg-argos-content-width);
-    margin: 0 auto;
-    padding: 0 var(--yg-argos-content-pad);
-    min-height: 48px;
-    box-sizing: border-box;
-}
-
-.yg-currys-nav__cats {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-    gap: 4px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    min-width: 0;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-}
-
-.yg-currys-nav__cats::-webkit-scrollbar {
-    display: none;
-}
-
-.yg-currys-nav__link {
-    display: inline-flex;
-    align-items: center;
-    padding: 14px 12px;
-    color: #2c2c2c;
-    font-family: var(--yg-body);
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.2;
-    text-decoration: none;
-    white-space: nowrap;
-    border-bottom: 2px solid transparent;
-}
-
-.yg-currys-nav__link:hover {
-    color: var(--yg-forest);
-    border-bottom-color: var(--yg-forest);
-}
-
-.yg-currys-nav__pills {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-}
-
-.yg-currys-nav__pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 32px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    border: 1px solid #c9d0c4;
-    background: #fff;
-    color: #2c2c2c;
-    font-family: var(--yg-body);
-    font-size: 13px;
-    font-weight: 600;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-.yg-currys-nav__pill:hover {
-    border-color: var(--yg-forest);
-    color: var(--yg-forest);
-}
-
-.yg-currys-nav__pill--deals {
-    background: var(--yg-rose);
-    border-color: var(--yg-rose);
-    color: #fff;
-}
-
-.yg-currys-nav__pill--deals:hover {
-    background: #c41452;
-    border-color: #c41452;
-    color: #fff;
-}
-
-@media (max-width: 1100px) {
-    .demo-header--argos[data-header-layout='currys'] .yg-currys-nav__link {
-        padding-left: 10px;
-        padding-right: 10px;
-        font-size: 13px;
-    }
-
-    .demo-header--argos[data-header-layout='currys'] .yg-currys-nav__pill:not(.yg-currys-nav__pill--deals) {
-        display: none;
-    }
-}
-
-@media (max-width: 959px) {
-    .demo-header--argos[data-header-layout='currys'] .yg-currys-nav {
-        display: none !important;
-    }
-
-    .yg-header-argos .demo-header--argos[data-header-layout='currys'] .demo-header__inner--argos,
-    .demo-header--argos[data-header-layout='currys'] .demo-header__inner--argos {
-        grid-template-columns: auto 1fr auto;
-        grid-template-areas:
-            'menu brand actions'
-            'search search search';
-        column-gap: 14px;
-        row-gap: 12px;
-        padding: 14px 16px;
-    }
 }

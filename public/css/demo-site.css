@@ -564,12 +564,15 @@ body.demo-pdp {
     background: var(--yg-forest);
     overflow: hidden;
     margin: 0;
+    width: 100%;
 }
 
 .demo-nav__track {
     display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
     gap: 0;
-    max-width: 1200px;
+    max-width: var(--yg-argos-content-width, 1440px);
     margin: 0 auto;
     padding: 0 8px;
     overflow-x: auto;
@@ -583,14 +586,18 @@ body.demo-pdp {
 
 .demo-nav__track a {
     flex: 0 0 auto;
-    padding: 12px 14px;
+    display: inline-flex;
+    align-items: center;
+    padding: 11px 10px;
     color: #fff;
     text-decoration: none;
+    font-family: var(--yg-body);
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     white-space: nowrap;
+    line-height: 1;
 }
 
 .demo-nav__track a:hover {
@@ -598,18 +605,40 @@ body.demo-pdp {
 }
 
 .demo-nav__new {
-    background: var(--yg-moss) !important;
-    color: var(--yg-forest) !important;
+    background: #5a2d6e !important;
+    color: #fff !important;
 }
 
 .demo-nav__sale {
     background: var(--yg-rose) !important;
+    color: #fff !important;
+}
+
+.demo-nav__new:hover {
+    background: #4a2460 !important;
+}
+
+.demo-nav__sale:hover {
+    background: #c41452 !important;
 }
 
 .demo-nav__tv {
     display: inline-flex !important;
     align-items: center;
-    gap: 6px;
+    padding: 6px 8px !important;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.demo-nav__tv:hover {
+    background: transparent;
+}
+
+.demo-nav__tv-logo {
+    display: block;
+    height: 32px;
+    width: auto;
+    mix-blend-mode: screen;
 }
 
 .demo-nav__tv-badge {
@@ -626,15 +655,13 @@ body.demo-pdp {
     letter-spacing: -0.02em;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 960px) {
     .demo-nav {
         display: block;
     }
 
     .demo-nav__track {
-        justify-content: center;
         overflow-x: visible;
-        padding: 0 24px;
     }
 
     .demo-mobile-nav {

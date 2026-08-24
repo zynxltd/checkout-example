@@ -147,13 +147,13 @@ class DemoController extends Controller
             'hero_slides' => [
                 [
                     'image' => 'images/home-preview/live/hero-1.jpg',
-                    'alt' => "Wallflower 'Sugar Rush' Mix",
-                    'url' => 'https://www.yougarden.com/item-s-pa372/wallflower-sugar-rush-mix?Option=PA372',
+                    'alt' => "Pansy 'Top Wave'",
+                    'url' => 'https://www.yougarden.com/item-s-pa460027/pre-planted-pansy-top-wave-hanging-baskets',
                     'cta_theme' => 'rose',
                     'ctas' => [
-                        ['label' => 'Shop wallflowers', 'url' => 'https://www.yougarden.com/item-s-pa372/wallflower-sugar-rush-mix?Option=PA372'],
+                        ['label' => 'Shop hanging baskets', 'url' => 'https://www.yougarden.com/garden-plants/bedding-plants/pre-planted-hanging-baskets'],
+                        ['label' => 'Shop pansies', 'url' => 'https://www.yougarden.com/item-s-pa460027/pre-planted-pansy-top-wave-hanging-baskets'],
                         ['label' => 'Shop autumn bedding', 'url' => 'https://www.yougarden.com/garden-plants/bedding-plants/autumn-bedding-plants'],
-                        ['label' => 'Shop garden plants', 'url' => route('demo.listing.perennials')],
                         ['label' => 'Shop the sale', 'url' => route('demo.sale')],
                     ],
                 ],
@@ -171,14 +171,14 @@ class DemoController extends Controller
                 ],
                 [
                     'image' => 'images/home-preview/live/hero-3.jpg',
-                    'alt' => 'Oleander Plants',
-                    'url' => 'https://www.yougarden.com/trees-and-shrubs/mediterranean-plants-for-uk-gardens/oleander-plants',
+                    'alt' => "Wallflower 'Sugar Rush' Mix",
+                    'url' => 'https://www.yougarden.com/item-s-pa372/wallflower-sugar-rush-mix?Option=PA372',
                     'cta_theme' => 'stone',
                     'ctas' => [
-                        ['label' => 'Shop oleander', 'url' => 'https://www.yougarden.com/trees-and-shrubs/mediterranean-plants-for-uk-gardens/oleander-plants'],
-                        ['label' => 'Shop Mediterranean', 'url' => 'https://www.yougarden.com/trees-and-shrubs/mediterranean-plants-for-uk-gardens'],
-                        ['label' => 'Shop trees & shrubs', 'url' => 'https://www.yougarden.com/trees-and-shrubs'],
-                        ['label' => 'Shop drought tolerant', 'url' => 'https://www.yougarden.com/garden-plants/popular-garden-plants/drought-tolerant-plants'],
+                        ['label' => 'Shop wallflowers', 'url' => 'https://www.yougarden.com/item-s-pa372/wallflower-sugar-rush-mix?Option=PA372'],
+                        ['label' => 'Shop autumn bedding', 'url' => 'https://www.yougarden.com/garden-plants/bedding-plants/autumn-bedding-plants'],
+                        ['label' => 'Shop garden plants', 'url' => route('demo.listing.perennials')],
+                        ['label' => 'Shop the sale', 'url' => route('demo.sale')],
                     ],
                 ],
             ],
