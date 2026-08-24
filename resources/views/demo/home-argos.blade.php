@@ -126,15 +126,9 @@
             </section>
         </div>
 
-        <div class="yg-home-fold-mark" aria-hidden="true">
-            <span class="yg-home-fold-mark__line"></span>
-            <span class="yg-home-fold-mark__label">Hero section only · rest of page below</span>
-            <span class="yg-home-fold-mark__line"></span>
-        </div>
-
         {{-- Below the fold — live yougarden.com homepage modules --}}
         <div class="yg-home-below">
-            <section class="yg-home-row4" aria-label="Shop popular categories">
+            <section class="yg-home-row4 yg-home-row4--five" aria-label="Shop popular categories">
                 @foreach ($row4 as $tile)
                     <a href="{{ $tile['url'] }}" class="yg-home-tile" target="_blank" rel="noopener">
                         <img src="{{ asset($tile['image']) }}" alt="" width="600" height="600" loading="lazy">
@@ -142,6 +136,12 @@
                     </a>
                 @endforeach
             </section>
+
+        <div class="yg-home-fold-mark" aria-hidden="true">
+            <span class="yg-home-fold-mark__line"></span>
+            <span class="yg-home-fold-mark__label">Hero section only · rest of page below</span>
+            <span class="yg-home-fold-mark__line"></span>
+        </div>
 
             <section class="yg-home-philosophy" aria-label="Our philosophy">
                 <img

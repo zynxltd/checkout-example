@@ -85,7 +85,6 @@ body.yg-header-argos .usp-icon {
 
 /* Inset column for everything except the YouGarden full-bleed hero */
 .yg-cat-strip,
-.yg-home-fold-mark,
 .yg-home-below,
 .yg-home-above[data-hero-layout='variant'] .yg-hero-argos {
     max-width: var(--yg-argos-content-width);
@@ -1758,8 +1757,8 @@ body.yg-header-argos .usp-wrapper {
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-top: 36px;
-    margin-bottom: 28px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .yg-home-fold-mark__line {
@@ -2119,6 +2118,10 @@ body.yg-header-argos .usp-wrapper {
     gap: 14px;
 }
 
+.yg-home-row4--five {
+    grid-template-columns: repeat(5, 1fr);
+}
+
 .yg-home-tile {
     position: relative;
     display: block;
@@ -2262,8 +2265,8 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-fold-mark {
-        margin-top: 28px;
-        margin-bottom: 22px;
+        margin-top: 4px;
+        margin-bottom: 4px;
         gap: 10px;
     }
 

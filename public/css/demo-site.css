@@ -570,7 +570,7 @@ body.demo-pdp {
 .demo-nav__track {
     display: flex;
     align-items: stretch;
-    justify-content: flex-start;
+    justify-content: center;
     gap: 0;
     max-width: var(--yg-argos-content-width, 1440px);
     margin: 0 auto;

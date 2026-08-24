@@ -205,6 +205,11 @@ class DemoController extends Controller
                     'url' => 'https://www.yougarden.com/garden-plants/popular-garden-plants/drought-tolerant-plants',
                     'image' => 'images/home-preview/live/79-4.jpg',
                 ],
+                [
+                    'label' => 'Roses',
+                    'url' => 'https://www.yougarden.com/garden-plants/roses',
+                    'image' => 'images/home-preview/live/80-1.jpg',
+                ],
             ],
             'philosophy_banner' => 'images/home-preview/live/74.jpg',
             'philosophy_copy' => "That's right; you do not even need a garden to get growing. Many of our plants can be grown on balconies, small patios and decking, so you can catch the growing bug, and even grow your own freshest fruit and vegetables too.\n\nWe have only chosen plants that are easy to grow and will give successful results with a minimum of experience. From the thousands of plants available, we have picked those that really work and perform. We have done the sifting and choosing for you, to bring you the best.",
