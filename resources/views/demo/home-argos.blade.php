@@ -1126,7 +1126,7 @@
         positionSideNav();
     });
 
-    var ARROWS_KEY = 'yg-home-carousel-arrows-v1';
+    var ARROWS_KEY = 'yg-home-carousel-arrows-v2';
     var arrowOptions = Array.prototype.slice.call(document.querySelectorAll('[data-carousel-arrows-option]'));
 
     function setArrows(value) {
@@ -1153,6 +1153,8 @@
     try {
         savedArrows = localStorage.getItem(ARROWS_KEY) || 'bottom';
     } catch (err) { /* ignore */ }
+    var allowedInit = { bottom: true, 'bottom-boxed': true, sides: true, 'sides-only': true };
+    if (!allowedInit[savedArrows]) savedArrows = 'bottom';
     document.body.setAttribute('data-carousel-arrows', savedArrows);
     arrowOptions.forEach(function (input) {
         input.checked = input.value === savedArrows;
