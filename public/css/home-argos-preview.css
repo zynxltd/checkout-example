@@ -294,10 +294,10 @@ body.yg-header-argos .usp-wrapper {
     0% {
         transform: translateX(-130%) skewX(-12deg);
     }
-    5.5% {
+    9% {
         transform: translateX(130%) skewX(-12deg);
     }
-    5.51%,
+    9.01%,
     100% {
         transform: translateX(130%) skewX(-12deg);
     }
@@ -2165,6 +2165,10 @@ body.yg-header-argos .usp-wrapper {
     position: relative;
 }
 
+.yg-home-row4--four {
+    grid-template-columns: repeat(4, 1fr);
+}
+
 .yg-home-row4--five {
     grid-template-columns: repeat(5, 1fr);
 }
@@ -2178,7 +2182,7 @@ body.yg-header-argos .usp-wrapper {
     display: none;
 }
 
-.yg-home-row4[data-row4-variant="5"] [data-row4-tile]:nth-child(n + 6),
+.yg-home-row4[data-row4-variant="4"] [data-row4-tile]:nth-child(n + 5),
 .yg-home-row4[data-row4-variant="wide"] [data-row4-tile]:nth-child(n + 6) {
     display: none !important;
 }
@@ -2188,7 +2192,7 @@ body.yg-header-argos .usp-wrapper {
 }
 
 /*
- * Variant 4 — CRO wide band
+ * Variant 4 — wide band
  * Same 5-card choice set (low decision friction), but larger tiles + less side chrome
  * so category / favourites compete better with the fold without stretching body copy.
  */
@@ -2213,7 +2217,9 @@ body.yg-header-argos .usp-wrapper {
 }
 
 .yg-home-below.is-wide-band .yg-home-favourites__card {
-    flex-basis: calc((100% - 56px) / 5);
+    flex: 0 0 calc((100cqw - 56px) / 5);
+    width: calc((100cqw - 56px) / 5);
+    max-width: calc((100cqw - 56px) / 5);
 }
 
 .yg-home-below.is-wide-band .yg-home-favourites__image img {
@@ -2243,6 +2249,8 @@ body.yg-header-argos .usp-wrapper {
     display: block;
     overflow: hidden;
     width: 100%;
+    container-type: inline-size;
+    container-name: row4-cats;
 }
 
 .yg-home-row4--carousel .yg-home-row4__track {
@@ -2253,21 +2261,21 @@ body.yg-header-argos .usp-wrapper {
 }
 
 .yg-home-row4--carousel .yg-home-tile {
-    flex: 0 0 calc((100% - 56px) / 5);
+    flex: 0 0 calc((100cqw - 56px) / 5);
+    width: calc((100cqw - 56px) / 5);
     min-width: 0;
-    max-width: calc((100% - 56px) / 5);
+    max-width: calc((100cqw - 56px) / 5);
     border-radius: 18px;
     box-sizing: border-box;
 }
 
 .yg-home-row4--carousel .yg-home-tile__cta {
-    left: 10px;
+    left: auto;
+    right: 10px;
     bottom: 10px;
     max-width: calc(100% - 20px);
     padding: 6px 6px 6px 14px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.94);
-    color: var(--yg-pebble, #483f3a);
     font-family: var(--yg-heading);
     font-size: 14px;
     font-weight: 700;
@@ -2368,10 +2376,11 @@ body.yg-header-argos .usp-wrapper {
     }
 }
 
-/* Live-style bottom-left CTA pill — white shell + circular chevron (matches live homepage) */
+/* Live-style bottom-right CTA pill — white shell + circular chevron (matches live homepage) */
 .yg-home-tile__cta {
     position: absolute;
-    left: 10px;
+    left: auto;
+    right: 10px;
     bottom: 10px;
     z-index: 1;
     display: inline-flex;
@@ -2390,7 +2399,7 @@ body.yg-header-argos .usp-wrapper {
     color: var(--yg-pebble, #483f3a);
     white-space: nowrap;
     overflow: hidden;
-    transition: background 0.2s ease, transform 0.2s ease;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .yg-home-tile__cta-label {
@@ -2421,6 +2430,37 @@ body.yg-header-argos .usp-wrapper {
     display: block;
     width: 8px;
     height: 12px;
+}
+
+/*
+ * CRO pill — solid forest, larger hit target, inverted chevron.
+ * Higher contrast on busy plant photography; clearer “tap me” affordance.
+ */
+body[data-home-tile-pill="cro"] .yg-home-tile__cta {
+    gap: 10px;
+    padding: 8px 8px 8px 16px;
+    background: var(--yg-forest, #264f1c);
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    box-shadow:
+        0 3px 0 rgba(20, 48, 14, 0.35),
+        0 8px 18px rgba(38, 79, 28, 0.32);
+}
+
+body[data-home-tile-pill="cro"] .yg-home-tile:hover .yg-home-tile__cta {
+    background: #2f6323;
+    transform: translateY(-2px);
+    box-shadow:
+        0 4px 0 rgba(20, 48, 14, 0.3),
+        0 12px 22px rgba(38, 79, 28, 0.38);
+}
+
+body[data-home-tile-pill="cro"] .yg-home-tile__arrow {
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    color: var(--yg-forest, #264f1c);
 }
 
 /* —— Customer favourites (live homepage most-popular strip) —— */
@@ -2455,6 +2495,8 @@ body.yg-header-argos .usp-wrapper {
 .yg-home-favourites__viewport {
     overflow: hidden;
     width: 100%;
+    container-type: inline-size;
+    container-name: fav-cards;
     /* Room for the % OFF circle to hang past the image corner like live */
     padding: 14px 14px 0 0;
     margin: -14px -14px 0 0;
@@ -2468,11 +2510,14 @@ body.yg-header-argos .usp-wrapper {
 }
 
 .yg-home-favourites__card {
-    flex: 0 0 calc((100% - 56px) / 5);
+    flex: 0 0 calc((100cqw - 56px) / 5);
+    width: calc((100cqw - 56px) / 5);
+    max-width: calc((100cqw - 56px) / 5);
     min-width: 0;
     text-align: center;
     /* Keep hanging badge inside the card's hit box */
     padding-top: 0;
+    box-sizing: border-box;
 }
 
 .yg-home-favourites__image {
@@ -2916,12 +2961,8 @@ body.yg-header-argos .usp-wrapper {
         gap: 10px;
     }
 
-    .yg-home-row4--five[data-row4-variant="5"] .yg-home-tile:nth-child(5) {
-        display: none;
-    }
-
     .yg-home-row4--carousel {
-        padding: 0 32px;
+        padding: 0 30px;
     }
 
     .yg-home-row4--carousel .yg-home-row4__track {
@@ -2931,14 +2972,17 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-row4--carousel .yg-home-tile {
-        /* Always show 2 full cards on tablet/phone */
-        flex: 0 0 calc((100% - 10px) / 2);
+        /* Exactly 2 full cards — override desktop 5-up max-width */
+        flex: 0 0 calc((100cqw - 10px) / 2);
+        width: calc((100cqw - 10px) / 2);
+        max-width: calc((100cqw - 10px) / 2);
         border-radius: 18px;
         min-height: 0;
     }
 
     .yg-home-row4--carousel .yg-home-tile__cta {
-        left: 8px;
+        left: auto;
+        right: 8px;
         bottom: 8px;
         max-width: calc(100% - 16px);
         padding: 5px 5px 5px 11px;
@@ -2954,8 +2998,13 @@ body.yg-header-argos .usp-wrapper {
         height: 22px;
     }
 
+    .yg-home-row4--carousel .yg-home-tile__cta-label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .yg-home-favourites__carousel {
-        padding: 0 32px;
+        padding: 0 30px;
     }
 
     .yg-home-favourites__track {
@@ -2963,7 +3012,9 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-favourites__card {
-        flex: 0 0 calc((100% - 10px) / 2);
+        flex: 0 0 calc((100cqw - 10px) / 2);
+        width: calc((100cqw - 10px) / 2);
+        max-width: calc((100cqw - 10px) / 2);
     }
 
     .yg-home-favourites__nav {
@@ -3021,7 +3072,8 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-tile__cta {
-        left: 8px;
+        left: auto;
+        right: 8px;
         bottom: 8px;
         max-width: calc(100% - 16px);
         padding: 5px 5px 5px 12px;
@@ -3120,11 +3172,13 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-row4--carousel {
-        padding: 0 28px;
+        padding: 0 26px;
     }
 
     .yg-home-row4--carousel .yg-home-tile {
-        flex: 0 0 calc((100% - 8px) / 2);
+        flex: 0 0 calc((100cqw - 8px) / 2);
+        width: calc((100cqw - 8px) / 2);
+        max-width: calc((100cqw - 8px) / 2);
         border-radius: 18px;
     }
 
@@ -3139,7 +3193,8 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-row4--carousel .yg-home-tile__cta {
-        left: 6px;
+        left: auto;
+        right: 6px;
         bottom: 6px;
         max-width: calc(100% - 12px);
         padding: 4px 4px 4px 10px;
@@ -3166,7 +3221,8 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-tile__cta {
-        left: 6px;
+        left: auto;
+        right: 6px;
         bottom: 6px;
         max-width: calc(100% - 12px);
         font-size: 12px;
@@ -3178,17 +3234,30 @@ body.yg-header-argos .usp-wrapper {
         line-height: 1.2;
     }
 
+    body[data-home-tile-pill="cro"] .yg-home-tile__cta {
+        padding: 6px 6px 6px 12px;
+        font-size: 12px;
+        gap: 6px;
+    }
+
+    body[data-home-tile-pill="cro"] .yg-home-tile__arrow {
+        width: 24px;
+        height: 24px;
+    }
+
     .yg-home-tile__arrow {
         width: 22px;
         height: 22px;
     }
 
     .yg-home-favourites__carousel {
-        padding: 0 28px;
+        padding: 0 26px;
     }
 
     .yg-home-favourites__card {
-        flex: 0 0 calc((100% - 8px) / 2);
+        flex: 0 0 calc((100cqw - 8px) / 2);
+        width: calc((100cqw - 8px) / 2);
+        max-width: calc((100cqw - 8px) / 2);
     }
 
     .yg-home-favourites__nav {

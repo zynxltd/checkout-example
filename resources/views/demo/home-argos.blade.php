@@ -375,8 +375,8 @@
                 <p class="demo-controls__hint">Toggle the popular-categories row under the hero. Choice is saved in this browser.</p>
                 <p class="demo-controls__label">Layout variant</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="5" data-row4-variant-option>
-                    <span>Variant 1 — 5 cards</span>
+                    <input type="radio" name="home-row4-variant" value="4" data-row4-variant-option>
+                    <span>Variant 1 — 4 cards</span>
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="8" data-row4-variant-option>
@@ -388,9 +388,19 @@
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
-                    <span>Variant 4 — Wider 5 cards (CRO)</span>
+                    <span>Variant 4 — Wider 5 cards</span>
                 </label>
                 <p class="demo-controls__hint">Variant 4 widens the band under the hero so category + favourites fill more of the viewport (larger targets, less side chrome) without stretching body copy.</p>
+                <p class="demo-controls__label">Category pill style</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-tile-pill" value="live" data-tile-pill-option checked>
+                    <span>Live — white pill (default)</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-tile-pill" value="cro" data-tile-pill-option>
+                    <span>CRO — solid forest pill</span>
+                </label>
+                <p class="demo-controls__hint">CRO pill uses solid brand green + larger tap target for higher contrast on busy plant photos.</p>
             </aside>
         </div>
     </div>
@@ -711,7 +721,7 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-row4-variant-v3';
+    var STORAGE_KEY = 'yg-home-row4-variant-v4';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
 
@@ -789,11 +799,15 @@
     }
 
     function setVariant(variant) {
-        var allowed = { '5': true, '8': true, carousel: true, wide: true };
+        /* Migrate older static “5 cards” choice to 4 cards */
+        if (variant === '5') variant = '4';
+
+        var allowed = { '4': true, '8': true, carousel: true, wide: true };
         if (!allowed[variant]) variant = 'carousel';
 
         root.setAttribute('data-row4-variant', variant);
-        root.classList.toggle('yg-home-row4--five', variant === '5' || variant === 'wide');
+        root.classList.toggle('yg-home-row4--four', variant === '4');
+        root.classList.toggle('yg-home-row4--five', variant === 'wide');
         root.classList.toggle('yg-home-row4--eight', variant === '8');
         root.classList.toggle('yg-home-row4--carousel', variant === 'carousel' || variant === '8');
         root.classList.toggle('yg-home-row4--wide', variant === 'wide');
@@ -804,7 +818,7 @@
 
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
             var index = parseInt(tile.getAttribute('data-row4-index'), 10) || 0;
-            var limit = variant === '8' ? 8 : variant === 'carousel' ? 99 : 5;
+            var limit = variant === '8' ? 8 : variant === 'carousel' ? 99 : variant === 'wide' ? 5 : 4;
             tile.hidden = index > limit;
         });
 
@@ -869,6 +883,35 @@
         saved = localStorage.getItem(STORAGE_KEY) || 'carousel';
     } catch (err) { /* ignore */ }
     setVariant(saved);
+})();
+
+(function () {
+    var STORAGE_KEY = 'yg-home-tile-pill-v1';
+    var options = Array.prototype.slice.call(document.querySelectorAll('[data-tile-pill-option]'));
+    if (!options.length) return;
+
+    function setPill(style) {
+        if (style !== 'cro') style = 'live';
+        document.body.setAttribute('data-home-tile-pill', style);
+        options.forEach(function (input) {
+            input.checked = input.value === style;
+        });
+        try {
+            localStorage.setItem(STORAGE_KEY, style);
+        } catch (err) { /* ignore */ }
+    }
+
+    options.forEach(function (input) {
+        input.addEventListener('change', function () {
+            if (input.checked) setPill(input.value);
+        });
+    });
+
+    var saved = 'live';
+    try {
+        saved = localStorage.getItem(STORAGE_KEY) || 'live';
+    } catch (err) { /* ignore */ }
+    setPill(saved);
 })();
 
 (function () {
