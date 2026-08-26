@@ -743,7 +743,9 @@
 
     function applyOffset(animate) {
         if (!track) return;
-        track.style.transition = animate === false ? 'none' : '';
+        track.style.transition = animate === false
+            ? 'none'
+            : 'transform 0.9s cubic-bezier(0.33, 0.1, 0.25, 1)';
         track.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
         updateCarouselNav();
     }
@@ -863,8 +865,8 @@
     var nextBtn = root.querySelector('[data-fav-next]');
     var offset = 0;
     var timer = null;
-    var INTERVAL = 4500;
-    var EASE = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+    var INTERVAL = 5200;
+    var EASE = 'transform 0.9s cubic-bezier(0.33, 0.1, 0.25, 1)';
     var animating = false;
 
     function stepSize() {
@@ -938,7 +940,7 @@
                     offset = max;
                     apply(true);
                     animating = true;
-                    window.setTimeout(softResetToStart, 620);
+                    window.setTimeout(softResetToStart, 920);
                     return;
                 }
                 offset = max;

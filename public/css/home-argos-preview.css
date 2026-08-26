@@ -2203,7 +2203,7 @@ body.yg-header-argos .usp-wrapper {
     display: flex;
     gap: 14px;
     will-change: transform;
-    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.9s cubic-bezier(0.33, 0.1, 0.25, 1);
 }
 
 .yg-home-row4--carousel .yg-home-tile {
@@ -2416,7 +2416,7 @@ body.yg-header-argos .usp-wrapper {
     display: flex;
     gap: 14px;
     will-change: transform;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.9s cubic-bezier(0.33, 0.1, 0.25, 1);
 }
 
 .yg-home-favourites__card {
