@@ -423,11 +423,11 @@
                 <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3 &amp; 4: dusk tiles. Variant 5: circular icons + View all.</p>
                 <p class="demo-controls__label">Section headlines</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
+                    <input type="radio" name="home-headline-align" value="left" data-headline-align-option checked>
                     <span>Left aligned</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-headline-align" value="center" data-headline-align-option checked>
+                    <input type="radio" name="home-headline-align" value="center" data-headline-align-option>
                     <span>Centered</span>
                 </label>
                 <label class="demo-toggle">
@@ -1166,13 +1166,13 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-headline-align-v2';
+    var STORAGE_KEY = 'yg-home-headline-align-v3';
     var options = Array.prototype.slice.call(document.querySelectorAll('[data-headline-align-option]'));
     if (!options.length) return;
 
     function setAlign(value) {
         var allowed = { left: true, center: true, 'mobile-center': true };
-        if (!allowed[value]) value = 'center';
+        if (!allowed[value]) value = 'left';
         document.body.setAttribute('data-home-headline-align', value);
         options.forEach(function (input) {
             input.checked = input.value === value;
@@ -1188,9 +1188,9 @@
         });
     });
 
-    var saved = 'center';
+    var saved = 'left';
     try {
-        saved = localStorage.getItem(STORAGE_KEY) || 'center';
+        saved = localStorage.getItem(STORAGE_KEY) || 'left';
     } catch (err) { /* ignore */ }
     setAlign(saved);
 })();
