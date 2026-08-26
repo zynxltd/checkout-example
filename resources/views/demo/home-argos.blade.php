@@ -408,11 +408,11 @@
                     <input type="radio" name="home-row4-variant" value="5" data-row4-variant-option>
                     <span>Variant 2 — 5 cards</span>
                 </label>
-                <label class="demo-toggle">
+                <label class="demo-toggle" hidden>
                     <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option>
                     <span>Variant 3 — Category carousel</span>
                 </label>
-                <label class="demo-toggle">
+                <label class="demo-toggle" hidden>
                     <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
                     <span>Variant 4 — Wider 5 cards</span>
                 </label>
@@ -420,7 +420,7 @@
                     <input type="radio" name="home-row4-variant" value="circles" data-row4-variant-option>
                     <span>Variant 5 — Circle strip</span>
                 </label>
-                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3 &amp; 4: dusk tiles. Variant 5: circular icons + View all.</p>
+                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variant 5: circular icons + View all.</p>
                 <p class="demo-controls__label">Section headlines</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-headline-align" value="left" data-headline-align-option checked>
@@ -1005,6 +1005,8 @@
 
     function setVariant(variant) {
         if (variant === '8') variant = '4';
+        // Variants 3 & 4 hidden in prototype tools — fall back to Variant 1
+        if (variant === 'carousel' || variant === 'wide') variant = '4';
 
         var allowed = { '4': true, '5': true, carousel: true, wide: true, circles: true };
         if (!allowed[variant]) variant = '4';
