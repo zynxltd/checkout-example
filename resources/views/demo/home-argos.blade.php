@@ -167,7 +167,7 @@
                         rel="noopener"
                         hidden
                     >
-                        All categories
+                        <span class="yg-home-row4__dusk-all-label">All categories</span>
                         <span class="yg-home-row4__dusk-all-arrow" aria-hidden="true">→</span>
                     </a>
                 </div>
@@ -416,7 +416,11 @@
                     <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
                     <span>Variant 4 — Wider 5 cards</span>
                 </label>
-                <p class="demo-controls__hint">Variants 1 &amp; 2: pill labels + pager (4-up / 5-up). Variants 3 &amp; 4: dusk “Shop by category” with the same pager arrows + slide dots.</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-row4-variant" value="circles" data-row4-variant-option>
+                    <span>Variant 5 — Circle strip</span>
+                </label>
+                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3 &amp; 4: dusk tiles. Variant 5: circular icons + View all.</p>
                 <p class="demo-controls__label">Section headlines</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
@@ -431,6 +435,24 @@
                     <span>Centered on mobile only</span>
                 </label>
                 <p class="demo-controls__hint">Applies to Shop by category and Customer favourites.</p>
+                <p class="demo-controls__label">Carousel arrows</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-carousel-arrows" value="bottom" data-carousel-arrows-option checked>
+                    <span>Bottom + dots</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-carousel-arrows" value="bottom-boxed" data-carousel-arrows-option>
+                    <span>Bottom boxed + dots</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-carousel-arrows" value="sides" data-carousel-arrows-option>
+                    <span>Side circles + dots</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-carousel-arrows" value="sides-only" data-carousel-arrows-option>
+                    <span>Side circles only</span>
+                </label>
+                <p class="demo-controls__hint">Applies to Shop by category. Choice is saved in this browser.</p>
             </aside>
         </div>
     </div>
@@ -765,6 +787,8 @@
     var pagerDots = root.querySelector('[data-row4-pager-dots]');
     var duskTitle = root.querySelector('[data-row4-dusk-title]');
     var duskBar = root.querySelector('[data-row4-dusk-bar]');
+    var duskAll = root.querySelector('.yg-home-row4__dusk-all');
+    var duskAllLabel = root.querySelector('.yg-home-row4__dusk-all-label');
     var duskPrev = root.querySelector('[data-row4-dusk-prev]');
     var duskNext = root.querySelector('[data-row4-dusk-next]');
     var options = Array.prototype.slice.call(document.querySelectorAll('[data-row4-variant-option]'));
@@ -775,11 +799,11 @@
     }
 
     function isCarouselVariant(variant) {
-        return variant === 'carousel' || variant === '4' || variant === '5' || variant === 'wide';
+        return variant === 'carousel' || variant === '4' || variant === '5' || variant === 'wide' || variant === 'circles';
     }
 
     function usesSlider(variant) {
-        return variant === '4' || variant === '5' || variant === 'carousel' || variant === 'wide';
+        return variant === '4' || variant === '5' || variant === 'carousel' || variant === 'wide' || variant === 'circles';
     }
 
     function usesDuskLook(variant) {
@@ -788,6 +812,10 @@
 
     function usesPillLook(variant) {
         return variant === '4' || variant === '5';
+    }
+
+    function usesCirclesLook(variant) {
+        return variant === 'circles';
     }
 
     function usesDuskArrows(variant) {
@@ -839,6 +867,13 @@
     }
 
     function snapToNearest() {
+        if (usesCirclesLook(currentVariant())) {
+            var s = step();
+            if (s <= 0) return;
+            offset = Math.round(offset / s) * s;
+            offset = Math.min(maxOffset(), Math.max(0, offset));
+            return;
+        }
         if (usesSlider(currentVariant())) {
             var stride = pageStride();
             if (stride <= 0) return;
@@ -846,9 +881,9 @@
             offset = Math.min(maxOffset(), Math.max(0, offset));
             return;
         }
-        var s = step();
-        if (s <= 0) return;
-        offset = Math.round(offset / s) * s;
+        var s2 = step();
+        if (s2 <= 0) return;
+        offset = Math.round(offset / s2) * s2;
         offset = Math.min(maxOffset(), Math.max(0, offset));
     }
 
@@ -896,21 +931,50 @@
         syncPager();
     }
 
+    function arrowMode() {
+        return document.body.getAttribute('data-carousel-arrows') || 'bottom';
+    }
+
+    function usesSideArrows() {
+        var mode = arrowMode();
+        return mode === 'sides' || mode === 'sides-only';
+    }
+
+    function positionSideNav() {
+        if (!prevBtn || !nextBtn || !viewport || !root) return;
+        var show = usesSideArrows() || usesCirclesLook(currentVariant());
+        if (!show || root.hidden) {
+            prevBtn.style.top = '';
+            nextBtn.style.top = '';
+            return;
+        }
+        var rootRect = root.getBoundingClientRect();
+        var vpRect = viewport.getBoundingClientRect();
+        var mid = (vpRect.top - rootRect.top) + (vpRect.height / 2);
+        prevBtn.style.top = mid + 'px';
+        nextBtn.style.top = mid + 'px';
+    }
+
     function updateCarouselNav() {
         var variant = currentVariant();
         var isCarousel = isCarouselVariant(variant);
+        var isCircles = usesCirclesLook(variant);
         var showSlider = usesSlider(variant) && isCarousel;
         var showDusk = usesDuskLook(variant) && isCarousel;
         var showDuskArrows = usesDuskArrows(variant) && isCarousel;
+        var showSides = (usesSideArrows() || isCircles) && isCarousel && showSlider;
 
-        if (prevBtn) prevBtn.hidden = !isCarousel || showSlider || showDusk;
-        if (nextBtn) nextBtn.hidden = !isCarousel || showSlider || showDusk;
-        if (sliderWrap) sliderWrap.hidden = !showSlider;
+        if (prevBtn) prevBtn.hidden = !isCarousel || ((showSlider || showDusk) && !showSides);
+        if (nextBtn) nextBtn.hidden = !isCarousel || ((showSlider || showDusk) && !showSides);
+        if (sliderWrap) sliderWrap.hidden = !showSlider || isCircles;
         if (duskTitle) duskTitle.hidden = !isCarousel;
-        if (duskBar) duskBar.hidden = !showDusk;
+        if (duskBar) duskBar.hidden = !(showDusk || isCircles);
+        if (duskAll) duskAll.hidden = !(showDusk || isCircles);
+        if (duskAllLabel) duskAllLabel.textContent = isCircles ? 'View all' : 'All categories';
         if (duskPrev) duskPrev.hidden = !showDuskArrows;
         if (duskNext) duskNext.hidden = !showDuskArrows;
         root.classList.toggle('yg-home-row4--dusk-arrows', showDuskArrows);
+        root.classList.toggle('yg-home-row4--side-arrows', showSides);
 
         if (!isCarousel) {
             offset = 0;
@@ -922,8 +986,8 @@
         }
 
         var max = maxOffset();
-        if (prevBtn && nextBtn && !showSlider && !showDusk) {
-            prevBtn.disabled = false;
+        if (prevBtn && nextBtn && (!showSlider || showSides) && !showDusk) {
+            prevBtn.disabled = max <= 0;
             nextBtn.disabled = max <= 0;
             prevBtn.setAttribute('aria-disabled', offset <= 0 ? 'true' : 'false');
         }
@@ -931,12 +995,13 @@
         if (duskNext) duskNext.disabled = max <= 0;
         root.classList.toggle('is-at-start', offset <= 0);
         root.classList.toggle('is-at-end', offset >= max - 1);
+        positionSideNav();
     }
 
     function setVariant(variant) {
         if (variant === '8') variant = '4';
 
-        var allowed = { '4': true, '5': true, carousel: true, wide: true };
+        var allowed = { '4': true, '5': true, carousel: true, wide: true, circles: true };
         if (!allowed[variant]) variant = '4';
 
         root.setAttribute('data-row4-variant', variant);
@@ -947,6 +1012,7 @@
         root.classList.toggle('yg-home-row4--slider', usesSlider(variant));
         root.classList.toggle('yg-home-row4--wide', usesDuskLook(variant));
         root.classList.toggle('yg-home-row4--pill', usesPillLook(variant));
+        root.classList.toggle('yg-home-row4--circles', usesCirclesLook(variant));
 
         var below = root.closest('.yg-home-below');
         if (below) below.classList.toggle('is-wide-band', usesDuskLook(variant));
@@ -954,7 +1020,7 @@
 
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
             var index = parseInt(tile.getAttribute('data-row4-index'), 10) || 0;
-            var limit = variant === '4' ? 12 : (variant === '5' || variant === 'carousel' || variant === 'wide') ? 99 : 5;
+            var limit = variant === '4' ? 12 : (variant === '5' || variant === 'carousel' || variant === 'wide' || variant === 'circles') ? 99 : 5;
             tile.hidden = index > limit;
         });
 
@@ -982,6 +1048,10 @@
 
     if (prevBtn) {
         prevBtn.addEventListener('click', function () {
+            if (usesSideArrows() && usesSlider(currentVariant()) && !usesCirclesLook(currentVariant())) {
+                nudgePage(-1);
+                return;
+            }
             var max = maxOffset();
             if (max <= 0) return;
             if (offset <= 0) {
@@ -995,6 +1065,10 @@
     }
     if (nextBtn) {
         nextBtn.addEventListener('click', function () {
+            if (usesSideArrows() && usesSlider(currentVariant()) && !usesCirclesLook(currentVariant())) {
+                nudgePage(1);
+                return;
+            }
             var max = maxOffset();
             if (max <= 0) return;
             if (offset >= max - 1) {
@@ -1044,6 +1118,39 @@
         snapToNearest();
         offset = Math.min(offset, maxOffset());
         applyOffset(false);
+        positionSideNav();
+    });
+
+    var ARROWS_KEY = 'yg-home-carousel-arrows-v1';
+    var arrowOptions = Array.prototype.slice.call(document.querySelectorAll('[data-carousel-arrows-option]'));
+
+    function setArrows(value) {
+        var allowed = { bottom: true, 'bottom-boxed': true, sides: true, 'sides-only': true };
+        if (!allowed[value]) value = 'bottom';
+        document.body.setAttribute('data-carousel-arrows', value);
+        arrowOptions.forEach(function (input) {
+            input.checked = input.value === value;
+        });
+        try {
+            localStorage.setItem(ARROWS_KEY, value);
+        } catch (err) { /* ignore */ }
+        updateCarouselNav();
+        syncPager();
+    }
+
+    arrowOptions.forEach(function (input) {
+        input.addEventListener('change', function () {
+            if (input.checked) setArrows(input.value);
+        });
+    });
+
+    var savedArrows = 'bottom';
+    try {
+        savedArrows = localStorage.getItem(ARROWS_KEY) || 'bottom';
+    } catch (err) { /* ignore */ }
+    document.body.setAttribute('data-carousel-arrows', savedArrows);
+    arrowOptions.forEach(function (input) {
+        input.checked = input.value === savedArrows;
     });
 
     var saved = '4';

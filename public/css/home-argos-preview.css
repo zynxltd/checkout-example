@@ -2678,6 +2678,64 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     border-radius: 6px;
 }
 
+/* Prototype — carousel arrow placements */
+body[data-carousel-arrows='bottom-boxed'] .yg-home-row4 .yg-pager__btn {
+    border: 1.5px solid currentColor;
+    border-radius: 6px;
+}
+
+body[data-carousel-arrows='sides'] .yg-home-row4--carousel.yg-home-row4--slider .yg-home-row4__nav,
+body[data-carousel-arrows='sides-only'] .yg-home-row4--carousel.yg-home-row4--slider .yg-home-row4__nav {
+    display: inline-flex !important;
+}
+
+body[data-carousel-arrows='sides'] .yg-home-row4 .yg-pager__btn,
+body[data-carousel-arrows='sides-only'] .yg-home-row4 .yg-pager__btn {
+    display: none !important;
+}
+
+body[data-carousel-arrows='sides'] .yg-home-row4 .yg-pager {
+    justify-content: center;
+    gap: 0;
+}
+
+body[data-carousel-arrows='sides-only'] .yg-home-row4 .yg-pager {
+    display: none !important;
+}
+
+body[data-carousel-arrows='sides'] .yg-home-row4--side-arrows .yg-home-row4__nav,
+body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4__nav {
+    transform: translateY(-50%);
+    z-index: 3;
+}
+
+body[data-carousel-arrows='sides'] .yg-home-row4--side-arrows .yg-home-row4__nav--prev,
+body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4__nav--prev {
+    left: 6px;
+}
+
+body[data-carousel-arrows='sides'] .yg-home-row4--side-arrows .yg-home-row4__nav--next,
+body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4__nav--next {
+    right: 6px;
+}
+
+@media (max-width: 960px) {
+    /* Side arrows eat card space on small screens — keep bottom controls */
+    body[data-carousel-arrows='sides'] .yg-home-row4--carousel.yg-home-row4--slider:not(.yg-home-row4--circles) .yg-home-row4__nav,
+    body[data-carousel-arrows='sides-only'] .yg-home-row4--carousel.yg-home-row4--slider:not(.yg-home-row4--circles) .yg-home-row4__nav {
+        display: none !important;
+    }
+
+    body[data-carousel-arrows='sides'] .yg-home-row4:not(.yg-home-row4--circles) .yg-pager__btn,
+    body[data-carousel-arrows='sides-only'] .yg-home-row4:not(.yg-home-row4--circles) .yg-pager__btn {
+        display: inline-flex !important;
+    }
+
+    body[data-carousel-arrows='sides-only'] .yg-home-row4:not(.yg-home-row4--circles) .yg-pager {
+        display: flex !important;
+    }
+}
+
 .yg-pager__btn:hover:not(:disabled) {
     opacity: 0.85;
 }
@@ -2997,6 +3055,154 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
 
 .yg-home-tile__caption {
     display: none;
+}
+
+/* —— Variant 5 — YouGarden circle strip —— */
+.yg-home-row4--circles.yg-home-row4--slider {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "title all"
+        "vp vp";
+    column-gap: 16px;
+    row-gap: 0;
+    align-items: end;
+    padding: 8px 0 16px;
+    position: relative;
+}
+
+.yg-home-row4--circles .yg-home-row4__title {
+    grid-area: title;
+    width: auto;
+    padding: 0 0 18px;
+    text-align: left !important;
+}
+
+.yg-home-row4--circles .yg-home-row4__dusk-bar {
+    grid-area: all;
+    display: flex !important;
+    margin: 0;
+    padding: 0 0 18px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.yg-home-row4--circles .yg-home-row4__dusk-all {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    color: var(--yg-forest, #264f1c);
+    font-family: var(--yg-heading);
+    font-size: 0.95rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+}
+
+.yg-home-row4--circles .yg-home-row4__dusk-all:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.yg-home-row4--circles .yg-home-row4__dusk-all-arrow {
+    font-size: 1.05em;
+    line-height: 1;
+}
+
+.yg-home-row4--circles .yg-home-row4__viewport {
+    grid-area: vp;
+    width: 100%;
+    margin-top: 0;
+}
+
+.yg-home-row4--circles .yg-pager {
+    display: none !important;
+}
+
+.yg-home-row4--circles.yg-home-row4--carousel .yg-home-row4__track {
+    gap: 16px;
+}
+
+.yg-home-row4--circles .yg-home-tile,
+.yg-home-row4--circles.yg-home-row4--carousel .yg-home-tile,
+.yg-home-row4[data-row4-variant="circles"] .yg-home-tile {
+    /* 9 visible: 8 × 16px gaps = 128px */
+    flex: 0 0 calc((100cqw - 128px) / 9);
+    width: calc((100cqw - 128px) / 9);
+    max-width: calc((100cqw - 128px) / 9);
+    min-width: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--yg-pebble, #483f3a);
+    box-sizing: border-box;
+}
+
+.yg-home-row4--circles .yg-home-tile img {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 1px 4px rgba(72, 63, 58, 0.12);
+}
+
+.yg-home-row4--circles .yg-home-tile:hover img {
+    transform: scale(1.03);
+}
+
+.yg-home-row4--circles .yg-home-tile__cta {
+    display: none !important;
+}
+
+.yg-home-row4--circles .yg-home-tile__caption {
+    display: block;
+    position: static;
+    margin: 0;
+    padding: 0 2px;
+    font-family: var(--yg-heading);
+    font-size: clamp(0.85rem, 1.15vw, 1rem);
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+    color: var(--yg-pebble, #483f3a);
+    white-space: normal;
+}
+
+.yg-home-row4--circles.yg-home-row4--carousel .yg-home-row4__nav,
+.yg-home-row4--circles.yg-home-row4--slider .yg-home-row4__nav {
+    display: inline-flex !important;
+}
+
+.yg-home-row4--circles.yg-home-row4--side-arrows .yg-home-row4__nav {
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(38, 79, 28, 0.16);
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--yg-forest, #264f1c);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.yg-home-row4--circles.yg-home-row4--side-arrows .yg-home-row4__nav--prev {
+    left: 4px;
+}
+
+.yg-home-row4--circles.yg-home-row4--side-arrows .yg-home-row4__nav--next {
+    right: 4px;
+}
+
+.yg-home-row4--circles.is-at-start .yg-home-row4__nav--prev {
+    opacity: 0.4;
 }
 
 /* —— Customer favourites (live homepage most-popular strip) —— */
@@ -3331,8 +3537,8 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     padding: 0 8px;
     text-align: center;
     font-family: var(--yg-heading);
-    font-size: 15px;
-    line-height: 1.55;
+    font-size: 17px;
+    line-height: 1.6;
     color: var(--yg-pebble);
 }
 
@@ -3582,6 +3788,37 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
         gap: 10px;
     }
 
+    /* Variant 5 — keep horizontal circle strip on mobile (not 2×2) */
+    .yg-home-row4--circles.yg-home-row4--carousel.yg-home-row4--slider .yg-home-row4__track {
+        display: flex !important;
+        grid: none;
+        gap: 14px;
+        align-content: unset;
+    }
+
+    .yg-home-row4--circles.yg-home-row4--slider .yg-home-tile,
+    .yg-home-row4[data-row4-variant="circles"].yg-home-row4--slider .yg-home-tile {
+        /* ~4.5 visible on narrow; still larger than before */
+        flex: 0 0 calc((100cqw - 42px) / 4) !important;
+        width: calc((100cqw - 42px) / 4) !important;
+        max-width: calc((100cqw - 42px) / 4) !important;
+        border-radius: 0 !important;
+        aspect-ratio: auto !important;
+    }
+
+    .yg-home-row4--circles .yg-home-row4__title {
+        padding-bottom: 12px;
+        font-size: 1.2rem;
+    }
+
+    .yg-home-row4--circles .yg-home-row4__dusk-bar {
+        padding-bottom: 12px;
+    }
+
+    .yg-home-row4--circles .yg-home-tile__caption {
+        font-size: 0.75rem;
+    }
+
     .yg-home-row4--carousel.yg-home-row4--slider .yg-home-tile,
     .yg-home-row4--carousel.yg-home-row4--four.yg-home-row4--slider .yg-home-tile,
     .yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-home-tile,
@@ -3753,8 +3990,8 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     .yg-home-philosophy__copy {
         margin-top: 14px;
         padding: 0 4px;
-        font-size: 14px;
-        line-height: 1.5;
+        font-size: 16px;
+        line-height: 1.55;
         font-family: var(--yg-heading);
     }
 
@@ -4023,8 +4260,8 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     }
 
     .yg-home-philosophy__copy {
-        font-size: 13.5px;
-        line-height: 1.5;
+        font-size: 15px;
+        line-height: 1.55;
         padding: 0 2px;
         text-align: center;
         font-family: var(--yg-heading);
