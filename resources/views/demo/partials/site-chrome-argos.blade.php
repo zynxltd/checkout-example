@@ -269,7 +269,11 @@
                 </span>
             </a>
 
-            <div class="demo-header__utility demo-header__utility--stacked demo-header__utility--account">
+            <a
+                href="{{ $accountLoggedIn ? route('demo.account.home') : route('demo.account.login') }}"
+                class="demo-header__utility demo-header__utility--stacked demo-header__utility--account"
+                aria-label="{{ $accountLoggedIn ? 'My account' : 'Login or register' }}"
+            >
                 <span class="demo-header__utility-icon" aria-hidden="true">
                     <img
                         class="demo-header__utility-img demo-header__utility-img--account"
@@ -281,19 +285,14 @@
                 </span>
                 <span class="demo-header__utility-label demo-header__utility-label--account">
                     @if ($accountLoggedIn)
-                        <a href="{{ route('demo.account.home') }}" class="demo-header__utility-link">{{ $accountFirstName ?: 'Account' }}</a>
+                        <span class="demo-header__utility-label-full">{{ $accountFirstName ?: 'Account' }}</span>
+                        <span class="demo-header__utility-label-short">{{ $accountFirstName ?: 'Account' }}</span>
                     @else
-                        <span class="demo-header__utility-label-full">
-                            <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
-                            <span aria-hidden="true"> | </span>
-                            <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
-                        </span>
-                        <span class="demo-header__utility-label-short">
-                            <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Account</a>
-                        </span>
+                        <span class="demo-header__utility-label-full">Login | Register</span>
+                        <span class="demo-header__utility-label-short">Account</span>
                     @endif
                 </span>
-            </div>
+            </a>
 
             @include('demo.partials.mini-basket', ['cart' => $cart])
         </div>

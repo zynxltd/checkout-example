@@ -493,6 +493,7 @@ body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
     text-decoration: none;
 }
 
+.yg-header-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__utility--account:hover .demo-header__utility-label,
 .yg-header-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__utility-label--account .demo-header__utility-link:hover {
     color: var(--yg-forest);
     text-decoration: underline;
