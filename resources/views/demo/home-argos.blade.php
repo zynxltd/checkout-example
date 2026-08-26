@@ -127,12 +127,12 @@
         </div>
 
         {{-- Below the fold — live yougarden.com homepage modules --}}
-        <div class="yg-home-below is-wide-band">
+        <div class="yg-home-below">
             <section
-                class="yg-home-row4 yg-home-row4--five yg-home-row4--carousel yg-home-row4--slider yg-home-row4--wide"
+                class="yg-home-row4 yg-home-row4--four yg-home-row4--carousel yg-home-row4--slider"
                 aria-label="Shop popular categories"
                 data-row4-cats
-                data-row4-variant="carousel"
+                data-row4-variant="4"
             >
                 <h2 class="yg-home-row4__title" data-row4-dusk-title>Shop by category</h2>
                 <button type="button" class="yg-home-row4__nav yg-home-row4__nav--prev" data-row4-prev aria-label="Previous categories" hidden>
@@ -226,11 +226,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <p class="yg-home-favourites__swipe-hint">
-                        <span class="yg-home-favourites__swipe-hint-icon" aria-hidden="true">👆</span>
-                        <span>Swipe to see more</span>
-                    </p>
                 </section>
             @endif
 
@@ -406,18 +401,32 @@
                 <p class="demo-controls__hint">Toggle the popular-categories row under the hero. Choice is saved in this browser.</p>
                 <p class="demo-controls__label">Layout variant</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="4" data-row4-variant-option>
+                    <input type="radio" name="home-row4-variant" value="4" data-row4-variant-option checked>
                     <span>Variant 1 — 4 cards</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option checked>
-                    <span>Variant 3 — Category carousel</span>
+                    <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option>
+                    <span>Variant 2 — Category carousel</span>
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
-                    <span>Variant 4 — Wider 5 cards</span>
+                    <span>Variant 3 — Wider 5 cards</span>
                 </label>
-                <p class="demo-controls__hint">Variant 1: 4-up pager. Variants 3 &amp; 4: dusk “Shop by category” with the same pager arrows + slide dots, and All categories.</p>
+                <p class="demo-controls__hint">Variant 1: 4-up pager. Variants 2 &amp; 3: dusk “Shop by category” with the same pager arrows + slide dots.</p>
+                <p class="demo-controls__label">Section headlines</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
+                    <span>Left aligned</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-headline-align" value="center" data-headline-align-option checked>
+                    <span>Centered</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-headline-align" value="mobile-center" data-headline-align-option>
+                    <span>Centered on mobile only</span>
+                </label>
+                <p class="demo-controls__hint">Applies to Shop by category and Customer favourites.</p>
             </aside>
         </div>
     </div>
@@ -738,7 +747,7 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-row4-variant-v6';
+    var STORAGE_KEY = 'yg-home-row4-variant-v7';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
 
@@ -758,7 +767,7 @@
     var offset = 0;
 
     function currentVariant() {
-        return root.getAttribute('data-row4-variant') || 'carousel';
+        return root.getAttribute('data-row4-variant') || '4';
     }
 
     function isCarouselVariant(variant) {
@@ -789,19 +798,22 @@
         return tile.getBoundingClientRect().width + gap;
     }
 
+    function pageStride() {
+        var s = step();
+        if (!viewport || s <= 0) return s;
+        // Advance N full cards: N × (tile + gap). Using viewport width (N×tile + (N−1)×gap)
+        // undershoots by one gap and leaves a sliver of the previous card.
+        var steps = Math.max(1, Math.round(viewport.clientWidth / s));
+        return s * steps;
+    }
+
     function maxOffset() {
         if (!track || !viewport) return 0;
         var max = Math.max(0, track.scrollWidth - viewport.clientWidth);
         var s = step();
         if (s <= 0) return max;
-        return Math.round(max / s) * s;
-    }
-
-    function pageStride() {
-        var s = step();
-        if (!viewport || s <= 0) return s;
-        var visible = Math.max(1, Math.round(viewport.clientWidth / s));
-        return s * visible;
+        // Snap max to a whole number of card steps so last page aligns
+        return Math.max(0, Math.round(max / s) * s);
     }
 
     function pageCount() {
@@ -819,6 +831,13 @@
     }
 
     function snapToNearest() {
+        if (usesSlider(currentVariant())) {
+            var stride = pageStride();
+            if (stride <= 0) return;
+            offset = Math.round(offset / stride) * stride;
+            offset = Math.min(maxOffset(), Math.max(0, offset));
+            return;
+        }
         var s = step();
         if (s <= 0) return;
         offset = Math.round(offset / s) * s;
@@ -910,7 +929,7 @@
         if (variant === '5' || variant === '8') variant = '4';
 
         var allowed = { '4': true, carousel: true, wide: true };
-        if (!allowed[variant]) variant = 'carousel';
+        if (!allowed[variant]) variant = '4';
 
         root.setAttribute('data-row4-variant', variant);
         root.classList.toggle('yg-home-row4--four', variant === '4');
@@ -1018,11 +1037,41 @@
         applyOffset(false);
     });
 
-    var saved = 'carousel';
+    var saved = '4';
     try {
-        saved = localStorage.getItem(STORAGE_KEY) || 'carousel';
+        saved = localStorage.getItem(STORAGE_KEY) || '4';
     } catch (err) { /* ignore */ }
     setVariant(saved);
+})();
+
+(function () {
+    var STORAGE_KEY = 'yg-home-headline-align-v2';
+    var options = Array.prototype.slice.call(document.querySelectorAll('[data-headline-align-option]'));
+    if (!options.length) return;
+
+    function setAlign(value) {
+        var allowed = { left: true, center: true, 'mobile-center': true };
+        if (!allowed[value]) value = 'center';
+        document.body.setAttribute('data-home-headline-align', value);
+        options.forEach(function (input) {
+            input.checked = input.value === value;
+        });
+        try {
+            localStorage.setItem(STORAGE_KEY, value);
+        } catch (err) { /* ignore */ }
+    }
+
+    options.forEach(function (input) {
+        input.addEventListener('change', function () {
+            if (input.checked) setAlign(input.value);
+        });
+    });
+
+    var saved = 'center';
+    try {
+        saved = localStorage.getItem(STORAGE_KEY) || 'center';
+    } catch (err) { /* ignore */ }
+    setAlign(saved);
 })();
 
 (function () {
