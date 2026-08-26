@@ -305,7 +305,6 @@
             <a href="https://www.yougarden.com/grow-your-own-fruit-and-veg">Fruits and Veg</a>
             <a href="https://www.yougarden.com/outdoor-living">Outdoor Living</a>
             <a href="{{ route('demo.sale') }}" class="demo-nav__sale">Sale</a>
-            <a href="{{ route('demo.about-us') }}">Contact</a>
             <a href="{{ route('demo.tv-live') }}" class="demo-nav__tv" aria-label="YouGarden TV">
                 <img
                     class="demo-nav__tv-logo"

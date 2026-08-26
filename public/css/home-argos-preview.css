@@ -2187,7 +2187,7 @@ body.yg-header-argos .usp-wrapper {
     max-width: 52rem;
 }
 
-/* Carousel: 4+ cards visible (5-card or 8-card track) */
+/* Carousel: match Customer favourites — 5 equal-width cards visible */
 .yg-home-row4--carousel {
     display: block;
     padding: 0 44px;
@@ -2207,7 +2207,7 @@ body.yg-header-argos .usp-wrapper {
 }
 
 .yg-home-row4--carousel .yg-home-tile {
-    flex: 0 0 calc((100% - 42px) / 4);
+    flex: 0 0 calc((100% - 56px) / 5);
     min-width: 0;
     border-radius: 18px;
 }
@@ -2873,7 +2873,7 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-row4--carousel {
-        padding: 0 28px;
+        padding: 0 32px;
     }
 
     .yg-home-row4--carousel .yg-home-row4__track {
@@ -2883,7 +2883,8 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-row4--carousel .yg-home-tile {
-        flex: 0 0 calc((100% - 20px) / 2.35);
+        /* Always show 2 full cards on tablet/phone */
+        flex: 0 0 calc((100% - 10px) / 2);
         border-radius: 18px;
         min-height: 0;
     }
@@ -2906,7 +2907,7 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-favourites__carousel {
-        padding: 0 28px;
+        padding: 0 32px;
     }
 
     .yg-home-favourites__track {
@@ -2914,13 +2915,14 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-favourites__card {
-        flex: 0 0 calc((100% - 30px) / 2.2);
+        flex: 0 0 calc((100% - 10px) / 2);
     }
 
     .yg-home-favourites__nav {
         width: 30px;
         height: 30px;
         top: calc((100% - 5.25rem) / 2);
+        display: inline-flex;
     }
 
     .yg-home-favourites__name {
@@ -2939,6 +2941,7 @@ body.yg-header-argos .usp-wrapper {
     .yg-home-row4--carousel .yg-home-row4__nav {
         width: 30px;
         height: 30px;
+        display: inline-flex;
     }
 
     .yg-home-featured {
@@ -3069,21 +3072,22 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-row4--carousel {
-        padding: 0 22px;
+        padding: 0 28px;
     }
 
     .yg-home-row4--carousel .yg-home-tile {
-        flex: 0 0 calc((100% - 10px) / 1.65);
+        flex: 0 0 calc((100% - 8px) / 2);
         border-radius: 18px;
     }
 
     .yg-home-row4--carousel .yg-home-row4__track {
-        gap: 10px;
+        gap: 8px;
     }
 
     .yg-home-row4--carousel .yg-home-row4__nav {
         width: 28px;
         height: 28px;
+        display: inline-flex;
     }
 
     .yg-home-row4--carousel .yg-home-tile__cta {
@@ -3132,11 +3136,17 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-favourites__carousel {
-        padding: 0 22px;
+        padding: 0 28px;
     }
 
     .yg-home-favourites__card {
-        flex: 0 0 calc((100% - 10px) / 1.55);
+        flex: 0 0 calc((100% - 8px) / 2);
+    }
+
+    .yg-home-favourites__nav {
+        width: 28px;
+        height: 28px;
+        display: inline-flex;
     }
 
     .yg-home-favourites__popular {
