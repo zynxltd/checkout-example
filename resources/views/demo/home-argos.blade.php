@@ -417,20 +417,6 @@
                     <span>Variant 4 — Square strip</span>
                 </label>
                 <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3 &amp; 4: icon strip + View all (circle / rounded square).</p>
-                <p class="demo-controls__label">Section headlines</p>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
-                    <span>Left aligned</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-headline-align" value="center" data-headline-align-option checked>
-                    <span>Centered</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-headline-align" value="mobile-center" data-headline-align-option>
-                    <span>Centered on mobile only</span>
-                </label>
-                <p class="demo-controls__hint">Applies to Shop by category and Customer favourites. Variants 3 &amp; 4 keep favourites left-aligned.</p>
                 <p class="demo-controls__label">Carousel arrows</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-carousel-arrows" value="bottom" data-carousel-arrows-option checked>
@@ -1171,44 +1157,23 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-headline-align-v4';
-    var options = Array.prototype.slice.call(document.querySelectorAll('[data-headline-align-option]'));
-    if (!options.length) return;
-
-    function setAlign(value) {
-        var allowed = { left: true, center: true, 'mobile-center': true };
-        if (!allowed[value]) value = 'center';
-        document.body.setAttribute('data-home-headline-align', value);
-        options.forEach(function (input) {
-            input.checked = input.value === value;
-        });
-        try {
-            localStorage.setItem(STORAGE_KEY, value);
-        } catch (err) { /* ignore */ }
-    }
-
-    options.forEach(function (input) {
-        input.addEventListener('change', function () {
-            if (input.checked) setAlign(input.value);
-        });
-    });
-
-    var saved = 'center';
+    // Section headlines toggle hidden from tools — keep centered default.
+    document.body.setAttribute('data-home-headline-align', 'center');
     try {
-        saved = localStorage.getItem(STORAGE_KEY) || 'center';
+        localStorage.setItem('yg-home-headline-align-v4', 'center');
     } catch (err) { /* ignore */ }
-    setAlign(saved);
 })();
 
 (function () {
-    // Header promo prototype removed — keep slot hidden even if an older
-    // localStorage value still says "offer" / "delivery".
+    // Header promo hidden from tools for now — keep slot off.
     var root = document.querySelector('[data-header-promo]');
     if (!root) return;
     root.hidden = true;
+    var offer = root.querySelector('[data-header-promo-offer]');
+    if (offer) offer.hidden = true;
     document.body.setAttribute('data-header-promo', 'off');
     try {
-        localStorage.setItem('yg-home-header-promo-v1', 'off');
+        localStorage.setItem('yg-home-header-promo-v3', 'off');
     } catch (err) { /* ignore */ }
 })();
 

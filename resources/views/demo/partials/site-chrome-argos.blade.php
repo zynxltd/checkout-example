@@ -29,22 +29,6 @@
             >
         </a>
 
-        <div class="demo-header__promo" data-header-promo hidden>
-            <a
-                class="demo-header__promo-chip demo-header__promo-chip--offer"
-                data-header-promo-offer
-                href="https://www.yougarden.com/garden-plants/garden-bulbs/spring-flowering-bulbs"
-                hidden
-            >
-                <span class="demo-header__promo-chip-label">Check today’s offer</span>
-                <span class="demo-header__promo-chip-chev" aria-hidden="true"></span>
-            </a>
-            <p class="demo-header__promo-delivery" data-header-promo-delivery hidden>
-                <span class="demo-header__promo-delivery-strong">Order by 3pm</span>
-                <span class="demo-header__promo-delivery-rest">· next-day dispatch</span>
-            </p>
-        </div>
-
         {{-- Argos: Shop / Trending / Sale beside logo — hidden; green YouGarden category bar is primary --}}
         <nav class="yg-argos-nav" aria-label="Primary" hidden>
             <div class="yg-argos-nav__item yg-argos-nav__item--shop" data-nav-dropdown data-shop-dropdown>
@@ -206,6 +190,21 @@
                 Live now
             </a>
         </nav>
+        </div>
+
+        <div class="demo-header__promo" data-header-promo hidden>
+            <a
+                class="demo-header__promo-chip demo-header__promo-chip--offer"
+                data-header-promo-offer
+                href="{{ route('demo.sale') }}"
+                hidden
+            >
+                <span class="demo-header__promo-chip-copy">
+                    <span class="demo-header__promo-chip-kicker">Special offer</span>
+                    <span class="demo-header__promo-chip-label">Today’s deals</span>
+                </span>
+                <span class="demo-header__promo-chip-chev" aria-hidden="true"></span>
+            </a>
         </div>
 
         <div class="demo-header__search" role="search" data-search-suggest>

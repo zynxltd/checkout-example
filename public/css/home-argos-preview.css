@@ -151,6 +151,13 @@ body.yg-header-argos .usp-wrapper {
     overflow: visible;
 }
 
+/* Special offer on: give the chip its own column, centred between logo and search */
+body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
+    grid-template-columns: auto minmax(0, 1fr) minmax(260px, 440px) minmax(0, 1fr);
+    grid-template-areas: 'brand promo search utilities';
+    column-gap: 20px;
+}
+
 .yg-header-argos .demo-header--argos .demo-header__brand {
     grid-area: brand;
     display: flex;
@@ -161,10 +168,16 @@ body.yg-header-argos .usp-wrapper {
 }
 
 .yg-header-argos .demo-header--argos .demo-header__promo {
+    grid-area: promo;
     display: flex;
     align-items: center;
+    justify-content: center;
+    justify-self: center;
+    align-self: center;
     min-width: 0;
-    max-width: min(280px, 100%);
+    max-width: 100%;
+    position: relative;
+    z-index: 2;
 }
 
 .yg-header-argos .demo-header--argos .demo-header__promo[hidden] {
@@ -174,26 +187,93 @@ body.yg-header-argos .usp-wrapper {
 .yg-header-argos .demo-header--argos .demo-header__promo-chip {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     max-width: 100%;
-    min-height: 36px;
-    padding: 6px 12px 6px 14px;
+    min-height: 44px;
+    padding: 8px 16px 8px 16px;
     border-radius: 999px;
-    background: var(--yg-forest, #264f1c);
+    background: linear-gradient(135deg, #f01868 0%, var(--yg-rose, #e3185d) 48%, #c41450 100%);
     color: #fff;
     text-decoration: none;
-    box-shadow: 0 2px 8px rgba(38, 79, 28, 0.28);
-    transition: background 0.2s ease, transform 0.2s ease;
+    box-shadow:
+        0 2px 0 rgba(160, 12, 60, 0.35),
+        0 6px 16px rgba(227, 24, 93, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    cursor: pointer;
+    pointer-events: auto;
 }
 
 .yg-header-argos .demo-header--argos .demo-header__promo-chip[hidden] {
     display: none !important;
 }
 
+.yg-header-argos .demo-header--argos .demo-header__promo-chip::after {
+    content: "";
+    position: absolute;
+    inset: -12% -35%;
+    background: linear-gradient(
+        105deg,
+        transparent 36%,
+        rgba(255, 255, 255, 0.12) 44%,
+        rgba(255, 255, 255, 0.65) 50%,
+        rgba(255, 255, 255, 0.12) 56%,
+        transparent 64%
+    );
+    transform: translateX(-130%) skewX(-12deg);
+    animation: demo-header-offer-shine 9s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes demo-header-offer-shine {
+    0% {
+        transform: translateX(-130%) skewX(-12deg);
+    }
+    12% {
+        transform: translateX(130%) skewX(-12deg);
+    }
+    12.01%,
+    100% {
+        transform: translateX(130%) skewX(-12deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .yg-header-argos .demo-header--argos .demo-header__promo-chip::after {
+        animation: none;
+    }
+}
+
 .yg-header-argos .demo-header--argos .demo-header__promo-chip:hover {
-    background: #1e3f16;
     transform: translateY(-1px);
+    filter: brightness(1.05);
+    box-shadow:
+        0 3px 0 rgba(160, 12, 60, 0.4),
+        0 10px 22px rgba(227, 24, 93, 0.34);
     color: #fff;
+}
+
+.yg-header-argos .demo-header--argos .demo-header__promo-chip:active {
+    transform: translateY(0);
+}
+
+.yg-header-argos .demo-header--argos .demo-header__promo-chip-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+}
+
+.yg-header-argos .demo-header--argos .demo-header__promo-chip-kicker {
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.88;
+    line-height: 1.1;
 }
 
 .yg-header-argos .demo-header--argos .demo-header__promo-chip-label {
@@ -201,9 +281,9 @@ body.yg-header-argos .usp-wrapper {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.15;
     letter-spacing: 0.01em;
 }
 
@@ -215,33 +295,18 @@ body.yg-header-argos .usp-wrapper {
     border-bottom: 2px solid currentColor;
     transform: rotate(-45deg);
     margin-left: 2px;
-}
-
-.yg-header-argos .demo-header--argos .demo-header__promo-delivery {
-    margin: 0;
-    max-width: 100%;
-    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
-    font-size: 13px;
-    line-height: 1.25;
-    color: var(--yg-pebble, #483f3a);
-}
-
-.yg-header-argos .demo-header--argos .demo-header__promo-delivery[hidden] {
-    display: none !important;
-}
-
-.yg-header-argos .demo-header--argos .demo-header__promo-delivery-strong {
-    font-weight: 700;
-    color: var(--yg-forest, #264f1c);
-}
-
-.yg-header-argos .demo-header--argos .demo-header__promo-delivery-rest {
-    color: #6b6560;
+    opacity: 0.95;
 }
 
 @media (max-width: 1100px) {
     .yg-header-argos .demo-header--argos .demo-header__promo {
         display: none !important;
+    }
+
+    body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 440px) minmax(0, 1fr);
+        grid-template-areas: 'brand search utilities';
+        column-gap: 28px;
     }
 }
 
