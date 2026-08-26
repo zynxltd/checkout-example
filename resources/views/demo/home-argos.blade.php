@@ -412,7 +412,11 @@
                     <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
                     <span>Variant 3 — Wider 5 cards</span>
                 </label>
-                <p class="demo-controls__hint">Variant 1: 4-up pager. Variants 2 &amp; 3: dusk “Shop by category” with the same pager arrows + slide dots.</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-row4-variant" value="5" data-row4-variant-option>
+                    <span>Variant 4 — 5 cards</span>
+                </label>
+                <p class="demo-controls__hint">Variants 1 &amp; 4: pill labels + pager (4-up / 5-up). Variants 2 &amp; 3: dusk “Shop by category” with the same pager arrows + slide dots.</p>
                 <p class="demo-controls__label">Section headlines</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
@@ -771,15 +775,19 @@
     }
 
     function isCarouselVariant(variant) {
-        return variant === 'carousel' || variant === '4' || variant === 'wide';
+        return variant === 'carousel' || variant === '4' || variant === '5' || variant === 'wide';
     }
 
     function usesSlider(variant) {
-        return variant === '4' || variant === 'carousel' || variant === 'wide';
+        return variant === '4' || variant === '5' || variant === 'carousel' || variant === 'wide';
     }
 
     function usesDuskLook(variant) {
         return variant === 'wide' || variant === 'carousel';
+    }
+
+    function usesPillLook(variant) {
+        return variant === '4' || variant === '5';
     }
 
     function usesDuskArrows(variant) {
@@ -926,18 +934,19 @@
     }
 
     function setVariant(variant) {
-        if (variant === '5' || variant === '8') variant = '4';
+        if (variant === '8') variant = '4';
 
-        var allowed = { '4': true, carousel: true, wide: true };
+        var allowed = { '4': true, '5': true, carousel: true, wide: true };
         if (!allowed[variant]) variant = '4';
 
         root.setAttribute('data-row4-variant', variant);
         root.classList.toggle('yg-home-row4--four', variant === '4');
-        root.classList.toggle('yg-home-row4--five', variant === 'wide' || variant === 'carousel');
+        root.classList.toggle('yg-home-row4--five', variant === '5' || variant === 'wide' || variant === 'carousel');
         root.classList.remove('yg-home-row4--eight');
         root.classList.toggle('yg-home-row4--carousel', isCarouselVariant(variant));
         root.classList.toggle('yg-home-row4--slider', usesSlider(variant));
         root.classList.toggle('yg-home-row4--wide', usesDuskLook(variant));
+        root.classList.toggle('yg-home-row4--pill', usesPillLook(variant));
 
         var below = root.closest('.yg-home-below');
         if (below) below.classList.toggle('is-wide-band', usesDuskLook(variant));
@@ -945,7 +954,7 @@
 
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
             var index = parseInt(tile.getAttribute('data-row4-index'), 10) || 0;
-            var limit = variant === '4' ? 12 : (variant === 'carousel' || variant === 'wide') ? 99 : 5;
+            var limit = variant === '4' ? 12 : (variant === '5' || variant === 'carousel' || variant === 'wide') ? 99 : 5;
             tile.hidden = index > limit;
         });
 

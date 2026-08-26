@@ -2508,7 +2508,7 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
 /* Favourites only — badge overhang gutter (category must stay flush or card 6 peeks) */
 .yg-home-below.is-wide-band .yg-home-favourites__viewport {
     padding: 14px 14px 0 0;
-    margin: -10px -14px 0 0;
+    margin: 0 -14px 0 0;
     box-sizing: border-box;
 }
 
@@ -2555,7 +2555,9 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
 }
 
 .yg-home-row4--four.yg-home-row4--slider,
-.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider {
+.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider,
+.yg-home-row4--pill.yg-home-row4--slider,
+.yg-home-row4[data-row4-variant="5"].yg-home-row4--slider {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -2563,17 +2565,23 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
 }
 
 .yg-home-row4--four.yg-home-row4--slider .yg-home-row4__title,
-.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-home-row4__title {
+.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-home-row4__title,
+.yg-home-row4--pill.yg-home-row4--slider .yg-home-row4__title,
+.yg-home-row4[data-row4-variant="5"].yg-home-row4--slider .yg-home-row4__title {
     width: 100%;
 }
 
 .yg-home-row4--four.yg-home-row4--slider .yg-home-row4__viewport,
-.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-home-row4__viewport {
+.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-home-row4__viewport,
+.yg-home-row4--pill.yg-home-row4--slider .yg-home-row4__viewport,
+.yg-home-row4[data-row4-variant="5"].yg-home-row4--slider .yg-home-row4__viewport {
     width: 100%;
 }
 
 .yg-home-row4--four.yg-home-row4--slider .yg-pager,
-.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-pager {
+.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-pager,
+.yg-home-row4--pill.yg-home-row4--slider .yg-pager,
+.yg-home-row4[data-row4-variant="5"].yg-home-row4--slider .yg-pager {
     flex: 1 1 auto;
     justify-content: center;
     margin-top: 12px;
@@ -2617,6 +2625,14 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     flex: 0 0 calc((100cqw - 42px) / 4);
     width: calc((100cqw - 42px) / 4);
     max-width: calc((100cqw - 42px) / 4);
+}
+
+/* Variant 4 — same pill look as Variant 1, 5 cards per slide */
+.yg-home-row4--carousel.yg-home-row4--pill[data-row4-variant="5"] .yg-home-tile,
+.yg-home-row4[data-row4-variant="5"] .yg-home-tile {
+    flex: 0 0 calc((100cqw - 56px) / 5);
+    width: calc((100cqw - 56px) / 5);
+    max-width: calc((100cqw - 56px) / 5);
 }
 
 .yg-pager {
@@ -2962,14 +2978,18 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     height: 12px;
 }
 
-/* Variant 1 — text-only pills (no green chevron) */
+/* Variant 1 & 4 — text-only pills (no green chevron) */
 .yg-home-row4--four .yg-home-tile__arrow,
-.yg-home-row4[data-row4-variant="4"] .yg-home-tile__arrow {
+.yg-home-row4[data-row4-variant="4"] .yg-home-tile__arrow,
+.yg-home-row4--pill .yg-home-tile__arrow,
+.yg-home-row4[data-row4-variant="5"] .yg-home-tile__arrow {
     display: none !important;
 }
 
 .yg-home-row4--four .yg-home-tile__cta,
-.yg-home-row4[data-row4-variant="4"] .yg-home-tile__cta {
+.yg-home-row4[data-row4-variant="4"] .yg-home-tile__cta,
+.yg-home-row4--pill .yg-home-tile__cta,
+.yg-home-row4[data-row4-variant="5"] .yg-home-tile__cta {
     padding: 10px 16px;
     gap: 0;
     font-size: 17px;
@@ -2988,7 +3008,7 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
 .yg-home-favourites__headline {
     text-align: left;
     margin: 0;
-    padding: 0 0 8px;
+    padding: 0 0 16px;
 }
 
 .yg-home-favourites__headline-link {
@@ -3022,9 +3042,9 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     width: 100%;
     container-type: inline-size;
     container-name: fav-cards;
-    /* Badge hang — keep a little air under the headline */
+    /* Badge hang into padding; no negative top pull so gap matches Shop by category */
     padding: 14px 14px 0 0;
-    margin: -10px -14px 0 0;
+    margin: 0 -14px 0 0;
 }
 
 .yg-home-favourites__track {
@@ -3565,6 +3585,7 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     .yg-home-row4--carousel.yg-home-row4--slider .yg-home-tile,
     .yg-home-row4--carousel.yg-home-row4--four.yg-home-row4--slider .yg-home-tile,
     .yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-home-tile,
+    .yg-home-row4[data-row4-variant="5"].yg-home-row4--slider .yg-home-tile,
     .yg-home-row4--wide.yg-home-row4--carousel.yg-home-row4--slider .yg-home-tile,
     .yg-home-row4[data-row4-variant="carousel"].yg-home-row4--wide.yg-home-row4--carousel.yg-home-row4--slider .yg-home-tile,
     .yg-home-row4[data-row4-variant="wide"].yg-home-row4--wide.yg-home-row4--carousel.yg-home-row4--slider .yg-home-tile {
@@ -3751,7 +3772,9 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     }
 
     .yg-home-row4--four .yg-home-tile__cta,
-    .yg-home-row4[data-row4-variant="4"] .yg-home-tile__cta {
+    .yg-home-row4[data-row4-variant="4"] .yg-home-tile__cta,
+    .yg-home-row4--pill .yg-home-tile__cta,
+    .yg-home-row4[data-row4-variant="5"] .yg-home-tile__cta {
         padding: 7px 12px;
         gap: 0;
         font-size: 13px;
@@ -3940,7 +3963,9 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     }
 
     .yg-home-row4--four .yg-home-tile__cta,
-    .yg-home-row4[data-row4-variant="4"] .yg-home-tile__cta {
+    .yg-home-row4[data-row4-variant="4"] .yg-home-tile__cta,
+    .yg-home-row4--pill .yg-home-tile__cta,
+    .yg-home-row4[data-row4-variant="5"] .yg-home-tile__cta {
         padding: 6px 10px;
         gap: 0;
         font-size: 12px;
