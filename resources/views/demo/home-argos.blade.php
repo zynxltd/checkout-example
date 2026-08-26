@@ -733,12 +733,27 @@
         if (!tile) tile = root.querySelector('[data-row4-tile]');
         if (!tile || !viewport) return 240;
         var gap = 14;
-        return Math.max(tile.getBoundingClientRect().width + gap, Math.floor(viewport.clientWidth * 0.75));
+        if (track) {
+            var styles = window.getComputedStyle(track);
+            gap = parseFloat(styles.columnGap || styles.gap) || 14;
+        }
+        // One card at a time — never jump by viewport% or cards stop mid-cut
+        return tile.getBoundingClientRect().width + gap;
     }
 
     function maxOffset() {
         if (!track || !viewport) return 0;
-        return Math.max(0, track.scrollWidth - viewport.clientWidth);
+        var max = Math.max(0, track.scrollWidth - viewport.clientWidth);
+        var s = step();
+        if (s <= 0) return max;
+        return Math.round(max / s) * s;
+    }
+
+    function snapToNearest() {
+        var s = step();
+        if (s <= 0) return;
+        offset = Math.round(offset / s) * s;
+        offset = Math.min(maxOffset(), Math.max(0, offset));
     }
 
     function applyOffset(animate) {
@@ -844,6 +859,7 @@
     window.addEventListener('resize', function () {
         var variant = root.getAttribute('data-row4-variant');
         if (variant !== 'carousel' && variant !== '8') return;
+        snapToNearest();
         offset = Math.min(offset, maxOffset());
         applyOffset(false);
     });

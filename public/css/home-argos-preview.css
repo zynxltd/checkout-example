@@ -263,6 +263,52 @@ body.yg-header-argos .usp-wrapper {
     max-height: 24px;
 }
 
+/* SAVE 10% pill — light sweep once every 12s */
+.yg-header-argos .demo-header--argos .demo-header__club-shine {
+    position: relative;
+    display: inline-flex;
+    overflow: hidden;
+    border-radius: 999px;
+    line-height: 0;
+    isolation: isolate;
+}
+
+.yg-header-argos .demo-header--argos .demo-header__club-shine::after {
+    content: "";
+    position: absolute;
+    inset: -10% -30%;
+    background: linear-gradient(
+        105deg,
+        transparent 36%,
+        rgba(255, 255, 255, 0.15) 44%,
+        rgba(255, 255, 255, 0.7) 50%,
+        rgba(255, 255, 255, 0.15) 56%,
+        transparent 64%
+    );
+    transform: translateX(-130%) skewX(-12deg);
+    animation: demo-club-save-shine 12s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes demo-club-save-shine {
+    0% {
+        transform: translateX(-130%) skewX(-12deg);
+    }
+    5.5% {
+        transform: translateX(130%) skewX(-12deg);
+    }
+    5.51%,
+    100% {
+        transform: translateX(130%) skewX(-12deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .yg-header-argos .demo-header--argos .demo-header__club-shine::after {
+        animation: none;
+    }
+}
+
 .yg-header-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__utility-img--tv {
     width: 28px;
     height: 28px;
@@ -2209,7 +2255,9 @@ body.yg-header-argos .usp-wrapper {
 .yg-home-row4--carousel .yg-home-tile {
     flex: 0 0 calc((100% - 56px) / 5);
     min-width: 0;
+    max-width: calc((100% - 56px) / 5);
     border-radius: 18px;
+    box-sizing: border-box;
 }
 
 .yg-home-row4--carousel .yg-home-tile__cta {

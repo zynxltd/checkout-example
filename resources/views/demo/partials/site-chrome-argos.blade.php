@@ -238,13 +238,15 @@
                 class="demo-header__utility demo-header__utility--stacked demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"
             >
                 <span class="demo-header__utility-icon" aria-hidden="true">
-                    <img
-                        class="demo-header__utility-img demo-header__utility-img--club"
-                        src="{{ asset('images/icons/icon-club-save.png') }}?v={{ filemtime(public_path('images/icons/icon-club-save.png')) }}"
-                        alt=""
-                        width="88"
-                        height="22"
-                    >
+                    <span class="demo-header__club-shine">
+                        <img
+                            class="demo-header__utility-img demo-header__utility-img--club"
+                            src="{{ asset('images/icons/icon-club-save.png') }}?v={{ filemtime(public_path('images/icons/icon-club-save.png')) }}"
+                            alt=""
+                            width="88"
+                            height="22"
+                        >
+                    </span>
                 </span>
                 <span class="demo-header__utility-label">
                     <span class="demo-header__utility-label-full">Join Our Club</span>
