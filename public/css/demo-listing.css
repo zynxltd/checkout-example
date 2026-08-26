@@ -72,14 +72,14 @@ body.demo-listing {
     border: 0;
 }
 
-/* —— PLP SEO intro (cream shell — matches “More About” content blocks) —— */
+/* —— PLP SEO intro (flush on page — no cream card shell) —— */
 
 .demo-listing-seo-intro {
     margin: 0 0 24px;
-    padding: 28px 24px 32px;
+    padding: 28px 0 32px;
     text-align: center;
-    background: var(--yg-stone, #f2e7d8);
-    border-radius: var(--yg-radius, 20px);
+    background: transparent;
+    border-radius: 0;
 }
 
 .demo-listing-seo-intro__title {
@@ -88,7 +88,7 @@ body.demo-listing {
     font-size: clamp(1.85rem, 3.2vw, 2.55rem);
     font-weight: 700;
     line-height: 1.15;
-    color: var(--yg-pebble);
+    color: var(--yg-forest, #264f1c);
 }
 
 .demo-listing-seo-intro__subtitle {
@@ -98,7 +98,7 @@ body.demo-listing {
     font-size: clamp(1.15rem, 2vw, 1.45rem);
     font-weight: 700;
     line-height: 1.3;
-    color: var(--yg-pebble);
+    color: var(--yg-forest, #264f1c);
 }
 
 .demo-listing-seo-intro__copy {
@@ -172,7 +172,7 @@ body.demo-listing {
 
 @media (min-width: 640px) {
     .demo-listing-seo-intro {
-        padding: 36px 40px 40px;
+        padding: 36px 0 40px;
     }
 }
 

@@ -34,7 +34,7 @@
             @endforeach
         </nav>
 
-        <header class="demo-listing-seo-intro" data-seo-intro>
+        <header class="demo-listing-seo-intro is-no-stone is-green-header" data-seo-intro>
             <h1 class="demo-listing-seo-intro__title">{{ $hub['title'] }}</h1>
             @if (! empty($hub['subtitle']))
                 <h2 class="demo-listing-seo-intro__subtitle">{{ $hub['subtitle'] }}</h2>
@@ -122,12 +122,12 @@
                 <h3>SEO content block</h3>
                 <p class="demo-controls__hint">Toggle colours for the Garden Plants intro. Saved in this browser.</p>
                 <label class="demo-toggle">
-                    <input type="checkbox" id="toggle-seo-hide-stone" data-seo-option="hide-stone">
+                    <input type="checkbox" id="toggle-seo-hide-stone" data-seo-option="hide-stone" checked>
                     <span>Hide stone card background</span>
                 </label>
                 <p class="demo-controls__hint">Removes the cream card shell so the intro sits on the white page.</p>
                 <label class="demo-toggle">
-                    <input type="checkbox" id="toggle-seo-green-header" data-seo-option="green-header">
+                    <input type="checkbox" id="toggle-seo-green-header" data-seo-option="green-header" checked>
                     <span>YG green for header</span>
                 </label>
                 <p class="demo-controls__hint">Uses forest green (#264f1c) for the main title (and subtitle).</p>
@@ -156,7 +156,7 @@
         var seo = document.querySelector('[data-seo-intro]');
         if (!seo) return;
 
-        var KEY = 'yg-garden-plants-seo';
+        var KEY = 'yg-garden-plants-seo-v2';
         var hideStone = document.getElementById('toggle-seo-hide-stone');
         var greenHeader = document.getElementById('toggle-seo-green-header');
 
@@ -172,10 +172,19 @@
         }
 
         try {
-            var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
-            if (hideStone) hideStone.checked = !!saved.hideStone;
-            if (greenHeader) greenHeader.checked = !!saved.greenHeader;
-        } catch (e) { /* ignore */ }
+            var raw = localStorage.getItem(KEY);
+            if (raw) {
+                var saved = JSON.parse(raw);
+                if (hideStone) hideStone.checked = saved.hideStone !== false;
+                if (greenHeader) greenHeader.checked = saved.greenHeader !== false;
+            } else {
+                if (hideStone) hideStone.checked = true;
+                if (greenHeader) greenHeader.checked = true;
+            }
+        } catch (e) {
+            if (hideStone) hideStone.checked = true;
+            if (greenHeader) greenHeader.checked = true;
+        }
 
         if (hideStone) hideStone.addEventListener('change', apply);
         if (greenHeader) greenHeader.addEventListener('change', apply);

@@ -1,16 +1,27 @@
 /* Garden Plants category hub — match yougarden.com/garden-plants */
 
-/* SEO intro colour prototypes (Prototype tools) */
-.demo-garden-plants .demo-listing-seo-intro.is-no-stone {
-    background: transparent;
-    border-radius: 0;
-    padding-left: 0;
-    padding-right: 0;
+/*
+ * SEO intro colour prototypes (Prototype tools).
+ * Default = no stone card + forest green headers (see demo-listing.css).
+ * Unchecking the tools restores the cream card / pebble titles.
+ */
+.demo-garden-plants .demo-listing-seo-intro:not(.is-no-stone) {
+    background: var(--yg-stone, #f2e7d8);
+    border-radius: var(--yg-radius, 20px);
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
-.demo-garden-plants .demo-listing-seo-intro.is-green-header .demo-listing-seo-intro__title,
-.demo-garden-plants .demo-listing-seo-intro.is-green-header .demo-listing-seo-intro__subtitle {
-    color: var(--yg-forest, #264f1c);
+@media (min-width: 640px) {
+    .demo-garden-plants .demo-listing-seo-intro:not(.is-no-stone) {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+}
+
+.demo-garden-plants .demo-listing-seo-intro:not(.is-green-header) .demo-listing-seo-intro__title,
+.demo-garden-plants .demo-listing-seo-intro:not(.is-green-header) .demo-listing-seo-intro__subtitle {
+    color: var(--yg-pebble, #483f3a);
 }
 
 .demo-garden-plants__tiles {
