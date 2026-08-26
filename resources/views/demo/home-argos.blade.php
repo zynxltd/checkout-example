@@ -405,18 +405,18 @@
                     <span>Variant 1 — 4 cards</span>
                 </label>
                 <label class="demo-toggle">
+                    <input type="radio" name="home-row4-variant" value="5" data-row4-variant-option>
+                    <span>Variant 2 — 5 cards</span>
+                </label>
+                <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option>
-                    <span>Variant 2 — Category carousel</span>
+                    <span>Variant 3 — Category carousel</span>
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
-                    <span>Variant 3 — Wider 5 cards</span>
+                    <span>Variant 4 — Wider 5 cards</span>
                 </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="5" data-row4-variant-option>
-                    <span>Variant 4 — 5 cards</span>
-                </label>
-                <p class="demo-controls__hint">Variants 1 &amp; 4: pill labels + pager (4-up / 5-up). Variants 2 &amp; 3: dusk “Shop by category” with the same pager arrows + slide dots.</p>
+                <p class="demo-controls__hint">Variants 1 &amp; 2: pill labels + pager (4-up / 5-up). Variants 3 &amp; 4: dusk “Shop by category” with the same pager arrows + slide dots.</p>
                 <p class="demo-controls__label">Section headlines</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-headline-align" value="left" data-headline-align-option>

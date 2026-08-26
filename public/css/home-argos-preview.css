@@ -2627,7 +2627,7 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     max-width: calc((100cqw - 42px) / 4);
 }
 
-/* Variant 4 — same pill look as Variant 1, 5 cards per slide */
+/* Variant 2 — same pill look as Variant 1, 5 cards per slide */
 .yg-home-row4--carousel.yg-home-row4--pill[data-row4-variant="5"] .yg-home-tile,
 .yg-home-row4[data-row4-variant="5"] .yg-home-tile {
     flex: 0 0 calc((100cqw - 56px) / 5);
@@ -2978,7 +2978,7 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
     height: 12px;
 }
 
-/* Variant 1 & 4 — text-only pills (no green chevron) */
+/* Variant 1 & 2 — text-only pills (no green chevron) */
 .yg-home-row4--four .yg-home-tile__arrow,
 .yg-home-row4[data-row4-variant="4"] .yg-home-tile__arrow,
 .yg-home-row4--pill .yg-home-tile__arrow,
