@@ -3231,6 +3231,11 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--circles.yg-home-row4--sid
     padding: 0 0 16px;
 }
 
+/* Variant 5 — keep Customer favourites left even when headlines are centered */
+body.yg-home-variant-circles .yg-home-favourites__headline {
+    text-align: left !important;
+}
+
 .yg-home-favourites__headline-link {
     text-decoration: none;
     color: inherit;

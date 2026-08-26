@@ -1301,6 +1301,10 @@ body.demo-mobile-nav-open {
     cursor: pointer;
 }
 
+.demo-toggle[hidden] {
+    display: none !important;
+}
+
 @media (max-width: 767px) {
     .demo-prototype-stack {
         bottom: 0;

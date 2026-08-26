@@ -408,14 +408,6 @@
                     <input type="radio" name="home-row4-variant" value="5" data-row4-variant-option>
                     <span>Variant 2 — 5 cards</span>
                 </label>
-                <label class="demo-toggle" hidden>
-                    <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option>
-                    <span>Variant 3 — Category carousel</span>
-                </label>
-                <label class="demo-toggle" hidden>
-                    <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
-                    <span>Variant 4 — Wider 5 cards</span>
-                </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="circles" data-row4-variant-option>
                     <span>Variant 5 — Circle strip</span>
@@ -423,18 +415,18 @@
                 <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variant 5: circular icons + View all.</p>
                 <p class="demo-controls__label">Section headlines</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-headline-align" value="left" data-headline-align-option checked>
+                    <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
                     <span>Left aligned</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-headline-align" value="center" data-headline-align-option>
+                    <input type="radio" name="home-headline-align" value="center" data-headline-align-option checked>
                     <span>Centered</span>
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-headline-align" value="mobile-center" data-headline-align-option>
                     <span>Centered on mobile only</span>
                 </label>
-                <p class="demo-controls__hint">Applies to Shop by category and Customer favourites.</p>
+                <p class="demo-controls__hint">Applies to Shop by category and Customer favourites. Variant 5 keeps favourites left-aligned.</p>
                 <p class="demo-controls__label">Carousel arrows</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-carousel-arrows" value="bottom" data-carousel-arrows-option checked>
@@ -1020,6 +1012,7 @@
         root.classList.toggle('yg-home-row4--wide', usesDuskLook(variant));
         root.classList.toggle('yg-home-row4--pill', usesPillLook(variant));
         root.classList.toggle('yg-home-row4--circles', usesCirclesLook(variant));
+        document.body.classList.toggle('yg-home-variant-circles', usesCirclesLook(variant));
 
         var below = root.closest('.yg-home-below');
         if (below) below.classList.toggle('is-wide-band', usesDuskLook(variant));
@@ -1170,13 +1163,13 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-headline-align-v3';
+    var STORAGE_KEY = 'yg-home-headline-align-v4';
     var options = Array.prototype.slice.call(document.querySelectorAll('[data-headline-align-option]'));
     if (!options.length) return;
 
     function setAlign(value) {
         var allowed = { left: true, center: true, 'mobile-center': true };
-        if (!allowed[value]) value = 'left';
+        if (!allowed[value]) value = 'center';
         document.body.setAttribute('data-home-headline-align', value);
         options.forEach(function (input) {
             input.checked = input.value === value;
@@ -1192,9 +1185,9 @@
         });
     });
 
-    var saved = 'left';
+    var saved = 'center';
     try {
-        saved = localStorage.getItem(STORAGE_KEY) || 'left';
+        saved = localStorage.getItem(STORAGE_KEY) || 'center';
     } catch (err) { /* ignore */ }
     setAlign(saved);
 })();
