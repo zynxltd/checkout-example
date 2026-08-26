@@ -64,8 +64,10 @@ class CheckoutController extends Controller
 
         $order = DemoCart::placeOrder($request->all());
 
-        // Flash as well as persist — confirmation can read either if one storage path drops.
+        // Persist + one-request flash backup (survives a flaky session write between pay → confirm).
         session()->flash('demo_checkout_just_placed', true);
+        session()->flash('demo_checkout_order', $order);
+        session()->save();
 
         if ($request->expectsJson() || $request->ajax()) {
             return response()->json([
@@ -82,12 +84,22 @@ class CheckoutController extends Controller
     {
         DemoCart::seed();
 
-        $order = DemoCart::lastOrder();
+        $order = DemoCart::lastOrder() ?? session('demo_checkout_order');
 
-        if (! $order) {
+        if (is_array($order) && $order !== [] && ! DemoCart::lastOrder()) {
+            session(['demo_last_order' => $order]);
+            session()->save();
+        }
+
+        if (! is_array($order) || $order === []) {
+            // No receipt — resume checkout quietly if the basket is still open.
+            if (! DemoCart::state()['is_empty']) {
+                return redirect()->route('demo.checkout');
+            }
+
             return redirect()
-                ->route('demo.checkout')
-                ->with('checkout_notice', 'No recent order to show — your basket may still be open.');
+                ->route('demo.home')
+                ->with('checkout_notice', 'No order found — add items and check out when you are ready.');
         }
 
         return view('demo.confirmation', [

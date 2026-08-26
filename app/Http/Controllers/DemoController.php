@@ -184,7 +184,7 @@ class DemoController extends Controller
             ],
             // Previous lifestyle hero kept at images/home-preview/hero-garden-original-backup.jpg
             // Below-the-fold modules mirrored from live yougarden.com homepage
-            // First 5 = live default; extras power prototype 8-card / carousel layouts
+            // First 5 = static layouts; extras power 8-card + category carousel (Variant 3)
             'row4' => [
                 [
                     'label' => 'Mediterranean Plants',
@@ -225,6 +225,16 @@ class DemoController extends Controller
                     'label' => 'Autumn Planting Bulbs',
                     'url' => 'https://www.yougarden.com/garden-plants/garden-bulbs/spring-flowering-bulbs',
                     'image' => 'images/home-preview/live/81-3.jpg',
+                ],
+                [
+                    'label' => 'Feeds & Fertilisers',
+                    'url' => 'https://www.yougarden.com/outdoor-living/feeds-and-fertilisers',
+                    'image' => 'images/home-preview/live/81-4.jpg',
+                ],
+                [
+                    'label' => 'Houseplants',
+                    'url' => 'https://www.yougarden.com/houseplants',
+                    'image' => 'images/home-preview/live/80-5.jpg',
                 ],
             ],
             'customer_favourites' => [

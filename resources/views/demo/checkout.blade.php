@@ -12,7 +12,10 @@ data-co-line-count="{{ count($cart['items']) }}"
 @push('head')
     <link rel="stylesheet" href="{{ asset('css/yg-checkout.css') }}?v={{ filemtime(public_path('css/yg-checkout.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/yg-cart-drawer.css') }}?v={{ filemtime(public_path('css/yg-cart-drawer.css')) }}">
-    <style>.co--loading .co-content{visibility:hidden}</style>
+    <style>
+        .co--loading .co-content{visibility:hidden}
+        .co--loading .co-notice{display:none}
+    </style>
 @endpush
 
 @section('content')
@@ -43,13 +46,22 @@ data-co-line-count="{{ count($cart['items']) }}"
 <div class="co co--loading" id="co-root" aria-busy="true">
     <script>
         (function () {
+            var root = document.getElementById('co-root');
+            if (!root) return;
             var type = performance.getEntriesByType && performance.getEntriesByType('navigation')[0]?.type;
             if (type && type !== 'navigate') {
-                var root = document.getElementById('co-root');
                 root.classList.remove('co--loading');
                 root.classList.add('co--ready');
                 root.removeAttribute('aria-busy');
             }
+            // Failsafe: never leave the page stuck on skeleton if checkout JS is slow/blocked
+            window.setTimeout(function () {
+                if (!root.classList.contains('co--loading')) return;
+                root.classList.remove('co--loading');
+                root.classList.add('co--ready');
+                root.removeAttribute('aria-busy');
+                root.querySelectorAll('.co-sk').forEach(function (el) { el.remove(); });
+            }, 2500);
         })();
     </script>
     <header class="co-header">

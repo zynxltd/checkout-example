@@ -47,9 +47,21 @@ class CheckoutCompleteTest extends TestCase
 
     public function test_confirmation_without_order_redirects_to_checkout(): void
     {
+        DemoCart::seed();
+
         $response = $this->get(route('demo.checkout.confirmation'));
 
         $response->assertRedirect(route('demo.checkout'));
+        $this->get(route('demo.checkout'))->assertDontSee('No recent order', false);
+    }
+
+    public function test_confirmation_without_order_or_basket_redirects_home(): void
+    {
+        session(['demo_cart_items' => []]);
+
+        $response = $this->get(route('demo.checkout.confirmation'));
+
+        $response->assertRedirect(route('demo.home'));
     }
 
     public function test_pay_now_json_returns_confirmation_redirect(): void

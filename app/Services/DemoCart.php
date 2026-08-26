@@ -1985,6 +1985,7 @@ class DemoCart
             'demo_offer_code' => null,
             'demo_voucher_code' => null,
         ]);
+        session()->save();
 
         return $order;
     }

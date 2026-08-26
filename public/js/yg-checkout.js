@@ -806,9 +806,15 @@
 
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const minMs = reducedMotion ? 0 : 520;
+        const maxMs = 2200;
         const started = performance.now();
+        let revealed = false;
 
         const reveal = () => {
+            if (revealed) {
+                return;
+            }
+            revealed = true;
             const wait = Math.max(0, minMs - (performance.now() - started));
             window.setTimeout(() => revealCheckout(root), wait);
         };
@@ -817,6 +823,7 @@
             reveal();
         } else {
             window.addEventListener('load', reveal, { once: true });
+            window.setTimeout(reveal, maxMs);
         }
     }
 
