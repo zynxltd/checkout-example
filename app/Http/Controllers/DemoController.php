@@ -185,7 +185,7 @@ class DemoController extends Controller
             // Previous lifestyle hero kept at images/home-preview/hero-garden-original-backup.jpg
             // Below-the-fold modules mirrored from live yougarden.com homepage
             // First 5 = static layouts; extras power category carousels
-            // 15 tiles → Variant 3/4 get 3 slides at 5-up; Variant 1 uses first 12 at 4-up
+            // 21 tiles → Variant 5 circle strip gets 3 slides at 7-up; Variant 1 uses first 12 at 4-up
             'row4' => [
                 [
                     'label' => 'Mediterranean Plants',
@@ -261,6 +261,36 @@ class DemoController extends Controller
                     'label' => 'Japanese Acers',
                     'url' => 'https://www.yougarden.com/trees-and-shrubs/garden-trees/japanese-acer-trees',
                     'image' => 'images/home-preview/cats/acers.jpg',
+                ],
+                [
+                    'label' => 'Hanging Baskets',
+                    'url' => 'https://www.yougarden.com/garden-plants/bedding-plants/pre-planted-hanging-baskets',
+                    'image' => 'images/home-preview/cats/hanging-baskets.jpg',
+                ],
+                [
+                    'label' => 'Herbs',
+                    'url' => 'https://www.yougarden.com/grow-your-own-fruit-and-veg/herbs',
+                    'image' => 'images/home-preview/cats/herbs.jpg',
+                ],
+                [
+                    'label' => 'Pots & Planters',
+                    'url' => 'https://www.yougarden.com/outdoor-living/pots-and-planters',
+                    'image' => 'images/home-preview/cats/pots-planters.jpg',
+                ],
+                [
+                    'label' => 'Garden Tools',
+                    'url' => 'https://www.yougarden.com/outdoor-living/garden-tools',
+                    'image' => 'images/home-preview/cats/garden-tools.jpg',
+                ],
+                [
+                    'label' => 'Bird Care',
+                    'url' => 'https://www.yougarden.com/outdoor-living/bird-care',
+                    'image' => 'images/home-preview/cats/bird-feeders.jpg',
+                ],
+                [
+                    'label' => 'Gifts',
+                    'url' => 'https://www.yougarden.com/gifts',
+                    'image' => 'images/home-preview/cats/gifts.jpg',
                 ],
             ],
             'customer_favourites' => [

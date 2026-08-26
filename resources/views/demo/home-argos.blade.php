@@ -410,9 +410,13 @@
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="circles" data-row4-variant-option>
-                    <span>Variant 5 — Circle strip</span>
+                    <span>Variant 3 — Circle strip</span>
                 </label>
-                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variant 5: circular icons + View all.</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-row4-variant" value="squares" data-row4-variant-option>
+                    <span>Variant 4 — Square strip</span>
+                </label>
+                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3 &amp; 4: icon strip + View all (circle / rounded square).</p>
                 <p class="demo-controls__label">Section headlines</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
@@ -426,7 +430,7 @@
                     <input type="radio" name="home-headline-align" value="mobile-center" data-headline-align-option>
                     <span>Centered on mobile only</span>
                 </label>
-                <p class="demo-controls__hint">Applies to Shop by category and Customer favourites. Variant 5 keeps favourites left-aligned.</p>
+                <p class="demo-controls__hint">Applies to Shop by category and Customer favourites. Variants 3 &amp; 4 keep favourites left-aligned.</p>
                 <p class="demo-controls__label">Carousel arrows</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-carousel-arrows" value="bottom" data-carousel-arrows-option checked>
@@ -765,7 +769,7 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-row4-variant-v7';
+    var STORAGE_KEY = 'yg-home-row4-variant-v8';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
 
@@ -791,11 +795,11 @@
     }
 
     function isCarouselVariant(variant) {
-        return variant === 'carousel' || variant === '4' || variant === '5' || variant === 'wide' || variant === 'circles';
+        return variant === 'carousel' || variant === '4' || variant === '5' || variant === 'wide' || variant === 'circles' || variant === 'squares';
     }
 
     function usesSlider(variant) {
-        return variant === '4' || variant === '5' || variant === 'carousel' || variant === 'wide' || variant === 'circles';
+        return variant === '4' || variant === '5' || variant === 'carousel' || variant === 'wide' || variant === 'circles' || variant === 'squares';
     }
 
     function usesDuskLook(variant) {
@@ -806,8 +810,16 @@
         return variant === '4' || variant === '5';
     }
 
+    function usesIconStripLook(variant) {
+        return variant === 'circles' || variant === 'squares';
+    }
+
     function usesCirclesLook(variant) {
         return variant === 'circles';
+    }
+
+    function usesSquaresLook(variant) {
+        return variant === 'squares';
     }
 
     function usesDuskArrows(variant) {
@@ -859,13 +871,7 @@
     }
 
     function snapToNearest() {
-        if (usesCirclesLook(currentVariant())) {
-            var s = step();
-            if (s <= 0) return;
-            offset = Math.round(offset / s) * s;
-            offset = Math.min(maxOffset(), Math.max(0, offset));
-            return;
-        }
+        // Icon strip + pill carousels page by visible columns (2×2 on mobile, 7/4/5-up on desktop)
         if (usesSlider(currentVariant())) {
             var stride = pageStride();
             if (stride <= 0) return;
@@ -949,14 +955,14 @@
     function updateCarouselNav() {
         var variant = currentVariant();
         var isCarousel = isCarouselVariant(variant);
-        var isCircles = usesCirclesLook(variant);
+        var isIconStrip = usesIconStripLook(variant);
         var showSlider = usesSlider(variant) && isCarousel;
         var showDusk = usesDuskLook(variant) && isCarousel;
         var showDuskArrows = usesDuskArrows(variant) && isCarousel;
         var showSides = usesSideArrows() && isCarousel && showSlider;
         var hidePager = arrowMode() === 'sides-only';
-        // Circles on small screens: bottom pager only (side arrows crowd the strip)
-        if (isCircles && window.matchMedia && window.matchMedia('(max-width: 960px)').matches) {
+        // Icon strips on small screens: bottom pager only (side arrows crowd the strip)
+        if (isIconStrip && window.matchMedia && window.matchMedia('(max-width: 960px)').matches) {
             showSides = false;
             hidePager = false;
         }
@@ -965,9 +971,9 @@
         if (nextBtn) nextBtn.hidden = !isCarousel || ((showSlider || showDusk) && !showSides);
         if (sliderWrap) sliderWrap.hidden = !showSlider || hidePager;
         if (duskTitle) duskTitle.hidden = !isCarousel;
-        if (duskBar) duskBar.hidden = !(showDusk || isCircles);
-        if (duskAll) duskAll.hidden = !(showDusk || isCircles);
-        if (duskAllLabel) duskAllLabel.textContent = isCircles ? 'View all' : 'All categories';
+        if (duskBar) duskBar.hidden = !(showDusk || isIconStrip);
+        if (duskAll) duskAll.hidden = !(showDusk || isIconStrip);
+        if (duskAllLabel) duskAllLabel.textContent = isIconStrip ? 'View all' : 'All categories';
         if (duskPrev) duskPrev.hidden = !showDuskArrows;
         if (duskNext) duskNext.hidden = !showDuskArrows;
         root.classList.toggle('yg-home-row4--dusk-arrows', showDuskArrows);
@@ -1000,7 +1006,7 @@
         // Variants 3 & 4 hidden in prototype tools — fall back to Variant 1
         if (variant === 'carousel' || variant === 'wide') variant = '4';
 
-        var allowed = { '4': true, '5': true, carousel: true, wide: true, circles: true };
+        var allowed = { '4': true, '5': true, carousel: true, wide: true, circles: true, squares: true };
         if (!allowed[variant]) variant = '4';
 
         root.setAttribute('data-row4-variant', variant);
@@ -1011,8 +1017,10 @@
         root.classList.toggle('yg-home-row4--slider', usesSlider(variant));
         root.classList.toggle('yg-home-row4--wide', usesDuskLook(variant));
         root.classList.toggle('yg-home-row4--pill', usesPillLook(variant));
-        root.classList.toggle('yg-home-row4--circles', usesCirclesLook(variant));
-        document.body.classList.toggle('yg-home-variant-circles', usesCirclesLook(variant));
+        root.classList.toggle('yg-home-row4--circles', usesIconStripLook(variant));
+        root.classList.toggle('yg-home-row4--squares', usesSquaresLook(variant));
+        root.classList.toggle('yg-home-row4--icon-strip', usesIconStripLook(variant));
+        document.body.classList.toggle('yg-home-variant-circles', usesIconStripLook(variant));
 
         var below = root.closest('.yg-home-below');
         if (below) below.classList.toggle('is-wide-band', usesDuskLook(variant));
@@ -1020,7 +1028,7 @@
 
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
             var index = parseInt(tile.getAttribute('data-row4-index'), 10) || 0;
-            var limit = variant === '4' ? 12 : (variant === '5' || variant === 'carousel' || variant === 'wide' || variant === 'circles') ? 99 : 5;
+            var limit = variant === '4' ? 12 : (variant === '5' || variant === 'carousel' || variant === 'wide' || usesIconStripLook(variant)) ? 99 : 5;
             tile.hidden = index > limit;
         });
 
@@ -1048,7 +1056,7 @@
 
     if (prevBtn) {
         prevBtn.addEventListener('click', function () {
-            if (usesSideArrows() && usesSlider(currentVariant()) && !usesCirclesLook(currentVariant())) {
+            if (usesSideArrows() && usesSlider(currentVariant()) && !usesIconStripLook(currentVariant())) {
                 nudgePage(-1);
                 return;
             }
@@ -1065,7 +1073,7 @@
     }
     if (nextBtn) {
         nextBtn.addEventListener('click', function () {
-            if (usesSideArrows() && usesSlider(currentVariant()) && !usesCirclesLook(currentVariant())) {
+            if (usesSideArrows() && usesSlider(currentVariant()) && !usesIconStripLook(currentVariant())) {
                 nudgePage(1);
                 return;
             }
