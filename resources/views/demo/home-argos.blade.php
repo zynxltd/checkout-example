@@ -942,8 +942,7 @@
 
     function positionSideNav() {
         if (!prevBtn || !nextBtn || !viewport || !root) return;
-        var show = usesSideArrows() || usesCirclesLook(currentVariant());
-        if (!show || root.hidden) {
+        if (!usesSideArrows() || root.hidden) {
             prevBtn.style.top = '';
             nextBtn.style.top = '';
             return;
@@ -962,11 +961,17 @@
         var showSlider = usesSlider(variant) && isCarousel;
         var showDusk = usesDuskLook(variant) && isCarousel;
         var showDuskArrows = usesDuskArrows(variant) && isCarousel;
-        var showSides = (usesSideArrows() || isCircles) && isCarousel && showSlider;
+        var showSides = usesSideArrows() && isCarousel && showSlider;
+        var hidePager = arrowMode() === 'sides-only';
+        // Circles on small screens: bottom pager only (side arrows crowd the strip)
+        if (isCircles && window.matchMedia && window.matchMedia('(max-width: 960px)').matches) {
+            showSides = false;
+            hidePager = false;
+        }
 
         if (prevBtn) prevBtn.hidden = !isCarousel || ((showSlider || showDusk) && !showSides);
         if (nextBtn) nextBtn.hidden = !isCarousel || ((showSlider || showDusk) && !showSides);
-        if (sliderWrap) sliderWrap.hidden = !showSlider || isCircles;
+        if (sliderWrap) sliderWrap.hidden = !showSlider || hidePager;
         if (duskTitle) duskTitle.hidden = !isCarousel;
         if (duskBar) duskBar.hidden = !(showDusk || isCircles);
         if (duskAll) duskAll.hidden = !(showDusk || isCircles);
