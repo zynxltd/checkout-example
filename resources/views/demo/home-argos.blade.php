@@ -879,7 +879,7 @@
         if (prevBtn) prevBtn.hidden = !isCarousel || showSlider || showDusk;
         if (nextBtn) nextBtn.hidden = !isCarousel || showSlider || showDusk;
         if (sliderWrap) sliderWrap.hidden = !showSlider;
-        if (duskTitle) duskTitle.hidden = !showDusk;
+        if (duskTitle) duskTitle.hidden = !isCarousel;
         if (duskBar) duskBar.hidden = !showDusk;
         if (duskPrev) duskPrev.hidden = !showDuskArrows;
         if (duskNext) duskNext.hidden = !showDuskArrows;

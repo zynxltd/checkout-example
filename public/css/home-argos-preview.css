@@ -2532,6 +2532,33 @@ body.yg-header-argos .usp-wrapper {
     display: none !important;
 }
 
+.yg-home-row4--four.yg-home-row4--slider,
+.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 28px 0 8px;
+}
+
+.yg-home-row4--four.yg-home-row4--slider .yg-home-row4__title,
+.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-home-row4__title {
+    width: 100%;
+    text-align: left;
+}
+
+.yg-home-row4--four.yg-home-row4--slider .yg-home-row4__viewport,
+.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-home-row4__viewport {
+    width: 100%;
+}
+
+.yg-home-row4--four.yg-home-row4--slider .yg-pager,
+.yg-home-row4[data-row4-variant="4"].yg-home-row4--slider .yg-pager {
+    flex: 1 1 auto;
+    justify-content: center;
+    margin-top: 12px;
+    width: 100%;
+}
+
 /* Variant 3/4 — dusk look + Argos pager (arrows + slide dots), All categories right */
 .yg-home-row4--wide.yg-home-row4--carousel.yg-home-row4--slider {
     padding: 28px 0 4px;
@@ -2897,6 +2924,18 @@ body.yg-header-argos .usp-wrapper {
     display: block;
     width: 8px;
     height: 12px;
+}
+
+/* Variant 1 — text-only pills (no green chevron) */
+.yg-home-row4--four .yg-home-tile__arrow,
+.yg-home-row4[data-row4-variant="4"] .yg-home-tile__arrow {
+    display: none !important;
+}
+
+.yg-home-row4--four .yg-home-tile__cta,
+.yg-home-row4[data-row4-variant="4"] .yg-home-tile__cta {
+    padding: 8px 14px;
+    gap: 0;
 }
 
 .yg-home-tile__caption {
@@ -3670,6 +3709,12 @@ body.yg-header-argos .usp-wrapper {
         white-space: nowrap;
     }
 
+    .yg-home-row4--four .yg-home-tile__cta,
+    .yg-home-row4[data-row4-variant="4"] .yg-home-tile__cta {
+        padding: 7px 12px;
+        gap: 0;
+    }
+
     .yg-home-tile__arrow {
         width: 24px;
         height: 24px;
@@ -3873,6 +3918,12 @@ body.yg-header-argos .usp-wrapper {
         border-radius: 999px;
         min-height: 0;
         line-height: 1.2;
+    }
+
+    .yg-home-row4--four .yg-home-tile__cta,
+    .yg-home-row4[data-row4-variant="4"] .yg-home-tile__cta {
+        padding: 6px 10px;
+        gap: 0;
     }
 
     .yg-home-tile__arrow {
