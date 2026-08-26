@@ -180,6 +180,7 @@
                 data-row4-cats
                 data-row4-variant="4"
             >
+                <h2 class="yg-home-row4__title" data-row4-dusk-title hidden>Shop by category</h2>
                 <button type="button" class="yg-home-row4__nav yg-home-row4__nav--prev" data-row4-prev aria-label="Previous categories" hidden>
                     <span class="yg-home-row4__nav-arrow yg-home-row4__nav-arrow--prev" aria-hidden="true"></span>
                 </button>
@@ -204,6 +205,18 @@
                 <button type="button" class="yg-home-row4__nav yg-home-row4__nav--next" data-row4-next aria-label="Next categories" hidden>
                     <span class="yg-home-row4__nav-arrow" aria-hidden="true"></span>
                 </button>
+                <div class="yg-home-row4__dusk-bar" data-row4-dusk-bar hidden>
+                    <a
+                        class="yg-home-row4__dusk-all"
+                        href="https://www.yougarden.com/garden-plants"
+                        target="_blank"
+                        rel="noopener"
+                        hidden
+                    >
+                        All categories
+                        <span class="yg-home-row4__dusk-all-arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
                 <div class="yg-pager" data-row4-slider-wrap hidden>
                     <button type="button" class="yg-pager__btn" data-row4-pager-prev aria-label="Previous categories">
                         <span class="yg-pager__chev yg-pager__chev--prev" aria-hidden="true"></span>
@@ -461,22 +474,13 @@
                     <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
                     <span>Variant 4 — Wider 5 cards</span>
                 </label>
-                <p class="demo-controls__hint">Variant 1 shows 4 cards at a time from 12 (3 slides) and uses a pager instead of side arrows.</p>
-                <h3>Header promo</h3>
-                <p class="demo-controls__hint">Optional content in the gap between logo and search. Off by default.</p>
-                <p class="demo-controls__label">Logo → search slot</p>
+                <p class="demo-controls__hint">Variant 1: 4-up pager. Variants 3 &amp; 4: dusk “Shop by category” with the same pager arrows + slide dots, and All categories.</p>
+                <p class="demo-controls__label">Shop by category shell</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-header-promo" value="off" data-header-promo-option checked>
-                    <span>Off (default)</span>
+                    <input type="checkbox" data-row4-stone-option>
+                    <span>Stone background card</span>
                 </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-header-promo" value="offer" data-header-promo-option>
-                    <span>Offer chip — seasonal deal</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-header-promo" value="delivery" data-header-promo-option>
-                    <span>Delivery — order-by cutoff</span>
-                </label>
+                <p class="demo-controls__hint">Applies to Variants 3 &amp; 4. Off by default. Rounded stone band behind the category strip (18px corners).</p>
             </aside>
         </div>
     </div>
@@ -965,6 +969,10 @@
     var pagerPrev = root.querySelector('[data-row4-pager-prev]');
     var pagerNext = root.querySelector('[data-row4-pager-next]');
     var pagerDots = root.querySelector('[data-row4-pager-dots]');
+    var duskTitle = root.querySelector('[data-row4-dusk-title]');
+    var duskBar = root.querySelector('[data-row4-dusk-bar]');
+    var duskPrev = root.querySelector('[data-row4-dusk-prev]');
+    var duskNext = root.querySelector('[data-row4-dusk-next]');
     var options = Array.prototype.slice.call(document.querySelectorAll('[data-row4-variant-option]'));
     var offset = 0;
 
@@ -973,11 +981,19 @@
     }
 
     function isCarouselVariant(variant) {
-        return variant === 'carousel' || variant === '4';
+        return variant === 'carousel' || variant === '4' || variant === 'wide';
     }
 
     function usesSlider(variant) {
-        return variant === '4';
+        return variant === '4' || variant === 'carousel' || variant === 'wide';
+    }
+
+    function usesDuskLook(variant) {
+        return variant === 'wide' || variant === 'carousel';
+    }
+
+    function usesDuskArrows(variant) {
+        return false;
     }
 
     function step() {
@@ -1076,10 +1092,17 @@
         var variant = currentVariant();
         var isCarousel = isCarouselVariant(variant);
         var showSlider = usesSlider(variant) && isCarousel;
+        var showDusk = usesDuskLook(variant) && isCarousel;
+        var showDuskArrows = usesDuskArrows(variant) && isCarousel;
 
-        if (prevBtn) prevBtn.hidden = !isCarousel || showSlider;
-        if (nextBtn) nextBtn.hidden = !isCarousel || showSlider;
+        if (prevBtn) prevBtn.hidden = !isCarousel || showSlider || showDusk;
+        if (nextBtn) nextBtn.hidden = !isCarousel || showSlider || showDusk;
         if (sliderWrap) sliderWrap.hidden = !showSlider;
+        if (duskTitle) duskTitle.hidden = !showDusk;
+        if (duskBar) duskBar.hidden = !showDusk;
+        if (duskPrev) duskPrev.hidden = !showDuskArrows;
+        if (duskNext) duskNext.hidden = !showDuskArrows;
+        root.classList.toggle('yg-home-row4--dusk-arrows', showDuskArrows);
 
         if (!isCarousel) {
             offset = 0;
@@ -1091,11 +1114,13 @@
         }
 
         var max = maxOffset();
-        if (prevBtn && nextBtn && !showSlider) {
+        if (prevBtn && nextBtn && !showSlider && !showDusk) {
             prevBtn.disabled = false;
             nextBtn.disabled = max <= 0;
             prevBtn.setAttribute('aria-disabled', offset <= 0 ? 'true' : 'false');
         }
+        if (duskPrev) duskPrev.disabled = max <= 0;
+        if (duskNext) duskNext.disabled = max <= 0;
         root.classList.toggle('is-at-start', offset <= 0);
         root.classList.toggle('is-at-end', offset >= max - 1);
     }
@@ -1108,19 +1133,19 @@
 
         root.setAttribute('data-row4-variant', variant);
         root.classList.toggle('yg-home-row4--four', variant === '4');
-        root.classList.toggle('yg-home-row4--five', variant === 'wide');
+        root.classList.toggle('yg-home-row4--five', variant === 'wide' || variant === 'carousel');
         root.classList.remove('yg-home-row4--eight');
         root.classList.toggle('yg-home-row4--carousel', isCarouselVariant(variant));
         root.classList.toggle('yg-home-row4--slider', usesSlider(variant));
-        root.classList.toggle('yg-home-row4--wide', variant === 'wide');
+        root.classList.toggle('yg-home-row4--wide', usesDuskLook(variant));
 
         var below = root.closest('.yg-home-below');
-        if (below) below.classList.toggle('is-wide-band', variant === 'wide');
-        document.body.classList.toggle('yg-home-wide-band', variant === 'wide');
+        if (below) below.classList.toggle('is-wide-band', usesDuskLook(variant));
+        document.body.classList.toggle('yg-home-wide-band', usesDuskLook(variant));
 
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
             var index = parseInt(tile.getAttribute('data-row4-index'), 10) || 0;
-            var limit = variant === '4' ? 12 : variant === 'carousel' ? 99 : 5;
+            var limit = variant === '4' ? 12 : (variant === 'carousel' || variant === 'wide') ? 99 : 5;
             tile.hidden = index > limit;
         });
 
@@ -1173,6 +1198,23 @@
         });
     }
 
+    function duskStep(dir) {
+        var max = maxOffset();
+        if (max <= 0) return;
+        if (dir < 0) {
+            if (offset <= 0) offset = max;
+            else offset = Math.max(0, offset - step());
+        } else if (offset >= max - 1) {
+            offset = 0;
+        } else {
+            offset = Math.min(max, offset + step());
+        }
+        applyOffset(true);
+    }
+
+    if (duskPrev) duskPrev.addEventListener('click', function () { duskStep(-1); });
+    if (duskNext) duskNext.addEventListener('click', function () { duskStep(1); });
+
     function nudgePage(dir) {
         var max = maxOffset();
         var pages = pageCount();
@@ -1203,43 +1245,40 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-header-promo-v1';
-    var options = Array.prototype.slice.call(document.querySelectorAll('[data-header-promo-option]'));
-    var root = document.querySelector('[data-header-promo]');
-    if (!options.length || !root) return;
+    var STORAGE_KEY = 'yg-home-row4-stone-v2';
+    var root = document.querySelector('[data-row4-cats]');
+    var toggle = document.querySelector('[data-row4-stone-option]');
+    if (!root || !toggle) return;
 
-    var offer = root.querySelector('[data-header-promo-offer]');
-    var delivery = root.querySelector('[data-header-promo-delivery]');
-
-    function setPromo(mode) {
-        if (mode !== 'offer' && mode !== 'delivery') mode = 'off';
-
-        var on = mode !== 'off';
-        root.hidden = !on;
-        if (offer) offer.hidden = mode !== 'offer';
-        if (delivery) delivery.hidden = mode !== 'delivery';
-        document.body.setAttribute('data-header-promo', mode);
-
-        options.forEach(function (input) {
-            input.checked = input.value === mode;
-        });
-
+    function setStone(on) {
+        root.classList.toggle('is-no-stone', !on);
+        toggle.checked = !!on;
         try {
-            localStorage.setItem(STORAGE_KEY, mode);
+            localStorage.setItem(STORAGE_KEY, on ? 'on' : 'off');
         } catch (err) { /* ignore */ }
     }
 
-    options.forEach(function (input) {
-        input.addEventListener('change', function () {
-            if (input.checked) setPromo(input.value);
-        });
+    toggle.addEventListener('change', function () {
+        setStone(toggle.checked);
     });
 
     var saved = 'off';
     try {
         saved = localStorage.getItem(STORAGE_KEY) || 'off';
     } catch (err) { /* ignore */ }
-    setPromo(saved);
+    setStone(saved === 'on');
+})();
+
+(function () {
+    // Header promo prototype removed — keep slot hidden even if an older
+    // localStorage value still says "offer" / "delivery".
+    var root = document.querySelector('[data-header-promo]');
+    if (!root) return;
+    root.hidden = true;
+    document.body.setAttribute('data-header-promo', 'off');
+    try {
+        localStorage.setItem('yg-home-header-promo-v1', 'off');
+    } catch (err) { /* ignore */ }
 })();
 
 (function () {

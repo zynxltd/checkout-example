@@ -109,7 +109,7 @@ body.demo-listing {
 
 .demo-listing-seo-intro__body {
     font-family: var(--yg-heading);
-    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    font-size: clamp(1.05rem, 1.7vw, 1.2rem);
     font-weight: 400;
     line-height: 1.65;
     color: var(--yg-pebble);
@@ -158,7 +158,7 @@ body.demo-listing {
     border: none;
     background: none;
     font-family: var(--yg-heading);
-    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    font-size: clamp(1.05rem, 1.7vw, 1.2rem);
     font-weight: 700;
     color: var(--yg-forest);
     text-decoration: underline;

@@ -703,55 +703,18 @@
             return;
         }
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
+        // Native POST + server redirect is more reliable than fetch→assign for
+        // session handoff to the confirmation page (esp. on multi-instance hosts).
+        form.addEventListener('submit', (e) => {
             if (form.classList.contains('is-submitting')) {
+                e.preventDefault();
                 return;
             }
 
             form.classList.add('is-submitting');
-            btn.disabled = true;
             btn.setAttribute('aria-busy', 'true');
-
-            const completeUrl = form.getAttribute('action') || routes.checkoutComplete || '/checkout/complete';
-            const confirmationUrl = routes.checkoutConfirmation || '/checkout/confirmation';
-
-            try {
-                const res = await fetch(completeUrl, {
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    headers: {
-                        Accept: 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': csrf,
-                    },
-                    body: new FormData(form),
-                });
-
-                const data = await res.json().catch(() => ({}));
-
-                if (!res.ok) {
-                    const message = data.error || 'Could not complete payment. Please try again.';
-                    alert(message);
-                    if (data.redirect) {
-                        window.location.assign(data.redirect);
-                        return;
-                    }
-                    form.classList.remove('is-submitting');
-                    btn.disabled = false;
-                    btn.removeAttribute('aria-busy');
-                    return;
-                }
-
-                window.location.assign(data.redirect || confirmationUrl);
-            } catch (err) {
-                console.error('[checkout] pay now failed', err);
-                alert('Could not complete payment. Please try again.');
-                form.classList.remove('is-submitting');
-                btn.disabled = false;
-                btn.removeAttribute('aria-busy');
-            }
+            // Do not disable the button here — that can cancel the native submit
+            // in some browsers. CSS (.is-submitting) blocks double clicks.
         });
     }
 

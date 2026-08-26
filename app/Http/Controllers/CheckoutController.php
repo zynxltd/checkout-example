@@ -8,6 +8,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class CheckoutController extends Controller
@@ -62,29 +64,61 @@ class CheckoutController extends Controller
                 ->with('checkout_notice', 'Your basket is empty — add items before checkout.');
         }
 
-        $order = DemoCart::placeOrder($request->all());
+        try {
+            $order = DemoCart::placeOrder($request->all());
+        } catch (\Throwable $e) {
+            report($e);
 
-        // Persist + one-request flash backup (survives a flaky session write between pay → confirm).
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'error' => 'Could not complete payment. Please try again.',
+                    'redirect' => route('demo.checkout'),
+                ], 500);
+            }
+
+            return redirect()
+                ->route('demo.checkout')
+                ->with('checkout_notice', 'Could not complete payment. Please try again.');
+        }
+
+        $receipt = Str::random(40);
+        Cache::put(self::receiptCacheKey($receipt), $order, now()->addHours(2));
+
+        // Persist + flash backup (survives flaky session writes between pay → confirm).
         session()->flash('demo_checkout_just_placed', true);
         session()->flash('demo_checkout_order', $order);
         session()->save();
+
+        $redirect = route('demo.checkout.confirmation', ['receipt' => $receipt]);
 
         if ($request->expectsJson() || $request->ajax()) {
             return response()->json([
                 'ok' => true,
                 'order_number' => $order['number'] ?? null,
-                'redirect' => route('demo.checkout.confirmation'),
+                'redirect' => $redirect,
             ]);
         }
 
-        return redirect()->route('demo.checkout.confirmation');
+        return redirect()->to($redirect);
     }
 
-    public function confirmation(): View|RedirectResponse
+    public function confirmation(Request $request): View|RedirectResponse
     {
         DemoCart::seed();
 
-        $order = DemoCart::lastOrder() ?? session('demo_checkout_order');
+        $order = DemoCart::lastOrder();
+        if (! is_array($order) || $order === []) {
+            $flashed = session('demo_checkout_order');
+            $order = is_array($flashed) ? $flashed : null;
+        }
+
+        $receipt = trim($request->string('receipt')->toString());
+        if ((! is_array($order) || $order === []) && $receipt !== '') {
+            $cached = Cache::get(self::receiptCacheKey($receipt));
+            if (is_array($cached) && $cached !== []) {
+                $order = $cached;
+            }
+        }
 
         if (is_array($order) && $order !== [] && ! DemoCart::lastOrder()) {
             session(['demo_last_order' => $order]);
@@ -155,5 +189,10 @@ class CheckoutController extends Controller
         session(['demo_voucher_code' => null]);
 
         return response()->json(['ok' => true]);
+    }
+
+    private static function receiptCacheKey(string $receipt): string
+    {
+        return 'demo_checkout_receipt:'.$receipt;
     }
 }

@@ -36,7 +36,7 @@
                 href="https://www.yougarden.com/garden-plants/garden-bulbs/spring-flowering-bulbs"
                 hidden
             >
-                <span class="demo-header__promo-chip-label">Autumn bulbs · from £9.99</span>
+                <span class="demo-header__promo-chip-label">Check today’s offer</span>
                 <span class="demo-header__promo-chip-chev" aria-hidden="true"></span>
             </a>
             <p class="demo-header__promo-delivery" data-header-promo-delivery hidden>

@@ -1026,6 +1026,7 @@ body.co-club-modal-open {
 .co-form.is-submitting .co-pay-now {
     opacity: 0.7;
     cursor: wait;
+    pointer-events: none;
 }
 
 .co-notice {

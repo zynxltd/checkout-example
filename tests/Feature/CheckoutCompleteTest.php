@@ -35,10 +35,14 @@ class CheckoutCompleteTest extends TestCase
             'card_number' => '4242424242424242',
         ]);
 
-        $response->assertRedirect(route('demo.checkout.confirmation'));
+        $response->assertRedirect();
+        $location = $response->headers->get('Location');
+        $this->assertNotNull($location);
+        $this->assertStringContainsString('/checkout/confirmation', $location);
+        $this->assertStringContainsString('receipt=', $location);
         $this->assertNotNull(DemoCart::lastOrder());
 
-        $confirm = $this->get(route('demo.checkout.confirmation'));
+        $confirm = $this->get($location);
         $confirm->assertOk();
         $confirm->assertSee('Thank you', false);
         $confirm->assertSee('Tom', false);
@@ -80,12 +84,38 @@ class CheckoutCompleteTest extends TestCase
             'card_number' => '4242424242424242',
         ]);
 
-        $response->assertOk()
-            ->assertJsonPath('ok', true)
-            ->assertJsonPath('redirect', route('demo.checkout.confirmation'));
+        $response->assertOk()->assertJsonPath('ok', true);
+        $redirect = $response->json('redirect');
+        $this->assertIsString($redirect);
+        $this->assertStringContainsString('/checkout/confirmation', $redirect);
+        $this->assertStringContainsString('receipt=', $redirect);
 
-        $this->get(route('demo.checkout.confirmation'))
+        $this->get($redirect)
             ->assertOk()
             ->assertSee('Thank you', false);
+    }
+
+    public function test_confirmation_loads_order_from_receipt_when_session_missing(): void
+    {
+        DemoCart::seed();
+
+        $response = $this->post(route('demo.checkout.complete'), [
+            'email' => 'receipt@yougarden.com',
+            'billing_first_name' => 'Receipt',
+            'billing_last_name' => 'Guest',
+            'payment_method' => 'card',
+        ]);
+
+        $location = $response->headers->get('Location');
+        $this->assertNotNull($location);
+
+        // Simulate a lost session order while keeping the receipt token.
+        session()->forget('demo_last_order');
+        session()->forget('demo_checkout_order');
+
+        $this->get($location)
+            ->assertOk()
+            ->assertSee('Thank you', false)
+            ->assertSee('Receipt', false);
     }
 }
