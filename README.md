@@ -39,9 +39,11 @@ php artisan migrate
 | `ADOBE_FONTS_KIT` | Adobe Fonts kit ID (Gelica + Proxima Nova); leave empty for system fallbacks |
 | `DEMO_PREVIEW_AUTH_ENABLED` | `true` = login gate; `false` = open demo (local only) |
 | `DEMO_PREVIEW_USERNAME` / `DEMO_PREVIEW_PASSWORD` | Preview login (defaults in `.env.example`) |
-| `SESSION_DRIVER` | `database` (default) — needs SQLite + migrations |
+| `SESSION_DRIVER` | `file` (default) — no database required |
+| `CACHE_STORE` | `file` (default) — receipt handoff without SQLite |
+| `QUEUE_CONNECTION` | `sync` (default) |
 
-Uses **SQLite** by default (`database/database.sqlite`). No MySQL required for local dev.
+Demo data is session + config/files only. **No database is required** for local or Laravel Cloud. Optional local SQLite is unused unless you point drivers at `database`.
 
 ### Compact drawer layout (v2.1)
 

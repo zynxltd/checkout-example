@@ -82,7 +82,12 @@ class CheckoutController extends Controller
         }
 
         $receipt = Str::random(40);
-        Cache::put(self::receiptCacheKey($receipt), $order, now()->addHours(2));
+        // Always use file cache — demo/cloud has no database (CACHE_STORE=database 500s).
+        try {
+            Cache::store('file')->put(self::receiptCacheKey($receipt), $order, now()->addHours(2));
+        } catch (\Throwable $e) {
+            report($e);
+        }
 
         // Persist + flash backup (survives flaky session writes between pay → confirm).
         session()->flash('demo_checkout_just_placed', true);
@@ -114,7 +119,12 @@ class CheckoutController extends Controller
 
         $receipt = trim($request->string('receipt')->toString());
         if ((! is_array($order) || $order === []) && $receipt !== '') {
-            $cached = Cache::get(self::receiptCacheKey($receipt));
+            try {
+                $cached = Cache::store('file')->get(self::receiptCacheKey($receipt));
+            } catch (\Throwable $e) {
+                report($e);
+                $cached = null;
+            }
             if (is_array($cached) && $cached !== []) {
                 $order = $cached;
             }
