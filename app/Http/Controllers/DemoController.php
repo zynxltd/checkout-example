@@ -182,6 +182,51 @@ class DemoController extends Controller
                     ],
                 ],
             ],
+            // Currys-style multi-card hero (Hero 2 prototype) — category imagery
+            'hero_cards' => [
+                [
+                    'image' => 'images/home-preview/live/79-1.jpg',
+                    'alt' => 'Mediterranean Plants',
+                    'url' => 'https://www.yougarden.com/trees-and-shrubs/mediterranean-plants-for-uk-gardens',
+                    'title' => 'Mediterranean Plants',
+                    'kicker' => 'Shop the range',
+                ],
+                [
+                    'image' => 'images/home-preview/live/79-2.jpg',
+                    'alt' => 'Garden Shrubs',
+                    'url' => 'https://www.yougarden.com/trees-and-shrubs/garden-shrubs',
+                    'title' => 'Garden Shrubs',
+                    'kicker' => 'Structure & colour',
+                ],
+                [
+                    'image' => 'images/home-preview/live/79-3.jpg',
+                    'alt' => 'Perennials',
+                    'url' => 'https://www.yougarden.com/garden-plants/perennial-plants-and-flowers',
+                    'title' => 'Perennials',
+                    'kicker' => 'Colour that comes back',
+                ],
+                [
+                    'image' => 'images/home-preview/live/79-4.jpg',
+                    'alt' => 'Drought Tolerant Plants',
+                    'url' => 'https://www.yougarden.com/garden-plants/popular-garden-plants/drought-tolerant-plants',
+                    'title' => 'Drought Tolerant',
+                    'kicker' => 'Low-maintenance picks',
+                ],
+                [
+                    'image' => 'images/home-preview/live/80-1.jpg',
+                    'alt' => 'Roses',
+                    'url' => 'https://www.yougarden.com/garden-plants/roses',
+                    'title' => 'Roses',
+                    'kicker' => 'Garden favourites',
+                ],
+                [
+                    'image' => 'images/home-preview/live/81-2.jpg',
+                    'alt' => 'Fruit & Veg',
+                    'url' => 'https://www.yougarden.com/grow-your-own-fruit-and-veg',
+                    'title' => 'Fruit & Veg',
+                    'kicker' => 'Grow your own',
+                ],
+            ],
             // Previous lifestyle hero kept at images/home-preview/hero-garden-original-backup.jpg
             // Below-the-fold modules mirrored from live yougarden.com homepage
             // First 5 = static layouts; extras power 8-card + category carousel (Variant 3)
@@ -235,6 +280,16 @@ class DemoController extends Controller
                     'label' => 'Houseplants',
                     'url' => 'https://www.yougarden.com/houseplants',
                     'image' => 'images/home-preview/live/80-5.jpg',
+                ],
+                [
+                    'label' => 'Trees & Shrubs',
+                    'url' => 'https://www.yougarden.com/trees-and-shrubs',
+                    'image' => 'images/home-preview/live/80-2.jpg',
+                ],
+                [
+                    'label' => 'Bedding Plants',
+                    'url' => 'https://www.yougarden.com/garden-plants/bedding-plants',
+                    'image' => 'images/home-preview/live/80-3.jpg',
                 ],
             ],
             'customer_favourites' => [
@@ -292,7 +347,6 @@ class DemoController extends Controller
                     ],
                 ],
             ],
-            'philosophy_banner' => 'images/home-preview/live/74.jpg',
             'philosophy_copy' => "That's right; you do not even need a garden to get growing. Many of our plants can be grown on balconies, small patios and decking, so you can catch the growing bug, and even grow your own freshest fruit and vegetables too.\n\nWe have only chosen plants that are easy to grow and will give successful results with a minimum of experience. From the thousands of plants available, we have picked those that really work and perform. We have done the sifting and choosing for you, to bring you the best.",
             'catalogue_banner' => [
                 'url' => 'https://content.yudu.com/web/433ma/0A44t64/2026-Summer-Sale/html/index.html',

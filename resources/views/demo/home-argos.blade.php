@@ -124,15 +124,61 @@
                     </button>
                 </div>
             </section>
+
+            {{-- Hero 2 — Currys-style 3-card promo strip --}}
+            <section class="yg-hero-cards" aria-label="Shop popular categories" data-hero-cards hidden>
+                <div class="yg-hero-cards__rail">
+                    <button type="button" class="yg-hero-cards__arrow yg-hero-cards__arrow--prev" data-hero-cards-prev aria-label="Previous offers">
+                        <span class="yg-hero-cards__chev yg-hero-cards__chev--prev" aria-hidden="true"></span>
+                    </button>
+                    <div class="yg-hero-cards__viewport" data-hero-cards-viewport>
+                        <div class="yg-hero-cards__track" data-hero-cards-track>
+                            @foreach ($hero_cards as $card)
+                                <a
+                                    class="yg-hero-cards__card"
+                                    href="{{ $card['url'] }}"
+                                    target="_blank"
+                                    rel="noopener"
+                                    data-hero-cards-item
+                                >
+                                    <img
+                                        src="{{ asset($card['image']) }}?v={{ filemtime(public_path($card['image'])) }}"
+                                        alt="{{ $card['alt'] }}"
+                                        width="640"
+                                        height="800"
+                                        loading="lazy"
+                                    >
+                                    <span class="yg-hero-cards__copy">
+                                        <span class="yg-hero-cards__kicker">{{ $card['kicker'] }}</span>
+                                        <span class="yg-hero-cards__title">{{ $card['title'] }}</span>
+                                    </span>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                    <button type="button" class="yg-hero-cards__arrow yg-hero-cards__arrow--next" data-hero-cards-next aria-label="Next offers">
+                        <span class="yg-hero-cards__chev" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="yg-pager yg-hero-cards__pager">
+                    <button type="button" class="yg-pager__btn" data-hero-cards-pager-prev aria-label="Previous page">
+                        <span class="yg-pager__chev yg-pager__chev--prev" aria-hidden="true"></span>
+                    </button>
+                    <div class="yg-pager__dots" data-hero-cards-pager-dots role="tablist" aria-label="Offer pages"></div>
+                    <button type="button" class="yg-pager__btn yg-pager__btn--boxed" data-hero-cards-pager-next aria-label="Next page">
+                        <span class="yg-pager__chev" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </section>
         </div>
 
         {{-- Below the fold — live yougarden.com homepage modules --}}
         <div class="yg-home-below">
             <section
-                class="yg-home-row4 yg-home-row4--five yg-home-row4--carousel"
+                class="yg-home-row4 yg-home-row4--four yg-home-row4--carousel"
                 aria-label="Shop popular categories"
                 data-row4-cats
-                data-row4-variant="carousel"
+                data-row4-variant="4"
             >
                 <button type="button" class="yg-home-row4__nav yg-home-row4__nav--prev" data-row4-prev aria-label="Previous categories" hidden>
                     <span class="yg-home-row4__nav-arrow yg-home-row4__nav-arrow--prev" aria-hidden="true"></span>
@@ -150,6 +196,7 @@
                             >
                                 <img src="{{ asset($tile['image']) }}" alt="" width="600" height="600" loading="lazy">
                                 @include('demo.partials.home-tile-cta', ['label' => $tile['label']])
+                                <span class="yg-home-tile__caption">{{ $tile['label'] }}</span>
                             </a>
                         @endforeach
                     </div>
@@ -157,6 +204,15 @@
                 <button type="button" class="yg-home-row4__nav yg-home-row4__nav--next" data-row4-next aria-label="Next categories" hidden>
                     <span class="yg-home-row4__nav-arrow" aria-hidden="true"></span>
                 </button>
+                <div class="yg-pager" data-row4-slider-wrap hidden>
+                    <button type="button" class="yg-pager__btn" data-row4-pager-prev aria-label="Previous categories">
+                        <span class="yg-pager__chev yg-pager__chev--prev" aria-hidden="true"></span>
+                    </button>
+                    <div class="yg-pager__dots" data-row4-pager-dots role="tablist" aria-label="Category pages"></div>
+                    <button type="button" class="yg-pager__btn" data-row4-pager-next aria-label="Next categories">
+                        <span class="yg-pager__chev" aria-hidden="true"></span>
+                    </button>
+                </div>
             </section>
 
             @if (! empty($customer_favourites['products']))
@@ -172,10 +228,7 @@
                         </a>
                     </div>
 
-                    <div class="yg-home-favourites__carousel">
-                        <button type="button" class="yg-home-favourites__nav yg-home-favourites__nav--prev" data-fav-prev aria-label="Previous favourites">
-                            <span class="yg-home-favourites__nav-arrow yg-home-favourites__nav-arrow--prev" aria-hidden="true"></span>
-                        </button>
+                    <div class="yg-home-favourites__carousel yg-home-favourites__carousel--slider">
                         <div class="yg-home-favourites__viewport" data-fav-viewport>
                             <div class="yg-home-favourites__track" data-fav-track>
                                 @foreach ($customer_favourites['products'] as $product)
@@ -205,9 +258,6 @@
                                 @endforeach
                             </div>
                         </div>
-                        <button type="button" class="yg-home-favourites__nav yg-home-favourites__nav--next" data-fav-next aria-label="Next favourites">
-                            <span class="yg-home-favourites__nav-arrow" aria-hidden="true"></span>
-                        </button>
                     </div>
 
                     <p class="yg-home-favourites__swipe-hint">
@@ -223,15 +273,29 @@
             <span class="yg-home-fold-mark__line"></span>
         </div>
 
-            <section class="yg-home-philosophy" aria-label="Our philosophy">
-                <img
-                    class="yg-home-strip"
-                    src="{{ asset($philosophy_banner) }}"
-                    alt=""
-                    width="1300"
-                    height="200"
-                    loading="lazy"
-                >
+            <section class="yg-home-philosophy" aria-labelledby="yg-home-philosophy-title">
+                <div class="yg-home-philosophy__intro">
+                    <span class="yg-home-philosophy__leaf yg-home-philosophy__leaf--left" aria-hidden="true">
+                        <img
+                            src="{{ asset('images/home-preview/philosophy-leaf-left.png') }}?v={{ filemtime(public_path('images/home-preview/philosophy-leaf-left.png')) }}"
+                            alt=""
+                            width="153"
+                            height="59"
+                        >
+                    </span>
+                    <div class="yg-home-philosophy__headings">
+                        <h2 class="yg-home-philosophy__title" id="yg-home-philosophy-title">Welcome to YouGarden</h2>
+                        <p class="yg-home-philosophy__subtitle">Where gardening is for everyone!</p>
+                    </div>
+                    <span class="yg-home-philosophy__leaf yg-home-philosophy__leaf--right" aria-hidden="true">
+                        <img
+                            src="{{ asset('images/home-preview/philosophy-leaf-right.png') }}?v={{ filemtime(public_path('images/home-preview/philosophy-leaf-right.png')) }}"
+                            alt=""
+                            width="152"
+                            height="59"
+                        >
+                    </span>
+                </div>
                 <div class="yg-home-philosophy__copy">
                     @foreach (preg_split("/\n\n+/", $philosophy_copy) as $para)
                         <p>{{ $para }}</p>
@@ -371,36 +435,48 @@
         </div>
         <div class="demo-prototype-stack__content">
             <aside class="demo-controls" aria-label="Homepage category card variants">
+                <h3>Hero</h3>
+                <p class="demo-controls__hint">Switch the top hero between the live full-width banner and a Currys-style 3-card strip.</p>
+                <p class="demo-controls__label">Hero layout</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-hero-layout" value="banner" data-hero-layout-option checked>
+                    <span>Normal banner (default)</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-hero-layout" value="cards" data-hero-layout-option>
+                    <span>Hero 2 — 3-card slider</span>
+                </label>
                 <h3>Category cards</h3>
                 <p class="demo-controls__hint">Toggle the popular-categories row under the hero. Choice is saved in this browser.</p>
                 <p class="demo-controls__label">Layout variant</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="4" data-row4-variant-option>
+                    <input type="radio" name="home-row4-variant" value="4" data-row4-variant-option checked>
                     <span>Variant 1 — 4 cards</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="8" data-row4-variant-option>
-                    <span>Variant 2 — 8 cards carousel</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option checked>
-                    <span>Variant 3 — Category carousel (default)</span>
+                    <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option>
+                    <span>Variant 3 — Category carousel</span>
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
                     <span>Variant 4 — Wider 5 cards</span>
                 </label>
-                <p class="demo-controls__hint">Variant 4 widens the band under the hero so category + favourites fill more of the viewport (larger targets, less side chrome) without stretching body copy.</p>
-                <p class="demo-controls__label">Category pill style</p>
+                <p class="demo-controls__hint">Variant 1 shows 4 cards at a time from 12 (3 slides), autoplays, and uses a pager instead of side arrows.</p>
+                <h3>Header promo</h3>
+                <p class="demo-controls__hint">Optional content in the gap between logo and search. Off by default.</p>
+                <p class="demo-controls__label">Logo → search slot</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-tile-pill" value="live" data-tile-pill-option checked>
-                    <span>Live — white pill (default)</span>
+                    <input type="radio" name="home-header-promo" value="off" data-header-promo-option checked>
+                    <span>Off (default)</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-tile-pill" value="cro" data-tile-pill-option>
-                    <span>CRO — solid forest pill</span>
+                    <input type="radio" name="home-header-promo" value="offer" data-header-promo-option>
+                    <span>Offer chip — seasonal deal</span>
                 </label>
-                <p class="demo-controls__hint">CRO pill uses solid brand green + larger tap target for higher contrast on busy plant photos.</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-header-promo" value="delivery" data-header-promo-option>
+                    <span>Delivery — order-by cutoff</span>
+                </label>
             </aside>
         </div>
     </div>
@@ -721,7 +797,163 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-row4-variant-v4';
+    var STORAGE_KEY = 'yg-home-hero-layout-v1';
+    var above = document.querySelector('.yg-home-above');
+    var banner = document.querySelector('[data-hero-carousel]');
+    var cards = document.querySelector('[data-hero-cards]');
+    var options = Array.prototype.slice.call(document.querySelectorAll('[data-hero-layout-option]'));
+    if (!above || !options.length) return;
+
+    function setHeroLayout(mode) {
+        if (mode !== 'cards') mode = 'banner';
+        above.setAttribute('data-hero-layout', mode === 'cards' ? 'cards' : 'banner');
+        if (banner) banner.hidden = mode === 'cards';
+        if (cards) cards.hidden = mode !== 'cards';
+        options.forEach(function (input) {
+            input.checked = input.value === mode;
+        });
+        try {
+            localStorage.setItem(STORAGE_KEY, mode);
+        } catch (err) { /* ignore */ }
+        window.dispatchEvent(new CustomEvent('yg-hero-layout-change', { detail: { mode: mode } }));
+    }
+
+    options.forEach(function (input) {
+        input.addEventListener('change', function () {
+            if (input.checked) setHeroLayout(input.value);
+        });
+    });
+
+    var saved = 'banner';
+    try {
+        saved = localStorage.getItem(STORAGE_KEY) || 'banner';
+    } catch (err) { /* ignore */ }
+    setHeroLayout(saved);
+})();
+
+(function () {
+    var root = document.querySelector('[data-hero-cards]');
+    if (!root) return;
+
+    var viewport = root.querySelector('[data-hero-cards-viewport]');
+    var track = root.querySelector('[data-hero-cards-track]');
+    var prevBtn = root.querySelector('[data-hero-cards-prev]');
+    var nextBtn = root.querySelector('[data-hero-cards-next]');
+    var pagerPrev = root.querySelector('[data-hero-cards-pager-prev]');
+    var pagerNext = root.querySelector('[data-hero-cards-pager-next]');
+    var pagerDots = root.querySelector('[data-hero-cards-pager-dots]');
+    var offset = 0;
+
+    function stepSize() {
+        var card = root.querySelector('[data-hero-cards-item]');
+        if (!card || !viewport) return 280;
+        var styles = window.getComputedStyle(track);
+        var gap = parseFloat(styles.columnGap || styles.gap) || 16;
+        return card.getBoundingClientRect().width + gap;
+    }
+
+    function maxOffset() {
+        if (!track || !viewport) return 0;
+        var max = Math.max(0, track.scrollWidth - viewport.clientWidth);
+        var step = stepSize();
+        if (step <= 0) return max;
+        return Math.round(max / step) * step;
+    }
+
+    function pageStride() {
+        var s = stepSize();
+        if (!viewport || s <= 0) return s;
+        var visible = Math.max(1, Math.round(viewport.clientWidth / s));
+        return s * visible;
+    }
+
+    function pageCount() {
+        var max = maxOffset();
+        var stride = pageStride();
+        if (max <= 0 || stride <= 0) return 1;
+        return Math.floor(max / stride + 0.001) + 1;
+    }
+
+    function currentPage() {
+        var stride = pageStride();
+        var pages = pageCount();
+        if (stride <= 0 || pages <= 1) return 0;
+        return Math.min(pages - 1, Math.round(offset / stride));
+    }
+
+    function syncPager() {
+        if (!pagerDots) return;
+        var pages = pageCount();
+        var active = currentPage();
+        var max = maxOffset();
+        if (prevBtn) prevBtn.disabled = max <= 0;
+        if (nextBtn) nextBtn.disabled = max <= 0;
+        if (pagerPrev) pagerPrev.disabled = max <= 0;
+        if (pagerNext) pagerNext.disabled = max <= 0;
+
+        while (pagerDots.children.length > pages) pagerDots.removeChild(pagerDots.lastChild);
+        while (pagerDots.children.length < pages) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'yg-pager__dot';
+            btn.setAttribute('role', 'tab');
+            btn.addEventListener('click', function (index) {
+                return function () {
+                    offset = Math.min(maxOffset(), Math.max(0, index * pageStride()));
+                    apply(true);
+                };
+            }(pagerDots.children.length));
+            pagerDots.appendChild(btn);
+        }
+        Array.prototype.forEach.call(pagerDots.children, function (dot, i) {
+            var isActive = i === active;
+            dot.classList.toggle('is-active', isActive);
+            dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            dot.setAttribute('aria-label', 'Page ' + (i + 1) + ' of ' + pages);
+        });
+    }
+
+    function apply(animate) {
+        if (!track) return;
+        track.style.transition = animate === false
+            ? 'none'
+            : 'transform 0.7s cubic-bezier(0.33, 0.1, 0.25, 1)';
+        track.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
+        syncPager();
+    }
+
+    function nudgePage(dir) {
+        var max = maxOffset();
+        var pages = pageCount();
+        if (max <= 0 || pages <= 1) return;
+        var next = currentPage() + dir;
+        if (next < 0) next = pages - 1;
+        if (next >= pages) next = 0;
+        offset = Math.min(max, Math.max(0, next * pageStride()));
+        apply(true);
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { nudgePage(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { nudgePage(1); });
+    if (pagerPrev) pagerPrev.addEventListener('click', function () { nudgePage(-1); });
+    if (pagerNext) pagerNext.addEventListener('click', function () { nudgePage(1); });
+
+    window.addEventListener('resize', function () {
+        offset = Math.min(offset, maxOffset());
+        apply(false);
+    });
+    window.addEventListener('yg-hero-layout-change', function () {
+        offset = 0;
+        window.requestAnimationFrame(function () {
+            apply(false);
+        });
+    });
+
+    apply(false);
+})();
+
+(function () {
+    var STORAGE_KEY = 'yg-home-row4-variant-v5';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
 
@@ -729,13 +961,25 @@
     var track = root.querySelector('[data-row4-track]');
     var prevBtn = root.querySelector('[data-row4-prev]');
     var nextBtn = root.querySelector('[data-row4-next]');
+    var sliderWrap = root.querySelector('[data-row4-slider-wrap]');
+    var pagerPrev = root.querySelector('[data-row4-pager-prev]');
+    var pagerNext = root.querySelector('[data-row4-pager-next]');
+    var pagerDots = root.querySelector('[data-row4-pager-dots]');
     var options = Array.prototype.slice.call(document.querySelectorAll('[data-row4-variant-option]'));
     var offset = 0;
+    var autoTimer = null;
+    var AUTO_MS = 5200;
 
-    function visibleTiles() {
-        return Array.prototype.slice.call(root.querySelectorAll('[data-row4-tile]')).filter(function (tile) {
-            return tile.offsetParent !== null || getComputedStyle(tile).display !== 'none';
-        });
+    function currentVariant() {
+        return root.getAttribute('data-row4-variant') || '4';
+    }
+
+    function isCarouselVariant(variant) {
+        return variant === 'carousel' || variant === '4';
+    }
+
+    function usesSlider(variant) {
+        return variant === '4';
     }
 
     function step() {
@@ -747,7 +991,6 @@
             var styles = window.getComputedStyle(track);
             gap = parseFloat(styles.columnGap || styles.gap) || 14;
         }
-        // One card at a time — never jump by viewport% or cards stop mid-cut
         return tile.getBoundingClientRect().width + gap;
     }
 
@@ -759,11 +1002,67 @@
         return Math.round(max / s) * s;
     }
 
+    function pageStride() {
+        var s = step();
+        if (!viewport || s <= 0) return s;
+        var visible = Math.max(1, Math.round(viewport.clientWidth / s));
+        return s * visible;
+    }
+
+    function pageCount() {
+        var max = maxOffset();
+        var stride = pageStride();
+        if (max <= 0 || stride <= 0) return 1;
+        return Math.floor(max / stride + 0.001) + 1;
+    }
+
+    function currentPage() {
+        var stride = pageStride();
+        var pages = pageCount();
+        if (stride <= 0 || pages <= 1) return 0;
+        return Math.min(pages - 1, Math.round(offset / stride));
+    }
+
     function snapToNearest() {
         var s = step();
         if (s <= 0) return;
         offset = Math.round(offset / s) * s;
         offset = Math.min(maxOffset(), Math.max(0, offset));
+    }
+
+    function syncPager() {
+        if (!pagerDots) return;
+        var pages = pageCount();
+        var active = currentPage();
+        var max = maxOffset();
+
+        if (pagerPrev) pagerPrev.disabled = max <= 0;
+        if (pagerNext) pagerNext.disabled = max <= 0;
+
+        while (pagerDots.children.length > pages) {
+            pagerDots.removeChild(pagerDots.lastChild);
+        }
+        while (pagerDots.children.length < pages) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'yg-pager__dot';
+            btn.setAttribute('role', 'tab');
+            btn.addEventListener('click', function (index) {
+                return function () {
+                    offset = Math.min(maxOffset(), Math.max(0, index * pageStride()));
+                    applyOffset(true);
+                    startAuto();
+                };
+            }(pagerDots.children.length));
+            pagerDots.appendChild(btn);
+        }
+
+        Array.prototype.forEach.call(pagerDots.children, function (dot, i) {
+            var isActive = i === active;
+            dot.classList.toggle('is-active', isActive);
+            dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            dot.setAttribute('aria-label', 'Page ' + (i + 1) + ' of ' + pages);
+        });
     }
 
     function applyOffset(animate) {
@@ -773,43 +1072,75 @@
             : 'transform 0.9s cubic-bezier(0.33, 0.1, 0.25, 1)';
         track.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
         updateCarouselNav();
+        syncPager();
+    }
+
+    function stopAuto() {
+        if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+        }
+    }
+
+    function startAuto() {
+        stopAuto();
+        if (currentVariant() !== '4') return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        autoTimer = setInterval(function () {
+            var max = maxOffset();
+            if (max <= 0) return;
+            var pages = pageCount();
+            var next = currentPage() + 1;
+            if (next >= pages) {
+                offset = 0;
+            } else {
+                offset = Math.min(max, next * pageStride());
+            }
+            applyOffset(true);
+        }, AUTO_MS);
     }
 
     function updateCarouselNav() {
-        if (!prevBtn || !nextBtn) return;
-        var variant = root.getAttribute('data-row4-variant');
-        var isCarousel = variant === 'carousel' || variant === '8';
-        prevBtn.hidden = !isCarousel;
-        nextBtn.hidden = !isCarousel;
+        var variant = currentVariant();
+        var isCarousel = isCarouselVariant(variant);
+        var showSlider = usesSlider(variant) && isCarousel;
+
+        if (prevBtn) prevBtn.hidden = !isCarousel || showSlider;
+        if (nextBtn) nextBtn.hidden = !isCarousel || showSlider;
+        if (sliderWrap) sliderWrap.hidden = !showSlider;
+
         if (!isCarousel) {
             offset = 0;
             if (track) {
                 track.style.transition = 'none';
                 track.style.transform = '';
             }
+            stopAuto();
             return;
         }
+
         var max = maxOffset();
-        /* Always show both arrows; mute when unused (CRO — less chrome, still discoverable) */
-        prevBtn.disabled = false;
-        nextBtn.disabled = max <= 0;
-        prevBtn.setAttribute('aria-disabled', offset <= 0 && max > 0 ? 'false' : (offset <= 0 ? 'true' : 'false'));
+        if (prevBtn && nextBtn && !showSlider) {
+            prevBtn.disabled = false;
+            nextBtn.disabled = max <= 0;
+            prevBtn.setAttribute('aria-disabled', offset <= 0 ? 'true' : 'false');
+        }
         root.classList.toggle('is-at-start', offset <= 0);
         root.classList.toggle('is-at-end', offset >= max - 1);
     }
 
     function setVariant(variant) {
-        /* Migrate older static “5 cards” choice to 4 cards */
-        if (variant === '5') variant = '4';
+        if (variant === '5' || variant === '8') variant = '4';
 
-        var allowed = { '4': true, '8': true, carousel: true, wide: true };
-        if (!allowed[variant]) variant = 'carousel';
+        var allowed = { '4': true, carousel: true, wide: true };
+        if (!allowed[variant]) variant = '4';
 
         root.setAttribute('data-row4-variant', variant);
         root.classList.toggle('yg-home-row4--four', variant === '4');
         root.classList.toggle('yg-home-row4--five', variant === 'wide');
-        root.classList.toggle('yg-home-row4--eight', variant === '8');
-        root.classList.toggle('yg-home-row4--carousel', variant === 'carousel' || variant === '8');
+        root.classList.remove('yg-home-row4--eight');
+        root.classList.toggle('yg-home-row4--carousel', isCarouselVariant(variant));
+        root.classList.toggle('yg-home-row4--slider', usesSlider(variant));
         root.classList.toggle('yg-home-row4--wide', variant === 'wide');
 
         var below = root.closest('.yg-home-below');
@@ -818,7 +1149,7 @@
 
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
             var index = parseInt(tile.getAttribute('data-row4-index'), 10) || 0;
-            var limit = variant === '8' ? 8 : variant === 'carousel' ? 99 : variant === 'wide' ? 5 : 4;
+            var limit = variant === '4' ? 12 : variant === 'carousel' ? 99 : 5;
             tile.hidden = index > limit;
         });
 
@@ -834,6 +1165,8 @@
         applyOffset(false);
         window.requestAnimationFrame(function () {
             updateCarouselNav();
+            syncPager();
+            startAuto();
         });
     }
 
@@ -854,6 +1187,7 @@
             }
             offset = Math.max(0, offset - step());
             applyOffset(true);
+            startAuto();
         });
     }
     if (nextBtn) {
@@ -867,51 +1201,86 @@
             }
             offset = Math.min(max, offset + step());
             applyOffset(true);
+            startAuto();
         });
     }
 
+    function nudgePage(dir) {
+        var max = maxOffset();
+        var pages = pageCount();
+        if (max <= 0 || pages <= 1) return;
+        var next = currentPage() + dir;
+        if (next < 0) next = pages - 1;
+        if (next >= pages) next = 0;
+        offset = Math.min(max, Math.max(0, next * pageStride()));
+        applyOffset(true);
+        startAuto();
+    }
+
+    if (pagerPrev) pagerPrev.addEventListener('click', function () { nudgePage(-1); });
+    if (pagerNext) pagerNext.addEventListener('click', function () { nudgePage(1); });
+
+    root.addEventListener('mouseenter', stopAuto);
+    root.addEventListener('mouseleave', startAuto);
+    root.addEventListener('focusin', stopAuto);
+    root.addEventListener('focusout', function (e) {
+        if (!root.contains(e.relatedTarget)) startAuto();
+    });
+
     window.addEventListener('resize', function () {
-        var variant = root.getAttribute('data-row4-variant');
-        if (variant !== 'carousel' && variant !== '8') return;
+        var variant = currentVariant();
+        if (!isCarouselVariant(variant)) return;
         snapToNearest();
         offset = Math.min(offset, maxOffset());
         applyOffset(false);
+        startAuto();
     });
 
-    var saved = 'carousel';
+    var saved = '4';
     try {
-        saved = localStorage.getItem(STORAGE_KEY) || 'carousel';
+        saved = localStorage.getItem(STORAGE_KEY) || '4';
     } catch (err) { /* ignore */ }
     setVariant(saved);
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-tile-pill-v1';
-    var options = Array.prototype.slice.call(document.querySelectorAll('[data-tile-pill-option]'));
-    if (!options.length) return;
+    var STORAGE_KEY = 'yg-home-header-promo-v1';
+    var options = Array.prototype.slice.call(document.querySelectorAll('[data-header-promo-option]'));
+    var root = document.querySelector('[data-header-promo]');
+    if (!options.length || !root) return;
 
-    function setPill(style) {
-        if (style !== 'cro') style = 'live';
-        document.body.setAttribute('data-home-tile-pill', style);
+    var offer = root.querySelector('[data-header-promo-offer]');
+    var delivery = root.querySelector('[data-header-promo-delivery]');
+
+    function setPromo(mode) {
+        if (mode !== 'offer' && mode !== 'delivery') mode = 'off';
+
+        var on = mode !== 'off';
+        root.hidden = !on;
+        if (offer) offer.hidden = mode !== 'offer';
+        if (delivery) delivery.hidden = mode !== 'delivery';
+        document.body.setAttribute('data-header-promo', mode);
+
         options.forEach(function (input) {
-            input.checked = input.value === style;
+            input.checked = input.value === mode;
         });
+
         try {
-            localStorage.setItem(STORAGE_KEY, style);
+            localStorage.setItem(STORAGE_KEY, mode);
         } catch (err) { /* ignore */ }
     }
 
     options.forEach(function (input) {
         input.addEventListener('change', function () {
-            if (input.checked) setPill(input.value);
+            if (input.checked) setPromo(input.value);
         });
     });
 
-    var saved = 'live';
+    var saved = 'off';
     try {
-        saved = localStorage.getItem(STORAGE_KEY) || 'live';
+        saved = localStorage.getItem(STORAGE_KEY) || 'off';
     } catch (err) { /* ignore */ }
-    setPill(saved);
+    setPromo(saved);
 })();
 
 (function () {
@@ -920,8 +1289,6 @@
 
     var viewport = root.querySelector('[data-fav-viewport]');
     var track = root.querySelector('[data-fav-track]');
-    var prevBtn = root.querySelector('[data-fav-prev]');
-    var nextBtn = root.querySelector('[data-fav-next]');
     var offset = 0;
     var timer = null;
     var INTERVAL = 5200;
@@ -938,7 +1305,10 @@
 
     function maxOffset() {
         if (!track || !viewport) return 0;
-        return Math.max(0, track.scrollWidth - viewport.clientWidth);
+        var max = Math.max(0, track.scrollWidth - viewport.clientWidth);
+        var step = stepSize();
+        if (step <= 0) return max;
+        return Math.round(max / step) * step;
     }
 
     function snapToNearest() {
@@ -953,9 +1323,6 @@
         if (!track) return;
         track.style.transition = animate === false ? 'none' : EASE;
         track.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
-        var max = maxOffset();
-        if (prevBtn) prevBtn.disabled = max <= 0;
-        if (nextBtn) nextBtn.disabled = max <= 0;
     }
 
     function stopAuto() {
@@ -968,9 +1335,10 @@
     function startAuto() {
         stopAuto();
         if (maxOffset() <= 1) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         timer = setInterval(function () {
             if (animating || document.hidden) return;
-            advance(1, true);
+            advance(true);
         }, INTERVAL);
     }
 
@@ -986,47 +1354,26 @@
         });
     }
 
-    function advance(dir, fromAuto) {
+    function advance(fromAuto) {
         var max = maxOffset();
         var step = stepSize();
         if (max <= 1) return;
 
-        if (dir > 0) {
-            var next = offset + step;
-            if (next >= max - 1) {
-                if (fromAuto) {
-                    // Ease to the end, then quietly loop without a reverse whip
-                    offset = max;
-                    apply(true);
-                    animating = true;
-                    window.setTimeout(softResetToStart, 920);
-                    return;
-                }
+        var next = offset + step;
+        if (next >= max - 1) {
+            if (fromAuto) {
                 offset = max;
-            } else {
-                offset = next;
+                apply(true);
+                animating = true;
+                window.setTimeout(softResetToStart, 920);
+                return;
             }
+            offset = 0;
         } else {
-            offset = Math.max(0, offset - step);
+            offset = next;
         }
         apply(true);
     }
-
-    function nudge(dir) {
-        var max = maxOffset();
-        if (max <= 1) return;
-        if (dir < 0) {
-            offset = offset <= 0 ? max : Math.max(0, offset - stepSize());
-        } else {
-            var next = offset + stepSize();
-            offset = next >= max - 1 ? 0 : Math.min(max, next);
-        }
-        apply(true);
-        startAuto();
-    }
-
-    if (prevBtn) prevBtn.addEventListener('click', function () { nudge(-1); });
-    if (nextBtn) nextBtn.addEventListener('click', function () { nudge(1); });
 
     var startX = 0;
     var startOffset = 0;
@@ -1071,36 +1418,13 @@
         else startAuto();
     });
 
-    function syncNavPosition() {
-        var img = root.querySelector('.yg-home-favourites__image');
-        var carousel = root.querySelector('.yg-home-favourites__carousel');
-        if (!img || !carousel || !prevBtn || !nextBtn) return;
-        var imgRect = img.getBoundingClientRect();
-        var carouselRect = carousel.getBoundingClientRect();
-        if (imgRect.height < 8) return;
-        var mid = Math.round(imgRect.top + imgRect.height / 2 - carouselRect.top);
-        prevBtn.style.top = mid + 'px';
-        nextBtn.style.top = mid + 'px';
-        prevBtn.style.transform = 'translateY(-50%)';
-        nextBtn.style.transform = 'translateY(-50%)';
-    }
-
     apply(false);
-    syncNavPosition();
     startAuto();
-
-    // Recentre after images paint (height can be 0 on first paint)
-    window.requestAnimationFrame(syncNavPosition);
-    root.querySelectorAll('.yg-home-favourites__image img').forEach(function (img) {
-        if (img.complete) return;
-        img.addEventListener('load', syncNavPosition, { once: true });
-    });
 
     window.addEventListener('resize', function () {
         snapToNearest();
         offset = Math.min(offset, maxOffset());
         apply(false);
-        syncNavPosition();
         startAuto();
     });
 })();
