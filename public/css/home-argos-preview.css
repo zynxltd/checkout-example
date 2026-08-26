@@ -2123,14 +2123,6 @@ body.yg-header-argos .usp-wrapper {
     grid-template-columns: repeat(5, 1fr);
 }
 
-.yg-home-row4--six {
-    grid-template-columns: repeat(6, 1fr);
-}
-
-.yg-home-row4--eight {
-    grid-template-columns: repeat(4, 1fr);
-}
-
 .yg-home-row4__viewport,
 .yg-home-row4__track {
     display: contents;
@@ -2141,8 +2133,8 @@ body.yg-header-argos .usp-wrapper {
 }
 
 .yg-home-row4[data-row4-variant="5"] [data-row4-tile]:nth-child(n + 6),
-.yg-home-row4[data-row4-variant="carousel"] [data-row4-tile]:nth-child(n + 6),
-.yg-home-row4[data-row4-variant="6"] [data-row4-tile]:nth-child(n + 7) {
+.yg-home-row4[data-row4-variant="wide"] [data-row4-tile]:nth-child(n + 6),
+.yg-home-row4[data-row4-variant="carousel"] [data-row4-tile]:nth-child(n + 6) {
     display: none !important;
 }
 
@@ -2150,7 +2142,51 @@ body.yg-header-argos .usp-wrapper {
     display: none !important;
 }
 
-/* Carousel: 5 cards in a peeking horizontal strip */
+/*
+ * Variant 4 — CRO wide band
+ * Same 5-card choice set (low decision friction), but larger tiles + less side chrome
+ * so category / favourites compete better with the fold without stretching body copy.
+ */
+.yg-home-below.is-wide-band {
+    max-width: min(1720px, 100%);
+    padding-left: clamp(12px, 1.25vw, 20px);
+    padding-right: clamp(12px, 1.25vw, 20px);
+}
+
+.yg-home-row4--wide {
+    gap: 16px;
+}
+
+.yg-home-row4--wide .yg-home-tile {
+    border-radius: 18px;
+}
+
+.yg-home-below.is-wide-band .yg-home-favourites {
+    margin-top: 4px;
+}
+
+.yg-home-below.is-wide-band .yg-home-favourites__card {
+    flex-basis: calc((100% - 56px) / 5);
+}
+
+.yg-home-below.is-wide-band .yg-home-favourites__image {
+    border-radius: 18px;
+}
+
+.yg-home-below.is-wide-band .yg-home-philosophy__copy,
+.yg-home-below.is-wide-band .yg-home-featured,
+.yg-home-below.is-wide-band .yg-home-promo-pair {
+    max-width: 1440px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.yg-home-below.is-wide-band .yg-home-philosophy__copy {
+    max-width: 52rem;
+}
+
+/* Carousel: 4+ cards visible (5-card or 8-card track) */
 .yg-home-row4--carousel {
     display: block;
     padding: 0 44px;
@@ -2166,12 +2202,29 @@ body.yg-header-argos .usp-wrapper {
     display: flex;
     gap: 14px;
     will-change: transform;
-    transition: transform 0.28s ease;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .yg-home-row4--carousel .yg-home-tile {
-    flex: 0 0 calc((100% - 28px) / 3.15);
+    flex: 0 0 calc((100% - 42px) / 4);
     min-width: 0;
+    border-radius: 18px;
+}
+
+.yg-home-row4--carousel .yg-home-tile__cta {
+    left: 10px;
+    bottom: 10px;
+    max-width: calc(100% - 20px);
+    padding: 6px 6px 6px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--yg-pebble, #483f3a);
+    font-family: var(--yg-heading);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .yg-home-row4--carousel .yg-home-row4__nav {
@@ -2229,7 +2282,8 @@ body.yg-header-argos .usp-wrapper {
 .yg-home-tile {
     position: relative;
     display: block;
-    border-radius: var(--yg-radius);
+    /* Match live yougarden.com category-landing-row4 .block */
+    border-radius: 8px;
     overflow: hidden;
     background: var(--yg-stone);
     text-decoration: none;
@@ -2258,22 +2312,311 @@ body.yg-header-argos .usp-wrapper {
     }
 }
 
+/* Live-style bottom-left CTA pill — white shell + circular chevron (matches live homepage) */
 .yg-home-tile__cta {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    left: 10px;
+    bottom: 10px;
     z-index: 1;
-    padding: 14px 16px;
-    background: linear-gradient(transparent, rgba(38, 79, 28, 0.88));
-    font-family: var(--yg-body);
-    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: calc(100% - 20px);
+    padding: 6px 6px 6px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    font-family: var(--yg-heading);
+    font-size: 14px;
     font-weight: 700;
     line-height: 1.2;
+    letter-spacing: 0.01em;
+    color: var(--yg-pebble, #483f3a);
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.yg-home-tile__cta span {
-    margin-left: 4px;
+.yg-home-tile__cta-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.yg-home-tile:hover .yg-home-tile__cta {
+    background: #fff;
+    transform: translateY(-1px);
+}
+
+.yg-home-tile__arrow {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--yg-forest, #264f1c);
+    color: #fff;
+    line-height: 0;
+}
+
+.yg-home-tile__arrow svg {
+    display: block;
+    width: 8px;
+    height: 12px;
+}
+
+/* —— Customer favourites (live homepage most-popular strip) —— */
+.yg-home-favourites {
+    margin: 8px 0 8px;
+    padding: 8px 0 4px;
+}
+
+.yg-home-favourites__headline {
+    text-align: center;
+    margin: 0 0 20px;
+}
+
+.yg-home-favourites__headline-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.yg-home-favourites__headline-text {
+    font-family: var(--yg-heading);
+    font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--yg-pebble, #483f3a);
+}
+
+.yg-home-favourites__carousel {
+    position: relative;
+    padding: 0 44px;
+}
+
+.yg-home-favourites__viewport {
+    overflow: hidden;
+    width: 100%;
+}
+
+.yg-home-favourites__track {
+    display: flex;
+    gap: 14px;
+    will-change: transform;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.yg-home-favourites__card {
+    flex: 0 0 calc((100% - 56px) / 5);
+    min-width: 0;
+    text-align: center;
+}
+
+.yg-home-favourites__image {
+    position: relative;
+    display: block;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--yg-stone, #f2e7d8);
+    aspect-ratio: 1 / 1;
+}
+
+.yg-home-favourites__image > a {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.yg-home-favourites__image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.yg-home-favourites__popular {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--yg-forest, #264f1c);
+    color: #fff;
+    font-family: var(--yg-heading);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.yg-home-favourites__saving {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: var(--yg-rose, #e3185d);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+    font-family: var(--yg-heading);
+    line-height: 1;
+    text-align: center;
+}
+
+.yg-home-favourites__saving-pct {
+    display: block;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.yg-home-favourites__saving-sym {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.yg-home-favourites__saving-off {
+    display: block;
+    margin-top: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.yg-home-favourites__name {
+    margin: 12px 8px 6px;
+    min-height: 2.6em;
+    font-family: var(--yg-heading);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--yg-pebble, #483f3a);
+}
+
+.yg-home-favourites__name a {
+    color: inherit;
+    text-decoration: none;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.yg-home-favourites__name a:hover {
+    color: var(--yg-forest, #264f1c);
+}
+
+.yg-home-favourites__price {
+    margin: 0 0 4px;
+}
+
+.yg-home-favourites__price a {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.yg-home-favourites__price-label {
+    font-family: var(--yg-heading);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--yg-muted, #7a726c);
+}
+
+.yg-home-favourites__price-amount {
+    font-family: var(--yg-heading);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--yg-pebble, #483f3a);
+    letter-spacing: -0.02em;
+}
+
+.yg-home-favourites__nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 28%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--yg-forest, #264f1c);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(38, 79, 28, 0.28);
+}
+
+.yg-home-favourites__nav:hover {
+    background: color-mix(in srgb, var(--yg-forest, #264f1c) 88%, #000);
+}
+
+.yg-home-favourites__nav:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.yg-home-favourites__nav--prev {
+    left: 0;
+}
+
+.yg-home-favourites__nav--next {
+    right: 0;
+}
+
+.yg-home-favourites__nav-arrow {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg);
+    margin-left: -2px;
+}
+
+.yg-home-favourites__nav-arrow--prev {
+    transform: rotate(135deg);
+    margin-left: 2px;
+}
+
+.yg-home-favourites__swipe-hint {
+    display: none;
+    margin: 12px 0 0;
+    text-align: center;
+    font-family: var(--yg-body);
+    font-size: 13px;
+    color: var(--yg-muted, #7a726c);
+}
+
+.yg-home-favourites__swipe-hint-icon {
+    margin-right: 4px;
 }
 
 .yg-home-philosophy__copy {
@@ -2506,7 +2849,54 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-row4--carousel .yg-home-tile {
-        flex: 0 0 calc((100% - 10px) / 2);
+        flex: 0 0 calc((100% - 30px) / 4);
+        border-radius: 18px;
+    }
+
+    .yg-home-row4--carousel .yg-home-tile__cta {
+        left: 8px;
+        bottom: 8px;
+        max-width: calc(100% - 16px);
+        padding: 5px 5px 5px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .yg-home-row4--carousel .yg-home-tile__arrow {
+        width: 24px;
+        height: 24px;
+    }
+
+    .yg-home-favourites__carousel {
+        padding: 0 36px;
+    }
+
+    .yg-home-favourites__track {
+        gap: 10px;
+    }
+
+    .yg-home-favourites__card {
+        flex: 0 0 calc((100% - 30px) / 4);
+    }
+
+    .yg-home-favourites__nav {
+        width: 34px;
+        height: 34px;
+        top: 26%;
+    }
+
+    .yg-home-favourites__name {
+        font-size: 13px;
+        margin-top: 10px;
+    }
+
+    .yg-home-favourites__price-amount {
+        font-size: 15px;
+    }
+
+    .yg-home-favourites__swipe-hint {
+        display: block;
     }
 
     .yg-home-row4--carousel .yg-home-row4__nav {
@@ -2543,12 +2933,20 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-tile__cta {
-        padding: 12px 12px;
-        font-size: 14px;
-        min-height: 44px;
-        display: flex;
-        align-items: center;
-        background: rgba(38, 79, 28, 0.92);
+        left: 8px;
+        bottom: 8px;
+        max-width: calc(100% - 16px);
+        padding: 5px 5px 5px 12px;
+        font-size: 13px;
+        gap: 6px;
+        border-radius: 999px;
+        min-height: 0;
+        white-space: nowrap;
+    }
+
+    .yg-home-tile__arrow {
+        width: 24px;
+        height: 24px;
     }
 
     /* Full-bleed marketing banners on tablet/phone (matches yougarden.com mobile) */
@@ -2646,15 +3044,74 @@ body.yg-header-argos .usp-wrapper {
     }
 
     .yg-home-tile {
-        border-radius: var(--yg-radius);
+        border-radius: 8px;
+    }
+
+    .yg-home-row4--carousel .yg-home-tile {
+        flex: 0 0 calc((100% - 24px) / 4);
+        border-radius: 18px;
+    }
+
+    .yg-home-row4--carousel .yg-home-row4__track {
+        gap: 8px;
     }
 
     .yg-home-tile__cta {
+        left: 6px;
+        bottom: 6px;
+        max-width: calc(100% - 12px);
         font-size: 12px;
         font-weight: 700;
-        padding: 10px 8px;
-        min-height: 40px;
+        padding: 4px 4px 4px 10px;
+        gap: 5px;
+        border-radius: 999px;
+        min-height: 0;
         line-height: 1.2;
+    }
+
+    .yg-home-tile__arrow {
+        width: 22px;
+        height: 22px;
+    }
+
+    .yg-home-row4--carousel .yg-home-tile__cta {
+        left: 6px;
+        bottom: 6px;
+        max-width: calc(100% - 12px);
+        padding: 4px 4px 4px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+    .yg-home-favourites__carousel {
+        padding: 0 28px;
+    }
+
+    .yg-home-favourites__card {
+        flex: 0 0 calc((100% - 16px) / 2.15);
+    }
+
+    .yg-home-favourites__popular {
+        top: 8px;
+        left: 8px;
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+
+    .yg-home-favourites__saving {
+        width: 48px;
+        height: 48px;
+        top: 6px;
+        right: 6px;
+    }
+
+    .yg-home-favourites__saving-pct {
+        font-size: 13px;
+    }
+
+    .yg-home-favourites__saving-off {
+        font-size: 9px;
     }
 
     .yg-home-philosophy__copy {

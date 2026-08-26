@@ -184,7 +184,7 @@ class DemoController extends Controller
             ],
             // Previous lifestyle hero kept at images/home-preview/hero-garden-original-backup.jpg
             // Below-the-fold modules mirrored from live yougarden.com homepage
-            // First 5 = live default; extras power prototype 6 / 8-card layouts
+            // First 5 = live default; extras power prototype 8-card / carousel layouts
             'row4' => [
                 [
                     'label' => 'Mediterranean Plants',
@@ -225,6 +225,61 @@ class DemoController extends Controller
                     'label' => 'Autumn Planting Bulbs',
                     'url' => 'https://www.yougarden.com/garden-plants/garden-bulbs/spring-flowering-bulbs',
                     'image' => 'images/home-preview/live/81-3.jpg',
+                ],
+            ],
+            'customer_favourites' => [
+                'headline' => 'Customer favourites',
+                'headline_url' => 'https://www.yougarden.com/garden-plants/popular-garden-plants',
+                'products' => [
+                    [
+                        'name' => "Pair of Italian Cypress Trees",
+                        'url' => 'https://www.yougarden.com/item-p-510471/pair-of-italian-cypress-trees',
+                        'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/510471.jpg',
+                        'price' => '£39.98',
+                        'saving' => 20,
+                    ],
+                    [
+                        'name' => "Canna 'Tropicanna'",
+                        'url' => 'https://www.yougarden.com/item-p-560606/canna-tropicanna',
+                        'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/560606.jpg',
+                        'price' => '£7.99',
+                        'saving' => 38,
+                    ],
+                    [
+                        'name' => "Lilac 'Palibin' Standard",
+                        'url' => 'https://www.yougarden.com/item-p-510317/lilac-palibin-standard',
+                        'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/510317.jpg',
+                        'price' => '£24.99',
+                        'saving' => 38,
+                    ],
+                    [
+                        'name' => "Japanese Acer 'Taylor'",
+                        'url' => 'https://www.yougarden.com/item-p-510524/japanese-acer-taylor',
+                        'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/510524.jpg',
+                        'price' => '£34.99',
+                        'saving' => 13,
+                    ],
+                    [
+                        'name' => "Imperata 'Red Baron' - Blood Grass",
+                        'url' => 'https://www.yougarden.com/item-p-560017/imperata-red-baron--blood-grass',
+                        'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/560017.jpg',
+                        'price' => '£14.97',
+                        'saving' => 50,
+                    ],
+                    [
+                        'name' => "Geranium 'Rozanne' - RHS Plant of the Centenary",
+                        'url' => 'https://www.yougarden.com/item-p-480120/geranium-rozanne--rhs-plant-of-the-centenary',
+                        'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/480120.jpg',
+                        'price' => '£19.97',
+                        'saving' => 33,
+                    ],
+                    [
+                        'name' => "Nandina 'Obsessed' - Sacred Bamboo",
+                        'url' => 'https://www.yougarden.com/item-p-510759/nandina-obsessed--sacred-bamboo',
+                        'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/510759.jpg',
+                        'price' => '£14.99',
+                        'saving' => 25,
+                    ],
                 ],
             ],
             'philosophy_banner' => 'images/home-preview/live/74.jpg',

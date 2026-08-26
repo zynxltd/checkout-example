@@ -149,7 +149,7 @@
                                 rel="noopener"
                             >
                                 <img src="{{ asset($tile['image']) }}" alt="" width="600" height="600" loading="lazy">
-                                <span class="yg-home-tile__cta">{{ $tile['label'] }} <span aria-hidden="true">›</span></span>
+                                @include('demo.partials.home-tile-cta', ['label' => $tile['label']])
                             </a>
                         @endforeach
                     </div>
@@ -158,6 +158,64 @@
                     <span class="yg-home-row4__nav-arrow" aria-hidden="true"></span>
                 </button>
             </section>
+
+            @if (! empty($customer_favourites['products']))
+                <section class="yg-home-favourites" aria-label="{{ $customer_favourites['headline'] }}" data-favourites-carousel>
+                    <div class="yg-home-favourites__headline">
+                        <a
+                            class="yg-home-favourites__headline-link"
+                            href="{{ $customer_favourites['headline_url'] }}"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <span class="yg-home-favourites__headline-text">{{ $customer_favourites['headline'] }}</span>
+                        </a>
+                    </div>
+
+                    <div class="yg-home-favourites__carousel">
+                        <button type="button" class="yg-home-favourites__nav yg-home-favourites__nav--prev" data-fav-prev aria-label="Previous favourites">
+                            <span class="yg-home-favourites__nav-arrow yg-home-favourites__nav-arrow--prev" aria-hidden="true"></span>
+                        </button>
+                        <div class="yg-home-favourites__viewport" data-fav-viewport>
+                            <div class="yg-home-favourites__track" data-fav-track>
+                                @foreach ($customer_favourites['products'] as $product)
+                                    <article class="yg-home-favourites__card">
+                                        <div class="yg-home-favourites__image">
+                                            <a href="{{ $product['url'] }}" target="_blank" rel="noopener">
+                                                <span class="yg-home-favourites__popular">MOST POPULAR</span>
+                                                @if (! empty($product['saving']))
+                                                    <span class="yg-home-favourites__saving" aria-label="{{ $product['saving'] }}% off">
+                                                        <span class="yg-home-favourites__saving-pct">{{ $product['saving'] }}<span class="yg-home-favourites__saving-sym">%</span></span>
+                                                        <span class="yg-home-favourites__saving-off">OFF</span>
+                                                    </span>
+                                                @endif
+                                                <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" width="500" height="500" loading="lazy">
+                                            </a>
+                                        </div>
+                                        <h3 class="yg-home-favourites__name">
+                                            <a href="{{ $product['url'] }}" target="_blank" rel="noopener">{{ $product['name'] }}</a>
+                                        </h3>
+                                        <p class="yg-home-favourites__price">
+                                            <a href="{{ $product['url'] }}" target="_blank" rel="noopener">
+                                                <span class="yg-home-favourites__price-label">From</span>
+                                                <span class="yg-home-favourites__price-amount">{{ $product['price'] }}</span>
+                                            </a>
+                                        </p>
+                                    </article>
+                                @endforeach
+                            </div>
+                        </div>
+                        <button type="button" class="yg-home-favourites__nav yg-home-favourites__nav--next" data-fav-next aria-label="Next favourites">
+                            <span class="yg-home-favourites__nav-arrow" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <p class="yg-home-favourites__swipe-hint">
+                        <span class="yg-home-favourites__swipe-hint-icon" aria-hidden="true">👆</span>
+                        <span>Swipe to see more</span>
+                    </p>
+                </section>
+            @endif
 
         <div class="yg-home-fold-mark" aria-hidden="true">
             <span class="yg-home-fold-mark__line"></span>
@@ -211,13 +269,13 @@
                         height="900"
                         loading="lazy"
                     >
-                    <span class="yg-home-tile__cta">{{ $featured_grid['featured']['label'] }} <span aria-hidden="true">›</span></span>
+                    @include('demo.partials.home-tile-cta', ['label' => $featured_grid['featured']['label']])
                 </a>
                 <div class="yg-home-featured__grid">
                     @foreach ($featured_grid['tiles'] as $tile)
                         <a href="{{ $tile['url'] }}" class="yg-home-tile" target="_blank" rel="noopener">
                             <img src="{{ asset($tile['image']) }}" alt="" width="450" height="450" loading="lazy">
-                            <span class="yg-home-tile__cta">{{ $tile['label'] }} <span aria-hidden="true">›</span></span>
+                            @include('demo.partials.home-tile-cta', ['label' => $tile['label']])
                         </a>
                     @endforeach
                 </div>
@@ -227,7 +285,7 @@
                 @foreach ($row4_secondary as $tile)
                     <a href="{{ $tile['url'] }}" class="yg-home-tile" target="_blank" rel="noopener">
                         <img src="{{ asset($tile['image']) }}" alt="" width="600" height="600" loading="lazy">
-                        <span class="yg-home-tile__cta">{{ $tile['label'] }} <span aria-hidden="true">›</span></span>
+                        @include('demo.partials.home-tile-cta', ['label' => $tile['label']])
                     </a>
                 @endforeach
             </section>
@@ -321,17 +379,18 @@
                     <span>Variant 1 — 5 cards (default)</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="6" data-row4-variant-option>
-                    <span>Variant 2 — 6 cards</span>
-                </label>
-                <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="8" data-row4-variant-option>
-                    <span>Variant 3 — 8 cards</span>
+                    <span>Variant 2 — 8 cards carousel</span>
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option>
-                    <span>Variant 4 — 5 cards carousel</span>
+                    <span>Variant 3 — 5 cards carousel</span>
                 </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
+                    <span>Variant 4 — Wider 5 cards (CRO)</span>
+                </label>
+                <p class="demo-controls__hint">Variant 4 widens the band under the hero so category + favourites fill more of the viewport (larger targets, less side chrome) without stretching body copy.</p>
             </aside>
         </div>
     </div>
@@ -691,7 +750,8 @@
 
     function updateCarouselNav() {
         if (!prevBtn || !nextBtn) return;
-        var isCarousel = root.getAttribute('data-row4-variant') === 'carousel';
+        var variant = root.getAttribute('data-row4-variant');
+        var isCarousel = variant === 'carousel' || variant === '8';
         prevBtn.hidden = !isCarousel;
         nextBtn.hidden = !isCarousel;
         if (!isCarousel) {
@@ -710,18 +770,22 @@
     }
 
     function setVariant(variant) {
-        var allowed = { '5': true, '6': true, '8': true, carousel: true };
+        var allowed = { '5': true, '8': true, carousel: true, wide: true };
         if (!allowed[variant]) variant = '5';
 
         root.setAttribute('data-row4-variant', variant);
-        root.classList.toggle('yg-home-row4--five', variant === '5' || variant === 'carousel');
-        root.classList.toggle('yg-home-row4--six', variant === '6');
+        root.classList.toggle('yg-home-row4--five', variant === '5' || variant === 'wide');
         root.classList.toggle('yg-home-row4--eight', variant === '8');
-        root.classList.toggle('yg-home-row4--carousel', variant === 'carousel');
+        root.classList.toggle('yg-home-row4--carousel', variant === 'carousel' || variant === '8');
+        root.classList.toggle('yg-home-row4--wide', variant === 'wide');
+
+        var below = root.closest('.yg-home-below');
+        if (below) below.classList.toggle('is-wide-band', variant === 'wide');
+        document.body.classList.toggle('yg-home-wide-band', variant === 'wide');
 
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
             var index = parseInt(tile.getAttribute('data-row4-index'), 10) || 0;
-            var limit = variant === '6' ? 6 : variant === '8' ? 8 : 5;
+            var limit = variant === '8' ? 8 : 5;
             tile.hidden = index > limit;
         });
 
@@ -760,7 +824,8 @@
     }
 
     window.addEventListener('resize', function () {
-        if (root.getAttribute('data-row4-variant') !== 'carousel') return;
+        var variant = root.getAttribute('data-row4-variant');
+        if (variant !== 'carousel' && variant !== '8') return;
         offset = Math.min(offset, maxOffset());
         applyOffset(false);
     });
@@ -770,6 +835,166 @@
         saved = localStorage.getItem(STORAGE_KEY) || '5';
     } catch (err) { /* ignore */ }
     setVariant(saved);
+})();
+
+(function () {
+    var root = document.querySelector('[data-favourites-carousel]');
+    if (!root) return;
+
+    var viewport = root.querySelector('[data-fav-viewport]');
+    var track = root.querySelector('[data-fav-track]');
+    var prevBtn = root.querySelector('[data-fav-prev]');
+    var nextBtn = root.querySelector('[data-fav-next]');
+    var offset = 0;
+    var timer = null;
+    var INTERVAL = 4500;
+    var EASE = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+    var animating = false;
+
+    function stepSize() {
+        var card = root.querySelector('.yg-home-favourites__card');
+        if (!card || !viewport) return 240;
+        var styles = window.getComputedStyle(track);
+        var gap = parseFloat(styles.columnGap || styles.gap) || 14;
+        return card.getBoundingClientRect().width + gap;
+    }
+
+    function maxOffset() {
+        if (!track || !viewport) return 0;
+        return Math.max(0, track.scrollWidth - viewport.clientWidth);
+    }
+
+    function snapToNearest() {
+        var step = stepSize();
+        if (step <= 0) return;
+        var max = maxOffset();
+        offset = Math.round(offset / step) * step;
+        offset = Math.min(max, Math.max(0, offset));
+    }
+
+    function apply(animate) {
+        if (!track) return;
+        track.style.transition = animate === false ? 'none' : EASE;
+        track.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
+        var max = maxOffset();
+        if (prevBtn) prevBtn.disabled = offset <= 0;
+        if (nextBtn) nextBtn.disabled = offset >= max - 1;
+    }
+
+    function stopAuto() {
+        if (timer) {
+            clearInterval(timer);
+            timer = null;
+        }
+    }
+
+    function startAuto() {
+        stopAuto();
+        if (maxOffset() <= 1) return;
+        timer = setInterval(function () {
+            if (animating || document.hidden) return;
+            advance(1, true);
+        }, INTERVAL);
+    }
+
+    function softResetToStart() {
+        animating = true;
+        offset = 0;
+        apply(false);
+        window.requestAnimationFrame(function () {
+            window.requestAnimationFrame(function () {
+                animating = false;
+                apply(true);
+            });
+        });
+    }
+
+    function advance(dir, fromAuto) {
+        var max = maxOffset();
+        var step = stepSize();
+        if (max <= 1) return;
+
+        if (dir > 0) {
+            var next = offset + step;
+            if (next >= max - 1) {
+                if (fromAuto) {
+                    // Ease to the end, then quietly loop without a reverse whip
+                    offset = max;
+                    apply(true);
+                    animating = true;
+                    window.setTimeout(softResetToStart, 620);
+                    return;
+                }
+                offset = max;
+            } else {
+                offset = next;
+            }
+        } else {
+            offset = Math.max(0, offset - step);
+        }
+        apply(true);
+    }
+
+    function nudge(dir) {
+        advance(dir, false);
+        startAuto();
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { nudge(-1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { nudge(1); });
+
+    var startX = 0;
+    var startOffset = 0;
+    var dragging = false;
+
+    if (viewport) {
+        viewport.addEventListener('pointerdown', function (e) {
+            if (e.pointerType === 'mouse' && e.button !== 0) return;
+            dragging = true;
+            animating = false;
+            stopAuto();
+            startX = e.clientX;
+            startOffset = offset;
+            track.style.transition = 'none';
+            try { viewport.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+        });
+        viewport.addEventListener('pointermove', function (e) {
+            if (!dragging) return;
+            offset = Math.min(maxOffset(), Math.max(0, startOffset - (e.clientX - startX)));
+            apply(false);
+        });
+        function endDrag() {
+            if (!dragging) return;
+            dragging = false;
+            snapToNearest();
+            apply(true);
+            startAuto();
+        }
+        viewport.addEventListener('pointerup', endDrag);
+        viewport.addEventListener('pointercancel', endDrag);
+    }
+
+    root.addEventListener('mouseenter', stopAuto);
+    root.addEventListener('mouseleave', startAuto);
+    root.addEventListener('focusin', stopAuto);
+    root.addEventListener('focusout', function (e) {
+        if (!root.contains(e.relatedTarget)) startAuto();
+    });
+
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) stopAuto();
+        else startAuto();
+    });
+
+    window.addEventListener('resize', function () {
+        snapToNearest();
+        offset = Math.min(offset, maxOffset());
+        apply(false);
+        startAuto();
+    });
+
+    apply(false);
+    startAuto();
 })();
 </script>
 @endpush

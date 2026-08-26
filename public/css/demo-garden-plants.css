@@ -1,5 +1,18 @@
 /* Garden Plants category hub — match yougarden.com/garden-plants */
 
+/* SEO intro colour prototypes (Prototype tools) */
+.demo-garden-plants .demo-listing-seo-intro.is-no-stone {
+    background: transparent;
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.demo-garden-plants .demo-listing-seo-intro.is-green-header .demo-listing-seo-intro__title,
+.demo-garden-plants .demo-listing-seo-intro.is-green-header .demo-listing-seo-intro__subtitle {
+    color: var(--yg-forest, #264f1c);
+}
+
 .demo-garden-plants__tiles {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

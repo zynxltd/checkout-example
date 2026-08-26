@@ -34,7 +34,7 @@
             @endforeach
         </nav>
 
-        <header class="demo-listing-seo-intro">
+        <header class="demo-listing-seo-intro" data-seo-intro>
             <h1 class="demo-listing-seo-intro__title">{{ $hub['title'] }}</h1>
             @if (! empty($hub['subtitle']))
                 <h2 class="demo-listing-seo-intro__subtitle">{{ $hub['subtitle'] }}</h2>
@@ -109,10 +109,37 @@
 <div id="yg-drawer-mount">
     @include('demo.partials.drawer', ['cart' => $cart])
 </div>
+
+<div class="demo-prototype-stack" id="demo-garden-plants-prototype-stack">
+    <button type="button" class="demo-prototype-stack__dock" data-prototype-dock aria-expanded="false" aria-controls="demo-garden-plants-prototype-stack-body">Prototype tools</button>
+    <div class="demo-prototype-stack__body" id="demo-garden-plants-prototype-stack-body">
+        <div class="demo-prototype-stack__bar">
+            <span class="demo-prototype-stack__bar-title">Prototype tools</span>
+            <button type="button" class="demo-prototype-stack__minimize" data-prototype-minimize aria-label="Minimise prototype tools">Minimise</button>
+        </div>
+        <div class="demo-prototype-stack__content">
+            <aside class="demo-controls" aria-label="SEO content block colours">
+                <h3>SEO content block</h3>
+                <p class="demo-controls__hint">Toggle colours for the Garden Plants intro. Saved in this browser.</p>
+                <label class="demo-toggle">
+                    <input type="checkbox" id="toggle-seo-hide-stone" data-seo-option="hide-stone">
+                    <span>Hide stone card background</span>
+                </label>
+                <p class="demo-controls__hint">Removes the cream card shell so the intro sits on the white page.</p>
+                <label class="demo-toggle">
+                    <input type="checkbox" id="toggle-seo-green-header" data-seo-option="green-header">
+                    <span>YG green for header</span>
+                </label>
+                <p class="demo-controls__hint">Uses forest green (#264f1c) for the main title (and subtitle).</p>
+            </aside>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('scripts')
     <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
+    <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
     <script>
     (function () {
         var intro = document.getElementById('listing-seo-intro');
@@ -125,6 +152,34 @@
                 toggle.textContent = collapsed ? 'Read less' : 'Read more';
             });
         }
+
+        var seo = document.querySelector('[data-seo-intro]');
+        if (!seo) return;
+
+        var KEY = 'yg-garden-plants-seo';
+        var hideStone = document.getElementById('toggle-seo-hide-stone');
+        var greenHeader = document.getElementById('toggle-seo-green-header');
+
+        function apply() {
+            seo.classList.toggle('is-no-stone', !!(hideStone && hideStone.checked));
+            seo.classList.toggle('is-green-header', !!(greenHeader && greenHeader.checked));
+            try {
+                localStorage.setItem(KEY, JSON.stringify({
+                    hideStone: !!(hideStone && hideStone.checked),
+                    greenHeader: !!(greenHeader && greenHeader.checked),
+                }));
+            } catch (e) { /* ignore */ }
+        }
+
+        try {
+            var saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+            if (hideStone) hideStone.checked = !!saved.hideStone;
+            if (greenHeader) greenHeader.checked = !!saved.greenHeader;
+        } catch (e) { /* ignore */ }
+
+        if (hideStone) hideStone.addEventListener('change', apply);
+        if (greenHeader) greenHeader.addEventListener('change', apply);
+        apply();
     })();
     </script>
 @endpush
