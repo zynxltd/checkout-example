@@ -182,54 +182,10 @@ class DemoController extends Controller
                     ],
                 ],
             ],
-            // Currys-style multi-card hero (Hero 2 prototype) — category imagery
-            'hero_cards' => [
-                [
-                    'image' => 'images/home-preview/live/79-1.jpg',
-                    'alt' => 'Mediterranean Plants',
-                    'url' => 'https://www.yougarden.com/trees-and-shrubs/mediterranean-plants-for-uk-gardens',
-                    'title' => 'Mediterranean Plants',
-                    'kicker' => 'Shop the range',
-                ],
-                [
-                    'image' => 'images/home-preview/live/79-2.jpg',
-                    'alt' => 'Garden Shrubs',
-                    'url' => 'https://www.yougarden.com/trees-and-shrubs/garden-shrubs',
-                    'title' => 'Garden Shrubs',
-                    'kicker' => 'Structure & colour',
-                ],
-                [
-                    'image' => 'images/home-preview/live/79-3.jpg',
-                    'alt' => 'Perennials',
-                    'url' => 'https://www.yougarden.com/garden-plants/perennial-plants-and-flowers',
-                    'title' => 'Perennials',
-                    'kicker' => 'Colour that comes back',
-                ],
-                [
-                    'image' => 'images/home-preview/live/79-4.jpg',
-                    'alt' => 'Drought Tolerant Plants',
-                    'url' => 'https://www.yougarden.com/garden-plants/popular-garden-plants/drought-tolerant-plants',
-                    'title' => 'Drought Tolerant',
-                    'kicker' => 'Low-maintenance picks',
-                ],
-                [
-                    'image' => 'images/home-preview/live/80-1.jpg',
-                    'alt' => 'Roses',
-                    'url' => 'https://www.yougarden.com/garden-plants/roses',
-                    'title' => 'Roses',
-                    'kicker' => 'Garden favourites',
-                ],
-                [
-                    'image' => 'images/home-preview/live/81-2.jpg',
-                    'alt' => 'Fruit & Veg',
-                    'url' => 'https://www.yougarden.com/grow-your-own-fruit-and-veg',
-                    'title' => 'Fruit & Veg',
-                    'kicker' => 'Grow your own',
-                ],
-            ],
             // Previous lifestyle hero kept at images/home-preview/hero-garden-original-backup.jpg
             // Below-the-fold modules mirrored from live yougarden.com homepage
-            // First 5 = static layouts; extras power 8-card + category carousel (Variant 3)
+            // First 5 = static layouts; extras power category carousels
+            // 15 tiles → Variant 3/4 get 3 slides at 5-up; Variant 1 uses first 12 at 4-up
             'row4' => [
                 [
                     'label' => 'Mediterranean Plants',
@@ -290,6 +246,21 @@ class DemoController extends Controller
                     'label' => 'Bedding Plants',
                     'url' => 'https://www.yougarden.com/garden-plants/bedding-plants',
                     'image' => 'images/home-preview/live/80-3.jpg',
+                ],
+                [
+                    'label' => 'Outdoor Living',
+                    'url' => 'https://www.yougarden.com/outdoor-living',
+                    'image' => 'images/home-preview/cats/outdoor.jpg',
+                ],
+                [
+                    'label' => 'Fruit Trees',
+                    'url' => 'https://www.yougarden.com/grow-your-own-fruit-and-veg/fruit-trees',
+                    'image' => 'images/home-preview/cats/fruit-trees.jpg',
+                ],
+                [
+                    'label' => 'Japanese Acers',
+                    'url' => 'https://www.yougarden.com/trees-and-shrubs/garden-trees/japanese-acer-trees',
+                    'image' => 'images/home-preview/cats/acers.jpg',
                 ],
             ],
             'customer_favourites' => [

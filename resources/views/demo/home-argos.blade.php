@@ -124,63 +124,17 @@
                     </button>
                 </div>
             </section>
-
-            {{-- Hero 2 — Currys-style 3-card promo strip --}}
-            <section class="yg-hero-cards" aria-label="Shop popular categories" data-hero-cards hidden>
-                <div class="yg-hero-cards__rail">
-                    <button type="button" class="yg-hero-cards__arrow yg-hero-cards__arrow--prev" data-hero-cards-prev aria-label="Previous offers">
-                        <span class="yg-hero-cards__chev yg-hero-cards__chev--prev" aria-hidden="true"></span>
-                    </button>
-                    <div class="yg-hero-cards__viewport" data-hero-cards-viewport>
-                        <div class="yg-hero-cards__track" data-hero-cards-track>
-                            @foreach ($hero_cards as $card)
-                                <a
-                                    class="yg-hero-cards__card"
-                                    href="{{ $card['url'] }}"
-                                    target="_blank"
-                                    rel="noopener"
-                                    data-hero-cards-item
-                                >
-                                    <img
-                                        src="{{ asset($card['image']) }}?v={{ filemtime(public_path($card['image'])) }}"
-                                        alt="{{ $card['alt'] }}"
-                                        width="640"
-                                        height="800"
-                                        loading="lazy"
-                                    >
-                                    <span class="yg-hero-cards__copy">
-                                        <span class="yg-hero-cards__kicker">{{ $card['kicker'] }}</span>
-                                        <span class="yg-hero-cards__title">{{ $card['title'] }}</span>
-                                    </span>
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                    <button type="button" class="yg-hero-cards__arrow yg-hero-cards__arrow--next" data-hero-cards-next aria-label="Next offers">
-                        <span class="yg-hero-cards__chev" aria-hidden="true"></span>
-                    </button>
-                </div>
-                <div class="yg-pager yg-hero-cards__pager">
-                    <button type="button" class="yg-pager__btn" data-hero-cards-pager-prev aria-label="Previous page">
-                        <span class="yg-pager__chev yg-pager__chev--prev" aria-hidden="true"></span>
-                    </button>
-                    <div class="yg-pager__dots" data-hero-cards-pager-dots role="tablist" aria-label="Offer pages"></div>
-                    <button type="button" class="yg-pager__btn yg-pager__btn--boxed" data-hero-cards-pager-next aria-label="Next page">
-                        <span class="yg-pager__chev" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </section>
         </div>
 
         {{-- Below the fold — live yougarden.com homepage modules --}}
-        <div class="yg-home-below">
+        <div class="yg-home-below is-wide-band">
             <section
-                class="yg-home-row4 yg-home-row4--four yg-home-row4--carousel"
+                class="yg-home-row4 yg-home-row4--five yg-home-row4--carousel yg-home-row4--slider yg-home-row4--wide"
                 aria-label="Shop popular categories"
                 data-row4-cats
-                data-row4-variant="4"
+                data-row4-variant="carousel"
             >
-                <h2 class="yg-home-row4__title" data-row4-dusk-title hidden>Shop by category</h2>
+                <h2 class="yg-home-row4__title" data-row4-dusk-title>Shop by category</h2>
                 <button type="button" class="yg-home-row4__nav yg-home-row4__nav--prev" data-row4-prev aria-label="Previous categories" hidden>
                     <span class="yg-home-row4__nav-arrow yg-home-row4__nav-arrow--prev" aria-hidden="true"></span>
                 </button>
@@ -217,7 +171,7 @@
                         <span class="yg-home-row4__dusk-all-arrow" aria-hidden="true">→</span>
                     </a>
                 </div>
-                <div class="yg-pager" data-row4-slider-wrap hidden>
+                <div class="yg-pager" data-row4-slider-wrap>
                     <button type="button" class="yg-pager__btn" data-row4-pager-prev aria-label="Previous categories">
                         <span class="yg-pager__chev yg-pager__chev--prev" aria-hidden="true"></span>
                     </button>
@@ -448,26 +402,15 @@
         </div>
         <div class="demo-prototype-stack__content">
             <aside class="demo-controls" aria-label="Homepage category card variants">
-                <h3>Hero</h3>
-                <p class="demo-controls__hint">Switch the top hero between the live full-width banner and a Currys-style 3-card strip.</p>
-                <p class="demo-controls__label">Hero layout</p>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-hero-layout" value="banner" data-hero-layout-option checked>
-                    <span>Normal banner (default)</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-hero-layout" value="cards" data-hero-layout-option>
-                    <span>Hero 2 — 3-card slider</span>
-                </label>
                 <h3>Category cards</h3>
                 <p class="demo-controls__hint">Toggle the popular-categories row under the hero. Choice is saved in this browser.</p>
                 <p class="demo-controls__label">Layout variant</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="4" data-row4-variant-option checked>
+                    <input type="radio" name="home-row4-variant" value="4" data-row4-variant-option>
                     <span>Variant 1 — 4 cards</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option>
+                    <input type="radio" name="home-row4-variant" value="carousel" data-row4-variant-option checked>
                     <span>Variant 3 — Category carousel</span>
                 </label>
                 <label class="demo-toggle">
@@ -475,12 +418,6 @@
                     <span>Variant 4 — Wider 5 cards</span>
                 </label>
                 <p class="demo-controls__hint">Variant 1: 4-up pager. Variants 3 &amp; 4: dusk “Shop by category” with the same pager arrows + slide dots, and All categories.</p>
-                <p class="demo-controls__label">Shop by category shell</p>
-                <label class="demo-toggle">
-                    <input type="checkbox" data-row4-stone-option>
-                    <span>Stone background card</span>
-                </label>
-                <p class="demo-controls__hint">Applies to Variants 3 &amp; 4. Off by default. Rounded stone band behind the category strip (18px corners).</p>
             </aside>
         </div>
     </div>
@@ -801,163 +738,7 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-hero-layout-v1';
-    var above = document.querySelector('.yg-home-above');
-    var banner = document.querySelector('[data-hero-carousel]');
-    var cards = document.querySelector('[data-hero-cards]');
-    var options = Array.prototype.slice.call(document.querySelectorAll('[data-hero-layout-option]'));
-    if (!above || !options.length) return;
-
-    function setHeroLayout(mode) {
-        if (mode !== 'cards') mode = 'banner';
-        above.setAttribute('data-hero-layout', mode === 'cards' ? 'cards' : 'banner');
-        if (banner) banner.hidden = mode === 'cards';
-        if (cards) cards.hidden = mode !== 'cards';
-        options.forEach(function (input) {
-            input.checked = input.value === mode;
-        });
-        try {
-            localStorage.setItem(STORAGE_KEY, mode);
-        } catch (err) { /* ignore */ }
-        window.dispatchEvent(new CustomEvent('yg-hero-layout-change', { detail: { mode: mode } }));
-    }
-
-    options.forEach(function (input) {
-        input.addEventListener('change', function () {
-            if (input.checked) setHeroLayout(input.value);
-        });
-    });
-
-    var saved = 'banner';
-    try {
-        saved = localStorage.getItem(STORAGE_KEY) || 'banner';
-    } catch (err) { /* ignore */ }
-    setHeroLayout(saved);
-})();
-
-(function () {
-    var root = document.querySelector('[data-hero-cards]');
-    if (!root) return;
-
-    var viewport = root.querySelector('[data-hero-cards-viewport]');
-    var track = root.querySelector('[data-hero-cards-track]');
-    var prevBtn = root.querySelector('[data-hero-cards-prev]');
-    var nextBtn = root.querySelector('[data-hero-cards-next]');
-    var pagerPrev = root.querySelector('[data-hero-cards-pager-prev]');
-    var pagerNext = root.querySelector('[data-hero-cards-pager-next]');
-    var pagerDots = root.querySelector('[data-hero-cards-pager-dots]');
-    var offset = 0;
-
-    function stepSize() {
-        var card = root.querySelector('[data-hero-cards-item]');
-        if (!card || !viewport) return 280;
-        var styles = window.getComputedStyle(track);
-        var gap = parseFloat(styles.columnGap || styles.gap) || 16;
-        return card.getBoundingClientRect().width + gap;
-    }
-
-    function maxOffset() {
-        if (!track || !viewport) return 0;
-        var max = Math.max(0, track.scrollWidth - viewport.clientWidth);
-        var step = stepSize();
-        if (step <= 0) return max;
-        return Math.round(max / step) * step;
-    }
-
-    function pageStride() {
-        var s = stepSize();
-        if (!viewport || s <= 0) return s;
-        var visible = Math.max(1, Math.round(viewport.clientWidth / s));
-        return s * visible;
-    }
-
-    function pageCount() {
-        var max = maxOffset();
-        var stride = pageStride();
-        if (max <= 0 || stride <= 0) return 1;
-        return Math.floor(max / stride + 0.001) + 1;
-    }
-
-    function currentPage() {
-        var stride = pageStride();
-        var pages = pageCount();
-        if (stride <= 0 || pages <= 1) return 0;
-        return Math.min(pages - 1, Math.round(offset / stride));
-    }
-
-    function syncPager() {
-        if (!pagerDots) return;
-        var pages = pageCount();
-        var active = currentPage();
-        var max = maxOffset();
-        if (prevBtn) prevBtn.disabled = max <= 0;
-        if (nextBtn) nextBtn.disabled = max <= 0;
-        if (pagerPrev) pagerPrev.disabled = max <= 0;
-        if (pagerNext) pagerNext.disabled = max <= 0;
-
-        while (pagerDots.children.length > pages) pagerDots.removeChild(pagerDots.lastChild);
-        while (pagerDots.children.length < pages) {
-            var btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'yg-pager__dot';
-            btn.setAttribute('role', 'tab');
-            btn.addEventListener('click', function (index) {
-                return function () {
-                    offset = Math.min(maxOffset(), Math.max(0, index * pageStride()));
-                    apply(true);
-                };
-            }(pagerDots.children.length));
-            pagerDots.appendChild(btn);
-        }
-        Array.prototype.forEach.call(pagerDots.children, function (dot, i) {
-            var isActive = i === active;
-            dot.classList.toggle('is-active', isActive);
-            dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
-            dot.setAttribute('aria-label', 'Page ' + (i + 1) + ' of ' + pages);
-        });
-    }
-
-    function apply(animate) {
-        if (!track) return;
-        track.style.transition = animate === false
-            ? 'none'
-            : 'transform 0.7s cubic-bezier(0.33, 0.1, 0.25, 1)';
-        track.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
-        syncPager();
-    }
-
-    function nudgePage(dir) {
-        var max = maxOffset();
-        var pages = pageCount();
-        if (max <= 0 || pages <= 1) return;
-        var next = currentPage() + dir;
-        if (next < 0) next = pages - 1;
-        if (next >= pages) next = 0;
-        offset = Math.min(max, Math.max(0, next * pageStride()));
-        apply(true);
-    }
-
-    if (prevBtn) prevBtn.addEventListener('click', function () { nudgePage(-1); });
-    if (nextBtn) nextBtn.addEventListener('click', function () { nudgePage(1); });
-    if (pagerPrev) pagerPrev.addEventListener('click', function () { nudgePage(-1); });
-    if (pagerNext) pagerNext.addEventListener('click', function () { nudgePage(1); });
-
-    window.addEventListener('resize', function () {
-        offset = Math.min(offset, maxOffset());
-        apply(false);
-    });
-    window.addEventListener('yg-hero-layout-change', function () {
-        offset = 0;
-        window.requestAnimationFrame(function () {
-            apply(false);
-        });
-    });
-
-    apply(false);
-})();
-
-(function () {
-    var STORAGE_KEY = 'yg-home-row4-variant-v5';
+    var STORAGE_KEY = 'yg-home-row4-variant-v6';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
 
@@ -977,7 +758,7 @@
     var offset = 0;
 
     function currentVariant() {
-        return root.getAttribute('data-row4-variant') || '4';
+        return root.getAttribute('data-row4-variant') || 'carousel';
     }
 
     function isCarouselVariant(variant) {
@@ -1129,7 +910,7 @@
         if (variant === '5' || variant === '8') variant = '4';
 
         var allowed = { '4': true, carousel: true, wide: true };
-        if (!allowed[variant]) variant = '4';
+        if (!allowed[variant]) variant = 'carousel';
 
         root.setAttribute('data-row4-variant', variant);
         root.classList.toggle('yg-home-row4--four', variant === '4');
@@ -1237,36 +1018,11 @@
         applyOffset(false);
     });
 
-    var saved = '4';
+    var saved = 'carousel';
     try {
-        saved = localStorage.getItem(STORAGE_KEY) || '4';
+        saved = localStorage.getItem(STORAGE_KEY) || 'carousel';
     } catch (err) { /* ignore */ }
     setVariant(saved);
-})();
-
-(function () {
-    var STORAGE_KEY = 'yg-home-row4-stone-v2';
-    var root = document.querySelector('[data-row4-cats]');
-    var toggle = document.querySelector('[data-row4-stone-option]');
-    if (!root || !toggle) return;
-
-    function setStone(on) {
-        root.classList.toggle('is-no-stone', !on);
-        toggle.checked = !!on;
-        try {
-            localStorage.setItem(STORAGE_KEY, on ? 'on' : 'off');
-        } catch (err) { /* ignore */ }
-    }
-
-    toggle.addEventListener('change', function () {
-        setStone(toggle.checked);
-    });
-
-    var saved = 'off';
-    try {
-        saved = localStorage.getItem(STORAGE_KEY) || 'off';
-    } catch (err) { /* ignore */ }
-    setStone(saved === 'on');
 })();
 
 (function () {
