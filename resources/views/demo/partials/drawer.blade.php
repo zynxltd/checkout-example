@@ -137,10 +137,13 @@
                 <ul class="yg-drawer__items">
                     @foreach($cart['items'] as $item)
                     <li class="yg-item @if(!empty($item['is_club'])) yg-item--club @endif" data-sku="{{ $item['sku'] }}">
-                        <img class="yg-item__img" src="{{ asset($item['image']) }}" alt="" width="88" height="88" loading="lazy">
+                        @php $productUrl = $item['url'] ?? route('demo.pdp'); @endphp
+                        <a class="yg-item__img-link" href="{{ $productUrl }}">
+                            <img class="yg-item__img" src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" width="88" height="88" loading="lazy">
+                        </a>
                         <div class="yg-item__main">
                             <p class="yg-item__sku">Product No. {{ $item['sku'] }}</p>
-                            <p class="yg-item__name">{{ $item['name'] }}</p>
+                            <a class="yg-item__name" href="{{ $productUrl }}">{{ $item['name'] }}</a>
                             @if(!empty($item['variant']))
                             <p class="yg-item__variant">{{ $item['variant'] }}</p>
                             @endif

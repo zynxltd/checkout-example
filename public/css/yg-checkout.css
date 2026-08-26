@@ -712,6 +712,14 @@
 
 .co-club-join .yg-club-bar {
     width: 100%;
+    cursor: default;
+}
+
+/* Drawer sets pointer-events:none on the pill (whole bar is the hit target).
+   On checkout the pill is the real control — restore clicks. */
+.co-club-join .yg-club-bar__btn {
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 .co-club-modal {
@@ -1013,6 +1021,21 @@ body.co-club-modal-open {
     font-weight: 600;
     cursor: pointer;
     transition: background 0.15s ease;
+}
+
+.co-form.is-submitting .co-pay-now {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.co-notice {
+    margin: 0 16px 16px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #f2e7d8;
+    color: var(--yg-pebble, #483f3a);
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .co-pay-now:hover {

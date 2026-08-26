@@ -1412,6 +1412,19 @@ body.yg-drawer-open {
     filter: brightness(0);
 }
 
+.yg-item__img-link {
+    display: block;
+    align-self: start;
+    border-radius: 8px;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.yg-item__img-link:focus-visible {
+    outline: 2px solid var(--yg-theme-body-text, #1a1a1a);
+    outline-offset: 2px;
+}
+
 .yg-item__img {
     width: 88px;
     height: 88px;
@@ -1448,6 +1461,7 @@ body.yg-drawer-open {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+    text-decoration: none;
 }
 
 .yg-item__variant {

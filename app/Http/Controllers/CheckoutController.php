@@ -45,17 +45,35 @@ class CheckoutController extends Controller
             ->header('Pragma', 'no-cache');
     }
 
-    public function complete(Request $request): RedirectResponse
+    public function complete(Request $request): RedirectResponse|JsonResponse
     {
         DemoCart::seed();
 
         if (DemoCart::state()['is_empty']) {
+            if ($request->expectsJson() || $request->ajax()) {
+                return response()->json([
+                    'error' => 'Your basket is empty — add items before checkout.',
+                    'redirect' => route('demo.checkout'),
+                ], 422);
+            }
+
             return redirect()
-                ->route('demo.home')
+                ->route('demo.checkout')
                 ->with('checkout_notice', 'Your basket is empty — add items before checkout.');
         }
 
-        DemoCart::placeOrder($request->all());
+        $order = DemoCart::placeOrder($request->all());
+
+        // Flash as well as persist — confirmation can read either if one storage path drops.
+        session()->flash('demo_checkout_just_placed', true);
+
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'ok' => true,
+                'order_number' => $order['number'] ?? null,
+                'redirect' => route('demo.checkout.confirmation'),
+            ]);
+        }
 
         return redirect()->route('demo.checkout.confirmation');
     }
@@ -68,8 +86,8 @@ class CheckoutController extends Controller
 
         if (! $order) {
             return redirect()
-                ->route('demo.home')
-                ->with('checkout_notice', 'No recent order to show.');
+                ->route('demo.checkout')
+                ->with('checkout_notice', 'No recent order to show — your basket may still be open.');
         }
 
         return view('demo.confirmation', [

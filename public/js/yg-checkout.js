@@ -703,10 +703,55 @@
             return;
         }
 
-        form.addEventListener('submit', () => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (form.classList.contains('is-submitting')) {
+                return;
+            }
+
             form.classList.add('is-submitting');
             btn.disabled = true;
             btn.setAttribute('aria-busy', 'true');
+
+            const completeUrl = form.getAttribute('action') || routes.checkoutComplete || '/checkout/complete';
+            const confirmationUrl = routes.checkoutConfirmation || '/checkout/confirmation';
+
+            try {
+                const res = await fetch(completeUrl, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        Accept: 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': csrf,
+                    },
+                    body: new FormData(form),
+                });
+
+                const data = await res.json().catch(() => ({}));
+
+                if (!res.ok) {
+                    const message = data.error || 'Could not complete payment. Please try again.';
+                    alert(message);
+                    if (data.redirect) {
+                        window.location.assign(data.redirect);
+                        return;
+                    }
+                    form.classList.remove('is-submitting');
+                    btn.disabled = false;
+                    btn.removeAttribute('aria-busy');
+                    return;
+                }
+
+                window.location.assign(data.redirect || confirmationUrl);
+            } catch (err) {
+                console.error('[checkout] pay now failed', err);
+                alert('Could not complete payment. Please try again.');
+                form.classList.remove('is-submitting');
+                btn.disabled = false;
+                btn.removeAttribute('aria-busy');
+            }
         });
     }
 
@@ -800,6 +845,62 @@
 
     function bindClubJoinModal() {
         const modal = document.getElementById('co-club-modal');
+
+        const addClub = async (btn) => {
+            if (!btn || btn.disabled) {
+                return;
+            }
+
+            const clubUrl = routes.club;
+            if (!clubUrl) {
+                alert('Could not add membership (missing club route).');
+                return;
+            }
+
+            const sku = btn.getAttribute('data-club-sku');
+            const body = sku ? { sku } : {};
+            const expectedLines = parseInt(document.body.dataset.coLineCount || '0', 10);
+            const previousLabel = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Adding…';
+
+            try {
+                const res = await post(clubUrl, body);
+                const data = await res.json().catch(() => ({}));
+
+                if (!res.ok) {
+                    alert(data.error || 'Could not add membership.');
+                    btn.disabled = false;
+                    btn.textContent = previousLabel;
+                    return;
+                }
+
+                const newLines = Array.isArray(data.cart?.items) ? data.cart.items.length : 0;
+                if (expectedLines > 0 && newLines <= expectedLines) {
+                    console.warn('[checkout] club add response has fewer lines than before', {
+                        expectedLines,
+                        newLines,
+                        cart: data.cart,
+                    });
+                }
+
+                const checkoutUrl = routes.checkout || '/checkout';
+                const separator = checkoutUrl.includes('?') ? '&' : '?';
+                window.location.assign(`${checkoutUrl}${separator}updated=${Date.now()}`);
+            } catch (err) {
+                console.error('[checkout] club add failed', err);
+                alert('Could not add membership.');
+                btn.disabled = false;
+                btn.textContent = previousLabel;
+            }
+        };
+
+        document.querySelectorAll('[data-co-club-add]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                addClub(btn);
+            });
+        });
+
         if (!modal) {
             return;
         }
@@ -830,33 +931,8 @@
         });
 
         modal.querySelectorAll('[data-club-add]').forEach((btn) => {
-            btn.addEventListener('click', async () => {
-                const sku = btn.getAttribute('data-club-sku');
-                const body = sku ? { sku } : {};
-                const expectedLines = parseInt(document.body.dataset.coLineCount || '0', 10);
-                btn.disabled = true;
-
-                const res = await post(routes.club, body);
-                const data = await res.json().catch(() => ({}));
-
-                if (!res.ok) {
-                    alert(data.error || 'Could not add membership.');
-                    btn.disabled = false;
-                    return;
-                }
-
-                const newLines = Array.isArray(data.cart?.items) ? data.cart.items.length : 0;
-                if (expectedLines > 0 && newLines <= expectedLines) {
-                    console.warn('[checkout] club add response has fewer lines than before', {
-                        expectedLines,
-                        newLines,
-                        cart: data.cart,
-                    });
-                }
-
-                const checkoutUrl = routes.checkout || '/checkout';
-                const separator = checkoutUrl.includes('?') ? '&' : '?';
-                window.location.assign(`${checkoutUrl}${separator}updated=${Date.now()}`);
+            btn.addEventListener('click', () => {
+                addClub(btn);
             });
         });
     }

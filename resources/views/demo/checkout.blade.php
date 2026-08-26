@@ -63,6 +63,9 @@ data-co-line-count="{{ count($cart['items']) }}"
 
     <div class="co-layout">
         <main class="co-main">
+            @if (session('checkout_notice'))
+                <p class="co-notice" role="status">{{ session('checkout_notice') }}</p>
+            @endif
             @include('demo.partials.checkout-skeleton')
             <div class="co-content">
             <section class="co-express" aria-labelledby="co-express-title">
@@ -85,7 +88,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                 <span>Or continue below with</span>
             </div>
 
-            <form class="co-form" id="co-form" action="{{ route('demo.checkout.complete') }}" method="post" novalidate>
+            <form class="co-form" id="co-form" action="{{ url('/checkout/complete') }}" method="post" novalidate>
                 @csrf
                 <section class="co-section" id="co-contact-section">
                     <div class="co-section__head">
@@ -576,9 +579,9 @@ data-co-line-count="{{ count($cart['items']) }}"
                         <button
                             type="button"
                             class="yg-club-bar__btn"
-                            data-co-club-open
-                            aria-haspopup="dialog"
-                            aria-controls="co-club-modal"
+                            data-co-club-add
+                            data-club-sku="{{ \App\Services\DemoCart::CLUB_SKU_AUTO }}"
+                            aria-label="Add Discount Club membership to basket"
                         >
                             Add to basket
                         </button>

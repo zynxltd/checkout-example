@@ -575,6 +575,7 @@ body.demo-pdp {
     max-width: var(--yg-argos-content-width, 1440px);
     margin: 0 auto;
     padding: 0 8px;
+    min-height: 48px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -588,16 +589,19 @@ body.demo-pdp {
     flex: 0 0 auto;
     display: inline-flex;
     align-items: center;
-    padding: 11px 10px;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 14px;
     color: #fff;
     text-decoration: none;
     font-family: var(--yg-body);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.01em;
     text-transform: uppercase;
     white-space: nowrap;
     line-height: 1;
+    box-sizing: border-box;
 }
 
 .demo-nav__track a:hover {
@@ -625,7 +629,7 @@ body.demo-pdp {
 .demo-nav__tv {
     display: inline-flex !important;
     align-items: center;
-    padding: 6px 8px !important;
+    padding: 0 12px !important;
     text-transform: none;
     letter-spacing: 0;
 }
@@ -636,7 +640,7 @@ body.demo-pdp {
 
 .demo-nav__tv-logo {
     display: block;
-    height: 32px;
+    height: 34px;
     width: auto;
     mix-blend-mode: screen;
 }

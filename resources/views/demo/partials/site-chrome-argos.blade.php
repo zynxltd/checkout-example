@@ -299,7 +299,7 @@
     <nav class="demo-nav" aria-label="Shop categories">
         <div class="demo-nav__track">
             <a href="https://www.yougarden.com/new" class="demo-nav__new">New</a>
-            <a href="{{ route('demo.listing.perennials') }}">Garden Plants</a>
+            <a href="{{ route('demo.listing.garden-plants') }}">Garden Plants</a>
             <a href="https://www.yougarden.com/houseplants">Houseplants</a>
             <a href="https://www.yougarden.com/trees-and-shrubs">Trees and Shrubs</a>
             <a href="https://www.yougarden.com/grow-your-own-fruit-and-veg">Fruits and Veg</a>
@@ -311,8 +311,8 @@
                     class="demo-nav__tv-logo"
                     src="{{ asset('images/icons/YGTV.png') }}?v={{ filemtime(public_path('images/icons/YGTV.png')) }}"
                     alt="YouGarden TV"
-                    width="170"
-                    height="44"
+                    width="131"
+                    height="34"
                 >
             </a>
         </div>

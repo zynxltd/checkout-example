@@ -75,7 +75,7 @@ class DemoController extends Controller
                 ],
                 [
                     'label' => 'Garden plants',
-                    'url' => route('demo.listing.perennials'),
+                    'url' => route('demo.listing.garden-plants'),
                     'image' => 'images/home-preview/cats/garden-plants.jpg',
                 ],
                 [
@@ -184,6 +184,7 @@ class DemoController extends Controller
             ],
             // Previous lifestyle hero kept at images/home-preview/hero-garden-original-backup.jpg
             // Below-the-fold modules mirrored from live yougarden.com homepage
+            // First 5 = live default; extras power prototype 6 / 8-card layouts
             'row4' => [
                 [
                     'label' => 'Mediterranean Plants',
@@ -209,6 +210,21 @@ class DemoController extends Controller
                     'label' => 'Roses',
                     'url' => 'https://www.yougarden.com/garden-plants/roses',
                     'image' => 'images/home-preview/live/80-1.jpg',
+                ],
+                [
+                    'label' => 'Climbing Plants',
+                    'url' => 'https://www.yougarden.com/garden-plants/climbing-plants',
+                    'image' => 'images/home-preview/live/81-1.jpg',
+                ],
+                [
+                    'label' => 'Fruit & Veg',
+                    'url' => 'https://www.yougarden.com/grow-your-own-fruit-and-veg',
+                    'image' => 'images/home-preview/live/81-2.jpg',
+                ],
+                [
+                    'label' => 'Autumn Planting Bulbs',
+                    'url' => 'https://www.yougarden.com/garden-plants/garden-bulbs/spring-flowering-bulbs',
+                    'image' => 'images/home-preview/live/81-3.jpg',
                 ],
             ],
             'philosophy_banner' => 'images/home-preview/live/74.jpg',
@@ -584,7 +600,7 @@ class DemoController extends Controller
             'collections' => [
                 [
                     'title' => 'Garden Plants',
-                    'url' => route('demo.listing.perennials'),
+                    'url' => route('demo.listing.garden-plants'),
                     'image' => 'images/products/401842.jpg',
                 ],
                 [

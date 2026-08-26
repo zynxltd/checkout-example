@@ -22,6 +22,7 @@ Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/standard-delivery', [DemoController::class, 'standardDelivery'])->name('demo.standard-delivery');
     Route::get('/lifetime-guarantee', [DemoController::class, 'lifetimeGuarantee'])->name('demo.lifetime-guarantee');
     Route::get('/plant-finder', [DemoController::class, 'plantFinder'])->name('demo.plant-finder');
+    Route::get('/garden-plants', [ListingController::class, 'gardenPlants'])->name('demo.listing.garden-plants');
     Route::get('/perennial-plants-and-flowers', [ListingController::class, 'perennials'])->name('demo.listing.perennials');
     Route::get('/tv-live', [TvLiveController::class, 'show'])->name('demo.tv-live');
     Route::get('/account/login', [AccountController::class, 'login'])->name('demo.account.login');

@@ -53,12 +53,13 @@ class DemoArgosNav
             return $children;
         };
 
+        $plantsHubUrl = route('demo.listing.garden-plants');
         $plantsUrl = route('demo.listing.perennials');
 
         $menu = [
             [
                 'title' => 'Garden Plants',
-                'url' => $plantsUrl,
+                'url' => $plantsHubUrl,
                 'image' => $img('garden-plants.jpg'),
                 'children' => [
                     [

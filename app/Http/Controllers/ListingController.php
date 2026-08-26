@@ -16,4 +16,14 @@ class ListingController extends Controller
             'listing' => DemoCart::listingPage(),
         ]);
     }
+
+    public function gardenPlants(): View
+    {
+        DemoCart::seed();
+
+        return view('demo.garden-plants', [
+            'cart' => DemoCart::state(),
+            'hub' => DemoCart::gardenPlantsHub(),
+        ]);
+    }
 }

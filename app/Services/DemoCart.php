@@ -811,7 +811,7 @@ class DemoCart
             ],
             'breadcrumb' => [
                 ['label' => 'Home', 'url' => route('demo.home'), 'icon' => 'home'],
-                ['label' => 'Garden Plants', 'url' => route('demo.listing.perennials')],
+                ['label' => 'Garden Plants', 'url' => route('demo.listing.garden-plants')],
                 ['label' => 'Perennial Plants & Flowers', 'url' => null],
             ],
             'filters' => self::listingFilters(),
@@ -825,6 +825,111 @@ class DemoCart
                 ['label' => 'Peony Plants', 'url' => '#'],
             ],
             'products' => self::listingProducts(),
+        ];
+    }
+
+    /**
+     * Category hub mirroring yougarden.com/garden-plants.
+     *
+     * @return array{
+     *     title: string,
+     *     subtitle: string,
+     *     seo_intro: list<string>,
+     *     breadcrumb: list<array{label: string, url: ?string, icon?: string}>,
+     *     tiles: list<array{label: string, url: string, image: string}>,
+     *     faqs: list<array{question: string, answer: string}>
+     * }
+     */
+    public static function gardenPlantsHub(): array
+    {
+        $yg = 'https://www.yougarden.com';
+        $img = fn (string $file) => 'images/home-preview/garden-plants/'.$file;
+
+        return [
+            'title' => 'Garden Plants',
+            'subtitle' => 'Discover Beautiful Garden Plants for Every Outdoor Space',
+            'seo_intro' => [
+                'Garden plants bring life, colour and structure to any outdoor space, whether you’re refreshing a single border or creating a full garden redesign. From vibrant garden flowers that fill pots and beds with seasonal colour to low-maintenance evergreen plants and cottage garden plants that soften the look of pathways and fences, the right choices can transform even the smallest UK garden. Many of our outdoor plants are hardy, reliable and surprisingly easy to grow, giving you dependable results with very little effort.',
+                'With so many plants for sale, it’s never been easier to build a display that suits your style. Compact perennials thrive in patio pots, while shrubs and herbaceous favourites settle beautifully into mixed borders. Cottage garden flowers like delphiniums, foxgloves and common flowers such as daisies and primroses bring that classic British charm, while contemporary options like ornamental grasses add movement and texture. Whether you are searching for outdoor plants UK gardeners trust for year-round strength, or quick-impact bedding plants to refresh your containers, there is something here for every home and every level of experience.',
+                'At YouGarden, customers can explore a wide selection of garden plants online, including low-cost options for filling borders, hardy perennials for long-term structure, and seasonal stars that impress for months. If you\'re looking to buy plants online, our curated plant range makes it simple to choose varieties that thrive in UK conditions and deliver the results gardeners love.',
+            ],
+            'breadcrumb' => [
+                ['label' => 'Home', 'url' => route('demo.home'), 'icon' => 'home'],
+                ['label' => 'Garden Plants', 'url' => null],
+            ],
+            'tiles' => [
+                [
+                    'label' => 'Perennial Plants & Flowers',
+                    'url' => route('demo.listing.perennials'),
+                    'image' => $img('tile-1.jpg'),
+                ],
+                [
+                    'label' => 'Bedding Plants',
+                    'url' => $yg.'/garden-plants/bedding-plants',
+                    'image' => $img('tile-2.jpg'),
+                ],
+                [
+                    'label' => 'Pre Planted Baskets',
+                    'url' => $yg.'/garden-plants/bedding-plants/pre-planted-hanging-baskets',
+                    'image' => $img('tile-3.jpg'),
+                ],
+                [
+                    'label' => 'Climbing Plants',
+                    'url' => $yg.'/garden-plants/climbing-plants',
+                    'image' => $img('tile-4.jpg'),
+                ],
+                [
+                    'label' => 'Roses',
+                    'url' => $yg.'/garden-plants/roses',
+                    'image' => $img('tile-5.jpg'),
+                ],
+                [
+                    'label' => 'Pond Plants',
+                    'url' => $yg.'/garden-plants/pond-plants',
+                    'image' => $img('tile-b1.jpg'),
+                ],
+                [
+                    'label' => 'Garden Bulbs',
+                    'url' => $yg.'/garden-plants/garden-bulbs',
+                    'image' => $img('tile-b2.jpg'),
+                ],
+                [
+                    'label' => 'Drought Tolerant Plants',
+                    'url' => $yg.'/garden-plants/popular-garden-plants/drought-tolerant-plants',
+                    'image' => $img('tile-b3.jpg'),
+                ],
+                [
+                    'label' => 'Popular Garden Plants',
+                    'url' => $yg.'/garden-plants/popular-garden-plants',
+                    'image' => $img('tile-b4.jpg'),
+                ],
+            ],
+            'faqs' => [
+                [
+                    'question' => 'How do I plant a garden?',
+                    'answer' => 'Start by looking at the space you have and the conditions it offers. Notice how much sun it gets, whether the soil is heavy or light, and how you want to use the space. Prepare the ground by removing weeds and adding compost to improve structure and drainage. Then choose plants that suit the spot rather than trying to force unsuitable varieties to behave. Plant in groups for impact, water well after planting, and finish with a mulch to keep moisture in and weeds down.',
+                ],
+                [
+                    'question' => 'What can I plant with roses in a garden?',
+                    'answer' => 'Roses love good companions. Think airy perennials that won’t compete at the root but will soften the look and fill gaps between flushes of flowers. Lavender, nepeta, hardy geraniums and salvia are classic pairings that provide colour and scent while attracting pollinators. For structure, consider evergreen shrubs or grasses. Just ensure anything you choose enjoys the same sunny, free-draining conditions that roses thrive in.',
+                ],
+                [
+                    'question' => 'How often should I water garden plants?',
+                    'answer' => 'Watering depends on weather, soil and plant type. As a guide, most established garden plants only need watering during prolonged spells of hot, dry weather, roughly once or twice a week in summer. Newly planted shrubs, trees and perennials need more regular watering for their first season while roots establish, while plants growing in containers will always require frequent watering, regardless of age. Always water deeply rather than little and often.',
+                ],
+                [
+                    'question' => 'How can I make a small garden look amazing?',
+                    'answer' => 'Plenty of thought and planning makes a huge difference to a smaller garden. Fill vertical spaces with climbers, trellises and tall, narrow plants to draw the eye upwards. Choose a neutral colour palette to keep the space feeling cohesive, and use containers to add layers without overwhelming the footprint. Mirrors, seating tucked into corners and paths laid on the diagonal can all make a compact space feel larger.',
+                ],
+                [
+                    'question' => 'What is the best month to plant a garden?',
+                    'answer' => 'In the UK, spring and autumn are the prime planting seasons. March, April, September and October offer the ideal combination of mild temperatures and moist soil, giving plants time to root in before the extremes of summer or winter arrive. You can plant throughout the year provided the ground isn’t frozen or waterlogged, but the shoulder months make life easier for you and your plants.',
+                ],
+                [
+                    'question' => 'What is the 70/30 planting rule?',
+                    'answer' => 'It’s a simple way to create a balanced, easy-care garden. The idea is that around seventy per cent of your planting should consist of reliable, structural plants such as shrubs, hedges, evergreen plants and long-lived perennials. The remaining thirty per cent can be seasonal colour, annuals or more experimental choices. This mix ensures the garden always looks anchored and intentional, with room for creativity and change each year.',
+                ],
+            ],
         ];
     }
 
@@ -1708,6 +1813,9 @@ class DemoCart
                 'was_price' => $wasUnit,
                 'line_saving' => $lineSaving,
                 'club_saving' => $lineClubSaving,
+                'url' => ! empty($product['is_club'])
+                    ? route('demo.account.club')
+                    : (string) ($product['url'] ?? route('demo.pdp')),
             ]);
             $subtotal += $line;
             $wasTotal += $lineWas;
@@ -1836,7 +1944,7 @@ class DemoCart
         $order = [
             'number' => 'YG'.random_int(100000, 999999),
             'confirmation' => strtoupper(substr(bin2hex(random_bytes(5)), 0, 10)),
-            'placed_at' => now(),
+            'placed_at' => now()->toIso8601String(),
             'email' => trim((string) ($input['email'] ?? '')) ?: 'cs@yougarden.com',
             'first_name' => $firstName,
             'last_name' => $lastName,
