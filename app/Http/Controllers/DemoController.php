@@ -423,7 +423,7 @@ class DemoController extends Controller
                 ],
             ],
             'club_banner' => [
-                'url' => 'https://www.yougarden.com/item-p-820001/yg-discount-club-annual-membership',
+                'url' => route('demo.club'),
                 'image' => 'images/home-preview/live/77.jpg',
                 'label' => 'Join the YouGarden Club',
             ],
@@ -759,6 +759,20 @@ class DemoController extends Controller
                     'image' => 'images/products/401842.jpg',
                 ],
             ],
+        ]);
+    }
+
+    public function clubPdp(): View
+    {
+        DemoCart::seed();
+
+        $yg = 'https://www.yougarden.com';
+
+        return view('demo.club-pdp', [
+            'cart' => DemoCart::state(),
+            'shop_menu' => DemoArgosNav::shopMenu($yg),
+            'trending_links' => DemoArgosNav::trendingLinks($yg),
+            'live_url' => 'https://www.yougarden.com/item-p-820001/yg-discount-club-annual-membership',
         ]);
     }
 

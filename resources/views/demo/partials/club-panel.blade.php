@@ -1,5 +1,5 @@
 @php
-    $clubUrl = 'https://www.yougarden.com/item-p-820005/yg-discount-club-yearly-subscription-membership';
+    $clubUrl = route('demo.club');
 @endphp
 <div class="yg-club-panel">
     <div class="yg-club-panel__brand">

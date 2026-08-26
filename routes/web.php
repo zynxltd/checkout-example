@@ -18,6 +18,8 @@ Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/home-argos-preview', fn () => redirect()->route('demo.home'))->name('demo.home-argos');
     Route::get('/sale', [DemoController::class, 'sale'])->name('demo.sale');
     Route::get('/pdp', [DemoController::class, 'pdp'])->name('demo.pdp');
+    Route::get('/item-p-820001/yg-discount-club-annual-membership', [DemoController::class, 'clubPdp'])->name('demo.club');
+    Route::get('/discount-club', fn () => redirect()->route('demo.club'))->name('demo.club.short');
     Route::get('/about-us', [DemoController::class, 'aboutUs'])->name('demo.about-us');
     Route::get('/standard-delivery', [DemoController::class, 'standardDelivery'])->name('demo.standard-delivery');
     Route::get('/lifetime-guarantee', [DemoController::class, 'lifetimeGuarantee'])->name('demo.lifetime-guarantee');

@@ -1,0 +1,304 @@
+/* Club membership PDP mockup — mirrors yougarden.com/item-p-820001 */
+
+.demo-club-pdp__main {
+    max-width: var(--yg-argos-content-width, 1280px);
+    margin: 0 auto;
+    padding: 20px var(--yg-argos-content-pad, 24px) 56px;
+    box-sizing: border-box;
+}
+
+.demo-club-pdp__crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 22px;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: 0.9rem;
+    color: #6b6560;
+}
+
+.demo-club-pdp__crumb a {
+    color: var(--yg-forest, #264f1c);
+    text-decoration: none;
+}
+
+.demo-club-pdp__crumb a:hover {
+    text-decoration: underline;
+}
+
+.demo-club-pdp__crumb-sep {
+    opacity: 0.55;
+}
+
+.demo-club-pdp__hero {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.9fr) minmax(0, 1.2fr);
+    gap: 28px 40px;
+    align-items: center;
+    margin-bottom: 28px;
+    padding: 28px 28px 32px;
+    background: linear-gradient(160deg, #f7f1e8 0%, #fff 48%, #f3e9dc 100%);
+    border-radius: 18px;
+}
+
+.demo-club-pdp__hero-media {
+    display: flex;
+    justify-content: center;
+}
+
+.demo-club-pdp__logo {
+    display: block;
+    width: min(100%, 380px);
+    height: auto;
+}
+
+.demo-club-pdp__sku {
+    margin: 0 0 6px;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #7a736c;
+}
+
+.demo-club-pdp__title {
+    margin: 0 0 10px;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: clamp(1.55rem, 2.4vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--yg-pebble, #483f3a);
+}
+
+.demo-club-pdp__eyebrow {
+    margin: 0 0 12px;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--yg-forest, #264f1c);
+}
+
+.demo-club-pdp__lede {
+    margin: 0 0 12px;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: #483f3a;
+}
+
+.demo-club-pdp__live-note {
+    margin: 16px 0 0;
+    font-size: 0.85rem;
+    color: #6b6560;
+}
+
+.demo-club-pdp__live-note a {
+    color: var(--yg-forest, #264f1c);
+}
+
+.demo-club-pdp__offers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin: 0 0 36px;
+}
+
+.demo-club-pdp__offer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 22px 22px 20px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid #e6ddd1;
+    box-shadow: 0 4px 18px rgba(72, 63, 58, 0.06);
+}
+
+.demo-club-pdp__offer-title {
+    margin: 0;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--yg-pebble, #483f3a);
+}
+
+.demo-club-pdp__offer-desc {
+    margin: 0;
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #5c564f;
+}
+
+.demo-club-pdp__offer-price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px 14px;
+    margin: 4px 0 2px;
+}
+
+.demo-club-pdp__was {
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #8a837c;
+    text-decoration: line-through;
+}
+
+.demo-club-pdp__now {
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--yg-rose, #e3185d);
+}
+
+.demo-club-pdp__now--purple {
+    color: #6b2d8b;
+}
+
+.demo-club-pdp__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 8px;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.demo-club-pdp__btn:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
+.demo-club-pdp__btn:disabled {
+    opacity: 0.65;
+    cursor: wait;
+    transform: none;
+}
+
+.demo-club-pdp__btn--pink {
+    background: var(--yg-rose, #e3185d);
+}
+
+.demo-club-pdp__btn--purple {
+    background: #6b2d8b;
+}
+
+.demo-club-pdp__benefits {
+    padding: 8px 0 0;
+}
+
+.demo-club-pdp__benefits-title {
+    margin: 0 0 10px;
+    text-align: center;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: clamp(1.4rem, 2vw, 1.75rem);
+    font-weight: 700;
+    color: var(--yg-forest, #264f1c);
+}
+
+.demo-club-pdp__benefits-intro {
+    max-width: 720px;
+    margin: 0 auto 28px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: #5c564f;
+}
+
+.demo-club-pdp__benefit-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.demo-club-pdp__benefit {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-areas:
+        "icon title"
+        "icon text";
+    column-gap: 16px;
+    row-gap: 6px;
+    padding: 18px;
+    border-radius: 14px;
+    background: #faf7f2;
+    border: 1px solid #ece3d7;
+}
+
+.demo-club-pdp__benefit-icon {
+    grid-area: icon;
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+.demo-club-pdp__benefit-title {
+    grid-area: title;
+    margin: 0;
+    align-self: end;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--yg-pebble, #483f3a);
+}
+
+.demo-club-pdp__benefit-text {
+    grid-area: text;
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: #5c564f;
+}
+
+.demo-club-pdp__status {
+    margin: 20px 0 0;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: #eaf5e4;
+    color: var(--yg-forest, #264f1c);
+    font-weight: 600;
+}
+
+.demo-club-pdp__status.is-error {
+    background: #fde8ef;
+    color: #9b123f;
+}
+
+@media (max-width: 900px) {
+    .demo-club-pdp__hero,
+    .demo-club-pdp__offers,
+    .demo-club-pdp__benefit-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-club-pdp__hero {
+        padding: 22px 18px;
+    }
+}
+
+@media (max-width: 520px) {
+    .demo-club-pdp__main {
+        padding: 14px 12px 40px;
+    }
+
+    .demo-club-pdp__benefit {
+        grid-template-columns: 56px minmax(0, 1fr);
+    }
+
+    .demo-club-pdp__benefit-icon {
+        width: 56px;
+        height: 56px;
+    }
+}
