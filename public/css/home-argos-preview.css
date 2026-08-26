@@ -2300,7 +2300,7 @@ body.yg-header-argos .usp-wrapper {
 
 .yg-home-row4__title {
     margin: 0;
-    padding: 0 0 8px;
+    padding: 0 0 16px;
     font-family: var(--yg-heading);
     font-size: clamp(1.25rem, 1.8vw, 1.5rem);
     font-weight: 700;
@@ -2323,17 +2323,6 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
 
 .yg-home-row4__title[hidden] {
     display: none !important;
-}
-
-/*
- * Slider category is flex (no margin collapse). Pull the viewport up so the
- * Shop by category → cards gap matches Customer favourites (Variants 2 & 3).
- */
-.yg-home-row4--carousel.yg-home-row4--slider > .yg-home-row4__viewport,
-.yg-home-row4--wide.yg-home-row4--slider > .yg-home-row4__viewport,
-.yg-home-row4[data-row4-variant="carousel"] > .yg-home-row4__viewport,
-.yg-home-row4[data-row4-variant="wide"] > .yg-home-row4__viewport {
-    margin-top: -18px;
 }
 
 .yg-home-row4--wide .yg-home-row4__track {
