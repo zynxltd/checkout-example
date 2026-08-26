@@ -249,8 +249,9 @@
             </a>
 
             <a
-                href="{{ $accountClubMember ? route('demo.account.club') : route('demo.club') }}"
+                href="{{ $accountClubMember ? route('demo.account.club') : 'https://www.yougarden.com/item-p-820001/yg-discount-club-annual-membership' }}"
                 class="demo-header__utility demo-header__utility--stacked demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"
+                @if (! $accountClubMember) target="_blank" rel="noopener" @endif
                 aria-label="{{ $accountClubMember ? 'Club membership' : 'Join Our Club — SAVE 10%' }}"
             >
                 <span class="demo-header__utility-icon" aria-hidden="true">
