@@ -461,7 +461,7 @@
                     <input type="radio" name="home-row4-variant" value="wide" data-row4-variant-option>
                     <span>Variant 4 — Wider 5 cards</span>
                 </label>
-                <p class="demo-controls__hint">Variant 1 shows 4 cards at a time from 12 (3 slides), autoplays, and uses a pager instead of side arrows.</p>
+                <p class="demo-controls__hint">Variant 1 shows 4 cards at a time from 12 (3 slides) and uses a pager instead of side arrows.</p>
                 <h3>Header promo</h3>
                 <p class="demo-controls__hint">Optional content in the gap between logo and search. Off by default.</p>
                 <p class="demo-controls__label">Logo → search slot</p>
@@ -967,8 +967,6 @@
     var pagerDots = root.querySelector('[data-row4-pager-dots]');
     var options = Array.prototype.slice.call(document.querySelectorAll('[data-row4-variant-option]'));
     var offset = 0;
-    var autoTimer = null;
-    var AUTO_MS = 5200;
 
     function currentVariant() {
         return root.getAttribute('data-row4-variant') || '4';
@@ -1051,7 +1049,6 @@
                 return function () {
                     offset = Math.min(maxOffset(), Math.max(0, index * pageStride()));
                     applyOffset(true);
-                    startAuto();
                 };
             }(pagerDots.children.length));
             pagerDots.appendChild(btn);
@@ -1075,31 +1072,6 @@
         syncPager();
     }
 
-    function stopAuto() {
-        if (autoTimer) {
-            clearInterval(autoTimer);
-            autoTimer = null;
-        }
-    }
-
-    function startAuto() {
-        stopAuto();
-        if (currentVariant() !== '4') return;
-        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        autoTimer = setInterval(function () {
-            var max = maxOffset();
-            if (max <= 0) return;
-            var pages = pageCount();
-            var next = currentPage() + 1;
-            if (next >= pages) {
-                offset = 0;
-            } else {
-                offset = Math.min(max, next * pageStride());
-            }
-            applyOffset(true);
-        }, AUTO_MS);
-    }
-
     function updateCarouselNav() {
         var variant = currentVariant();
         var isCarousel = isCarouselVariant(variant);
@@ -1115,7 +1087,6 @@
                 track.style.transition = 'none';
                 track.style.transform = '';
             }
-            stopAuto();
             return;
         }
 
@@ -1166,7 +1137,6 @@
         window.requestAnimationFrame(function () {
             updateCarouselNav();
             syncPager();
-            startAuto();
         });
     }
 
@@ -1187,7 +1157,6 @@
             }
             offset = Math.max(0, offset - step());
             applyOffset(true);
-            startAuto();
         });
     }
     if (nextBtn) {
@@ -1201,7 +1170,6 @@
             }
             offset = Math.min(max, offset + step());
             applyOffset(true);
-            startAuto();
         });
     }
 
@@ -1214,18 +1182,10 @@
         if (next >= pages) next = 0;
         offset = Math.min(max, Math.max(0, next * pageStride()));
         applyOffset(true);
-        startAuto();
     }
 
     if (pagerPrev) pagerPrev.addEventListener('click', function () { nudgePage(-1); });
     if (pagerNext) pagerNext.addEventListener('click', function () { nudgePage(1); });
-
-    root.addEventListener('mouseenter', stopAuto);
-    root.addEventListener('mouseleave', startAuto);
-    root.addEventListener('focusin', stopAuto);
-    root.addEventListener('focusout', function (e) {
-        if (!root.contains(e.relatedTarget)) startAuto();
-    });
 
     window.addEventListener('resize', function () {
         var variant = currentVariant();
@@ -1233,7 +1193,6 @@
         snapToNearest();
         offset = Math.min(offset, maxOffset());
         applyOffset(false);
-        startAuto();
     });
 
     var saved = '4';
