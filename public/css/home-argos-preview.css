@@ -703,6 +703,11 @@ body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
     line-height: 1.3;
 }
 
+.yg-mini-basket__sku strong {
+    font-weight: 700;
+    color: var(--yg-pebble);
+}
+
 .yg-mini-basket__pricing {
     display: flex;
     flex-direction: column;

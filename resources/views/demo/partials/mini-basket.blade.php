@@ -75,7 +75,7 @@
                                     <p class="yg-mini-basket__name">
                                         <a class="yg-mini-basket__name-link" href="{{ $itemUrl }}">{{ $item['name'] }}</a>
                                     </p>
-                                    <p class="yg-mini-basket__sku">Product No. {{ $item['sku'] }}</p>
+                                    <p class="yg-mini-basket__sku">Product No. <strong>{{ $item['sku'] }}</strong></p>
                                 </div>
                                 <div class="yg-mini-basket__pricing">
                                     <span class="yg-mini-basket__price">£{{ number_format($item['unit_price'] ?? $item['price'], 2) }}</span>

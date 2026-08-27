@@ -602,7 +602,7 @@
                             <p class="yg-mini-basket__name">
                                 <a class="yg-mini-basket__name-link" href="${href}">${name}</a>
                             </p>
-                            <p class="yg-mini-basket__sku">Product No. ${sku}</p>
+                            <p class="yg-mini-basket__sku">Product No. <strong>${sku}</strong></p>
                         </div>
                         <div class="yg-mini-basket__pricing">
                             <span class="yg-mini-basket__price">£${price}</span>
