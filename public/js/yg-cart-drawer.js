@@ -592,11 +592,16 @@
                     const name = this.escapeHtml(item.name || '');
                     const sku = this.escapeHtml(item.sku || '');
                     const qty = this.escapeHtml(item.qty ?? 1);
+                    const href = this.escapeHtml(item.url || '/pdp');
 
                     return `<li class="yg-mini-basket__item" data-sku="${sku}">
-                        <img class="yg-mini-basket__img" src="${imgSrc}" alt="" width="56" height="56" loading="lazy">
+                        <a class="yg-mini-basket__img-link" href="${href}" aria-label="${name}">
+                            <img class="yg-mini-basket__img" src="${imgSrc}" alt="" width="56" height="56" loading="lazy">
+                        </a>
                         <div class="yg-mini-basket__meta">
-                            <p class="yg-mini-basket__name">${name}</p>
+                            <p class="yg-mini-basket__name">
+                                <a class="yg-mini-basket__name-link" href="${href}">${name}</a>
+                            </p>
                             <p class="yg-mini-basket__sku">Product No. ${sku}</p>
                         </div>
                         <div class="yg-mini-basket__pricing">

@@ -648,11 +648,21 @@ body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
     border-bottom: none;
 }
 
+.yg-mini-basket__img-link {
+    display: block;
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-decoration: none;
+}
+
 .yg-mini-basket__img {
     width: 56px;
     height: 56px;
     object-fit: cover;
-    border-radius: var(--yg-radius);
+    border-radius: 50%;
     background: var(--yg-stone);
     border: 1px solid var(--yg-border);
 }
@@ -668,6 +678,22 @@ body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
     font-weight: 400;
     line-height: 1.3;
     color: var(--yg-pebble);
+}
+
+.yg-mini-basket__name-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.yg-mini-basket__name-link:hover,
+.yg-mini-basket__name-link:focus-visible {
+    color: var(--yg-forest);
+    text-decoration: underline;
+}
+
+.yg-mini-basket__img-link:focus-visible {
+    outline: 2px solid var(--yg-forest);
+    outline-offset: 2px;
 }
 
 .yg-mini-basket__sku {

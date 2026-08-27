@@ -57,17 +57,24 @@
                 @else
                     <ul class="yg-mini-basket__list" data-mini-basket-list>
                         @foreach ($miniItems as $item)
+                            @php
+                                $itemUrl = $item['url'] ?? route('demo.pdp');
+                            @endphp
                             <li class="yg-mini-basket__item" data-sku="{{ $item['sku'] }}">
-                                <img
-                                    class="yg-mini-basket__img"
-                                    src="{{ asset($item['image']) }}"
-                                    alt=""
-                                    width="56"
-                                    height="56"
-                                    loading="lazy"
-                                >
+                                <a class="yg-mini-basket__img-link" href="{{ $itemUrl }}" aria-label="{{ $item['name'] }}">
+                                    <img
+                                        class="yg-mini-basket__img"
+                                        src="{{ asset($item['image']) }}"
+                                        alt=""
+                                        width="56"
+                                        height="56"
+                                        loading="lazy"
+                                    >
+                                </a>
                                 <div class="yg-mini-basket__meta">
-                                    <p class="yg-mini-basket__name">{{ $item['name'] }}</p>
+                                    <p class="yg-mini-basket__name">
+                                        <a class="yg-mini-basket__name-link" href="{{ $itemUrl }}">{{ $item['name'] }}</a>
+                                    </p>
                                     <p class="yg-mini-basket__sku">Product No. {{ $item['sku'] }}</p>
                                 </div>
                                 <div class="yg-mini-basket__pricing">
