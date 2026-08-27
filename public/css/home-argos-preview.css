@@ -789,6 +789,15 @@ body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
     }
 }
 
+/* Prototype tools: mini-basket dropdown off by default */
+html:not(.yg-mini-basket-on) .yg-mini-basket__panel {
+    display: none !important;
+}
+
+html:not(.yg-mini-basket-on) .yg-mini-basket.is-open {
+    z-index: 230;
+}
+
 .yg-header-argos .demo-header--argos .demo-header__utility-title,
 .yg-header-argos .demo-header--argos .demo-header__utility-sub {
     white-space: nowrap;

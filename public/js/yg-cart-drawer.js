@@ -630,7 +630,12 @@
 
             let closeTimer = null;
 
+            const isEnabled = () => document.documentElement.classList.contains('yg-mini-basket-on');
+
             const open = () => {
+                if (!isEnabled()) {
+                    return;
+                }
                 clearTimeout(closeTimer);
                 closeTimer = null;
                 root.classList.add('is-open');
@@ -664,6 +669,12 @@
                 if (e.key === 'Escape' && root.classList.contains('is-open')) {
                     close();
                     trigger.focus();
+                }
+            });
+
+            document.addEventListener('yg:mini-basket-toggle', (e) => {
+                if (!e.detail?.enabled) {
+                    close();
                 }
             });
 
