@@ -416,7 +416,11 @@
                     <input type="radio" name="home-row4-variant" value="squares" data-row4-variant-option>
                     <span>Variant 4 — Square strip</span>
                 </label>
-                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3 &amp; 4: icon strip + View all (circle / rounded square).</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-row4-variant" value="5-round" data-row4-variant-option>
+                    <span>Variant 5 — 5-up circle strip</span>
+                </label>
+                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3 &amp; 4: icon strip + View all. Variant 5: circle strip, 5 per slide.</p>
                 <p class="demo-controls__label">Carousel arrows</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-carousel-arrows" value="bottom" data-carousel-arrows-option checked>
@@ -781,11 +785,11 @@
     }
 
     function isCarouselVariant(variant) {
-        return variant === 'carousel' || variant === '4' || variant === '5' || variant === 'wide' || variant === 'circles' || variant === 'squares';
+        return variant === 'carousel' || variant === '4' || variant === '5' || variant === '5-round' || variant === 'wide' || variant === 'circles' || variant === 'squares';
     }
 
     function usesSlider(variant) {
-        return variant === '4' || variant === '5' || variant === 'carousel' || variant === 'wide' || variant === 'circles' || variant === 'squares';
+        return variant === '4' || variant === '5' || variant === '5-round' || variant === 'carousel' || variant === 'wide' || variant === 'circles' || variant === 'squares';
     }
 
     function usesDuskLook(variant) {
@@ -797,11 +801,11 @@
     }
 
     function usesIconStripLook(variant) {
-        return variant === 'circles' || variant === 'squares';
+        return variant === 'circles' || variant === 'squares' || variant === '5-round';
     }
 
     function usesCirclesLook(variant) {
-        return variant === 'circles';
+        return variant === 'circles' || variant === '5-round';
     }
 
     function usesSquaresLook(variant) {
@@ -992,7 +996,7 @@
         // Variants 3 & 4 hidden in prototype tools — fall back to Variant 1
         if (variant === 'carousel' || variant === 'wide') variant = '4';
 
-        var allowed = { '4': true, '5': true, carousel: true, wide: true, circles: true, squares: true };
+        var allowed = { '4': true, '5': true, '5-round': true, carousel: true, wide: true, circles: true, squares: true };
         if (!allowed[variant]) variant = '4';
 
         root.setAttribute('data-row4-variant', variant);

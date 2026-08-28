@@ -3163,7 +3163,7 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
     display: none;
 }
 
-/* —— Variant 5 — YouGarden circle strip —— */
+/* —— Variant 3 — YouGarden circle strip —— */
 .yg-home-row4--circles.yg-home-row4--slider {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -3236,13 +3236,31 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
     gap: 16px;
 }
 
-.yg-home-row4--circles .yg-home-tile,
-.yg-home-row4--circles.yg-home-row4--carousel .yg-home-tile,
+.yg-home-row4--circles:not([data-row4-variant="5-round"]) .yg-home-tile,
+.yg-home-row4--circles:not([data-row4-variant="5-round"]).yg-home-row4--carousel .yg-home-tile,
 .yg-home-row4[data-row4-variant="circles"] .yg-home-tile {
     /* 7 full circles only (subpixel shave so #8 never peeks) */
     flex: 0 0 calc((100cqw - 96px) / 7 - 1px);
     width: calc((100cqw - 96px) / 7 - 1px);
     max-width: calc((100cqw - 96px) / 7 - 1px);
+    min-width: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: var(--yg-pebble, #483f3a);
+    box-sizing: border-box;
+}
+
+/* Variant 5 — same circle strip as Variant 3, 5 cards per slide */
+.yg-home-row4[data-row4-variant="5-round"] .yg-home-tile {
+    flex: 0 0 calc((100cqw - 64px) / 5 - 1px);
+    width: calc((100cqw - 64px) / 5 - 1px);
+    max-width: calc((100cqw - 64px) / 5 - 1px);
     min-width: 0;
     aspect-ratio: auto;
     border-radius: 0;
