@@ -3185,7 +3185,7 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
 .yg-home-row4--circles .yg-home-row4__title {
     grid-area: title;
     width: 100%;
-    padding: 0 0 18px;
+    padding: 12px 0 18px;
     text-align: left !important;
 }
 
@@ -4202,7 +4202,7 @@ body.yg-home-variant-circles:not([data-home-headline-align='center']) .yg-home-f
     }
 
     .yg-home-row4--circles .yg-home-row4__title {
-        padding-bottom: 10px;
+        padding: 8px 0 10px;
         font-size: 1.15rem;
         line-height: 1.2;
     }
