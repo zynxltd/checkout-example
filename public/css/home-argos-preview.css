@@ -3386,7 +3386,7 @@ body[data-favourites-bg='stone'] .yg-home-favourites {
 }
 
 body[data-favourites-bg='stone'] .yg-home-favourites__headline {
-    padding-bottom: 16px;
+    padding-bottom: 5px;
 }
 
 body[data-favourites-bg='stone'] .yg-home-favourites__carousel {
@@ -3462,7 +3462,7 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--circles.yg-home-row4--sid
 .yg-home-favourites__headline {
     text-align: left;
     margin: 0;
-    padding: 0 0 16px;
+    padding: 0 0 5px;
 }
 
 /* Variant 3/4 — icon strip favourites stay left even when headlines are centered */
@@ -4262,20 +4262,16 @@ body.yg-home-variant-circles .yg-home-favourites__headline {
         top: 4px;
     }
 
+    .yg-home-favourites__name,
+    .yg-home-favourites__price {
+        display: none !important;
+    }
+
     .yg-home-favourites__nav {
         width: 30px;
         height: 30px;
-        top: calc((100% - 5.25rem) / 2);
+        top: 50%;
         display: inline-flex;
-    }
-
-    .yg-home-favourites__name {
-        font-size: 13px;
-        margin-top: 10px;
-    }
-
-    .yg-home-favourites__price-amount {
-        font-size: 13px;
     }
 
     .yg-home-row4--carousel .yg-home-row4__nav {

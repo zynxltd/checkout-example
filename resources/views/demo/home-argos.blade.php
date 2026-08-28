@@ -395,11 +395,11 @@
                 <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. Mobile stays 2×2.</p>
                 <p class="demo-controls__label">Customer favourites width</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-favourites-width" value="contained" data-favourites-width-option checked>
+                    <input type="radio" name="home-favourites-width" value="contained" data-favourites-width-option>
                     <span>Content width</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-favourites-width" value="full" data-favourites-width-option>
+                    <input type="radio" name="home-favourites-width" value="full" data-favourites-width-option checked>
                     <span>Full width</span>
                 </label>
                 <p class="demo-controls__hint">Full width matches the category strip. Choice is saved in this browser.</p>
@@ -1066,7 +1066,7 @@
         positionSideNav();
     });
 
-    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v1';
+    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v2';
     var FAV_BG_KEY = 'yg-home-favourites-bg-v1';
     var favWidthOptions = Array.prototype.slice.call(document.querySelectorAll('[data-favourites-width-option]'));
     var favBgOption = document.querySelector('[data-favourites-bg-option]');
@@ -1099,7 +1099,7 @@
 
     function setFavouritesWidth(value) {
         var allowed = { full: true, contained: true };
-        if (!allowed[value]) value = 'contained';
+        if (!allowed[value]) value = 'full';
         document.body.setAttribute('data-favourites-width', value);
         favWidthOptions.forEach(function (input) {
             input.checked = input.value === value;
@@ -1116,11 +1116,11 @@
         });
     });
 
-    var savedFavWidth = 'contained';
+    var savedFavWidth = 'full';
     try {
-        savedFavWidth = localStorage.getItem(FAV_WIDTH_KEY) || 'contained';
+        savedFavWidth = localStorage.getItem(FAV_WIDTH_KEY) || 'full';
     } catch (err) { /* ignore */ }
-    if (savedFavWidth !== 'full' && savedFavWidth !== 'contained') savedFavWidth = 'contained';
+    if (savedFavWidth !== 'full' && savedFavWidth !== 'contained') savedFavWidth = 'full';
     setFavouritesWidth(savedFavWidth);
 
     var row4VisibleInput = document.querySelector('[data-row4-visible-input]');
