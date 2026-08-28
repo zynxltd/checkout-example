@@ -420,7 +420,7 @@ data-favourites-width="contained" data-home-headline-align="center"
                 <p class="demo-controls__label">Customer favourites — desktop cards</p>
                 <label class="demo-controls__field">
                     <span>Products visible</span>
-                    <input type="number" min="4" max="10" step="1" value="5" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
+                    <input type="number" min="4" max="10" step="1" value="6" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
                 </label>
                 <p class="demo-controls__hint">Min products shown before carousel scrolls. Mobile stays 2-up. Saved in this browser.</p>
                 <label class="demo-toggle">
@@ -751,7 +751,7 @@ data-favourites-width="contained" data-home-headline-align="center"
     var ROW4_VARIANT = 'squares-8';
     var ROW4_VISIBLE_KEY = 'yg-home-row4-visible-v2';
     var ROW4_V8_VISIBLE_KEY = 'yg-home-row4-squares-8-visible-v1';
-    var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v3';
+    var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v4';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
 
@@ -1141,7 +1141,7 @@ data-favourites-width="contained" data-home-headline-align="center"
     var favVisibleInput = document.querySelector('[data-favourites-visible-input]');
     var favCarousel = document.querySelector('[data-favourites-carousel]');
     var row4VisibleCount = 7;
-    var favVisibleCount = 5;
+    var favVisibleCount = 6;
 
     function isDesktopCarousel() {
         return !window.matchMedia || !window.matchMedia('(max-width: 960px)').matches;
@@ -1227,7 +1227,7 @@ data-favourites-width="contained" data-home-headline-align="center"
     });
 
     bindVisibleInput(favVisibleInput, setFavouritesVisible, function (value) {
-        setFavouritesVisible(clampCount(value, 5, 4, 10));
+        setFavouritesVisible(clampCount(value, 6, 4, 10));
     });
 
     var savedRow4Visible = '7';
@@ -1236,11 +1236,11 @@ data-favourites-width="contained" data-home-headline-align="center"
     } catch (err) { /* ignore */ }
     setRow4Visible(clampCount(savedRow4Visible, 7, 4, 10));
 
-    var savedFavVisible = '5';
+    var savedFavVisible = '6';
     try {
-        savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '5';
+        savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '6';
     } catch (err) { /* ignore */ }
-    setFavouritesVisible(clampCount(savedFavVisible, 5, 4, 10));
+    setFavouritesVisible(clampCount(savedFavVisible, 6, 4, 10));
 
     var origSetFavouritesWidth = setFavouritesWidth;
     setFavouritesWidth = function (value) {

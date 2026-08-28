@@ -8,7 +8,7 @@ body.yg-header-argos {
     color: var(--yg-pebble);
     --yg-argos-content-width: 1440px;
     --yg-argos-content-pad: 24px;
-    --yg-fav-visible: 5;
+    --yg-fav-visible: 6;
     --yg-row4-squares-8-visible: 7;
     --yg-fav-gap: 14px;
     --yg-row4-gap: 10px;
@@ -3510,7 +3510,7 @@ body.yg-home-variant-circles:not([data-home-headline-align='center']) .yg-home-f
     width: 100%;
     container-type: inline-size;
     container-name: fav-cards;
-    --yg-fav-visible: 5;
+    --yg-fav-visible: 6;
     padding: 14px 0 0 0;
     margin: 0;
     clip-path: inset(0);
@@ -4112,6 +4112,37 @@ body.yg-home-variant-circles:not([data-home-headline-align='center']) .yg-home-f
         border-radius: 0 !important;
         aspect-ratio: auto !important;
         gap: 8px;
+    }
+
+    /* Variant 7 — mobile 2×2: CTA pill on image instead of caption below */
+    .yg-home-row4[data-row4-variant="squares-8"].yg-home-row4--slider .yg-home-tile,
+    .yg-home-row4[data-row4-variant="squares-full"].yg-home-row4--slider .yg-home-tile {
+        display: block;
+        aspect-ratio: 1 / 1 !important;
+        gap: 0;
+        overflow: hidden;
+        border-radius: 18px !important;
+    }
+
+    .yg-home-row4[data-row4-variant="squares-8"].yg-home-row4--slider .yg-home-tile img,
+    .yg-home-row4[data-row4-variant="squares-full"].yg-home-row4--slider .yg-home-tile img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: auto;
+        border-radius: 18px;
+        box-shadow: none;
+    }
+
+    .yg-home-row4[data-row4-variant="squares-8"].yg-home-row4--slider .yg-home-tile__caption,
+    .yg-home-row4[data-row4-variant="squares-full"].yg-home-row4--slider .yg-home-tile__caption {
+        display: none !important;
+    }
+
+    .yg-home-row4[data-row4-variant="squares-8"].yg-home-row4--slider .yg-home-tile__cta,
+    .yg-home-row4[data-row4-variant="squares-full"].yg-home-row4--slider .yg-home-tile__cta {
+        display: inline-flex !important;
     }
 
     .yg-home-row4--circles .yg-home-row4__title {
