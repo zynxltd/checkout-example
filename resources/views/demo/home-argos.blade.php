@@ -5,7 +5,7 @@
 @section('body_class', 'demo-home-argos')
 
 @section('body_attrs')
-data-favourites-width="contained" data-home-headline-align="center"
+data-favourites-width="full" data-home-headline-align="center"
 @endsection
 
 @push('head')
@@ -394,7 +394,7 @@ data-favourites-width="contained" data-home-headline-align="center"
                 <p class="demo-controls__label">Desktop cards visible</p>
                 <label class="demo-controls__field">
                     <span>Category cards</span>
-                    <input type="number" min="4" max="10" step="1" value="7" data-row4-visible-input aria-label="Desktop category cards visible">
+                    <input type="number" min="4" max="10" step="1" value="8" data-row4-visible-input aria-label="Desktop category cards visible">
                 </label>
                 <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. Mobile stays 2×2.</p>
                 <p class="demo-controls__label">Section headlines</p>
@@ -409,18 +409,18 @@ data-favourites-width="contained" data-home-headline-align="center"
                 <p class="demo-controls__hint">Applies to Shop by category and Customer favourites headlines. Saved in this browser.</p>
                 <p class="demo-controls__label">Customer favourites width</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-favourites-width" value="contained" data-favourites-width-option checked>
+                    <input type="radio" name="home-favourites-width" value="contained" data-favourites-width-option>
                     <span>Content width</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-favourites-width" value="full" data-favourites-width-option>
+                    <input type="radio" name="home-favourites-width" value="full" data-favourites-width-option checked>
                     <span>Full width</span>
                 </label>
                 <p class="demo-controls__hint">Full width matches the category strip. Choice is saved in this browser.</p>
                 <p class="demo-controls__label">Customer favourites — desktop cards</p>
                 <label class="demo-controls__field">
                     <span>Products visible</span>
-                    <input type="number" min="4" max="10" step="1" value="6" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
+                    <input type="number" min="4" max="10" step="1" value="8" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
                 </label>
                 <p class="demo-controls__hint">Min products shown before carousel scrolls. Mobile stays 2-up. Saved in this browser.</p>
                 <label class="demo-toggle">
@@ -749,9 +749,9 @@ data-favourites-width="contained" data-home-headline-align="center"
 
 (function () {
     var ROW4_VARIANT = 'squares-8';
-    var ROW4_VISIBLE_KEY = 'yg-home-row4-visible-v2';
+    var ROW4_VISIBLE_KEY = 'yg-home-row4-visible-v3';
     var ROW4_V8_VISIBLE_KEY = 'yg-home-row4-squares-8-visible-v1';
-    var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v4';
+    var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v5';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
 
@@ -1080,7 +1080,7 @@ data-favourites-width="contained" data-home-headline-align="center"
         positionSideNav();
     });
 
-    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v3';
+    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v4';
     var FAV_BG_KEY = 'yg-home-favourites-bg-v1';
     var favWidthOptions = Array.prototype.slice.call(document.querySelectorAll('[data-favourites-width-option]'));
     var favBgOption = document.querySelector('[data-favourites-bg-option]');
@@ -1113,7 +1113,7 @@ data-favourites-width="contained" data-home-headline-align="center"
 
     function setFavouritesWidth(value) {
         var allowed = { full: true, contained: true };
-        if (!allowed[value]) value = 'contained';
+        if (!allowed[value]) value = 'full';
         document.body.setAttribute('data-favourites-width', value);
         favWidthOptions.forEach(function (input) {
             input.checked = input.value === value;
@@ -1130,18 +1130,18 @@ data-favourites-width="contained" data-home-headline-align="center"
         });
     });
 
-    var savedFavWidth = 'contained';
+    var savedFavWidth = 'full';
     try {
-        savedFavWidth = localStorage.getItem(FAV_WIDTH_KEY) || 'contained';
+        savedFavWidth = localStorage.getItem(FAV_WIDTH_KEY) || 'full';
     } catch (err) { /* ignore */ }
-    if (savedFavWidth !== 'full' && savedFavWidth !== 'contained') savedFavWidth = 'contained';
+    if (savedFavWidth !== 'full' && savedFavWidth !== 'contained') savedFavWidth = 'full';
     setFavouritesWidth(savedFavWidth);
 
     var row4VisibleInput = document.querySelector('[data-row4-visible-input]');
     var favVisibleInput = document.querySelector('[data-favourites-visible-input]');
     var favCarousel = document.querySelector('[data-favourites-carousel]');
-    var row4VisibleCount = 7;
-    var favVisibleCount = 6;
+    var row4VisibleCount = 8;
+    var favVisibleCount = 8;
 
     function isDesktopCarousel() {
         return !window.matchMedia || !window.matchMedia('(max-width: 960px)').matches;
@@ -1223,24 +1223,24 @@ data-favourites-width="contained" data-home-headline-align="center"
     }
 
     bindVisibleInput(row4VisibleInput, setRow4Visible, function (value) {
-        setRow4Visible(clampCount(value, 7, 4, 10));
+        setRow4Visible(clampCount(value, 8, 4, 10));
     });
 
     bindVisibleInput(favVisibleInput, setFavouritesVisible, function (value) {
-        setFavouritesVisible(clampCount(value, 6, 4, 10));
+        setFavouritesVisible(clampCount(value, 8, 4, 10));
     });
 
-    var savedRow4Visible = '7';
+    var savedRow4Visible = '8';
     try {
-        savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || '7';
+        savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || '8';
     } catch (err) { /* ignore */ }
-    setRow4Visible(clampCount(savedRow4Visible, 7, 4, 10));
+    setRow4Visible(clampCount(savedRow4Visible, 8, 4, 10));
 
-    var savedFavVisible = '6';
+    var savedFavVisible = '8';
     try {
-        savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '6';
+        savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '8';
     } catch (err) { /* ignore */ }
-    setFavouritesVisible(clampCount(savedFavVisible, 6, 4, 10));
+    setFavouritesVisible(clampCount(savedFavVisible, 8, 4, 10));
 
     var origSetFavouritesWidth = setFavouritesWidth;
     setFavouritesWidth = function (value) {
