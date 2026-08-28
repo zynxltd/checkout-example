@@ -4,6 +4,10 @@
 
 @section('body_class', 'demo-home-argos')
 
+@section('body_attrs')
+data-favourites-width="full" data-home-headline-align="center"
+@endsection
+
 @push('head')
     <link rel="stylesheet" href="{{ asset('css/yg-drawer-theme.css') }}?v={{ filemtime(public_path('css/yg-drawer-theme.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/demo-pdp-reviews-footer.css') }}?v={{ filemtime(public_path('css/demo-pdp-reviews-footer.css')) }}">
@@ -393,6 +397,16 @@
                     <input type="number" min="4" max="10" step="1" value="7" data-row4-visible-input aria-label="Desktop category cards visible">
                 </label>
                 <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. Mobile stays 2×2.</p>
+                <p class="demo-controls__label">Section headlines</p>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
+                    <span>Left</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="radio" name="home-headline-align" value="center" data-headline-align-option checked>
+                    <span>Centered</span>
+                </label>
+                <p class="demo-controls__hint">Applies to Shop by category and Customer favourites headlines. Saved in this browser.</p>
                 <p class="demo-controls__label">Customer favourites width</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-favourites-width" value="contained" data-favourites-width-option>
@@ -406,7 +420,7 @@
                 <p class="demo-controls__label">Customer favourites — desktop cards</p>
                 <label class="demo-controls__field">
                     <span>Products visible</span>
-                    <input type="number" min="4" max="10" step="1" value="7" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
+                    <input type="number" min="4" max="10" step="1" value="5" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
                 </label>
                 <p class="demo-controls__hint">Min products shown before carousel scrolls. Mobile stays 2-up. Saved in this browser.</p>
                 <label class="demo-toggle">
@@ -737,7 +751,7 @@
     var ROW4_VARIANT = 'squares-8';
     var ROW4_VISIBLE_KEY = 'yg-home-row4-visible-v2';
     var ROW4_V8_VISIBLE_KEY = 'yg-home-row4-squares-8-visible-v1';
-    var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v2';
+    var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v3';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
 
@@ -1127,14 +1141,10 @@
     var favVisibleInput = document.querySelector('[data-favourites-visible-input]');
     var favCarousel = document.querySelector('[data-favourites-carousel]');
     var row4VisibleCount = 7;
-    var favVisibleCount = 7;
+    var favVisibleCount = 5;
 
     function isDesktopCarousel() {
         return !window.matchMedia || !window.matchMedia('(max-width: 960px)').matches;
-    }
-
-    function cardWidthExpr(count, gap) {
-        return 'calc((100cqw - ' + ((count - 1) * gap) + 'px) / ' + count + ' - 1px)';
     }
 
     function parseVisibleInput(value, min, max) {
@@ -1153,11 +1163,10 @@
         row4VisibleCount = count;
         document.documentElement.style.setProperty('--yg-row4-squares-8-visible', String(count));
         if (viewport) viewport.style.setProperty('--yg-row4-squares-8-visible', String(count));
-        var width = isDesktopCarousel() ? cardWidthExpr(count, 10) : '';
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
-            tile.style.flexBasis = width;
-            tile.style.width = width;
-            tile.style.maxWidth = width;
+            tile.style.flexBasis = '';
+            tile.style.width = '';
+            tile.style.maxWidth = '';
         });
         offset = Math.min(offset, maxOffset());
         applyOffset(false);
@@ -1174,11 +1183,10 @@
         var favViewport = favCarousel && favCarousel.querySelector('[data-fav-viewport]');
         if (favViewport) favViewport.style.setProperty('--yg-fav-visible', String(count));
         if (!favCarousel) return;
-        var width = isDesktopCarousel() ? cardWidthExpr(count, favouritesGap()) : '';
         favCarousel.querySelectorAll('.yg-home-favourites__card').forEach(function (card) {
-            card.style.flexBasis = width;
-            card.style.width = width;
-            card.style.maxWidth = width;
+            card.style.flexBasis = '';
+            card.style.width = '';
+            card.style.maxWidth = '';
         });
     }
 
@@ -1219,7 +1227,7 @@
     });
 
     bindVisibleInput(favVisibleInput, setFavouritesVisible, function (value) {
-        setFavouritesVisible(clampCount(value, 7, 4, 10));
+        setFavouritesVisible(clampCount(value, 5, 4, 10));
     });
 
     var savedRow4Visible = '7';
@@ -1228,11 +1236,11 @@
     } catch (err) { /* ignore */ }
     setRow4Visible(clampCount(savedRow4Visible, 7, 4, 10));
 
-    var savedFavVisible = '7';
+    var savedFavVisible = '5';
     try {
-        savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '7';
+        savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '5';
     } catch (err) { /* ignore */ }
-    setFavouritesVisible(clampCount(savedFavVisible, 7, 4, 10));
+    setFavouritesVisible(clampCount(savedFavVisible, 5, 4, 10));
 
     var origSetFavouritesWidth = setFavouritesWidth;
     setFavouritesWidth = function (value) {
@@ -1249,11 +1257,32 @@
 })();
 
 (function () {
-    // Section headlines toggle hidden from tools — keep centered default.
-    document.body.setAttribute('data-home-headline-align', 'center');
+    var HEADLINE_ALIGN_KEY = 'yg-home-headline-align-v5';
+    var headlineAlignOptions = Array.prototype.slice.call(document.querySelectorAll('[data-headline-align-option]'));
+
+    function setHeadlineAlign(value) {
+        if (value !== 'left' && value !== 'center') value = 'center';
+        document.body.setAttribute('data-home-headline-align', value);
+        headlineAlignOptions.forEach(function (input) {
+            input.checked = input.value === value;
+        });
+        try {
+            localStorage.setItem(HEADLINE_ALIGN_KEY, value);
+        } catch (err) { /* ignore */ }
+    }
+
+    headlineAlignOptions.forEach(function (input) {
+        input.addEventListener('change', function () {
+            if (input.checked) setHeadlineAlign(input.value);
+        });
+    });
+
+    var savedHeadlineAlign = 'center';
     try {
-        localStorage.setItem('yg-home-headline-align-v4', 'center');
+        savedHeadlineAlign = localStorage.getItem(HEADLINE_ALIGN_KEY) || 'center';
     } catch (err) { /* ignore */ }
+    if (savedHeadlineAlign !== 'left' && savedHeadlineAlign !== 'center') savedHeadlineAlign = 'center';
+    setHeadlineAlign(savedHeadlineAlign);
 })();
 
 (function () {
