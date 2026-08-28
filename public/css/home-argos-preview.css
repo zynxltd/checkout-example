@@ -3166,12 +3166,11 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
 /* —— Variant 3 — YouGarden circle strip —— */
 .yg-home-row4--circles.yg-home-row4--slider {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr;
     grid-template-areas:
-        "title all"
-        "vp vp"
-        "pager pager";
-    column-gap: 16px;
+        "title"
+        "vp"
+        "pager";
     row-gap: 0;
     align-items: end;
     padding: 8px 0 16px;
@@ -3180,41 +3179,9 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
 
 .yg-home-row4--circles .yg-home-row4__title {
     grid-area: title;
-    width: auto;
+    width: 100%;
     padding: 0 0 18px;
     text-align: left !important;
-}
-
-.yg-home-row4--circles .yg-home-row4__dusk-bar {
-    grid-area: all;
-    display: flex !important;
-    margin: 0;
-    padding: 0 0 18px;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.yg-home-row4--circles .yg-home-row4__dusk-all {
-    display: inline-flex !important;
-    align-items: center;
-    gap: 6px;
-    color: var(--yg-forest, #264f1c);
-    font-family: var(--yg-heading);
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 1.2;
-    text-decoration: none;
-    letter-spacing: 0.01em;
-}
-
-.yg-home-row4--circles .yg-home-row4__dusk-all:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-.yg-home-row4--circles .yg-home-row4__dusk-all-arrow {
-    font-size: 1.05em;
-    line-height: 1;
 }
 
 .yg-home-row4--circles .yg-home-row4__viewport {
@@ -3239,10 +3206,10 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
 .yg-home-row4--circles:not([data-row4-variant="5-round"]) .yg-home-tile,
 .yg-home-row4--circles:not([data-row4-variant="5-round"]).yg-home-row4--carousel .yg-home-tile,
 .yg-home-row4[data-row4-variant="circles"] .yg-home-tile {
-    /* 7 full circles only (subpixel shave so #8 never peeks) */
-    flex: 0 0 calc((100cqw - 96px) / 7 - 1px);
-    width: calc((100cqw - 96px) / 7 - 1px);
-    max-width: calc((100cqw - 96px) / 7 - 1px);
+    /* 6 full circles only (subpixel shave so #7 never peeks) */
+    flex: 0 0 calc((100cqw - 80px) / 6 - 1px);
+    width: calc((100cqw - 80px) / 6 - 1px);
+    max-width: calc((100cqw - 80px) / 6 - 1px);
     min-width: 0;
     aspect-ratio: auto;
     border-radius: 0;
@@ -4009,15 +3976,6 @@ body.yg-home-variant-circles .yg-home-favourites__headline {
         padding-bottom: 10px;
         font-size: 1.15rem;
         line-height: 1.2;
-    }
-
-    .yg-home-row4--circles .yg-home-row4__dusk-bar {
-        padding-bottom: 10px;
-    }
-
-    .yg-home-row4--circles .yg-home-row4__dusk-all {
-        font-size: 0.82rem;
-        white-space: nowrap;
     }
 
     .yg-home-row4--circles .yg-home-tile__caption {

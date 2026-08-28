@@ -159,18 +159,6 @@
                 <button type="button" class="yg-home-row4__nav yg-home-row4__nav--next" data-row4-next aria-label="Next categories" hidden>
                     <span class="yg-home-row4__nav-arrow" aria-hidden="true"></span>
                 </button>
-                <div class="yg-home-row4__dusk-bar" data-row4-dusk-bar hidden>
-                    <a
-                        class="yg-home-row4__dusk-all"
-                        href="https://www.yougarden.com/garden-plants"
-                        target="_blank"
-                        rel="noopener"
-                        hidden
-                    >
-                        <span class="yg-home-row4__dusk-all-label">All categories</span>
-                        <span class="yg-home-row4__dusk-all-arrow" aria-hidden="true">→</span>
-                    </a>
-                </div>
                 <div class="yg-pager" data-row4-slider-wrap>
                     <button type="button" class="yg-pager__btn" data-row4-pager-prev aria-label="Previous categories">
                         <span class="yg-pager__chev yg-pager__chev--prev" aria-hidden="true"></span>
@@ -420,7 +408,7 @@
                     <input type="radio" name="home-row4-variant" value="5-round" data-row4-variant-option>
                     <span>Variant 5 — 5-up circle strip</span>
                 </label>
-                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3 &amp; 4: icon strip + View all. Variant 5: circle strip, 5 per slide.</p>
+                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3–5: circle/square icon strip with carousel.</p>
                 <p class="demo-controls__label">Carousel arrows</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-carousel-arrows" value="bottom" data-carousel-arrows-option checked>
@@ -772,9 +760,6 @@
     var pagerNext = root.querySelector('[data-row4-pager-next]');
     var pagerDots = root.querySelector('[data-row4-pager-dots]');
     var duskTitle = root.querySelector('[data-row4-dusk-title]');
-    var duskBar = root.querySelector('[data-row4-dusk-bar]');
-    var duskAll = root.querySelector('.yg-home-row4__dusk-all');
-    var duskAllLabel = root.querySelector('.yg-home-row4__dusk-all-label');
     var duskPrev = root.querySelector('[data-row4-dusk-prev]');
     var duskNext = root.querySelector('[data-row4-dusk-next]');
     var options = Array.prototype.slice.call(document.querySelectorAll('[data-row4-variant-option]'));
@@ -961,9 +946,6 @@
         if (nextBtn) nextBtn.hidden = !isCarousel || ((showSlider || showDusk) && !showSides);
         if (sliderWrap) sliderWrap.hidden = !showSlider || hidePager;
         if (duskTitle) duskTitle.hidden = !isCarousel;
-        if (duskBar) duskBar.hidden = !(showDusk || isIconStrip);
-        if (duskAll) duskAll.hidden = !(showDusk || isIconStrip);
-        if (duskAllLabel) duskAllLabel.textContent = isIconStrip ? 'View all' : 'All categories';
         if (duskPrev) duskPrev.hidden = !showDuskArrows;
         if (duskNext) duskNext.hidden = !showDuskArrows;
         root.classList.toggle('yg-home-row4--dusk-arrows', showDuskArrows);
