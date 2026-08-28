@@ -370,7 +370,7 @@ class DemoController extends Controller
                     [
                         'name' => "Agapanthus 'Navy Blue'",
                         'url' => 'https://www.yougarden.com/item-p-560082/agapanthus-navy-blue',
-                        'image' => 'images/home-preview/live/78-1.jpg',
+                        'image' => 'images/home-preview/cats/bulbs.jpg',
                         'price' => '£9.99',
                         'saving' => 33,
                     ],

@@ -436,6 +436,11 @@ data-favourites-width="full" data-favourites-bg="stone" data-home-headline-align
                     <span>Stone background on carousel strip</span>
                 </label>
                 <p class="demo-controls__hint">YG stone (#F2E7D8) full-width band behind headline and products. Choice is saved in this browser.</p>
+                <label class="demo-toggle">
+                    <input type="checkbox" data-favourites-waves-option>
+                    <span>Wavy top &amp; bottom edges (desktop)</span>
+                </label>
+                <p class="demo-controls__hint">Organic wave divider on the stone band — desktop only (961px+). Saved in this browser.</p>
             </aside>
         </div>
     </div>
@@ -1090,10 +1095,24 @@ data-favourites-width="full" data-favourites-bg="stone" data-home-headline-align
 
     var FAV_WIDTH_KEY = 'yg-home-favourites-width-v5';
     var FAV_BG_KEY = 'yg-home-favourites-bg-v2';
+    var FAV_WAVES_KEY = 'yg-home-favourites-waves-v1';
     var favWidthOptions = Array.prototype.slice.call(document.querySelectorAll('[data-favourites-width-option]'));
     var favBgOption = document.querySelector('[data-favourites-bg-option]');
+    var favWavesOption = document.querySelector('[data-favourites-waves-option]');
 
     document.body.setAttribute('data-carousel-arrows', 'bottom');
+
+    function setFavouritesWaves(enabled) {
+        if (enabled) {
+            document.body.setAttribute('data-favourites-waves', 'on');
+        } else {
+            document.body.removeAttribute('data-favourites-waves');
+        }
+        if (favWavesOption) favWavesOption.checked = !!enabled;
+        try {
+            localStorage.setItem(FAV_WAVES_KEY, enabled ? 'on' : '');
+        } catch (err) { /* ignore */ }
+    }
 
     function setFavouritesBg(enabled) {
         if (enabled) {
@@ -1107,11 +1126,23 @@ data-favourites-width="full" data-favourites-bg="stone" data-home-headline-align
         } catch (err) { /* ignore */ }
     }
 
+    if (favWavesOption) {
+        favWavesOption.addEventListener('change', function () {
+            setFavouritesWaves(favWavesOption.checked);
+        });
+    }
+
     if (favBgOption) {
         favBgOption.addEventListener('change', function () {
             setFavouritesBg(favBgOption.checked);
         });
     }
+
+    var savedFavWaves = '';
+    try {
+        savedFavWaves = localStorage.getItem(FAV_WAVES_KEY) || '';
+    } catch (err) { /* ignore */ }
+    setFavouritesWaves(savedFavWaves === 'on');
 
     var savedFavBg = 'stone';
     try {
