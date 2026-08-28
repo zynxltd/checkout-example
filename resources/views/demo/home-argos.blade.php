@@ -5,7 +5,7 @@
 @section('body_class', 'demo-home-argos')
 
 @section('body_attrs')
-data-favourites-width="full" data-home-headline-align="center"
+data-favourites-width="contained" data-home-headline-align="center"
 @endsection
 
 @push('head')
@@ -409,11 +409,11 @@ data-favourites-width="full" data-home-headline-align="center"
                 <p class="demo-controls__hint">Applies to Shop by category and Customer favourites headlines. Saved in this browser.</p>
                 <p class="demo-controls__label">Customer favourites width</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-favourites-width" value="contained" data-favourites-width-option>
+                    <input type="radio" name="home-favourites-width" value="contained" data-favourites-width-option checked>
                     <span>Content width</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-favourites-width" value="full" data-favourites-width-option checked>
+                    <input type="radio" name="home-favourites-width" value="full" data-favourites-width-option>
                     <span>Full width</span>
                 </label>
                 <p class="demo-controls__hint">Full width matches the category strip. Choice is saved in this browser.</p>
@@ -1080,7 +1080,7 @@ data-favourites-width="full" data-home-headline-align="center"
         positionSideNav();
     });
 
-    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v2';
+    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v3';
     var FAV_BG_KEY = 'yg-home-favourites-bg-v1';
     var favWidthOptions = Array.prototype.slice.call(document.querySelectorAll('[data-favourites-width-option]'));
     var favBgOption = document.querySelector('[data-favourites-bg-option]');
@@ -1113,7 +1113,7 @@ data-favourites-width="full" data-home-headline-align="center"
 
     function setFavouritesWidth(value) {
         var allowed = { full: true, contained: true };
-        if (!allowed[value]) value = 'full';
+        if (!allowed[value]) value = 'contained';
         document.body.setAttribute('data-favourites-width', value);
         favWidthOptions.forEach(function (input) {
             input.checked = input.value === value;
@@ -1130,11 +1130,11 @@ data-favourites-width="full" data-home-headline-align="center"
         });
     });
 
-    var savedFavWidth = 'full';
+    var savedFavWidth = 'contained';
     try {
-        savedFavWidth = localStorage.getItem(FAV_WIDTH_KEY) || 'full';
+        savedFavWidth = localStorage.getItem(FAV_WIDTH_KEY) || 'contained';
     } catch (err) { /* ignore */ }
-    if (savedFavWidth !== 'full' && savedFavWidth !== 'contained') savedFavWidth = 'full';
+    if (savedFavWidth !== 'full' && savedFavWidth !== 'contained') savedFavWidth = 'contained';
     setFavouritesWidth(savedFavWidth);
 
     var row4VisibleInput = document.querySelector('[data-row4-visible-input]');
