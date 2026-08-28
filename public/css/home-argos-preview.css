@@ -9,7 +9,7 @@ body.yg-header-argos {
     --yg-argos-content-width: 1440px;
     --yg-argos-content-pad: 24px;
     --yg-fav-visible: 6;
-    --yg-row4-squares-8-visible: 8;
+    --yg-row4-squares-8-visible: 6;
     --yg-fav-gap: 14px;
     --yg-row4-gap: 10px;
 }
@@ -2896,7 +2896,7 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
     width: 100%;
     container-type: inline-size;
     container-name: row4-cats;
-    --yg-row4-squares-8-visible: 8;
+    --yg-row4-squares-8-visible: 6;
 }
 
 .yg-home-row4--carousel .yg-home-row4__track {
@@ -3537,17 +3537,17 @@ body.yg-home-variant-circles:not([data-home-headline-align='center']) .yg-home-f
 .yg-home-favourites__image {
     position: relative;
     display: block;
+    width: 100%;
     border-radius: 0;
     overflow: visible;
-    background: transparent;
+    background: var(--yg-stone, #f2e7d8);
     aspect-ratio: 1 / 1;
 }
 
 .yg-home-favourites__image > a {
+    position: absolute;
+    inset: 0;
     display: block;
-    position: relative;
-    width: 100%;
-    height: 100%;
     text-decoration: none;
     color: inherit;
     overflow: visible;

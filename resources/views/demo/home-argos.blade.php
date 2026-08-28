@@ -5,7 +5,7 @@
 @section('body_class', 'demo-home-argos')
 
 @section('body_attrs')
-data-favourites-width="full" data-home-headline-align="center"
+data-favourites-width="full" data-favourites-bg="stone" data-home-headline-align="center"
 @endsection
 
 @push('head')
@@ -201,7 +201,15 @@ data-favourites-width="full" data-home-headline-align="center"
                                                         <span class="yg-home-favourites__saving-off">OFF</span>
                                                     </span>
                                                 @endif
-                                                <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" width="500" height="500" loading="lazy">
+                                                <img
+                                                    src="{{ str_starts_with($product['image'], 'http') ? $product['image'] : asset($product['image']) }}"
+                                                    alt="{{ $product['name'] }}"
+                                                    width="500"
+                                                    height="500"
+                                                    loading="eager"
+                                                    decoding="async"
+                                                    data-fav-product-image
+                                                >
                                             </a>
                                         </div>
                                         <h3 class="yg-home-favourites__name">
@@ -394,7 +402,7 @@ data-favourites-width="full" data-home-headline-align="center"
                 <p class="demo-controls__label">Desktop cards visible</p>
                 <label class="demo-controls__field">
                     <span>Category cards</span>
-                    <input type="number" min="4" max="10" step="1" value="8" data-row4-visible-input aria-label="Desktop category cards visible">
+                    <input type="number" min="4" max="10" step="1" value="6" data-row4-visible-input aria-label="Desktop category cards visible">
                 </label>
                 <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. Mobile stays 2×2.</p>
                 <p class="demo-controls__label">Section headlines</p>
@@ -424,7 +432,7 @@ data-favourites-width="full" data-home-headline-align="center"
                 </label>
                 <p class="demo-controls__hint">Min products shown before carousel scrolls. Mobile stays 2-up. Saved in this browser.</p>
                 <label class="demo-toggle">
-                    <input type="checkbox" data-favourites-bg-option>
+                    <input type="checkbox" data-favourites-bg-option checked>
                     <span>Stone background on carousel strip</span>
                 </label>
                 <p class="demo-controls__hint">YG stone (#F2E7D8) full-width band behind headline and products. Choice is saved in this browser.</p>
@@ -749,7 +757,7 @@ data-favourites-width="full" data-home-headline-align="center"
 
 (function () {
     var ROW4_VARIANT = 'squares-8';
-    var ROW4_VISIBLE_KEY = 'yg-home-row4-visible-v3';
+    var ROW4_VISIBLE_KEY = 'yg-home-row4-visible-v4';
     var ROW4_V8_VISIBLE_KEY = 'yg-home-row4-squares-8-visible-v1';
     var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v6';
     var root = document.querySelector('[data-row4-cats]');
@@ -1080,8 +1088,8 @@ data-favourites-width="full" data-home-headline-align="center"
         positionSideNav();
     });
 
-    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v4';
-    var FAV_BG_KEY = 'yg-home-favourites-bg-v1';
+    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v5';
+    var FAV_BG_KEY = 'yg-home-favourites-bg-v2';
     var favWidthOptions = Array.prototype.slice.call(document.querySelectorAll('[data-favourites-width-option]'));
     var favBgOption = document.querySelector('[data-favourites-bg-option]');
 
@@ -1105,9 +1113,9 @@ data-favourites-width="full" data-home-headline-align="center"
         });
     }
 
-    var savedFavBg = '';
+    var savedFavBg = 'stone';
     try {
-        savedFavBg = localStorage.getItem(FAV_BG_KEY) || '';
+        savedFavBg = localStorage.getItem(FAV_BG_KEY) || 'stone';
     } catch (err) { /* ignore */ }
     setFavouritesBg(savedFavBg === 'stone');
 
@@ -1140,7 +1148,7 @@ data-favourites-width="full" data-home-headline-align="center"
     var row4VisibleInput = document.querySelector('[data-row4-visible-input]');
     var favVisibleInput = document.querySelector('[data-favourites-visible-input]');
     var favCarousel = document.querySelector('[data-favourites-carousel]');
-    var row4VisibleCount = 8;
+    var row4VisibleCount = 6;
     var favVisibleCount = 6;
 
     function isDesktopCarousel() {
@@ -1177,6 +1185,17 @@ data-favourites-width="full" data-home-headline-align="center"
         return document.body.getAttribute('data-favourites-width') === 'full' ? 10 : 14;
     }
 
+    function ensureFavouritesImagesLoaded() {
+        if (!favCarousel) return;
+        favCarousel.querySelectorAll('[data-fav-product-image]').forEach(function (img) {
+            img.loading = 'eager';
+            var src = img.currentSrc || img.getAttribute('src');
+            if (!src) return;
+            if (img.complete && img.naturalWidth > 0) return;
+            img.src = src;
+        });
+    }
+
     function applyFavouritesCardWidths(count) {
         favVisibleCount = count;
         document.documentElement.style.setProperty('--yg-fav-visible', String(count));
@@ -1187,6 +1206,9 @@ data-favourites-width="full" data-home-headline-align="center"
             card.style.flexBasis = '';
             card.style.width = '';
             card.style.maxWidth = '';
+        });
+        window.requestAnimationFrame(function () {
+            ensureFavouritesImagesLoaded();
         });
     }
 
@@ -1223,18 +1245,18 @@ data-favourites-width="full" data-home-headline-align="center"
     }
 
     bindVisibleInput(row4VisibleInput, setRow4Visible, function (value) {
-        setRow4Visible(clampCount(value, 8, 4, 10));
+        setRow4Visible(clampCount(value, 6, 4, 10));
     });
 
     bindVisibleInput(favVisibleInput, setFavouritesVisible, function (value) {
         setFavouritesVisible(clampCount(value, 6, 4, 10));
     });
 
-    var savedRow4Visible = '8';
+    var savedRow4Visible = '6';
     try {
-        savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || '8';
+        savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || '6';
     } catch (err) { /* ignore */ }
-    setRow4Visible(clampCount(savedRow4Visible, 8, 4, 10));
+    setRow4Visible(clampCount(savedRow4Visible, 6, 4, 10));
 
     var savedFavVisible = '6';
     try {
@@ -1309,6 +1331,16 @@ data-favourites-width="full" data-home-headline-align="center"
     var INTERVAL = 5200;
     var EASE = 'transform 0.9s cubic-bezier(0.33, 0.1, 0.25, 1)';
     var animating = false;
+
+    function ensureFavouritesImagesLoaded() {
+        root.querySelectorAll('[data-fav-product-image]').forEach(function (img) {
+            img.loading = 'eager';
+            var src = img.currentSrc || img.getAttribute('src');
+            if (!src) return;
+            if (img.complete && img.naturalWidth > 0) return;
+            img.src = src;
+        });
+    }
 
     function stepSize() {
         var card = root.querySelector('.yg-home-favourites__card');
@@ -1435,12 +1467,14 @@ data-favourites-width="full" data-home-headline-align="center"
 
     apply(false);
     startAuto();
+    ensureFavouritesImagesLoaded();
 
     window.addEventListener('resize', function () {
         snapToNearest();
         offset = Math.min(offset, maxOffset());
         apply(false);
         startAuto();
+        ensureFavouritesImagesLoaded();
     });
 })();
 </script>
