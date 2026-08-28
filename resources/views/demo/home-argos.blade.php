@@ -398,17 +398,17 @@
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="circles" data-row4-variant-option>
-                    <span>Variant 3 — Circle strip</span>
+                    <span>Variant 3 — 6 Circle strip</span>
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="squares" data-row4-variant-option>
-                    <span>Variant 4 — Square strip</span>
+                    <span>Variant 4 — 6 Square strip</span>
                 </label>
                 <label class="demo-toggle">
                     <input type="radio" name="home-row4-variant" value="5-round" data-row4-variant-option>
-                    <span>Variant 5 — 5-up circle strip</span>
+                    <span>Variant 5 — 5 circle strip</span>
                 </label>
-                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3–5: circle/square icon strip with carousel.</p>
+                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3–5: icon strip with carousel (6 / 6 / 5 per slide).</p>
                 <p class="demo-controls__label">Carousel arrows</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-carousel-arrows" value="bottom" data-carousel-arrows-option checked>

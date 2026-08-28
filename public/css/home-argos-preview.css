@@ -3252,7 +3252,7 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
     box-shadow: 0 1px 4px rgba(72, 63, 58, 0.12);
 }
 
-/* Variant 4 — same strip as Variant 3, rounded squares (tighter gap + wider band = bigger tiles at 7-up) */
+/* Variant 4 — same strip as Variant 3, rounded squares (6 per slide) */
 .yg-home-below .yg-home-row4--squares.yg-home-row4--slider {
     width: calc(100% + 2 * var(--yg-argos-content-pad) - 20px);
     max-width: none;
@@ -3268,10 +3268,10 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
 .yg-home-row4--squares .yg-home-tile,
 .yg-home-row4--squares.yg-home-row4--circles .yg-home-tile,
 .yg-home-row4[data-row4-variant="squares"] .yg-home-tile {
-    /* 7 full: 6 × 10px gaps = 60px */
-    flex: 0 0 calc((100cqw - 60px) / 7 - 1px);
-    width: calc((100cqw - 60px) / 7 - 1px);
-    max-width: calc((100cqw - 60px) / 7 - 1px);
+    /* 6 full: 5 × 10px gaps = 50px */
+    flex: 0 0 calc((100cqw - 50px) / 6 - 1px);
+    width: calc((100cqw - 50px) / 6 - 1px);
+    max-width: calc((100cqw - 50px) / 6 - 1px);
     gap: 8px;
 }
 
