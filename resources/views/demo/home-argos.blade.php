@@ -5,7 +5,7 @@
 @section('body_class', 'demo-home-argos')
 
 @section('body_attrs')
-data-favourites-width="full" data-favourites-bg="stone" data-home-headline-align="center"
+data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="on" data-home-headline-align="center"
 @endsection
 
 @push('head')
@@ -437,7 +437,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-home-headline-align
                 </label>
                 <p class="demo-controls__hint">YG stone (#F2E7D8) full-width band behind headline and products. Choice is saved in this browser.</p>
                 <label class="demo-toggle">
-                    <input type="checkbox" data-favourites-waves-option>
+                    <input type="checkbox" data-favourites-waves-option checked>
                     <span>Wavy top &amp; bottom edges (desktop)</span>
                 </label>
                 <p class="demo-controls__hint">Organic wave divider on the stone band — desktop only (961px+). Saved in this browser.</p>
@@ -1138,9 +1138,10 @@ data-favourites-width="full" data-favourites-bg="stone" data-home-headline-align
         });
     }
 
-    var savedFavWaves = '';
+    var savedFavWaves = 'on';
     try {
-        savedFavWaves = localStorage.getItem(FAV_WAVES_KEY) || '';
+        savedFavWaves = localStorage.getItem(FAV_WAVES_KEY);
+        if (savedFavWaves === null) savedFavWaves = 'on';
     } catch (err) { /* ignore */ }
     setFavouritesWaves(savedFavWaves === 'on');
 
