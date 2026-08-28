@@ -8,6 +8,8 @@ body.yg-header-argos {
     color: var(--yg-pebble);
     --yg-argos-content-width: 1440px;
     --yg-argos-content-pad: 24px;
+    --yg-fav-visible: 6;
+    --yg-row4-squares-8-visible: 8;
 }
 
 .demo-home-argos {
@@ -787,15 +789,6 @@ body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
     .yg-mini-basket__panel {
         display: none !important;
     }
-}
-
-/* Prototype tools: mini-basket dropdown off by default */
-html:not(.yg-mini-basket-on) .yg-mini-basket__panel {
-    display: none !important;
-}
-
-html:not(.yg-mini-basket-on) .yg-mini-basket.is-open {
-    z-index: 230;
 }
 
 .yg-header-argos .demo-header--argos .demo-header__utility-title,
@@ -2613,15 +2606,15 @@ body[data-home-headline-align='center'] .yg-home-favourites__headline {
 
 /* Favourites only — badge overhang gutter (category must stay flush or card 6 peeks) */
 .yg-home-below.is-wide-band .yg-home-favourites__viewport {
-    padding: 14px 14px 0 0;
-    margin: 0 -14px 0 0;
+    padding: 14px 0 0 0;
+    margin: 0;
     box-sizing: border-box;
 }
 
 .yg-home-below.is-wide-band .yg-home-favourites__card {
-    flex: 0 0 calc((100cqw - 56px) / 5);
-    width: calc((100cqw - 56px) / 5);
-    max-width: calc((100cqw - 56px) / 5);
+    flex: 0 0 calc((100cqw - calc((var(--yg-fav-visible) - 1) * 14px)) / var(--yg-fav-visible) - 1px);
+    width: calc((100cqw - calc((var(--yg-fav-visible) - 1) * 14px)) / var(--yg-fav-visible) - 1px);
+    max-width: calc((100cqw - calc((var(--yg-fav-visible) - 1) * 14px)) / var(--yg-fav-visible) - 1px);
 }
 
 .yg-home-below.is-wide-band .yg-home-favourites__image img {
@@ -2901,6 +2894,7 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
     width: 100%;
     container-type: inline-size;
     container-name: row4-cats;
+    --yg-row4-squares-8-visible: 8;
 }
 
 .yg-home-row4--carousel .yg-home-row4__track {
@@ -3203,8 +3197,8 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
     gap: 16px;
 }
 
-.yg-home-row4--circles:not([data-row4-variant="5-round"]) .yg-home-tile,
-.yg-home-row4--circles:not([data-row4-variant="5-round"]).yg-home-row4--carousel .yg-home-tile,
+.yg-home-row4--circles:not([data-row4-variant="5-round"]):not([data-row4-variant="squares-full"]):not([data-row4-variant="squares-8"]) .yg-home-tile,
+.yg-home-row4--circles:not([data-row4-variant="5-round"]):not([data-row4-variant="squares-full"]):not([data-row4-variant="squares-8"]).yg-home-row4--carousel .yg-home-tile,
 .yg-home-row4[data-row4-variant="circles"] .yg-home-tile {
     /* 6 full circles only (subpixel shave so #7 never peeks) */
     flex: 0 0 calc((100cqw - 80px) / 6 - 1px);
@@ -3265,8 +3259,8 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
     gap: 10px;
 }
 
-.yg-home-row4--squares .yg-home-tile,
-.yg-home-row4--squares.yg-home-row4--circles .yg-home-tile,
+.yg-home-row4--squares:not(.yg-home-row4--squares-full) .yg-home-tile,
+.yg-home-row4--squares:not(.yg-home-row4--squares-full).yg-home-row4--circles .yg-home-tile,
 .yg-home-row4[data-row4-variant="squares"] .yg-home-tile {
     /* 6 full: 5 × 10px gaps = 50px */
     flex: 0 0 calc((100cqw - 50px) / 6 - 1px);
@@ -3275,14 +3269,130 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
     gap: 8px;
 }
 
-.yg-home-row4--squares .yg-home-tile img,
-.yg-home-row4--squares.yg-home-row4--circles .yg-home-tile img,
+.yg-home-row4--squares:not(.yg-home-row4--squares-full) .yg-home-tile img,
+.yg-home-row4--squares:not(.yg-home-row4--squares-full).yg-home-row4--circles .yg-home-tile img,
 .yg-home-row4[data-row4-variant="squares"] .yg-home-tile img {
     border-radius: 18px;
 }
 
-.yg-home-row4--squares .yg-home-tile__caption {
+.yg-home-row4--squares:not(.yg-home-row4--squares-full) .yg-home-tile__caption {
     font-size: clamp(0.8rem, 1.05vw, 0.95rem);
+}
+
+/* Variants 6 & 7 — full-width square strip (6 / 8 per slide on desktop) */
+.yg-home-below .yg-home-row4--squares-full.yg-home-row4--slider {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: clamp(16px, 2.5vw, 40px);
+    padding-right: clamp(16px, 2.5vw, 40px);
+    box-sizing: border-box;
+}
+
+.yg-home-row4--squares-full.yg-home-row4--carousel .yg-home-row4__track {
+    gap: 10px;
+}
+
+.yg-home-row4--squares-full .yg-home-tile,
+.yg-home-row4--squares-full.yg-home-row4--circles .yg-home-tile,
+.yg-home-row4[data-row4-variant="squares-full"] .yg-home-tile,
+.yg-home-row4[data-row4-variant="squares-8"] .yg-home-tile {
+    min-width: 0;
+    aspect-ratio: auto;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--yg-pebble, #483f3a);
+    box-sizing: border-box;
+}
+
+/* Variant 6 — 6 full squares (same count as Variant 4, full viewport) */
+.yg-home-row4[data-row4-variant="squares-full"] .yg-home-tile {
+    flex: 0 0 calc((100cqw - 50px) / 6 - 1px);
+    width: calc((100cqw - 50px) / 6 - 1px);
+    max-width: calc((100cqw - 50px) / 6 - 1px);
+}
+
+/* Variant 7 — configurable desktop card count (prototype tools) */
+.yg-home-row4[data-row4-variant="squares-8"] .yg-home-tile {
+    flex: 0 0 calc((100cqw - calc((var(--yg-row4-squares-8-visible) - 1) * 10px)) / var(--yg-row4-squares-8-visible) - 1px);
+    width: calc((100cqw - calc((var(--yg-row4-squares-8-visible) - 1) * 10px)) / var(--yg-row4-squares-8-visible) - 1px);
+    max-width: calc((100cqw - calc((var(--yg-row4-squares-8-visible) - 1) * 10px)) / var(--yg-row4-squares-8-visible) - 1px);
+}
+
+.yg-home-row4--squares-full .yg-home-tile img,
+.yg-home-row4[data-row4-variant="squares-full"] .yg-home-tile img,
+.yg-home-row4[data-row4-variant="squares-8"] .yg-home-tile img {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    object-fit: cover;
+    box-shadow: 0 1px 4px rgba(72, 63, 58, 0.12);
+}
+
+.yg-home-row4--squares-full .yg-home-tile__caption {
+    font-size: clamp(0.8rem, 1.05vw, 0.95rem);
+}
+
+/* Customer favourites — full-width toggle (prototype tools) */
+body[data-favourites-width='full'] .yg-home-favourites {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: clamp(16px, 2.5vw, 40px);
+    padding-right: clamp(16px, 2.5vw, 40px);
+    box-sizing: border-box;
+}
+
+body[data-favourites-width='full'] .yg-home-favourites__carousel {
+    padding: 0;
+}
+
+body[data-favourites-width='full'] .yg-home-favourites__viewport {
+    padding-right: 0;
+    margin-right: 0;
+    overflow: hidden;
+    clip-path: inset(0);
+}
+
+body[data-favourites-width='full'] .yg-home-favourites__track {
+    gap: 10px;
+}
+
+body[data-favourites-width='full'] .yg-home-favourites__card {
+    flex: 0 0 calc((100cqw - calc((var(--yg-fav-visible) - 1) * 10px)) / var(--yg-fav-visible) - 1px);
+    width: calc((100cqw - calc((var(--yg-fav-visible) - 1) * 10px)) / var(--yg-fav-visible) - 1px);
+    max-width: calc((100cqw - calc((var(--yg-fav-visible) - 1) * 10px)) / var(--yg-fav-visible) - 1px);
+}
+
+/* Customer favourites — stone band behind headline + carousel (prototype tools) */
+body[data-favourites-bg='stone'] .yg-home-favourites {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 16px clamp(16px, 2.5vw, 40px) 20px;
+    box-sizing: border-box;
+    background: var(--yg-stone, #f2e7d8);
+}
+
+body[data-favourites-bg='stone'] .yg-home-favourites__headline {
+    padding-bottom: 16px;
+}
+
+body[data-favourites-bg='stone'] .yg-home-favourites__carousel {
+    background: transparent;
+    padding: 0;
+    margin: 0;
 }
 
 .yg-home-row4--circles .yg-home-tile:hover img {
@@ -3391,9 +3501,10 @@ body.yg-home-variant-circles .yg-home-favourites__headline {
     width: 100%;
     container-type: inline-size;
     container-name: fav-cards;
-    /* Badge hang into padding; no negative top pull so gap matches Shop by category */
-    padding: 14px 14px 0 0;
-    margin: 0 -14px 0 0;
+    --yg-fav-visible: 6;
+    padding: 14px 0 0 0;
+    margin: 0;
+    clip-path: inset(0);
 }
 
 .yg-home-favourites__track {
@@ -3404,9 +3515,9 @@ body.yg-home-variant-circles .yg-home-favourites__headline {
 }
 
 .yg-home-favourites__card {
-    flex: 0 0 calc((100cqw - 56px) / 5);
-    width: calc((100cqw - 56px) / 5);
-    max-width: calc((100cqw - 56px) / 5);
+    flex: 0 0 calc((100cqw - calc((var(--yg-fav-visible) - 1) * 14px)) / var(--yg-fav-visible) - 1px);
+    width: calc((100cqw - calc((var(--yg-fav-visible) - 1) * 14px)) / var(--yg-fav-visible) - 1px);
+    max-width: calc((100cqw - calc((var(--yg-fav-visible) - 1) * 14px)) / var(--yg-fav-visible) - 1px);
     min-width: 0;
     text-align: center;
     /* Keep hanging badge inside the card's hit box */
@@ -3938,10 +4049,29 @@ body.yg-home-variant-circles .yg-home-favourites__headline {
         align-items: center;
     }
 
-    .yg-home-below .yg-home-row4--squares.yg-home-row4--slider {
+    .yg-home-below .yg-home-row4--squares.yg-home-row4--slider,
+    .yg-home-below .yg-home-row4--squares-full.yg-home-row4--slider {
         width: 100%;
         margin-left: 0;
         margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    body[data-favourites-width='full'] .yg-home-favourites {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    body[data-favourites-bg='stone'] .yg-home-favourites {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .yg-home-row4--circles .yg-home-row4__viewport {
@@ -3962,7 +4092,10 @@ body.yg-home-variant-circles .yg-home-favourites__headline {
     .yg-home-row4--circles.yg-home-row4--slider .yg-home-tile,
     .yg-home-row4[data-row4-variant="circles"].yg-home-row4--slider .yg-home-tile,
     .yg-home-row4--squares.yg-home-row4--slider .yg-home-tile,
-    .yg-home-row4[data-row4-variant="squares"].yg-home-row4--slider .yg-home-tile {
+    .yg-home-row4[data-row4-variant="squares"].yg-home-row4--slider .yg-home-tile,
+    .yg-home-row4--squares-full.yg-home-row4--slider .yg-home-tile,
+    .yg-home-row4[data-row4-variant="squares-full"].yg-home-row4--slider .yg-home-tile,
+    .yg-home-row4[data-row4-variant="squares-8"].yg-home-row4--slider .yg-home-tile {
         flex: none !important;
         width: 100% !important;
         max-width: none !important;
@@ -4113,6 +4246,12 @@ body.yg-home-variant-circles .yg-home-favourites__headline {
 
     .yg-home-favourites__card,
     .yg-home-below.is-wide-band .yg-home-favourites__card {
+        flex: 0 0 calc((100cqw - 10px) / 2 - 0.5px);
+        width: calc((100cqw - 10px) / 2 - 0.5px);
+        max-width: calc((100cqw - 10px) / 2 - 0.5px);
+    }
+
+    body[data-favourites-width='full'] .yg-home-favourites__card {
         flex: 0 0 calc((100cqw - 10px) / 2 - 0.5px);
         width: calc((100cqw - 10px) / 2 - 0.5px);
         max-width: calc((100cqw - 10px) / 2 - 0.5px);
@@ -4313,7 +4452,10 @@ body.yg-home-variant-circles .yg-home-favourites__headline {
     .yg-home-row4--circles.yg-home-row4--slider .yg-home-tile,
     .yg-home-row4[data-row4-variant="circles"].yg-home-row4--slider .yg-home-tile,
     .yg-home-row4--squares.yg-home-row4--slider .yg-home-tile,
-    .yg-home-row4[data-row4-variant="squares"].yg-home-row4--slider .yg-home-tile {
+    .yg-home-row4[data-row4-variant="squares"].yg-home-row4--slider .yg-home-tile,
+    .yg-home-row4--squares-full.yg-home-row4--slider .yg-home-tile,
+    .yg-home-row4[data-row4-variant="squares-full"].yg-home-row4--slider .yg-home-tile,
+    .yg-home-row4[data-row4-variant="squares-8"].yg-home-row4--slider .yg-home-tile {
         flex: none !important;
         width: 100% !important;
         max-width: none !important;
@@ -4435,6 +4577,12 @@ body.yg-home-variant-circles .yg-home-favourites__headline {
 
     .yg-home-favourites__card,
     .yg-home-below.is-wide-band .yg-home-favourites__card {
+        flex: 0 0 calc((100cqw - 8px) / 2 - 0.5px);
+        width: calc((100cqw - 8px) / 2 - 0.5px);
+        max-width: calc((100cqw - 8px) / 2 - 0.5px);
+    }
+
+    body[data-favourites-width='full'] .yg-home-favourites__card {
         flex: 0 0 calc((100cqw - 8px) / 2 - 0.5px);
         width: calc((100cqw - 8px) / 2 - 0.5px);
         max-width: calc((100cqw - 8px) / 2 - 0.5px);

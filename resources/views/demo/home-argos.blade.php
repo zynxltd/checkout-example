@@ -129,10 +129,10 @@
         {{-- Below the fold — live yougarden.com homepage modules --}}
         <div class="yg-home-below">
             <section
-                class="yg-home-row4 yg-home-row4--four yg-home-row4--carousel yg-home-row4--slider"
+                class="yg-home-row4 yg-home-row4--carousel yg-home-row4--slider yg-home-row4--circles yg-home-row4--squares yg-home-row4--squares-full yg-home-row4--icon-strip"
                 aria-label="Shop popular categories"
                 data-row4-cats
-                data-row4-variant="4"
+                data-row4-variant="squares-8"
             >
                 <h2 class="yg-home-row4__title" data-row4-dusk-title>Shop by category</h2>
                 <button type="button" class="yg-home-row4__nav yg-home-row4__nav--prev" data-row4-prev aria-label="Previous categories" hidden>
@@ -386,47 +386,34 @@
         <div class="demo-prototype-stack__content">
             <aside class="demo-controls" aria-label="Homepage category card variants">
                 <h3>Category cards</h3>
-                <p class="demo-controls__hint">Toggle the popular-categories row under the hero. Choice is saved in this browser.</p>
-                <p class="demo-controls__label">Layout variant</p>
+                <p class="demo-controls__hint">Full-width square strip (Variant 7). Choice is saved in this browser.</p>
+                <p class="demo-controls__label">Desktop cards visible</p>
+                <label class="demo-controls__field">
+                    <span>Category cards</span>
+                    <input type="number" min="4" max="10" step="1" value="8" data-row4-visible-input aria-label="Desktop category cards visible">
+                </label>
+                <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. Mobile stays 2×2.</p>
+                <p class="demo-controls__label">Customer favourites width</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="4" data-row4-variant-option checked>
-                    <span>Variant 1 — 4 cards</span>
+                    <input type="radio" name="home-favourites-width" value="contained" data-favourites-width-option checked>
+                    <span>Content width</span>
                 </label>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="5" data-row4-variant-option>
-                    <span>Variant 2 — 5 cards</span>
+                    <input type="radio" name="home-favourites-width" value="full" data-favourites-width-option>
+                    <span>Full width</span>
                 </label>
+                <p class="demo-controls__hint">Full width matches the category strip. Choice is saved in this browser.</p>
+                <p class="demo-controls__label">Customer favourites — desktop cards</p>
+                <label class="demo-controls__field">
+                    <span>Products visible</span>
+                    <input type="number" min="4" max="10" step="1" value="6" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
+                </label>
+                <p class="demo-controls__hint">Min products shown before carousel scrolls. Mobile stays 2-up. Saved in this browser.</p>
                 <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="circles" data-row4-variant-option>
-                    <span>Variant 3 — 6 Circle strip</span>
+                    <input type="checkbox" data-favourites-bg-option>
+                    <span>Stone background on carousel strip</span>
                 </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="squares" data-row4-variant-option>
-                    <span>Variant 4 — 6 Square strip</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-row4-variant" value="5-round" data-row4-variant-option>
-                    <span>Variant 5 — 5 circle strip</span>
-                </label>
-                <p class="demo-controls__hint">Variants 1 &amp; 2: pill cards. Variants 3–5: icon strip with carousel (6 / 6 / 5 per slide).</p>
-                <p class="demo-controls__label">Carousel arrows</p>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-carousel-arrows" value="bottom" data-carousel-arrows-option checked>
-                    <span>Bottom + dots</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-carousel-arrows" value="bottom-boxed" data-carousel-arrows-option>
-                    <span>Bottom boxed + dots</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-carousel-arrows" value="sides" data-carousel-arrows-option>
-                    <span>Side circles + dots</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-carousel-arrows" value="sides-only" data-carousel-arrows-option>
-                    <span>Side circles only</span>
-                </label>
-                <p class="demo-controls__hint">Applies to Shop by category. Choice is saved in this browser.</p>
+                <p class="demo-controls__hint">YG stone (#F2E7D8) full-width band behind headline and products. Choice is saved in this browser.</p>
             </aside>
         </div>
     </div>
@@ -747,7 +734,10 @@
 })();
 
 (function () {
-    var STORAGE_KEY = 'yg-home-row4-variant-v8';
+    var ROW4_VARIANT = 'squares-8';
+    var ROW4_VISIBLE_KEY = 'yg-home-row4-visible-v1';
+    var ROW4_V8_VISIBLE_KEY = 'yg-home-row4-squares-8-visible-v1';
+    var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v1';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
 
@@ -762,19 +752,18 @@
     var duskTitle = root.querySelector('[data-row4-dusk-title]');
     var duskPrev = root.querySelector('[data-row4-dusk-prev]');
     var duskNext = root.querySelector('[data-row4-dusk-next]');
-    var options = Array.prototype.slice.call(document.querySelectorAll('[data-row4-variant-option]'));
     var offset = 0;
 
     function currentVariant() {
-        return root.getAttribute('data-row4-variant') || '4';
+        return ROW4_VARIANT;
     }
 
     function isCarouselVariant(variant) {
-        return variant === 'carousel' || variant === '4' || variant === '5' || variant === '5-round' || variant === 'wide' || variant === 'circles' || variant === 'squares';
+        return variant === 'carousel' || variant === '4' || variant === '5' || variant === '5-round' || variant === 'squares-full' || variant === 'squares-8' || variant === 'wide' || variant === 'circles' || variant === 'squares';
     }
 
     function usesSlider(variant) {
-        return variant === '4' || variant === '5' || variant === '5-round' || variant === 'carousel' || variant === 'wide' || variant === 'circles' || variant === 'squares';
+        return variant === '4' || variant === '5' || variant === '5-round' || variant === 'squares-full' || variant === 'squares-8' || variant === 'carousel' || variant === 'wide' || variant === 'circles' || variant === 'squares';
     }
 
     function usesDuskLook(variant) {
@@ -786,7 +775,7 @@
     }
 
     function usesIconStripLook(variant) {
-        return variant === 'circles' || variant === 'squares' || variant === '5-round';
+        return variant === 'circles' || variant === 'squares' || variant === 'squares-full' || variant === 'squares-8' || variant === '5-round';
     }
 
     function usesCirclesLook(variant) {
@@ -794,7 +783,11 @@
     }
 
     function usesSquaresLook(variant) {
-        return variant === 'squares';
+        return variant === 'squares' || variant === 'squares-full' || variant === 'squares-8';
+    }
+
+    function usesSquaresFullLook(variant) {
+        return variant === 'squares-full' || variant === 'squares-8';
     }
 
     function usesDuskArrows(variant) {
@@ -974,57 +967,29 @@
     }
 
     function setVariant(variant) {
-        if (variant === '8') variant = '4';
-        // Variants 3 & 4 hidden in prototype tools — fall back to Variant 1
-        if (variant === 'carousel' || variant === 'wide') variant = '4';
-
-        var allowed = { '4': true, '5': true, '5-round': true, carousel: true, wide: true, circles: true, squares: true };
-        if (!allowed[variant]) variant = '4';
+        variant = ROW4_VARIANT;
 
         root.setAttribute('data-row4-variant', variant);
-        root.classList.toggle('yg-home-row4--four', variant === '4');
-        root.classList.toggle('yg-home-row4--five', variant === '5' || variant === 'wide' || variant === 'carousel');
-        root.classList.remove('yg-home-row4--eight');
-        root.classList.toggle('yg-home-row4--carousel', isCarouselVariant(variant));
-        root.classList.toggle('yg-home-row4--slider', usesSlider(variant));
-        root.classList.toggle('yg-home-row4--wide', usesDuskLook(variant));
-        root.classList.toggle('yg-home-row4--pill', usesPillLook(variant));
-        root.classList.toggle('yg-home-row4--circles', usesIconStripLook(variant));
-        root.classList.toggle('yg-home-row4--squares', usesSquaresLook(variant));
-        root.classList.toggle('yg-home-row4--icon-strip', usesIconStripLook(variant));
-        document.body.classList.toggle('yg-home-variant-circles', usesIconStripLook(variant));
+        root.classList.remove('yg-home-row4--four', 'yg-home-row4--five', 'yg-home-row4--eight', 'yg-home-row4--pill', 'yg-home-row4--wide');
+        root.classList.add('yg-home-row4--carousel', 'yg-home-row4--slider', 'yg-home-row4--circles', 'yg-home-row4--squares', 'yg-home-row4--squares-full', 'yg-home-row4--icon-strip');
+        document.body.classList.add('yg-home-variant-circles');
 
         var below = root.closest('.yg-home-below');
-        if (below) below.classList.toggle('is-wide-band', usesDuskLook(variant));
-        document.body.classList.toggle('yg-home-wide-band', usesDuskLook(variant));
+        if (below) below.classList.remove('is-wide-band');
+        document.body.classList.remove('yg-home-wide-band');
 
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
-            var index = parseInt(tile.getAttribute('data-row4-index'), 10) || 0;
-            var limit = variant === '4' ? 12 : (variant === '5' || variant === 'carousel' || variant === 'wide' || usesIconStripLook(variant)) ? 99 : 5;
-            tile.hidden = index > limit;
+            tile.hidden = false;
         });
-
-        options.forEach(function (input) {
-            input.checked = input.value === variant;
-        });
-
-        try {
-            localStorage.setItem(STORAGE_KEY, variant);
-        } catch (err) { /* ignore */ }
 
         offset = 0;
         applyOffset(false);
         window.requestAnimationFrame(function () {
             updateCarouselNav();
             syncPager();
+            window.dispatchEvent(new Event('resize'));
         });
     }
-
-    options.forEach(function (input) {
-        input.addEventListener('change', function () {
-            if (input.checked) setVariant(input.value);
-        });
-    });
 
     if (prevBtn) {
         prevBtn.addEventListener('click', function () {
@@ -1101,45 +1066,186 @@
         positionSideNav();
     });
 
-    var ARROWS_KEY = 'yg-home-carousel-arrows-v2';
-    var arrowOptions = Array.prototype.slice.call(document.querySelectorAll('[data-carousel-arrows-option]'));
+    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v1';
+    var FAV_BG_KEY = 'yg-home-favourites-bg-v1';
+    var favWidthOptions = Array.prototype.slice.call(document.querySelectorAll('[data-favourites-width-option]'));
+    var favBgOption = document.querySelector('[data-favourites-bg-option]');
 
-    function setArrows(value) {
-        var allowed = { bottom: true, 'bottom-boxed': true, sides: true, 'sides-only': true };
-        if (!allowed[value]) value = 'bottom';
-        document.body.setAttribute('data-carousel-arrows', value);
-        arrowOptions.forEach(function (input) {
+    document.body.setAttribute('data-carousel-arrows', 'bottom');
+
+    function setFavouritesBg(enabled) {
+        if (enabled) {
+            document.body.setAttribute('data-favourites-bg', 'stone');
+        } else {
+            document.body.removeAttribute('data-favourites-bg');
+        }
+        if (favBgOption) favBgOption.checked = !!enabled;
+        try {
+            localStorage.setItem(FAV_BG_KEY, enabled ? 'stone' : '');
+        } catch (err) { /* ignore */ }
+    }
+
+    if (favBgOption) {
+        favBgOption.addEventListener('change', function () {
+            setFavouritesBg(favBgOption.checked);
+        });
+    }
+
+    var savedFavBg = '';
+    try {
+        savedFavBg = localStorage.getItem(FAV_BG_KEY) || '';
+    } catch (err) { /* ignore */ }
+    setFavouritesBg(savedFavBg === 'stone');
+
+    function setFavouritesWidth(value) {
+        var allowed = { full: true, contained: true };
+        if (!allowed[value]) value = 'contained';
+        document.body.setAttribute('data-favourites-width', value);
+        favWidthOptions.forEach(function (input) {
             input.checked = input.value === value;
         });
         try {
-            localStorage.setItem(ARROWS_KEY, value);
+            localStorage.setItem(FAV_WIDTH_KEY, value);
         } catch (err) { /* ignore */ }
-        updateCarouselNav();
-        syncPager();
+        window.dispatchEvent(new Event('resize'));
     }
 
-    arrowOptions.forEach(function (input) {
+    favWidthOptions.forEach(function (input) {
         input.addEventListener('change', function () {
-            if (input.checked) setArrows(input.value);
+            if (input.checked) setFavouritesWidth(input.value);
         });
     });
 
-    var savedArrows = 'bottom';
+    var savedFavWidth = 'contained';
     try {
-        savedArrows = localStorage.getItem(ARROWS_KEY) || 'bottom';
+        savedFavWidth = localStorage.getItem(FAV_WIDTH_KEY) || 'contained';
     } catch (err) { /* ignore */ }
-    var allowedInit = { bottom: true, 'bottom-boxed': true, sides: true, 'sides-only': true };
-    if (!allowedInit[savedArrows]) savedArrows = 'bottom';
-    document.body.setAttribute('data-carousel-arrows', savedArrows);
-    arrowOptions.forEach(function (input) {
-        input.checked = input.value === savedArrows;
+    if (savedFavWidth !== 'full' && savedFavWidth !== 'contained') savedFavWidth = 'contained';
+    setFavouritesWidth(savedFavWidth);
+
+    var row4VisibleInput = document.querySelector('[data-row4-visible-input]');
+    var favVisibleInput = document.querySelector('[data-favourites-visible-input]');
+    var favCarousel = document.querySelector('[data-favourites-carousel]');
+    var row4VisibleCount = 8;
+    var favVisibleCount = 6;
+
+    function isDesktopCarousel() {
+        return !window.matchMedia || !window.matchMedia('(max-width: 960px)').matches;
+    }
+
+    function cardWidthExpr(count, gap) {
+        return 'calc((100cqw - ' + ((count - 1) * gap) + 'px) / ' + count + ' - 1px)';
+    }
+
+    function parseVisibleInput(value, min, max) {
+        if (value === '' || value == null) return null;
+        var n = parseInt(String(value).trim(), 10);
+        if (isNaN(n) || n < min || n > max) return null;
+        return n;
+    }
+
+    function clampCount(value, fallback, min, max) {
+        var parsed = parseVisibleInput(value, min, max);
+        return parsed == null ? fallback : parsed;
+    }
+
+    function applyRow4CardWidths(count) {
+        row4VisibleCount = count;
+        document.documentElement.style.setProperty('--yg-row4-squares-8-visible', String(count));
+        if (viewport) viewport.style.setProperty('--yg-row4-squares-8-visible', String(count));
+        var width = isDesktopCarousel() ? cardWidthExpr(count, 10) : '';
+        root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
+            tile.style.flexBasis = width;
+            tile.style.width = width;
+            tile.style.maxWidth = width;
+        });
+        offset = Math.min(offset, maxOffset());
+        applyOffset(false);
+        syncPager();
+    }
+
+    function favouritesGap() {
+        return document.body.getAttribute('data-favourites-width') === 'full' ? 10 : 14;
+    }
+
+    function applyFavouritesCardWidths(count) {
+        favVisibleCount = count;
+        document.documentElement.style.setProperty('--yg-fav-visible', String(count));
+        var favViewport = favCarousel && favCarousel.querySelector('[data-fav-viewport]');
+        if (favViewport) favViewport.style.setProperty('--yg-fav-visible', String(count));
+        if (!favCarousel) return;
+        var width = isDesktopCarousel() ? cardWidthExpr(count, favouritesGap()) : '';
+        favCarousel.querySelectorAll('.yg-home-favourites__card').forEach(function (card) {
+            card.style.flexBasis = width;
+            card.style.width = width;
+            card.style.maxWidth = width;
+        });
+    }
+
+    function setRow4Visible(value, syncInput) {
+        var count = parseVisibleInput(value, 4, 10);
+        if (count == null) return;
+        applyRow4CardWidths(count);
+        if (syncInput !== false && row4VisibleInput) row4VisibleInput.value = count;
+        try {
+            localStorage.setItem(ROW4_VISIBLE_KEY, String(count));
+        } catch (err) { /* ignore */ }
+        window.dispatchEvent(new Event('resize'));
+    }
+
+    function setFavouritesVisible(value, syncInput) {
+        var count = parseVisibleInput(value, 4, 10);
+        if (count == null) return;
+        applyFavouritesCardWidths(count);
+        if (syncInput !== false && favVisibleInput) favVisibleInput.value = count;
+        try {
+            localStorage.setItem(FAV_VISIBLE_KEY, String(count));
+        } catch (err) { /* ignore */ }
+        window.dispatchEvent(new Event('resize'));
+    }
+
+    function bindVisibleInput(input, applyFn, normalizeFn) {
+        if (!input) return;
+        input.addEventListener('input', function () {
+            applyFn(input.value, false);
+        });
+        input.addEventListener('change', function () {
+            normalizeFn(input.value);
+        });
+    }
+
+    bindVisibleInput(row4VisibleInput, setRow4Visible, function (value) {
+        setRow4Visible(clampCount(value, 8, 4, 10));
     });
 
-    var saved = '4';
+    bindVisibleInput(favVisibleInput, setFavouritesVisible, function (value) {
+        setFavouritesVisible(clampCount(value, 6, 4, 10));
+    });
+
+    var savedRow4Visible = '8';
     try {
-        saved = localStorage.getItem(STORAGE_KEY) || '4';
+        savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || localStorage.getItem(ROW4_V8_VISIBLE_KEY) || '8';
     } catch (err) { /* ignore */ }
-    setVariant(saved);
+    setRow4Visible(clampCount(savedRow4Visible, 8, 4, 10));
+
+    var savedFavVisible = '6';
+    try {
+        savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '6';
+    } catch (err) { /* ignore */ }
+    setFavouritesVisible(clampCount(savedFavVisible, 6, 4, 10));
+
+    var origSetFavouritesWidth = setFavouritesWidth;
+    setFavouritesWidth = function (value) {
+        origSetFavouritesWidth(value);
+        applyFavouritesCardWidths(favVisibleCount);
+    };
+
+    window.addEventListener('resize', function () {
+        applyRow4CardWidths(row4VisibleCount);
+        applyFavouritesCardWidths(favVisibleCount);
+    });
+
+    setVariant(ROW4_VARIANT);
 })();
 
 (function () {
