@@ -405,6 +405,12 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
                     <input type="number" min="4" max="10" step="1" value="6" data-row4-visible-input aria-label="Desktop category cards visible">
                 </label>
                 <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. Mobile stays 2×2.</p>
+                <p class="demo-controls__label">Pill label size (desktop)</p>
+                <label class="demo-controls__field">
+                    <span>Font size (px)</span>
+                    <input type="number" min="10" max="20" step="1" value="16" data-row4-pill-font-input aria-label="Category pill label font size on desktop">
+                </label>
+                <p class="demo-controls__hint">Category name on the white pill. Desktop only; mobile stays fixed. Saved in this browser.</p>
                 <p class="demo-controls__label">Section headlines</p>
                 <label class="demo-toggle">
                     <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
@@ -764,6 +770,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     var ROW4_VARIANT = 'squares-8';
     var ROW4_VISIBLE_KEY = 'yg-home-row4-visible-v4';
     var ROW4_V8_VISIBLE_KEY = 'yg-home-row4-squares-8-visible-v1';
+    var ROW4_PILL_FONT_KEY = 'yg-home-row4-pill-font-size-v1';
     var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v6';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
@@ -1178,6 +1185,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     setFavouritesWidth(savedFavWidth);
 
     var row4VisibleInput = document.querySelector('[data-row4-visible-input]');
+    var row4PillFontInput = document.querySelector('[data-row4-pill-font-input]');
     var favVisibleInput = document.querySelector('[data-favourites-visible-input]');
     var favCarousel = document.querySelector('[data-favourites-carousel]');
     var row4VisibleCount = 6;
@@ -1280,6 +1288,22 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
         setRow4Visible(clampCount(value, 6, 4, 10));
     });
 
+    function setRow4PillFontSize(value, syncInput) {
+        var size = parseVisibleInput(value, 10, 20);
+        if (size == null) return;
+        var px = size + 'px';
+        document.body.style.setProperty('--yg-row4-pill-font-size', px);
+        if (root) root.style.setProperty('--yg-row4-pill-font-size', px);
+        if (syncInput !== false && row4PillFontInput) row4PillFontInput.value = size;
+        try {
+            localStorage.setItem(ROW4_PILL_FONT_KEY, String(size));
+        } catch (err) { /* ignore */ }
+    }
+
+    bindVisibleInput(row4PillFontInput, setRow4PillFontSize, function (value) {
+        setRow4PillFontSize(clampCount(value, 16, 10, 20));
+    });
+
     bindVisibleInput(favVisibleInput, setFavouritesVisible, function (value) {
         setFavouritesVisible(clampCount(value, 6, 4, 10));
     });
@@ -1289,6 +1313,12 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
         savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || '6';
     } catch (err) { /* ignore */ }
     setRow4Visible(clampCount(savedRow4Visible, 6, 4, 10));
+
+    var savedRow4PillFont = '16';
+    try {
+        savedRow4PillFont = localStorage.getItem(ROW4_PILL_FONT_KEY) || '16';
+    } catch (err) { /* ignore */ }
+    setRow4PillFontSize(clampCount(savedRow4PillFont, 16, 10, 20));
 
     var savedFavVisible = '6';
     try {

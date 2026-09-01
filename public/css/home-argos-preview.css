@@ -12,6 +12,7 @@ body.yg-header-argos {
     --yg-row4-squares-8-visible: 6;
     --yg-fav-gap: 14px;
     --yg-row4-gap: 10px;
+    --yg-row4-pill-font-size: 16px;
 }
 
 .demo-home-argos {
@@ -3487,6 +3488,13 @@ body[data-favourites-bg='stone'] .yg-home-favourites__carousel {
 .yg-home-row4--circles[data-row4-variant="squares-8"] .yg-home-tile__cta,
 .yg-home-row4--circles[data-row4-variant="squares-full"] .yg-home-tile__cta {
     display: inline-flex !important;
+}
+
+@media (min-width: 961px) {
+    .yg-home-row4--carousel[data-row4-variant="squares-8"] .yg-home-tile__cta,
+    .yg-home-row4--carousel[data-row4-variant="squares-full"] .yg-home-tile__cta {
+        font-size: var(--yg-row4-pill-font-size, 16px);
+    }
 }
 
 /* Side arrows sit in gutters; circles stay fully inside the clipped track */
