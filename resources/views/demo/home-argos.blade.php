@@ -404,7 +404,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
                     <span>Category cards</span>
                     <input type="number" min="4" max="10" step="1" value="6" data-row4-visible-input aria-label="Desktop category cards visible">
                 </label>
-                <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. Mobile stays 2×2.</p>
+                <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. More than 6 uses a text label below each card instead of the pill. Mobile stays 2×2 with pills.</p>
                 <p class="demo-controls__label">Pill label size (desktop)</p>
                 <label class="demo-controls__field">
                     <span>Font size (px)</span>
@@ -1211,6 +1211,13 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
         row4VisibleCount = count;
         document.documentElement.style.setProperty('--yg-row4-squares-8-visible', String(count));
         if (viewport) viewport.style.setProperty('--yg-row4-squares-8-visible', String(count));
+        if (root) {
+            if (isDesktopCarousel() && count > 6) {
+                root.setAttribute('data-row4-label-below', 'true');
+            } else {
+                root.removeAttribute('data-row4-label-below');
+            }
+        }
         root.querySelectorAll('[data-row4-tile]').forEach(function (tile) {
             tile.style.flexBasis = '';
             tile.style.width = '';

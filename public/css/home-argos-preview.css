@@ -3495,6 +3495,52 @@ body[data-favourites-bg='stone'] .yg-home-favourites__carousel {
     .yg-home-row4--carousel[data-row4-variant="squares-full"] .yg-home-tile__cta {
         font-size: var(--yg-row4-pill-font-size, 16px);
     }
+
+    /* 7+ cards visible — label below image instead of pill */
+    .yg-home-row4[data-row4-variant="squares-8"][data-row4-label-below="true"] .yg-home-tile,
+    .yg-home-row4[data-row4-variant="squares-full"][data-row4-label-below="true"] .yg-home-tile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        aspect-ratio: auto;
+        border-radius: 0;
+        background: transparent;
+        overflow: visible;
+        gap: 8px;
+        color: var(--yg-pebble, #483f3a);
+    }
+
+    .yg-home-row4[data-row4-variant="squares-8"][data-row4-label-below="true"] .yg-home-tile img,
+    .yg-home-row4[data-row4-variant="squares-full"][data-row4-label-below="true"] .yg-home-tile img {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        border-radius: 18px;
+        object-fit: cover;
+        box-shadow: 0 1px 4px rgba(72, 63, 58, 0.12);
+    }
+
+    .yg-home-row4[data-row4-variant="squares-8"][data-row4-label-below="true"] .yg-home-tile__cta,
+    .yg-home-row4[data-row4-variant="squares-full"][data-row4-label-below="true"] .yg-home-tile__cta {
+        display: none !important;
+    }
+
+    .yg-home-row4[data-row4-variant="squares-8"][data-row4-label-below="true"] .yg-home-tile__caption,
+    .yg-home-row4[data-row4-variant="squares-full"][data-row4-label-below="true"] .yg-home-tile__caption {
+        display: block !important;
+        position: static;
+        margin: 0;
+        padding: 0 2px;
+        font-family: var(--yg-heading);
+        font-size: clamp(0.8rem, 1.05vw, 0.95rem);
+        font-weight: 700;
+        line-height: 1.25;
+        text-align: center;
+        color: var(--yg-pebble, #483f3a);
+        white-space: normal;
+    }
 }
 
 /* Side arrows sit in gutters; circles stay fully inside the clipped track */
