@@ -561,6 +561,63 @@ class DemoAccount
         return session()->has(self::SESSION_KEY);
     }
 
+    /**
+     * Hard-coded demo accounts for the prototype (no database).
+     *
+     * @return array<string, array{password: string, club: bool}>
+     */
+    public static function demoLoginAccounts(): array
+    {
+        $guestLogin = strtolower(trim((string) config('demo.account_email', 'demo')));
+        $clubLogin = strtolower(trim((string) config('demo.club_account_email', 'democlub')));
+
+        $accounts = [
+            $guestLogin => [
+                'password' => (string) config('demo.account_password', 'password'),
+                'club' => false,
+            ],
+            $clubLogin => [
+                'password' => (string) config('demo.club_account_password', 'password'),
+                'club' => true,
+            ],
+        ];
+
+        $accounts['demo'] = $accounts[$guestLogin];
+        $accounts['democlub'] = $accounts[$clubLogin];
+        $accounts['john@example.com'] = $accounts[$guestLogin];
+        $accounts['richard@yougarden.com'] = $accounts[$clubLogin];
+
+        return $accounts;
+    }
+
+    public static function attemptLogin(string $login, string $password): bool
+    {
+        $login = strtolower(trim($login));
+        $accounts = self::demoLoginAccounts();
+
+        $account = $accounts[$login]
+            ?? $accounts[explode('@', $login, 2)[0] ?? '']
+            ?? null;
+
+        if ($account === null) {
+            return false;
+        }
+
+        if (! hash_equals($account['password'], $password)) {
+            return false;
+        }
+
+        if ($account['club']) {
+            self::loginAsClubMember();
+        } else {
+            self::loginAsGuest();
+        }
+
+        session()->regenerate();
+
+        return true;
+    }
+
     public static function loginAsGuest(): void
     {
         session([

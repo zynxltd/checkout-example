@@ -27,24 +27,10 @@ class AccountController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $login = strtolower(trim($request->input('email')));
-        $password = $request->input('password');
-
-        if (
-            $login === strtolower(config('demo.club_account_email'))
-            && $password === config('demo.club_account_password')
-        ) {
-            DemoAccount::loginAsClubMember();
-
-            return redirect()->route('demo.account.home');
-        }
-
-        if (
-            $login === strtolower(config('demo.account_email'))
-            && $password === config('demo.account_password')
-        ) {
-            DemoAccount::loginAsGuest();
-
+        if (DemoAccount::attemptLogin(
+            $request->string('email')->toString(),
+            $request->string('password')->toString(),
+        )) {
             return redirect()->route('demo.account.home');
         }
 
