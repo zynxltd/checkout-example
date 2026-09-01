@@ -3310,15 +3310,13 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
 .yg-home-row4[data-row4-variant="squares-full"] .yg-home-tile,
 .yg-home-row4[data-row4-variant="squares-8"] .yg-home-tile {
     min-width: 0;
-    aspect-ratio: auto;
-    border-radius: 0;
-    background: transparent;
-    overflow: visible;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    color: var(--yg-pebble, #483f3a);
+    display: block;
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    background: var(--yg-stone);
+    overflow: hidden;
+    gap: 0;
+    color: #fff;
     box-sizing: border-box;
 }
 
@@ -3339,18 +3337,14 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
 .yg-home-row4--squares-full .yg-home-tile img,
 .yg-home-row4[data-row4-variant="squares-full"] .yg-home-tile img,
 .yg-home-row4[data-row4-variant="squares-8"] .yg-home-tile img {
-    position: relative;
-    inset: auto;
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
+    height: 100%;
+    aspect-ratio: auto;
     border-radius: 18px;
     object-fit: cover;
-    box-shadow: 0 1px 4px rgba(72, 63, 58, 0.12);
-}
-
-.yg-home-row4--squares-full .yg-home-tile__caption {
-    font-size: clamp(0.8rem, 1.05vw, 0.95rem);
+    box-shadow: none;
 }
 
 /* Customer favourites — full-width toggle (prototype tools) */
@@ -3482,6 +3476,17 @@ body[data-favourites-bg='stone'] .yg-home-favourites__carousel {
     text-align: center;
     color: var(--yg-pebble, #483f3a);
     white-space: normal;
+}
+
+/* Squares full / squares-8 — pill on image (matches mobile; overrides circles caption) */
+.yg-home-row4--circles[data-row4-variant="squares-8"] .yg-home-tile__caption,
+.yg-home-row4--circles[data-row4-variant="squares-full"] .yg-home-tile__caption {
+    display: none !important;
+}
+
+.yg-home-row4--circles[data-row4-variant="squares-8"] .yg-home-tile__cta,
+.yg-home-row4--circles[data-row4-variant="squares-full"] .yg-home-tile__cta {
+    display: inline-flex !important;
 }
 
 /* Side arrows sit in gutters; circles stay fully inside the clipped track */
