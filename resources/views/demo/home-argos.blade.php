@@ -402,7 +402,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
                 <p class="demo-controls__label">Desktop cards visible</p>
                 <label class="demo-controls__field">
                     <span>Category cards</span>
-                    <input type="number" min="4" max="10" step="1" value="6" data-row4-visible-input aria-label="Desktop category cards visible">
+                    <input type="number" min="4" max="10" step="1" value="7" data-row4-visible-input aria-label="Desktop category cards visible">
                 </label>
                 <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. More than 6 uses a text label below each card instead of the pill. Mobile stays 2×2 with pills.</p>
                 <p class="demo-controls__label">Pill label size (desktop)</p>
@@ -434,7 +434,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
                 <p class="demo-controls__label">Customer favourites — desktop cards</p>
                 <label class="demo-controls__field">
                     <span>Products visible</span>
-                    <input type="number" min="4" max="10" step="1" value="6" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
+                    <input type="number" min="4" max="10" step="1" value="7" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
                 </label>
                 <p class="demo-controls__hint">Min products shown before carousel scrolls. Mobile stays 2-up. Saved in this browser.</p>
                 <label class="demo-toggle">
@@ -1188,8 +1188,8 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     var row4PillFontInput = document.querySelector('[data-row4-pill-font-input]');
     var favVisibleInput = document.querySelector('[data-favourites-visible-input]');
     var favCarousel = document.querySelector('[data-favourites-carousel]');
-    var row4VisibleCount = 6;
-    var favVisibleCount = 6;
+    var row4VisibleCount = 7;
+    var favVisibleCount = 7;
 
     function isDesktopCarousel() {
         return !window.matchMedia || !window.matchMedia('(max-width: 960px)').matches;
@@ -1292,7 +1292,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     }
 
     bindVisibleInput(row4VisibleInput, setRow4Visible, function (value) {
-        setRow4Visible(clampCount(value, 6, 4, 10));
+        setRow4Visible(clampCount(value, 7, 4, 10));
     });
 
     function setRow4PillFontSize(value, syncInput) {
@@ -1312,14 +1312,14 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     });
 
     bindVisibleInput(favVisibleInput, setFavouritesVisible, function (value) {
-        setFavouritesVisible(clampCount(value, 6, 4, 10));
+        setFavouritesVisible(clampCount(value, 7, 4, 10));
     });
 
-    var savedRow4Visible = '6';
+    var savedRow4Visible = '7';
     try {
-        savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || '6';
+        savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || '7';
     } catch (err) { /* ignore */ }
-    setRow4Visible(clampCount(savedRow4Visible, 6, 4, 10));
+    setRow4Visible(clampCount(savedRow4Visible, 7, 4, 10));
 
     var savedRow4PillFont = '16';
     try {
@@ -1327,11 +1327,11 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     } catch (err) { /* ignore */ }
     setRow4PillFontSize(clampCount(savedRow4PillFont, 16, 10, 20));
 
-    var savedFavVisible = '6';
+    var savedFavVisible = '7';
     try {
-        savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '6';
+        savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '7';
     } catch (err) { /* ignore */ }
-    setFavouritesVisible(clampCount(savedFavVisible, 6, 4, 10));
+    setFavouritesVisible(clampCount(savedFavVisible, 7, 4, 10));
 
     var origSetFavouritesWidth = setFavouritesWidth;
     setFavouritesWidth = function (value) {
