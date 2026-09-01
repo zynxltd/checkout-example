@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DemoAccount;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -14,7 +15,7 @@ class PreviewLoginController extends Controller
             return redirect()->route('demo.home');
         }
 
-        if ($request->session()->get('demo_preview_authenticated') === true) {
+        if ($this->hasSiteAccess($request)) {
             return redirect()->to($this->intendedUrl($request));
         }
 
@@ -30,15 +31,22 @@ class PreviewLoginController extends Controller
         }
 
         $request->validate([
-            'username' => ['required', 'string', 'max:64'],
+            'username' => ['required', 'string', 'max:120'],
             'password' => ['required', 'string', 'max:128'],
         ]);
 
-        $username = config('demo-preview.username');
-        $password = config('demo-preview.password');
+        $username = $request->string('username')->toString();
+        $password = $request->string('password')->toString();
 
-        $valid = hash_equals($username, $request->string('username')->toString())
-            && hash_equals($password, $request->string('password')->toString());
+        if (DemoAccount::attemptLogin($username, $password)) {
+            return redirect()->to($this->intendedUrl($request));
+        }
+
+        $previewUsername = config('demo-preview.username');
+        $previewPassword = config('demo-preview.password');
+
+        $valid = hash_equals($previewUsername, $username)
+            && hash_equals($previewPassword, $password);
 
         if (! $valid) {
             return back()
@@ -47,7 +55,7 @@ class PreviewLoginController extends Controller
         }
 
         $request->session()->regenerate();
-        $request->session()->put('demo_preview_authenticated', true);
+        DemoAccount::grantSiteAccess();
 
         return redirect()->to($this->intendedUrl($request));
     }
@@ -78,5 +86,11 @@ class PreviewLoginController extends Controller
         }
 
         return route('demo.home');
+    }
+
+    private function hasSiteAccess(Request $request): bool
+    {
+        return $request->session()->get('demo_preview_authenticated') === true
+            || DemoAccount::isLoggedIn();
     }
 }

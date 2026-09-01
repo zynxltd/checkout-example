@@ -613,9 +613,14 @@ class DemoAccount
             self::loginAsGuest();
         }
 
-        session()->regenerate();
+        self::grantSiteAccess();
 
         return true;
+    }
+
+    public static function grantSiteAccess(): void
+    {
+        session(['demo_preview_authenticated' => true]);
     }
 
     public static function loginAsGuest(): void

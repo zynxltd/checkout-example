@@ -98,4 +98,17 @@ class AccountLoginTest extends TestCase
             ->assertSee('Signed in as john@example.com', false)
             ->assertDontSee('Log in to your account', false);
     }
+
+    public function test_account_login_grants_preview_access_when_gate_enabled(): void
+    {
+        config(['demo-preview.auth_enabled' => true]);
+
+        $this->post('/account/login', [
+            'email' => 'demo',
+            'password' => 'password',
+        ])->assertRedirect(route('demo.account.home'));
+
+        $this->get('/account')->assertOk();
+        $this->get('/')->assertOk();
+    }
 }

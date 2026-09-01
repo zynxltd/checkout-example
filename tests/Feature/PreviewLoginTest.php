@@ -52,4 +52,16 @@ class PreviewLoginTest extends TestCase
 
         $this->get('/')->assertOk();
     }
+
+    public function test_demo_account_credentials_grant_preview_and_account_access(): void
+    {
+        $this->post('/login', [
+            'username' => 'demo',
+            'password' => 'password',
+            'redirect' => route('demo.account.home'),
+        ])->assertRedirect(route('demo.account.home'));
+
+        $this->get('/account')->assertOk();
+        $this->get('/')->assertOk();
+    }
 }

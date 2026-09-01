@@ -67,6 +67,7 @@ class AccountController extends Controller
         ]);
 
         DemoAccount::loginAsGuest();
+        DemoAccount::grantSiteAccess();
 
         return redirect()->route('demo.account.home');
     }
