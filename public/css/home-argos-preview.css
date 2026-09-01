@@ -9,7 +9,7 @@ body.yg-header-argos {
     --yg-argos-content-width: 1440px;
     --yg-argos-content-pad: 24px;
     --yg-fav-visible: 7;
-    --yg-row4-squares-8-visible: 7;
+    --yg-row4-squares-8-visible: 6;
     --yg-fav-gap: 14px;
     --yg-row4-gap: 10px;
     --yg-row4-pill-font-size: 16px;
@@ -2906,7 +2906,7 @@ body[data-carousel-arrows='sides-only'] .yg-home-row4--side-arrows .yg-home-row4
     width: 100%;
     container-type: inline-size;
     container-name: row4-cats;
-    --yg-row4-squares-8-visible: 7;
+    --yg-row4-squares-8-visible: 6;
 }
 
 .yg-home-row4--carousel .yg-home-row4__track {

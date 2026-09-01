@@ -402,7 +402,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
                 <p class="demo-controls__label">Desktop cards visible</p>
                 <label class="demo-controls__field">
                     <span>Category cards</span>
-                    <input type="number" min="4" max="10" step="1" value="7" data-row4-visible-input aria-label="Desktop category cards visible">
+                    <input type="number" min="4" max="10" step="1" value="6" data-row4-visible-input aria-label="Desktop category cards visible">
                 </label>
                 <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. More than 6 uses a text label below each card instead of the pill. Mobile stays 2×2 with pills.</p>
                 <p class="demo-controls__label">Pill label size (desktop)</p>
@@ -1188,7 +1188,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     var row4PillFontInput = document.querySelector('[data-row4-pill-font-input]');
     var favVisibleInput = document.querySelector('[data-favourites-visible-input]');
     var favCarousel = document.querySelector('[data-favourites-carousel]');
-    var row4VisibleCount = 7;
+    var row4VisibleCount = 6;
     var favVisibleCount = 7;
 
     function isDesktopCarousel() {
@@ -1292,7 +1292,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     }
 
     bindVisibleInput(row4VisibleInput, setRow4Visible, function (value) {
-        setRow4Visible(clampCount(value, 7, 4, 10));
+        setRow4Visible(clampCount(value, 6, 4, 10));
     });
 
     function setRow4PillFontSize(value, syncInput) {
@@ -1315,11 +1315,11 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
         setFavouritesVisible(clampCount(value, 7, 4, 10));
     });
 
-    var savedRow4Visible = '7';
+    var savedRow4Visible = '6';
     try {
-        savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || '7';
+        savedRow4Visible = localStorage.getItem(ROW4_VISIBLE_KEY) || '6';
     } catch (err) { /* ignore */ }
-    setRow4Visible(clampCount(savedRow4Visible, 7, 4, 10));
+    setRow4Visible(clampCount(savedRow4Visible, 6, 4, 10));
 
     var savedRow4PillFont = '16';
     try {
