@@ -3,7 +3,7 @@
 body.demo-account {
     margin: 0;
     font-family: var(--yg-body);
-    font-size: 16px;
+    font-size: 15px;
     background: #fff;
     color: var(--yg-text);
 }
@@ -56,10 +56,10 @@ body.demo-account .yg-pdp-wave {
 }
 
 .demo-account-card__tab {
-    padding: 15px 16px;
+    padding: 14px 16px;
     text-align: center;
     font-family: var(--yg-body);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--yg-muted);
     text-decoration: none;
@@ -89,9 +89,9 @@ body.demo-account .yg-pdp-wave {
 }
 
 .demo-account-card__title {
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     font-family: var(--yg-heading);
-    font-size: clamp(1.5rem, 3.2vw, 1.75rem);
+    font-size: clamp(1.4rem, 3vw, 1.65rem);
     font-weight: 400;
     line-height: 1.2;
     color: var(--yg-pebble);
@@ -99,8 +99,8 @@ body.demo-account .yg-pdp-wave {
 
 .demo-account-card__lead {
     margin: 0 0 24px;
-    font-size: 17px;
-    line-height: 1.55;
+    font-size: 15px;
+    line-height: 1.5;
     color: var(--yg-muted);
 }
 
@@ -131,8 +131,8 @@ body.demo-account .yg-pdp-wave {
 
 .demo-account-label {
     display: block;
-    margin-bottom: 7px;
-    font-size: 16px;
+    margin-bottom: 6px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--yg-pebble);
 }
@@ -146,12 +146,12 @@ body.demo-account .yg-pdp-wave {
 .demo-account-select {
     display: block;
     width: 100%;
-    padding: 13px 14px;
+    padding: 12px 14px;
     border: 1px solid #c5bdb5;
     border-radius: 6px;
     background: #fff;
     font-family: var(--yg-body);
-    font-size: 17px;
+    font-size: 16px;
     color: var(--yg-text);
     box-sizing: border-box;
 }
@@ -168,8 +168,8 @@ body.demo-account .yg-pdp-wave {
     align-items: flex-start;
     gap: 10px;
     margin-bottom: 14px;
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: 14px;
+    line-height: 1.45;
     color: var(--yg-text);
     cursor: pointer;
 }
@@ -190,7 +190,7 @@ body.demo-account .yg-pdp-wave {
 .demo-account-forgot {
     display: inline-block;
     margin: -6px 0 20px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--yg-forest);
     text-decoration: none;
@@ -206,7 +206,7 @@ body.demo-account .yg-pdp-wave {
     border-radius: 8px;
     background: var(--yg-moss-surface);
     border: 1px solid #d4e4b8;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 1.55;
     color: var(--yg-forest);
 }
@@ -221,7 +221,7 @@ body.demo-account .yg-pdp-wave {
     background: var(--yg-checkout);
     color: #fff;
     font-family: var(--yg-body);
-    font-size: 1.0625rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -253,7 +253,7 @@ body.demo-account .yg-pdp-wave {
     align-items: center;
     gap: 12px;
     margin: 24px 0;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--yg-muted);
 }
 
@@ -268,7 +268,7 @@ body.demo-account .yg-pdp-wave {
 .demo-account-switch {
     margin: 0;
     text-align: center;
-    font-size: 16px;
+    font-size: 15px;
     color: var(--yg-text);
 }
 
@@ -292,7 +292,7 @@ body.demo-account .yg-pdp-wave {
 
 .demo-account-perks__title {
     margin: 0 0 10px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--yg-forest);
     text-transform: uppercase;
@@ -302,8 +302,8 @@ body.demo-account .yg-pdp-wave {
 .demo-account-perks ul {
     margin: 0;
     padding: 0 0 0 18px;
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.55;
     color: var(--yg-pebble);
 }
 
@@ -335,7 +335,7 @@ body.demo-account .yg-pdp-wave {
     padding-bottom: 8px;
     border-bottom: 1px solid var(--yg-border);
     font-family: var(--yg-body);
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--yg-forest);
     text-transform: uppercase;
@@ -352,7 +352,7 @@ body.demo-account .yg-pdp-wave {
 .demo-account-birthday__title {
     margin: 0 0 6px;
     font-family: var(--yg-body);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: var(--yg-forest);
 }
@@ -360,9 +360,9 @@ body.demo-account .yg-pdp-wave {
 .demo-account-birthday__lead {
     margin: 0 0 12px;
     font-family: var(--yg-body);
-    font-size: 14px;
+    font-size: 13px;
     font-style: italic;
-    line-height: 1.55;
+    line-height: 1.5;
     color: var(--yg-muted);
 }
 
@@ -381,7 +381,7 @@ body.demo-account .yg-pdp-wave {
     background: #fde8ef;
     border: 1px solid #f5c2d4;
     color: #8b1a4a;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .demo-account-errors ul {
@@ -399,7 +399,7 @@ body.demo-account .yg-pdp-wave {
 
 .demo-account-demo-login__title {
     margin: 0 0 6px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -408,8 +408,8 @@ body.demo-account .yg-pdp-wave {
 
 .demo-account-demo-login__creds {
     margin: 0;
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.55;
     color: var(--yg-pebble);
 }
 
@@ -428,8 +428,8 @@ body.demo-account .yg-pdp-wave {
     }
 
     .demo-account-card__tab {
-        padding: 13px 10px;
-        font-size: 15px;
+        padding: 12px 10px;
+        font-size: 14px;
     }
 
     .demo-account-perks {
