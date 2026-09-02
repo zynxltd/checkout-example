@@ -12,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'demo.preview' => \App\Http\Middleware\RequirePreviewAuth::class,
             'demo.drawer-variant' => \App\Http\Middleware\ApplyDemoDrawerVariant::class,

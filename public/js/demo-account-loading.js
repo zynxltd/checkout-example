@@ -143,6 +143,7 @@
 
                 form.classList.add('is-submitting');
                 submit.setAttribute('aria-busy', 'true');
+                console.info('[YG account login] allowing native POST', { action });
                 // Do not disable the submit button — that can cancel the native
                 // POST in some browsers (same pattern as checkout).
             });

@@ -38,7 +38,7 @@
                     </p>
                 </div>
 
-                <form class="demo-account-form" action="{{ route('demo.account.login.submit') }}" method="post" data-demo-form-loading>
+                <form class="demo-account-form" id="account-login-form" action="{{ route('demo.account.login.submit') }}" method="post" data-demo-form-loading>
                     @csrf
                     <div class="demo-account-field">
                         <label class="demo-account-label" for="account-login-email">Login</label>
@@ -116,6 +116,13 @@
 @endsection
 
 @push('scripts')
+    <script>
+        window.__YG_ACCOUNT_LOGIN_DEBUG = {
+            ...@json($loginDebug ?? []),
+            errors: @json($errors->all()),
+        };
+    </script>
+    <script src="{{ asset('js/demo-account-login-debug.js') }}?v={{ filemtime(public_path('js/demo-account-login-debug.js')) }}" defer></script>
     <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/demo-account-loading.js') }}?v={{ filemtime(public_path('js/demo-account-loading.js')) }}" defer></script>
 @endpush

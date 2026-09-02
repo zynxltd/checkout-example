@@ -6,6 +6,7 @@ use App\Services\DemoAccount;
 use App\Services\DemoCart;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AccountController extends Controller
@@ -17,6 +18,12 @@ class AccountController extends Controller
         return view('demo.account-login', [
             'cart' => DemoCart::state(),
             'promo' => DemoAccount::loginPromo(),
+            'loginDebug' => [
+                'action' => route('demo.account.login.submit'),
+                'appUrl' => config('app.url'),
+                'sessionDriver' => config('session.driver'),
+                'status' => session('status'),
+            ],
         ]);
     }
 
@@ -29,12 +36,27 @@ class AccountController extends Controller
         }
 
         DemoAccount::grantSiteAccess();
+        request()->session()->save();
+
+        Log::info('demo.account.demo-login', [
+            'type' => $type,
+            'session_driver' => config('session.driver'),
+            'logged_in' => DemoAccount::isLoggedIn(),
+        ]);
 
         return redirect()->route('demo.account.home');
     }
 
     public function loginSubmit(Request $request): RedirectResponse
     {
+        Log::info('demo.account.login.submit', [
+            'host' => $request->getHost(),
+            'secure' => $request->isSecure(),
+            'session_driver' => config('session.driver'),
+            'session_id' => $request->session()->getId(),
+            'has_session_cookie' => $request->cookies->has(config('session.cookie')),
+        ]);
+
         $request->validate([
             'email' => ['required', 'string', 'max:120'],
             'password' => ['required', 'string'],
@@ -44,8 +66,20 @@ class AccountController extends Controller
             $request->string('email')->toString(),
             $request->string('password')->toString(),
         )) {
+            $request->session()->save();
+
+            Log::info('demo.account.login.success', [
+                'session_id' => $request->session()->getId(),
+                'logged_in' => DemoAccount::isLoggedIn(),
+                'preview_access' => $request->session()->get('demo_preview_authenticated'),
+            ]);
+
             return redirect()->route('demo.account.home');
         }
+
+        Log::warning('demo.account.login.failed', [
+            'email' => $request->string('email')->toString(),
+        ]);
 
         return back()
             ->withInput($request->only('email'))
