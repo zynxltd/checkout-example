@@ -465,40 +465,20 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
         <div class="demo-prototype-stack__content">
             <aside class="demo-controls" aria-label="Homepage category card variants">
                 <h3>Category cards</h3>
-                <p class="demo-controls__hint">Full-width square strip (Variant 7). Choice is saved in this browser.</p>
                 <p class="demo-controls__label">Desktop cards visible</p>
                 <label class="demo-controls__field">
                     <span>Category cards</span>
                     <input type="number" min="4" max="10" step="1" value="7" data-row4-visible-input aria-label="Desktop category cards visible">
                 </label>
-                <p class="demo-controls__hint">Sets how many category cards show on desktop before the carousel scrolls. More than 6 uses a text label below each card instead of the pill. Mobile stays 2×2 with pills.</p>
-                <p class="demo-controls__label">Pill label size (desktop)</p>
-                <label class="demo-controls__field">
-                    <span>Font size (px)</span>
-                    <input type="number" min="10" max="20" step="1" value="16" data-row4-pill-font-input aria-label="Category pill label font size on desktop">
-                </label>
-                <p class="demo-controls__hint">Category name on the white pill. Desktop only; mobile stays fixed. Saved in this browser.</p>
-                <p class="demo-controls__label">Section headlines</p>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-headline-align" value="left" data-headline-align-option>
-                    <span>Left</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-headline-align" value="center" data-headline-align-option checked>
-                    <span>Centered</span>
-                </label>
-                <p class="demo-controls__hint">Applies to Shop by category and Customer favourites headlines. Saved in this browser.</p>
                 <p class="demo-controls__label">Customer favourites — desktop cards</p>
                 <label class="demo-controls__field">
                     <span>Products visible</span>
                     <input type="number" min="4" max="10" step="1" value="7" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
                 </label>
-                <p class="demo-controls__hint">Min products shown before carousel scrolls. Mobile stays 2-up. Saved in this browser.</p>
                 <label class="demo-toggle">
                     <input type="checkbox" data-favourites-bg-option checked>
                     <span>Stone background on carousel strip</span>
                 </label>
-                <p class="demo-controls__hint">YG stone (#F2E7D8) full-width band behind headline and products. Choice is saved in this browser.</p>
             </aside>
         </div>
     </div>
@@ -911,7 +891,6 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     var ROW4_VARIANT = 'squares-8';
     var ROW4_VISIBLE_KEY = 'yg-home-row4-visible-v5';
     var ROW4_V8_VISIBLE_KEY = 'yg-home-row4-squares-8-visible-v1';
-    var ROW4_PILL_FONT_KEY = 'yg-home-row4-pill-font-size-v1';
     var FAV_VISIBLE_KEY = 'yg-home-favourites-visible-v6';
     var root = document.querySelector('[data-row4-cats]');
     if (!root) return;
@@ -1273,7 +1252,6 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     setFavouritesBg(savedFavBg === 'stone');
 
     var row4VisibleInput = document.querySelector('[data-row4-visible-input]');
-    var row4PillFontInput = document.querySelector('[data-row4-pill-font-input]');
     var favVisibleInput = document.querySelector('[data-favourites-visible-input]');
     var favCarousel = document.querySelector('[data-favourites-carousel]');
     var row4VisibleCount = 7;
@@ -1383,22 +1361,6 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
         setRow4Visible(clampCount(value, 7, 4, 10));
     });
 
-    function setRow4PillFontSize(value, syncInput) {
-        var size = parseVisibleInput(value, 10, 20);
-        if (size == null) return;
-        var px = size + 'px';
-        document.body.style.setProperty('--yg-row4-pill-font-size', px);
-        if (root) root.style.setProperty('--yg-row4-pill-font-size', px);
-        if (syncInput !== false && row4PillFontInput) row4PillFontInput.value = size;
-        try {
-            localStorage.setItem(ROW4_PILL_FONT_KEY, String(size));
-        } catch (err) { /* ignore */ }
-    }
-
-    bindVisibleInput(row4PillFontInput, setRow4PillFontSize, function (value) {
-        setRow4PillFontSize(clampCount(value, 16, 10, 20));
-    });
-
     bindVisibleInput(favVisibleInput, setFavouritesVisible, function (value) {
         setFavouritesVisible(clampCount(value, 7, 4, 10));
     });
@@ -1409,23 +1371,14 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     } catch (err) { /* ignore */ }
     setRow4Visible(clampCount(savedRow4Visible, 7, 4, 10));
 
-    var savedRow4PillFont = '16';
-    try {
-        savedRow4PillFont = localStorage.getItem(ROW4_PILL_FONT_KEY) || '16';
-    } catch (err) { /* ignore */ }
-    setRow4PillFontSize(clampCount(savedRow4PillFont, 16, 10, 20));
+    document.body.style.setProperty('--yg-row4-pill-font-size', '16px');
+    if (root) root.style.setProperty('--yg-row4-pill-font-size', '16px');
 
     var savedFavVisible = '7';
     try {
         savedFavVisible = localStorage.getItem(FAV_VISIBLE_KEY) || '7';
     } catch (err) { /* ignore */ }
     setFavouritesVisible(clampCount(savedFavVisible, 7, 4, 10));
-
-    var origSetFavouritesWidth = setFavouritesWidth;
-    setFavouritesWidth = function (value) {
-        origSetFavouritesWidth(value);
-        applyFavouritesCardWidths(favVisibleCount);
-    };
 
     window.addEventListener('resize', function () {
         applyRow4CardWidths(row4VisibleCount);
@@ -1436,32 +1389,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
 })();
 
 (function () {
-    var HEADLINE_ALIGN_KEY = 'yg-home-headline-align-v5';
-    var headlineAlignOptions = Array.prototype.slice.call(document.querySelectorAll('[data-headline-align-option]'));
-
-    function setHeadlineAlign(value) {
-        if (value !== 'left' && value !== 'center') value = 'center';
-        document.body.setAttribute('data-home-headline-align', value);
-        headlineAlignOptions.forEach(function (input) {
-            input.checked = input.value === value;
-        });
-        try {
-            localStorage.setItem(HEADLINE_ALIGN_KEY, value);
-        } catch (err) { /* ignore */ }
-    }
-
-    headlineAlignOptions.forEach(function (input) {
-        input.addEventListener('change', function () {
-            if (input.checked) setHeadlineAlign(input.value);
-        });
-    });
-
-    var savedHeadlineAlign = 'center';
-    try {
-        savedHeadlineAlign = localStorage.getItem(HEADLINE_ALIGN_KEY) || 'center';
-    } catch (err) { /* ignore */ }
-    if (savedHeadlineAlign !== 'left' && savedHeadlineAlign !== 'center') savedHeadlineAlign = 'center';
-    setHeadlineAlign(savedHeadlineAlign);
+    document.body.setAttribute('data-home-headline-align', 'center');
 })();
 
 (function () {
