@@ -20,6 +20,19 @@ class AccountController extends Controller
         ]);
     }
 
+    public function demoLogin(string $type = 'guest'): RedirectResponse
+    {
+        if ($type === 'club') {
+            DemoAccount::loginAsClubMember();
+        } else {
+            DemoAccount::loginAsGuest();
+        }
+
+        DemoAccount::grantSiteAccess();
+
+        return redirect()->route('demo.account.home');
+    }
+
     public function loginSubmit(Request $request): RedirectResponse
     {
         $request->validate([

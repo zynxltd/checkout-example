@@ -220,6 +220,22 @@ body.demo-account .yg-pdp-wave {
     background: var(--yg-checkout-dark);
 }
 
+.demo-account-form.is-submitting .demo-account-submit {
+    opacity: 0.92;
+    cursor: wait;
+    pointer-events: none;
+}
+
+.demo-account-demo-login__link {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.demo-account-demo-login__link:hover {
+    color: var(--yg-checkout);
+}
+
 .demo-account-divider {
     display: flex;
     align-items: center;

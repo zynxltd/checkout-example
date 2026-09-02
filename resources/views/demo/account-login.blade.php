@@ -29,10 +29,12 @@
                 <div class="demo-account-demo-login">
                     <p class="demo-account-demo-login__title">Demo logins</p>
                     <p class="demo-account-demo-login__creds">
-                        <strong>Guest</strong> — {{ config('demo.account_email') }} / {{ config('demo.account_password') }}
+                        <strong>Guest</strong> —
+                        <a class="demo-account-demo-login__link" href="{{ route('demo.account.demo-login', ['type' => 'guest']) }}">{{ config('demo.account_email') }} / {{ config('demo.account_password') }}</a>
                     </p>
                     <p class="demo-account-demo-login__creds">
-                        <strong>Club member</strong> — {{ config('demo.club_account_email') }} / {{ config('demo.club_account_password') }}
+                        <strong>Club member</strong> —
+                        <a class="demo-account-demo-login__link" href="{{ route('demo.account.demo-login', ['type' => 'club']) }}">{{ config('demo.club_account_email') }} / {{ config('demo.club_account_password') }}</a>
                     </p>
                 </div>
 

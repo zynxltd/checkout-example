@@ -28,6 +28,7 @@ Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/perennial-plants-and-flowers', [ListingController::class, 'perennials'])->name('demo.listing.perennials');
     Route::get('/tv-live', [TvLiveController::class, 'show'])->name('demo.tv-live');
     Route::get('/account/login', [AccountController::class, 'login'])->name('demo.account.login');
+    Route::get('/account/demo-login/{type?}', [AccountController::class, 'demoLogin'])->name('demo.account.demo-login');
     Route::post('/account/login', [AccountController::class, 'loginSubmit'])->name('demo.account.login.submit');
     Route::get('/account/register', [AccountController::class, 'register'])->name('demo.account.register');
     Route::post('/account/register', [AccountController::class, 'registerSubmit'])->name('demo.account.register.submit');

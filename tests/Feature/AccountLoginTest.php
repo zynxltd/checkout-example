@@ -111,4 +111,21 @@ class AccountLoginTest extends TestCase
         $this->get('/account')->assertOk();
         $this->get('/')->assertOk();
     }
+
+    public function test_demo_login_link_grants_guest_access(): void
+    {
+        config(['demo-preview.auth_enabled' => true]);
+
+        $this->get('/account/demo-login/guest')
+            ->assertRedirect(route('demo.account.home'));
+
+        $this->get('/account')->assertOk();
+    }
+
+    public function test_demo_login_link_grants_club_access(): void
+    {
+        $this->get('/account/demo-login/club')
+            ->assertRedirect(route('demo.account.home'))
+            ->assertSessionHas('demo_club_member', true);
+    }
 }

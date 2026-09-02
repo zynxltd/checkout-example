@@ -118,7 +118,11 @@
         document.querySelectorAll('form[data-demo-form-loading]').forEach((form) => {
             form.addEventListener('submit', (event) => {
                 const submit = form.querySelector('[type="submit"]');
-                if (!submit || submit.classList.contains('is-loading')) {
+                if (!submit) {
+                    return;
+                }
+
+                if (form.classList.contains('is-submitting')) {
                     event.preventDefault();
                     return;
                 }
@@ -137,7 +141,10 @@
                     return;
                 }
 
-                setButtonLoading(submit, true);
+                form.classList.add('is-submitting');
+                submit.setAttribute('aria-busy', 'true');
+                // Do not disable the submit button — that can cancel the native
+                // POST in some browsers (same pattern as checkout).
             });
         });
     }
