@@ -115,7 +115,7 @@ body.demo-account--secured {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 9px 16px;
+    padding: 11px 16px;
     background: var(--yg-forest);
     color: #fff;
     text-align: center;
@@ -124,9 +124,9 @@ body.demo-account--secured {
 
 .demo-account-secure-header__club span {
     font-family: var(--yg-body);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 }
 
@@ -3377,12 +3377,12 @@ body.demo-account--page-loading {
     }
 
     .demo-account-secure-header__club {
-        padding: 8px 12px;
+        padding: 10px 12px;
     }
 
     .demo-account-secure-header__club span {
-        font-size: 11px;
-        letter-spacing: 0.12em;
+        font-size: 13px;
+        letter-spacing: 0.14em;
     }
 
     .demo-account-edit-form__actions {
