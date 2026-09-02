@@ -10,6 +10,8 @@ body.demo-account--secured {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-height: 100dvh;
+    padding-bottom: 0; /* override .demo-site padding that left grey under the footer */
     background: #eceae6;
 }
 
