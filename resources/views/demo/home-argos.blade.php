@@ -9,6 +9,12 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
 @endsection
 
 @push('head')
+    @php
+        $heroPreload = $hero_slides[0]['image'] ?? $hero_slides[0]['poster'] ?? null;
+    @endphp
+    @if ($heroPreload)
+        <link rel="preload" as="image" href="{{ asset($heroPreload) }}?v={{ filemtime(public_path($heroPreload)) }}" fetchpriority="high">
+    @endif
     <link rel="stylesheet" href="{{ asset('css/yg-drawer-theme.css') }}?v={{ filemtime(public_path('css/yg-drawer-theme.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/demo-pdp-reviews-footer.css') }}?v={{ filemtime(public_path('css/demo-pdp-reviews-footer.css')) }}">
     <link rel="stylesheet" href="{{ asset('css/home-argos-preview.css') }}?v={{ filemtime(public_path('css/home-argos-preview.css')) }}">
@@ -74,22 +80,83 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
                             aria-label="{{ $index + 1 }} of {{ count($hero_slides) }}: {{ $slide['alt'] }}"
                             @if ($index !== 0) aria-hidden="true" @endif
                         >
-                            <a
-                                href="{{ $slide['url'] }}"
-                                class="yg-hero-argos__banner yg-hero-argos__banner--full"
-                                target="_blank"
-                                rel="noopener"
-                                @if ($index !== 0) tabindex="-1" @endif
-                            >
-                                <img
-                                    src="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
-                                    alt="{{ $slide['alt'] }}"
-                                    width="1920"
-                                    height="600"
-                                    sizes="100vw"
-                                    @if ($index === 0) fetchpriority="high" @else loading="lazy" @endif
+                            @if (($slide['type'] ?? '') === 'video' && ! empty($slide['video']))
+                                @php
+                                    $posterPath = $slide['poster'] ?? $slide['image'];
+                                    $videoPath = $slide['video'];
+                                    $videoClips = $slide['videos'] ?? [['video' => $videoPath, 'poster' => $posterPath]];
+                                    $overlay = $slide['overlay'] ?? [];
+                                @endphp
+                                <div
+                                    class="yg-hero-argos__banner yg-hero-argos__banner--full yg-hero-argos__banner--video yg-hero-argos__banner--card"
+                                    style="--yg-hero-video-poster: url('{{ asset($posterPath) }}?v={{ filemtime(public_path($posterPath)) }}')"
                                 >
-                            </a>
+                                    <div class="yg-hero-argos__video-wrap" data-hero-video-rotator>
+                                        @foreach ($videoClips as $clipIndex => $clip)
+                                            @php
+                                                $clipPoster = $clip['poster'] ?? $posterPath;
+                                                $clipVideo = $clip['video'] ?? $videoPath;
+                                            @endphp
+                                            <video
+                                                class="yg-hero-argos__video yg-hero-argos__video-layer{{ $clipIndex === 0 ? ' is-active' : '' }}"
+                                                width="1920"
+                                                height="600"
+                                                poster="{{ asset($clipPoster) }}?v={{ filemtime(public_path($clipPoster)) }}"
+                                                muted
+                                                loop
+                                                playsinline
+                                                preload="none"
+                                                aria-hidden="true"
+                                                data-hero-video
+                                                data-hero-video-layer
+                                            >
+                                                <source data-src="{{ asset($clipVideo) }}?v={{ filemtime(public_path($clipVideo)) }}" type="video/mp4">
+                                            </video>
+                                        @endforeach
+                                    </div>
+                                    @if (! empty($overlay['title']))
+                                        <div class="yg-hero-argos__card">
+                                            <div class="yg-hero-argos__card-inner">
+                                                @if (! empty($overlay['kicker']))
+                                                    <p class="yg-hero-argos__split-kicker">{{ $overlay['kicker'] }}</p>
+                                                @endif
+                                                <h2 class="yg-hero-argos__split-title">{{ $overlay['title'] }}</h2>
+                                                @if (! empty($overlay['subtitle']))
+                                                    <p class="yg-hero-argos__split-text">{{ $overlay['subtitle'] }}</p>
+                                                @endif
+                                                @if (! empty($overlay['primary']['label']))
+                                                    <a
+                                                        href="{{ $overlay['primary']['url'] ?? $slide['url'] }}"
+                                                        class="yg-hero-argos__split-cta"
+                                                        @if (str_starts_with($overlay['primary']['url'] ?? '', 'http')) target="_blank" rel="noopener" @endif
+                                                        @if ($index !== 0) tabindex="-1" @endif
+                                                    >
+                                                        <span class="yg-hero-argos__split-cta-label">{{ $overlay['primary']['label'] }}</span>
+                                                        <span class="yg-hero-argos__split-cta-icon" aria-hidden="true"></span>
+                                                    </a>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            @else
+                                <a
+                                    href="{{ $slide['url'] }}"
+                                    class="yg-hero-argos__banner yg-hero-argos__banner--full"
+                                    target="_blank"
+                                    rel="noopener"
+                                    @if ($index !== 0) tabindex="-1" @endif
+                                >
+                                    <img
+                                        src="{{ asset($slide['image']) }}?v={{ filemtime(public_path($slide['image'])) }}"
+                                        alt="{{ $slide['alt'] }}"
+                                        width="1920"
+                                        height="600"
+                                        sizes="100vw"
+                                        @if ($index === 0) fetchpriority="high" @else loading="lazy" @endif
+                                    >
+                                </a>
+                            @endif
 
                             <div class="yg-hero-argos__ctas yg-hero-argos__ctas--{{ $slide['cta_theme'] ?? 'rose' }}" role="navigation" aria-label="{{ $slide['alt'] }} shopping shortcuts">
                                 @foreach ($slide['ctas'] as $cta)
@@ -421,16 +488,6 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
                     <span>Centered</span>
                 </label>
                 <p class="demo-controls__hint">Applies to Shop by category and Customer favourites headlines. Saved in this browser.</p>
-                <p class="demo-controls__label">Customer favourites width</p>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-favourites-width" value="contained" data-favourites-width-option>
-                    <span>Content width</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="radio" name="home-favourites-width" value="full" data-favourites-width-option checked>
-                    <span>Full width</span>
-                </label>
-                <p class="demo-controls__hint">Full width matches the category strip. Choice is saved in this browser.</p>
                 <p class="demo-controls__label">Customer favourites — desktop cards</p>
                 <label class="demo-controls__field">
                     <span>Products visible</span>
@@ -442,11 +499,6 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
                     <span>Stone background on carousel strip</span>
                 </label>
                 <p class="demo-controls__hint">YG stone (#F2E7D8) full-width band behind headline and products. Choice is saved in this browser.</p>
-                <label class="demo-toggle">
-                    <input type="checkbox" data-favourites-waves-option checked>
-                    <span>Wavy top &amp; bottom edges (desktop)</span>
-                </label>
-                <p class="demo-controls__hint">Organic wave divider on the stone band — desktop only (961px+). Saved in this browser.</p>
             </aside>
         </div>
     </div>
@@ -619,6 +671,84 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     var paused = false;
     var timer = null;
     var INTERVAL = 5000;
+    var heroReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var heroVideosLoaded = false;
+    var videoRotatorTimer = null;
+    var VIDEO_ROTATE_MS = 9000;
+    var videoRotator = root.querySelector('[data-hero-video-rotator]');
+    var videoLayers = videoRotator
+        ? Array.prototype.slice.call(videoRotator.querySelectorAll('[data-hero-video-layer]'))
+        : [];
+    var videoLayerIndex = 0;
+
+    function ensureLayerLoaded(layer) {
+        if (!layer || layer.dataset.loaded === '1') return;
+        var source = layer.querySelector('source[data-src]');
+        if (!source) return;
+        source.src = source.getAttribute('data-src');
+        layer.load();
+        layer.dataset.loaded = '1';
+    }
+
+    function loadHeroVideos() {
+        if (heroVideosLoaded || heroReducedMotion) return;
+        if (videoLayers.length) {
+            ensureLayerLoaded(videoLayers[0]);
+            if (videoLayers[1]) ensureLayerLoaded(videoLayers[1]);
+        } else {
+            root.querySelectorAll('[data-hero-video]').forEach(function (video) {
+                ensureLayerLoaded(video);
+            });
+        }
+        heroVideosLoaded = true;
+    }
+
+    function setActiveVideoLayer(i) {
+        if (!videoLayers.length) return;
+        videoLayerIndex = (i + videoLayers.length) % videoLayers.length;
+        ensureLayerLoaded(videoLayers[videoLayerIndex]);
+        var preloadNext = videoLayers[(videoLayerIndex + 1) % videoLayers.length];
+        if (preloadNext) ensureLayerLoaded(preloadNext);
+        videoLayers.forEach(function (layer, n) {
+            var on = n === videoLayerIndex;
+            layer.classList.toggle('is-active', on);
+            if (layer.dataset.loaded !== '1') return;
+            if (on && index === 0 && !paused && !heroReducedMotion) {
+                layer.currentTime = 0;
+                layer.play().catch(function () {});
+            } else {
+                layer.pause();
+            }
+        });
+    }
+
+    function stopVideoRotator() {
+        if (videoRotatorTimer) {
+            clearInterval(videoRotatorTimer);
+            videoRotatorTimer = null;
+        }
+    }
+
+    function startVideoRotator() {
+        stopVideoRotator();
+        if (heroReducedMotion || videoLayers.length < 2 || index !== 0 || paused) return;
+        videoRotatorTimer = setInterval(function () {
+            setActiveVideoLayer(videoLayerIndex + 1);
+        }, VIDEO_ROTATE_MS);
+    }
+
+    function syncHeroVideos(activeIndex) {
+        if (heroReducedMotion) return;
+        if (activeIndex === 0) {
+            setActiveVideoLayer(videoLayerIndex);
+            startVideoRotator();
+        } else {
+            stopVideoRotator();
+            root.querySelectorAll('[data-hero-video]').forEach(function (video) {
+                video.pause();
+            });
+        }
+    }
 
     function show(i) {
         index = (i + slides.length) % slides.length;
@@ -642,6 +772,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
             dot.classList.toggle('is-active', on);
             dot.setAttribute('aria-selected', on ? 'true' : 'false');
         });
+        syncHeroVideos(index);
     }
 
     function stopAuto() {
@@ -664,8 +795,10 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
         paused = nextPaused;
         if (pauseBtn) pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
         if (pauseLabel) pauseLabel.textContent = paused ? 'Play' : 'Pause';
+        syncHeroVideos(index);
         if (paused) {
             stopAuto();
+            stopVideoRotator();
         } else {
             startAuto();
         }
@@ -764,6 +897,14 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
 
     show(0);
     startAuto();
+
+    window.addEventListener('load', function () {
+        loadHeroVideos();
+        if (videoLayers.length) {
+            setActiveVideoLayer(0);
+        }
+        syncHeroVideos(index);
+    });
 })();
 
 (function () {
@@ -1100,26 +1241,12 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
         positionSideNav();
     });
 
-    var FAV_WIDTH_KEY = 'yg-home-favourites-width-v5';
     var FAV_BG_KEY = 'yg-home-favourites-bg-v2';
-    var FAV_WAVES_KEY = 'yg-home-favourites-waves-v1';
-    var favWidthOptions = Array.prototype.slice.call(document.querySelectorAll('[data-favourites-width-option]'));
     var favBgOption = document.querySelector('[data-favourites-bg-option]');
-    var favWavesOption = document.querySelector('[data-favourites-waves-option]');
 
     document.body.setAttribute('data-carousel-arrows', 'bottom');
-
-    function setFavouritesWaves(enabled) {
-        if (enabled) {
-            document.body.setAttribute('data-favourites-waves', 'on');
-        } else {
-            document.body.removeAttribute('data-favourites-waves');
-        }
-        if (favWavesOption) favWavesOption.checked = !!enabled;
-        try {
-            localStorage.setItem(FAV_WAVES_KEY, enabled ? 'on' : '');
-        } catch (err) { /* ignore */ }
-    }
+    document.body.setAttribute('data-favourites-width', 'full');
+    document.body.setAttribute('data-favourites-waves', 'on');
 
     function setFavouritesBg(enabled) {
         if (enabled) {
@@ -1133,56 +1260,17 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
         } catch (err) { /* ignore */ }
     }
 
-    if (favWavesOption) {
-        favWavesOption.addEventListener('change', function () {
-            setFavouritesWaves(favWavesOption.checked);
-        });
-    }
-
     if (favBgOption) {
         favBgOption.addEventListener('change', function () {
             setFavouritesBg(favBgOption.checked);
         });
     }
 
-    var savedFavWaves = 'on';
-    try {
-        savedFavWaves = localStorage.getItem(FAV_WAVES_KEY);
-        if (savedFavWaves === null) savedFavWaves = 'on';
-    } catch (err) { /* ignore */ }
-    setFavouritesWaves(savedFavWaves === 'on');
-
     var savedFavBg = 'stone';
     try {
         savedFavBg = localStorage.getItem(FAV_BG_KEY) || 'stone';
     } catch (err) { /* ignore */ }
     setFavouritesBg(savedFavBg === 'stone');
-
-    function setFavouritesWidth(value) {
-        var allowed = { full: true, contained: true };
-        if (!allowed[value]) value = 'full';
-        document.body.setAttribute('data-favourites-width', value);
-        favWidthOptions.forEach(function (input) {
-            input.checked = input.value === value;
-        });
-        try {
-            localStorage.setItem(FAV_WIDTH_KEY, value);
-        } catch (err) { /* ignore */ }
-        window.dispatchEvent(new Event('resize'));
-    }
-
-    favWidthOptions.forEach(function (input) {
-        input.addEventListener('change', function () {
-            if (input.checked) setFavouritesWidth(input.value);
-        });
-    });
-
-    var savedFavWidth = 'full';
-    try {
-        savedFavWidth = localStorage.getItem(FAV_WIDTH_KEY) || 'full';
-    } catch (err) { /* ignore */ }
-    if (savedFavWidth !== 'full' && savedFavWidth !== 'contained') savedFavWidth = 'full';
-    setFavouritesWidth(savedFavWidth);
 
     var row4VisibleInput = document.querySelector('[data-row4-visible-input]');
     var row4PillFontInput = document.querySelector('[data-row4-pill-font-input]');
@@ -1229,7 +1317,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
     }
 
     function favouritesGap() {
-        return document.body.getAttribute('data-favourites-width') === 'full' ? 10 : 14;
+        return 10;
     }
 
     function ensureFavouritesImagesLoaded() {
