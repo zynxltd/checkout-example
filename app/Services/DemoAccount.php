@@ -255,12 +255,14 @@ class DemoAccount
 
     public static function user(): array
     {
-        if (! self::isLoggedIn()) {
+        $role = self::accountRole();
+        if ($role === null) {
             return self::guestUser();
         }
 
-        $template = self::isClubMember() ? self::clubMemberUser() : self::guestUser();
-        $user = session(self::SESSION_KEY, $template);
+        $template = $role === 'club' ? self::clubMemberUser() : self::guestUser();
+        $overrides = self::sessionState()['overrides'] ?? [];
+        $user = array_replace_recursive($template, is_array($overrides) ? $overrides : []);
         $user['orders'] = $template['orders'];
         $user['communication_preferences'] = self::normalizeCommunicationPreferences($user);
 
@@ -339,15 +341,15 @@ class DemoAccount
             return;
         }
 
-        $user = session(self::SESSION_KEY);
-        $user['invoice_address'] = [
-            'line1' => $payload['line1'],
-            'line2' => $payload['line2'] ?? '',
-            'town' => $payload['town'],
-            'postcode' => $payload['postcode'],
-            'country' => $payload['country'] ?? 'UNITED KINGDOM',
-        ];
-        session([self::SESSION_KEY => $user]);
+        self::mergeOverrides([
+            'invoice_address' => [
+                'line1' => $payload['line1'],
+                'line2' => $payload['line2'] ?? '',
+                'town' => $payload['town'],
+                'postcode' => $payload['postcode'],
+                'country' => $payload['country'] ?? 'UNITED KINGDOM',
+            ],
+        ]);
     }
 
     /** @param list<string> $optedOutIds */
@@ -357,10 +359,10 @@ class DemoAccount
             return;
         }
 
-        $user = session(self::SESSION_KEY);
+        $user = self::user();
         $optedOut = array_flip($optedOutIds);
 
-        $user['communication_preferences'] = collect($user['communication_preferences'] ?? [])
+        $preferences = collect($user['communication_preferences'] ?? [])
             ->map(function (array $pref) use ($optedOut) {
                 $id = $pref['id'] ?? '';
                 $pref['opted_out'] = $id !== '' && isset($optedOut[$id]);
@@ -370,7 +372,7 @@ class DemoAccount
             ->values()
             ->all();
 
-        session([self::SESSION_KEY => $user]);
+        self::mergeOverrides(['communication_preferences' => $preferences]);
     }
 
     /** @return array<string, mixed>|null */
@@ -392,7 +394,7 @@ class DemoAccount
             return;
         }
 
-        $user = session(self::SESSION_KEY);
+        $user = self::user();
         $addresses = $user['delivery_addresses'] ?? [];
         $makeDefault = ! empty($payload['is_default']);
 
@@ -417,8 +419,7 @@ class DemoAccount
             ];
         }
 
-        $user['delivery_addresses'] = $addresses;
-        session([self::SESSION_KEY => $user]);
+        self::mergeOverrides(['delivery_addresses' => $addresses]);
     }
 
     public static function deleteDeliveryAddress(string $id): bool
@@ -427,10 +428,11 @@ class DemoAccount
             return false;
         }
 
-        $user = session(self::SESSION_KEY);
+        $user = self::user();
         $addresses = $user['delivery_addresses'] ?? [];
+        $originalCount = count($addresses);
 
-        if (count($addresses) <= 1) {
+        if ($originalCount <= 1) {
             return false;
         }
 
@@ -445,7 +447,7 @@ class DemoAccount
             return false;
         }));
 
-        if (count($addresses) === count($user['delivery_addresses'] ?? [])) {
+        if (count($addresses) === $originalCount) {
             return false;
         }
 
@@ -453,8 +455,7 @@ class DemoAccount
             $addresses[0]['is_default'] = true;
         }
 
-        $user['delivery_addresses'] = $addresses;
-        session([self::SESSION_KEY => $user]);
+        self::mergeOverrides(['delivery_addresses' => $addresses]);
 
         return true;
     }
@@ -466,33 +467,35 @@ class DemoAccount
             return;
         }
 
-        $user = session(self::SESSION_KEY);
         $initial = trim((string) ($payload['initial'] ?? ''));
         $firstName = trim((string) ($payload['first_name'] ?? ''));
         $shortFirst = $initial !== '' ? strtoupper($initial) : strtoupper(substr($firstName, 0, 1));
+        $lastName = trim((string) ($payload['last_name'] ?? ''));
 
-        $user['title'] = $payload['title'];
-        $user['first_name'] = $firstName;
-        $user['initial'] = $initial;
-        $user['last_name'] = trim((string) ($payload['last_name'] ?? ''));
-        $user['display_name'] = strtoupper((string) ($payload['title'] ?? 'Mr')).' '.$shortFirst.' '.$user['last_name'];
-        $user['business_name'] = trim((string) ($payload['business_name'] ?? ''));
-        $user['email'] = strtolower(trim((string) ($payload['email'] ?? '')));
-        $user['phone'] = trim((string) ($payload['phone'] ?? ''));
+        $updates = [
+            'title' => $payload['title'],
+            'first_name' => $firstName,
+            'initial' => $initial,
+            'last_name' => $lastName,
+            'display_name' => strtoupper((string) ($payload['title'] ?? 'Mr')).' '.$shortFirst.' '.$lastName,
+            'business_name' => trim((string) ($payload['business_name'] ?? '')),
+            'email' => strtolower(trim((string) ($payload['email'] ?? ''))),
+            'phone' => trim((string) ($payload['phone'] ?? '')),
+        ];
 
         if (! empty($payload['date_of_birth_iso'])) {
-            $user['date_of_birth_iso'] = $payload['date_of_birth_iso'];
-            $user['date_of_birth'] = $payload['date_of_birth'] ?? '';
+            $updates['date_of_birth_iso'] = $payload['date_of_birth_iso'];
+            $updates['date_of_birth'] = $payload['date_of_birth'] ?? '';
         } else {
-            $user['date_of_birth_iso'] = '';
-            $user['date_of_birth'] = '';
+            $updates['date_of_birth_iso'] = '';
+            $updates['date_of_birth'] = '';
         }
 
         if (! empty($payload['password'])) {
-            $user['password'] = $payload['password'];
+            $updates['password'] = $payload['password'];
         }
 
-        session([self::SESSION_KEY => $user]);
+        self::mergeOverrides($updates);
     }
 
     public static function verifyPassword(string $password): bool
@@ -558,7 +561,7 @@ class DemoAccount
 
     public static function isLoggedIn(): bool
     {
-        return session()->has(self::SESSION_KEY);
+        return self::accountRole() !== null;
     }
 
     /**
@@ -626,7 +629,10 @@ class DemoAccount
     public static function loginAsGuest(): void
     {
         session([
-            self::SESSION_KEY => self::guestUser(),
+            self::SESSION_KEY => [
+                'role' => 'guest',
+                'overrides' => [],
+            ],
             'demo_club_member' => false,
         ]);
     }
@@ -634,7 +640,10 @@ class DemoAccount
     public static function loginAsClubMember(): void
     {
         session([
-            self::SESSION_KEY => self::clubMemberUser(),
+            self::SESSION_KEY => [
+                'role' => 'club',
+                'overrides' => [],
+            ],
             'demo_club_member' => true,
         ]);
     }
@@ -653,13 +662,46 @@ class DemoAccount
         }
 
         session([
-            self::SESSION_KEY => $active ? self::clubMemberUser() : self::guestUser(),
+            self::SESSION_KEY => [
+                'role' => $active ? 'club' : 'guest',
+                'overrides' => [],
+            ],
         ]);
     }
 
     public static function logout(): void
     {
         session()->forget([self::SESSION_KEY, 'demo_club_member']);
+    }
+
+    /** @return array<string, mixed> */
+    private static function sessionState(): array
+    {
+        $state = session(self::SESSION_KEY);
+
+        return is_array($state) ? $state : [];
+    }
+
+    /** @param array<string, mixed> $state */
+    private static function putSessionState(array $state): void
+    {
+        session([self::SESSION_KEY => $state]);
+    }
+
+    /** @param array<string, mixed> $partial */
+    private static function mergeOverrides(array $partial): void
+    {
+        $state = self::sessionState();
+        $overrides = is_array($state['overrides'] ?? null) ? $state['overrides'] : [];
+        $state['overrides'] = array_replace_recursive($overrides, $partial);
+        self::putSessionState($state);
+    }
+
+    private static function accountRole(): ?string
+    {
+        $role = self::sessionState()['role'] ?? null;
+
+        return is_string($role) && $role !== '' ? $role : null;
     }
 
     /** @param array<string, mixed>|null $address */

@@ -35,6 +35,10 @@
         warn('server returned validation/auth errors', debug.errors);
     }
 
+    if (debug.sessionDriver === 'cookie') {
+        warn('session driver is cookie — login now stores a tiny session payload; redeploy if sign-in still loops');
+    }
+
     if (debug.status) {
         log('server status flash', debug.status);
     }
