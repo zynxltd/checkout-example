@@ -178,6 +178,7 @@ class DemoAccount
             'last_name' => $user['last_name'],
             'email' => $user['email'],
             'phone' => $user['phone'],
+            'date_of_birth' => $user['date_of_birth_iso'] ?? '',
             'address_line1' => $address['line1'],
             'address_line2' => $address['line2'],
             'town' => $address['town'],

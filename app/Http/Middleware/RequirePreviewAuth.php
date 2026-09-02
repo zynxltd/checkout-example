@@ -38,6 +38,8 @@ class RequirePreviewAuth
             'demo.account.login',
             'demo.account.login.submit',
             'demo.account.demo-login',
+            'demo.account.forgotten-password',
+            'demo.account.forgotten-password.submit',
             'demo.account.register',
             'demo.account.register.submit',
         );

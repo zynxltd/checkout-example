@@ -76,6 +76,23 @@
                             <label class="demo-account-label" for="account-register-phone">Telephone</label>
                             <input class="demo-account-input" type="tel" id="account-register-phone" name="phone" value="{{ old('phone', $defaults['phone']) }}" autocomplete="tel" required>
                         </div>
+
+                        <div class="demo-account-birthday">
+                            <p class="demo-account-birthday__title" id="account-register-birthday-label">Birthday Treat?</p>
+                            <p class="demo-account-birthday__lead">Let us know your date of birth, and we may just send you a Birthday surprise.</p>
+                            <div class="demo-account-field">
+                                <label class="visually-hidden" for="account-register-dob">Date of birth</label>
+                                <input
+                                    class="demo-account-input"
+                                    type="date"
+                                    id="account-register-dob"
+                                    name="date_of_birth"
+                                    value="{{ old('date_of_birth', $defaults['date_of_birth'] ?? '') }}"
+                                    autocomplete="bday"
+                                    aria-labelledby="account-register-birthday-label"
+                                >
+                            </div>
+                        </div>
                     </fieldset>
 
                     <fieldset class="demo-account-fieldset">

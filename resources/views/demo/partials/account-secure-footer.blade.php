@@ -17,12 +17,12 @@
     <div class="demo-account-secure-footer__bottom">
         <div class="demo-account-secure-footer__payments">
             <ul class="demo-account-secure-footer__pay-cards" aria-label="Payment methods">
-                <li><img src="{{ $payImg('amazonpayments.png') }}" alt="Amazon Pay" width="44" height="28" loading="lazy"></li>
-                <li><img src="{{ $payImg('paypal.png') }}" alt="PayPal" width="44" height="28" loading="lazy"></li>
-                <li><img src="{{ $payImg('mastercard.png') }}" alt="Mastercard" width="44" height="28" loading="lazy"></li>
-                <li><img src="{{ $payImg('visa.png') }}" alt="Visa" width="44" height="28" loading="lazy"></li>
-                <li><img src="{{ $payImg('amex.png') }}" alt="American Express" width="44" height="28" loading="lazy"></li>
-                <li><img src="{{ $payImg('apple_pay.png') }}" alt="Apple Pay" width="44" height="28" loading="lazy"></li>
+                <li><img src="{{ $payImg('amazonpayments.png') }}" alt="Amazon Pay" width="56" height="36" loading="lazy"></li>
+                <li><img src="{{ $payImg('paypal.png') }}" alt="PayPal" width="56" height="36" loading="lazy"></li>
+                <li><img src="{{ $payImg('mastercard.png') }}" alt="Mastercard" width="56" height="36" loading="lazy"></li>
+                <li><img src="{{ $payImg('visa.png') }}" alt="Visa" width="56" height="36" loading="lazy"></li>
+                <li><img src="{{ $payImg('amex.png') }}" alt="American Express" width="56" height="36" loading="lazy"></li>
+                <li><img src="{{ $payImg('apple_pay.png') }}" alt="Apple Pay" width="56" height="36" loading="lazy"></li>
                 <li class="demo-account-secure-footer__pay-amo" aria-label="Powered by AMO">powered by AMO</li>
             </ul>
         </div>

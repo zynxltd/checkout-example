@@ -86,6 +86,27 @@ class AccountController extends Controller
             ->withErrors(['email' => 'Invalid login or password. Use the demo credentials shown below.']);
     }
 
+    public function forgottenPassword(): View
+    {
+        DemoCart::seed();
+
+        return view('demo.account-forgotten-password', [
+            'cart' => DemoCart::state(),
+        ]);
+    }
+
+    public function forgottenPasswordSubmit(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'email' => ['required', 'email', 'max:120'],
+        ]);
+
+        return back()->with(
+            'status',
+            'If an account exists for that email, a password reset link has been sent. (Demo — no email is sent.)',
+        );
+    }
+
     public function register(): View
     {
         DemoCart::seed();
@@ -105,6 +126,7 @@ class AccountController extends Controller
             'email' => ['required', 'email', 'max:120'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required', 'string', 'max:40'],
+            'date_of_birth' => ['nullable', 'date'],
             'address_line1' => ['required', 'string', 'max:120'],
             'address_line2' => ['nullable', 'string', 'max:120'],
             'town' => ['required', 'string', 'max:80'],

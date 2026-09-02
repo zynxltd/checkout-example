@@ -30,6 +30,8 @@ Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/account/login', [AccountController::class, 'login'])->name('demo.account.login');
     Route::get('/account/demo-login/{type?}', [AccountController::class, 'demoLogin'])->name('demo.account.demo-login');
     Route::post('/account/login', [AccountController::class, 'loginSubmit'])->name('demo.account.login.submit');
+    Route::get('/account/forgotten-password', [AccountController::class, 'forgottenPassword'])->name('demo.account.forgotten-password');
+    Route::post('/account/forgotten-password', [AccountController::class, 'forgottenPasswordSubmit'])->name('demo.account.forgotten-password.submit');
     Route::get('/account/register', [AccountController::class, 'register'])->name('demo.account.register');
     Route::post('/account/register', [AccountController::class, 'registerSubmit'])->name('demo.account.register.submit');
     Route::post('/account/logout', [AccountController::class, 'logout'])->name('demo.account.logout');

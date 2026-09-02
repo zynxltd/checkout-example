@@ -66,7 +66,7 @@
                         >
                     </div>
 
-                    <a href="#" class="demo-account-forgot">Forgotten your password?</a>
+                    <a href="{{ route('demo.account.forgotten-password') }}" class="demo-account-forgot">Forgotten your password?</a>
 
                     @if ($errors->any())
                         <div class="demo-account-errors" role="alert">
