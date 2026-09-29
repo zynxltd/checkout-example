@@ -146,7 +146,7 @@ body.yg-header-argos .usp-wrapper {
     grid-template-columns: minmax(0, 1fr) minmax(260px, 440px) minmax(0, 1fr);
     grid-template-areas: 'brand search utilities';
     align-items: center;
-    column-gap: 28px;
+    column-gap: 22px;
     max-width: var(--yg-argos-content-width);
     margin: 0 auto;
     padding: 28px var(--yg-argos-content-pad);
@@ -158,9 +158,13 @@ body.yg-header-argos .usp-wrapper {
 
 /* Special offer on: give the chip its own column, centred between logo and search */
 body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
-    grid-template-columns: auto minmax(0, 1fr) minmax(260px, 440px) minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr) minmax(260px, 440px) auto;
     grid-template-areas: 'brand promo search utilities';
     column-gap: 20px;
+}
+
+body[data-header-promo='offer'] .yg-header-argos .demo-header--argos .demo-header__delivery {
+    display: none;
 }
 
 .yg-header-argos .demo-header--argos .demo-header__brand {
@@ -170,6 +174,57 @@ body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
     gap: 20px;
     min-width: 0;
     justify-self: start;
+}
+
+.yg-header-argos .demo-header--argos .demo-header__delivery {
+    display: none;
+}
+
+.yg-header-argos .demo-header--argos .demo-header__delivery::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 18%;
+    bottom: 18%;
+    width: 3px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #6c943f 0%, #264f1c 100%);
+}
+
+.yg-header-argos .demo-header--argos .demo-header__delivery-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--yg-forest);
+    box-shadow:
+        0 0 0 1px rgba(38, 79, 28, 0.08),
+        0 2px 6px rgba(38, 79, 28, 0.08);
+}
+
+.yg-header-argos .demo-header--argos .demo-header__delivery-icon svg {
+    display: block;
+}
+
+.yg-header-argos .demo-header--argos .demo-header__delivery-copy {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35em;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.yg-header-argos .demo-header--argos .demo-header__delivery-copy em {
+    font-family: var(--yg-heading, Georgia, "Times New Roman", Times, serif);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 15px;
+    color: #1f4418;
 }
 
 .yg-header-argos .demo-header--argos .demo-header__promo {
@@ -308,6 +363,11 @@ body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
         display: none !important;
     }
 
+    .yg-header-argos .demo-header--argos .demo-header__delivery {
+        display: none;
+    }
+
+    .yg-header-argos .demo-header__inner--argos,
     body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
         grid-template-columns: minmax(0, 1fr) minmax(260px, 440px) minmax(0, 1fr);
         grid-template-areas: 'brand search utilities';
@@ -418,50 +478,12 @@ body[data-header-promo='offer'] .yg-header-argos .demo-header__inner--argos {
     max-height: 24px;
 }
 
-/* SAVE 10% pill — light sweep once every 12s */
+/* SAVE 10% pill */
 .yg-header-argos .demo-header--argos .demo-header__club-shine {
     position: relative;
     display: inline-flex;
-    overflow: hidden;
     border-radius: 999px;
     line-height: 0;
-    isolation: isolate;
-}
-
-.yg-header-argos .demo-header--argos .demo-header__club-shine::after {
-    content: "";
-    position: absolute;
-    inset: -10% -30%;
-    background: linear-gradient(
-        105deg,
-        transparent 36%,
-        rgba(255, 255, 255, 0.15) 44%,
-        rgba(255, 255, 255, 0.7) 50%,
-        rgba(255, 255, 255, 0.15) 56%,
-        transparent 64%
-    );
-    transform: translateX(-130%) skewX(-12deg);
-    animation: demo-club-save-shine 12s ease-in-out infinite;
-    pointer-events: none;
-}
-
-@keyframes demo-club-save-shine {
-    0% {
-        transform: translateX(-130%) skewX(-12deg);
-    }
-    9% {
-        transform: translateX(130%) skewX(-12deg);
-    }
-    9.01%,
-    100% {
-        transform: translateX(130%) skewX(-12deg);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .yg-header-argos .demo-header--argos .demo-header__club-shine::after {
-        animation: none;
-    }
 }
 
 .yg-header-argos .demo-header--argos .demo-header__utilities--yg-icons .demo-header__utility-img--tv {
@@ -1707,6 +1729,10 @@ html:not(.yg-mini-basket-on) .yg-mini-basket.is-open {
         justify-self: center;
     }
 
+    .yg-header-argos .demo-header--argos .demo-header__delivery {
+        display: none;
+    }
+
     .yg-header-argos .demo-header--argos .demo-header__logo-img {
         height: 48px;
     }
@@ -2065,6 +2091,228 @@ html:not(.yg-mini-basket-on) .yg-mini-basket.is-open {
     object-fit: contain;
     object-position: center center;
     background: #f2e7d8;
+}
+
+/* Video hero — full-bleed video + stone card overlay */
+.yg-hero-argos__banner--card {
+    position: relative;
+    aspect-ratio: 1920 / 600;
+    overflow: hidden;
+    line-height: normal;
+    background: #1a3d14;
+}
+
+.yg-hero-argos__video-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.yg-hero-argos__video-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.4s ease-in-out;
+    will-change: opacity;
+}
+
+.yg-hero-argos__video-layer.is-active {
+    opacity: 1;
+    z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .yg-hero-argos__video-layer {
+        transition: none;
+    }
+
+    .yg-hero-argos__video-layer:not(.is-active) {
+        display: none;
+    }
+}
+
+.yg-hero-argos__video-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+        90deg,
+        rgba(26, 61, 20, 0.55) 0%,
+        rgba(26, 61, 20, 0.18) 38%,
+        transparent 62%
+    );
+}
+
+.yg-hero-argos__banner--card .yg-hero-argos__video,
+.yg-hero-argos__banner--card .yg-hero-argos__video-layer {
+    display: block;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: unset;
+    object-fit: cover;
+    object-position: 58% center;
+}
+
+.yg-hero-argos__card {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: clamp(24px, 9vw, 140px);
+    transform: translateY(-50%);
+    width: min(100% - 32px, 28rem);
+    max-width: 28rem;
+    pointer-events: none;
+}
+
+.yg-hero-argos__card-inner {
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(12px, 1.8vw, 18px);
+    padding: clamp(26px, 3.8vw, 40px) clamp(30px, 4.2vw, 44px);
+    border-radius: 16px;
+    background: var(--yg-stone, #f2e7d8);
+    box-shadow:
+        0 12px 40px rgba(26, 61, 20, 0.18),
+        0 2px 8px rgba(72, 63, 58, 0.08);
+}
+
+.yg-hero-argos__split-kicker {
+    margin: 0;
+    font-family: var(--yg-font-heading, 'gelica', 'Gelica', Georgia, serif);
+    font-size: clamp(1rem, 1.75vw, 1.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--yg-forest, #264f1c);
+}
+
+.yg-hero-argos__split-title {
+    margin: 0;
+    font-family: var(--yg-font-heading, 'gelica', 'Gelica', Georgia, serif);
+    font-size: clamp(2rem, 4.4vw, 3.125rem);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    color: var(--yg-forest, #264f1c);
+    text-wrap: balance;
+}
+
+.yg-hero-argos__split-text {
+    margin: 0;
+    font-family: var(--yg-font-heading, 'gelica', 'Gelica', Georgia, serif);
+    font-size: clamp(0.9375rem, 1.65vw, 1.125rem);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--yg-pebble, #483f3a);
+    text-wrap: pretty;
+}
+
+.yg-hero-argos__split-cta {
+    display: inline-flex;
+    align-items: center;
+    margin-top: clamp(4px, 1vw, 12px);
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--yg-rose, #e3185d);
+    color: #fff;
+    font-family: var(--yg-font-body, 'proxima-nova', 'Proxima Nova', sans-serif);
+    font-size: clamp(0.9375rem, 1.5vw, 1.0625rem);
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.yg-hero-argos__split-cta-label {
+    padding: 14px 16px 14px 20px;
+}
+
+.yg-hero-argos__split-cta-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.yg-hero-argos__split-cta-icon::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(45deg) translate(-1px, 1px);
+}
+
+.yg-hero-argos__split-cta:hover {
+    background: #c41452;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.yg-hero-argos__split-cta:focus-visible {
+    outline: 2px solid var(--yg-moss, #ccea81);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .yg-hero-argos__banner--video .yg-hero-argos__video {
+        display: none;
+    }
+
+    .yg-hero-argos__banner--video .yg-hero-argos__video-wrap {
+        background-image: var(--yg-hero-video-poster);
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .yg-hero-argos__banner--card {
+        aspect-ratio: unset;
+        min-height: clamp(380px, 95vw, 500px);
+    }
+
+    .yg-hero-argos__video-wrap::after {
+        background: linear-gradient(
+            180deg,
+            transparent 0%,
+            rgba(26, 61, 20, 0.25) 45%,
+            rgba(26, 61, 20, 0.65) 100%
+        );
+    }
+
+    .yg-hero-argos__banner--card .yg-hero-argos__video {
+        object-position: center 40%;
+    }
+
+    .yg-hero-argos__card {
+        top: auto;
+        bottom: 18px;
+        left: 14px;
+        right: 14px;
+        transform: none;
+        width: auto;
+        max-width: none;
+    }
+
+    .yg-hero-argos__card-inner {
+        padding: 20px 22px;
+        border-radius: 12px;
+    }
+
+    .yg-hero-argos__split-title {
+        font-size: 1.625rem;
+    }
 }
 
 /* Four CTAs under the banner — change with each slide */
@@ -4547,6 +4795,12 @@ body.yg-home-variant-circles:not([data-home-headline-align='center']) .yg-home-f
         min-height: clamp(280px, 72vw, 400px);
     }
 
+    .yg-hero-argos__banner--card.yg-hero-argos__banner--full {
+        aspect-ratio: unset;
+        min-height: clamp(360px, 92vw, 480px);
+        max-height: none;
+    }
+
     .yg-hero-argos__banner--full img {
         min-height: 100%;
     }
@@ -4558,6 +4812,12 @@ body.yg-home-variant-circles:not([data-home-headline-align='center']) .yg-home-f
         aspect-ratio: 3 / 2;
         min-height: clamp(160px, 48vw, 240px);
         max-height: 260px;
+    }
+
+    .yg-home-above[data-hero-layout='banner'] .yg-hero-argos__banner--card.yg-hero-argos__banner--full {
+        aspect-ratio: unset;
+        min-height: clamp(360px, 92vw, 480px);
+        max-height: none;
     }
 
     .yg-home-above[data-hero-layout='banner'] .yg-hero-argos__banner--full img {
