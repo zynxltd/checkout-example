@@ -194,6 +194,78 @@
     max-width: 360px;
 }
 
+@media (min-width: 768px) {
+    .co-express--row .co-express__buttons {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-auto-rows: 50px;
+    }
+
+    .co-express--row .co-express__buttons:not(:has(.co-express-btn--apple)) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .co-express--row .co-express__buttons:not(:has(.co-express-btn--apple)) .co-express-btn::after {
+        background-size: contain;
+    }
+
+    .co-express--row .co-express-btn--apple {
+        grid-column: auto;
+        justify-self: stretch;
+        width: 100%;
+        max-width: none;
+    }
+
+    .co-express--row .co-express-btn {
+        border-radius: 8px;
+        background-color: #ffc43a;
+    }
+
+    .co-express--row .co-express-btn--amazon {
+        background: radial-gradient(120% 180% at 50% 45%, #ffe7a8 0%, #f6c84b 72%);
+    }
+
+    .co-express--row .co-express-btn--apple {
+        background: #000;
+    }
+
+    .co-express--row .co-express-btn::after {
+        height: 50px;
+        border-radius: 8px;
+        background-size: 160% auto;
+    }
+
+    .co-express--row .co-express-btn--apple::after {
+        background-size: 175% auto;
+    }
+}
+
+@media (min-width: 860px) and (max-width: 999px) {
+    .co-express--row .co-express-btn::after {
+        background-size: 120% auto;
+    }
+
+    .co-express--row .co-express-btn--apple::after {
+        background-size: 132% auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .co-express-btn--paypal,
+    .co-express-btn--amazon {
+        background-color: #ffc43a;
+    }
+
+    .co-express-btn--amazon {
+        background: radial-gradient(120% 180% at 50% 45%, #ffe7a8 0%, #f6c84b 72%);
+    }
+
+    .co-express-btn--paypal::after,
+    .co-express-btn--amazon::after {
+        background-size: 155% auto;
+        background-position: center;
+    }
+}
+
 @media (max-width: 480px) {
     .co-express-btn--apple {
         max-width: none; /* match full grid width on mobile */

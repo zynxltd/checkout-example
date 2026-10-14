@@ -221,6 +221,12 @@ class CartController extends Controller
             return response()->json(['ok' => true, 'reload' => true]);
         }
 
+        if ($key === 'checkout_express_row') {
+            session(['demo_checkout_express_row' => $value]);
+
+            return response()->json(['ok' => true, 'reload' => true]);
+        }
+
         if ($key === 'club_member') {
             DemoAccount::setClubMember($value);
 

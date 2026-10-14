@@ -79,7 +79,7 @@ data-co-line-count="{{ count($cart['items']) }}"
             @endif
             @include('demo.partials.checkout-skeleton')
             <div class="co-content">
-            <section class="co-express" aria-labelledby="co-express-title">
+            <section class="co-express @if(!empty($cart['checkout_express_row'])) co-express--row @endif" aria-labelledby="co-express-title">
                 <h2 id="co-express-title" class="co-express__title">Choose an express checkout</h2>
                 <input type="hidden" id="demo-show-apple-pay" value="{{ ($cart['show_apple_pay'] ?? true) ? '1' : '0' }}">
                 @include('demo.partials.checkout-express-buttons')

@@ -2119,6 +2119,7 @@ class DemoCart
             'feedback_v40' => DemoDrawerVariant::isV40Active(),
             'checkout_codes_top' => (bool) session('demo_checkout_codes_top', false),
             'checkout_codes_ticket' => (bool) session('demo_checkout_codes_ticket', false),
+            'checkout_express_row' => (bool) session('demo_checkout_express_row', true),
             'upsells' => self::upsellsForDrawer(),
         ];
     }

@@ -29,6 +29,16 @@
                     <span>Dashed coupon border</span>
                 </label>
                 <p class="demo-controls__hint">Cut-out ticket style on the codes card below express checkout.</p>
+                <label class="demo-toggle">
+                    <input
+                        type="checkbox"
+                        id="toggle-checkout-express-row"
+                        data-option="checkout_express_row"
+                        {{ !empty($cart['checkout_express_row']) ? 'checked' : '' }}
+                    >
+                    <span>Express buttons on one row</span>
+                </label>
+                <p class="demo-controls__hint">Desktop: PayPal, Amazon Pay and Apple Pay share one row. Mobile stays two buttons, then Apple Pay underneath.</p>
             </aside>
         </div>
     </div>
