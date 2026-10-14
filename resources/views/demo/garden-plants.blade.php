@@ -118,6 +118,7 @@
             <button type="button" class="demo-prototype-stack__minimize" data-prototype-minimize aria-label="Minimise prototype tools">Minimise</button>
         </div>
         <div class="demo-prototype-stack__content">
+            @include('demo.partials.prototype-tools-shared')
             <aside class="demo-controls" aria-label="SEO content block colours">
                 <h3>SEO content block</h3>
                 <p class="demo-controls__hint">Toggle colours for the Garden Plants intro. Saved in this browser.</p>
@@ -138,7 +139,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
     <script>
     (function () {

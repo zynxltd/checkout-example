@@ -16,119 +16,92 @@
 
 		<div id="{{safeid}}__popover" class="{{safeid}}__popover thumbcontainer">
 
+			{% if fields.image.active %}
+			{# Desktop: right image with vertical wave. Mobile: top image with bottom wave #}
+			<div class="{{safeid}}__image {{safeid}}__image--primary" role="img" aria-hidden="true"></div>
+			{# Mobile only: bottom image strip with top wave #}
+			<div class="{{safeid}}__image {{safeid}}__image--secondary" role="img" aria-hidden="true"></div>
+			{% endif %}
+
 			<div id="{{safeid}}__initial-content" class="{{safeid}}__initial-content">
 
 				{% if fields.headline.active %}
-				{# headline start #}
-
 				<h4 class="{{safeid}}__initial-headline">
 					{{ mergeField(fields.headline.text) }}
 				</h4>
-				
-				{# headline end #}
 				{% endif %}
 
 				{% if fields.subheadline.active %}
-				{# subheadline start #}
-
 				<h4 class="{{safeid}}__subheadline">
 					{{ mergeField(fields.subheadline.text) }}
 				</h4>
-
-				{# subheadline end #}
 				{% endif %}
 
 				{% if fields.message.active %}
-				{# message start #}
-				
 				<p class="{{safeid}}__initial-message">
 					{{ mergeField(fields.message.text) }}
 				</p>
-
-				{# message end #}
 				{% endif %}
 
 				{% if fields.footer.active %}
-				{# footer start #}
-
 				<p class="{{safeid}}__footer">
-					
 					{% if fields.footer.url and fields.footer.url != '' %}
 						<a href="{{ fields.footer.url }}">
 					{% endif %}
-
 					{{ mergeField(fields.footer.text) }}
-					
 					{% if fields.footer.url and fields.footer.url != '' %}
 						</a>
 					{% endif %}
-
 				</p>
-
-				{# footer end #}
 				{% endif %}
 
 				<form id="{{safeid}}__form" class="{{safeid}}__form" method="POST">
 
 					{% if fields.firstName.active %}
-					{# first name start #}
-
-					<input type="text" placeholder="{{ mergeField(fields.firstName.placeholder) }}{{ '*' if fields.firstName.required }}" 
+					<input type="text" placeholder="{{ mergeField(fields.firstName.placeholder) }}{{ '*' if fields.firstName.required }}"
 						class="{{safeid}}__input" name="fn" {{ 'required' if fields.firstName.required }} />
-
-					{# first name end #}
 					{% endif %}
 
 					{% if fields.lastName.active %}
-					{# last name start #}
-
-					<input type="text" placeholder="{{ mergeField(fields.lastName.placeholder) }}{{ '*' if fields.lastName.required }}" 
+					<input type="text" placeholder="{{ mergeField(fields.lastName.placeholder) }}{{ '*' if fields.lastName.required }}"
 						class="{{safeid}}__input" name="ln" {{ 'required' if fields.lastName.required }} />
-
-					{# last name end #}
 					{% endif %}
 
 					{% if fields.email.active %}
-					{# email start #}
-
-					<label class="{{safeid}}__email-label" for="{{safeid}}__email">
-						{{ mergeField(fields.email.label) }}{{ ' (Required)' if fields.email.required else '' }}
-					</label>
-
-					<input type="email" id="{{safeid}}__email" placeholder="{{ mergeField(fields.email.placeholder) }}" 
-						class="{{safeid}}__input" name="email" {{ 'required' if fields.email.required }} />
-
-					{# email end #}
+					<div class="{{safeid}}__email-row">
+						<label class="{{safeid}}__email-label" for="{{safeid}}__email">
+							{{ mergeField(fields.email.label) }}{{ ' (Required)' if fields.email.required else '' }}
+						</label>
+						<input type="email" id="{{safeid}}__email" placeholder="{{ mergeField(fields.email.placeholder) }}{{ ' (Required)' if fields.email.required else '' }}"
+							class="{{safeid}}__input {{safeid}}__input--email" name="email" {{ 'required' if fields.email.required }} />
+						{% if fields.submit.active %}
+						<button type="submit" class="{{safeid}}__submit-button" aria-label="{{ fields.submit.text }}">
+							<span class="{{safeid}}__submit-text">{{ fields.submit.text }}</span>
+							<svg class="{{safeid}}__submit-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+								<path d="M4 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</button>
+						{% endif %}
+					</div>
+					{% elif fields.submit.active %}
+					<button type="submit" class="{{safeid}}__submit-button" aria-label="{{ fields.submit.text }}">
+						<span class="{{safeid}}__submit-text">{{ fields.submit.text }}</span>
+						<svg class="{{safeid}}__submit-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+							<path d="M4 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
 					{% endif %}
 
 					{% if fields.mobileNo.active %}
-					{# mobile number start #}
-
-					<input type="tel" placeholder="{{ mergeField(fields.mobileNo.placeholder) }}{{ '*' if fields.mobileNo.required }}" 
+					<input type="tel" placeholder="{{ mergeField(fields.mobileNo.placeholder) }}{{ '*' if fields.mobileNo.required }}"
 						id="{{safeid}}__mobile-no" class="{{safeid}}__input" name="mobile" {{ 'required' if fields.mobileNo.required }} />
 					<p id="{{safeid}}__mobile-error" class="{{safeid}}__mobile-error {{safeid}}__hidden"></p>
-
-					{# mobile number end #}
-					{% endif %}
-
-					{% if fields.submit.active %}
-					{# submit button start #}
-
-					<button type="submit" class="{{safeid}}__submit-button">
-						{{ fields.submit.text }}
-					</button>
-					
-					{# submit button end #}
 					{% endif %}
 
 					{% if fields.declineButton.active %}
-					{# decline button start #}
-
 					<button type="button" class="{{safeid}}__decline-button" id="{{safeid}}__decline-button">
 						{{ fields.declineButton.text }}
 					</button>
-
-					{# decline button end #}
 					{% endif %}
 
 				</form>
@@ -137,60 +110,32 @@
 			<div id="{{safeid}}__submitted-content" class="{{safeid}}__submitted-content">
 
 				{% if fields.submittedHeadline.active %}
-				{# submitted headline start #}
-
 				<h4 class="{{safeid}}__submitted-headline">
 					{{ mergeField(fields.submittedHeadline.text) }}
 				</h4>
-
-				{# submitted headline end #}
 				{% endif %}
 
 				{% if fields.submittedMessage.active %}
-				{# submitted message start #}
-				
 				<p class="{{safeid}}__submitted-message">
 					{{ mergeField(fields.submittedMessage.text) }}
 				</p>
-
-				{# submitted message end #}
 				{% endif %}
 
 				{% if fields.submittedDiscountCode.active %}
-				{# submitted discount code start #}
-
 				<button type="button" class="{{safeid}}__submitted-code" id="{{safeid}}__submitted-code" data-code="{{ mergeField(fields.submittedDiscountCode.text) }}" title="Click to copy" aria-label="Copy discount code">
 					{{ mergeField(fields.submittedDiscountCode.text) }}
 				</button>
-
-				{# submitted discount code end #}
 				{% endif %}
 
 				{% if fields.submittedButton.active %}
-				{# submitted button start #}
-
 				<button type="button" class="{{safeid}}__submitted-button" id="{{safeid}}__submitted-button">
 					{{ fields.submittedButton.text }}
 				</button>
-				
-				{# submitted button end #}
 				{% endif %}
 
 			</div>
 
-			{% if fields.image.active %}
-			{# start image #}
-			
-			<div class="{{safeid}}__image"></div>
-
-			{#end image #}
-			{% endif %}
-
-			<button class="{{safeid}}__close-button">
-				<svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 512 512">
-					<path style='d:path("M27.1 1.1c-10.4 2-19.4 9.1-23.9 18.7C1 24.5.5 26.9.5 33.5c0 15.5-6.8 7.8 107.5 122l101 101-101.9 102C24.4 441.4 4.9 461.4 3 465.5c-3.4 7.1-3.5 19.9-.2 27 2.9 6.3 9.3 12.9 15.7 16.3 7.2 3.7 18.7 4.2 27 1.2 5.8-2.2 9.4-5.6 108.3-104.4L256 303.5l101.8 101.6c81.7 81.6 102.7 102.1 106.7 104 4.2 2 6.5 2.4 14.5 2.4 8.3 0 10.1-.4 14.5-2.7 6.2-3.2 12.9-10.3 15.8-16.6 3.2-6.8 3-19.7-.3-26.7-1.9-4.1-21.4-24.1-104.1-107L303 256.5l101-101C518.3 41.3 511.5 49 511.5 33.5c0-6.5-.5-9-2.6-13.5-8.1-17.2-28.4-24.2-45.4-15.8-2.6 1.3-39.1 37-105.7 103.6L256 209.5 154.3 107.8C87.6 41.2 51.1 5.5 48.5 4.2 45.1 2.5 34-.3 32.1.1c-.3.1-2.6.5-5 1z")' d="M27.1 1.1c-10.4 2-19.4 9.1-23.9 18.7C1 24.5.5 26.9.5 33.5c0 15.5-6.8 7.8 107.5 122l101 101-101.9 102C24.4 441.4 4.9 461.4 3 465.5c-3.4 7.1-3.5 19.9-.2 27 2.9 6.3 9.3 12.9 15.7 16.3 7.2 3.7 18.7 4.2 27 1.2 5.8-2.2 9.4-5.6 108.3-104.4L256 303.5l101.8 101.6c81.7 81.6 102.7 102.1 106.7 104 4.2 2 6.5 2.4 14.5 2.4 8.3 0 10.1-.4 14.5-2.7 6.2-3.2 12.9-10.3 15.8-16.6 3.2-6.8 3-19.7-.3-26.7-1.9-4.1-21.4-24.1-104.1-107L303 256.5l101-101C518.3 41.3 511.5 49 511.5 33.5c0-6.5-.5-9-2.6-13.5-8.1-17.2-28.4-24.2-45.4-15.8-2.6 1.3-39.1 37-105.7 103.6L256 209.5 154.3 107.8C87.6 41.2 51.1 5.5 48.5 4.2 45.1 2.5 34-.3 32.1.1c-.3.1-2.6.5-5 1z"/>
-				</svg>
-			</button>
+			<button type="button" class="{{safeid}}__close-button" aria-label="Close"></button>
 
 		</div>
 
@@ -200,10 +145,12 @@
 
 <style>
 
-	/* layout styles */
-
 	:root {
 		--default-margin: 0.75rem;
+		--yg-mint: {{ fields.backgroundColor if fields.backgroundColor else '#d9e7ad' }};
+		--yg-ink: {{ fields.headline.color if fields.headline and fields.headline.color else '#264f1c' }};
+		--yg-pink: {{ fields.submit.colors.background if fields.submit and fields.submit.colors and fields.submit.colors.background else '#ed1165' }};
+		--yg-close: #ed1165;
 	}
 
 	.{{safeid}}__wrapper * {
@@ -211,16 +158,16 @@
 		box-sizing: border-box;
 	}
 
-    .{{safeid}}__popover-overlay {
-	    overflow: auto;
-    }
+	.{{safeid}}__popover-overlay {
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+	}
 
 	.{{safeid}}__wrapper {
 		position: fixed !important;
 		inset: 0 !important;
 		z-index: 2147483647 !important;
 		pointer-events: none;
-		/* purely used as Ouibounce only uses display: block */
 		{{ 'display: block;' if meta.preview == 'true' else 'display: none;' }}
 	}
 
@@ -233,7 +180,6 @@
 		overflow: visible !important;
 	}
 
-	/* Mutual exclusion: never show badge while main modal is open */
 	.{{safeid}}__wrapper.{{safeid}}__wrapper--modal .{{safeid}}__notification {
 		display: none !important;
 		visibility: hidden !important;
@@ -256,7 +202,7 @@
 		justify-content: {{ 'flex-start' if 'left' in fields.popoverPosition else ('flex-end' if 'right' in fields.popoverPosition else 'center') }};
 		z-index: 2147483647 !important;
 		pointer-events: auto;
-        {% if fields.tactic == 'fixed' %}
+		{% if fields.tactic == 'fixed' %}
 			{{ 'top: 0;' if 'top' in fields.popoverPosition else (
 				'bottom: 0;' if 'bottom' in fields.popoverPosition else 'top: 0' ) }}
 			{{ 'left: 0;' if 'left' in fields.popoverPosition else (
@@ -272,73 +218,48 @@
 		background: transparent;
 	}
 
-	.{{safeid}}__popover-overlay {
-		overflow: auto;
-		-webkit-overflow-scrolling: touch;
-	}
-
+	/* Desktop Option 2 — image full-bleed; green half-circle from left, apex at 50% */
 	.{{safeid}}__popover {
 		box-sizing: border-box;
 		position: relative;
 		width: {{ fields.width.size }}{{ fields.width.unit }};
+		height: {{ fields.height.size }}{{ fields.height.unit }};
 		min-height: {{ fields.height.size }}{{ fields.height.unit }};
-		max-height: calc(100dvh - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }});
-		height: auto;
+		max-height: min({{ fields.height.size }}{{ fields.height.unit }}, calc(100dvh - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }}));
 		margin: auto {{ fields.popoverMargin.size }}{{ fields.popoverMargin.unit }};
-		padding: {{ fields.padding.size }}{{ fields.padding.unit }};
-		box-shadow: none;
+		padding: 0;
+		box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
 		display: grid;
-		border-radius: {{ fields.borderRadius }};
+		grid-template-columns: 1fr;
+		grid-template-rows: minmax(0, 1fr);
+		grid-template-areas: "stack";
+		border-radius: {{ fields.borderRadius if fields.borderRadius else '0' }};
 		overflow: hidden;
-		background-color: {{ fields.popoverBackground.color if fields.popoverBackground.active else 'transparent' }};
-		{% if fields.image.position in ['top', 'bottom'] %}
-			grid-template-rows: auto minmax(0, 1fr);
-		{% elif fields.image.position in ['left', 'right'] %}
-			grid-template-columns: 1fr 1fr;
-			grid-template-rows: minmax(0, 1fr);
-		{% endif %}
+		background-color: var(--yg-mint);
 		{% if fields.outerBorder.active %}
 			border: {{ fields.outerBorder.weight }}px {{ fields.outerBorder.style }} {{ fields.outerBorder.color }};
 		{% endif %}
 	}
 
-	button.{{safeid}}__close-button {
-		cursor: pointer;
-		position: absolute;
-		top: {{ fields.crossInset.size }}{{ fields.crossInset.unit }};
-		right: {{ fields.crossInset.size }}{{ fields.crossInset.unit }};
-		border: none;
-		background: transparent;
-		height: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
-		width: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
-		padding: 0;
-		line-height: 1;
-	}
-
-    button.{{safeid}}__close-button * {
-        cursor: pointer;
-    }
-
-	button.{{safeid}}__close-button svg,
-	button.{{safeid}}__close-button svg * {
-		height: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
-		width: {{ fields.crossSize.size }}{{ fields.crossSize.unit }};
-		fill: {{ fields.crossColor }};
-	}
-
 	.{{safeid}}__initial-content,
 	.{{safeid}}__submitted-content {
-		order: {{ '-1' if fields.image.position in ['right', 'bottom'] else '1'}};
-		padding: 35px 40px;
+		grid-area: stack;
+		position: relative;
+		z-index: 2;
+		/* Fill most of the green half; right padding clears the curve */
+		width: 50%;
+		max-width: 460px;
+		justify-self: start;
+		padding: 48px 36px 36px 52px;
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
-		justify-content: flex-start;
+		align-items: stretch;
+		justify-content: center;
 		align-self: stretch;
 		min-height: 0;
-		overflow-y: auto;
+		overflow: hidden;
 		-webkit-overflow-scrolling: touch;
-		background-color: {{ fields.backgroundColor }};
+		background-color: transparent;
 		{% if fields.backgroundImage.active %}
 			background-image: url('{{ fields.backgroundImage.url }}');
 			background-position: {{ fields.backgroundImage.position }};
@@ -347,44 +268,131 @@
 		{% endif %}
 	}
 
+	/*
+	 * Round half-circle from the left — diameter based on height for a true
+	 * round O (more curve than a width-sized arc). Apex stays near 50%.
+	 */
+	.{{safeid}}__popover::before {
+		content: '' !important;
+		display: block !important;
+		position: absolute !important;
+		top: 50% !important;
+		left: 0 !important;
+		width: calc({{ fields.height.size }}{{ fields.height.unit }} * 1.2) !important;
+		height: calc({{ fields.height.size }}{{ fields.height.unit }} * 1.2) !important;
+		transform: translate(-26%, -50%) !important;
+		border-radius: 50% !important;
+		background-color: var(--yg-mint) !important;
+		z-index: 1 !important;
+		pointer-events: none !important;
+	}
+
 	.{{safeid}}__submitted-content {
 		display: none;
 		background-image: none;
 		align-items: center;
 		justify-content: center;
+		text-align: center;
+	}
+
+	.{{safeid}}__image--primary {
+		grid-area: stack;
+		position: relative;
+		z-index: 0;
+		/* Right-hand image holder — fills from ~mid curve to the right edge */
+		width: 58%;
+		height: 100%;
+		min-height: 0;
+		justify-self: end;
+		align-self: stretch;
+		background-image: url('{{ fields.image.url }}');
+		background-size: cover;
+		background-position: {% if fields.image.position == 'left' %}left{% elif fields.image.position == 'right' %}right{% else %}center{% endif %} {% if fields.image.position == 'top' %}top{% elif fields.image.position == 'bottom' %}bottom{% else %}{{ fields.image.alignment if fields.image.alignment else 'center' }}{% endif %};
+		background-repeat: no-repeat;
+		-webkit-clip-path: none;
+		clip-path: none;
+	}
+
+	.{{safeid}}__image--secondary {
+		display: none;
+	}
+
+	button.{{safeid}}__close-button {
+		cursor: pointer;
+		position: absolute;
+		top: {{ fields.crossInset.size }}{{ fields.crossInset.unit }};
+		right: {{ fields.crossInset.size }}{{ fields.crossInset.unit }};
+		z-index: 5;
+		border: 2px solid #FFFFFF !important;
+		background-color: var(--yg-pink) !important;
+		height: {{ fields.crossSize.size if fields.crossSize.size else 28 }}{{ fields.crossSize.unit if fields.crossSize.unit else 'px' }};
+		width: {{ fields.crossSize.size if fields.crossSize.size else 28 }}{{ fields.crossSize.unit if fields.crossSize.unit else 'px' }};
+		min-width: 28px;
+		min-height: 28px;
+		padding: 0;
+		border-radius: 50% !important;
+		line-height: 0;
+		box-sizing: border-box !important;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+	}
+
+	button.{{safeid}}__close-button * {
+		cursor: pointer;
+	}
+
+	button.{{safeid}}__close-button::before,
+	button.{{safeid}}__close-button::after {
+		content: '' !important;
+		position: absolute !important;
+		top: 50% !important;
+		left: 50% !important;
+		width: 12px !important;
+		height: 2px !important;
+		background-color: {{ fields.crossColor if fields.crossColor else '#FFFFFF' }} !important;
+		border-radius: 1px !important;
+	}
+
+	button.{{safeid}}__close-button::before {
+		transform: translate(-50%, -50%) rotate(45deg) !important;
+	}
+
+	button.{{safeid}}__close-button::after {
+		transform: translate(-50%, -50%) rotate(-45deg) !important;
 	}
 
 	h4.{{safeid}}__initial-headline {
 		width: 100%;
-		margin-bottom: 0.35rem;
-		line-height: 1.15;
-		font-family: {{ fields.headline.font or 'proxima-nova' }}, 'proxima-nova', 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		margin: 0 0 0.05em;
+		line-height: 1.02;
+		font-family: {{ fields.headline.font or 'Arial' }}, Arial, Helvetica, sans-serif;
 		font-size: {{ fields.headline.fontSize.size }}{{ fields.headline.fontSize.unit }};
 		padding: {{ fields.headline.padding.size }}{{ fields.headline.padding.unit }};
 		font-style: {{ 'italic' if fields.headline.italics else 'normal' }};
-		font-weight: {{ 'bold' if fields.headline.bold else 'normal' }};
-		color: {{ fields.headline.color }};
+		font-weight: {{ '800' if fields.headline.bold else '700' }};
+		color: {{ fields.headline.color if fields.headline.color else '#264f1c' }};
 		text-align: {{ fields.headline.alignment }};
+		letter-spacing: -0.025em;
 	}
 
 	h4.{{safeid}}__subheadline {
 		width: 100%;
-		margin-bottom: 0.75rem;
-		line-height: 1.15;
-		font-family: {{ fields.subheadline.font or 'proxima-nova' }}, 'proxima-nova', 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		margin: 0 0 1.35rem;
+		line-height: 1.08;
+		font-family: {{ fields.subheadline.font or 'Arial' }}, Arial, Helvetica, sans-serif;
 		font-size: {{ fields.subheadline.fontSize.size }}{{ fields.subheadline.fontSize.unit }};
 		padding: {{ fields.subheadline.padding.size }}{{ fields.subheadline.padding.unit }};
 		font-style: {{ 'italic' if fields.subheadline.italics else 'normal' }};
-		font-weight: {{ 'bold' if fields.subheadline.bold else 'normal' }};
-		color: {{ fields.subheadline.color }};
+		font-weight: {{ '700' if fields.subheadline.bold else '600' }};
+		color: {{ fields.subheadline.color if fields.subheadline.color else '#264f1c' }};
 		text-align: {{ fields.subheadline.alignment }};
+		letter-spacing: -0.015em;
 	}
 
 	p.{{safeid}}__initial-message {
 		width: 100%;
-		margin-bottom: 1rem;
-		line-height: 1.2;
-		font-family: {{ fields.message.font }};
+		margin: 0 0 0.35rem;
+		line-height: 1.4;
+		font-family: {{ fields.message.font or 'Arial' }}, Arial, Helvetica, sans-serif;
 		font-size: {{ fields.message.fontSize.size }}{{ fields.message.fontSize.unit }};
 		padding: {{ fields.message.padding.size }}{{ fields.message.padding.unit }};
 		font-style: {{ 'italic' if fields.message.italics else 'normal' }};
@@ -393,40 +401,28 @@
 		text-align: {{ fields.message.alignment }};
 	}
 
-	.{{safeid}}__image {
-		order: {{ '-1' if fields.image.position in ['left', 'top'] else '1'}};
-		background-image: url({{ fields.image.url }});
-		background-size: cover;
-		background-position: {{ fields.image.alignment }};
-		background-repeat: no-repeat;
-		{% if fields.image.width > 0 %}
-			width: {{ fields.image.width }}px;
-		{% else %}
-			width: 100%;
-		{% endif %}
-		{% if fields.image.position in ['top', 'bottom'] %}
-			{% if fields.image.height > 0 %}
-				height: {{ fields.image.height }}px;
-				min-height: {{ fields.image.height }}px;
-				max-height: {{ fields.image.height }}px;
-				flex-shrink: 0;
-			{% else %}
-				aspect-ratio: 16 / 9;
-				height: auto;
-				max-height: min(280px, calc({{ fields.height.size }}{{ fields.height.unit }} * 0.5));
-				min-height: 0;
-				flex-shrink: 0;
-			{% endif %}
-		{% else %}
-			{% if fields.image.height > 0 %}
-				height: {{ fields.image.height }}px;
-				min-height: {{ fields.image.height }}px;
-			{% else %}
-				min-height: 0;
-				height: 100%;
-			{% endif %}
-			align-self: stretch;
-		{% endif %}
+	p.{{safeid}}__footer {
+		width: 100%;
+		margin-top: 0;
+		margin-bottom: 1.35rem;
+		line-height: 1.45;
+		font-family: {{ fields.footer.font or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.footer.fontSize.size }}{{ fields.footer.fontSize.unit }};
+		padding: {{ fields.footer.padding.size }}{{ fields.footer.padding.unit }};
+		font-style: {{ 'italic' if fields.footer.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.footer.bold else 'normal' }};
+		color: {{ fields.footer.color }};
+		text-align: {{ fields.footer.alignment }};
+	}
+
+	p.{{safeid}}__footer a {
+		text-decoration: underline;
+		color: {{ fields.footer.color }};
+		font-family: inherit;
+		font-size: inherit;
+		font-style: inherit;
+		font-weight: inherit;
+		cursor: pointer;
 	}
 
 	.{{safeid}}__form {
@@ -435,22 +431,38 @@
 		flex-shrink: 0;
 	}
 
-	label.{{safeid}}__email-label {
-		display: block;
+	.{{safeid}}__email-row {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		gap: 0;
 		width: 100%;
-		margin-bottom: 0.35rem;
-		font-family: {{ fields.fieldFont }};
-		font-size: {{ fields.fieldFontSize.size }}{{ fields.fieldFontSize.unit }};
-		color: #FFFFFF;
-		font-weight: normal;
-		line-height: 1.3;
+		max-width: none;
+		margin-bottom: 1rem;
+		padding: 4px 4px 4px 18px;
+		background-color: #ffffff !important;
+		border-radius: 999px !important;
+		border: 1px solid rgba(38, 79, 28, 0.12);
+		box-shadow: 0 1px 2px rgba(38, 79, 28, 0.06);
+	}
+
+	label.{{safeid}}__email-label {
+		position: absolute !important;
+		width: 1px !important;
+		height: 1px !important;
+		padding: 0 !important;
+		margin: -1px !important;
+		overflow: hidden !important;
+		clip: rect(0, 0, 0, 0) !important;
+		white-space: nowrap !important;
+		border: 0 !important;
 	}
 
 	input[type="text"].{{safeid}}__input,
 	input[type="email"].{{safeid}}__input,
 	input[type="tel"].{{safeid}}__input {
-		margin-bottom: 1rem;
-		font-family: {{ fields.fieldFont }};
+		margin-bottom: 0.75rem;
+		font-family: {{ fields.fieldFont or 'Arial' }}, Arial, Helvetica, sans-serif;
 		font-size: {{ fields.fieldFontSize.size }}{{ fields.fieldFontSize.unit }};
 		text-align: {{ fields.alignPlaceholder }};
 		color: {{ fields.fieldColors.foreground }};
@@ -458,13 +470,28 @@
 		font-style: {{ 'italic' if fields.fieldItalics else 'normal' }};
 		font-weight: {{ 'bold' if fields.fieldBold else 'normal' }};
 		width: {{ fields.fieldWidth }}%;
-		padding: {{ fields.fieldPadding.size }}{{ fields.fieldPadding.unit }};
-		border-radius: {{ fields.fieldBorderRadius }};
+		padding: 14px 16px;
+		border-radius: 999px;
 		height: auto;
-		line-height: 1;
+		line-height: 1.2;
 		{% if fields.fieldBorderToggle.active %}
 			border: {{ fields.fieldBorderToggle.borderWeight }}px {{ fields.fieldBorderToggle.borderStyle }} {{ fields.fieldBorderToggle.borderColor }};
+		{% else %}
+			border: 1px solid #D0D5D2;
 		{% endif %}
+	}
+
+	input[type="email"].{{safeid}}__input--email {
+		flex: 1 1 auto;
+		width: auto;
+		min-width: 0;
+		margin-bottom: 0;
+		height: 40px;
+		padding: 8px 12px 8px 0;
+		border: none !important;
+		border-radius: 0 !important;
+		background-color: transparent !important;
+		box-shadow: none !important;
 	}
 
 	.{{safeid}}__popover .iti {
@@ -490,94 +517,119 @@
 	}
 
 	.{{safeid}}__input:focus-visible {
-		outline: none;
+		outline: 2px solid var(--yg-pink);
+		outline-offset: 1px;
 	}
 
 	input[type="text"].{{safeid}}__input::placeholder,
 	input[type="email"].{{safeid}}__input::placeholder,
 	input[type="tel"].{{safeid}}__input::placeholder {
-		font-family: {{ fields.fieldFont }};
-		font-size: {{ fields.fieldFontSize }};
+		font-family: {{ fields.fieldFont or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.fieldFontSize.size }}{{ fields.fieldFontSize.unit }};
 		text-align: {{ fields.alignPlaceholder }};
 		color: {{ fields.fieldColors.foreground }};
 		font-style: {{ 'italic' if fields.fieldItalics else 'normal' }};
 		font-weight: {{ 'bold' if fields.fieldBold else 'normal' }};
-		opacity: 0.5;
+		opacity: 0.55;
 	}
 
+	/* Pink circular arrow CTA — CSS arrow (FR often strips inline SVG) */
 	button[type="submit"].{{safeid}}__submit-button {
 		cursor: pointer;
-		font-family: {{ fields.submit.font }};
-		font-size: {{ fields.submit.fontSize.size }}{{ fields.submit.fontSize.unit }};
-		text-align: {{ fields.submit.textAlignment }};
-		font-style: {{ 'italic' if fields.submit.italics else 'normal' }};
-		font-weight: {{ 'bold' if fields.submit.bold else 'normal' }};
-		color: {{ fields.submit.colors.foreground }};
-		background-color: {{ fields.submit.colors.background }};
-		width: {{ fields.submit.width }}%;
-		padding: {{ fields.submit.padding.size }}{{ fields.submit.padding.unit }};
-		margin: {{ fields.submit.margin.size }}{{ fields.submit.margin.unit }} 0 0.5rem;
-		border-radius: {{ fields.submit.borderRadius }};
-		line-height: 1.2;
-		height: auto;
-		text-transform: uppercase;
-		letter-spacing: 0.02em;
-		{% if fields.submitButtonBorderToggle.active %}
-			border: {{ fields.submitButtonBorderToggle.borderWeight }}px {{ fields.submitButtonBorderToggle.borderStyle }} {{ fields.submitButtonBorderToggle.borderColor }};
-		{% endif %}
+		position: relative !important;
+		flex: 0 0 auto;
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 44px !important;
+		height: 44px !important;
+		min-width: 44px !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		border-radius: 50% !important;
+		border: none !important;
+		background-color: var(--yg-pink) !important;
+		color: #FFFFFF !important;
+		box-shadow: 0 4px 12px rgba(237, 17, 101, 0.35);
+		line-height: 0 !important;
+		text-transform: none;
+		overflow: visible !important;
 	}
 
-	p.{{safeid}}__footer {
-		width: 100%;
-		margin-top: 0;
-		margin-bottom: 1.25rem;
-		line-height: 1.45;
-		font-family: {{ fields.footer.font }};
-		font-size: {{ fields.footer.fontSize.size }}{{ fields.footer.fontSize.unit }};
-		padding: {{ fields.footer.padding.size }}{{ fields.footer.padding.unit }};
-		font-style: {{ 'italic' if fields.footer.italics else 'normal' }};
-		font-weight: {{ 'bold' if fields.footer.bold else 'normal' }};
-		color: {{ fields.footer.color }};
-		text-align: {{ fields.footer.alignment }};
+	span.{{safeid}}__submit-text {
+		position: absolute !important;
+		width: 1px !important;
+		height: 1px !important;
+		overflow: hidden !important;
+		clip: rect(0, 0, 0, 0) !important;
 	}
 
-	p.{{safeid}}__footer a {
-		text-decoration: underline;
-		color: {{ fields.footer.color }};
-		font-family: inherit;
-		font-size: inherit;
-		font-style: inherit;
-		font-weight: inherit;
-		text-align: inherit;
-		cursor: pointer;
+	svg.{{safeid}}__submit-arrow {
+		display: none !important;
+	}
+
+	/* Arrow shaft */
+	button[type="submit"].{{safeid}}__submit-button::before {
+		content: '' !important;
+		display: block !important;
+		position: absolute !important;
+		top: 50% !important;
+		left: 50% !important;
+		width: 14px !important;
+		height: 2.5px !important;
+		margin: 0 !important;
+		background-color: #FFFFFF !important;
+		border: none !important;
+		border-radius: 1px !important;
+		transform: translate(-55%, -50%) !important;
+	}
+
+	/* Arrow head */
+	button[type="submit"].{{safeid}}__submit-button::after {
+		content: '' !important;
+		display: block !important;
+		position: absolute !important;
+		top: 50% !important;
+		left: 50% !important;
+		width: 9px !important;
+		height: 9px !important;
+		margin: 0 !important;
+		background: transparent !important;
+		border: none !important;
+		border-top: 2.5px solid #FFFFFF !important;
+		border-right: 2.5px solid #FFFFFF !important;
+		border-radius: 0 !important;
+		transform: translate(-15%, -50%) rotate(45deg) !important;
+		box-sizing: border-box !important;
 	}
 
 	button.{{safeid}}__decline-button {
 		cursor: pointer;
-		font-family: {{ fields.declineButton.font }};
+		display: block;
+		font-family: {{ fields.declineButton.font or 'Arial' }}, Arial, Helvetica, sans-serif;
 		font-size: {{ fields.declineButton.fontSize.size }}{{ fields.declineButton.fontSize.unit }};
 		text-align: {{ fields.declineButton.textAlignment }};
 		font-style: {{ 'italic' if fields.declineButton.italics else 'normal' }};
-		font-weight: {{ 'bold' if fields.declineButton.bold else 'normal' }};
-		color: {{ fields.declineButton.colors.foreground }};
-		background-color: {{ fields.declineButton.colors.background }};
-		width: {{ fields.declineButton.width }}%;
-		padding: {{ fields.declineButton.padding.size }}{{ fields.declineButton.padding.unit }};
-		margin: 0;
-		border-radius: {{ fields.declineButton.borderRadius }};
-		line-height: 1.2;
+		font-weight: {{ '700' if fields.declineButton.bold else '600' }};
+		color: {{ fields.declineButton.colors.foreground if fields.declineButton.colors and fields.declineButton.colors.foreground else '#264f1c' }};
+		background-color: transparent !important;
+		width: 100%;
+		padding: 8px 0 0;
+		margin: 0.25rem 0 0;
+		border-radius: 0;
+		line-height: 1.3;
 		height: auto;
 		text-transform: uppercase;
-		letter-spacing: 0.02em;
-		{% if fields.declineButtonBorderToggle.active %}
-			border: {{ fields.declineButtonBorderToggle.borderWeight }}px {{ fields.declineButtonBorderToggle.borderStyle }} {{ fields.declineButtonBorderToggle.borderColor }};
-		{% endif %}
+		letter-spacing: 0.06em;
+		border: none !important;
+		text-decoration: underline;
+		text-underline-offset: 3px;
 	}
 
 	h4.{{safeid}}__submitted-headline {
 		width: 100%;
 		margin-bottom: var(--default-margin);
-		font-family: {{ fields.submittedHeadline.font }};
+		font-family: {{ fields.submittedHeadline.font or 'Georgia' }}, Georgia, 'Times New Roman', serif;
 		font-size: {{ fields.submittedHeadline.fontSize.size }}{{ fields.submittedHeadline.fontSize.unit }};
 		padding: {{ fields.submittedHeadline.padding.size }}{{ fields.submittedHeadline.padding.unit }};
 		font-style: {{ 'italic' if fields.submittedHeadline.italics else 'normal' }};
@@ -605,14 +657,14 @@
 		max-width: 320px;
 		margin: 0.35rem auto 1.25rem;
 		padding: 14px 18px;
-		font-family: {{ fields.submittedDiscountCode.font or 'proxima-nova' }}, 'proxima-nova', 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+		font-family: {{ fields.submittedDiscountCode.font or 'Arial' }}, Arial, Helvetica, sans-serif;
 		font-size: {{ fields.submittedDiscountCode.fontSize.size }}{{ fields.submittedDiscountCode.fontSize.unit }};
 		font-style: {{ 'italic' if fields.submittedDiscountCode.italics else 'normal' }};
 		font-weight: {{ 'bold' if fields.submittedDiscountCode.bold else 'normal' }};
 		color: {{ fields.submittedDiscountCode.color }};
 		background-color: {{ fields.submittedDiscountCode.background }};
 		border: {{ fields.submittedDiscountCode.borderWeight }}px dashed {{ fields.submittedDiscountCode.borderColor }};
-		border-radius: 0;
+		border-radius: 4px;
 		text-align: {{ fields.submittedDiscountCode.alignment }};
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
@@ -643,7 +695,7 @@
 		width: {{ fields.submittedButton.width }}%;
 		padding: {{ fields.submittedButton.padding.size }}{{ fields.submittedButton.padding.unit }};
 		margin: {{ fields.submittedButton.margin.size }}{{ fields.submittedButton.margin.unit }} 0;
-		border-radius: {{ fields.submittedButton.borderRadius }};
+		border-radius: 999px;
 		align-self: {{ 'center' if fields.submittedButton.textAlignment == 'center' else ('flex-end' if fields.submittedButton.textAlignment == 'right' else 'flex-start') }};
 		text-transform: uppercase;
 		letter-spacing: 0.02em;
@@ -653,25 +705,44 @@
 		{% endif %}
 	}
 
-	/* mobile styles */
-
+	/* Mobile — 700 × 1200 sandwich: image / form / image with horizontal waves */
 	@media (max-width: {{ fields.mobileBreakpoint if fields.mobileBreakpoint else 768 }}px) {
 
 		.{{safeid}}__popover {
 			width: calc(100vw - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }});
 			max-width: {{ fields.mobileWidth.size if fields.mobileWidth.size else 700 }}{{ fields.mobileWidth.unit if fields.mobileWidth.unit else 'px' }};
-			height: auto;
-			min-height: 0;
+			height: auto !important;
+			min-height: 0 !important;
 			max-height: min({{ fields.mobileHeight.size if fields.mobileHeight.size else 1200 }}{{ fields.mobileHeight.unit if fields.mobileHeight.unit else 'px' }}, calc(100dvh - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }}));
+			display: grid !important;
 			grid-template-columns: 1fr !important;
-			grid-template-rows: auto minmax(0, 1fr) !important;
+			grid-template-rows: auto auto auto !important;
+			grid-template-areas:
+				"media"
+				"content"
+				"media2" !important;
 			margin: auto {{ fields.popoverMargin.size }}{{ fields.popoverMargin.unit }};
-        }
+			background-color: var(--yg-mint) !important;
+		}
 
 		.{{safeid}}__initial-content,
 		.{{safeid}}__submitted-content {
-			padding: 28px 24px;
-			min-height: 0;
+			grid-area: content !important;
+			width: 100% !important;
+			max-width: none !important;
+			padding: 28px 28px 22px;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			background-color: var(--yg-mint) !important;
+			z-index: 2;
+		}
+
+		h4.{{safeid}}__initial-headline,
+		h4.{{safeid}}__subheadline,
+		p.{{safeid}}__initial-message,
+		p.{{safeid}}__footer {
+			text-align: center;
 		}
 
 		{% if fields.headline.mobileFontSize.size > 0 %}
@@ -692,42 +763,72 @@
 		}
 		{% endif %}
 
-		.{{safeid}}__image {
-			order: -1 !important;
-			width: 100% !important;
-			height: auto !important;
-			min-height: 0 !important;
-			align-self: auto !important;
-			flex: none !important;
-			{% if fields.image.mobileHeight > 0 %}
-				height: {{ fields.image.mobileHeight }}px !important;
-				max-height: {{ fields.image.mobileHeight }}px !important;
-				aspect-ratio: auto;
-			{% else %}
-				aspect-ratio: 16 / 9;
-				max-height: min(420px, 35dvh);
-			{% endif %}
+		.{{safeid}}__email-row {
+			justify-content: center;
+			max-width: 420px;
+			margin-left: auto;
+			margin-right: auto;
 		}
-    }
+
+		button.{{safeid}}__decline-button {
+			text-align: center;
+		}
+
+		.{{safeid}}__image--primary {
+			display: block !important;
+			grid-area: media !important;
+			position: relative !important;
+			z-index: 0 !important;
+			width: 100% !important;
+			justify-self: stretch !important;
+			height: {{ fields.image.mobileHeight if fields.image.mobileHeight and fields.image.mobileHeight > 0 else 260 }}px !important;
+			min-height: {{ fields.image.mobileHeight if fields.image.mobileHeight and fields.image.mobileHeight > 0 else 260 }}px !important;
+			max-height: {{ fields.image.mobileHeight if fields.image.mobileHeight and fields.image.mobileHeight > 0 else 260 }}px !important;
+			background-image: url('{{ fields.image.url }}') !important;
+			background-size: cover !important;
+			background-position: {% if fields.image.position == 'left' %}left{% elif fields.image.position == 'right' %}right{% else %}center{% endif %} {% if fields.image.position == 'top' %}top{% elif fields.image.position == 'bottom' %}bottom{% else %}{{ fields.image.alignment if fields.image.alignment else 'center' }}{% endif %} !important;
+			background-repeat: no-repeat !important;
+			/* Soft half-circle bottom edge */
+			-webkit-clip-path: ellipse(120% 100% at 50% 0%) !important;
+			clip-path: ellipse(120% 100% at 50% 0%) !important;
+		}
+
+		.{{safeid}}__image--secondary {
+			display: block !important;
+			grid-area: media2 !important;
+			position: relative !important;
+			z-index: 0 !important;
+			width: 100% !important;
+			height: {{ fields.image.mobileHeight if fields.image.mobileHeight and fields.image.mobileHeight > 0 else 220 }}px !important;
+			min-height: {{ fields.image.mobileHeight if fields.image.mobileHeight and fields.image.mobileHeight > 0 else 220 }}px !important;
+			max-height: {{ fields.image.mobileHeight if fields.image.mobileHeight and fields.image.mobileHeight > 0 else 220 }}px !important;
+			background-image: url('{{ fields.image.url }}') !important;
+			background-size: cover !important;
+			background-position: center bottom !important;
+			background-repeat: no-repeat !important;
+			/* Soft half-circle top edge */
+			-webkit-clip-path: ellipse(120% 100% at 50% 100%) !important;
+			clip-path: ellipse(120% 100% at 50% 100%) !important;
+		}
+
+		.{{safeid}}__popover::before {
+			display: none !important;
+		}
+	}
 
 	/* animation styles */
 
-    .{{safeid}}__none {
-        animation: fadeIn 0s linear;
-    }
+	.{{safeid}}__none {
+		animation: fadeIn 0s linear;
+	}
 
 	.{{safeid}}__fadeIn {
 		animation: fadeIn {{ fields.animationDuration }}s linear;
 	}
 
 	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-
-		to {
-			opacity: 1;
-		}
+		from { opacity: 0; }
+		to { opacity: 1; }
 	}
 
 	.{{safeid}}__fadeOut {
@@ -735,13 +836,8 @@
 	}
 
 	@keyframes fadeOut {
-		from {
-			opacity: 1;
-		}
-
-		to {
-			opacity: 0;
-		}
+		from { opacity: 1; }
+		to { opacity: 0; }
 	}
 
 	.{{safeid}}__slideInSideways {
@@ -750,12 +846,11 @@
 
 	@keyframes slideInSideways {
 		from {
-			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ 'calc((50vw + ' + (fields.width.size / 2) + fields.width.unit + ') * -1)' if 
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ 'calc((50vw + ' + (fields.width.size / 2) + fields.width.unit + ') * -1)' if
 				(fields.tactic == 'popover') else '-' + fields.width.size + fields.width.unit }};
 		}
-
 		to {
-			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ '0' if ('left' in fields.popoverPosition) or ('right' in fields.popoverPosition) or 
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ '0' if ('left' in fields.popoverPosition) or ('right' in fields.popoverPosition) or
 				(fields.tactic == 'popover') else 'calc(50vw - ' + (fields.width.size / 2) + fields.width.unit + ')' }};
 		}
 	}
@@ -766,12 +861,11 @@
 
 	@keyframes slideOutSideways {
 		from {
-			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ '0' if ('left' in fields.popoverPosition) or ('right' in fields.popoverPosition)  or 
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ '0' if ('left' in fields.popoverPosition) or ('right' in fields.popoverPosition)  or
 			(fields.tactic == 'popover') else 'calc(50vw - ' + (fields.width.size / 2) + fields.width.unit + ')' }};
 		}
-
 		to {
-			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ 'calc((50vw + ' + (fields.width.size / 2) + fields.width.unit + ') * -1)' if 
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ 'calc((50vw + ' + (fields.width.size / 2) + fields.width.unit + ') * -1)' if
 				(fields.tactic == 'popover') else '-' + fields.width.size + fields.width.unit }};
 		}
 	}
@@ -782,12 +876,11 @@
 
 	@keyframes slideInVertical {
 		from {
-			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ 'calc((50vh + ' + (fields.height.size / 2) + fields.height.unit + ') * -1)' if 
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ 'calc((50vh + ' + (fields.height.size / 2) + fields.height.unit + ') * -1)' if
 				(fields.tactic == 'popover') else '-' + fields.height.size + fields.height.unit }};
 		}
-
 		to {
-			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ '0' if ('bottom' in fields.popoverPosition) or ('top' in fields.popoverPosition) or 
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ '0' if ('bottom' in fields.popoverPosition) or ('top' in fields.popoverPosition) or
 			(fields.tactic == 'popover') else 'calc(50vh - ' + (fields.height.size / 2) + fields.height.unit + ')' }};
 		}
 	}
@@ -798,17 +891,14 @@
 
 	@keyframes slideOutVertical {
 		from {
-			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ '0' if ('bottom' in fields.popoverPosition) or ('top' in fields.popoverPosition) or 
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ '0' if ('bottom' in fields.popoverPosition) or ('top' in fields.popoverPosition) or
 			(fields.tactic == 'popover') else 'calc(50vh - ' + (fields.height.size / 2) + fields.height.unit + ')' }};
 		}
-
 		to {
-			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ 'calc((50vh + ' + (fields.height.size / 2) + fields.height.unit + ') * -1)' if 
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ 'calc((50vh + ' + (fields.height.size / 2) + fields.height.unit + ') * -1)' if
 				(fields.tactic == 'popover') else '-' + fields.height.size + fields.height.unit }};
 		}
 	}
-
-	/* Utility classes */
 
 	.{{safeid}}__mobile-error {
 		font-family: {{ fields.fieldFont }};
@@ -923,7 +1013,6 @@
 		overflow: visible !important;
 	}
 
-	/* CSS X — pseudo-elements bypass SmartBlock `all: initial` on descendants */
 	button.{{safeid}}__notification-close::before,
 	button.{{safeid}}__notification-close::after {
 		content: '' !important;
@@ -952,20 +1041,14 @@
 			height: {{ fields.notification.mobileSize.size if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.size else (fields.notification.size.size if fields.notification and fields.notification.size and fields.notification.size.size else 110) }}{{ fields.notification.mobileSize.unit if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.unit else (fields.notification.size.unit if fields.notification and fields.notification.size and fields.notification.size.unit else 'px') }};
 		}
 
-		span.{{safeid}}__notification-get {
-			font-size: 13px !important;
-		}
-
-		span.{{safeid}}__notification-pct {
-			font-size: 32px !important;
-		}
-
-		span.{{safeid}}__notification-off {
-			font-size: 20px !important;
-		}
+		span.{{safeid}}__notification-get { font-size: 13px !important; }
+		span.{{safeid}}__notification-pct { font-size: 32px !important; }
+		span.{{safeid}}__notification-off { font-size: 20px !important; }
 	}
 
 </style>
+
+
 <link rel="stylesheet" href="//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" >
 
 <script>

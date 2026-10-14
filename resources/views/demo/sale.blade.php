@@ -84,6 +84,7 @@
             <button type="button" class="demo-prototype-stack__minimize" data-prototype-minimize aria-label="Minimise prototype tools">Minimise</button>
         </div>
         <div class="demo-prototype-stack__content">
+            @include('demo.partials.prototype-tools-shared')
             <aside class="demo-controls" aria-label="Listing prototype controls">
                 <h3>Product cards</h3>
                 <label class="demo-toggle">
@@ -101,14 +102,12 @@
                 </label>
                 <p class="demo-controls__hint">Desktop only: swaps the drawer button for on-page filters using the same drawer styling. Saved in this browser.</p>
             </aside>
-            @include('demo.partials.drawer-theme-customizer')
         </div>
     </div>
 </div>
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
     <script src="{{ asset('js/demo-listing-filters.js') }}?v={{ filemtime(public_path('js/demo-listing-filters.js')) }}" defer></script>
     <script src="{{ asset('js/demo-listing-prototype.js') }}?v={{ filemtime(public_path('js/demo-listing-prototype.js')) }}" defer></script>

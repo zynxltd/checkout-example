@@ -1,4 +1,4 @@
-{{-- PDP only — live colour overrides for #yg-cart-drawer (see yg-drawer-theme.js) --}}
+{{-- Live colour overrides for #yg-cart-drawer (see yg-drawer-theme.js) --}}
 <aside class="yg-drawer-theme" id="yg-drawer-theme" aria-label="Cart drawer theme customiser">
     <button
         type="button"
@@ -82,7 +82,7 @@
                 <label class="yg-drawer-theme__label" for="dt-apply-text">Apply code text</label>
             </li>
             <li class="yg-drawer-theme__field">
-                <input type="color" id="dt-checkout-bg" data-drawer-theme="checkoutBg" value="#468900" aria-label="Checkout button">
+                <input type="color" id="dt-checkout-bg" data-drawer-theme="checkoutBg" value="#53b71d" aria-label="Checkout button">
                 <label class="yg-drawer-theme__label" for="dt-checkout-bg">Checkout button</label>
             </li>
             <li class="yg-drawer-theme__field">

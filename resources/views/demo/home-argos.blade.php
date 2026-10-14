@@ -463,23 +463,7 @@ data-favourites-width="full" data-favourites-bg="stone" data-favourites-waves="o
             <button type="button" class="demo-prototype-stack__minimize" data-prototype-minimize aria-label="Minimise prototype tools">Minimise</button>
         </div>
         <div class="demo-prototype-stack__content">
-            <aside class="demo-controls" aria-label="Homepage category card variants">
-                <h3>Category cards</h3>
-                <p class="demo-controls__label">Desktop cards visible</p>
-                <label class="demo-controls__field">
-                    <span>Category cards</span>
-                    <input type="number" min="4" max="10" step="1" value="7" data-row4-visible-input aria-label="Desktop category cards visible">
-                </label>
-                <p class="demo-controls__label">Customer favourites — desktop cards</p>
-                <label class="demo-controls__field">
-                    <span>Products visible</span>
-                    <input type="number" min="4" max="10" step="1" value="7" data-favourites-visible-input aria-label="Customer favourites desktop products visible">
-                </label>
-                <label class="demo-toggle">
-                    <input type="checkbox" data-favourites-bg-option checked>
-                    <span>Stone background on carousel strip</span>
-                </label>
-            </aside>
+            @include('demo.partials.prototype-tools-shared')
         </div>
     </div>
 </div>

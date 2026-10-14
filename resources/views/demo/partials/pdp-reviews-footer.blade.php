@@ -89,15 +89,6 @@
                         </a>
                     </li>
                 </ul>
-
-                <h2 class="yg-pdp-footer__title yg-pdp-footer__title--payments">All major payments accepted</h2>
-                <div class="yg-pdp-footer__payments" aria-label="Payment methods">
-                    <span class="yg-pdp-footer__pay"><img src="{{ asset('images/payments/card-visa.svg') }}" alt="Visa" width="38" height="24"></span>
-                    <span class="yg-pdp-footer__pay"><img src="{{ asset('images/payments/card-amex.svg') }}" alt="American Express" width="38" height="24"></span>
-                    <span class="yg-pdp-footer__pay"><img src="{{ asset('images/payments/card-mastercard.svg') }}" alt="Mastercard" width="38" height="24"></span>
-                    <span class="yg-pdp-footer__pay"><img src="{{ asset('images/payments/logo-paypal.svg') }}" alt="PayPal" width="38" height="24"></span>
-                    <span class="yg-pdp-footer__pay"><img src="{{ asset('images/payments/card-apple-pay.svg') }}" alt="Apple Pay" width="38" height="24"></span>
-                </div>
             </div>
         </div>
 

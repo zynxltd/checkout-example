@@ -1165,7 +1165,7 @@ body.demo-mobile-nav-open {
     position: fixed;
     bottom: 0;
     left: 16px;
-    z-index: 110;
+    z-index: 9500;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1257,6 +1257,8 @@ body.demo-mobile-nav-open {
     align-items: flex-start;
     gap: 8px;
     width: 100%;
+    max-height: calc(100vh - 16px);
+    overflow: auto;
 }
 
 .demo-prototype-stack__content {
@@ -1304,6 +1306,60 @@ body.demo-mobile-nav-open {
 
 .demo-controls__field span {
     flex: 1;
+}
+
+.demo-drawer-width {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 0 8px;
+}
+
+.demo-drawer-width__btn {
+    width: 36px;
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.demo-drawer-width__btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.demo-drawer-width__value {
+    min-width: 4.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.demo-reco-variant {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 8px;
+}
+
+.demo-reco-variant__btn {
+    flex: 1;
+    padding: 7px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.demo-reco-variant__btn.is-active {
+    border-color: #264f1c;
+    background: #264f1c;
+    color: #fff;
 }
 
 .demo-controls__field input[type='number'] {

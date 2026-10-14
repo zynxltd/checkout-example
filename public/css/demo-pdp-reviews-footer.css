@@ -282,18 +282,22 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 52px;
+    width: 52px;
     height: 34px;
-    padding: 4px 10px;
+    padding: 0;
     border-radius: var(--yg-radius);
     background: #fff;
     border: none;
+    overflow: hidden;
 }
 
 .yg-pdp-footer__pay img {
     display: block;
-    max-height: 22px;
-    width: auto;
+    width: 48px;
+    height: 32px;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
 }
 
 .yg-pdp-footer__legal {

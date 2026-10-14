@@ -6,6 +6,7 @@
             <button type="button" class="demo-prototype-stack__minimize" data-prototype-minimize aria-label="Minimise prototype tools">Minimise</button>
         </div>
         <div class="demo-prototype-stack__content">
+            @include('demo.partials.prototype-tools-shared')
             <aside class="demo-controls" aria-label="Account prototype controls">
                 <h3>Account state</h3>
                 <label class="demo-toggle">

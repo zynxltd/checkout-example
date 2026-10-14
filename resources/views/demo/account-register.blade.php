@@ -173,6 +173,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/demo-account-loading.js') }}?v={{ filemtime(public_path('js/demo-account-loading.js')) }}" defer></script>
 @endpush

@@ -53,6 +53,8 @@
         init() {
             this.mount = document.getElementById('yg-drawer-mount');
             this.bindGlobal();
+            this.bindDrawerWidth();
+            this.bindRecoVariant();
             if (this.mount) {
                 this.wireDrawer(this.mount);
             }
@@ -208,6 +210,102 @@
             });
         },
 
+        bindDrawerWidth() {
+            const min = 400;
+            const max = 900;
+            const roots = document.querySelectorAll('[data-drawer-width]');
+            if (!roots.length) {
+                return;
+            }
+
+            const sync = (width) => {
+                roots.forEach((root) => {
+                    const value = root.querySelector('[data-drawer-width-value]');
+                    if (value) {
+                        value.textContent = width + 'px';
+                    }
+                    root.querySelectorAll('[data-drawer-width-step]').forEach((btn) => {
+                        const step = parseInt(btn.getAttribute('data-drawer-width-step'), 10) || 0;
+                        btn.disabled = (step < 0 && width <= min) || (step > 0 && width >= max);
+                    });
+                });
+            };
+
+            const current = () => {
+                const label = roots[0].querySelector('[data-drawer-width-value]');
+                return parseInt(label?.textContent || '520', 10) || 520;
+            };
+
+            sync(current());
+
+            roots.forEach((root) => {
+                root.querySelectorAll('[data-drawer-width-step]').forEach((btn) => {
+                    btn.addEventListener('click', async () => {
+                        const step = parseInt(btn.getAttribute('data-drawer-width-step'), 10) || 0;
+                        const width = Math.max(min, Math.min(max, current() + step));
+                        sync(width);
+                        document.getElementById('yg-cart-drawer')?.style.setProperty('--yg-drawer-w', width + 'px');
+
+                        const wasOpen = document.getElementById('yg-cart-drawer')?.classList.contains('is-open');
+                        const preserveExtend = this.preserveExtendOnRefresh();
+
+                        try {
+                            const res = await post(window.YG_DEMO_ROUTES.toggleOption, {
+                                key: 'drawer_width',
+                                width,
+                            });
+                            const data = await res.json().catch(() => ({}));
+                            if (data.html) {
+                                this.applyCartResponse(data, { preserveExtend, keepOpen: wasOpen });
+                            }
+                        } catch (err) {
+                            console.error('[demo] drawer width failed', err);
+                        }
+                    });
+                });
+            });
+        },
+
+        bindRecoVariant() {
+            const buttons = document.querySelectorAll('[data-reco-variant]');
+            if (!buttons.length) {
+                return;
+            }
+
+            buttons.forEach((btn) => {
+                btn.addEventListener('click', async () => {
+                    const variant = btn.getAttribute('data-reco-variant') === 'tiles' ? 'tiles' : 'rows';
+                    buttons.forEach((el) => {
+                        const active = el === btn;
+                        el.classList.toggle('is-active', active);
+                        el.setAttribute('aria-pressed', active ? 'true' : 'false');
+                    });
+
+                    const panel = document.getElementById('yg-reco-panel');
+                    if (panel) {
+                        panel.classList.remove('yg-reco--rows', 'yg-reco--tiles');
+                        panel.classList.add('yg-reco--' + variant);
+                    }
+
+                    const wasOpen = document.getElementById('yg-cart-drawer')?.classList.contains('is-open');
+                    const preserveExtend = this.preserveExtendOnRefresh();
+
+                    try {
+                        const res = await post(window.YG_DEMO_ROUTES.toggleOption, {
+                            key: 'reco_variant',
+                            variant,
+                        });
+                        const data = await res.json().catch(() => ({}));
+                        if (data.html) {
+                            this.applyCartResponse(data, { preserveExtend, keepOpen: wasOpen });
+                        }
+                    } catch (err) {
+                        console.error('[demo] recommendation variant failed', err);
+                    }
+                });
+            });
+        },
+
         drawerEnabled() {
             return window.__YG_CART_DRAWER_ENABLED !== false
                 && window.__YG_CART_DRAWER_ENABLED !== 'false';
@@ -222,7 +320,11 @@
             const sku = btn.getAttribute('data-pdp-sku') || '510317';
             const variant = btn.getAttribute('data-pdp-variant') || '';
             const qtyInput = document.getElementById('demo-pdp-qty');
-            const qty = Math.max(1, parseInt(qtyInput?.textContent || '1', 10));
+            const liveQty = document.querySelector('[data-live-qty-input]');
+            const qty = Math.max(
+                1,
+                parseInt(liveQty?.value || qtyInput?.textContent || '1', 10) || 1
+            );
 
             try {
                 const body = { sku, qty };

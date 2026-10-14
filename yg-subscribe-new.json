@@ -286,7 +286,7 @@
 						"inline": true,
 						"type": "color",
 						"first": true,
-						"default": "#4C1D7A",
+						"default": "#d9e7ad",
 						"value": "",
 						"sortOrder": 8,
 						"meta": {
@@ -460,7 +460,7 @@
 								"inline": true,
 								"type": "color",
 								"first": true,
-								"default": "#4C1D7A",
+								"default": "#d9e7ad",
 								"value": "",
 								"sortOrder": 1,
 								"meta": {
@@ -487,8 +487,8 @@
 						"type": "padding",
 						"first": true,
 						"default": {
-							"size": 18,
-							"unit": "px"
+							"unit": "px",
+							"size": 28
 						},
 						"value": "",
 						"sortOrder": 13,
@@ -588,7 +588,7 @@
 								"first": true,
 								"default": {
 									"unit": "px",
-									"size": 36
+									"size": 44
 								},
 								"value": "",
 								"sortOrder": 2,
@@ -660,7 +660,7 @@
 								"inline": true,
 								"type": "color",
 								"first": true,
-								"default": "#FFFFFF",
+								"default": "#264f1c",
 								"value": "",
 								"sortOrder": 9,
 								"meta": {
@@ -682,7 +682,7 @@
 								"inline": true,
 								"type": "select",
 								"first": true,
-								"default": "left",
+								"default": "center",
 								"value": "",
 								"sortOrder": 10,
 								"options": [
@@ -726,7 +726,7 @@
 								"inline": true,
 								"type": "text",
 								"first": true,
-								"default": "Your First Order",
+								"default": "Your First Order!",
 								"value": "",
 								"sortOrder": 1,
 								"mergeJinja": true,
@@ -754,7 +754,7 @@
 								"first": true,
 								"default": {
 									"unit": "px",
-									"size": 36
+									"size": 28
 								},
 								"value": "",
 								"sortOrder": 2,
@@ -826,7 +826,7 @@
 								"inline": true,
 								"type": "color",
 								"first": true,
-								"default": "#FFFFFF",
+								"default": "#264f1c",
 								"value": "",
 								"sortOrder": 9,
 								"meta": {
@@ -848,7 +848,7 @@
 								"inline": true,
 								"type": "select",
 								"first": true,
-								"default": "left",
+								"default": "center",
 								"value": "",
 								"sortOrder": 10,
 								"options": [
@@ -886,7 +886,7 @@
 						"inline": true,
 						"type": "custom",
 						"first": true,
-						"default": true,
+						"default": false,
 						"value": "",
 						"sortOrder": 2,
 						"active": true,
@@ -985,7 +985,7 @@
 								"inline": true,
 								"type": "color",
 								"first": true,
-								"default": "#FFFFFF",
+								"default": "#264f1c",
 								"value": "",
 								"sortOrder": 8,
 								"meta": {
@@ -1067,11 +1067,11 @@
 							{
 								"id": "position",
 								"name": "Position",
-								"description": "Set the position of the image",
+								"description": "Focal point of the image (left/right/top/bottom). Use this to pan which part of the photo is visible behind the green half-circle.",
 								"inline": true,
 								"type": "select",
 								"first": true,
-								"default": "left",
+								"default": "right",
 								"value": "",
 								"sortOrder": 2,
 								"options": [
@@ -1155,7 +1155,7 @@
 								"inline": true,
 								"type": "numeric",
 								"first": true,
-								"default": 400,
+								"default": 260,
 								"value": "",
 								"sortOrder": 5,
 								"mergeJinja": false,
@@ -1526,7 +1526,7 @@
 								"inline": true,
 								"type": "text",
 								"first": false,
-								"default": "user@email.com",
+								"default": "Email Address",
 								"value": "",
 								"sortOrder": 2,
 								"mergeJinja": true,
@@ -1641,7 +1641,7 @@
 								"inline": true,
 								"type": "text",
 								"first": true,
-								"default": "CONTINUE",
+								"default": "Continue",
 								"value": "",
 								"sortOrder": 1,
 								"mergeJinja": false,
@@ -1738,7 +1738,7 @@
 								"first": true,
 								"default": {
 									"foreground": "#FFFFFF",
-									"background": "#A4D233"
+									"background": "#ed1165"
 								},
 								"value": "",
 								"sortOrder": 6,
@@ -2022,8 +2022,8 @@
 								"type": "multiple_color",
 								"first": true,
 								"default": {
-									"foreground": "#FFFFFF",
-									"background": "#A4D233"
+									"foreground": "#264f1c",
+									"background": "transparent"
 								},
 								"value": "",
 								"sortOrder": 6,
@@ -2315,7 +2315,7 @@
 								"inline": true,
 								"type": "color",
 								"first": true,
-								"default": "#FFFFFF",
+								"default": "#264f1c",
 								"value": "",
 								"sortOrder": 9,
 								"meta": {
@@ -2337,7 +2337,7 @@
 								"inline": true,
 								"type": "select",
 								"first": true,
-								"default": "left",
+								"default": "center",
 								"value": "",
 								"sortOrder": 10,
 								"options": [
@@ -2488,7 +2488,7 @@
 								"inline": true,
 								"type": "color",
 								"first": true,
-								"default": "#FFFFFF",
+								"default": "#264f1c",
 								"value": "",
 								"sortOrder": 9,
 								"meta": {
@@ -2640,7 +2640,7 @@
 								"inline": true,
 								"type": "color",
 								"first": true,
-								"default": "#FFFFFF",
+								"default": "#264f1c",
 								"value": "",
 								"sortOrder": 7,
 								"meta": {
@@ -2994,7 +2994,7 @@
 								"first": true,
 								"default": {
 									"foreground": "#FFFFFF",
-									"background": "#A4D233"
+									"background": "#ed1165"
 								},
 								"value": "",
 								"sortOrder": 6,

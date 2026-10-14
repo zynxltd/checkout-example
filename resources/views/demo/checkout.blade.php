@@ -86,16 +86,6 @@ data-co-line-count="{{ count($cart['items']) }}"
                 @include('demo.partials.checkout-express-buttons')
             </section>
 
-            @if(!empty($cart['checkout_codes_top']))
-            <section @class([
-                'co-codes',
-                'co-codes--express',
-                'co-codes--ticket' => !empty($cart['checkout_codes_ticket']),
-            ]) aria-label="Discount codes">
-                @include('demo.partials.checkout-codes', ['placement' => 'express'])
-            </section>
-            @endif
-
             <div class="co-divider" role="separator">
                 <span>Or continue below with</span>
             </div>
@@ -607,9 +597,7 @@ data-co-line-count="{{ count($cart['items']) }}"
                 </div>
                 @endif
 
-                @unless(!empty($cart['checkout_codes_top']))
                 @include('demo.partials.checkout-codes', ['placement' => 'summary'])
-                @endunless
 
                 <dl class="co-summary__totals">
                     <div class="co-summary__row">

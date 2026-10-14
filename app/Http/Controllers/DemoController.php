@@ -9,16 +9,6 @@ use Illuminate\View\View;
 
 class DemoController extends Controller
 {
-    public function plantFinder(): View
-    {
-        DemoCart::seed();
-
-        return view('demo.plant-finder', [
-            'cart' => DemoCart::state(),
-            'finder' => DemoCart::plantFinderPage(),
-        ]);
-    }
-
     public function standardDelivery(): View
     {
         DemoCart::seed();
@@ -145,18 +135,6 @@ class DemoController extends Controller
                 ],
             ],
             'hero_slides' => [
-                [
-                    'image' => 'images/home-preview/live/hero-1.jpg',
-                    'alt' => "Pansy 'Top Wave'",
-                    'url' => 'https://www.yougarden.com/item-s-pa460027/pre-planted-pansy-top-wave-hanging-baskets',
-                    'cta_theme' => 'rose',
-                    'ctas' => [
-                        ['label' => 'Shop hanging baskets', 'url' => 'https://www.yougarden.com/garden-plants/bedding-plants/pre-planted-hanging-baskets'],
-                        ['label' => 'Shop pansies', 'url' => 'https://www.yougarden.com/item-s-pa460027/pre-planted-pansy-top-wave-hanging-baskets'],
-                        ['label' => 'Shop autumn bedding', 'url' => 'https://www.yougarden.com/garden-plants/bedding-plants/autumn-bedding-plants'],
-                        ['label' => 'Shop the sale', 'url' => route('demo.sale')],
-                    ],
-                ],
                 [
                     'image' => 'images/home-preview/live/hero-2.jpg',
                     'alt' => 'Orange and Lemon Collection',

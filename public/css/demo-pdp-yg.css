@@ -373,6 +373,51 @@ body.demo-pdp.demo-pdp--yg .demo-site {
     appearance: auto;
 }
 
+/* Low-stock urgency — calm, near ATC (not a fake countdown) */
+.demo-pdp-urgency {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    border: 1px solid #f0d4a8;
+    border-radius: 6px;
+    background: #fff8ee;
+    color: #5c3d12;
+    font-size: 14px;
+    line-height: 1.35;
+}
+
+.demo-pdp-urgency__dot {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #c47a12;
+    box-shadow: 0 0 0 0 rgba(196, 122, 18, 0.45);
+    animation: demo-pdp-urgency-pulse 1.6s ease infinite;
+}
+
+.demo-pdp-urgency__text strong {
+    font-weight: 700;
+    color: #8a4b0a;
+}
+
+@keyframes demo-pdp-urgency-pulse {
+    70% {
+        box-shadow: 0 0 0 7px rgba(196, 122, 18, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(196, 122, 18, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .demo-pdp-urgency__dot {
+        animation: none;
+    }
+}
+
 .demo-pdp-purchase {
     display: flex;
     gap: 10px;

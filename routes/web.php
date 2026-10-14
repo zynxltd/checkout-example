@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\PlantFinderController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\PreviewLoginController;
 use App\Http\Controllers\TvLiveController;
@@ -23,7 +24,7 @@ Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/about-us', [DemoController::class, 'aboutUs'])->name('demo.about-us');
     Route::get('/standard-delivery', [DemoController::class, 'standardDelivery'])->name('demo.standard-delivery');
     Route::get('/lifetime-guarantee', [DemoController::class, 'lifetimeGuarantee'])->name('demo.lifetime-guarantee');
-    Route::get('/plant-finder', [DemoController::class, 'plantFinder'])->name('demo.plant-finder');
+    Route::get('/plant-finder', [PlantFinderController::class, 'index'])->name('demo.plant-finder');
     Route::get('/garden-plants', [ListingController::class, 'gardenPlants'])->name('demo.listing.garden-plants');
     Route::get('/perennial-plants-and-flowers', [ListingController::class, 'perennials'])->name('demo.listing.perennials');
     Route::get('/tv-live', [TvLiveController::class, 'show'])->name('demo.tv-live');

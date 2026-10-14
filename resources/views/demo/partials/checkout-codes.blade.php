@@ -33,7 +33,7 @@
                 <button type="button" class="co-code-applied__remove" data-remove-offer>Remove</button>
             </div>
         </div>
-        @elseif($v40)
+        @else
         <div class="co-code-field co-code-field--offer">
             @if($isExpress)
             <span class="co-code-field__label">Offer code</span>

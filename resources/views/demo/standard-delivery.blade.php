@@ -133,5 +133,4 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
 @endpush

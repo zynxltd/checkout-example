@@ -19,8 +19,8 @@
         { key: 'clubBtn', var: '--yg-theme-club-btn', label: 'Club button', default: '#e3185d' },
         { key: 'applyBtnBg', var: '--yg-theme-apply-btn-bg', label: 'Apply code button', default: '#264f1c' },
         { key: 'applyBtnText', var: '--yg-theme-apply-btn-text', label: 'Apply code text', default: '#ffffff' },
-        { key: 'checkoutBg', var: '--yg-theme-checkout-bg', label: 'Checkout button', default: '#f2e7d8' },
-        { key: 'checkoutText', var: '--yg-theme-checkout-text', label: 'Checkout text', default: '#000000' },
+        { key: 'checkoutBg', var: '--yg-theme-checkout-bg', label: 'Checkout button', default: '#53b71d' },
+        { key: 'checkoutText', var: '--yg-theme-checkout-text', label: 'Checkout text', default: '#ffffff' },
         { key: 'recoHeading', var: '--yg-theme-reco-heading', label: 'Recommendations title', default: '#264f1c' },
         { key: 'summaryBg', var: '--yg-theme-summary-bg', label: 'Summary area', default: '#ffffff' },
     ];
@@ -38,6 +38,10 @@
                 return { ...defaults };
             }
             const parsed = JSON.parse(raw);
+            if (!parsed.checkoutBg || String(parsed.checkoutBg).toLowerCase() === '#f2e7d8') {
+                parsed.checkoutBg = '#53b71d';
+                parsed.checkoutText = '#ffffff';
+            }
             return { ...defaults, ...parsed };
         } catch {
             return { ...defaults };

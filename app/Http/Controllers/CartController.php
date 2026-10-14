@@ -175,6 +175,20 @@ class CartController extends Controller
         DemoCart::seed();
 
         $key = $request->string('key')->toString();
+
+        if ($key === 'drawer_width') {
+            session(['demo_drawer_width' => DemoCart::clampDrawerWidth((int) $request->input('width'))]);
+
+            return $this->fragment($request);
+        }
+
+        if ($key === 'reco_variant') {
+            $variant = (string) $request->input('variant');
+            session(['demo_reco_variant' => $variant === 'tiles' ? 'tiles' : 'rows']);
+
+            return $this->fragment($request);
+        }
+
         $value = $request->boolean('enabled');
 
         if ($key === 'compact_v21') {

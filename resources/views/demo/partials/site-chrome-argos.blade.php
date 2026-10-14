@@ -192,6 +192,20 @@
         </nav>
         </div>
 
+        <p class="demo-header__delivery" data-header-delivery>
+            <span class="demo-header__delivery-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7.5h11.5V14H3V7.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <path d="M14.5 10H18l2.5 3v3.5H14.5V10Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    <circle cx="7" cy="17.5" r="1.7" stroke="currentColor" stroke-width="1.6"/>
+                    <circle cx="17.5" cy="17.5" r="1.7" stroke="currentColor" stroke-width="1.6"/>
+                </svg>
+            </span>
+            <span class="demo-header__delivery-copy">
+                Free delivery <em>over £50</em>
+            </span>
+        </p>
+
         <div class="demo-header__promo" data-header-promo hidden>
             <a
                 class="demo-header__promo-chip demo-header__promo-chip--offer"

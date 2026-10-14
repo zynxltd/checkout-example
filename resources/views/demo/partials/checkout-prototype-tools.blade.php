@@ -6,6 +6,7 @@
             <button type="button" class="demo-prototype-stack__minimize" data-prototype-minimize aria-label="Minimise prototype tools">Minimise</button>
         </div>
         <div class="demo-prototype-stack__content">
+            @include('demo.partials.prototype-tools-shared')
             <aside class="demo-controls" aria-label="Checkout prototype controls">
                 <h3>Checkout layout</h3>
                 <label class="demo-toggle">
@@ -28,37 +29,6 @@
                     <span>Dashed coupon border</span>
                 </label>
                 <p class="demo-controls__hint">Cut-out ticket style on the codes card below express checkout.</p>
-                <p class="demo-controls__label">Express checkout</p>
-                <label class="demo-toggle">
-                    <input
-                        type="checkbox"
-                        id="toggle-checkout-apple-pay"
-                        data-option="apple_pay"
-                        {{ ($cart['show_apple_pay'] ?? true) ? 'checked' : '' }}
-                    >
-                    <span>Apple Pay (express button)</span>
-                </label>
-                <p class="demo-controls__hint">Shows or hides the Apple Pay button under PayPal and Amazon Pay.</p>
-                <p class="demo-controls__label">Payment methods</p>
-                <label class="demo-toggle">
-                    <input
-                        type="checkbox"
-                        id="toggle-checkout-clearpay"
-                        data-option="clearpay"
-                        {{ ($cart['show_clearpay'] ?? false) ? 'checked' : '' }}
-                    >
-                    <span>Clearpay</span>
-                </label>
-                <label class="demo-toggle">
-                    <input
-                        type="checkbox"
-                        id="toggle-checkout-klarna"
-                        data-option="klarna"
-                        {{ ($cart['show_klarna'] ?? false) ? 'checked' : '' }}
-                    >
-                    <span>Klarna</span>
-                </label>
-                <p class="demo-controls__hint">Show or hide BNPL options in the payment stack (prototype only — not a live integration).</p>
             </aside>
         </div>
     </div>

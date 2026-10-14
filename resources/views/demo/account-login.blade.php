@@ -123,6 +123,5 @@
         };
     </script>
     <script src="{{ asset('js/demo-account-login-debug.js') }}?v={{ filemtime(public_path('js/demo-account-login-debug.js')) }}" defer></script>
-    <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/demo-account-loading.js') }}?v={{ filemtime(public_path('js/demo-account-loading.js')) }}" defer></script>
 @endpush

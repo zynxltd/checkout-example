@@ -10,7 +10,7 @@
     $totalRowLabel = $drawerV30 ? 'Subtotal' : 'Total';
 @endphp
 
-<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($drawerV30) yg-drawer--v-3-0 @endif @if($drawerV40) yg-drawer--v-4-0 @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif" id="yg-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
+<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($drawerV30) yg-drawer--v-3-0 @endif @if($drawerV40) yg-drawer--v-4-0 @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif" id="yg-cart-drawer" style="--yg-drawer-w: {{ (int) ($cart['drawer_width'] ?? 520) }}px;" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
     <div class="yg-drawer__overlay" data-drawer-close></div>
 
     @if($showClub)
@@ -22,7 +22,7 @@
 
     <div class="yg-drawer__stage" id="yg-drawer-stage">
         @if($showReco)
-        <aside class="yg-extend yg-extend--reco" id="yg-reco-panel" hidden aria-label="Recommendations">
+        <aside class="yg-extend yg-extend--reco yg-reco--{{ ($cart['reco_variant'] ?? 'rows') === 'tiles' ? 'tiles' : 'rows' }}" id="yg-reco-panel" hidden aria-label="Recommendations">
             <button type="button" class="yg-extend__close" data-extend-close aria-label="Close recommendations">@include('demo.partials.icon', ['name' => 'close'])</button>
             <div class="yg-extend__body-reco">
                 <div class="yg-extend__inner yg-extend__inner--reco">
@@ -46,6 +46,12 @@
                                 @if(!empty($upsell['in_basket'])) disabled @endif>
                                 {{ !empty($upsell['in_basket']) ? 'Added to basket' : 'Add' }}
                             </button>
+                            <a class="yg-reco-card__view" href="{{ route('demo.pdp', ['sku' => $upsell['sku'] ?? '']) }}" aria-label="View {{ $upsell['name'] }}">
+                                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                                    <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M2.5 12S6 6.5 12 6.5 21.5 12 21.5 12 18 17.5 12 17.5 2.5 12 2.5 12z"/>
+                                    <circle cx="12" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                                </svg>
+                            </a>
                         </li>
                         @endforeach
                     </ul>
@@ -142,7 +148,7 @@
                             <img class="yg-item__img" src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}" width="88" height="88" loading="lazy">
                         </a>
                         <div class="yg-item__main">
-                            <p class="yg-item__sku">Product No. {{ $item['sku'] }}</p>
+                            <p class="yg-item__sku">Product No. <strong>{{ $item['sku'] }}</strong></p>
                             <a class="yg-item__name" href="{{ $productUrl }}">{{ $item['name'] }}</a>
                             @if(!empty($item['variant']))
                             <p class="yg-item__variant">{{ $item['variant'] }}</p>
@@ -169,9 +175,14 @@
                                         @include('demo.partials.icon', ['name' => 'trash'])
                                     </button>
                                 </div>
+                                @php
+                                    $lineQty = max(1, (int) ($item['qty'] ?? 1));
+                                    $lineNow = (float) ($item['line_total'] ?? (($item['unit_price'] ?? $item['price']) * $lineQty));
+                                    $lineWas = round((float) ($item['was_price'] ?? 0) * $lineQty, 2);
+                                @endphp
                                 <div class="yg-item__price">
-                                    <span class="yg-item__now">£{{ number_format($item['unit_price'] ?? $item['price'], 2) }}</span>
-                                    <span class="yg-item__was-line">was <span class="yg-item__was">£{{ number_format($item['was_price'], 2) }}</span></span>
+                                    <span class="yg-item__now">£{{ number_format($lineNow, 2) }}</span>
+                                    <span class="yg-item__was-line">was <span class="yg-item__was">£{{ number_format($lineWas, 2) }}</span></span>
                                     <span class="yg-item__saving">Saving: £{{ number_format($item['line_saving'] ?? 0, 2) }}</span>
                                 </div>
                             </div>
@@ -216,9 +227,6 @@
                             </summary>
                             <div class="yg-breakdown__content">
                                 <div class="yg-totals__row"><span>Subtotal</span><span>£{{ number_format($cart['subtotal'], 2) }}</span></div>
-                                @if($cart['your_savings'] > 0)
-                                <div class="yg-totals__row yg-totals__row--save"><span>Your Savings</span><span>£{{ number_format($cart['your_savings'], 2) }}</span></div>
-                                @endif
                                 @if($hasOffer)
                                     @if($offerDiscount > 0)
                                     <div class="yg-totals__row yg-totals__row--promo"><span>Offer discount</span><span>−£{{ number_format($offerDiscount, 2) }}</span></div>

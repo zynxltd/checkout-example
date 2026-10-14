@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DemoAccount;
 use App\Services\DemoCart;
 use App\Services\TvLiveShow;
 use Illuminate\View\View;
@@ -14,6 +15,7 @@ class TvLiveController extends Controller
         session(['demo_drawer_enabled' => true]);
 
         $schedule = TvLiveShow::schedule();
+        $clubMember = DemoAccount::isClubMember();
 
         return view('demo.tv-live', [
             'cart' => DemoCart::state(),
@@ -24,6 +26,7 @@ class TvLiveController extends Controller
             'youtubeEmbed' => TvLiveShow::youtubeEmbedSrc($schedule['is_live']),
             'youtubeChannelUrl' => TvLiveShow::YOUTUBE_CHANNEL_URL,
             'youtubePoster' => TvLiveShow::youtubePosterUrl(),
+            'club_member' => $clubMember,
         ]);
     }
 }

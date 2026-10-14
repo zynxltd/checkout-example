@@ -7,7 +7,7 @@ use App\Support\DemoDrawerVariant;
 class DemoCart
 {
     /** SKU used when “Add to basket” is clicked on the demo PDP (yougarden.com item-s-pa255) */
-    public const PDP_SKU = 'PA255';
+    public const PDP_SKU = '600610';
 
     /** Auto-renewal yearly club membership (yougarden.com item-p-820005) */
     public const CLUB_SKU_AUTO = '820005';
@@ -191,75 +191,116 @@ class DemoCart
     public static function pdpProduct(): array
     {
         $p = self::catalogue()[self::PDP_SKU];
+        $s3 = 'https://s3.amazonaws.com/YouGarden/Web';
+        $icons = $s3.'/Icons/test';
 
         return [
-            'sku' => $p['sku'],
-            'title' => "Petunia 'Easy Wave' Ultimate Mix",
-            'page_title' => "Petunia 'Easy Wave' Ultimate Mix",
-            'tagline' => 'A vibrant mix of blooms that create a dynamic and cheerful display throughout the summer.',
-            'pack' => '5 x Garden Ready Plants',
+            'sku' => 'PA021',
+            'title' => "Allium 'Purple Sensation'",
+            'page_title' => "Allium 'Purple Sensation'",
+            'tagline' => 'Amazing Hardy Bloomer With Giant Purple Globes That Dazzle Borders And Attract Bees Like Magic',
+            'pack' => '12 x Bulbs',
             'price' => $p['price'],
-            'was_price' => $p['was_price'],
+            'was_price' => $p['was_price'] ?? null,
             'save' => 0,
             'club_price' => $p['club_price'],
-            'rating' => 4.5,
-            'reviews' => 82,
-            'image' => $p['image'],
-            'image_alt' => "Petunia 'Easy Wave' Ultimate Mix in a hanging basket",
+            'rating' => 4.3,
+            'reviews' => 22,
+            'image' => $s3.'/500x500/PA021.jpg',
+            'image_alt' => 'Allium Purple Sensation',
             'breadcrumb' => [
                 ['label' => 'Home', 'url' => route('demo.home'), 'icon' => true],
-                ['label' => 'Bestsellers', 'url' => route('demo.listing.perennials')],
-                ['label' => 'Petunia Easy Wave Mix', 'url' => null],
+                ['label' => 'Bulbs', 'url' => route('demo.listing.perennials')],
+                ['label' => "Allium 'Purple Sensation'", 'url' => null],
             ],
             'also_bought' => [
-                'sku' => '401842',
-                'name' => "Upright Zonal Geranium 'Parade' Mix",
-                'price' => 9.99,
-                'image' => 'images/products/401842.jpg',
+                'sku' => '501001',
+                'name' => 'Blooming Fast Superior Soluble Plant Food',
+                'price' => 4.99,
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100062.jpg',
             ],
             'features' => [
-                ['label' => 'Perfect In Pots', 'icon' => 'pot'],
-                ['label' => 'Plant In Sunshine', 'icon' => 'sun'],
-                ['label' => 'Protect From Frost', 'icon' => 'frost'],
-                ['label' => 'Easy To Grow', 'icon' => 'easy'],
-                ['label' => 'Wildlife Friendly', 'icon' => 'wildlife'],
+                ['label' => 'RHS Garden Merit', 'icon' => 'easy', 'img' => $icons.'/RHSAGM.png', 'html' => 'RHS Garden<br>Merit'],
+                ['label' => 'RHS Perfect Pollinators', 'icon' => 'wildlife', 'img' => $icons.'/RHSPOL.png', 'html' => 'RHS Perfect<br>Pollinators'],
+                ['label' => 'Perfect In Pots', 'icon' => 'pot', 'img' => $icons.'/pots.png', 'html' => 'Perfect<br>In Pots'],
+                ['label' => 'Plant In Sunshine', 'icon' => 'sun', 'img' => $icons.'/sun.png', 'html' => 'Plant<br>In Sunshine'],
+                ['label' => 'Winter Hardy', 'icon' => 'frost', 'img' => $icons.'/hardy.png', 'html' => 'Winter<br>Hardy'],
+                ['label' => 'Cut Flower', 'icon' => 'easy', 'img' => $icons.'/cutFlowers.png', 'html' => 'Cut<br>Flower'],
+                ['label' => 'Easy To Grow', 'icon' => 'easy', 'img' => $icons.'/easyGrow.png', 'html' => 'Easy To Grow'],
+                ['label' => 'Width: 10cm Height: 100cm', 'icon' => 'pot', 'img' => $icons.'/growsize.png', 'html' => 'Width: 10cm<br>Height: 100cm'],
             ],
-            'dimensions' => null,
-            'category_label' => 'Bedding Plants',
+            'bullet_points' => [
+                'Striking purple flower globes add structure and bold colour to borders, flowering reliably each year in late spring to early summer',
+                'A favourite of pollinators including bees and butterflies, helping support garden biodiversity while delivering long-lasting impact',
+                'Tough, hardy and drought-tolerant once established, making it a great choice for low-maintenance, weatherproof planting schemes',
+                'Perfect for cutting and drying to enjoy bold purple blooms indoors as well as outside - they look just as spectacular in a vase',
+                'Awarded the RHS Award of Garden Merit and recommended as a \'Plant for Pollinators\', so you know you\'re buying with confidence',
+            ],
+            'dimensions' => 'Width: 10cm · Height: 100cm',
+            'category_label' => 'Bulbs',
             'bestseller' => false,
-            'popular_views' => 144,
+            'popular_views' => 68,
             'in_stock' => true,
-            'description_excerpt' => 'A vibrant mix of blooms that create a dynamic and cheerful display throughout the summer. These easy wave petunias are perfect for hanging baskets, containers and borders, delivering masses of colour with minimal effort.',
+            'low_stock' => true,
+            'stock_left' => 8,
+            'description_excerpt' => 'Talk about dramatic garden flowers! Allium \'Purple Sensation\' sends up bold, perfectly round globes of violet-purple flowers that hover like fireworks over beds and borders.',
             'gallery' => [
-                ['image' => 'images/products/404220.jpg', 'alt' => "Petunia 'Easy Wave' Ultimate Mix hanging basket"],
-                ['image' => 'images/products/401842.jpg', 'alt' => 'Close-up of colourful petunia blooms'],
-                ['image' => 'images/products/402156.jpg', 'alt' => 'Petunias on a sunny patio'],
-                ['image' => 'images/products/403891.jpg', 'alt' => 'Mixed petunias in a container'],
-                ['image' => 'images/products/404220.jpg', 'alt' => 'Growing guide video', 'type' => 'video'],
+                ['image' => $s3.'/500x500/PA021.jpg', 'thumb' => $s3.'/100x100/PA021.jpg', 'alt' => 'Allium Purple Sensation'],
+                [
+                    'image' => 'https://i.vimeocdn.com/video/2102043916-96325e8af993b8794eb69688951dd27c0baf0715b61a936a243dd15a53b52577-d_640?region=us',
+                    'thumb' => 'https://i.vimeocdn.com/video/2102043916-96325e8af993b8794eb69688951dd27c0baf0715b61a936a243dd15a53b52577-d_640?region=us',
+                    'alt' => 'Allium Purple Sensation video',
+                    'type' => 'video',
+                ],
+                ['image' => $s3.'/500x500/PA021_1.jpg', 'thumb' => $s3.'/100x100/PA021_1.jpg', 'alt' => 'Allium Purple Sensation'],
+                ['image' => $s3.'/500x500/PA021_2.jpg', 'thumb' => $s3.'/100x100/PA021_2.jpg', 'alt' => 'Allium Purple Sensation'],
+                ['image' => $s3.'/500x500/PA021_3.jpg', 'thumb' => $s3.'/100x100/PA021_3.jpg', 'alt' => 'Allium Purple Sensation'],
+                ['image' => $s3.'/500x500/PA021_4.jpg', 'thumb' => $s3.'/100x100/PA021_4.jpg', 'alt' => 'Allium Purple Sensation'],
+                ['image' => $s3.'/500x500/PA021_5.jpg', 'thumb' => $s3.'/100x100/PA021_5.jpg', 'alt' => 'Allium Purple Sensation'],
             ],
             'variants' => [
                 [
-                    'id' => '5pack',
-                    'label' => '5 x Garden Ready Plants',
-                    'sku' => 'PA255',
-                    'price' => 6.99,
+                    'id' => 'ST0024286',
+                    'label' => '12 x Bulbs',
+                    'sku' => '600610',
+                    'display_sku' => '600610',
+                    'price' => 9.99,
                     'was_price' => null,
+                    'club_price' => 8.49,
+                    'out_of_stock' => false,
                     'default' => true,
                 ],
                 [
-                    'id' => '10pack',
-                    'label' => '10 x Garden Ready Plants',
-                    'sku' => 'PA256',
+                    'id' => 'ST0001730',
+                    'label' => '25 x Bulbs',
+                    'sku' => '600122',
+                    'display_sku' => '600122',
                     'price' => 12.99,
                     'was_price' => null,
+                    'club_price' => 11.04,
+                    'out_of_stock' => false,
                     'default' => false,
                 ],
                 [
-                    'id' => 'basket',
-                    'label' => '1 x 35cm Pre-Planted Basket',
-                    'sku' => 'PA257',
-                    'price' => 24.98,
-                    'was_price' => 39.98,
+                    'id' => 'ST560764',
+                    'label' => '1 x 9cm Pot',
+                    'sku' => '560764',
+                    'display_sku' => '560764',
+                    'price' => 9.99,
+                    'was_price' => null,
+                    'club_price' => 8.49,
+                    'out_of_stock' => true,
+                    'default' => false,
+                ],
+                [
+                    'id' => 'ST560885',
+                    'label' => '3 x 9cm Pot',
+                    'sku' => '560885',
+                    'display_sku' => '560885',
+                    'price' => 14.97,
+                    'was_price' => 29.97,
+                    'club_price' => 12.72,
+                    'out_of_stock' => true,
                     'default' => false,
                 ],
             ],
@@ -269,60 +310,68 @@ class DemoCart
                     'sku' => '501004',
                     'name' => 'Enriched Multi-Purpose Compost',
                     'price' => 7.99,
-                    'image' => 'images/products/404220.jpg',
+                    'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100206.jpg',
                 ],
                 [
-                    'sku' => '501005',
-                    'name' => 'Organic Seaweed Feed',
-                    'price' => 6.49,
-                    'image' => 'images/products/403891.jpg',
+                    'sku' => '501001',
+                    'name' => 'Blooming Fast Superior Soluble Plant Food',
+                    'price' => 4.99,
+                    'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100062.jpg',
                 ],
             ],
             'similar' => [
-                ['name' => 'Surfinia Trailing Petunia Mix', 'price' => 9.99, 'image' => 'images/products/401842.jpg', 'url' => '#'],
-                ['name' => 'Calibrachoa Mini Petunia Collection', 'price' => 12.99, 'image' => 'images/products/402156.jpg', 'url' => '#'],
-                ['name' => 'Bacopa Trailing White', 'price' => 6.99, 'image' => 'images/products/403891.jpg', 'url' => '#'],
-                ['name' => 'Pre-Planted Summer Hanging Basket', 'price' => 24.98, 'image' => 'images/products/404220.jpg', 'url' => '#'],
+                ['name' => "Allium 'Purple Sensation' 25 Bulbs", 'price' => 12.99, 'image' => $s3.'/100x100/PA021.jpg', 'url' => '#'],
+                ['name' => "Eryngium 'Blue Hobbit'", 'price' => 14.97, 'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA130.jpg', 'url' => '#'],
+                ['name' => "Imperata 'Red Baron'", 'price' => 14.97, 'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA185.jpg', 'url' => '#'],
+                ['name' => 'Sicilian Lemon Tree', 'price' => 24.99, 'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA680020.jpg', 'url' => '#'],
             ],
             'specs' => [
-                ['label' => 'Flowering period', 'value' => 'June – October'],
+                ['label' => 'Flowering period', 'value' => 'May – June'],
                 ['label' => 'Planting position', 'value' => 'Full sun'],
-                ['label' => 'Eventual height', 'value' => '25 – 35cm'],
-                ['label' => 'Eventual spread', 'value' => '60 – 90cm'],
-                ['label' => 'Hardiness', 'value' => 'Protect from frost'],
+                ['label' => 'Eventual height', 'value' => '100cm'],
+                ['label' => 'Eventual spread', 'value' => '10cm'],
+                ['label' => 'Hardiness', 'value' => 'Winter hardy'],
             ],
             'care_tabs' => [
                 [
-                    'id' => 'water',
-                    'title' => 'How to water',
-                    'content' => 'Water regularly during dry spells, especially when growing in containers and baskets. Allow the compost to dry slightly between waterings.',
-                ],
-                [
                     'id' => 'plant',
                     'title' => 'How to plant',
-                    'content' => 'Plant in well-drained compost in a sunny spot. Ideal for hanging baskets, patio pots and front-of-border displays.',
+                    'content' => 'Plant allium bulbs in early to mid-autumn in a sheltered, sunny site with well-drained soil, at about four times the bulb diameter deep.',
+                ],
+                [
+                    'id' => 'aftercare',
+                    'title' => 'Aftercare',
+                    'content' => 'Feed after planting, leave foliage to die back naturally, and divide every 3–4 years when clumps become overcrowded.',
                 ],
                 [
                     'id' => 'tip',
                     'title' => 'Top tip',
-                    'content' => 'Deadhead spent blooms and feed weekly in summer for the longest flowering season.',
+                    'content' => 'Underplant with hostas, ferns or other low-growing hardy perennials to disguise fading leaves.',
                 ],
             ],
             'plant_calendar' => [
-                'title' => 'Plant calendar',
+                'title' => 'Plant Calendar',
                 'months' => ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                'legend' => [
+                    ['id' => 'planting', 'label' => 'Planting Time'],
+                    ['id' => 'flowering', 'label' => 'Flowering Time'],
+                ],
                 'seasons' => [
                     [
                         'id' => 'planting',
                         'short' => 'Plant',
-                        'label' => 'Planting',
-                        'ranges' => [['from' => 4, 'to' => 6]],
+                        'label' => 'Planting Time',
+                        // Live Allium: ~Mar–Jun and Sep–Dec
+                        'ranges' => [
+                            ['from' => 2, 'to' => 5],
+                            ['from' => 8, 'to' => 11],
+                        ],
                     ],
                     [
                         'id' => 'flowering',
                         'short' => 'Flower',
-                        'label' => 'Flowering',
-                        'ranges' => [['from' => 5, 'to' => 9]],
+                        'label' => 'Flowering Time',
+                        'ranges' => [['from' => 4, 'to' => 5]],
                     ],
                 ],
             ],
@@ -332,60 +381,131 @@ class DemoCart
                     'title' => 'Description',
                     'open' => true,
                     'paragraphs' => [
-                        'A vibrant mix of blooms that create a dynamic and cheerful display throughout the summer. These easy wave petunias are perfect for hanging baskets, containers and borders, delivering masses of colour with minimal effort.',
-                        'The Ultimate Mix combines complementary shades for a professional-looking display. Plants spread and trail beautifully, filling out baskets and pots quickly once established.',
-                        'Supplied as garden-ready plants — simply plant out after the last frosts and enjoy months of continuous colour.',
+                        'Talk about dramatic garden flowers! Allium \'Purple Sensation\' sends up bold, perfectly round globes of violet-purple flowers that hover like fireworks over beds and borders. Whether you\'re creating a modern planting scheme or giving a traditional space a contemporary twist, these architectural blooms make a real impact.',
+                        'This is one of the very best ornamental onions you can grow. Year after year, these hardy, low-maintenance bulbs come back stronger, flowering in late spring to early summer. They rise above foliage like purple lollipops, standing tall and proud on upright stems.',
+                        'Fully deserving its coveted RHS Award of Garden Merit, you can be sure that this is a proven garden performer, guaranteed to be suitable for UK gardeners at every level of experience. You can therefore plant this in the garden with confidence, for stunning displays for many years to come.',
+                        '\'Purple Sensation\' is also recommended by the RHS as a \'Plant for Pollinators\' with flowers that are sure to attract beneficial insects, including bees and butterflies, to the garden.',
+                        'These Allium \'Purple Sensation\' bulbs are supplied sized 10/12, ready for autumn planting, while 9cm potted plants can be planted when ground conditions are not frozen or waterlogged.',
                     ],
                 ],
                 [
                     'id' => 'top-tips',
                     'title' => 'Top Tips',
-                    'bullets' => [
-                        'Plant in a sunny position for the best flower power.',
-                        'Feed weekly with a high-potash liquid feed during the growing season.',
-                        'Perfect for hanging baskets, window boxes and patio containers.',
-                        'Protect from frost — keep indoors until all risk has passed.',
+                    'open' => false,
+                    'paragraphs' => [
+                        'Underplant with hostas, ferns or other low-growing, hardy perennial plants which will help to disguise the leaves as they fade.',
+                    ],
+                ],
+                [
+                    'id' => 'care',
+                    'title' => 'Care Information',
+                    'open' => false,
+                    'blocks' => [
+                        [
+                            'heading' => 'Planting advice for Alliums:',
+                            'bullets' => [
+                                'Find a location where the soil drains well and where they will receive full sun.',
+                                'Plant allium bulbs in early to mid-autumn in a sheltered site to prevent the top-heavy flower spikes from getting blown over.',
+                                'Dig over the soil and remove any weeds before planting.',
+                                'Water well after planting, saturating the soil around the bulbs. Once established, alliums are drought tolerant.',
+                                'In borders, plant bulbs in early autumn at a depth of about four times the diameter of the bulbs.',
+                                'In containers, alliums will do well in deep pots with a good general-purpose potting compost with a handful of horticultural grit added.',
+                            ],
+                        ],
+                        [
+                            'heading' => 'Aftercare advice for Alliums:',
+                            'bullets' => [
+                                'After planting, feed with a general-purpose feed such as our Blooming Fast Superior Soluble Fertiliser.',
+                                'Dried flower heads can be removed and made into indoor decorations or left on the plants to self-seed.',
+                                'Divide alliums every three to four years or when the plants begin to look overcrowded and blooming decreases.',
+                            ],
+                        ],
+                        [
+                            'heading' => 'Pruning and trimming advice for Alliums:',
+                            'bullets' => [
+                                'The leaves die down at flowering time, so its best to plant alliums where this foliage is masked by that of other plants.',
+                                'Avoid removing them while still green, as they provide the bulbs with energy for the following season.',
+                            ],
+                        ],
                     ],
                 ],
                 [
                     'id' => 'delivery',
                     'title' => 'Delivery Information',
+                    'open' => false,
                     'paragraphs' => [
-                        'Please allow us 3–5 working days to dispatch your order. When your order is dispatched, we\'ll send you another email with details of how to track it.',
-                        'Our nursery team sends plants nursery fresh in the perfect condition to thrive.',
+                        'Please allow us 3-5 working days to dispatch your order. Pre-ordered items will be sent as soon as possible after the date quoted and we\'ll generally ship your entire order with your pre-ordered items. When your order is dispatched, we\'ll send you another email with details of how to track it.',
+                        'Most orders are sent on a fully-tracked courier service with Yodel. To avoid perishable items being stuck at depots and deteriorating, no signature is required, and our courier is asked to leave your order in a safe place on your property.',
+                        'We\'ll send a tracking link when we dispatch your order, so you know when its due to arrive. Please note, once delivered we cannot be held responsible for loss or theft from your property.',
+                        'Our experienced nursery team will always send your plants nursery fresh in the perfect condition to thrive when you plant them.',
                     ],
                 ],
                 [
                     'id' => 'reviews',
                     'title' => 'Reviews',
+                    'open' => false,
                     'paragraphs' => [
                         'See Feefo customer ratings and recent reviews for this product below.',
                     ],
                 ],
+                [
+                    'id' => 'video',
+                    'title' => 'Videos',
+                    'open' => false,
+                    'paragraphs' => [
+                        'Watch product and growing advice videos for Allium \'Purple Sensation\'.',
+                    ],
+                ],
+            ],
+            'handpicked' => [
+                [
+                    'name' => 'Winter Pansy Top Wave',
+                    'image' => 'images/products/404220.jpg',
+                    'url' => '#',
+                    'badge' => null,
+                ],
+                [
+                    'name' => 'Wallflower Sugar Rush Mix',
+                    'image' => 'images/products/401842.jpg',
+                    'url' => '#',
+                    'badge' => null,
+                ],
+                [
+                    'name' => 'Complete 300 Spring Flowering',
+                    'image' => 'images/products/402156.jpg',
+                    'url' => '#',
+                    'badge' => '50% OFF',
+                ],
+                [
+                    'name' => 'The Ultimate Winter Garden Ready',
+                    'image' => 'images/products/403891.jpg',
+                    'url' => '#',
+                    'badge' => '33% OFF',
+                ],
             ],
             'feefo' => [
-                'rating' => 4.5,
+                'rating' => 4.3,
                 'max_rating' => 5,
-                'review_count' => 82,
+                'review_count' => 22,
                 'reviews' => [
                     [
                         'rating' => 5,
-                        'title' => 'Stunning colour',
-                        'text' => 'Filled my baskets beautifully — still going strong in September.',
+                        'title' => 'Stunning globes',
+                        'text' => 'Came back strongly and looked incredible in the border — bees loved them.',
                         'author' => 'Trusted Customer',
-                        'date' => '14 August 2025',
+                        'date' => '14 June 2025',
                     ],
                     [
                         'rating' => 5,
-                        'title' => 'Great value',
-                        'text' => 'Healthy plants, quick delivery. Would buy again.',
+                        'title' => 'Easy and hardy',
+                        'text' => 'Planted in autumn, no fuss, great purple colour in May.',
                         'author' => 'Trusted Customer',
-                        'date' => '2 June 2025',
+                        'date' => '2 May 2025',
                     ],
                     [
                         'rating' => 4,
-                        'title' => 'Lovely mix',
-                        'text' => 'Good spread and plenty of flowers. Needed regular watering in the heat.',
+                        'title' => 'Good value bulbs',
+                        'text' => 'Healthy bulbs and reliable flowering. Will order more for next year.',
                         'author' => 'Trusted Customer',
                         'date' => '19 July 2025',
                     ],
@@ -1266,11 +1386,31 @@ class DemoCart
     {
         // Use + (not array_merge): numeric SKU keys must stay string keys.
         return [
+            '600610' => [
+                'sku' => '600610',
+                'name' => "Allium 'Purple Sensation'",
+                'variant' => '12 x Bulbs',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA021.jpg',
+                'price' => 9.99,
+                'was_price' => null,
+                'club_price' => 8.49,
+                'club_saving_per_unit' => 1.50,
+            ],
+            '600122' => [
+                'sku' => '600122',
+                'name' => "Allium 'Purple Sensation'",
+                'variant' => '25 x Bulbs',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA021.jpg',
+                'price' => 12.99,
+                'was_price' => null,
+                'club_price' => 11.04,
+                'club_saving_per_unit' => 1.95,
+            ],
             '401842' => [
                 'sku' => '401842',
                 'name' => "Upright Zonal Geranium 'Parade' Mix",
                 'variant' => '12 x plug plants',
-                'image' => 'images/products/401842.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA151.jpg',
                 'price' => 9.99,
                 'was_price' => 14.99,
                 'club_price' => 8.49,
@@ -1280,7 +1420,7 @@ class DemoCart
                 'sku' => '402156',
                 'name' => "Eryngium 'Blue Hobbit'",
                 'variant' => '1 x 9cm potted plant',
-                'image' => 'images/products/402156.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA130.jpg',
                 'price' => 14.97,
                 'was_price' => 29.97,
                 'club_price' => 9.72,
@@ -1290,7 +1430,7 @@ class DemoCart
                 'sku' => '403891',
                 'name' => "Imperata 'Red Baron' - Blood Grass",
                 'variant' => '1 x 2 Litre Pot',
-                'image' => 'images/products/403891.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA185.jpg',
                 'price' => 14.97,
                 'was_price' => 29.97,
                 'club_price' => 12.72,
@@ -1300,7 +1440,7 @@ class DemoCart
                 'sku' => 'PA255',
                 'name' => "Petunia 'Easy Wave' Ultimate Mix",
                 'variant' => '5 x Garden Ready Plants',
-                'image' => 'images/products/404220.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA255.jpg',
                 'price' => 6.99,
                 'was_price' => 9.99,
                 'club_price' => 5.94,
@@ -1310,7 +1450,7 @@ class DemoCart
                 'sku' => 'PA256',
                 'name' => "Petunia 'Easy Wave' Ultimate Mix",
                 'variant' => '10 x Garden Ready Plants',
-                'image' => 'images/products/404220.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA255.jpg',
                 'price' => 12.99,
                 'was_price' => 19.99,
                 'club_price' => 11.04,
@@ -1320,7 +1460,7 @@ class DemoCart
                 'sku' => 'PA257',
                 'name' => "Petunia 'Easy Wave' Ultimate Mix",
                 'variant' => '1 x 35cm Pre-Planted Basket',
-                'image' => 'images/products/404220.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA255.jpg',
                 'price' => 24.98,
                 'was_price' => 39.98,
                 'club_price' => 21.23,
@@ -1330,7 +1470,7 @@ class DemoCart
                 'sku' => '510317',
                 'name' => 'Sicilian Lemon Tree',
                 'variant' => '1 x 4 Litre Pot',
-                'image' => 'images/products/510317.png',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA680020.jpg',
                 'price' => 24.99,
                 'was_price' => 39.99,
                 'club_price' => 21.24,
@@ -1340,7 +1480,7 @@ class DemoCart
                 'sku' => '404220',
                 'name' => "Pre-Planted 'Summer Sensation' Hanging Baskets",
                 'variant' => '1 x 35cm basket',
-                'image' => 'images/products/404220.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA450186.jpg',
                 'price' => 24.98,
                 'was_price' => 39.98,
                 'club_price' => 21.23,
@@ -1350,7 +1490,7 @@ class DemoCart
                 'sku' => '404221',
                 'name' => 'Premium Professional Compost',
                 'variant' => '2 x 50 Litre Bags',
-                'image' => 'images/products/404220.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100100.jpg',
                 'price' => 24.98,
                 'was_price' => 42.97,
                 'club_price' => 21.23,
@@ -1360,7 +1500,7 @@ class DemoCart
                 'sku' => '501001',
                 'name' => 'Blooming Fast Superior Soluble Plant Food',
                 'variant' => '800g tub',
-                'image' => 'images/products/401842.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100062.jpg',
                 'price' => 4.99,
                 'was_price' => 7.99,
                 'club_price' => 4.24,
@@ -1370,7 +1510,7 @@ class DemoCart
                 'sku' => '501002',
                 'name' => 'Rootgrow Mycorrhizal Fungi',
                 'variant' => '360g pouch',
-                'image' => 'images/products/402156.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100066.jpg',
                 'price' => 3.99,
                 'was_price' => 5.99,
                 'club_price' => 3.39,
@@ -1380,7 +1520,7 @@ class DemoCart
                 'sku' => '501003',
                 'name' => 'Bulb Starter Fertiliser with rootgrow',
                 'variant' => '1 x 1kg tub',
-                'image' => 'images/products/403891.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100087.jpg',
                 'price' => 9.99,
                 'was_price' => 14.99,
                 'club_price' => 8.49,
@@ -1390,7 +1530,7 @@ class DemoCart
                 'sku' => '501004',
                 'name' => 'Enriched Multi-Purpose Compost',
                 'variant' => '40L bag',
-                'image' => 'images/products/404220.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100206.jpg',
                 'price' => 7.99,
                 'was_price' => 11.99,
                 'club_price' => 6.79,
@@ -1400,7 +1540,7 @@ class DemoCart
                 'sku' => '501005',
                 'name' => 'Organic Seaweed Feed',
                 'variant' => '1L concentrate',
-                'image' => 'images/products/404220.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/150118.jpg',
                 'price' => 6.49,
                 'was_price' => 9.99,
                 'club_price' => 5.52,
@@ -1410,7 +1550,7 @@ class DemoCart
                 'sku' => '501006',
                 'name' => "Lilac 'Palibin' Tree Feed",
                 'variant' => '500g tub',
-                'image' => 'images/products/510317.png',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100085.jpg',
                 'price' => 5.99,
                 'was_price' => 8.99,
                 'club_price' => 5.09,
@@ -1419,11 +1559,61 @@ class DemoCart
             '501007' => [
                 'sku' => '501007',
                 'name' => 'Bulb Planter Tool',
-                'image' => 'images/products/403891.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/120106.jpg',
                 'price' => 9.49,
                 'was_price' => 12.99,
                 'club_price' => 8.07,
                 'club_saving_per_unit' => 1.42,
+            ],
+            '510471' => [
+                'sku' => '510471',
+                'name' => 'Pair of Italian Cypress Trees',
+                'variant' => '2 x trees',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/510471.jpg',
+                'price' => 39.98,
+                'was_price' => 49.98,
+                'club_price' => 33.98,
+                'club_saving_per_unit' => 6.00,
+            ],
+            '560606' => [
+                'sku' => '560606',
+                'name' => "Canna 'Tropicanna'",
+                'variant' => '1 x plant',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/560606.jpg',
+                'price' => 7.99,
+                'was_price' => 12.99,
+                'club_price' => 6.79,
+                'club_saving_per_unit' => 1.20,
+            ],
+            '510524' => [
+                'sku' => '510524',
+                'name' => "Japanese Acer 'Taylor'",
+                'variant' => '1 x 3 litre pot',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/510524.jpg',
+                'price' => 34.99,
+                'was_price' => 39.99,
+                'club_price' => 29.74,
+                'club_saving_per_unit' => 5.25,
+            ],
+            '480120' => [
+                'sku' => '480120',
+                'name' => "Geranium 'Rozanne'",
+                'variant' => '1 x 9cm pot',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/480120.jpg',
+                'price' => 19.97,
+                'was_price' => 29.97,
+                'club_price' => 16.97,
+                'club_saving_per_unit' => 3.00,
+            ],
+            '680130' => [
+                'sku' => '680130',
+                'name' => "Agapanthus 'Navy Blue'",
+                'variant' => '1 x plant',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/680130.jpg',
+                'price' => 9.99,
+                'was_price' => 14.99,
+                'club_price' => 8.49,
+                'club_saving_per_unit' => 1.50,
             ],
             self::CLUB_SKU_AUTO => [
                 'sku' => self::CLUB_SKU_AUTO,
@@ -1464,6 +1654,27 @@ class DemoCart
         session(['demo_club_in_cart' => self::hasClubInCart()]);
     }
 
+    public static function clampDrawerWidth(int $width): int
+    {
+        $base = 520;
+        $steps = (int) round(($width - $base) / 25);
+        $width = $base + ($steps * 25);
+
+        return max(400, min(900, $width));
+    }
+
+    public static function drawerWidth(): int
+    {
+        return self::clampDrawerWidth((int) session('demo_drawer_width', 520));
+    }
+
+    public static function recoVariant(): string
+    {
+        $variant = (string) session('demo_reco_variant', 'rows');
+
+        return $variant === 'tiles' ? 'tiles' : 'rows';
+    }
+
     public static function seed(): void
     {
         if (session()->has('demo_cart_items')) {
@@ -1501,10 +1712,60 @@ class DemoCart
     {
         return [
             [
+                'sku' => '480120',
+                'name' => "Geranium 'Rozanne'",
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/480120.jpg',
+                'price' => 19.97,
+            ],
+            [
+                'sku' => '560606',
+                'name' => "Canna 'Tropicanna'",
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/560606.jpg',
+                'price' => 7.99,
+            ],
+            [
+                'sku' => '510524',
+                'name' => "Japanese Acer 'Taylor'",
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/510524.jpg',
+                'price' => 34.99,
+            ],
+            [
+                'sku' => '510471',
+                'name' => 'Pair of Italian Cypress Trees',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/510471.jpg',
+                'price' => 39.98,
+                'from' => true,
+            ],
+            [
+                'sku' => '680130',
+                'name' => "Agapanthus 'Navy Blue'",
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/680130.jpg',
+                'price' => 9.99,
+            ],
+            [
+                'sku' => 'PA255',
+                'name' => "Petunia 'Easy Wave' Ultimate Mix",
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA255.jpg',
+                'price' => 6.99,
+                'from' => true,
+            ],
+            [
+                'sku' => '403891',
+                'name' => "Imperata 'Red Baron' - Blood Grass",
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA185.jpg',
+                'price' => 14.97,
+            ],
+            [
+                'sku' => '600610',
+                'name' => "Allium 'Purple Sensation'",
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/PA021.jpg',
+                'price' => 9.99,
+            ],
+            [
                 'sku' => '501001',
                 'name' => 'Blooming Fast Superior Soluble Plant Food',
                 'variant' => '800g tub',
-                'image' => 'images/products/401842.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100062.jpg',
                 'price' => 4.99,
                 'from' => true,
             ],
@@ -1512,53 +1773,9 @@ class DemoCart
                 'sku' => '501002',
                 'name' => 'Rootgrow Mycorrhizal Fungi',
                 'variant' => '360g pouch',
-                'image' => 'images/products/402156.jpg',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100066.jpg',
                 'price' => 3.99,
                 'from' => true,
-            ],
-            [
-                'sku' => '501003',
-                'name' => 'Bulb Starter Fertiliser with rootgrow',
-                'variant' => '1 x 1kg tub',
-                'image' => 'images/products/403891.jpg',
-                'price' => 9.99,
-                'from' => true,
-            ],
-            [
-                'sku' => '402156',
-                'name' => "Eryngium 'Blue Hobbit'",
-                'image' => 'images/products/402156.jpg',
-                'price' => 14.97,
-            ],
-            [
-                'sku' => '501004',
-                'name' => 'Enriched Multi-Purpose Compost',
-                'variant' => '40L bag',
-                'image' => 'images/products/404220.jpg',
-                'price' => 7.99,
-                'from' => true,
-            ],
-            [
-                'sku' => '501005',
-                'name' => 'Organic Seaweed Feed',
-                'variant' => '1L concentrate',
-                'image' => 'images/products/404220.jpg',
-                'price' => 6.49,
-                'from' => true,
-            ],
-            [
-                'sku' => '501006',
-                'name' => "Lilac 'Palibin' Tree Feed",
-                'variant' => '500g tub',
-                'image' => 'images/products/510317.png',
-                'price' => 5.99,
-                'from' => true,
-            ],
-            [
-                'sku' => '501007',
-                'name' => 'Bulb Planter Tool',
-                'image' => 'images/products/403891.jpg',
-                'price' => 9.49,
             ],
         ];
     }
@@ -1572,7 +1789,7 @@ class DemoCart
             $upsell['in_basket'] = $inCart->has($upsell['sku']);
 
             return $upsell;
-        }, self::upsellProducts());
+        }, array_slice(self::upsellProducts(), 0, 6));
     }
 
     /**
@@ -1884,6 +2101,8 @@ class DemoCart
             'show_free_delivery_bar' => (bool) session('demo_free_delivery_bar', false),
             'show_upsells' => (bool) session('demo_show_upsells', false),
             'wide_drawer' => (bool) session('demo_wide_drawer', false),
+            'drawer_width' => self::drawerWidth(),
+            'reco_variant' => self::recoVariant(),
             'show_apple_pay' => (bool) session('demo_show_apple_pay', true),
             'show_clearpay' => (bool) session('demo_show_clearpay', false),
             'show_klarna' => (bool) session('demo_show_klarna', false),

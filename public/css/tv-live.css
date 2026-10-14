@@ -511,6 +511,57 @@ body.demo-tv-live {
     color: var(--yg-rose);
 }
 
+/* Club member dual pricing — keep cards scannable while watching */
+.tv-live__price--club {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 8px;
+    margin: 6px 0 0;
+}
+
+.tv-live__price-was {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--yg-muted);
+    text-decoration: line-through;
+}
+
+.tv-live__price-now {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--yg-rose);
+    line-height: 1.2;
+}
+
+.tv-live__price-club-label {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #5b2d8e;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    line-height: 1.3;
+}
+
+.tv-live__price-save {
+    flex-basis: 100%;
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--yg-forest);
+}
+
+.tv-live__card--club .tv-live__card-body {
+    gap: 3px;
+}
+
 .tv-live__add {
     margin-top: auto;
     width: 100%;

@@ -49,7 +49,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/demo-prototype-stack.js') }}?v={{ filemtime(public_path('js/demo-prototype-stack.js')) }}" defer></script>
     <script src="{{ asset('js/demo-postcode-lookup.js') }}?v={{ filemtime(public_path('js/demo-postcode-lookup.js')) }}" defer></script>
     <script src="{{ asset('js/demo-account-loading.js') }}?v={{ filemtime(public_path('js/demo-account-loading.js')) }}" defer></script>

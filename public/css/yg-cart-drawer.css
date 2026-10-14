@@ -25,7 +25,7 @@
     --yg-text: var(--yg-pebble);
     --yg-muted: #7a726c;
     --yg-border: #e0d6cb;
-    --yg-drawer-w: 440px;
+    --yg-drawer-w: 520px;
     --yg-heading: var(--yg-font-heading);
     --yg-body: var(--yg-font-body);
     /* legacy aliases */
@@ -43,7 +43,13 @@ body.yg-drawer-open {
 
 .yg-drawer {
     position: fixed;
-    inset: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100vh;
+    height: 100svh;
+    max-height: 100vh;
+    max-height: 100svh;
     z-index: 9000;
     pointer-events: none;
     /* Theme customiser — overridden via JS (see yg-drawer-theme.js) */
@@ -65,8 +71,8 @@ body.yg-drawer-open {
     --yg-theme-club-btn: var(--yg-rose);
     --yg-theme-apply-btn-bg: var(--yg-green-header);
     --yg-theme-apply-btn-text: #ffffff;
-    --yg-theme-checkout-bg: #f2e7d8;
-    --yg-theme-checkout-text: #000000;
+    --yg-theme-checkout-bg: #53b71d;
+    --yg-theme-checkout-text: #ffffff;
     --yg-theme-reco-heading: var(--yg-forest);
     --yg-theme-summary-bg: #ffffff;
 }
@@ -92,7 +98,8 @@ body.yg-drawer-open {
     position: absolute;
     top: 0;
     right: 0;
-    height: 100dvh;
+    bottom: 0;
+    height: auto;
     display: flex;
     flex-direction: row;
     align-items: stretch;
@@ -139,12 +146,13 @@ body.yg-drawer-open {
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 10px;
-    padding: 16px 20px 20px;
-    border-top: 1px solid var(--yg-border);
-    background: #fff;
+    padding: 12px 16px 16px;
+    border-top: none;
+    background: var(--yg-stone);
     text-align: center;
+    box-shadow: 0 -8px 14px -8px rgba(72, 63, 58, 0.35);
 }
 
 .yg-reco-sheet__checkout {
@@ -164,29 +172,31 @@ body.yg-drawer-open {
 }
 
 .yg-reco-sheet__dismiss {
-    display: block;
-    width: auto;
-    margin: 0 auto;
-    padding: 6px 4px;
-    border: none;
-    border-radius: 0;
-    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 11px 16px;
+    border: 1px solid var(--yg-forest);
+    border-radius: 999px;
+    background: #fff;
     box-shadow: none;
-    color: var(--yg-text);
+    color: var(--yg-forest);
     font-family: var(--yg-body);
     font-size: 14px;
     font-weight: 600;
-    line-height: 1.35;
+    line-height: 1.2;
     letter-spacing: 0.01em;
-    text-decoration: underline;
-    text-underline-offset: 3px;
+    text-decoration: none;
     cursor: pointer;
     -webkit-appearance: none;
     appearance: none;
 }
 
 .yg-reco-sheet__dismiss:hover {
-    color: var(--yg-forest);
+    background: var(--yg-forest);
+    color: #fff;
 }
 
 .yg-reco-sheet__dismiss--mobile {
@@ -477,11 +487,11 @@ body.yg-drawer-open {
     }
 
     .yg-reco-sheet__footer {
-        padding: 14px 20px 22px;
+        padding: 12px 14px 18px;
     }
 
     .yg-reco-sheet__dismiss {
-        font-size: 15px;
+        font-size: 14px;
     }
 }
 
@@ -491,8 +501,12 @@ body.yg-drawer-open {
 }
 
 .yg-extend--reco {
-    background: #fff;
+    background: var(--yg-stone);
     color: var(--yg-text);
+}
+
+.yg-extend--reco.is-open {
+    box-shadow: -12px 0 28px rgba(38, 31, 24, 0.16);
 }
 
 .yg-extend[hidden] {
@@ -753,17 +767,17 @@ body.yg-drawer-open {
 }
 
 .yg-extend__inner--reco {
-    padding: 28px 20px 24px;
+    padding: 22px 14px 8px;
 }
 
-/* Fresh Relevance–style upsells: centred tile stack, vertical list in drawer */
 .yg-reco-panel__title {
-    margin: 0 0 18px;
-    font-family: var(--yg-body);
-    font-size: 1.125rem;
-    font-weight: 400;
-    text-align: center;
-    color: var(--yg-text);
+    margin: 0 0 14px;
+    padding-right: 28px;
+    font-family: var(--yg-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-align: left;
+    color: var(--yg-forest);
 }
 
 .yg-reco-panel__list {
@@ -776,37 +790,47 @@ body.yg-drawer-open {
 }
 
 .yg-reco-card {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr) 36px;
+    grid-template-areas:
+        "media name view"
+        "media price view"
+        "media add view";
     align-items: center;
-    padding: 18px 12px 20px;
-    border-bottom: 1px solid var(--yg-border);
-    text-align: center;
+    column-gap: 12px;
+    row-gap: 2px;
+    margin: 0 0 8px;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    background: #fff;
+    text-align: left;
+    box-shadow: 0 1px 2px rgba(72, 63, 58, 0.06);
 }
 
 .yg-reco-card:last-child {
-    border-bottom: none;
-    padding-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .yg-reco-card__media {
-    width: 100%;
-    max-width: 132px;
-    margin: 0 auto 12px;
+    grid-area: media;
+    width: 72px;
+    height: 72px;
+    margin: 0;
     aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 8px;
     overflow: hidden;
-    background: #fff;
+    background: var(--yg-stone);
 }
 
 .yg-reco-card__img {
     width: 100%;
     height: 100%;
-    max-width: 132px;
-    max-height: 132px;
+    max-width: none;
+    max-height: none;
     object-fit: contain;
     margin: 0;
     display: block;
@@ -814,50 +838,54 @@ body.yg-drawer-open {
 }
 
 .yg-reco-card__name {
-    margin: 0 0 10px;
-    width: 100%;
-    max-width: 220px;
+    grid-area: name;
+    margin: 0;
+    width: auto;
+    max-width: none;
     font-family: var(--yg-body);
     font-size: 13px;
-    font-weight: 400;
-    line-height: 1.35;
+    font-weight: 600;
+    line-height: 1.3;
     color: var(--yg-text);
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     overflow: hidden;
 }
 
 .yg-reco-card__price {
-    margin: 0 0 12px;
+    grid-area: price;
+    margin: 0;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 6px;
     line-height: 1.2;
 }
 
 .yg-reco-card__from {
     display: block;
     font-family: var(--yg-body);
-    font-size: 11px;
-    font-weight: 400;
+    font-size: 10px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    color: var(--yg-text);
+    color: var(--yg-muted);
 }
 
 .yg-reco-card__amount {
     display: block;
     font-family: var(--yg-body);
-    font-size: 1.125rem;
+    font-size: 14px;
     font-weight: 700;
     color: var(--yg-text);
 }
 
 .yg-reco-card__add {
-    margin-top: 0;
-    padding: 7px 14px;
+    grid-area: add;
+    justify-self: start;
+    margin-top: 6px;
+    padding: 6px 14px;
     border: none;
     border-radius: 999px;
     background: var(--yg-forest);
@@ -877,12 +905,131 @@ body.yg-drawer-open {
     opacity: 1;
 }
 
+.yg-reco-card__view {
+    grid-area: view;
+    align-self: center;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: var(--yg-stone);
+    color: var(--yg-forest);
+}
+
+.yg-reco-card__view:hover {
+    background: var(--yg-forest);
+    color: #fff;
+}
+
+.yg-reco-card__view svg {
+    display: block;
+}
+
+/* Centred tile stack — switched from Prototype tools */
+.yg-extend--reco.yg-reco--tiles {
+    background: #fff;
+    box-shadow: none;
+}
+
+.yg-reco--tiles .yg-extend__inner--reco {
+    padding: 28px 20px 24px;
+}
+
+.yg-reco--tiles .yg-reco-panel__title {
+    margin: 0 0 18px;
+    padding-right: 0;
+    font-family: var(--yg-body);
+    font-size: 1.125rem;
+    font-weight: 400;
+    text-align: center;
+    color: var(--yg-text);
+}
+
+.yg-reco--tiles .yg-reco-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 18px 12px 20px;
+    border-bottom: 1px solid var(--yg-border);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: center;
+}
+
+.yg-reco--tiles .yg-reco-card:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 8px;
+}
+
+.yg-reco--tiles .yg-reco-card__media {
+    width: 100%;
+    max-width: 132px;
+    height: auto;
+    margin: 0 auto 12px;
+    background: #fff;
+}
+
+.yg-reco--tiles .yg-reco-card__name {
+    margin: 0 0 10px;
+    width: 100%;
+    max-width: 220px;
+    font-weight: 400;
+    text-align: center;
+    -webkit-line-clamp: 3;
+}
+
+.yg-reco--tiles .yg-reco-card__price {
+    margin: 0 0 12px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.yg-reco--tiles .yg-reco-card__add {
+    margin-top: 0;
+}
+
+.yg-reco--tiles .yg-reco-card__view {
+    display: none;
+}
+
+.yg-reco--tiles .yg-reco-sheet__footer {
+    align-items: center;
+    padding: 16px 20px 20px;
+    border-top: 1px solid var(--yg-border);
+    background: #fff;
+    box-shadow: none;
+}
+
+.yg-reco--tiles .yg-reco-sheet__dismiss {
+    width: auto;
+    padding: 6px 4px;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: var(--yg-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.yg-reco--tiles .yg-reco-sheet__dismiss:hover {
+    background: transparent;
+    color: var(--yg-forest);
+}
+
 /* Farmer Gracy–style recommendations tab — protrudes left of basket panel */
 .yg-drawer__panel-slot {
     position: relative;
     flex: 0 0 auto;
     margin-left: auto;
-    height: 100dvh;
+    height: 100%;
+    max-height: 100%;
+    min-height: 0;
     width: 100%;
     max-width: 100vw;
     overflow: visible;
@@ -968,11 +1115,13 @@ body.yg-drawer-open {
     width: 100%;
     min-width: 0;
     height: 100%;
+    max-height: 100%;
+    min-height: 0;
     background: var(--yg-theme-panel-bg);
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    overflow-x: hidden;
+    overflow: hidden;
     box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
     pointer-events: auto;
 }
@@ -980,12 +1129,12 @@ body.yg-drawer-open {
 @media (min-width: 768px) {
     .yg-drawer__panel-slot {
         width: var(--yg-drawer-w);
-        max-width: min(480px, 90vw);
+        max-width: min(var(--yg-drawer-w), 92vw);
     }
 
     .yg-drawer--wide .yg-drawer__panel-slot {
-        width: min(720px, 92vw);
-        max-width: min(720px, 92vw);
+        width: var(--yg-drawer-w);
+        max-width: min(var(--yg-drawer-w), 92vw);
     }
 
     .yg-extend.is-open {
@@ -1464,6 +1613,11 @@ body.yg-drawer-open {
     flex-shrink: 0;
 }
 
+.yg-item__sku strong {
+    font-weight: 700;
+    color: var(--yg-theme-body-text, #1a1a1a);
+}
+
 .yg-item__name {
     margin: 3px 0 0;
     font-family: var(--yg-body);
@@ -1824,11 +1978,13 @@ body.yg-drawer-open {
     background: var(--yg-theme-summary-bg);
     margin: 0;
     padding: 0;
+    position: relative;
+    z-index: 2;
     --yg-summary-x: 14px;
     /* Chevron inset inside summary-inner rows (e.g. promo pill) */
     --yg-summary-chev-gutter: 8px;
-    /* Subtle top separator against white item cards (inset so it can't be clipped) */
-    box-shadow: inset 0 8px 10px -12px rgba(0, 0, 0, 0.22);
+    /* Sits over the scrolling product list so the offer block reads as its own section */
+    box-shadow: 0 -10px 18px -6px rgba(72, 63, 58, 0.28);
 }
 
 .yg-drawer__summary-inner {
@@ -1851,13 +2007,13 @@ body.yg-drawer-open {
     .yg-drawer--no-reco .yg-drawer__panel-slot {
         flex: 0 0 var(--yg-drawer-w);
         width: var(--yg-drawer-w);
-        max-width: min(480px, 90vw);
+        max-width: min(var(--yg-drawer-w), 92vw);
     }
 
     .yg-drawer--no-reco.yg-drawer--wide .yg-drawer__panel-slot {
-        flex: 0 0 min(720px, 92vw);
-        width: min(720px, 92vw);
-        max-width: min(720px, 92vw);
+        flex: 0 0 var(--yg-drawer-w);
+        width: var(--yg-drawer-w);
+        max-width: min(var(--yg-drawer-w), 92vw);
     }
 }
 
@@ -2091,9 +2247,11 @@ body.yg-drawer-open {
 
 .yg-drawer--v-3-0 .yg-totals > .yg-totals__row--total,
 .yg-drawer--v-3-0 .yg-totals > .yg-totals__row--total-desktop {
-    border-top: none;
-    margin-top: 0;
-    padding-top: 4px;
+    border-top: 1px solid #e0d6cb;
+    margin-top: 8px;
+    padding-top: 12px;
+    padding-bottom: 10px;
+    font-size: 1.2rem;
 }
 
 .yg-totals__row {
@@ -2160,7 +2318,7 @@ body.yg-drawer-open {
 /* Desktop — tighter summary/footer (promo, totals, club saving, checkout) */
 @media (min-width: 768px) {
     .yg-drawer__summary {
-        box-shadow: inset 0 5px 8px -10px rgba(0, 0, 0, 0.18);
+        box-shadow: 0 -10px 18px -6px rgba(72, 63, 58, 0.28);
     }
 
     .yg-drawer__summary-inner {
@@ -2186,9 +2344,10 @@ body.yg-drawer-open {
 
     .yg-drawer .yg-totals__row--total,
     .yg-drawer .yg-totals__row--total-desktop {
-        margin-top: 4px;
-        padding-top: 8px;
-        font-size: 1.05rem;
+        margin-top: 8px;
+        padding-top: 12px;
+        padding-bottom: 10px;
+        font-size: 1.2rem;
     }
 
     .yg-drawer .yg-club-savings-banner {
@@ -2250,8 +2409,7 @@ body.yg-drawer-open {
     display: block;
     flex-shrink: 0;
     object-fit: contain;
-    /* White PNG → black so it reads on stone */
-    filter: brightness(0);
+    filter: brightness(0) invert(1);
 }
 
 .yg-checkout__label {
@@ -2327,8 +2485,8 @@ body.yg-drawer-open {
 @media (max-width: 767px) {
     .yg-drawer--v-2-1 .yg-drawer__stage,
     .yg-drawer--v-2-1 .yg-drawer__panel-slot {
-        height: 100svh;
-        height: 100dvh;
+        height: 100%;
+        max-height: 100%;
     }
 
     .yg-drawer--v-2-1 .yg-totals__row--total-desktop {
@@ -2472,6 +2630,6 @@ body.yg-drawer-open {
     }
 
     .yg-drawer--v-2-1 .yg-drawer__summary {
-        box-shadow: inset 0 4px 8px -8px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 -10px 18px -6px rgba(72, 63, 58, 0.28);
     }
 }

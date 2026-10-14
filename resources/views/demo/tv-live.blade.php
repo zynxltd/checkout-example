@@ -107,17 +107,27 @@
                     >{{ $cat['label'] }}</button>
                 @endforeach
             </div>
-            <p class="tv-live__results" data-tv-results>{{ count($lineup) }} items · Add any product straight to your basket</p>
+            <p class="tv-live__results" data-tv-results>
+                {{ count($lineup) }} items ·
+                @if (! empty($club_member))
+                    Your Club prices are showing · Add straight to basket
+                @else
+                    Add any product straight to your basket
+                @endif
+            </p>
         </div>
 
         <section class="tv-live__shelf resListingWrapper" aria-label="Today’s show line-up" id="tv-live-grid">
             @foreach ($lineup as $item)
                 @php
+                    $clubPrice = round((float) $item['price'] * 0.85, 2);
+                    $clubSaving = round((float) $item['price'] - $clubPrice, 2);
                     $qvPayload = \App\Services\DemoCart::quickViewPayload([
                         'sku' => $item['sku'],
                         'name' => $item['name'],
                         'image' => $item['image'],
                         'price' => $item['price'],
+                        'club_price' => $clubPrice,
                         'price_label' => 'Just',
                         'was_price' => $item['was_price'] ?? null,
                         'variant' => $item['variant'],
@@ -135,7 +145,7 @@
                     ]);
                 @endphp
                 <article
-                    class="tv-live__card category-box{{ ! empty($item['on_air']) ? ' is-on-air' : '' }}"
+                    class="tv-live__card category-box{{ ! empty($item['on_air']) ? ' is-on-air' : '' }}{{ ! empty($club_member) ? ' tv-live__card--club' : '' }}"
                     id="tv-{{ $item['line_id'] }}"
                     data-tv-card
                     data-qv-card
@@ -170,7 +180,19 @@
                     <div class="tv-live__card-body">
                         <p class="tv-live__card-cat">{{ $item['category_label'] }}</p>
                         <h3 class="tv-live__card-name title">{{ $item['name'] }}</h3>
-                        <p class="tv-live__card-price price">£{{ number_format($item['price'], 2) }}</p>
+
+                        @if (! empty($club_member))
+                            <div class="tv-live__price tv-live__price--club">
+                                <span class="tv-live__price-was">£{{ number_format($item['price'], 2) }}</span>
+                                <span class="tv-live__price-now">
+                                    <span class="tv-live__price-club-label">Club</span>
+                                    £{{ number_format($clubPrice, 2) }}
+                                </span>
+                                <span class="tv-live__price-save">Save £{{ number_format($clubSaving, 2) }}</span>
+                            </div>
+                        @else
+                            <p class="tv-live__card-price price">£{{ number_format($item['price'], 2) }}</p>
+                        @endif
                     </div>
 
                     <button
@@ -209,7 +231,6 @@
 
 @push('scripts')
     <script>window.__YG_CART_DRAWER_ENABLED = true;</script>
-    <script src="{{ asset('js/yg-drawer-theme.js') }}?v={{ filemtime(public_path('js/yg-drawer-theme.js')) }}" defer></script>
     <script src="{{ asset('js/tv-live.js') }}?v={{ filemtime(public_path('js/tv-live.js')) }}" defer></script>
     <script src="{{ asset('js/demo-listing-quick-view.js') }}?v={{ filemtime(public_path('js/demo-listing-quick-view.js')) }}" defer></script>
 @endpush
