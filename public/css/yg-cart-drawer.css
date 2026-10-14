@@ -811,11 +811,11 @@ body.yg-drawer-open {
 
 .yg-reco-card {
     display: grid;
-    grid-template-columns: 72px minmax(0, 1fr) 36px;
+    grid-template-columns: 72px minmax(0, 1fr);
     grid-template-areas:
-        "media name view"
-        "media price view"
-        "media add view";
+        "media name"
+        "media price"
+        "media add";
     align-items: center;
     column-gap: 12px;
     row-gap: 2px;
@@ -925,31 +925,8 @@ body.yg-drawer-open {
     opacity: 1;
 }
 
-.yg-reco-card__view {
-    grid-area: view;
-    align-self: center;
-    justify-self: end;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
-    background: var(--yg-stone);
-    color: var(--yg-forest);
-}
-
-.yg-reco-card__view:hover {
-    background: var(--yg-forest);
-    color: #fff;
-}
-
-.yg-reco-card__view svg {
-    display: block;
-}
-
 .yg-reco--rows .yg-reco-card {
-    grid-template-columns: 104px minmax(0, 1fr) 44px;
+    grid-template-columns: 104px minmax(0, 1fr);
     column-gap: 14px;
     row-gap: 4px;
     margin-bottom: 10px;
@@ -979,16 +956,6 @@ body.yg-drawer-open {
     margin-top: 8px;
     padding: 8px 18px;
     font-size: 14px;
-}
-
-.yg-reco--rows .yg-reco-card__view {
-    width: 44px;
-    height: 44px;
-}
-
-.yg-reco--rows .yg-reco-card__view svg {
-    width: 22px;
-    height: 22px;
 }
 
 /* Centred tile stack — switched from Prototype tools */
@@ -1055,10 +1022,6 @@ body.yg-drawer-open {
 
 .yg-reco--tiles .yg-reco-card__add {
     margin-top: 0;
-}
-
-.yg-reco--tiles .yg-reco-card__view {
-    display: none;
 }
 
 .yg-reco--tiles .yg-reco-sheet__footer {

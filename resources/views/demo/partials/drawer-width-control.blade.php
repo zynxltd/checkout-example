@@ -16,5 +16,5 @@
         <button type="button" class="demo-reco-variant__btn @if($recoVariant === 'rows') is-active @endif" data-reco-variant="rows" aria-pressed="{{ $recoVariant === 'rows' ? 'true' : 'false' }}">Variant 1</button>
         <button type="button" class="demo-reco-variant__btn @if($recoVariant === 'tiles') is-active @endif" data-reco-variant="tiles" aria-pressed="{{ $recoVariant === 'tiles' ? 'true' : 'false' }}">Variant 2</button>
     </div>
-    <p class="demo-controls__hint">Variant 1 is the row layout with a view icon. Variant 2 is stacked tiles.</p>
+    <p class="demo-controls__hint">Variant 1 is the row layout. Variant 2 is stacked tiles.</p>
 </aside>
