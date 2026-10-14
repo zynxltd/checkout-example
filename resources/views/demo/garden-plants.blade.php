@@ -119,20 +119,6 @@
         </div>
         <div class="demo-prototype-stack__content">
             @include('demo.partials.prototype-tools-shared')
-            <aside class="demo-controls" aria-label="SEO content block colours">
-                <h3>SEO content block</h3>
-                <p class="demo-controls__hint">Toggle colours for the Garden Plants intro. Saved in this browser.</p>
-                <label class="demo-toggle">
-                    <input type="checkbox" id="toggle-seo-hide-stone" data-seo-option="hide-stone" checked>
-                    <span>Hide stone card background</span>
-                </label>
-                <p class="demo-controls__hint">Removes the cream card shell so the intro sits on the white page.</p>
-                <label class="demo-toggle">
-                    <input type="checkbox" id="toggle-seo-green-header" data-seo-option="green-header" checked>
-                    <span>YG green for header</span>
-                </label>
-                <p class="demo-controls__hint">Uses forest green (#264f1c) for the main title (and subtitle).</p>
-            </aside>
         </div>
     </div>
 </div>
@@ -156,39 +142,19 @@
         var seo = document.querySelector('[data-seo-intro]');
         if (!seo) return;
 
-        var KEY = 'yg-garden-plants-seo-v2';
-        var hideStone = document.getElementById('toggle-seo-hide-stone');
-        var greenHeader = document.getElementById('toggle-seo-green-header');
-
-        function apply() {
-            seo.classList.toggle('is-no-stone', !!(hideStone && hideStone.checked));
-            seo.classList.toggle('is-green-header', !!(greenHeader && greenHeader.checked));
-            try {
-                localStorage.setItem(KEY, JSON.stringify({
-                    hideStone: !!(hideStone && hideStone.checked),
-                    greenHeader: !!(greenHeader && greenHeader.checked),
-                }));
-            } catch (e) { /* ignore */ }
-        }
-
+        var hideStone = true;
+        var greenHeader = true;
         try {
-            var raw = localStorage.getItem(KEY);
+            var raw = localStorage.getItem('yg-garden-plants-seo-v2');
             if (raw) {
                 var saved = JSON.parse(raw);
-                if (hideStone) hideStone.checked = saved.hideStone !== false;
-                if (greenHeader) greenHeader.checked = saved.greenHeader !== false;
-            } else {
-                if (hideStone) hideStone.checked = true;
-                if (greenHeader) greenHeader.checked = true;
+                hideStone = saved.hideStone !== false;
+                greenHeader = saved.greenHeader !== false;
             }
-        } catch (e) {
-            if (hideStone) hideStone.checked = true;
-            if (greenHeader) greenHeader.checked = true;
-        }
+        } catch (e) { /* keep the default colours */ }
 
-        if (hideStone) hideStone.addEventListener('change', apply);
-        if (greenHeader) greenHeader.addEventListener('change', apply);
-        apply();
+        seo.classList.toggle('is-no-stone', hideStone);
+        seo.classList.toggle('is-green-header', greenHeader);
     })();
     </script>
 @endpush

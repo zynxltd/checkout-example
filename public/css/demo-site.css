@@ -1346,13 +1346,14 @@ body.demo-mobile-nav-open {
 
 .demo-reco-variant__btn {
     flex: 1;
-    padding: 7px 10px;
+    padding: 7px 8px;
     border: 1px solid #ccc;
     border-radius: 6px;
     background: #fff;
     font-family: inherit;
     font-size: 13px;
     font-weight: 600;
+    white-space: nowrap;
     cursor: pointer;
 }
 
@@ -1392,6 +1393,22 @@ body.demo-mobile-nav-open {
 
     .demo-prototype-stack__dock {
         padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Keep the dock off the basket checkout button and the title while the drawer is open. */
+    body.yg-drawer-open .demo-prototype-stack {
+        top: max(10px, env(safe-area-inset-top));
+        right: 56px;
+        bottom: auto;
+        left: auto;
+        width: min(280px, calc(100vw - 72px));
+        align-items: flex-end;
+        max-height: calc(100dvh - 16px);
+    }
+
+    body.yg-drawer-open .demo-prototype-stack__dock {
+        border-radius: 12px;
+        padding-bottom: 12px;
     }
 }
 

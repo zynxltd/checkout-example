@@ -55,6 +55,7 @@
             this.bindGlobal();
             this.bindDrawerWidth();
             this.bindRecoVariant();
+            this.bindVisualViewport();
             if (this.mount) {
                 this.wireDrawer(this.mount);
             }
@@ -374,12 +375,46 @@
             requestAnimationFrame(() => {
                 drawer.classList.add('is-open');
                 document.body.classList.add('yg-drawer-open');
+                this.fitToVisualViewport();
 
                 requestAnimationFrame(() => {
                     document.getElementById('yg-reco-panel')?.classList.remove('yg-extend--no-transition');
                 });
             });
             console.info('[demo] drawer open', source);
+        },
+
+        bindVisualViewport() {
+            if (this._vvBound) {
+                return;
+            }
+            this._vvBound = true;
+            const fit = () => this.fitToVisualViewport();
+            window.visualViewport?.addEventListener('resize', fit);
+            window.visualViewport?.addEventListener('scroll', fit);
+            window.addEventListener('resize', fit);
+        },
+
+        fitToVisualViewport() {
+            const drawer = document.getElementById('yg-cart-drawer');
+            if (!drawer) {
+                return;
+            }
+
+            const vv = window.visualViewport;
+            const mobile = window.innerWidth < 768;
+            const open = drawer.classList.contains('is-open') && !drawer.hidden;
+
+            if (!vv || !mobile || !open) {
+                drawer.style.top = '';
+                drawer.style.height = '';
+                drawer.style.maxHeight = '';
+                return;
+            }
+
+            drawer.style.top = `${vv.offsetTop}px`;
+            drawer.style.height = `${Math.round(vv.height)}px`;
+            drawer.style.maxHeight = `${Math.round(vv.height)}px`;
         },
 
         close() {
@@ -390,6 +425,7 @@
 
             drawer.classList.remove('is-open');
             document.body.classList.remove('yg-drawer-open');
+            this.fitToVisualViewport();
             this.closeExtend();
 
             setTimeout(() => {
@@ -562,6 +598,7 @@
                     drawer.hidden = false;
                     drawer.classList.add('is-open');
                     document.body.classList.add('yg-drawer-open');
+                    this.fitToVisualViewport();
                 }
             }
 

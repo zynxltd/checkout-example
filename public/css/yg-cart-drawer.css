@@ -47,9 +47,9 @@ body.yg-drawer-open {
     right: 0;
     left: 0;
     height: 100vh;
-    height: 100svh;
+    height: 100dvh;
     max-height: 100vh;
-    max-height: 100svh;
+    max-height: 100dvh;
     z-index: 9000;
     pointer-events: none;
     /* Theme customiser — overridden via JS (see yg-drawer-theme.js) */
@@ -470,6 +470,10 @@ body.yg-drawer-open {
         flex-direction: column;
         width: min(360px, 42vw);
         overflow: hidden;
+    }
+
+    .yg-drawer__stage .yg-extend--reco.yg-reco--rows.is-open {
+        width: min(420px, 46vw);
     }
 
     .yg-extend--reco .yg-extend__body-reco {
@@ -926,6 +930,49 @@ body.yg-drawer-open {
 
 .yg-reco-card__view svg {
     display: block;
+}
+
+.yg-reco--rows .yg-reco-card {
+    grid-template-columns: 104px minmax(0, 1fr) 44px;
+    column-gap: 14px;
+    row-gap: 4px;
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 14px;
+}
+
+.yg-reco--rows .yg-reco-card__media {
+    width: 104px;
+    height: 104px;
+    border-radius: 10px;
+}
+
+.yg-reco--rows .yg-reco-card__name {
+    font-size: 15px;
+}
+
+.yg-reco--rows .yg-reco-card__from {
+    font-size: 11px;
+}
+
+.yg-reco--rows .yg-reco-card__amount {
+    font-size: 16px;
+}
+
+.yg-reco--rows .yg-reco-card__add {
+    margin-top: 8px;
+    padding: 8px 18px;
+    font-size: 14px;
+}
+
+.yg-reco--rows .yg-reco-card__view {
+    width: 44px;
+    height: 44px;
+}
+
+.yg-reco--rows .yg-reco-card__view svg {
+    width: 22px;
+    height: 22px;
 }
 
 /* Centred tile stack — switched from Prototype tools */
@@ -2288,6 +2335,47 @@ body.yg-drawer-open {
     font-size: 1.1rem;
 }
 
+.yg-subtotal-breakdown {
+    margin: 0;
+}
+
+.yg-subtotal-breakdown > summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+.yg-subtotal-breakdown > summary::-webkit-details-marker {
+    display: none;
+}
+
+.yg-subtotal-breakdown__amount {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.yg-subtotal-breakdown__chev {
+    display: inline-block;
+    font-size: 0.85em;
+    line-height: 1;
+    transition: transform 0.15s ease;
+}
+
+.yg-subtotal-breakdown[open] .yg-subtotal-breakdown__chev {
+    transform: rotate(180deg);
+}
+
+.yg-subtotal-breakdown__panel {
+    padding: 2px 0 6px;
+}
+
+.yg-subtotal-breakdown__order {
+    font-weight: 700;
+    border-top: 1px solid #e0d6cb;
+    margin-top: 4px;
+    padding-top: 8px;
+}
+
 /* Mobile — align Order summary row with Total row (same horizontal inset) */
 @media (max-width: 767px) {
     .yg-drawer .yg-breakdown__summary {
@@ -2477,6 +2565,10 @@ body.yg-drawer-open {
         justify-content: space-between;
     }
 
+    .yg-drawer--v-2-1 .yg-subtotal-slot--desktop {
+        display: block;
+    }
+
     .yg-drawer--v-2-1 .yg-club-savings-banner--v21-desktop {
         display: block;
     }
@@ -2489,7 +2581,8 @@ body.yg-drawer-open {
         max-height: 100%;
     }
 
-    .yg-drawer--v-2-1 .yg-totals__row--total-desktop {
+    .yg-drawer--v-2-1 .yg-totals__row--total-desktop,
+    .yg-drawer--v-2-1 .yg-subtotal-slot--desktop {
         display: none !important;
     }
 

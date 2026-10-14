@@ -1677,6 +1677,13 @@ class DemoCart
 
     public static function seed(): void
     {
+        if (! session()->has('demo_checkout_codes_default_off')) {
+            session([
+                'demo_checkout_codes_top' => false,
+                'demo_checkout_codes_default_off' => true,
+            ]);
+        }
+
         if (session()->has('demo_cart_items')) {
             return;
         }
@@ -1699,7 +1706,7 @@ class DemoCart
             'demo_show_apple_pay' => true,
             'demo_show_clearpay' => false,
             'demo_show_klarna' => false,
-            'demo_checkout_codes_top' => true,
+            'demo_checkout_codes_top' => false,
         ]);
 
         DemoDrawerVariant::setEnabled(true);
@@ -2106,10 +2113,11 @@ class DemoCart
             'show_apple_pay' => (bool) session('demo_show_apple_pay', true),
             'show_clearpay' => (bool) session('demo_show_clearpay', false),
             'show_klarna' => (bool) session('demo_show_klarna', false),
+            'show_breakdown' => (bool) session('demo_show_breakdown', true),
             'compact_v21' => DemoDrawerVariant::isActive(),
             'summary_v30' => DemoDrawerVariant::isV30Active(),
             'feedback_v40' => DemoDrawerVariant::isV40Active(),
-            'checkout_codes_top' => (bool) session('demo_checkout_codes_top', true),
+            'checkout_codes_top' => (bool) session('demo_checkout_codes_top', false),
             'checkout_codes_ticket' => (bool) session('demo_checkout_codes_ticket', false),
             'upsells' => self::upsellsForDrawer(),
         ];

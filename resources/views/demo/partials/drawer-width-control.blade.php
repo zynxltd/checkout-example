@@ -13,8 +13,8 @@
     <p class="demo-controls__hint">Steps of 25px, from 400px to 900px. Desktop only.</p>
     <p class="demo-controls__label">Recommendations</p>
     <div class="demo-reco-variant" data-reco-variant-switch>
-        <button type="button" class="demo-reco-variant__btn @if($recoVariant === 'rows') is-active @endif" data-reco-variant="rows" aria-pressed="{{ $recoVariant === 'rows' ? 'true' : 'false' }}">Rows</button>
-        <button type="button" class="demo-reco-variant__btn @if($recoVariant === 'tiles') is-active @endif" data-reco-variant="tiles" aria-pressed="{{ $recoVariant === 'tiles' ? 'true' : 'false' }}">Tiles</button>
+        <button type="button" class="demo-reco-variant__btn @if($recoVariant === 'rows') is-active @endif" data-reco-variant="rows" aria-pressed="{{ $recoVariant === 'rows' ? 'true' : 'false' }}">Variant 1</button>
+        <button type="button" class="demo-reco-variant__btn @if($recoVariant === 'tiles') is-active @endif" data-reco-variant="tiles" aria-pressed="{{ $recoVariant === 'tiles' ? 'true' : 'false' }}">Variant 2</button>
     </div>
-    <p class="demo-controls__hint">Rows include a view icon to open the product page.</p>
+    <p class="demo-controls__hint">Variant 1 is the row layout with a view icon. Variant 2 is stacked tiles.</p>
 </aside>

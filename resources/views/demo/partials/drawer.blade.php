@@ -238,9 +238,12 @@
                     @endunless
 
                     @if(empty($drawerVariant21))
-                    <div class="yg-totals__row yg-totals__row--total"><span>{{ $totalRowLabel }}</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
+                    @include('demo.partials.drawer-subtotal')
                     @else
-                    <div class="yg-totals__row yg-totals__row--total yg-totals__row--total-desktop"><span>{{ $totalRowLabel }}</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
+                    @include('demo.partials.drawer-subtotal', [
+                        'slotClass' => 'yg-subtotal-slot--desktop',
+                        'rowClass' => 'yg-totals__row--total-desktop',
+                    ])
                     @endif
                 </div>
                 </div>
@@ -269,7 +272,7 @@
                 @endif
                 @if(!empty($drawerVariant21))
                 <div class="yg-drawer__summary-total yg-drawer__summary-total--v21-mobile @if($showClubSavings) yg-drawer__summary-total--after-club @endif">
-                    <div class="yg-totals__row yg-totals__row--total"><span>{{ $totalRowLabel }}</span><span>£{{ number_format($cart['basket_total'], 2) }}</span></div>
+                    @include('demo.partials.drawer-subtotal')
                 </div>
                 @endif
             </div>

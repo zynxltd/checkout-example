@@ -56,11 +56,11 @@
         var moreToggle = document.getElementById('toggle-listing-hide-find-out-more');
         var oosToggle = document.getElementById('toggle-listing-hide-email-when-available');
         var inlineToggle = document.getElementById('toggle-listing-inline-filters');
+        var state = load();
         if (!moreToggle && !oosToggle && !inlineToggle) {
+            apply(state);
             return;
         }
-
-        var state = load();
         if (moreToggle) {
             moreToggle.checked = !!state.hideFindOutMore;
             moreToggle.addEventListener('change', function () {

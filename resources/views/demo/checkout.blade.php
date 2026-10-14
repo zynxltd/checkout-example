@@ -3,8 +3,7 @@
 @section('title', 'Checkout — YouGarden Prototype')
 
 @section('body_class', 'demo-checkout-page'
-    . (!empty($cart['feedback_v40']) ? ' co--v-4-0' : '')
-    . (!empty($cart['checkout_codes_top']) ? ' co--codes-express' : ''))
+    . (!empty($cart['feedback_v40']) ? ' co--v-4-0' : ''))
 @section('body_attrs')
 data-co-line-count="{{ count($cart['items']) }}"
 @endsection
@@ -85,6 +84,16 @@ data-co-line-count="{{ count($cart['items']) }}"
                 <input type="hidden" id="demo-show-apple-pay" value="{{ ($cart['show_apple_pay'] ?? true) ? '1' : '0' }}">
                 @include('demo.partials.checkout-express-buttons')
             </section>
+
+            @if(!empty($cart['checkout_codes_top']))
+            <section @class([
+                'co-codes',
+                'co-codes--express',
+                'co-codes--ticket' => !empty($cart['checkout_codes_ticket']),
+            ]) aria-label="Offer codes and vouchers">
+                @include('demo.partials.checkout-codes', ['placement' => 'express'])
+            </section>
+            @endif
 
             <div class="co-divider" role="separator">
                 <span>Or continue below with</span>
@@ -597,7 +606,9 @@ data-co-line-count="{{ count($cart['items']) }}"
                 </div>
                 @endif
 
+                @unless(!empty($cart['checkout_codes_top']))
                 @include('demo.partials.checkout-codes', ['placement' => 'summary'])
+                @endunless
 
                 <dl class="co-summary__totals">
                     <div class="co-summary__row">

@@ -240,6 +240,7 @@ class CartController extends Controller
             'apple_pay' => 'demo_show_apple_pay',
             'clearpay' => 'demo_show_clearpay',
             'klarna' => 'demo_show_klarna',
+            'breakdown' => 'demo_show_breakdown',
         ];
 
         if (! isset($map[$key])) {

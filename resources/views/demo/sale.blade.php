@@ -85,23 +85,6 @@
         </div>
         <div class="demo-prototype-stack__content">
             @include('demo.partials.prototype-tools-shared')
-            <aside class="demo-controls" aria-label="Listing prototype controls">
-                <h3>Product cards</h3>
-                <label class="demo-toggle">
-                    <input type="checkbox" id="toggle-listing-hide-find-out-more">
-                    <span>Hide “Find out more”</span>
-                </label>
-                <label class="demo-toggle">
-                    <input type="checkbox" id="toggle-listing-hide-email-when-available">
-                    <span>Hide “Email when available”</span>
-                </label>
-                <p class="demo-controls__label">Filters (desktop)</p>
-                <label class="demo-toggle">
-                    <input type="checkbox" id="toggle-listing-inline-filters">
-                    <span>Inline page filters</span>
-                </label>
-                <p class="demo-controls__hint">Desktop only: swaps the drawer button for on-page filters using the same drawer styling. Saved in this browser.</p>
-            </aside>
         </div>
     </div>
 </div>
