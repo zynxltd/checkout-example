@@ -80,9 +80,19 @@
             }
         }
 
+        function pageWasReloaded() {
+            const navigation = performance.getEntriesByType('navigation')[0];
+
+            return navigation && navigation.type === 'reload';
+        }
+
         function applySavedState() {
             try {
-                if (sessionStorage.getItem(HIDDEN_KEY) === '1') {
+                const wasHidden = sessionStorage.getItem(HIDDEN_KEY) === '1';
+
+                if (wasHidden && pageWasReloaded()) {
+                    sessionStorage.removeItem(HIDDEN_KEY);
+                } else if (wasHidden) {
                     setHidden(true);
                     return;
                 }
