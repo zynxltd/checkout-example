@@ -2335,9 +2335,18 @@ body.yg-drawer-open {
     margin: 0;
 }
 
-.yg-subtotal-breakdown > summary {
+.yg-drawer .yg-subtotal-breakdown > summary.yg-totals__row--total {
     list-style: none;
     cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+.yg-subtotal-breakdown > summary .yg-subtotal-breakdown__amount {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 .yg-subtotal-breakdown > summary::-webkit-details-marker {
@@ -2626,6 +2635,11 @@ body.yg-drawer-open {
         justify-content: space-between;
         font-weight: 700;
         font-size: 0.95rem;
+    }
+
+    .yg-drawer--v-2-1 .yg-drawer__summary-total--v21-mobile .yg-subtotal-breakdown > summary.yg-totals__row--total {
+        font-size: 15px;
+        font-weight: 400;
     }
 
     .yg-drawer--v-2-1 .yg-drawer__summary-inner {
