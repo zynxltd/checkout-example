@@ -2,10 +2,10 @@
     const STORAGE_KEY = 'yg_drawer_theme_v10';
 
     const FIELDS = [
-        { key: 'headerBg', var: '--yg-theme-header-bg', label: 'Header background', default: '#ffffff' },
-        { key: 'headerText', var: '--yg-theme-header-text', label: 'Header text', default: '#264f1c' },
-        { key: 'headerBadgeBg', var: '--yg-theme-header-badge-bg', label: 'Item count badge', default: '#264f1c' },
-        { key: 'headerBadgeText', var: '--yg-theme-header-badge-text', label: 'Count badge text', default: '#ffffff' },
+        { key: 'headerBg', var: '--yg-theme-header-bg', label: 'Header background', default: '#264f1c' },
+        { key: 'headerText', var: '--yg-theme-header-text', label: 'Header text', default: '#ffffff' },
+        { key: 'headerBadgeBg', var: '--yg-theme-header-badge-bg', label: 'Item count badge', default: '#ffffff' },
+        { key: 'headerBadgeText', var: '--yg-theme-header-badge-text', label: 'Count badge text', default: '#264f1c' },
         { key: 'panelBg', var: '--yg-theme-panel-bg', label: 'Drawer background', default: '#f2e7d8' },
         { key: 'bodyText', var: '--yg-theme-body-text', label: 'Body text', default: '#483f3a' },
         { key: 'mutedText', var: '--yg-theme-muted-text', label: 'Muted text', default: '#7a726c' },
@@ -37,7 +37,22 @@
             if (!raw) {
                 return { ...defaults };
             }
-            const parsed = JSON.parse(raw);
+            const headerBg = String(parsed.headerBg || '').toLowerCase();
+            const headerText = String(parsed.headerText || '').toLowerCase();
+            if (!parsed.headerBg || headerBg === '#ffffff' || headerBg === '#fff') {
+                if (!parsed.headerText || headerText === '#264f1c') {
+                    parsed.headerBg = '#264f1c';
+                    parsed.headerText = '#ffffff';
+                }
+            }
+            const badgeBg = String(parsed.headerBadgeBg || '').toLowerCase();
+            const badgeText = String(parsed.headerBadgeText || '').toLowerCase();
+            if (!parsed.headerBadgeBg || badgeBg === '#264f1c') {
+                if (!parsed.headerBadgeText || badgeText === '#ffffff' || badgeText === '#fff') {
+                    parsed.headerBadgeBg = '#ffffff';
+                    parsed.headerBadgeText = '#264f1c';
+                }
+            }
             if (!parsed.checkoutBg || String(parsed.checkoutBg).toLowerCase() === '#f2e7d8') {
                 parsed.checkoutBg = '#53b71d';
                 parsed.checkoutText = '#ffffff';
@@ -56,6 +71,21 @@
         }
     }
 
+    function closeIconFilter(color) {
+        const hex = String(color || '').replace('#', '').trim();
+        if (hex.length !== 6) {
+            return 'none';
+        }
+        const r = parseInt(hex.slice(0, 2), 16);
+        const g = parseInt(hex.slice(2, 4), 16);
+        const b = parseInt(hex.slice(4, 6), 16);
+        if ([r, g, b].some((n) => Number.isNaN(n))) {
+            return 'none';
+        }
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        return luminance > 0.7 ? 'brightness(0) invert(1)' : 'none';
+    }
+
     function applyTheme(theme) {
         const drawer = drawerEl();
         if (!drawer) {
@@ -67,7 +97,10 @@
             drawer.style.setProperty(field.var, value);
         });
 
-        drawer.style.setProperty('--yg-theme-close-icon-filter', 'none');
+        drawer.style.setProperty(
+            '--yg-theme-close-icon-filter',
+            closeIconFilter(theme.headerText),
+        );
     }
 
     const DrawerTheme = {

@@ -53,11 +53,11 @@ body.yg-drawer-open {
     z-index: 9000;
     pointer-events: none;
     /* Theme customiser — overridden via JS (see yg-drawer-theme.js) */
-    --yg-theme-header-bg: #ffffff;
-    --yg-theme-header-text: #264f1c;
-    --yg-theme-header-badge-bg: #264f1c;
-    --yg-theme-header-badge-text: #ffffff;
-    --yg-theme-close-icon-filter: none;
+    --yg-theme-header-bg: #264f1c;
+    --yg-theme-header-text: #ffffff;
+    --yg-theme-header-badge-bg: #ffffff;
+    --yg-theme-header-badge-text: #264f1c;
+    --yg-theme-close-icon-filter: brightness(0) invert(1);
     --yg-theme-panel-bg: #f2e7d8;
     --yg-theme-body-text: var(--yg-text);
     --yg-theme-muted-text: var(--yg-muted);
