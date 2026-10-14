@@ -863,6 +863,43 @@
             }
         },
 
+        bindSubtotalBreakdown(root) {
+            const key = 'yg_subtotal_breakdown_collapsed';
+            let collapsed = false;
+
+            try {
+                collapsed = sessionStorage.getItem(key) === '1';
+            } catch {
+                collapsed = false;
+            }
+
+            const panels = root.querySelectorAll('details.yg-subtotal-breakdown');
+            let syncing = false;
+
+            panels.forEach((panel) => {
+                panel.open = !collapsed;
+                panel.addEventListener('toggle', () => {
+                    if (syncing) {
+                        return;
+                    }
+
+                    syncing = true;
+                    panels.forEach((other) => {
+                        if (other !== panel) {
+                            other.open = panel.open;
+                        }
+                    });
+                    syncing = false;
+
+                    try {
+                        sessionStorage.setItem(key, panel.open ? '0' : '1');
+                    } catch {
+                        /* ignore */
+                    }
+                });
+            });
+        },
+
         wireDrawer(root, { preserveExtend = null } = {}) {
             if (!preserveExtend && !root.querySelector('.yg-extend.is-open')) {
                 this.activeExtend = null;
@@ -871,6 +908,7 @@
             this.applyRecoHiddenState();
             this.applyReturningNoteState(root);
             this.bindReturningNoteDismiss(root);
+            this.bindSubtotalBreakdown(root);
 
             root.querySelectorAll('[data-drawer-close]').forEach((btn) => {
                 btn.addEventListener('click', () => {

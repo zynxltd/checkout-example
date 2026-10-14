@@ -4,7 +4,7 @@
     $rowClass = $rowClass ?? '';
 @endphp
 @if($showBreakdown)
-<details class="yg-subtotal-breakdown {{ $slotClass }}">
+<details class="yg-subtotal-breakdown {{ $slotClass }}" open>
     <summary class="yg-totals__row yg-totals__row--total">
         <span>{{ $totalRowLabel }}</span>
         <span class="yg-subtotal-breakdown__amount">
