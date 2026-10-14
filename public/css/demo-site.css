@@ -1395,20 +1395,31 @@ body.demo-mobile-nav-open {
         padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
     }
 
-    /* Keep the dock off the basket checkout button and the title while the drawer is open. */
+    /* Collapsed control is a bottom-left tab on the checkout bar. */
     body.yg-drawer-open .demo-prototype-stack {
-        top: max(10px, env(safe-area-inset-top));
-        right: 56px;
-        bottom: auto;
-        left: auto;
-        width: min(280px, calc(100vw - 72px));
-        align-items: flex-end;
-        max-height: calc(100dvh - 16px);
+        top: auto;
+        right: auto;
+        left: 0;
+        align-items: flex-start;
+        padding-bottom: 0;
+    }
+
+    body.yg-drawer-open .demo-prototype-stack.is-collapsed {
+        bottom: 0;
+        width: auto;
+    }
+
+    body.yg-drawer-open .demo-prototype-stack:not(.is-collapsed) {
+        bottom: calc(36px + max(14px, env(safe-area-inset-bottom, 0px)));
+        width: min(280px, calc(100vw - 12px));
+        max-height: calc(100dvh - 66px - env(safe-area-inset-bottom, 0px));
     }
 
     body.yg-drawer-open .demo-prototype-stack__dock {
-        border-radius: 12px;
-        padding-bottom: 12px;
+        box-sizing: border-box;
+        min-height: calc(36px + max(14px, env(safe-area-inset-bottom, 0px)));
+        padding: 0 16px;
+        border-radius: 0 12px 0 0;
     }
 }
 
