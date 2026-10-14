@@ -1385,41 +1385,46 @@ body.demo-mobile-nav-open {
 
 @media (max-width: 767px) {
     .demo-prototype-stack {
-        bottom: 0;
-        left: max(12px, env(safe-area-inset-left));
-        width: min(280px, calc(100vw - 24px));
-        padding-bottom: env(safe-area-inset-bottom, 0);
-    }
-
-    .demo-prototype-stack__dock {
-        padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-    }
-
-    /* Collapsed control is a bottom-left tab on the checkout bar. */
-    body.yg-drawer-open .demo-prototype-stack {
         top: auto;
         right: auto;
+        bottom: max(12px, env(safe-area-inset-bottom));
         left: 0;
+        width: min(280px, calc(100% - 12px));
         align-items: flex-start;
         padding-bottom: 0;
     }
 
-    body.yg-drawer-open .demo-prototype-stack.is-collapsed {
+    .demo-prototype-stack.is-collapsed {
+        top: auto;
         bottom: 0;
+        left: 0;
         width: auto;
+        transform: none;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    .demo-prototype-stack:not(.is-collapsed) {
+        transform: none;
+        max-height: calc(100dvh - 24px);
+    }
+
+    .demo-prototype-stack__dock {
+        writing-mode: vertical-rl;
+        transform: none;
+        border-radius: 0 12px 12px 0;
+        padding: 16px 11px;
+        min-height: 0;
+        box-shadow: 2px 0 14px rgba(0, 0, 0, 0.2);
+    }
+
+    body.yg-drawer-open .demo-prototype-stack.is-collapsed {
+        bottom: calc(50px + env(safe-area-inset-bottom, 0px));
+        padding-bottom: 0;
     }
 
     body.yg-drawer-open .demo-prototype-stack:not(.is-collapsed) {
         bottom: calc(36px + max(14px, env(safe-area-inset-bottom, 0px)));
-        width: min(280px, calc(100vw - 12px));
-        max-height: calc(100dvh - 66px - env(safe-area-inset-bottom, 0px));
-    }
-
-    body.yg-drawer-open .demo-prototype-stack__dock {
-        box-sizing: border-box;
-        min-height: calc(36px + max(14px, env(safe-area-inset-bottom, 0px)));
-        padding: 0 16px;
-        border-radius: 0 12px 0 0;
+        max-height: calc(100dvh - 80px - env(safe-area-inset-bottom, 0px));
     }
 }
 

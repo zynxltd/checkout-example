@@ -209,6 +209,22 @@ body.yg-drawer-open {
 
 /* Mobile — club & reco as bottom sheets (not off-screen left panels) */
 @media (max-width: 767px) {
+    /* Stretch to the drawer box. 100vw is smaller than the device when DevTools uses Fit to window. */
+    .yg-drawer__stage,
+    .yg-drawer--no-reco .yg-drawer__stage {
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: none;
+    }
+
+    .yg-drawer__panel-slot,
+    .yg-drawer--no-reco .yg-drawer__panel-slot {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: none;
+    }
+
     .yg-drawer__rail {
         display: none;
     }
@@ -2050,6 +2066,23 @@ body.yg-drawer-open {
     width: 100%;
 }
 
+@media (max-width: 767px) {
+    .yg-drawer .yg-drawer__stage,
+    .yg-drawer--no-reco .yg-drawer__stage {
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: none;
+    }
+
+    .yg-drawer .yg-drawer__panel-slot,
+    .yg-drawer--no-reco .yg-drawer__panel-slot {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: none;
+    }
+}
+
 @media (min-width: 768px) {
     .yg-drawer--no-reco .yg-drawer__panel-slot {
         flex: 0 0 var(--yg-drawer-w);
@@ -2376,6 +2409,16 @@ body.yg-drawer-open {
     padding-top: 8px;
 }
 
+.yg-subtotal-breakdown__panel .yg-totals__row > span:last-child {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.yg-drawer--v-3-0 .yg-subtotal-breakdown__panel .yg-totals__row > span:last-child {
+    font-size: 1.05rem;
+}
+
 /* Mobile — align Order summary row with Total row (same horizontal inset) */
 @media (max-width: 767px) {
     .yg-drawer .yg-breakdown__summary {
@@ -2436,6 +2479,10 @@ body.yg-drawer-open {
         padding-top: 12px;
         padding-bottom: 10px;
         font-size: 1.2rem;
+    }
+
+    .yg-drawer .yg-subtotal-breakdown__panel .yg-totals__row > span:last-child {
+        font-size: 1.05rem;
     }
 
     .yg-drawer .yg-club-savings-banner {
