@@ -2,10 +2,10 @@
     const STORAGE_KEY = 'yg_drawer_theme_v10';
 
     const FIELDS = [
-        { key: 'headerBg', var: '--yg-theme-header-bg', label: 'Header background', default: '#264f1c' },
-        { key: 'headerText', var: '--yg-theme-header-text', label: 'Header text', default: '#ffffff' },
-        { key: 'headerBadgeBg', var: '--yg-theme-header-badge-bg', label: 'Item count badge', default: '#ffffff' },
-        { key: 'headerBadgeText', var: '--yg-theme-header-badge-text', label: 'Count badge text', default: '#264f1c' },
+        { key: 'headerBg', var: '--yg-theme-header-bg', label: 'Header background', default: '#ffffff' },
+        { key: 'headerText', var: '--yg-theme-header-text', label: 'Header text', default: '#264f1c' },
+        { key: 'headerBadgeBg', var: '--yg-theme-header-badge-bg', label: 'Item count badge', default: '#264f1c' },
+        { key: 'headerBadgeText', var: '--yg-theme-header-badge-text', label: 'Count badge text', default: '#ffffff' },
         { key: 'panelBg', var: '--yg-theme-panel-bg', label: 'Drawer background', default: '#f2e7d8' },
         { key: 'bodyText', var: '--yg-theme-body-text', label: 'Body text', default: '#483f3a' },
         { key: 'mutedText', var: '--yg-theme-muted-text', label: 'Muted text', default: '#7a726c' },
@@ -37,21 +37,18 @@
             if (!raw) {
                 return { ...defaults };
             }
+            const parsed = JSON.parse(raw);
             const headerBg = String(parsed.headerBg || '').toLowerCase();
             const headerText = String(parsed.headerText || '').toLowerCase();
-            if (!parsed.headerBg || headerBg === '#ffffff' || headerBg === '#fff') {
-                if (!parsed.headerText || headerText === '#264f1c') {
-                    parsed.headerBg = '#264f1c';
-                    parsed.headerText = '#ffffff';
-                }
+            if (headerBg === '#264f1c' && (headerText === '#ffffff' || headerText === '#fff')) {
+                parsed.headerBg = '#ffffff';
+                parsed.headerText = '#264f1c';
             }
             const badgeBg = String(parsed.headerBadgeBg || '').toLowerCase();
             const badgeText = String(parsed.headerBadgeText || '').toLowerCase();
-            if (!parsed.headerBadgeBg || badgeBg === '#264f1c') {
-                if (!parsed.headerBadgeText || badgeText === '#ffffff' || badgeText === '#fff') {
-                    parsed.headerBadgeBg = '#ffffff';
-                    parsed.headerBadgeText = '#264f1c';
-                }
+            if ((badgeBg === '#ffffff' || badgeBg === '#fff') && badgeText === '#264f1c') {
+                parsed.headerBadgeBg = '#264f1c';
+                parsed.headerBadgeText = '#ffffff';
             }
             if (!parsed.checkoutBg || String(parsed.checkoutBg).toLowerCase() === '#f2e7d8') {
                 parsed.checkoutBg = '#53b71d';

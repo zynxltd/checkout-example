@@ -14,19 +14,19 @@
         <p class="yg-drawer-theme__hint">Colours apply to the cart drawer only. Open the basket to preview.</p>
         <ul class="yg-drawer-theme__fields">
             <li class="yg-drawer-theme__field">
-                <input type="color" id="dt-header-bg" data-drawer-theme="headerBg" value="#264f1c" aria-label="Header background">
+                <input type="color" id="dt-header-bg" data-drawer-theme="headerBg" value="#ffffff" aria-label="Header background">
                 <label class="yg-drawer-theme__label" for="dt-header-bg">Header background</label>
             </li>
             <li class="yg-drawer-theme__field">
-                <input type="color" id="dt-header-text" data-drawer-theme="headerText" value="#ffffff" aria-label="Header text">
+                <input type="color" id="dt-header-text" data-drawer-theme="headerText" value="#264f1c" aria-label="Header text">
                 <label class="yg-drawer-theme__label" for="dt-header-text">Header text</label>
             </li>
             <li class="yg-drawer-theme__field">
-                <input type="color" id="dt-header-badge-bg" data-drawer-theme="headerBadgeBg" value="#ffffff" aria-label="Item count badge">
+                <input type="color" id="dt-header-badge-bg" data-drawer-theme="headerBadgeBg" value="#264f1c" aria-label="Item count badge">
                 <label class="yg-drawer-theme__label" for="dt-header-badge-bg">Item count badge</label>
             </li>
             <li class="yg-drawer-theme__field">
-                <input type="color" id="dt-header-badge-text" data-drawer-theme="headerBadgeText" value="#264f1c" aria-label="Count badge text">
+                <input type="color" id="dt-header-badge-text" data-drawer-theme="headerBadgeText" value="#ffffff" aria-label="Count badge text">
                 <label class="yg-drawer-theme__label" for="dt-header-badge-text">Count badge text</label>
             </li>
             <li class="yg-drawer-theme__field">
