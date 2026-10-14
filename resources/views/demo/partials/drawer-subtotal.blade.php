@@ -7,10 +7,7 @@
 <details class="yg-subtotal-breakdown {{ $slotClass }}" open>
     <summary class="yg-totals__row yg-totals__row--total">
         <span>{{ $totalRowLabel }}</span>
-        <span class="yg-subtotal-breakdown__amount">
-            £{{ number_format($cart['basket_total'], 2) }}
-            <span class="yg-subtotal-breakdown__chev" aria-hidden="true">▾</span>
-        </span>
+        <span class="yg-subtotal-breakdown__amount">£{{ number_format($cart['basket_total'], 2) }}</span>
     </summary>
     <div class="yg-subtotal-breakdown__panel">
         <div class="yg-totals__row"><span>Delivery Cost</span><span>£{{ number_format($cart['delivery'], 2) }}</span></div>

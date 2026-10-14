@@ -2345,20 +2345,7 @@ body.yg-drawer-open {
 }
 
 .yg-subtotal-breakdown__amount {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.yg-subtotal-breakdown__chev {
     display: inline-block;
-    font-size: 0.85em;
-    line-height: 1;
-    transition: transform 0.15s ease;
-}
-
-.yg-subtotal-breakdown[open] .yg-subtotal-breakdown__chev {
-    transform: rotate(180deg);
 }
 
 .yg-subtotal-breakdown__panel {
