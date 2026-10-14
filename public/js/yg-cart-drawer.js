@@ -49,9 +49,13 @@
         extendCloseTimer: null,
         recoStorageKey: 'yg_demo_hide_recommendations',
         returningNoteStorageKey: 'yg_demo_dismiss_returning_note',
+        visitSeenStorageKey: 'yg_demo_last_visit_at',
+        returnVisitStorageKey: 'yg_demo_return_visit',
+        returnVisitGapMs: 30 * 60 * 1000,
 
         init() {
             this.mount = document.getElementById('yg-drawer-mount');
+            this.noteReturnVisit();
             this.bindGlobal();
             this.bindDrawerWidth();
             this.bindRecoVariant();
@@ -60,6 +64,28 @@
                 this.wireDrawer(this.mount);
             }
             this.initMiniBasket();
+        },
+
+        noteReturnVisit() {
+            try {
+                const now = Date.now();
+                const last = Number(window.localStorage.getItem(this.visitSeenStorageKey) || 0);
+                if (window.sessionStorage.getItem(this.returnVisitStorageKey) === null) {
+                    const returning = last > 0 && (now - last) > this.returnVisitGapMs;
+                    window.sessionStorage.setItem(this.returnVisitStorageKey, returning ? '1' : '0');
+                }
+                window.localStorage.setItem(this.visitSeenStorageKey, String(now));
+            } catch (e) {
+                // ignore
+            }
+        },
+
+        isReturnVisit() {
+            try {
+                return window.sessionStorage.getItem(this.returnVisitStorageKey) === '1';
+            } catch (e) {
+                return false;
+            }
         },
 
         isRecoHidden() {
@@ -108,7 +134,7 @@
                 return;
             }
 
-            if (this.isReturningNoteDismissed()) {
+            if (!this.isReturnVisit() || this.isReturningNoteDismissed()) {
                 note.remove();
             }
         },
