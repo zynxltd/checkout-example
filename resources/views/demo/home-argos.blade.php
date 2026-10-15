@@ -1,6 +1,6 @@
 @extends('demo.layout')
 
-@section('title', 'YouGarden Homepage — Argos-style layout preview')
+@section('title', 'YouGarden Home - Mock up')
 
 @section('body_class', 'demo-home-argos')
 
