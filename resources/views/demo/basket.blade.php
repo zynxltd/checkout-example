@@ -19,7 +19,7 @@
     $orderTotal = (float) ($cart['total'] ?? ($subtotal + $delivery));
     $clubSavings = (float) ($cart['club_savings'] ?? 0);
     $showClub = $clubSavings > 0 && empty($cart['club_in_cart']) && empty($cart['club_member']);
-    $showClubPromo = $showClub && \App\Services\DemoCart::showBasketClubPromo();
+    $showClubPromo = $showClub;
     $clubSavingLabel = '£'.number_format($clubSavings, 2);
     $offerCode = $cart['offer_code'] ?? null;
     $voucherCode = $cart['voucher_code'] ?? null;

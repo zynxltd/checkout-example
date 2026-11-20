@@ -1750,10 +1750,6 @@ class DemoCart
             session(['demo_drawer_width' => 495]);
         }
 
-        if (! session()->has('demo_show_basket_club_promo')) {
-            session(['demo_show_basket_club_promo' => true]);
-        }
-
         if (! session()->has('demo_show_upsells')) {
             session(['demo_show_upsells' => false]);
         }
@@ -1775,12 +1771,6 @@ class DemoCart
     public static function basketClubPromo(): string
     {
         return 'v3';
-    }
-
-    /** Show the V3 club promo block on the basket page (prototype toggle). */
-    public static function showBasketClubPromo(): bool
-    {
-        return (bool) session('demo_show_basket_club_promo', true);
     }
 
     public static function hasRootBoostInCart(): bool
