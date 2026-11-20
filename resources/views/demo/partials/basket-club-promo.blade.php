@@ -119,7 +119,6 @@
             </label>
             <div id="ygbc3-cta">
                 <button type="button" id="ygbc3-atc" data-basket-club-atc>Add to Basket</button>
-                <a id="ygbc3-more" href="{{ $clubUrl }}">More Info</a>
             </div>
         </div>
     </div>

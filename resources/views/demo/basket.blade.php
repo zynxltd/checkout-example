@@ -306,11 +306,6 @@
                             <div class="clubSavingHeader">Join Our Club Today And Save:</div>
                             <div class="clubSaving">{{ $clubSavingLabel }}</div>
                         </a>
-                        <div class="clubBuyWrapper">
-                            <a href="{{ $clubUrl }}">
-                                <div class="more">More Information »</div>
-                            </a>
-                        </div>
                     </div>
                 @endif
 

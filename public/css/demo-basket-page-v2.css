@@ -440,39 +440,6 @@ body.demo-basket-page--v2 .clubSavingWrapper .clubSaving {
     box-sizing: border-box !important;
 }
 
-body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper {
-    float: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    background: transparent !important;
-    text-align: center !important;
-}
-
-body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper .more {
-    display: block !important;
-    float: none !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 10px 8px !important;
-    border: 0 !important;
-    outline: none !important;
-    border-radius: 0 !important;
-    background: #999 !important;
-    color: #fff !important;
-    font-family: var(--yg-body) !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    text-align: center !important;
-    text-decoration: none !important;
-    box-sizing: border-box !important;
-}
-
-body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper .more:hover {
-    background: #6b5f53 !important;
-    filter: none;
-}
-
 /* Offer + voucher — match live: field + rectangular Apply */
 body.demo-basket-page--v2 .mediaSelectWrapper,
 body.demo-basket-page--v2 .voucherWrapper {
@@ -940,7 +907,6 @@ body.demo-basket-page--v2 .ce-express-slot,
 body.demo-basket-page--v2 .ce-express-face,
 body.demo-basket-page--v2 .ce-express-face--svg,
 body.demo-basket-page--v2 .co-express-btn,
-body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper .more,
 body.demo-basket-page--v2 .ce-yg-club-promo__atc,
 body.demo-basket-page--v2 .ce-yg-club-promo__opt,
 body.demo-basket-page--v2 .ce-yg-club-promo__more {
@@ -959,8 +925,7 @@ body.demo-basket-page--v2 .yg-drawer__footer .yg-checkout--secondary {
     body.demo-basket-page--v2 #ygbc3-atc,
     body.demo-basket-page--v2 button#ygbc3-atc,
     body.demo-basket-page--v2 #ygbc3-opt-auto,
-    body.demo-basket-page--v2 #ygbc3-opt-one,
-    body.demo-basket-page--v2 #ygbc3-more {
+    body.demo-basket-page--v2 #ygbc3-opt-one {
         border-radius: var(--yg-radius-sm) !important;
     }
 }

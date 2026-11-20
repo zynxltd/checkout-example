@@ -509,34 +509,6 @@ body.demo-basket-page .clubSavingWrapper .clubSaving {
     font-weight: 700;
 }
 
-body.demo-basket-page .clubSavingWrapper .clubBuyWrapper {
-    float: left;
-    width: 100%;
-    padding: 8px 0 0;
-}
-
-body.demo-basket-page .clubSavingWrapper .clubBuyWrapper .more {
-    float: left;
-    width: 100%;
-    text-align: center;
-    padding: 8px 0;
-    background: #999;
-    border: 1px solid #999;
-    outline: #fff solid 4px;
-    margin: 0;
-    font-size: 14px;
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    box-sizing: border-box;
-}
-
-body.demo-basket-page .clubSavingWrapper .clubBuyWrapper .more:hover {
-    background: #6b5f53;
-    border: 1px solid #fff;
-    outline: #ddd solid 4px;
-}
-
 body.demo-basket-page .mediaSelectWrapper,
 body.demo-basket-page .voucherWrapper {
     float: none;
