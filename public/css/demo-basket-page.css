@@ -918,10 +918,16 @@ body.demo-basket-page .buttonsWrapper.top.left {
     display: none !important;
 }
 
-@media (max-width: 599px) {
+@media (max-width: 900px) {
     body.demo-basket-page .payment-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 8px;
+    }
+    body.demo-basket-page .ce-express-slot--paypal,
+    body.demo-basket-page .ce-express-slot--amazon {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
     }
     body.demo-basket-page .ce-express-slot--apple {
         grid-column: 1 / -1;
