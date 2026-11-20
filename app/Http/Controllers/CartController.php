@@ -240,6 +240,19 @@ class CartController extends Controller
             return response()->json(['ok' => true, 'reload' => true]);
         }
 
+        $basketBannerKeys = [
+            'basket_club_desk' => 'demo_basket_club_desk',
+            'basket_club_mob' => 'demo_basket_club_mob',
+            'basket_spf_desk' => 'demo_basket_spf_desk',
+            'basket_spf_mob' => 'demo_basket_spf_mob',
+        ];
+
+        if (isset($basketBannerKeys[$key])) {
+            session([$basketBannerKeys[$key] => $value]);
+
+            return response()->json(['ok' => true, 'reload' => true]);
+        }
+
         if ($key === 'checkout_codes_top') {
             session(['demo_checkout_codes_top' => $value]);
 

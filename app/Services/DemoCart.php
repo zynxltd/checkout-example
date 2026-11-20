@@ -1757,6 +1757,22 @@ class DemoCart
         if (! session()->has('demo_show_welcome_back')) {
             session(['demo_show_welcome_back' => false]);
         }
+
+        if (! session()->has('demo_basket_club_desk')) {
+            session(['demo_basket_club_desk' => true]);
+        }
+
+        if (! session()->has('demo_basket_club_mob')) {
+            session(['demo_basket_club_mob' => false]);
+        }
+
+        if (! session()->has('demo_basket_spf_desk')) {
+            session(['demo_basket_spf_desk' => true]);
+        }
+
+        if (! session()->has('demo_basket_spf_mob')) {
+            session(['demo_basket_spf_mob' => true]);
+        }
     }
 
     /** Basket page visual: 1 = live vieword, 2 = drawer-aligned (default). */
@@ -1771,6 +1787,26 @@ class DemoCart
     public static function basketClubPromo(): string
     {
         return 'v3';
+    }
+
+    public static function basketClubDesk(): bool
+    {
+        return (bool) session('demo_basket_club_desk', true);
+    }
+
+    public static function basketClubMob(): bool
+    {
+        return (bool) session('demo_basket_club_mob', false);
+    }
+
+    public static function basketSpfDesk(): bool
+    {
+        return (bool) session('demo_basket_spf_desk', true);
+    }
+
+    public static function basketSpfMob(): bool
+    {
+        return (bool) session('demo_basket_spf_mob', true);
     }
 
     public static function hasRootBoostInCart(): bool

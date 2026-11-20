@@ -737,10 +737,6 @@ body.demo-basket-page .viewordClear {
 @media only screen and (max-width: 767px) {
     body.demo-basket-page .mobile-only { display: block !important; }
     body.demo-basket-page .mobile-hide { display: none !important; }
-    body.demo-basket-page #ygbc3-root,
-    body.demo-basket-page [data-basket-club-promo] {
-        display: none !important;
-    }
     body.demo-basket-page .viewordLeftWrapper { width: 100%; }
     body.demo-basket-page .h1Wrapper h1,
     body.demo-basket-page .mainTable { float: left; width: 100%; }
@@ -1479,5 +1475,31 @@ body.demo-basket-page .upsellsWrapper .mainButtonGreen:disabled {
         width: calc((100% - 12px) / 2);
         min-width: calc((100% - 12px) / 2);
         max-width: calc((100% - 12px) / 2);
+    }
+}
+
+/* Basket page banner toggles — desktop (≥768) */
+@media (min-width: 768px) {
+    html:not([data-basket-club-desk="1"]) body.demo-basket-page #ygbc3-root,
+    html:not([data-basket-club-desk="1"]) body.demo-basket-page [data-basket-club-promo] {
+        display: none !important;
+    }
+
+    html:not([data-basket-spf-desk="1"]) body.demo-basket-page #ygspf-root,
+    html:not([data-basket-spf-desk="1"]) body.demo-basket-page [data-basket-spf] {
+        display: none !important;
+    }
+}
+
+/* Basket page banner toggles — mobile (≤767) */
+@media (max-width: 767px) {
+    html:not([data-basket-club-mob="1"]) body.demo-basket-page #ygbc3-root,
+    html:not([data-basket-club-mob="1"]) body.demo-basket-page [data-basket-club-promo] {
+        display: none !important;
+    }
+
+    html:not([data-basket-spf-mob="1"]) body.demo-basket-page #ygspf-root,
+    html:not([data-basket-spf-mob="1"]) body.demo-basket-page [data-basket-spf] {
+        display: none !important;
     }
 }

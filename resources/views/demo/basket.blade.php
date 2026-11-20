@@ -19,12 +19,17 @@
     $orderTotal = (float) ($cart['total'] ?? ($subtotal + $delivery));
     $clubSavings = (float) ($cart['club_savings'] ?? 0);
     $showClub = $clubSavings > 0 && empty($cart['club_in_cart']) && empty($cart['club_member']);
-    $showClubPromo = $showClub;
+    $basketClubDesk = \App\Services\DemoCart::basketClubDesk();
+    $basketClubMob = \App\Services\DemoCart::basketClubMob();
+    $basketSpfDesk = \App\Services\DemoCart::basketSpfDesk();
+    $basketSpfMob = \App\Services\DemoCart::basketSpfMob();
+    $showClubPromo = $showClub && ($basketClubDesk || $basketClubMob);
     $clubSavingLabel = '£'.number_format($clubSavings, 2);
     $offerCode = $cart['offer_code'] ?? null;
     $voucherCode = $cart['voucher_code'] ?? null;
     $boost = $cart['root_boost'] ?? null;
-    $showSpf = $boost && empty($boost['in_basket']);
+    $showSpfEligible = $boost && empty($boost['in_basket']);
+    $showSpf = $showSpfEligible && ($basketSpfDesk || $basketSpfMob);
     $spfLogo = asset('ce/basket-club/assets/yg-blooming-fast-logo-72.png');
     $ymal = array_slice($cart['upsells'] ?? [], 0, 8);
 @endphp
@@ -389,6 +394,12 @@
 @if($basketVisual === '2')
 <link rel="stylesheet" href="{{ asset('css/demo-basket-page-v2.css') }}?v={{ filemtime(public_path('css/demo-basket-page-v2.css')) }}">
 @endif
+<script>
+    document.documentElement.setAttribute('data-basket-club-desk', @json($basketClubDesk ? '1' : '0'));
+    document.documentElement.setAttribute('data-basket-club-mob', @json($basketClubMob ? '1' : '0'));
+    document.documentElement.setAttribute('data-basket-spf-desk', @json($basketSpfDesk ? '1' : '0'));
+    document.documentElement.setAttribute('data-basket-spf-mob', @json($basketSpfMob ? '1' : '0'));
+</script>
 @if($showClubPromo)
 @php
     $clubPromoHtmlAttr = $clubPromo === 'v3' ? 'data-ygbc3' : 'data-ce-yg-club-'.$clubPromo;
