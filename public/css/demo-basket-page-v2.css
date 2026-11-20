@@ -888,6 +888,8 @@ body.demo-basket-page--v2 .upsellsWrapper .mainButtonGreen {
 
     body.demo-basket-page--v2 .viewordRightWrapper {
         max-width: 320px;
+        /* Align green CTA tops with express PayPal / Amazon / Apple */
+        margin-top: -2px;
     }
 }
 
