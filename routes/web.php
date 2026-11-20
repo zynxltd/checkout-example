@@ -18,9 +18,14 @@ Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::get('/', [DemoController::class, 'homeArgos'])->name('demo.home');
     Route::get('/home-argos-preview', fn () => redirect()->route('demo.home'))->name('demo.home-argos');
     Route::get('/sale', [DemoController::class, 'sale'])->name('demo.sale');
+    Route::get('/new', [DemoController::class, 'arrivals'])->name('demo.new');
+    Route::get('/christmas', [DemoController::class, 'christmas'])->name('demo.christmas');
     Route::get('/pdp', [DemoController::class, 'pdp'])->name('demo.pdp');
     Route::get('/item-p-820001/yg-discount-club-annual-membership', [DemoController::class, 'clubPdp'])->name('demo.club');
     Route::get('/discount-club', fn () => redirect()->route('demo.club'))->name('demo.club.short');
+    Route::get('/cro/basket-club/{variant}', [DemoController::class, 'basketClubCro'])
+        ->where('variant', 'v1|v2|v3')
+        ->name('demo.cro.basket-club');
     Route::get('/about-us', [DemoController::class, 'aboutUs'])->name('demo.about-us');
     Route::get('/standard-delivery', [DemoController::class, 'standardDelivery'])->name('demo.standard-delivery');
     Route::get('/lifetime-guarantee', [DemoController::class, 'lifetimeGuarantee'])->name('demo.lifetime-guarantee');
@@ -49,6 +54,7 @@ Route::middleware(['demo.preview', 'demo.drawer-variant'])->group(function () {
     Route::post('/account/delivery/delete', [AccountController::class, 'deliveryDelete'])->name('demo.account.delivery.delete');
     Route::get('/account/club-membership', [AccountController::class, 'club'])->name('demo.account.club');
 
+    Route::get('/basket', [DemoController::class, 'basket'])->name('demo.basket');
     Route::get('/checkout', [CheckoutController::class, 'show'])->name('demo.checkout');
     Route::post('/checkout/complete', [CheckoutController::class, 'complete'])->name('demo.checkout.complete');
     Route::post('/checkout/voucher', [CheckoutController::class, 'applyVoucher'])->name('demo.checkout.voucher');

@@ -1,5 +1,5 @@
 (function () {
-    const STORAGE_KEY = 'yg_drawer_theme_v10';
+    const STORAGE_KEY = 'yg_drawer_theme_v12';
 
     const FIELDS = [
         { key: 'headerBg', var: '--yg-theme-header-bg', label: 'Header background', default: '#ffffff' },
@@ -21,6 +21,8 @@
         { key: 'applyBtnText', var: '--yg-theme-apply-btn-text', label: 'Apply code text', default: '#ffffff' },
         { key: 'checkoutBg', var: '--yg-theme-checkout-bg', label: 'Checkout button', default: '#53b71d' },
         { key: 'checkoutText', var: '--yg-theme-checkout-text', label: 'Checkout text', default: '#ffffff' },
+        { key: 'checkoutSecondaryBg', var: '--yg-theme-checkout-secondary-bg', label: 'View Basket button', default: '#fafafa' },
+        { key: 'checkoutSecondaryText', var: '--yg-theme-checkout-secondary-text', label: 'View Basket text', default: '#474747' },
         { key: 'recoHeading', var: '--yg-theme-reco-heading', label: 'Recommendations title', default: '#264f1c' },
         { key: 'summaryBg', var: '--yg-theme-summary-bg', label: 'Summary area', default: '#ffffff' },
     ];
@@ -130,6 +132,15 @@
             toggle?.addEventListener('click', () => {
                 const open = root.classList.toggle('is-open');
                 toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                if (open) {
+                    requestAnimationFrame(() => {
+                        root.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                        const fields = root.querySelector('.yg-drawer-theme__fields');
+                        if (fields) {
+                            fields.scrollTop = 0;
+                        }
+                    });
+                }
             });
 
             root.querySelector('[data-drawer-theme-reset]')?.addEventListener('click', () => {

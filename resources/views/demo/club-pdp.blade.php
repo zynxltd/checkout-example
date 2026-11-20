@@ -118,7 +118,9 @@
     </main>
 
     @include('demo.partials.site-shell-footer')
-    @include('demo.partials.drawer', ['cart' => $cart])
+    <div id="yg-drawer-mount">
+        @include('demo.partials.drawer', ['cart' => $cart])
+    </div>
 </div>
 @endsection
 

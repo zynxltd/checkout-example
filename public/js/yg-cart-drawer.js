@@ -53,12 +53,26 @@
         returnVisitStorageKey: 'yg_demo_return_visit',
         returnVisitGapMs: 30 * 60 * 1000,
 
+        ensureMount() {
+            let mount = document.getElementById('yg-drawer-mount');
+            const drawer = document.getElementById('yg-cart-drawer');
+
+            if (!mount && drawer?.parentNode) {
+                mount = document.createElement('div');
+                mount.id = 'yg-drawer-mount';
+                drawer.parentNode.insertBefore(mount, drawer);
+                mount.appendChild(drawer);
+            }
+
+            return mount || null;
+        },
+
         init() {
-            this.mount = document.getElementById('yg-drawer-mount');
+            this.mount = this.ensureMount();
             this.noteReturnVisit();
             this.bindGlobal();
             this.bindDrawerWidth();
-            this.bindRecoVariant();
+            this.bindDrawerTestVariant();
             this.bindVisualViewport();
             if (this.mount) {
                 this.wireDrawer(this.mount);
@@ -195,6 +209,17 @@
                     return;
                 }
 
+                const closeBtn = e.target.closest('[data-drawer-close]');
+                if (closeBtn && document.getElementById('yg-cart-drawer')?.contains(closeBtn)) {
+                    e.preventDefault();
+                    if (this.activeExtend && this.isMobileDrawer()) {
+                        this.closeExtend();
+                        return;
+                    }
+                    this.close();
+                    return;
+                }
+
                 const atb = e.target.closest('#demo-add-to-basket');
                 if (atb) {
                     e.preventDefault();
@@ -293,33 +318,27 @@
             });
         },
 
-        bindRecoVariant() {
-            const buttons = document.querySelectorAll('[data-reco-variant]');
+        bindDrawerTestVariant() {
+            const buttons = document.querySelectorAll('[data-drawer-test-variant]');
             if (!buttons.length) {
                 return;
             }
 
             buttons.forEach((btn) => {
                 btn.addEventListener('click', async () => {
-                    const variant = btn.getAttribute('data-reco-variant') === 'tiles' ? 'tiles' : 'rows';
+                    const variant = btn.getAttribute('data-drawer-test-variant') || '1';
                     buttons.forEach((el) => {
                         const active = el === btn;
                         el.classList.toggle('is-active', active);
                         el.setAttribute('aria-pressed', active ? 'true' : 'false');
                     });
 
-                    const panel = document.getElementById('yg-reco-panel');
-                    if (panel) {
-                        panel.classList.remove('yg-reco--rows', 'yg-reco--tiles');
-                        panel.classList.add('yg-reco--' + variant);
-                    }
-
                     const wasOpen = document.getElementById('yg-cart-drawer')?.classList.contains('is-open');
                     const preserveExtend = this.preserveExtendOnRefresh();
 
                     try {
                         const res = await post(window.YG_DEMO_ROUTES.toggleOption, {
-                            key: 'reco_variant',
+                            key: 'drawer_test_variant',
                             variant,
                         });
                         const data = await res.json().catch(() => ({}));
@@ -327,7 +346,7 @@
                             this.applyCartResponse(data, { preserveExtend, keepOpen: wasOpen });
                         }
                     } catch (err) {
-                        console.error('[demo] recommendation variant failed', err);
+                        console.error('[demo] drawer test variant failed', err);
                     }
                 });
             });
@@ -685,8 +704,11 @@
                 return;
             }
 
-            document.querySelectorAll('#header-cart-count, #topbar-cart-count').forEach((el) => {
+            document.querySelectorAll('#header-cart-count, #topbar-cart-count, .js-header-cart-count').forEach((el) => {
                 el.textContent = count;
+                if (el.classList.contains('js-header-cart-count') || el.classList.contains('demo-header__utility-count')) {
+                    el.hidden = Number(count) < 1;
+                }
             });
 
             const total = cart?.basket_total;
@@ -1149,8 +1171,51 @@
                 });
             });
 
-            root.querySelector('.yg-checkout')?.addEventListener('click', () => {
-                this.goToCheckout();
+            root.querySelectorAll('.yg-checkout').forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    if (btn.hasAttribute('data-view-basket')) {
+                        e.preventDefault();
+                        this.goToBasket();
+                        return;
+                    }
+                    this.goToCheckout();
+                });
+            });
+
+            root.querySelectorAll('[data-view-basket]').forEach((el) => {
+                if (el.classList.contains('yg-checkout')) {
+                    return;
+                }
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.goToBasket();
+                });
+            });
+
+            root.querySelectorAll('[data-root-boost-add]').forEach((btn) => {
+                btn.addEventListener('click', async () => {
+                    if (btn.disabled) {
+                        return;
+                    }
+                    const sku = btn.getAttribute('data-root-boost-add');
+                    if (!sku) {
+                        return;
+                    }
+                    btn.disabled = true;
+                    try {
+                        const res = await post(window.YG_DEMO_ROUTES.add, { sku, qty: 1 });
+                        const data = await res.json().catch(() => ({}));
+                        if (data.html) {
+                            this.applyCartResponse(data, {
+                                preserveExtend: this.preserveExtendOnRefresh(),
+                                keepOpen: true,
+                            });
+                        }
+                    } catch (err) {
+                        console.error('[demo] root boost add failed', err);
+                        btn.disabled = false;
+                    }
+                });
             });
 
             window.YGDrawerTheme?.apply();
@@ -1158,6 +1223,12 @@
 
         goToCheckout() {
             const url = window.YG_DEMO_ROUTES?.checkout || '/checkout';
+            this.close();
+            window.location.href = url;
+        },
+
+        goToBasket() {
+            const url = window.YG_DEMO_ROUTES?.basket || '/basket';
             this.close();
             window.location.href = url;
         },

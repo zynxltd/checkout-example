@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-ygbc5="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>V5 Club Mobile</title>
+  <link rel="stylesheet" href="https://use.typekit.net/hrf1tkz.css">
+  <link rel="stylesheet" href="./v5-club-mob.css?v=20261117t22">
+  <style>
+    body { margin: 0; padding: 24px 12px; background: #ececec; font-family: Arial, sans-serif; }
+    h1 { font-size: 15px; margin: 0 0 14px; color: #333; }
+    .frame { max-width: 390px; background: #fff; padding: 16px 10px; border: 1px solid #ddd; }
+    .side-demo { margin-top: 20px; max-width: 390px; background: #fff; padding: 12px; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <h1>V5 Club — mobile (Auto Renew | One-Off | ATC)</h1>
+  <div class="frame">
+    <div id="ygbc5-root">
+      <div id="ygbc5-top">
+        <span id="ygbc5-logo-wrap">
+          <img id="ygbc5-logo" src="./assets/yg-club-logo-v3.png" alt="" width="148" height="110">
+        </span>
+        <div id="ygbc5-banner">
+          <div id="ygbc5-copy">
+            <p id="ygbc5-title">Join the Club &amp; <span id="ygbc5-save">Save £9.00</span></p>
+            <p id="ygbc5-benefits">
+              <span>15% off all Plants &amp; Accessories</span>
+              <span class="ygbc5-br">
+                <span>£20 Voucher</span>
+                <span class="ygbc5-sep" aria-hidden="true"></span>
+                <span>2 x Free P&amp;P Vouchers</span>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div id="ygbc5-body" role="radiogroup">
+        <label id="ygbc5-opt-auto" class="is-selected">
+          <input type="radio" name="ygbc5-plan" value="ST007814" checked>
+          <span class="ygbc5-radio" aria-hidden="true"></span>
+          <span class="ygbc5-opt-text">
+            <span class="ygbc5-opt-title">Auto Renew</span>
+            <span class="ygbc5-opt-price">£10</span>
+            <span class="ygbc5-opt-meta">Per year <span class="ygbc5-was">Was £20</span></span>
+          </span>
+        </label>
+        <label id="ygbc5-opt-one">
+          <input type="radio" name="ygbc5-plan" value="ST003182">
+          <span class="ygbc5-radio" aria-hidden="true"></span>
+          <span class="ygbc5-opt-text">
+            <span class="ygbc5-opt-title">One-Off</span>
+            <span class="ygbc5-opt-price">£20</span>
+            <span class="ygbc5-opt-meta">12 Months<br>No Renewal</span>
+          </span>
+        </label>
+        <div id="ygbc5-cta">
+          <button type="button" id="ygbc5-atc">Add to Basket</button>
+          <a id="ygbc5-more" href="#">More Info</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="side-demo">
+    <h1>Sidebar</h1>
+    <div id="ygbc5-side">
+      <a id="ygbc5-side-link" href="#">
+        <img id="ygbc5-side-logo" src="./assets/yg-club-logo-v3-side.png" alt="" width="150" height="42">
+        <span id="ygbc5-side-save">Save MORE!</span>
+      </a>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll("#ygbc5-opt-auto, #ygbc5-opt-one").forEach(function (lab) {
+      lab.addEventListener("click", function () {
+        document.querySelectorAll("#ygbc5-opt-auto, #ygbc5-opt-one").forEach(function (o) {
+          var input = o.querySelector("input");
+          if (o === lab && input) input.checked = true;
+          o.classList.toggle("is-selected", !!(o.querySelector("input") && o.querySelector("input").checked));
+        });
+      });
+    });
+  </script>
+</body>
+</html>

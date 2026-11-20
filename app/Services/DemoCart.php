@@ -15,6 +15,9 @@ class DemoCart
     /** One-year manual renewal membership (demo) */
     public const CLUB_SKU_MANUAL = '820010';
 
+    /** £1 Superior Plant Food Plus basket upsell (Blooming Fast pre-delivery treatment) */
+    public const ROOT_BOOST_SKU = '100201';
+
     /** @deprecated Use CLUB_SKU_AUTO */
     public const CLUB_SKU = self::CLUB_SKU_AUTO;
 
@@ -1506,6 +1509,17 @@ class DemoCart
                 'club_price' => 4.24,
                 'club_saving_per_unit' => 0.75,
             ],
+            self::ROOT_BOOST_SKU => [
+                'sku' => self::ROOT_BOOST_SKU,
+                'name' => 'Blooming Fast Pre-Delivery Plant Treatment',
+                'variant' => 'Superior Plant Food Plus',
+                'image' => 'https://s3.amazonaws.com/YouGarden/Web/500x500/100062.jpg',
+                'price' => 1.00,
+                'was_price' => 1.00,
+                'club_price' => 1.00,
+                'club_saving_per_unit' => 0.0,
+                'is_root_boost' => true,
+            ],
             '501002' => [
                 'sku' => '501002',
                 'name' => 'Rootgrow Mycorrhizal Fungi',
@@ -1684,6 +1698,14 @@ class DemoCart
             ]);
         }
 
+        if (! session()->has('demo_basket_visual')) {
+            session(['demo_basket_visual' => '1']);
+        }
+
+        if (! session()->has('demo_basket_club_promo')) {
+            session(['demo_basket_club_promo' => 'off']);
+        }
+
         if (session()->has('demo_cart_items')) {
             return;
         }
@@ -1691,8 +1713,6 @@ class DemoCart
         session([
             'demo_cart_items' => [
                 ['sku' => '401842', 'qty' => 1],
-                ['sku' => '402156', 'qty' => 1],
-                ['sku' => '403891', 'qty' => 1],
                 ['sku' => '404220', 'qty' => 4],
                 ['sku' => '404221', 'qty' => 1],
             ],
@@ -1702,6 +1722,7 @@ class DemoCart
             'demo_drawer_enabled' => true,
             'demo_free_delivery_bar' => false,
             'demo_show_upsells' => true,
+            'demo_show_welcome_back' => false,
             'demo_wide_drawer' => false,
             'demo_show_apple_pay' => true,
             'demo_show_clearpay' => false,
@@ -1712,6 +1733,68 @@ class DemoCart
         DemoDrawerVariant::setEnabled(true);
         DemoDrawerVariant::setV30Enabled(true);
         DemoDrawerVariant::setV40Enabled(true);
+
+        if (! session()->has(DemoDrawerVariant::SESSION_TEST_KEY)) {
+            DemoDrawerVariant::setTestVariant('1');
+        }
+
+        if (! session()->has(DemoDrawerVariant::SESSION_SHOW_CLUB_KEY)) {
+            DemoDrawerVariant::setShowClub(false);
+        }
+
+        if (! session()->has(DemoDrawerVariant::SESSION_SHOW_SPF_KEY)) {
+            DemoDrawerVariant::setShowRootBoost(true);
+        }
+
+        if (! session()->has(DemoDrawerVariant::SESSION_SHOW_OFFER_KEY)) {
+            DemoDrawerVariant::setShowOfferCode(true);
+        }
+
+        if (! session()->has('demo_show_upsells')) {
+            session(['demo_show_upsells' => true]);
+        }
+
+        if (! session()->has('demo_show_welcome_back')) {
+            session(['demo_show_welcome_back' => false]);
+        }
+    }
+
+    /** Basket page visual: 1 = live vieword, 2 = drawer-aligned. */
+    public static function basketVisual(): string
+    {
+        return session('demo_basket_visual') === '2' ? '2' : '1';
+    }
+
+    /** Basket page Crazy Egg club promo: off|v1|v2|v3. */
+    public static function basketClubPromo(): string
+    {
+        $variant = (string) session('demo_basket_club_promo', 'off');
+
+        return in_array($variant, ['v1', 'v2', 'v3'], true) ? $variant : 'off';
+    }
+
+    public static function hasRootBoostInCart(): bool
+    {
+        return collect(self::cartLineItems())->contains(
+            fn (array $row) => (string) ($row['sku'] ?? '') === self::ROOT_BOOST_SKU
+        );
+    }
+
+    /** @return array{sku: string, name: string, image: string, price: float, in_basket: bool}|null */
+    public static function rootBoostOffer(): ?array
+    {
+        $product = self::catalogue()[self::ROOT_BOOST_SKU] ?? null;
+        if (! $product) {
+            return null;
+        }
+
+        return [
+            'sku' => self::ROOT_BOOST_SKU,
+            'name' => (string) $product['name'],
+            'image' => (string) $product['image'],
+            'price' => (float) $product['price'],
+            'in_basket' => self::hasRootBoostInCart(),
+        ];
     }
 
     /** @return list<array{sku: string, name: string, image: string, price: float, from?: bool, in_basket?: bool}> */
@@ -2106,7 +2189,8 @@ class DemoCart
             'gift_qualified' => $giftSpendMore <= 0,
             'gift_milestone_reached' => $subtotal >= $giftMilestone,
             'show_free_delivery_bar' => (bool) session('demo_free_delivery_bar', false),
-            'show_upsells' => (bool) session('demo_show_upsells', false),
+            'show_upsells' => (bool) session('demo_show_upsells', true),
+            'show_welcome_back' => (bool) session('demo_show_welcome_back', false),
             'wide_drawer' => (bool) session('demo_wide_drawer', false),
             'drawer_width' => self::drawerWidth(),
             'reco_variant' => self::recoVariant(),
@@ -2121,6 +2205,11 @@ class DemoCart
             'checkout_codes_ticket' => (bool) session('demo_checkout_codes_ticket', false),
             'checkout_express_row' => (bool) session('demo_checkout_express_row', true),
             'upsells' => self::upsellsForDrawer(),
+            'test_variant' => DemoDrawerVariant::testVariant(),
+            'test_config' => DemoDrawerVariant::testConfig(),
+            'basket_visual' => self::basketVisual(),
+            'basket_club_promo' => self::basketClubPromo(),
+            'root_boost' => self::rootBoostOffer(),
         ];
     }
 

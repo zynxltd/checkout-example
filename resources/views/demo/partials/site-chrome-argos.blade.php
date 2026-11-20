@@ -141,7 +141,8 @@
 
                         <div class="yg-argos-nav__panel-foot">
                             <a href="{{ route('demo.sale') }}" class="yg-argos-nav__sale-link">Sale</a>
-                            <a href="{{ $yg }}/new" target="_blank" rel="noopener">New arrivals</a>
+                            <a href="{{ route('demo.new') }}">New arrivals</a>
+                            <a href="{{ route('demo.christmas') }}">Christmas</a>
                             <a href="{{ route('demo.tv-live') }}">YouGarden TV</a>
                         </div>
                     </div>
@@ -241,74 +242,45 @@
             </div>
         </div>
 
-        <div class="demo-header__utilities demo-header__utilities--yg-icons">
-            <a
-                href="{{ route('demo.tv-live') }}"
-                class="demo-header__utility demo-header__utility--stacked demo-header__utility--tv"
-                aria-label="YouGarden TV"
-            >
-                <span class="demo-header__utility-icon" aria-hidden="true">
-                    <img
-                        class="demo-header__utility-img demo-header__utility-img--tv"
-                        src="{{ asset('images/icons/icon-tv-play.png') }}?v={{ filemtime(public_path('images/icons/icon-tv-play.png')) }}"
-                        alt=""
-                        width="28"
-                        height="28"
-                    >
-                </span>
-                <span class="demo-header__utility-label">
-                    <span class="demo-header__utility-label-full">YouGarden TV</span>
-                    <span class="demo-header__utility-label-short">TV</span>
-                </span>
-            </a>
-
+        <div class="demo-header__utilities">
             <a
                 href="{{ $accountClubMember ? route('demo.account.club') : 'https://www.yougarden.com/item-p-820001/yg-discount-club-annual-membership' }}"
-                class="demo-header__utility demo-header__utility--stacked demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"
+                class="demo-header__utility demo-header__utility--club{{ $accountClubMember ? ' is-member' : '' }}"
                 @if (! $accountClubMember) target="_blank" rel="noopener" @endif
-                aria-label="{{ $accountClubMember ? 'Club membership' : 'Join Our Club — SAVE 10%' }}"
+                aria-label="{{ $accountClubMember ? 'Club membership' : 'Club Discounts — Join Now' }}"
             >
-                <span class="demo-header__utility-icon" aria-hidden="true">
-                    <span class="demo-header__club-shine">
-                        <img
-                            class="demo-header__utility-img demo-header__utility-img--club"
-                            src="{{ asset('images/icons/icon-club-save.png') }}?v={{ filemtime(public_path('images/icons/icon-club-save.png')) }}"
-                            alt=""
-                            width="88"
-                            height="22"
-                        >
-                    </span>
-                </span>
-                <span class="demo-header__utility-label">
-                    <span class="demo-header__utility-label-full">Join Our Club</span>
-                    <span class="demo-header__utility-label-short">Club</span>
+                @include('demo.partials.account-club-star', ['modifier' => 'header', 'size' => 28])
+                <span class="demo-header__utility-copy">
+                    <span class="demo-header__utility-title">Club Discounts</span>
+                    @unless ($accountClubMember)
+                        <span class="demo-header__utility-sub">Join Now</span>
+                    @endunless
                 </span>
             </a>
 
-            <a
-                href="{{ $accountLoggedIn ? route('demo.account.home') : route('demo.account.login') }}"
-                class="demo-header__utility demo-header__utility--stacked demo-header__utility--account"
-                aria-label="{{ $accountLoggedIn ? 'My account' : 'Login or register' }}"
-            >
-                <span class="demo-header__utility-icon" aria-hidden="true">
-                    <img
-                        class="demo-header__utility-img demo-header__utility-img--account"
-                        src="{{ asset('images/icons/icon-account-flat.png') }}?v={{ filemtime(public_path('images/icons/icon-account-flat.png')) }}"
-                        alt=""
-                        width="22"
-                        height="24"
-                    >
-                </span>
-                <span class="demo-header__utility-label demo-header__utility-label--account">
+            <div class="demo-header__utility demo-header__utility--account">
+                <span class="demo-header__utility-icon" aria-hidden="true">@include('demo.partials.icon', ['name' => 'account', 'width' => 28, 'height' => 28])</span>
+                <span class="demo-header__utility-copy">
                     @if ($accountLoggedIn)
-                        <span class="demo-header__utility-label-full">{{ $accountFirstName ?: 'Account' }}</span>
-                        <span class="demo-header__utility-label-short">{{ $accountFirstName ?: 'Account' }}</span>
+                        <span class="demo-header__utility-title">Welcome, {{ $accountFirstName }}</span>
+                        <span class="demo-header__utility-sub">
+                            <a href="{{ route('demo.account.home') }}" class="demo-header__utility-link">My Account</a>
+                            <span aria-hidden="true"> | </span>
+                            <form method="post" action="{{ route('demo.account.logout') }}" class="demo-header__logout-form">
+                                @csrf
+                                <button type="submit" class="demo-header__utility-link demo-header__utility-link--button">Log out</button>
+                            </form>
+                        </span>
                     @else
-                        <span class="demo-header__utility-label-full">Login | Register</span>
-                        <span class="demo-header__utility-label-short">Account</span>
+                        <span class="demo-header__utility-title">Welcome</span>
+                        <span class="demo-header__utility-sub">
+                            <a href="{{ route('demo.account.login') }}" class="demo-header__utility-link">Login</a>
+                            <span aria-hidden="true"> | </span>
+                            <a href="{{ route('demo.account.register') }}" class="demo-header__utility-link">Register</a>
+                        </span>
                     @endif
                 </span>
-            </a>
+            </div>
 
             @include('demo.partials.mini-basket', ['cart' => $cart])
         </div>
@@ -330,7 +302,8 @@
 
     <nav class="demo-nav" aria-label="Shop categories">
         <div class="demo-nav__track">
-            <a href="https://www.yougarden.com/new" class="demo-nav__new">New</a>
+            <a href="{{ route('demo.new') }}" class="demo-nav__new"@if (request()->routeIs('demo.new')) aria-current="page"@endif>New</a>
+            <a href="{{ route('demo.christmas') }}" class="demo-nav__xmas"@if (request()->routeIs('demo.christmas')) aria-current="page"@endif>Christmas</a>
             <a href="{{ route('demo.listing.garden-plants') }}">Garden Plants</a>
             <a href="https://www.yougarden.com/houseplants">Houseplants</a>
             <a href="https://www.yougarden.com/trees-and-shrubs">Trees and Shrubs</a>

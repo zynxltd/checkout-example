@@ -1,8 +1,46 @@
 @php
     $drawerWidth = \App\Services\DemoCart::drawerWidth();
-    $recoVariant = \App\Services\DemoCart::recoVariant();
+    $showClub = \App\Support\DemoDrawerVariant::showClubBanner();
+    $showSpf = \App\Support\DemoDrawerVariant::showRootBoost();
+    $showOffer = \App\Support\DemoDrawerVariant::showOfferCode();
+    $showReco = (bool) session('demo_show_upsells', true);
+    $showWelcomeBack = (bool) session('demo_show_welcome_back', false);
+    $basketVisual = \App\Services\DemoCart::basketVisual();
+    $basketClubPromo = \App\Services\DemoCart::basketClubPromo();
+    $onBasketPage = request()->routeIs('demo.basket');
 @endphp
 <aside class="demo-controls" data-drawer-width aria-label="Cart drawer width">
+    @if($onBasketPage)
+        <h3>Basket page</h3>
+        <p class="demo-controls__label">Visual variant</p>
+        <div class="demo-variant-toggle" role="group" aria-label="Basket visual variant">
+            <button
+                type="button"
+                class="demo-variant-toggle__btn{{ $basketVisual === '1' ? ' is-active' : '' }}"
+                data-basket-visual="1"
+                aria-pressed="{{ $basketVisual === '1' ? 'true' : 'false' }}"
+            >Variant 1</button>
+            <button
+                type="button"
+                class="demo-variant-toggle__btn{{ $basketVisual === '2' ? ' is-active' : '' }}"
+                data-basket-visual="2"
+                aria-pressed="{{ $basketVisual === '2' ? 'true' : 'false' }}"
+            >Variant 2</button>
+        </div>
+        <p class="demo-controls__hint">V1 = live basket. V2 = drawer-aligned styling.</p>
+        <p class="demo-controls__label">Club promo banner</p>
+        <div class="demo-variant-toggle demo-variant-toggle--wrap" role="group" aria-label="Basket club promo variant">
+            @foreach (['off' => 'Off', 'v1' => 'V1', 'v2' => 'V2', 'v3' => 'V3'] as $key => $label)
+                <button
+                    type="button"
+                    class="demo-variant-toggle__btn{{ $basketClubPromo === $key ? ' is-active' : '' }}"
+                    data-basket-club-promo="{{ $key }}"
+                    aria-pressed="{{ $basketClubPromo === $key ? 'true' : 'false' }}"
+                >{{ $label }}</button>
+            @endforeach
+        </div>
+        <p class="demo-controls__hint">Crazy Egg club promo below SPF. Off hides it.</p>
+    @endif
     <h3>Cart drawer</h3>
     <p class="demo-controls__label">Desktop width</p>
     <div class="demo-drawer-width">
@@ -11,10 +49,50 @@
         <button type="button" class="demo-drawer-width__btn" data-drawer-width-step="25" aria-label="Wider drawer">+</button>
     </div>
     <p class="demo-controls__hint">Steps of 25px, from 400px to 900px. Desktop only.</p>
-    <p class="demo-controls__label">Recommendations</p>
-    <div class="demo-reco-variant" data-reco-variant-switch>
-        <button type="button" class="demo-reco-variant__btn @if($recoVariant === 'rows') is-active @endif" data-reco-variant="rows" aria-pressed="{{ $recoVariant === 'rows' ? 'true' : 'false' }}">Variant 1</button>
-        <button type="button" class="demo-reco-variant__btn @if($recoVariant === 'tiles') is-active @endif" data-reco-variant="tiles" aria-pressed="{{ $recoVariant === 'tiles' ? 'true' : 'false' }}">Variant 2</button>
-    </div>
-    <p class="demo-controls__hint">Variant 1 is the row layout. Variant 2 is stacked tiles.</p>
+    <p class="demo-controls__label">Upsells</p>
+    <label class="demo-toggle">
+        <input
+            type="checkbox"
+            id="toggle-drawer-show-spf"
+            data-option="drawer_show_spf"
+            {{ $showSpf ? 'checked' : '' }}
+        >
+        <span>Superior Plant Food banner</span>
+    </label>
+    <label class="demo-toggle">
+        <input
+            type="checkbox"
+            id="toggle-drawer-show-club"
+            data-option="drawer_show_club"
+            {{ $showClub ? 'checked' : '' }}
+        >
+        <span>Club banner</span>
+    </label>
+    <label class="demo-toggle">
+        <input
+            type="checkbox"
+            id="toggle-drawer-show-offer"
+            data-option="drawer_show_offer"
+            {{ $showOffer ? 'checked' : '' }}
+        >
+        <span>Offer code</span>
+    </label>
+    <label class="demo-toggle">
+        <input
+            type="checkbox"
+            id="toggle-drawer-show-reco"
+            data-option="upsells"
+            {{ $showReco ? 'checked' : '' }}
+        >
+        <span>Recommendations tab</span>
+    </label>
+    <label class="demo-toggle">
+        <input
+            type="checkbox"
+            id="toggle-drawer-show-welcome"
+            data-option="welcome_back"
+            {{ $showWelcomeBack ? 'checked' : '' }}
+        >
+        <span>Welcome back</span>
+    </label>
 </aside>

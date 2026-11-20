@@ -73,6 +73,8 @@ body.yg-drawer-open {
     --yg-theme-apply-btn-text: #ffffff;
     --yg-theme-checkout-bg: #53b71d;
     --yg-theme-checkout-text: #ffffff;
+    --yg-theme-checkout-secondary-bg: #fafafa;
+    --yg-theme-checkout-secondary-text: #474747;
     --yg-theme-reco-heading: var(--yg-forest);
     --yg-theme-summary-bg: #ffffff;
 }
@@ -2290,9 +2292,9 @@ body.yg-drawer-open {
 
 .yg-drawer--v-3-0 .yg-totals > .yg-totals__row--total,
 .yg-drawer--v-3-0 .yg-totals > .yg-totals__row--total-desktop {
-    border-top: 1px solid #e0d6cb;
-    margin-top: 8px;
-    padding-top: 12px;
+    border-top: none;
+    margin-top: 0;
+    padding-top: 4px;
     padding-bottom: 10px;
     font-size: 1.2rem;
 }
@@ -2324,9 +2326,9 @@ body.yg-drawer-open {
 }
 
 .yg-totals__row--total {
-    margin-top: 8px;
-    padding-top: 12px;
-    border-top: 1px solid #d0d0d0;
+    margin-top: 0;
+    padding-top: 4px;
+    border-top: none;
     font-weight: 700;
     font-size: 1.1rem;
 }
@@ -2393,7 +2395,7 @@ body.yg-drawer-open {
         box-sizing: border-box;
         margin-top: 0;
         padding: 8px 0;
-        border-top: 1px solid #d0d0d0;
+        border-top: none;
     }
 
     .yg-drawer .yg-drawer__summary-total--v21-mobile .yg-totals__row--total {
@@ -2401,7 +2403,7 @@ body.yg-drawer-open {
         box-sizing: border-box;
         margin-top: 0;
         padding: 8px 0;
-        border-top: 1px solid #d8d0c8;
+        border-top: none;
     }
 }
 
@@ -2434,10 +2436,11 @@ body.yg-drawer-open {
 
     .yg-drawer .yg-totals__row--total,
     .yg-drawer .yg-totals__row--total-desktop {
-        margin-top: 8px;
-        padding-top: 12px;
+        margin-top: 0;
+        padding-top: 4px;
         padding-bottom: 10px;
         font-size: 1.2rem;
+        border-top: none;
     }
 
     .yg-drawer .yg-subtotal-breakdown__panel .yg-totals__row > span:last-child {
@@ -2735,5 +2738,399 @@ body.yg-drawer-open {
 
     .yg-drawer--v-2-1 .yg-drawer__summary {
         box-shadow: 0 -10px 18px -6px rgba(72, 63, 58, 0.28);
+    }
+}
+
+/* -------------------------------------------------------------------------
+   Test variants — mobile YMAL / club, offer dropdown, root boost, dual CTA
+   ------------------------------------------------------------------------- */
+
+@media (max-width: 767px) {
+    .yg-drawer--no-ymal-mobile .yg-reco-inline,
+    .yg-drawer--no-ymal-mobile .yg-drawer__rail,
+    .yg-drawer--no-ymal-mobile .yg-extend--reco {
+        display: none !important;
+    }
+}
+
+.yg-drawer--no-club .yg-club-bar,
+.yg-drawer--no-club .yg-extend--club {
+    display: none !important;
+}
+
+.yg-codes__details {
+    margin: 0;
+    border: 0;
+}
+
+.yg-codes__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    list-style: none;
+    cursor: pointer;
+    padding: 2px 0 6px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--yg-ink, #2c2c2c);
+}
+
+.yg-codes__summary::-webkit-details-marker {
+    display: none;
+}
+
+.yg-codes__summary-chev {
+    font-size: 0.85rem;
+    line-height: 1;
+    transition: transform 0.15s ease;
+}
+
+.yg-codes__details[open] .yg-codes__summary-chev {
+    transform: rotate(180deg);
+}
+
+.yg-codes__details .yg-codes__offer {
+    padding-top: 2px;
+}
+
+/* Superior Plant Food Plus — same design as basket-club v5-spf */
+.yg-drawer {
+    --ygspf-green: #5e9b42;
+    --ygspf-purple: #321a4c;
+    --ygspf-cta: #f0d078;
+    --ygspf-gelica: "gelica", Georgia, "Times New Roman", serif;
+}
+
+.yg-spf {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    flex-shrink: 0;
+}
+
+.yg-spf *,
+.yg-spf *::before,
+.yg-spf *::after {
+    box-sizing: border-box;
+}
+
+/* Full-bleed strip — flush with drawer edges like .yg-club-bar */
+.yg-spf__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    min-height: 48px;
+    border-radius: 0;
+    overflow: hidden;
+    background: var(--ygspf-purple);
+}
+
+.yg-spf__brand {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+    flex: 1 1 auto;
+    max-width: 56%;
+    align-self: stretch;
+    min-width: 0;
+    min-height: 0;
+    /* Extra right pad so “Plus” clears the pill curve */
+    padding: 7px 46px 7px 10px;
+    margin: 0 -26px 0 0;
+    color: #fff;
+    background: var(--ygspf-green);
+    border-radius: 0 999px 999px 0;
+    overflow: hidden;
+}
+
+.yg-spf__logo {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    display: block;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    object-fit: cover;
+}
+
+.yg-spf__title {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    min-width: 0;
+    flex: 1 1 auto;
+    padding-right: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #fff;
+    white-space: normal;
+    overflow-wrap: break-word;
+    text-wrap: balance;
+}
+
+.yg-spf__title strong {
+    font-weight: 800;
+}
+
+.yg-spf__msg {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    margin: 0;
+    padding: 8px 8px 8px 32px;
+    font-family: var(--ygspf-gelica);
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #fff;
+    text-align: center;
+}
+
+.yg-spf__cta {
+    flex: 0 0 auto;
+    align-self: center;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: auto;
+    max-width: none;
+    margin: 6px 10px 6px 0;
+    padding: 7px 14px 7px 11px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--ygspf-cta);
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.yg-spf__cta:hover:not(:disabled) {
+    filter: brightness(0.97);
+}
+
+.yg-spf__plus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.yg-spf__cta-copy {
+    display: inline;
+    text-align: left;
+    line-height: 1.2;
+}
+
+.yg-spf__cta-line {
+    display: inline;
+    font-weight: 400;
+}
+
+.yg-spf__cta-price {
+    display: inline;
+    font-weight: 800;
+}
+
+/* Mobile — keep single-row strip like desktop (no stacked “two banners”) */
+@media (max-width: 767px) {
+    .yg-spf__inner {
+        flex-wrap: nowrap;
+        min-height: 44px;
+    }
+
+    .yg-spf__brand {
+        flex: 1 1 auto;
+        max-width: 58%;
+        width: auto;
+        min-width: 0;
+        margin: 0 -20px 0 0;
+        padding: 6px 36px 6px 8px;
+        border-radius: 0 999px 999px 0;
+        gap: 5px;
+        overflow: hidden;
+    }
+
+    .yg-spf__logo {
+        width: 24px;
+        height: 24px;
+    }
+
+    .yg-spf__title {
+        font-size: 11px;
+        line-height: 1.15;
+        padding-right: 2px;
+    }
+
+    .yg-spf__msg {
+        flex: 1 1 0;
+        justify-content: center;
+        padding: 6px 6px 6px 24px;
+        font-size: 11px;
+        line-height: 1.15;
+        text-align: center;
+    }
+
+    .yg-spf__cta {
+        margin: 5px 8px 5px 0;
+        padding: 6px 10px 6px 8px;
+        gap: 4px;
+        font-size: 11px;
+    }
+
+    .yg-spf__plus {
+        width: 14px;
+        height: 14px;
+        font-size: 14px;
+    }
+}
+
+/* Narrow drawer / small phones — two-line title, clear the curve */
+@media (max-width: 420px) {
+    .yg-spf__brand {
+        max-width: 62%;
+        padding: 5px 34px 5px 6px;
+        gap: 4px;
+    }
+
+    .yg-spf__logo {
+        width: 22px;
+        height: 22px;
+    }
+
+    .yg-spf__title {
+        font-size: 10px;
+        line-height: 1.15;
+    }
+
+    .yg-spf__msg {
+        padding-left: 22px;
+        font-size: 10px;
+    }
+
+    .yg-spf__cta {
+        padding: 5px 8px 5px 6px;
+        font-size: 10px;
+    }
+}
+
+.yg-drawer__footer--dual {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}
+
+.yg-drawer__footer--dual .yg-checkout {
+    border-radius: 0;
+}
+
+/* Variant 3 — half / half Checkout | View Basket */
+.yg-drawer__footer--split {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+}
+
+.yg-drawer__footer--split .yg-checkout--split {
+    flex: 1 1 50%;
+    width: auto;
+    min-width: 0;
+    gap: 6px;
+    padding: 16px 10px;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    min-height: 56px;
+    border-radius: 0;
+    box-sizing: border-box;
+}
+
+.yg-drawer__footer--split .yg-checkout--split .yg-checkout__icon {
+    width: 24px;
+    height: 24px;
+}
+
+.yg-drawer__footer--split .yg-checkout--split .yg-checkout__label {
+    font-size: 0.95rem;
+}
+
+.yg-drawer__footer--split .yg-checkout--secondary {
+    background: var(--yg-theme-checkout-secondary-bg);
+    color: var(--yg-theme-checkout-secondary-text);
+    box-shadow: inset 1px 0 0 rgba(72, 63, 58, 0.12);
+}
+
+.yg-drawer__footer--split .yg-checkout--secondary .yg-checkout__label {
+    color: var(--yg-theme-checkout-secondary-text);
+}
+
+.yg-drawer__footer--split .yg-checkout--secondary:hover {
+    filter: brightness(0.97);
+}
+
+.yg-basket-link {
+    display: block;
+    text-align: center;
+    padding: 12px 16px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    color: #1a3a12;
+    font-family: var(--yg-heading);
+    font-size: 0.98rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    background: #fff;
+}
+
+.yg-basket-link:hover {
+    color: #468900;
+}
+
+@media (min-width: 768px) {
+    .yg-drawer__footer--dual .yg-basket-link {
+        padding-bottom: 14px;
+    }
+
+    .yg-drawer__footer--split .yg-checkout--split {
+        padding: 14px 16px;
+        padding-bottom: 14px;
+        min-height: 0;
+        gap: 8px;
+    }
+
+    .yg-drawer__footer--split .yg-checkout--split .yg-checkout__label {
+        font-size: 1.02rem;
+    }
+
+    .yg-drawer__footer--split .yg-checkout--split .yg-checkout__icon {
+        width: 28px;
+        height: 28px;
     }
 }

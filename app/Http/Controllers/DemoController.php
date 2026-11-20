@@ -9,6 +9,15 @@ use Illuminate\View\View;
 
 class DemoController extends Controller
 {
+    public function basket(): View
+    {
+        DemoCart::seed();
+
+        return view('demo.basket', [
+            'cart' => DemoCart::state(),
+        ]);
+    }
+
     public function standardDelivery(): View
     {
         DemoCart::seed();
@@ -55,8 +64,13 @@ class DemoController extends Controller
             'categories' => [
                 [
                     'label' => 'New arrivals',
-                    'url' => 'https://www.yougarden.com/new',
+                    'url' => route('demo.new'),
                     'image' => 'images/home-preview/cats/new.jpg',
+                ],
+                [
+                    'label' => 'Christmas',
+                    'url' => route('demo.christmas'),
+                    'image' => 'images/home-preview/cats/gifts.jpg',
                 ],
                 [
                     'label' => 'Top deals',
@@ -752,6 +766,354 @@ class DemoController extends Controller
         ]);
     }
 
+    /**
+     * Editorial /new landing — first-look drop, not a generic category PLP.
+     */
+    public function arrivals(): View
+    {
+        DemoCart::seed();
+
+        $yg = 'https://www.yougarden.com';
+        $products = DemoCart::listingPage()['products'];
+
+        $groups = [
+            ['week', 'house'],
+            ['week', 'house'],
+            ['week', 'outdoor'],
+            ['outdoor'],
+            ['outdoor'],
+            ['outdoor'],
+            ['collections'],
+            ['collections'],
+            ['house'],
+            ['outdoor'],
+            ['collections'],
+        ];
+        $when = ['This week', 'This week', 'This week', 'Last week', 'Last week', 'Last week', 'This month', 'This month', 'This month', 'This month', 'This month', 'This week'];
+
+        $arrivals = array_map(static function (array $product, int $index) use ($groups, $when): array {
+            $product['arrived'] = $when[$index] ?? 'This month';
+            $product['groups'] = $groups[$index] ?? ['outdoor'];
+
+            return $product;
+        }, $products, array_keys($products));
+
+        $featured = [
+            array_merge($arrivals[0] ?? [], [
+                'kicker' => 'New colourway',
+                'blurb' => 'Hardy Garvinea gerberas in a mix we haven’t listed before — patio colour that lasts.',
+            ]),
+            array_merge($arrivals[2] ?? [], [
+                'kicker' => 'Bulbs, first look',
+                'blurb' => 'Mini tree daffodils for pots and borders, ready to plant this season.',
+            ]),
+        ];
+        $count = count($arrivals);
+
+        return view('demo.new', [
+            'cart' => DemoCart::state(),
+            'shop_menu' => DemoArgosNav::shopMenu($yg),
+            'trending_links' => DemoArgosNav::trendingLinks($yg),
+            'listing' => [
+                'products' => $arrivals,
+                'filters' => DemoCart::listingFilters(),
+                'sort_options' => DemoCart::listingSortOptions(),
+            ],
+            'featured' => $featured,
+            'arrivals' => $arrivals,
+            'count' => count($arrivals),
+            'hero' => [
+                'image' => 'images/home-preview/live/hero-slide-garden-poster.jpg',
+                'kicker' => 'New in · October',
+                'title' => 'Just landed',
+                'lede' => 'First look at plants that weren’t here last week — not a dump of the whole range.',
+                'cta' => 'Shop the drop',
+                'cta_href' => '#yg-new-grid',
+            ],
+            'roundels' => [
+                ['label' => 'All new', 'chip' => 'all', 'image' => 'images/home-preview/cats/new.jpg'],
+                ['label' => 'This week', 'chip' => 'week', 'image' => 'images/home-preview/garden-plants/tile-1.jpg'],
+                ['label' => 'Houseplants', 'chip' => 'house', 'image' => 'images/home-preview/cats/houseplants.jpg'],
+                ['label' => 'Outdoor', 'chip' => 'outdoor', 'image' => 'images/home-preview/cats/garden-plants.jpg'],
+                ['label' => 'Collections', 'chip' => 'collections', 'image' => 'images/home-preview/cats/perennials.jpg'],
+            ],
+            'strip' => $count.' new plants  ·  Free 30 day refund  ·  Added this week',
+            'campaigns' => [
+                [
+                    'image' => 'images/home-preview/garden-plants/tile-1.jpg',
+                    'kicker' => 'This week',
+                    'title' => 'Patio colour, first look',
+                    'href' => '#yg-new-grid',
+                    'chip' => 'week',
+                ],
+                [
+                    'image' => 'images/home-preview/live/hero-slide-hanging-poster.jpg',
+                    'kicker' => 'Outdoor',
+                    'title' => 'The greenhouse drop',
+                    'href' => '#yg-new-grid',
+                    'chip' => 'outdoor',
+                ],
+            ],
+            'depts' => [
+                [
+                    'image' => 'images/home-preview/cats/houseplants.jpg',
+                    'title' => 'Houseplants',
+                    'href' => '#yg-new-grid',
+                    'chip' => 'house',
+                ],
+                [
+                    'image' => 'images/home-preview/cats/garden-plants.jpg',
+                    'title' => 'Outdoor',
+                    'href' => '#yg-new-grid',
+                    'chip' => 'outdoor',
+                ],
+                [
+                    'image' => 'images/home-preview/cats/perennials.jpg',
+                    'title' => 'Collections',
+                    'href' => '#yg-new-grid',
+                    'chip' => 'collections',
+                ],
+            ],
+            'spotlight' => [
+                'image' => 'images/home-preview/cats/new.jpg',
+                'kicker' => $count.' plants',
+                'title' => 'Shop the full drop',
+                'cta' => 'Shop all new',
+                'href' => '#yg-new-grid',
+                'chip' => 'all',
+            ],
+        ]);
+    }
+
+    /**
+     * Editorial /christmas landing — living gift shop, not a generic Magento PLP.
+     */
+    public function christmas(): View
+    {
+        DemoCart::seed();
+
+        $yg = 'https://www.yougarden.com';
+        $products = DemoCart::listingPage()['products'];
+
+        $catalog = [
+            [
+                'name' => 'Living Pot-Grown Nordmann Fir',
+                'price_label' => 'Just',
+                'price' => 39.99,
+                'image' => 'images/home-preview/cats/pots-planters.jpg',
+                'groups' => ['trees', 'gifts'],
+                'tag' => 'Living',
+                'kicker' => 'The living tree',
+                'blurb' => 'A real pot-grown fir you can enjoy indoors, then plant out after Christmas.',
+            ],
+            [
+                'name' => 'Fresh Christmas Wreath',
+                'price_label' => 'Just',
+                'price' => 24.99,
+                'image' => 'images/home-preview/cats/shrubs.jpg',
+                'groups' => ['wreaths', 'gifts'],
+                'tag' => 'Fresh',
+                'kicker' => 'The front door',
+                'blurb' => 'Fresh-cut wreath for the door — the first thing guests see.',
+            ],
+            [
+                'name' => 'Potted Norway Spruce Christmas Tree',
+                'price_label' => 'Just',
+                'price' => 34.99,
+                'image' => 'images/home-preview/cats/mediterranean.jpg',
+                'groups' => ['trees'],
+                'tag' => 'Living',
+            ],
+            [
+                'name' => 'Fresh Christmas Garland',
+                'price_label' => 'Just',
+                'price' => 29.99,
+                'image' => 'images/home-preview/cats/acers.jpg',
+                'groups' => ['wreaths'],
+                'tag' => 'Fresh',
+            ],
+            [
+                'name' => "Amaryllis 'Christmas Star' Growing Kit",
+                'price_label' => 'Just',
+                'price' => 12.99,
+                'image' => 'images/home-preview/cats/bulbs.jpg',
+                'groups' => ['indoor', 'gifts'],
+                'tag' => 'Indoor',
+            ],
+            [
+                'name' => "Christmas Cactus 'Quartet'",
+                'price_label' => 'Just',
+                'price' => 14.99,
+                'image' => 'images/home-preview/cats/foliage-houseplants.jpg',
+                'groups' => ['indoor'],
+                'tag' => 'Indoor',
+            ],
+            [
+                'name' => 'Christmas in a Box — Tree, Wreath & Garland',
+                'price_label' => 'Just',
+                'price' => 69.97,
+                'image' => 'images/home-preview/cats/gifts.jpg',
+                'groups' => ['gifts', 'trees', 'wreaths'],
+                'tag' => 'Set',
+            ],
+            [
+                'name' => 'Christmas Gift Wrapped Nordmann Fir',
+                'price_label' => 'Just',
+                'price' => 44.99,
+                'image' => 'images/home-preview/cats/gifts.jpg',
+                'groups' => ['gifts', 'trees'],
+                'tag' => 'Gift wrap',
+            ],
+            [
+                'name' => 'Standard Holly Trees with Pinecone Planters',
+                'price_label' => 'Just',
+                'price' => 54.96,
+                'image' => 'images/home-preview/cats/shrubs.jpg',
+                'groups' => ['trees'],
+                'tag' => 'Living',
+            ],
+            [
+                'name' => 'Snowflake Light Up Stakes — Warm White',
+                'price_label' => 'Just',
+                'price' => 14.99,
+                'image' => 'images/home-preview/cats/bird-feeders.jpg',
+                'groups' => ['lights'],
+                'tag' => 'Lights',
+            ],
+            [
+                'name' => 'Firework Tea Lights — Multicolour',
+                'price_label' => 'Just',
+                'price' => 12.99,
+                'image' => 'images/home-preview/cats/outdoor.jpg',
+                'groups' => ['lights', 'gifts'],
+                'tag' => 'Lights',
+            ],
+        ];
+
+        $items = array_map(static function (array $product, int $index) use ($catalog): array {
+            $over = $catalog[$index] ?? null;
+            if ($over) {
+                $product = array_merge($product, $over);
+            }
+
+            $price = (float) ($product['price'] ?? 9.99);
+            $blurb = (string) ($over['blurb'] ?? 'A YouGarden Christmas favourite — living plants and festive gifts, ready to enjoy this season.');
+
+            $product['discount'] = 0;
+            $product['was_price'] = null;
+            $product['save'] = 0;
+            $product['club_price'] = round($price * 0.85, 2);
+            $product['out_of_stock'] = false;
+            $product['low_stock'] = false;
+            $product['groups'] = $over['groups'] ?? ['gifts'];
+            $product['tag'] = $over['tag'] ?? 'Gift';
+            $product['blurb'] = $blurb;
+            $product['description'] = $blurb;
+            $product['variant'] = '1 × item';
+            $product['gallery'] = [
+                ['image' => (string) $product['image'], 'alt' => (string) $product['name']],
+            ];
+            $product['variants'] = [
+                [
+                    'id' => 'item',
+                    'label' => '1 × item',
+                    'sku' => $product['sku'] ?? 'XMAS',
+                    'price' => $price,
+                    'was_price' => null,
+                    'default' => true,
+                ],
+            ];
+
+            return $product;
+        }, $products, array_keys($products));
+
+        $featured = [
+            array_merge($items[0] ?? [], [
+                'kicker' => $catalog[0]['kicker'],
+                'blurb' => $catalog[0]['blurb'],
+            ]),
+            array_merge($items[1] ?? [], [
+                'kicker' => $catalog[1]['kicker'],
+                'blurb' => $catalog[1]['blurb'],
+            ]),
+        ];
+
+        return view('demo.christmas', [
+            'cart' => DemoCart::state(),
+            'shop_menu' => DemoArgosNav::shopMenu($yg),
+            'trending_links' => DemoArgosNav::trendingLinks($yg),
+            'listing' => [
+                'products' => $items,
+                'filters' => DemoCart::listingFilters(),
+                'sort_options' => DemoCart::listingSortOptions(),
+            ],
+            'featured' => $featured,
+            'items' => $items,
+            'count' => count($items),
+            'hero' => [
+                'image' => 'images/home-preview/sale/italian-cypress.jpg',
+                'kicker' => 'Christmas  ·  Order by 18 Dec',
+                'title' => 'Bring it home',
+                'lede' => 'Living trees, fresh wreaths and indoor kits — not a dump of every fairy light in the range.',
+                'cta' => 'Shop Christmas',
+                'cta_href' => '#yg-xmas-grid',
+            ],
+            'roundels' => [
+                ['label' => 'All', 'chip' => 'all', 'image' => 'images/home-preview/cats/gifts.jpg'],
+                ['label' => 'Trees', 'chip' => 'trees', 'image' => 'images/home-preview/sale/italian-cypress.jpg'],
+                ['label' => 'Wreaths', 'chip' => 'wreaths', 'image' => 'images/home-preview/cats/shrubs.jpg'],
+                ['label' => 'Indoor', 'chip' => 'indoor', 'image' => 'images/home-preview/cats/foliage-houseplants.jpg'],
+                ['label' => 'Gifts', 'chip' => 'gifts', 'image' => 'images/home-preview/cats/gifts.jpg'],
+                ['label' => 'Lights', 'chip' => 'lights', 'image' => 'images/home-preview/cats/bird-feeders.jpg'],
+            ],
+            'strip' => 'Order by Friday 18 December for Christmas delivery  ·  Free 30 day refund',
+            'campaigns' => [
+                [
+                    'image' => 'images/home-preview/sale/italian-cypress.jpg',
+                    'kicker' => 'Living trees',
+                    'title' => 'The tree you’ll plant after',
+                    'href' => '#yg-xmas-grid',
+                    'chip' => 'trees',
+                ],
+                [
+                    'image' => 'images/home-preview/sale/nandina-obsessed.jpg',
+                    'kicker' => 'The front door',
+                    'title' => 'Wreaths & winter colour',
+                    'href' => '#yg-xmas-grid',
+                    'chip' => 'wreaths',
+                ],
+            ],
+            'depts' => [
+                [
+                    'image' => 'images/home-preview/cats/gifts.jpg',
+                    'title' => 'Gifts',
+                    'href' => '#yg-xmas-grid',
+                    'chip' => 'gifts',
+                ],
+                [
+                    'image' => 'images/home-preview/cats/foliage-houseplants.jpg',
+                    'title' => 'Indoor kits',
+                    'href' => '#yg-xmas-grid',
+                    'chip' => 'indoor',
+                ],
+                [
+                    'image' => 'images/home-preview/cats/bird-feeders.jpg',
+                    'title' => 'Lights',
+                    'href' => '#yg-xmas-grid',
+                    'chip' => 'lights',
+                ],
+            ],
+            'spotlight' => [
+                'image' => 'images/home-preview/cats/gifts.jpg',
+                'kicker' => 'Gift wrap',
+                'title' => 'Ready to give — order by 18 Dec',
+                'cta' => 'Shop gifts',
+                'href' => '#yg-xmas-grid',
+                'chip' => 'gifts',
+            ],
+        ]);
+    }
+
     public function aboutUs(): View
     {
         DemoCart::seed();
@@ -814,6 +1176,17 @@ class DemoController extends Controller
             'shop_menu' => DemoArgosNav::shopMenu($yg),
             'trending_links' => DemoArgosNav::trendingLinks($yg),
             'live_url' => 'https://www.yougarden.com/item-p-820001/yg-discount-club-annual-membership',
+        ]);
+    }
+
+    public function basketClubCro(string $variant): View
+    {
+        abort_unless(in_array($variant, ['v1', 'v2', 'v3'], true), 404);
+
+        return view('demo.cro.basket-club', [
+            'variant' => $variant,
+            'assetBase' => asset('ce/basket-club'),
+            'saving' => '£9.00',
         ]);
     }
 

@@ -7,10 +7,10 @@
         aria-expanded="false"
         aria-controls="yg-drawer-theme-panel"
     >
-        Customise drawer
+        Change colours
     </button>
     <div class="yg-drawer-theme__panel" id="yg-drawer-theme-panel">
-        <h4 class="yg-drawer-theme__title">Drawer theme</h4>
+        <h4 class="yg-drawer-theme__title">Change colours</h4>
         <p class="yg-drawer-theme__hint">Colours apply to the cart drawer only. Open the basket to preview.</p>
         <ul class="yg-drawer-theme__fields">
             <li class="yg-drawer-theme__field">
@@ -88,6 +88,14 @@
             <li class="yg-drawer-theme__field">
                 <input type="color" id="dt-checkout-text" data-drawer-theme="checkoutText" value="#ffffff" aria-label="Checkout text">
                 <label class="yg-drawer-theme__label" for="dt-checkout-text">Checkout text</label>
+            </li>
+            <li class="yg-drawer-theme__field">
+                <input type="color" id="dt-checkout-secondary-bg" data-drawer-theme="checkoutSecondaryBg" value="#fafafa" aria-label="View Basket button">
+                <label class="yg-drawer-theme__label" for="dt-checkout-secondary-bg">View Basket button</label>
+            </li>
+            <li class="yg-drawer-theme__field">
+                <input type="color" id="dt-checkout-secondary-text" data-drawer-theme="checkoutSecondaryText" value="#474747" aria-label="View Basket text">
+                <label class="yg-drawer-theme__label" for="dt-checkout-secondary-text">View Basket text</label>
             </li>
             <li class="yg-drawer-theme__field">
                 <input type="color" id="dt-reco-heading" data-drawer-theme="recoHeading" value="#264f1c" aria-label="Recommendations title">

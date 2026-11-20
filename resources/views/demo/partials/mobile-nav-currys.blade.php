@@ -50,8 +50,14 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ $yg }}/new" class="demo-mobile-nav__row demo-mobile-nav__row--link" target="_blank" rel="noopener">
+                            <a href="{{ route('demo.new') }}" class="demo-mobile-nav__row demo-mobile-nav__row--link">
                                 <span class="demo-mobile-nav__label">New arrivals</span>
+                                <span class="demo-mobile-nav__chev" aria-hidden="true"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('demo.christmas') }}" class="demo-mobile-nav__row demo-mobile-nav__row--link">
+                                <span class="demo-mobile-nav__label">Christmas</span>
                                 <span class="demo-mobile-nav__chev" aria-hidden="true"></span>
                             </a>
                         </li>

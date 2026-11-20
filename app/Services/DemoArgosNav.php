@@ -10,6 +10,7 @@ class DemoArgosNav
         $yg = $yg ?? 'https://www.yougarden.com';
 
         return [
+            ['label' => 'Christmas', 'url' => route('demo.christmas')],
             ['label' => 'Popular Garden Plants', 'url' => $yg.'/garden-plants/popular-garden-plants'],
             ['label' => 'Oleander Plants', 'url' => $yg.'/trees-and-shrubs/mediterranean-plants-for-uk-gardens/oleander-plants'],
             ['label' => 'Autumn Bedding', 'url' => $yg.'/garden-plants/bedding-plants/autumn-bedding-plants'],

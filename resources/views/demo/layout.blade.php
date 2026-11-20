@@ -21,6 +21,7 @@
         window.__YG_CART_DRAWER_ENABLED = @json((bool) session('demo_drawer_enabled', true));
         window.YG_DEMO_ROUTES = {
             checkout: @json(route('demo.checkout')),
+            basket: @json(route('demo.basket')),
             checkoutComplete: @json(route('demo.checkout.complete')),
             checkoutVoucher: @json(route('demo.checkout.voucher')),
             checkoutVoucherRemove: @json(route('demo.checkout.voucher.remove')),

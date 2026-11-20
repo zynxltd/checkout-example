@@ -8,7 +8,7 @@
 <div class="yg-mini-basket" data-mini-basket>
     <button
         type="button"
-        class="demo-header__utility demo-header__utility--stacked demo-header__basket demo-header__basket--stacked"
+        class="demo-header__basket demo-header__basket--end"
         data-mini-basket-trigger
         data-open-drawer
         aria-label="Your basket, {{ $miniCount }} item(s), £{{ number_format($miniTotal, 2) }}"
@@ -16,22 +16,21 @@
         aria-expanded="false"
         aria-controls="yg-mini-basket-panel"
     >
-        <span class="demo-header__utility-icon demo-header__basket-icon" aria-hidden="true">
+        <span class="demo-header__basket-icon" aria-hidden="true">
             <img
-                class="demo-header__utility-img demo-header__basket-img"
+                class="demo-header__basket-img"
                 src="{{ asset('images/icons/icon-wheelbarrow.png') }}?v={{ filemtime(public_path('images/icons/icon-wheelbarrow.png')) }}"
                 alt=""
-                width="40"
-                height="34"
+                width="48"
+                height="42"
             >
         </span>
-        <span class="demo-header__utility-label">
-            <span class="demo-header__utility-label-full">Your Basket</span>
-            <span class="demo-header__utility-label-short">Basket</span>
-        </span>
-        <span class="visually-hidden">
-            <span id="topbar-cart-count">{{ $miniCount }}</span> item(s)
-            £<span id="topbar-cart-total">{{ number_format($miniTotal, 2) }}</span>
+        <span class="demo-header__basket-text">
+            <span class="demo-header__utility-title">Your Basket</span>
+            <span class="demo-header__utility-sub">
+                <span id="topbar-cart-count">{{ $miniCount }}</span> item(s)
+                £<span id="topbar-cart-total">{{ number_format($miniTotal, 2) }}</span>
+            </span>
         </span>
     </button>
 

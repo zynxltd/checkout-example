@@ -1,16 +1,34 @@
 @php
     $hasOffer = !empty($cart['offer_code']);
-    $showClub = ! $cart['club_member'] && ! $cart['club_in_cart'] && ($cart['club_savings'] ?? 0) > 0;
+    $testConfig = $cart['test_config'] ?? \App\Support\DemoDrawerVariant::testConfig();
+    $hideYmalMobile = !empty($testConfig['hide_ymal_mobile']);
+    $showRootBoost = !empty($testConfig['show_root_boost'])
+        && empty($cart['is_empty'])
+        && empty($cart['root_boost']['in_basket']);
+    $showSecondaryCta = !empty($testConfig['show_secondary_cta']);
+    $primaryCta = match ($testConfig['primary_cta'] ?? 'checkout') {
+        'basket' => 'basket',
+        'split' => 'split',
+        default => 'checkout',
+    };
+    $offerMode = $testConfig['offer_code_mode'] ?? 'visible';
+    $showClub = !empty($testConfig['show_club'])
+        && ! $cart['club_member']
+        && ! $cart['club_in_cart']
+        && ($cart['club_savings'] ?? 0) > 0;
     $showClubSavings = ($cart['club_member'] || $cart['club_in_cart']) && ($cart['club_member_savings'] ?? 0) > 0;
     $offerDiscount = (float) ($cart['offer_discount'] ?? 0);
     $showReco = $cart['show_upsells'] ?? true;
+    $showRecoInline = $showReco && ! $hideYmalMobile;
     $isEmpty = !empty($cart['is_empty']);
     $drawerV30 = !empty($drawerVariant30);
     $drawerV40 = !empty($cart['feedback_v40']);
+    $showWelcomeBack = !empty($cart['show_welcome_back']);
     $totalRowLabel = $drawerV30 ? 'Subtotal' : 'Total';
+    $drawerExtraClass = \App\Support\DemoDrawerVariant::drawerClass();
 @endphp
 
-<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($drawerV30) yg-drawer--v-3-0 @endif @if($drawerV40) yg-drawer--v-4-0 @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif" id="yg-cart-drawer" style="--yg-drawer-w: {{ (int) ($cart['drawer_width'] ?? 520) }}px;" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
+<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($drawerV30) yg-drawer--v-3-0 @endif @if($drawerV40) yg-drawer--v-4-0 @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif {{ $drawerExtraClass }}" id="yg-cart-drawer" style="--yg-drawer-w: {{ (int) ($cart['drawer_width'] ?? 520) }}px;" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
     <div class="yg-drawer__overlay" data-drawer-close></div>
 
     @if($showClub)
@@ -80,7 +98,7 @@
             </header>
 
             <div class="yg-drawer__body">
-                @if($drawerV40 && !$isEmpty)
+                @if($showWelcomeBack && !$isEmpty)
                 <div class="yg-drawer__returning-note" role="status" aria-live="polite">
                     <span class="yg-drawer__returning-note-icon" aria-hidden="true">
                         <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -185,7 +203,7 @@
                     @endforeach
                 </ul>
 
-                @if($showReco)
+                @if($showRecoInline)
                 @include('demo.partials.reco-inline', ['upsells' => $cart['upsells']])
                 @endif
                 @endif
@@ -202,10 +220,16 @@
                     <span class="yg-club-bar__btn">More Info</span>
                 </button>
                 @endif
+
+                @if($showRootBoost)
+                @include('demo.partials.root-boost', ['cart' => $cart])
+                @endif
+
                 <div class="yg-drawer__summary-inner">
                 @include('demo.partials.codes', [
                     'cart' => $cart,
                     'hasOffer' => $hasOffer,
+                    'offerMode' => $offerMode,
                 ])
 
                 <div class="yg-totals">
@@ -271,18 +295,29 @@
                 @endif
             </div>
 
-            <footer class="yg-drawer__footer">
+            <footer class="yg-drawer__footer @if($primaryCta === 'split') yg-drawer__footer--split @elseif($showSecondaryCta) yg-drawer__footer--dual @endif">
+                @if($primaryCta === 'split')
+                <button type="button" class="yg-checkout yg-checkout--split">
+                    <span class="yg-checkout__label">Checkout</span>
+                </button>
+                <button type="button" class="yg-checkout yg-checkout--split yg-checkout--secondary" data-view-basket>
+                    <span class="yg-checkout__label">View Basket</span>
+                </button>
+                @elseif($primaryCta === 'basket')
+                <button type="button" class="yg-checkout" data-view-basket>
+                    <span class="yg-checkout__label">View Basket</span>
+                </button>
+                @else
                 <button type="button" class="yg-checkout">
-                    <img
-                        class="yg-checkout__icon"
-                        src="{{ asset('images/icons/icon-checkout-cart.png') }}?v={{ filemtime(public_path('images/icons/icon-checkout-cart.png')) }}"
-                        alt=""
-                        width="34"
-                        height="34"
-                    >
                     <span class="yg-checkout__label yg-checkout__label--mobile">Checkout</span>
                     <span class="yg-checkout__label yg-checkout__label--desktop">Proceed to Checkout</span>
                 </button>
+                @endif
+                @if($showSecondaryCta)
+                <a href="{{ route('demo.basket') }}" class="yg-basket-link" data-view-basket>
+                    View Basket
+                </a>
+                @endif
             </footer>
             </div>
         </div>

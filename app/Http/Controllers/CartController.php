@@ -189,7 +189,31 @@ class CartController extends Controller
             return $this->fragment($request);
         }
 
+        if ($key === 'drawer_test_variant') {
+            DemoDrawerVariant::setTestVariant((string) $request->input('variant', '1'));
+
+            return $this->fragment($request);
+        }
+
         $value = $request->boolean('enabled');
+
+        if ($key === 'drawer_show_club') {
+            DemoDrawerVariant::setShowClub($value);
+
+            return $this->fragment($request);
+        }
+
+        if ($key === 'drawer_show_spf') {
+            DemoDrawerVariant::setShowRootBoost($value);
+
+            return $this->fragment($request);
+        }
+
+        if ($key === 'drawer_show_offer') {
+            DemoDrawerVariant::setShowOfferCode($value);
+
+            return $this->fragment($request);
+        }
 
         if ($key === 'compact_v21') {
             DemoDrawerVariant::setEnabled($value);
@@ -207,6 +231,22 @@ class CartController extends Controller
             DemoDrawerVariant::setV40Enabled($value);
 
             return $this->fragment($request);
+        }
+
+        if ($key === 'basket_visual') {
+            $variant = (string) $request->input('variant', '1');
+            session(['demo_basket_visual' => $variant === '2' ? '2' : '1']);
+
+            return response()->json(['ok' => true, 'reload' => true]);
+        }
+
+        if ($key === 'basket_club_promo') {
+            $variant = (string) $request->input('variant', 'off');
+            session([
+                'demo_basket_club_promo' => in_array($variant, ['v1', 'v2', 'v3'], true) ? $variant : 'off',
+            ]);
+
+            return response()->json(['ok' => true, 'reload' => true]);
         }
 
         if ($key === 'checkout_codes_top') {
@@ -242,6 +282,7 @@ class CartController extends Controller
         $map = [
             'delivery_bar' => 'demo_free_delivery_bar',
             'upsells' => 'demo_show_upsells',
+            'welcome_back' => 'demo_show_welcome_back',
             'wide_drawer' => 'demo_wide_drawer',
             'apple_pay' => 'demo_show_apple_pay',
             'clearpay' => 'demo_show_clearpay',

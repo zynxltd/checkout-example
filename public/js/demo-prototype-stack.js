@@ -3,15 +3,35 @@
     const HIDDEN_KEY = 'yg_demo_prototype_stack_hidden';
 
     function ensureDockLabel(dock) {
-        if (!dock || dock.querySelector('.demo-prototype-stack__dock-label')) {
+        if (!dock) {
             return;
         }
 
-        const label = document.createElement('span');
-        label.className = 'demo-prototype-stack__dock-label';
-        label.textContent = dock.textContent.trim();
-        dock.textContent = '';
-        dock.appendChild(label);
+        const cogSvg = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2.5M12 20.5V23M4.22 4.22l1.77 1.77M17.99 17.99l1.77 1.77M1 12h2.5M20.5 12H23M4.22 19.78l1.77-1.77M17.99 6.01l1.77-1.77"/></svg>';
+
+        if (!dock.getAttribute('aria-label')) {
+            dock.setAttribute('aria-label', 'Prototype tools');
+        }
+
+        dock.querySelector('.demo-prototype-stack__dock-label')?.remove();
+
+        let icon = dock.querySelector('.demo-prototype-stack__dock-icon');
+        if (!icon) {
+            icon = document.createElement('span');
+            icon.className = 'demo-prototype-stack__dock-icon';
+            icon.setAttribute('aria-hidden', 'true');
+            icon.innerHTML = cogSvg;
+            dock.textContent = '';
+            dock.appendChild(icon);
+            return;
+        }
+
+        // Clear leftover text nodes; keep icon only
+        Array.from(dock.childNodes).forEach((node) => {
+            if (node !== icon) {
+                node.remove();
+            }
+        });
     }
 
     function ensureDismiss(stack) {

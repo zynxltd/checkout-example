@@ -7,6 +7,13 @@
         </div>
         <div class="demo-prototype-stack__content">
             @include('demo.partials.prototype-tools-shared')
+            <aside class="demo-controls" aria-label="Payment method controls">
+                <h3>Payment methods</h3>
+                <label class="demo-toggle"><input type="checkbox" id="toggle-apple-pay" data-option="apple_pay" {{ ($cart['show_apple_pay'] ?? true) ? 'checked' : '' }}><span>Apple Pay (express button)</span></label>
+                <label class="demo-toggle"><input type="checkbox" id="toggle-clearpay" data-option="clearpay" {{ ($cart['show_clearpay'] ?? false) ? 'checked' : '' }}><span>Clearpay</span></label>
+                <label class="demo-toggle"><input type="checkbox" id="toggle-klarna" data-option="klarna" {{ ($cart['show_klarna'] ?? false) ? 'checked' : '' }}><span>Klarna</span></label>
+                <p class="demo-controls__hint">BNPL options in checkout payment stack (prototype only).</p>
+            </aside>
             <aside class="demo-controls" aria-label="Checkout prototype controls">
                 <h3>Checkout layout</h3>
                 <label class="demo-toggle">

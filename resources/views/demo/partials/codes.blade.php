@@ -1,5 +1,10 @@
 {{-- Offer code only in basket; gift vouchers move to checkout (AMO) --}}
-<div class="yg-codes" id="yg-codes">
+@php
+    $offerMode = $offerMode ?? (($cart['test_config']['offer_code_mode'] ?? 'visible'));
+    $showOfferBlock = $offerMode !== 'hidden' || $hasOffer;
+@endphp
+@if($showOfferBlock)
+<div class="yg-codes @if($offerMode === 'dropdown' && !$hasOffer) yg-codes--dropdown @endif" id="yg-codes">
     <p class="yg-codes__error" id="yg-code-error" hidden></p>
 
     @if($hasOffer)
@@ -14,7 +19,32 @@
         </span>
         <button type="button" class="yg-code-row__action" data-remove-code="offer">Remove</button>
     </div>
-    @else
+    @elseif($offerMode === 'dropdown')
+    <details class="yg-codes__details">
+        <summary class="yg-codes__summary">
+            <span class="yg-codes__summary-label">Have an offer code?</span>
+            <span class="yg-codes__summary-chev" aria-hidden="true">▾</span>
+        </summary>
+        <div class="yg-codes__offer">
+            <p class="yg-codes__label" id="yg-code-label">Offer code</p>
+            <div class="yg-code-row">
+                <input
+                    id="yg-input-offer"
+                    type="text"
+                    name="offer"
+                    placeholder="Enter offer code"
+                    autocomplete="off"
+                    aria-labelledby="yg-code-label"
+                    aria-describedby="yg-code-hint"
+                >
+                <button type="button" data-apply-code="offer">Apply code</button>
+            </div>
+            <p class="yg-codes__hint" id="yg-code-hint">
+                Have a gift or postage voucher? <a href="{{ route('demo.checkout') }}#co-voucher-input" class="yg-codes__hint-link">Apply at checkout</a>.
+            </p>
+        </div>
+    </details>
+    @elseif($offerMode !== 'hidden')
     <div class="yg-codes__offer">
         <p class="yg-codes__label" id="yg-code-label">Offer code</p>
         <div class="yg-code-row">
@@ -35,3 +65,4 @@
     </div>
     @endif
 </div>
+@endif

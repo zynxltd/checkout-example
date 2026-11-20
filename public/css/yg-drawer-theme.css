@@ -2,7 +2,7 @@
 
 .yg-drawer-theme {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     align-items: flex-start;
     width: 100%;
     max-width: 280px;
@@ -30,27 +30,36 @@
     filter: brightness(1.08);
 }
 
+.yg-drawer-theme.is-open .yg-drawer-theme__toggle {
+    border-radius: 10px 10px 0 0;
+    box-shadow: none;
+}
+
 .yg-drawer-theme__panel {
     display: none;
     width: 100%;
     max-width: 280px;
-    max-height: min(50vh, 420px);
-    margin: 0 0 8px;
-    padding: 14px 16px 16px;
-    overflow-y: auto;
+    max-height: min(70vh, calc(100dvh - 9rem));
+    margin: 0;
+    padding: 12px 14px 14px;
+    overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 10px;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
     background: #1b3a14;
     color: #f4efe6;
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
 }
 
 .yg-drawer-theme.is-open .yg-drawer-theme__panel {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
 }
 
 .yg-drawer-theme__title {
+    flex: 0 0 auto;
     margin: 0 0 4px;
     font-size: 14px;
     font-weight: 700;
@@ -58,19 +67,26 @@
 }
 
 .yg-drawer-theme__hint {
-    margin: 0 0 12px;
+    flex: 0 0 auto;
+    margin: 0 0 10px;
     font-size: 12px;
     line-height: 1.4;
     color: #d5e0cf;
 }
 
 .yg-drawer-theme__fields {
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin: 0 0 12px;
-    padding: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0 2px 4px 0;
+    overflow-x: hidden;
+    overflow-y: auto;
     list-style: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .yg-drawer-theme__field {
@@ -97,7 +113,9 @@
 }
 
 .yg-drawer-theme__reset {
+    flex: 0 0 auto;
     width: 100%;
+    margin-top: 10px;
     padding: 8px 12px;
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 8px;
@@ -114,7 +132,7 @@
 }
 
 @media (max-width: 767px) {
-    .yg-drawer-theme.is-open .yg-drawer-theme__panel {
-        max-height: min(40vh, 360px);
+    .yg-drawer-theme__panel {
+        max-height: min(55vh, calc(100dvh - 10rem));
     }
 }

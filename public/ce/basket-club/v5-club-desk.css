@@ -1,0 +1,682 @@
+/**
+ * V5 Club Desktop/Tablet — club promo banner only
+ * Pair: v5-club-desk.js · ce-boot-v5-club-desk.js
+ * Breakpoints: ≥1101 desktop · ≤1100 compact · ≤900 tablet (scaled 3-col)
+ * Does not run on ≤640 (see v5-club-mob).
+ */
+
+html[data-ygbc5="1"] {
+  --ygbc5-purple: #7b277b;
+  --ygbc5-opt: #570e57;
+  --ygbc5-lime: #cce083;
+  --ygbc5-gelica: "gelica", Georgia, "Times New Roman", serif;
+}
+
+#ygbc5-root,
+#ygbc5-root * { box-sizing: border-box; }
+
+#ygbc5-root {
+  --ygbc5-purple: #7b277b;
+  --ygbc5-opt: #570e57;
+  --ygbc5-lime: #cce083;
+  --ygbc5-gelica: "gelica", Georgia, "Times New Roman", serif;
+  clear: both;
+  width: 100%;
+  margin: 0 0 18px !important;
+  padding-top: 8px !important;
+  overflow: visible !important;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+  background: transparent;
+  border: 0;
+}
+
+html[data-ygbc5="1"] .viewordLeftWrapper,
+html[data-ygbc5="1"] .buttonPromoWrapper {
+  overflow: visible !important;
+}
+
+html[data-ygbc5="1"] .viewordLeftWrapper table.mainTable,
+html[data-ygbc5="1"] table.mainTable {
+  margin-bottom: 16px !important;
+}
+
+#ygbc5-inner {
+  position: relative;
+  display: grid;
+  /* Lead a touch narrower so middle has room */
+  grid-template-columns: minmax(190px, 0.9fr) minmax(300px, 1.55fr) minmax(140px, 0.55fr);
+  gap: 0;
+  align-items: stretch;
+  /* Clear SPF strip + room for C logo overhang */
+  margin-top: 8px;
+  min-height: 152px;
+  background: var(--ygbc5-purple) !important;
+  border-radius: 6px;
+  overflow: visible !important;
+}
+
+/* Logo: purple corner sits through centre of C mark */
+#ygbc5-logo {
+  position: absolute;
+  left: -22px;
+  top: -24px;
+  width: 72px;
+  height: auto;
+  z-index: 5;
+  display: block;
+  pointer-events: none;
+  border: 0;
+}
+
+#ygbc5-lead {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100%;
+  /* Minimal pad — Join/Save sits close to edges */
+  padding: 10px 6px 10px 20px;
+  min-width: 0;
+  z-index: 1;
+}
+
+#ygbc5-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  width: max-content;
+  max-width: 100%;
+}
+
+#ygbc5-eyebrow,
+#ygbc5-save,
+#ygbc5-sub {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--ygbc5-gelica) !important;
+  color: #ffffff !important;
+  line-height: 1.02 !important;
+  text-align: center !important;
+}
+
+#ygbc5-eyebrow {
+  font-size: 22px !important;
+  font-weight: 400 !important;
+}
+
+#ygbc5-save {
+  font-size: clamp(30px, 3.2vw, 40px) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  white-space: nowrap !important;
+}
+
+#ygbc5-sub {
+  margin-bottom: 12px !important;
+  font-size: 22px !important;
+  font-weight: 400 !important;
+}
+
+#ygbc5-more,
+html[data-ygbc5="1"] a#ygbc5-more {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+  margin: 0 !important;
+  padding: 9px 24px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: var(--ygbc5-opt) !important;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  line-height: 1.2 !important;
+  box-shadow: none !important;
+}
+
+#ygbc5-benefits {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px 16px;
+  /* Top-align so icons/text share one baseline (van text is taller) */
+  align-content: center !important;
+  align-items: start !important;
+  justify-items: center;
+  height: 100%;
+  /* Clear both vertical dividers — no text overlap */
+  padding: 14px 20px;
+  text-align: center;
+  z-index: 1;
+  overflow: hidden;
+}
+
+#ygbc5-benefits::before,
+#ygbc5-benefits::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 76%;
+  max-height: 112px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 8%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.15) 92%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+#ygbc5-benefits::before {
+  left: 0;
+}
+
+#ygbc5-benefits::after {
+  /* Nudge 2nd divider left */
+  right: 10px;
+}
+
+.ygbc5-benefit {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  max-width: none;
+}
+
+.ygbc5-benefit img {
+  display: block;
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  margin: 0;
+  object-fit: contain;
+  object-position: center bottom;
+  border: 0;
+}
+
+.ygbc5-benefit-label {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+  min-height: 4.4em;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  color: #ffffff !important;
+  text-align: center !important;
+}
+
+.ygbc5-benefit-label span {
+  color: #ffffff !important;
+}
+
+.ygbc5-benefit-label strong {
+  display: block;
+  font-weight: 700 !important;
+  font-size: 17px !important;
+  color: #ffffff !important;
+  margin: 0 0 2px !important;
+  line-height: 1.15 !important;
+}
+
+/* Worth on its own line under P&P Vouchers — force white (site spans are grey) */
+.ygbc5-worth {
+  display: block !important;
+  width: 100% !important;
+  margin-top: 2px !important;
+  white-space: nowrap !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  color: #ffffff !important;
+}
+
+#ygbc5-choose {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100%;
+  gap: 10px;
+  /* Compact radios column */
+  padding: 12px 8px;
+  z-index: 1;
+}
+
+.ygbc5-opt {
+  position: relative;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px;
+  width: 100% !important;
+  max-width: 220px !important;
+  margin: 0 auto !important;
+  padding: 9px 10px 9px 8px !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 8px;
+  background: var(--ygbc5-opt) !important;
+  cursor: pointer;
+  color: #fff !important;
+  min-height: 58px;
+  box-sizing: border-box !important;
+}
+
+.ygbc5-opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ygbc5-radio {
+  flex: 0 0 auto !important;
+  align-self: center !important;
+  width: 16px;
+  height: 16px;
+  margin: 0 !important;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: transparent;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.ygbc5-opt.is-selected .ygbc5-radio {
+  background: var(--ygbc5-lime);
+  box-shadow: inset 0 0 0 3px var(--ygbc5-opt);
+  border-color: var(--ygbc5-lime);
+}
+
+.ygbc5-opt-text {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1px;
+  min-width: 0;
+  width: 100%;
+  text-align: center !important;
+  font-family: var(--ygbc5-gelica) !important;
+  color: #ffffff !important;
+  line-height: 1.1 !important;
+}
+
+.ygbc5-opt-title {
+  display: block !important;
+  width: 100%;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+}
+
+.ygbc5-opt-price {
+  display: block !important;
+  width: 100%;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  line-height: 1.05 !important;
+  text-align: center !important;
+}
+
+.ygbc5-opt-meta {
+  display: block !important;
+  width: 100%;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+/* One Year: £20 then No Auto Renew on one line, centered */
+.ygbc5-opt-row {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0;
+  width: 100%;
+}
+
+.ygbc5-opt-row .ygbc5-opt-price {
+  display: block !important;
+  font-size: 26px !important;
+  line-height: 1 !important;
+  text-align: center !important;
+}
+
+.ygbc5-opt-row .ygbc5-opt-meta {
+  display: block !important;
+  font-size: 12px !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+.ygbc5-was {
+  text-decoration: line-through;
+  opacity: 0.9;
+}
+
+/* Sidebar — logo + Save MORE (full width like V3/V4) */
+html[data-ygbc5="1"] .viewordRightWrapper,
+html[data-ygbc5="1"] .viewordRightWrapper .clubSavingWrapper,
+html[data-ygbc5="1"] #ygbc5-side {
+  overflow: visible !important;
+}
+
+#ygbc5-side,
+html[data-ygbc5="1"] .clubSavingWrapper {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 100% !important;
+  padding: 0 !important;
+  margin: 8px 0 10px !important;
+  background: transparent !important;
+  border: 0 !important;
+  overflow: visible !important;
+  float: none !important;
+  clear: both !important;
+  box-sizing: border-box !important;
+}
+
+#ygbc5-side-link {
+  position: relative;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 44px !important;
+  text-decoration: none !important;
+  overflow: visible !important;
+  line-height: 1 !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+
+/* Continuous purple flow under badge → right edge (not a separate Save MORE block) */
+#ygbc5-side-link::before {
+  content: "";
+  position: absolute;
+  left: 16%;
+  right: 0;
+  top: 50%;
+  height: 36px;
+  margin-top: -18px;
+  background: #7b277b !important;
+  border-radius: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#ygbc5-side-logo {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto !important;
+  width: 58% !important;
+  max-width: 150px !important;
+  height: auto !important;
+  max-height: 48px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  object-fit: contain;
+  object-position: left center;
+}
+
+#ygbc5-side-save {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-width: 0 !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  margin: 0 !important;
+  padding: 0 12px 0 4px !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em;
+  text-align: center !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+}
+
+/* —— Compact desktop / large tablet —— */
+@media (max-width: 1100px) {
+  #ygbc5-inner {
+    grid-template-columns: minmax(160px, 0.85fr) minmax(240px, 1.5fr) minmax(130px, 0.6fr);
+    min-height: 140px;
+    margin-top: 8px;
+  }
+
+  #ygbc5-logo {
+    width: 64px;
+    left: -18px;
+    top: -20px;
+  }
+
+  #ygbc5-lead {
+    padding: 10px 4px 10px 16px;
+  }
+
+  #ygbc5-eyebrow,
+  #ygbc5-sub {
+    font-size: 18px !important;
+  }
+
+  #ygbc5-save {
+    font-size: clamp(26px, 3vw, 34px) !important;
+  }
+
+  #ygbc5-more,
+  html[data-ygbc5="1"] a#ygbc5-more {
+    padding: 8px 18px !important;
+    font-size: 15px !important;
+  }
+
+  #ygbc5-benefits {
+    gap: 4px 10px;
+    padding: 12px 14px;
+  }
+
+  .ygbc5-benefit img {
+    flex: 0 0 58px;
+    width: 58px;
+    height: 58px;
+  }
+
+  .ygbc5-benefit-label {
+    font-size: 12px !important;
+    min-height: 4em;
+  }
+
+  .ygbc5-benefit-label strong {
+    font-size: 15px !important;
+  }
+
+  .ygbc5-worth {
+    font-size: 11px !important;
+  }
+
+  #ygbc5-choose {
+    padding: 10px 6px;
+    gap: 8px;
+  }
+
+  .ygbc5-opt {
+    max-width: 200px !important;
+    min-height: 52px;
+    padding: 8px 8px 8px 6px !important;
+  }
+
+  .ygbc5-opt-price {
+    font-size: 18px !important;
+  }
+
+  .ygbc5-opt-row .ygbc5-opt-price {
+    font-size: 22px !important;
+  }
+
+  .ygbc5-opt-title {
+    font-size: 12px !important;
+  }
+
+  .ygbc5-opt-meta {
+    font-size: 11px !important;
+  }
+}
+
+/* —— Tablet: same desktop 3-col, scaled down (no reflow) —— */
+@media (max-width: 900px) and (min-width: 641px) {
+  /* Keep desktop 3-column structure */
+  #ygbc5-inner {
+    display: grid !important;
+    grid-template-columns: minmax(140px, 0.9fr) minmax(200px, 1.5fr) minmax(120px, 0.65fr) !important;
+    grid-template-areas: none !important;
+    margin-top: 6px;
+    min-height: 128px;
+  }
+
+  #ygbc5-logo {
+    position: absolute !important;
+    left: -14px;
+    top: -18px;
+    width: 56px;
+    grid-area: auto !important;
+  }
+
+  #ygbc5-lead {
+    grid-area: auto !important;
+    padding: 10px 4px 10px 14px;
+  }
+
+  #ygbc5-eyebrow,
+  #ygbc5-sub {
+    font-size: 15px !important;
+  }
+
+  #ygbc5-save {
+    font-size: clamp(22px, 3.5vw, 28px) !important;
+  }
+
+  #ygbc5-more,
+  html[data-ygbc5="1"] a#ygbc5-more {
+    display: inline-flex !important;
+    padding: 7px 14px !important;
+    font-size: 13px !important;
+  }
+
+  #ygbc5-benefits {
+    grid-area: auto !important;
+    display: grid !important;
+    padding: 10px 12px;
+    gap: 4px 8px;
+  }
+
+  #ygbc5-benefits::before,
+  #ygbc5-benefits::after {
+    display: block;
+  }
+
+  #ygbc5-benefits::after {
+    right: 8px;
+  }
+
+  #ygbc5-choose {
+    grid-area: auto !important;
+    padding: 10px 6px;
+    gap: 7px;
+  }
+
+  #ygbc5-choose::before {
+    display: none !important;
+  }
+
+  .ygbc5-benefit img {
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .ygbc5-benefit-label {
+    font-size: 11px !important;
+    min-height: 3.6em;
+  }
+
+  .ygbc5-benefit-label strong {
+    font-size: 13px !important;
+  }
+
+  .ygbc5-worth {
+    font-size: 10px !important;
+  }
+
+  .ygbc5-opt {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-height: 48px;
+    padding: 7px 8px 7px 6px !important;
+  }
+
+  .ygbc5-opt-title {
+    font-size: 11px !important;
+  }
+
+  .ygbc5-opt-price {
+    font-size: 16px !important;
+  }
+
+  .ygbc5-opt-row .ygbc5-opt-price {
+    font-size: 18px !important;
+  }
+
+  .ygbc5-opt-meta {
+    font-size: 10px !important;
+  }
+
+  
