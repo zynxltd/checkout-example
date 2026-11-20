@@ -6,7 +6,6 @@
     $showReco = (bool) session('demo_show_upsells', true);
     $showWelcomeBack = (bool) session('demo_show_welcome_back', false);
     $basketVisual = \App\Services\DemoCart::basketVisual();
-    $basketClubPromo = \App\Services\DemoCart::basketClubPromo();
     $onBasketPage = request()->routeIs('demo.basket');
 @endphp
 <aside class="demo-controls" data-drawer-width aria-label="Cart drawer width">
@@ -27,19 +26,7 @@
                 aria-pressed="{{ $basketVisual === '2' ? 'true' : 'false' }}"
             >Variant 2</button>
         </div>
-        <p class="demo-controls__hint">V1 = live basket. V2 = drawer-aligned styling.</p>
-        <p class="demo-controls__label">Club promo banner</p>
-        <div class="demo-variant-toggle demo-variant-toggle--wrap" role="group" aria-label="Basket club promo variant">
-            @foreach (['off' => 'Off', 'v1' => 'V1', 'v2' => 'V2', 'v3' => 'V3'] as $key => $label)
-                <button
-                    type="button"
-                    class="demo-variant-toggle__btn{{ $basketClubPromo === $key ? ' is-active' : '' }}"
-                    data-basket-club-promo="{{ $key }}"
-                    aria-pressed="{{ $basketClubPromo === $key ? 'true' : 'false' }}"
-                >{{ $label }}</button>
-            @endforeach
-        </div>
-        <p class="demo-controls__hint">Crazy Egg club promo below SPF. Off hides it.</p>
+        <p class="demo-controls__hint">V1 = live basket. V2 = drawer-aligned styling. Club promo uses V3.</p>
     @endif
     <h3>Cart drawer</h3>
     <p class="demo-controls__label">Desktop width</p>

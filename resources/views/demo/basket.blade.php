@@ -4,9 +4,7 @@
 @php
     $basketVisual = ($cart['basket_visual'] ?? '1') === '2' ? '2' : '1';
     $basketBodyClass = 'demo-basket-page'.($basketVisual === '2' ? ' demo-basket-page--v2' : '');
-    $clubPromo = in_array(($cart['basket_club_promo'] ?? 'off'), ['v1', 'v2', 'v3'], true)
-        ? $cart['basket_club_promo']
-        : 'off';
+    $clubPromo = 'v3';
 @endphp
 @section('body_class', $basketBodyClass)
 
@@ -21,7 +19,7 @@
     $orderTotal = (float) ($cart['total'] ?? ($subtotal + $delivery));
     $clubSavings = (float) ($cart['club_savings'] ?? 0);
     $showClub = $clubSavings > 0 && empty($cart['club_in_cart']) && empty($cart['club_member']);
-    $showClubPromo = $clubPromo !== 'off' && $showClub;
+    $showClubPromo = $showClub;
     $clubSavingLabel = '£'.number_format($clubSavings, 2);
     $offerCode = $cart['offer_code'] ?? null;
     $voucherCode = $cart['voucher_code'] ?? null;
@@ -71,7 +69,7 @@
                                 href="{{ $checkoutUrl }}"
                                 class="co-express-btn co-express-btn--paypal ce-express-face"
                                 aria-label="Buy with PayPal"
-                                style="--co-express-bg: url('{{ asset('images/payments/express/paypal-button.png') }}')"
+                                style="--co-express-bg: url('{{ asset('images/payments/express/paypal-button.svg') }}')"
                             >
                                 <span class="ce-express-label">Buy with PayPal</span>
                             </a>
@@ -81,7 +79,7 @@
                                 href="{{ $checkoutUrl }}"
                                 class="co-express-btn co-express-btn--amazon ce-express-face"
                                 aria-label="Amazon Pay"
-                                style="--co-express-bg: url('{{ asset('images/payments/express/amazon-pay-button.png') }}')"
+                                style="--co-express-bg: url('{{ asset('images/payments/express/amazon-pay-button.svg') }}')"
                             >
                                 <span class="ce-express-label">amazon pay</span>
                             </a>
@@ -89,10 +87,13 @@
                         <div class="ce-express-slot ce-express-slot--apple">
                             <a
                                 href="{{ $checkoutUrl }}"
-                                class="co-express-btn co-express-btn--apple ce-express-face"
+                                class="co-express-btn co-express-btn--apple ce-express-face ce-express-face--svg"
                                 aria-label="Pay with Apple Pay"
-                                style="--co-express-bg: url('{{ asset('images/payments/express/apple-pay-button.png') }}')"
                             >
+                                {{-- Inline SVG stays sharp on retina; <img>/CSS-bg SVGs rasterise soft in Chrome --}}
+                                <span class="ce-express-artwork" aria-hidden="true">
+                                    @include('demo.partials.apple-pay-button-svg')
+                                </span>
                                 <span class="ce-express-label">Pay with Apple Pay</span>
                             </a>
                         </div>
@@ -180,7 +181,7 @@
                                         <button type="button" class="remove" data-basket-remove="{{ $sku }}">x Remove</button>
                                     </div>
                                 </td>
-                                <td style="background:#F1F2F0;">
+                                <td class="lineTotalCell">
                                     <div class="lineTotal">&nbsp; £{{ number_format($lineTotal, 2) }}</div>
                                 </td>
                             </tr>

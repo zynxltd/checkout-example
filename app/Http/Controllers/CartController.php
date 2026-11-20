@@ -240,15 +240,6 @@ class CartController extends Controller
             return response()->json(['ok' => true, 'reload' => true]);
         }
 
-        if ($key === 'basket_club_promo') {
-            $variant = (string) $request->input('variant', 'off');
-            session([
-                'demo_basket_club_promo' => in_array($variant, ['v1', 'v2', 'v3'], true) ? $variant : 'off',
-            ]);
-
-            return response()->json(['ok' => true, 'reload' => true]);
-        }
-
         if ($key === 'checkout_codes_top') {
             session(['demo_checkout_codes_top' => $value]);
 

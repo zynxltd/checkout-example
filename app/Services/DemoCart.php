@@ -1702,10 +1702,6 @@ class DemoCart
             session(['demo_basket_visual' => '1']);
         }
 
-        if (! session()->has('demo_basket_club_promo')) {
-            session(['demo_basket_club_promo' => 'off']);
-        }
-
         if (session()->has('demo_cart_items')) {
             return;
         }
@@ -1765,12 +1761,10 @@ class DemoCart
         return session('demo_basket_visual') === '2' ? '2' : '1';
     }
 
-    /** Basket page Crazy Egg club promo: off|v1|v2|v3. */
+    /** Basket page Crazy Egg club promo — locked to V3. */
     public static function basketClubPromo(): string
     {
-        $variant = (string) session('demo_basket_club_promo', 'off');
-
-        return in_array($variant, ['v1', 'v2', 'v3'], true) ? $variant : 'off';
+        return 'v3';
     }
 
     public static function hasRootBoostInCart(): bool

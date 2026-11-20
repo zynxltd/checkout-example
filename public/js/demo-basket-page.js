@@ -223,32 +223,6 @@
         });
     });
 
-    const clubPromoButtons = document.querySelectorAll('[data-basket-club-promo]');
-    clubPromoButtons.forEach((btn) => {
-        if (!btn.matches('button')) return;
-        btn.addEventListener('click', async () => {
-            const variant = btn.getAttribute('data-basket-club-promo') || 'off';
-            clubPromoButtons.forEach((el) => {
-                if (!el.matches('button')) return;
-                const active = el === btn;
-                el.classList.toggle('is-active', active);
-                el.setAttribute('aria-pressed', active ? 'true' : 'false');
-            });
-
-            if (!routes.toggleOption) return;
-            try {
-                const res = await post(routes.toggleOption, {
-                    key: 'basket_club_promo',
-                    variant,
-                });
-                const data = await res.json().catch(() => ({}));
-                if (data.reload || res.ok) reload();
-            } catch (err) {
-                console.error('[demo] basket club promo failed', err);
-            }
-        });
-    });
-
     async function addClub(sku, btn) {
         if (!sku) return;
         const url = routes.club || routes.add;
