@@ -907,6 +907,12 @@ body.demo-basket-page--v2 .upsellsWrapper .mainButtonGreen {
     body.demo-basket-page--v2 .mainTable {
         table-layout: auto;
     }
+
+    /* Club promo banner — desktop / tablet only */
+    body.demo-basket-page--v2 #ygbc3-root,
+    body.demo-basket-page--v2 [data-basket-club-promo] {
+        display: none !important;
+    }
 }
 
 /* —— Consistent 8px corners (match basket table) —— */

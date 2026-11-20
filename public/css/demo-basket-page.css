@@ -737,6 +737,10 @@ body.demo-basket-page .viewordClear {
 @media only screen and (max-width: 767px) {
     body.demo-basket-page .mobile-only { display: block !important; }
     body.demo-basket-page .mobile-hide { display: none !important; }
+    body.demo-basket-page #ygbc3-root,
+    body.demo-basket-page [data-basket-club-promo] {
+        display: none !important;
+    }
     body.demo-basket-page .viewordLeftWrapper { width: 100%; }
     body.demo-basket-page .h1Wrapper h1,
     body.demo-basket-page .mainTable { float: left; width: 100%; }
