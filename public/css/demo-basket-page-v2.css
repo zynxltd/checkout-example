@@ -389,55 +389,66 @@ body.demo-basket-page--v2 .totalsContainer .subTotalsRow.total .total {
     color: var(--yg-pebble) !important;
 }
 
-/* Club member saving — match live vieword right column */
+/* Club member saving — clean purple card, no hairline under header */
 body.demo-basket-page--v2 .clubSavingWrapper {
+    --yg-club-card: #812881;
     float: none !important;
     clear: both !important;
     display: block !important;
     width: 100% !important;
-    margin: 12px 0 0 !important;
+    margin: 12px 0 4px !important;
     padding: 0 !important;
-    background: #fff !important;
-    border: 1px solid var(--yg-border) !important;
+    background: var(--yg-club-card) !important;
+    border: none !important;
     border-radius: var(--yg-radius-sm) !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
 }
 
 body.demo-basket-page--v2 .clubSavingWrapper > a {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
     text-decoration: none !important;
     color: inherit !important;
+    gap: 0 !important;
 }
 
 body.demo-basket-page--v2 .clubSavingHeader {
     float: none !important;
     margin: 0 !important;
     width: 100% !important;
-    padding: 10px 8px !important;
-    background: #331b4d !important;
+    padding: 11px 12px 10px !important;
+    background: var(--yg-club-card) !important;
     color: #fff !important;
     font-family: var(--yg-body) !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
     line-height: 1.25 !important;
+    letter-spacing: 0.01em !important;
     text-align: center !important;
+    border: 0 !important;
 }
 
 body.demo-basket-page--v2 .clubSavingWrapper .clubSaving {
     float: none !important;
     margin: 0 !important;
-    padding: 12px 8px !important;
+    padding: 14px 12px !important;
     width: 100% !important;
     background: #fff !important;
-    color: #331b4d !important;
+    color: var(--yg-club-card) !important;
     font-family: var(--yg-body) !important;
-    font-size: 28px !important;
+    font-size: 30px !important;
     font-weight: 700 !important;
     font-style: normal !important;
-    line-height: 1.2 !important;
+    line-height: 1.1 !important;
     text-align: center !important;
+    border: 0 !important;
     box-sizing: border-box !important;
+}
+
+/* Avoid double line: club card + offer section border-top */
+body.demo-basket-page--v2 .clubSavingWrapper + .mediaSelectWrapper {
+    border-top: none !important;
 }
 
 /* Offer + voucher — match live: field + rectangular Apply */
