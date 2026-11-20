@@ -377,6 +377,7 @@ body.demo-basket-page--v2 .totalsContainer .subTotalsRow.total {
     font-weight: 700;
     /* Match original grey Order Total bar */
     background: #f1f2f0 !important;
+    border-radius: var(--yg-radius-sm) !important;
     width: auto !important;
     box-sizing: border-box !important;
 }
