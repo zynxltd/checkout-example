@@ -458,14 +458,19 @@ body.demo-basket-page--v2 .voucherWrapper {
     width: 100% !important;
     margin: 0 !important;
     padding: 14px 14px 8px !important;
-    background: #fff !important;
     border: none !important;
     border-top: 1px solid var(--yg-border) !important;
     box-sizing: border-box;
 }
 
+/* Live vieword: offer code strip is light grey; voucher stays white */
+body.demo-basket-page--v2 .mediaSelectWrapper {
+    background: #f1f2f0 !important;
+}
+
 body.demo-basket-page--v2 .voucherWrapper {
     padding: 8px 14px 14px !important;
+    background: #fff !important;
     border-top-color: #f0ebe4 !important;
 }
 
