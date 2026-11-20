@@ -13,7 +13,7 @@ body.demo-basket-page--v2 {
     --yg-checkout-dark: #468900;
     --yg-muted: #7a726c;
     --yg-border: #e0d6cb;
-    --yg-radius-sm: 4px;
+    --yg-radius-sm: 8px;
     --yg-heading: var(--yg-font-heading, Georgia, "Times New Roman", serif);
     --yg-body: var(--yg-font-body, "proxima-nova", "Proxima Nova", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 }
@@ -168,7 +168,7 @@ body.demo-basket-page--v2 .qtyWrapper {
     margin: 0;
     background: #fafafa;
     border: 1px solid var(--yg-border);
-    border-radius: var(--yg-radius-sm, 4px);
+    border-radius: var(--yg-radius-sm, 8px);
     overflow: hidden;
 }
 
@@ -224,7 +224,7 @@ body.demo-basket-page--v2 .remove {
     padding: 6px 12px;
     background: transparent;
     border: 1px solid var(--yg-border);
-    border-radius: var(--yg-radius-sm, 4px);
+    border-radius: var(--yg-radius-sm, 8px);
     color: var(--yg-muted);
     font-family: var(--yg-body);
     font-size: 12px;
@@ -259,6 +259,8 @@ body.demo-basket-page--v2 .mainTable .lineTotal {
 body.demo-basket-page--v2 .viewordRightWrapper {
     background: #fff !important;
     border: 1px solid var(--yg-border) !important;
+    /* Match checkout CTA radius — was square while the button was 8px */
+    border-radius: var(--yg-radius-sm, 8px) !important;
     box-shadow: 0 -10px 18px -6px rgba(72, 63, 58, 0.12);
     padding: 0 !important;
     box-sizing: border-box;
@@ -285,11 +287,14 @@ body.demo-basket-page--v2 .checkoutButton {
     justify-content: center;
     gap: 10px;
     width: 100% !important;
+    /* Match express PayPal / Amazon / Apple height */
+    height: 48px !important;
+    min-height: 48px !important;
     box-sizing: border-box;
     margin: 0 !important;
-    padding: 14px 16px !important;
+    padding: 0 16px !important;
     border: none !important;
-    border-radius: var(--yg-radius-sm, 4px) !important;
+    border-radius: var(--yg-radius-sm, 8px) !important;
     background: var(--yg-checkout) !important;
     color: #fff !important;
     font-family: var(--yg-heading) !important;
@@ -299,6 +304,13 @@ body.demo-basket-page--v2 .checkoutButton {
     text-transform: none !important;
     letter-spacing: 0.01em;
     transition: filter 0.15s ease;
+}
+
+@media (max-width: 599px) {
+    body.demo-basket-page--v2 .checkoutButton {
+        height: 44px !important;
+        min-height: 44px !important;
+    }
 }
 
 body.demo-basket-page--v2 .checkoutButton:hover {
@@ -430,7 +442,7 @@ body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper {
 
 body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper .more {
     display: inline-block;
-    border-radius: var(--yg-radius-sm, 4px);
+    border-radius: var(--yg-radius-sm, 8px);
     padding: 7px 14px;
     background: var(--yg-rose);
     color: #fff !important;
@@ -465,11 +477,13 @@ body.demo-basket-page--v2 .voucherWrapper {
 body.demo-basket-page--v2 .mediaSelectWrapper .head,
 body.demo-basket-page--v2 .voucherWrapper .head {
     float: none !important;
-    margin: 0 0 6px !important;
+    margin: 0 0 8px !important;
     font-family: var(--yg-body) !important;
-    font-size: 13px !important;
+    /* Match live basket — same olive as Apply, larger title */
+    font-size: 18px !important;
     font-weight: 700 !important;
-    color: var(--yg-forest) !important;
+    line-height: 1.25 !important;
+    color: #7d864f !important;
 }
 
 body.demo-basket-page--v2 .mediaSelectWrapper form,
@@ -569,42 +583,212 @@ body.demo-basket-page--v2 .upsellsWrapper .upsellHeading {
     color: var(--yg-forest) !important;
 }
 
-/* YMAL ATC — live full-width square buttons */
+/* YMAL cards — 8px corners (image + ATC clip via overflow) */
+body.demo-basket-page--v2 .upsell-box {
+    border-radius: var(--yg-radius-sm, 8px);
+    border-color: var(--yg-border);
+    overflow: hidden;
+}
+
+/* ATC flush to card edges — radius comes from the card */
 body.demo-basket-page--v2 .upsellsWrapper .mainButtonGreen {
-    border-radius: var(--yg-radius-sm, 4px) !important;
+    border-radius: 0 !important;
     width: 100% !important;
     margin: 0 !important;
     text-transform: uppercase;
 }
 
 @media (max-width: 767px) {
+    /*
+     * Compact mobile row (grid):
+     *  [ thumb | title / code / dispatch      ]
+     *  [ thumb | price / saving   | qty       ]
+     *  [ line total ──────────── right        ]
+     */
     body.demo-basket-page--v2 .mainTable {
         border: none;
         border-radius: 0;
         background: transparent;
+        overflow: visible;
+        margin-bottom: 8px;
+    }
+
+    body.demo-basket-page--v2 .mainTable,
+    body.demo-basket-page--v2 .mainTable tbody {
+        display: block !important;
+        width: 100% !important;
     }
 
     body.demo-basket-page--v2 .mainTable tr {
+        display: grid !important;
+        grid-template-columns: 112px minmax(0, 1fr) auto;
+        grid-template-areas:
+            "img copy copy"
+            "img price qty"
+            "total total total";
+        column-gap: 10px;
+        row-gap: 4px;
         border: 1px solid var(--yg-border) !important;
         border-radius: 8px;
         overflow: hidden;
-        margin-bottom: 12px !important;
+        margin: 0 0 10px !important;
+        padding: 10px 10px 0 !important;
         background: #fff;
+        box-sizing: border-box;
+        align-items: start;
     }
 
     body.demo-basket-page--v2 .mainTable td {
-        border-bottom: none;
-        padding: 12px;
+        display: block !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: auto !important;
+        max-width: none !important;
+        height: auto !important;
+        max-height: none !important;
+        background: transparent !important;
+        overflow: visible !important;
+        float: none !important;
     }
 
+    /* Cell 1: image + description share the top row */
+    body.demo-basket-page--v2 .mainTable td:first-child {
+        display: contents !important;
+    }
+
+    body.demo-basket-page--v2 .mainTable .prodImageWrapper {
+        grid-column: 1;
+        grid-row: 1 / 3; /* beside copy + price/qty row */
+        float: none !important;
+        width: 112px !important;
+        max-width: 112px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        text-align: center;
+        align-self: start;
+    }
+
+    body.demo-basket-page--v2 .mainTable .prodImage {
+        display: block !important;
+        width: 112px !important;
+        height: 112px !important;
+        max-width: 112px !important;
+        object-fit: cover;
+        border-radius: 6px !important;
+        margin: 0;
+    }
+
+    body.demo-basket-page--v2 .mainTable .descWrapper {
+        grid-area: copy;
+        float: none !important;
+        width: auto !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        text-align: left !important;
+        align-self: start;
+    }
+
+    body.demo-basket-page--v2 .mainTable .desc,
+    body.demo-basket-page--v2 .mainTable .pno,
+    body.demo-basket-page--v2 .mainTable .despatchedFrom {
+        float: none !important;
+        width: 100% !important;
+        text-align: left !important;
+    }
+
+    body.demo-basket-page--v2 .mainTable .desc {
+        font-size: 14px !important;
+        line-height: 1.3 !important;
+        padding: 0 0 4px !important;
+    }
+
+    body.demo-basket-page--v2 .mainTable .pno,
+    body.demo-basket-page--v2 .mainTable .despatchedFrom {
+        font-size: 12px !important;
+        margin: 0 0 2px !important;
+    }
+
+    body.demo-basket-page--v2 .mainTable .divider,
+    body.demo-basket-page--v2 .singleWasPrice,
+    body.demo-basket-page--v2 .removeWrapper {
+        display: none !important;
+    }
+
+    /* Price left — qty sits to its right on the same row */
+    body.demo-basket-page--v2 .mainTable td:nth-child(2) {
+        grid-area: price;
+        padding: 2px 0 8px !important;
+        box-sizing: border-box;
+        align-self: center;
+        min-width: 0;
+    }
+
+    body.demo-basket-page--v2 .singlePrice,
+    body.demo-basket-page--v2 .saving {
+        float: none !important;
+        display: block !important;
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        text-align: left !important;
+    }
+
+    body.demo-basket-page--v2 .mainTable .singlePrice {
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+        color: var(--yg-rose) !important;
+        border-top: none !important;
+        margin-bottom: 2px !important;
+    }
+
+    body.demo-basket-page--v2 .saving {
+        font-size: 13px !important;
+        color: var(--yg-muted) !important;
+    }
+
+    body.demo-basket-page--v2 .mainTable td:nth-child(3) {
+        grid-area: qty;
+        padding: 2px 0 8px !important;
+        box-sizing: border-box;
+        align-self: center;
+        justify-self: end;
+        text-align: right;
+    }
+
+    body.demo-basket-page--v2 .qtyWrapper {
+        float: none !important;
+        display: inline-flex !important;
+        width: auto !important;
+        max-width: none !important;
+        margin: 0 !important;
+    }
+
+    /* Full-width grey bar */
     body.demo-basket-page--v2 .mainTable .lineTotalCell {
-        background: #faf8f5 !important;
-        text-align: left;
+        grid-area: total;
+        background: #f1f2f0 !important;
+        text-align: right !important;
+        padding: 0 !important;
+        margin: 0 -10px 0 !important;
+        width: calc(100% + 20px) !important;
     }
 
     body.demo-basket-page--v2 .mainTable .lineTotal {
-        text-align: left;
-        padding: 4px 0 0;
+        float: none !important;
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 10px 12px !important;
+        text-align: right !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: var(--yg-pebble) !important;
+        background: transparent !important;
+        box-sizing: border-box;
     }
 }
 
@@ -636,8 +820,8 @@ body.demo-basket-page--v2 .upsellsWrapper .mainButtonGreen {
     }
 }
 
-/* —— Slightly rounded controls (4px — not pills, not sharp square) —— */
-body.demo-basket-page--v2 button:not(.codeApply):not(#ygspf-cta):not(.yg-spf__cta),
+/* —— Consistent 8px corners (match basket table) —— */
+body.demo-basket-page--v2 button:not(.codeApply):not(#ygspf-cta):not(.yg-spf__cta):not(#ygbc3-atc),
 body.demo-basket-page--v2 .checkoutButton,
 body.demo-basket-page--v2 .remove,
 body.demo-basket-page--v2 .mainButtonGreen,
@@ -646,22 +830,52 @@ body.demo-basket-page--v2 .qtyMinus,
 body.demo-basket-page--v2 .qtyPlus,
 body.demo-basket-page--v2 .ce-express-slot,
 body.demo-basket-page--v2 .ce-express-face,
+body.demo-basket-page--v2 .ce-express-face--svg,
 body.demo-basket-page--v2 .co-express-btn,
 body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper .more,
-body.demo-basket-page--v2 #ygbc3-atc,
-body.demo-basket-page--v2 button#ygbc3-atc,
-body.demo-basket-page--v2 #ygbc3-opt-auto,
-body.demo-basket-page--v2 #ygbc3-opt-one,
-body.demo-basket-page--v2 #ygbc3-more,
 body.demo-basket-page--v2 .ce-yg-club-promo__atc,
 body.demo-basket-page--v2 .ce-yg-club-promo__opt,
 body.demo-basket-page--v2 .ce-yg-club-promo__more {
     border-radius: var(--yg-radius-sm) !important;
 }
 
-/* SPF — same width as basket table on desktop (no side gutters) */
+/* Club CE controls — desktop 8px; mobile uses 10px in the mob block above */
 @media (min-width: 768px) {
+    body.demo-basket-page--v2 #ygbc3-atc,
+    body.demo-basket-page--v2 button#ygbc3-atc,
+    body.demo-basket-page--v2 #ygbc3-opt-auto,
+    body.demo-basket-page--v2 #ygbc3-opt-one,
+    body.demo-basket-page--v2 #ygbc3-more {
+        border-radius: var(--yg-radius-sm) !important;
+    }
+}
+
+/* YMAL ATC stays square — card overflow clips the 8px corners */
+body.demo-basket-page--v2 .upsellsWrapper .mainButtonGreen {
+    border-radius: 0 !important;
+}
+
+/* Sidebar club badge removed from markup — keep it gone if CE JS injects */
+body.demo-basket-page--v2 #ygbc3-side,
+body.demo-basket-page--v2 .viewordRightWrapper .clubSavingWrapper {
+    display: none !important;
+}
+
+/*
+ * Desktop only: tighten SPF + club under the table.
+ * Do NOT touch #ygbc3-top padding on mobile — CE mob layout needs padding:0
+ * and a fixed-height row; desktop leaf-clearance padding collapses it.
+ */
+@media (min-width: 768px) {
+    body.demo-basket-page--v2 .buttonPromoWrapper {
+        margin: 10px 0 0 !important;
+        padding: 0 !important;
+    }
+
     body.demo-basket-page--v2 #ygspf-root {
+        padding-top: 0 !important;
+        /* Clearance so club leaf overhang doesn’t kiss the SPF strip */
+        margin: 0 0 18px !important;
         grid-template-columns: 0 minmax(0, 1fr) 0;
         width: 100%;
         max-width: 100%;
@@ -672,6 +886,92 @@ body.demo-basket-page--v2 .ce-yg-club-promo__more {
     body.demo-basket-page--v2 #ygspf-inner {
         width: 100%;
         max-width: 100%;
+    }
+
+    body.demo-basket-page--v2 #ygbc3-root {
+        margin: 8px 0 10px !important;
+    }
+
+    body.demo-basket-page--v2 #ygbc3-top {
+        padding-top: 36px !important;
+    }
+
+    body.demo-basket-page--v2 .upsellsWrapper {
+        margin-top: 6px !important;
+        padding-top: 14px !important;
+    }
+}
+
+/* Mobile: leave CE club mob layout alone; light SPF spacing only */
+@media (max-width: 767px) {
+    body.demo-basket-page--v2 .buttonPromoWrapper {
+        margin: 8px 0 0 !important;
+    }
+
+    body.demo-basket-page--v2 #ygspf-root {
+        padding-top: 4px !important;
+        margin: 0 0 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* Clearance under checkout when SPF is parked below the CTA */
+    body.demo-basket-page--v2 #ygspf-root.ygspf-root--after-checkout {
+        margin: 28px 0 10px !important;
+        padding-top: 8px !important;
+    }
+
+    body.demo-basket-page--v2 #ygspf-inner {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        min-height: 56px;
+    }
+
+    body.demo-basket-page--v2 #ygspf-msg {
+        display: flex !important;
+    }
+
+    body.demo-basket-page--v2 #ygspf-cta,
+    body.demo-basket-page--v2 button#ygspf-cta {
+        max-width: none !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Critical: never add desktop leaf padding on mob — collapses the row */
+    body.demo-basket-page--v2 #ygbc3-top {
+        padding-top: 0 !important;
+    }
+
+    /* Clearance for club leaf overhang; keep badge flush with purple */
+    html[data-ygbc3-layout="mob"] body.demo-basket-page--v2 #ygbc3-root,
+    body.demo-basket-page--v2 #ygbc3-root {
+        margin: 16px 0 8px !important;
+        padding-top: 28px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+
+    body.demo-basket-page--v2 #ygbc3-body {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Let CE mob radii win over the global 8px control rule */
+    body.demo-basket-page--v2 #ygbc3-opt-auto,
+    body.demo-basket-page--v2 #ygbc3-opt-one,
+    body.demo-basket-page--v2 #ygbc3-atc,
+    body.demo-basket-page--v2 button#ygbc3-atc {
+        border-radius: 10px !important;
+    }
+
+    body.demo-basket-page--v2 .upsellsWrapper {
+        margin-top: 4px !important;
+        padding-top: 12px !important;
     }
 }
 

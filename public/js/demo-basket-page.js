@@ -199,6 +199,66 @@
         track.addEventListener('dragstart', (e) => e.preventDefault());
     });
 
+    /*
+     * Mobile / stacked layout: park SPF + club + YMAL under the last
+     * checkout CTA (right column), order: SPF → club → You May Also Like.
+     */
+    (function relocatePromosUnderCheckout() {
+        const right = document.querySelector('#section2ScrollWrapper');
+        if (!right) return;
+
+        const spf = document.querySelector('#ygspf-root');
+        const club = document.querySelector('#ygbc3-root, [data-basket-club-promo]');
+        const ymal = document.querySelector('.upsellsWrapper');
+        if (!spf && !club && !ymal) return;
+
+        function markHome(el, name) {
+            if (!el || !el.parentNode) return null;
+            const marker = document.createComment(name);
+            el.parentNode.insertBefore(marker, el);
+            return marker;
+        }
+
+        const spfHome = markHome(spf, 'spf-home');
+        const clubHome = markHome(club, 'club-home');
+        const ymalHome = markHome(ymal, 'ymal-home');
+
+        const mq = window.matchMedia('(max-width: 1000px)');
+        const sync = () => {
+            if (mq.matches) {
+                if (spf) {
+                    right.appendChild(spf);
+                    spf.classList.add('ygspf-root--after-checkout');
+                }
+                if (club) {
+                    right.appendChild(club);
+                    club.classList.add('ygbc3-root--after-checkout');
+                }
+                if (ymal) {
+                    right.appendChild(ymal);
+                    ymal.classList.add('upsellsWrapper--after-checkout');
+                }
+            } else {
+                if (spf && spfHome && spfHome.parentNode) {
+                    spfHome.parentNode.insertBefore(spf, spfHome.nextSibling);
+                    spf.classList.remove('ygspf-root--after-checkout');
+                }
+                if (club && clubHome && clubHome.parentNode) {
+                    clubHome.parentNode.insertBefore(club, clubHome.nextSibling);
+                    club.classList.remove('ygbc3-root--after-checkout');
+                }
+                if (ymal && ymalHome && ymalHome.parentNode) {
+                    ymalHome.parentNode.insertBefore(ymal, ymalHome.nextSibling);
+                    ymal.classList.remove('upsellsWrapper--after-checkout');
+                }
+            }
+        };
+
+        sync();
+        if (typeof mq.addEventListener === 'function') mq.addEventListener('change', sync);
+        else if (typeof mq.addListener === 'function') mq.addListener(sync);
+    })();
+
     const visualButtons = document.querySelectorAll('[data-basket-visual]');
     visualButtons.forEach((btn) => {
         btn.addEventListener('click', async () => {

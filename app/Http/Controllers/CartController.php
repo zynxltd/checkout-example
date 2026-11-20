@@ -240,6 +240,12 @@ class CartController extends Controller
             return response()->json(['ok' => true, 'reload' => true]);
         }
 
+        if ($key === 'basket_club_promo') {
+            session(['demo_show_basket_club_promo' => $value]);
+
+            return response()->json(['ok' => true, 'reload' => true]);
+        }
+
         if ($key === 'checkout_codes_top') {
             session(['demo_checkout_codes_top' => $value]);
 

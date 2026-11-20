@@ -19,7 +19,7 @@
     $orderTotal = (float) ($cart['total'] ?? ($subtotal + $delivery));
     $clubSavings = (float) ($cart['club_savings'] ?? 0);
     $showClub = $clubSavings > 0 && empty($cart['club_in_cart']) && empty($cart['club_member']);
-    $showClubPromo = $showClub;
+    $showClubPromo = $showClub && \App\Services\DemoCart::showBasketClubPromo();
     $clubSavingLabel = '£'.number_format($clubSavings, 2);
     $offerCode = $cart['offer_code'] ?? null;
     $voucherCode = $cart['voucher_code'] ?? null;
@@ -44,12 +44,14 @@
             <div class="value">£{{ number_format($orderTotal, 2) }}</div>
         </div>
 
+        {{-- Live vieword.csp: empty .cards divs + common_sprite.png background positions --}}
         <div class="cards-wrapper" aria-label="We accept">
             <div class="cards amz" role="img" aria-label="Amazon Pay"></div>
             <div class="cards paypal" role="img" aria-label="PayPal"></div>
             <div class="cards mastercard" role="img" aria-label="Mastercard"></div>
             <div class="cards amex" role="img" aria-label="American Express"></div>
             <div class="cards visa" role="img" aria-label="Visa"></div>
+            <div class="cards apple" aria-hidden="true"></div>
             <div class="text">We accept:</div>
         </div>
     </div>
@@ -297,24 +299,6 @@
                     </div>
                 </div>
 
-                @if($showClubPromo)
-                    @include('demo.partials.basket-club-promo-side', [
-                        'variant' => $clubPromo,
-                        'saving' => $clubSavingLabel,
-                        'clubUrl' => $clubUrl,
-                    ])
-                @elseif($showClub)
-                    <div class="clubSavingWrapper">
-                        <a href="{{ $clubUrl }}" class="ce-club-link" aria-label="Join Our Club Today And Save">
-                            <div class="clubSavingHeader">Join Our Club Today And Save:</div>
-                            <div class="clubSaving">£{{ number_format($clubSavings, 2) }}</div>
-                        </a>
-                        <div class="clubBuyWrapper">
-                            <a href="{{ $clubUrl }}"><div class="more">More Information »</div></a>
-                        </div>
-                    </div>
-                @endif
-
                 <div class="mediaSelectWrapper">
                     <div class="head">Do you have an offer code?</div>
                     <form data-basket-offer-form>
@@ -402,7 +386,16 @@
 <script>
     document.documentElement.setAttribute(@json($clubPromoHtmlAttr), '1');
     @if($clubPromo === 'v3')
-    document.documentElement.setAttribute('data-ygbc3-layout', window.matchMedia('(max-width: 640px)').matches ? 'mob' : 'desk');
+    (function () {
+        /* Match stacked basket columns (≤1000), not just phone 640 */
+        var mq = window.matchMedia('(max-width: 1000px)');
+        function sync() {
+            document.documentElement.setAttribute('data-ygbc3-layout', mq.matches ? 'mob' : 'desk');
+        }
+        sync();
+        if (mq.addEventListener) mq.addEventListener('change', sync);
+        else if (mq.addListener) mq.addListener(sync);
+    })();
     @endif
 </script>
 <link rel="stylesheet" href="{{ asset('ce/basket-club/'.$clubPromo.'.css') }}?v={{ filemtime(public_path('ce/basket-club/'.$clubPromo.'.css')) }}">

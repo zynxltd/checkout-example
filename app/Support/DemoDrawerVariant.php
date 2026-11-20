@@ -113,7 +113,10 @@ class DemoDrawerVariant
 
     public static function showOfferCode(): bool
     {
-        return (bool) session(self::SESSION_SHOW_OFFER_KEY, true);
+        // Default off — only show when prototype tool toggles it on.
+        return session()->has(self::SESSION_SHOW_OFFER_KEY)
+            ? (bool) session(self::SESSION_SHOW_OFFER_KEY)
+            : false;
     }
 
     /**

@@ -285,7 +285,7 @@
 
             const current = () => {
                 const label = roots[0].querySelector('[data-drawer-width-value]');
-                return parseInt(label?.textContent || '520', 10) || 520;
+                return parseInt(label?.textContent || '495', 10) || 495;
             };
 
             sync(current());

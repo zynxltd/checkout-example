@@ -6,6 +6,7 @@
     $showReco = (bool) session('demo_show_upsells', false);
     $showWelcomeBack = (bool) session('demo_show_welcome_back', false);
     $basketVisual = \App\Services\DemoCart::basketVisual();
+    $showBasketClubPromo = \App\Services\DemoCart::showBasketClubPromo();
     $onBasketPage = request()->routeIs('demo.basket');
 @endphp
 <aside class="demo-controls" data-drawer-width aria-label="Cart drawer width">
@@ -27,6 +28,15 @@
             >Variant 2</button>
         </div>
         <p class="demo-controls__hint">V1 = live basket. V2 = drawer-aligned styling. Club promo uses V3.</p>
+        <label class="demo-toggle">
+            <input
+                type="checkbox"
+                id="toggle-basket-club-promo"
+                data-option="basket_club_promo"
+                {{ $showBasketClubPromo ? 'checked' : '' }}
+            >
+            <span>Club promo banner</span>
+        </label>
     @endif
     <h3>Cart drawer</h3>
     <p class="demo-controls__label">Desktop width</p>
@@ -53,7 +63,7 @@
             data-option="drawer_show_club"
             {{ $showClub ? 'checked' : '' }}
         >
-        <span>Club banner</span>
+        <span>Club banner (drawer)</span>
     </label>
     <label class="demo-toggle">
         <input

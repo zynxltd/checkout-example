@@ -28,7 +28,7 @@
     $drawerExtraClass = \App\Support\DemoDrawerVariant::drawerClass();
 @endphp
 
-<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($drawerV30) yg-drawer--v-3-0 @endif @if($drawerV40) yg-drawer--v-4-0 @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif {{ $drawerExtraClass }}" id="yg-cart-drawer" style="--yg-drawer-w: {{ (int) ($cart['drawer_width'] ?? 520) }}px;" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
+<div class="yg-drawer yg-drawer--v2 @if(!empty($drawerVariant21)) yg-drawer--v-2-1 @if($showClubSavings || !empty($cart['club_in_cart'])) yg-drawer--v-2-1-club @endif @endif @if($drawerV30) yg-drawer--v-3-0 @endif @if($drawerV40) yg-drawer--v-4-0 @endif @if($cart['wide_drawer']) yg-drawer--wide @endif @if(!$cart['show_free_delivery_bar']) yg-drawer--no-delivery @endif @if(!$showReco) yg-drawer--no-reco @endif @if($isEmpty) yg-drawer--empty @endif {{ $drawerExtraClass }}" id="yg-cart-drawer" style="--yg-drawer-w: {{ (int) ($cart['drawer_width'] ?? 495) }}px;" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
     <div class="yg-drawer__overlay" data-drawer-close></div>
 
     @if($showClub)

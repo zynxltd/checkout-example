@@ -1670,7 +1670,7 @@ class DemoCart
 
     public static function clampDrawerWidth(int $width): int
     {
-        $base = 520;
+        $base = 495;
         $steps = (int) round(($width - $base) / 25);
         $width = $base + ($steps * 25);
 
@@ -1679,7 +1679,7 @@ class DemoCart
 
     public static function drawerWidth(): int
     {
-        return self::clampDrawerWidth((int) session('demo_drawer_width', 520));
+        return self::clampDrawerWidth((int) session('demo_drawer_width', 495));
     }
 
     public static function recoVariant(): string
@@ -1743,7 +1743,15 @@ class DemoCart
         }
 
         if (! session()->has(DemoDrawerVariant::SESSION_SHOW_OFFER_KEY)) {
-            DemoDrawerVariant::setShowOfferCode(true);
+            DemoDrawerVariant::setShowOfferCode(false);
+        }
+
+        if (! session()->has('demo_drawer_width')) {
+            session(['demo_drawer_width' => 495]);
+        }
+
+        if (! session()->has('demo_show_basket_club_promo')) {
+            session(['demo_show_basket_club_promo' => true]);
         }
 
         if (! session()->has('demo_show_upsells')) {
@@ -1767,6 +1775,12 @@ class DemoCart
     public static function basketClubPromo(): string
     {
         return 'v3';
+    }
+
+    /** Show the V3 club promo block on the basket page (prototype toggle). */
+    public static function showBasketClubPromo(): bool
+    {
+        return (bool) session('demo_show_basket_club_promo', true);
     }
 
     public static function hasRootBoostInCart(): bool

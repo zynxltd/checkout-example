@@ -81,12 +81,21 @@ body.demo-basket-page .cards-wrapper .text {
     right: 10px;
 }
 
+/* Match live vieword.csp — common_sprite.png card strip at y=-240 */
 body.demo-basket-page .cards-wrapper .cards {
     float: right;
-    background: url("../images/basket/common_sprite.png") no-repeat;
+    display: block;
     width: 46px;
     height: 30px;
     margin: 0 0 0 4px;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    background-image: url("../images/basket/common_sprite.png");
+    background-repeat: no-repeat;
+    background-size: auto;
+    text-indent: -9999px;
+    overflow: hidden;
 }
 
 body.demo-basket-page .cards-wrapper .cards.visa { background-position: 0 -240px; }
@@ -94,7 +103,10 @@ body.demo-basket-page .cards-wrapper .cards.amex { background-position: -46px -2
 body.demo-basket-page .cards-wrapper .cards.mastercard { background-position: -140px -240px; }
 body.demo-basket-page .cards-wrapper .cards.paypal { background-position: -182px -240px; }
 body.demo-basket-page .cards-wrapper .cards.amz { background-position: -228px -240px; }
-body.demo-basket-page .cards-wrapper .cards.apple { display: none; }
+body.demo-basket-page .cards-wrapper .cards.apple {
+    background-position: -330px -240px;
+    display: none;
+}
 
 body.demo-basket-page .viewordLeftWrapper {
     float: left;
@@ -848,7 +860,7 @@ body.demo-basket-page .ce-express-slot {
     min-width: 0;
     height: var(--ce-btn-h);
     min-height: var(--ce-btn-h);
-    border-radius: 6px;
+    border-radius: 8px;
     overflow: hidden;
     box-sizing: border-box;
 }
@@ -862,7 +874,7 @@ body.demo-basket-page .ce-express-face {
     margin: 0;
     padding: 0;
     border: 0;
-    border-radius: 6px;
+    border-radius: 8px;
     text-decoration: none;
     cursor: pointer;
     box-sizing: border-box;
@@ -1135,78 +1147,97 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
     }
 }
 
-/* Mobile SPF — slightly taller strip (must follow base SPF rules) */
+/*
+ * Mobile SPF — brand | purple message | CTA (same copy as desktop).
+ */
 @media (max-width: 767px) {
     body.demo-basket-page #ygspf-root {
         padding-top: 8px;
-        /* Full width of basket column — no side gutters */
         grid-template-columns: 0 minmax(0, 1fr) 0;
     }
+
     body.demo-basket-page #ygspf-inner {
+        display: flex;
         flex-wrap: nowrap;
         align-items: stretch;
         border-radius: 10px;
-        min-height: 58px;
-        max-height: 68px;
+        min-height: 64px;
+        max-height: none;
+        overflow: hidden;
     }
+
+    /* Green hugs the title — leave purple room for the message */
     body.demo-basket-page #ygspf-brand {
-        flex: 0 1 42%;
+        flex: 0 1 auto;
         max-width: 42%;
         width: auto;
         min-width: 0;
-        margin: 0 -18px 0 0;
-        padding: 7px 36px 7px 9px;
+        margin: 0 -8px 0 0;
+        padding: 10px 22px 10px 10px;
         border-radius: 0 999px 999px 0;
         gap: 6px;
         overflow: hidden;
         align-self: stretch;
+        box-sizing: border-box;
     }
+
     body.demo-basket-page #ygspf-logo {
         width: 26px;
         height: 26px;
+        flex: 0 0 auto;
     }
+
     body.demo-basket-page #ygspf-title {
-        font-size: 11.5px;
-        line-height: 1.2;
-        padding-right: 2px;
-        white-space: normal;
-        overflow-wrap: break-word;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-    }
-    body.demo-basket-page #ygspf-msg {
-        flex: 1 1 0;
-        width: auto;
+        flex: 0 1 auto;
         min-width: 0;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.15;
+        padding: 0;
+        margin: 0;
+        white-space: normal;
+        overflow: visible;
+        overflow-wrap: normal;
+        display: block;
+        -webkit-line-clamp: unset;
+    }
+
+    /* Purple middle copy — same text as desktop */
+    body.demo-basket-page #ygspf-msg {
+        display: flex !important;
+        flex: 1 1 0;
+        align-items: center;
         justify-content: center;
         align-self: center;
-        padding: 6px 6px 6px 24px;
-        font-size: 11.5px;
-        line-height: 1.2;
+        min-width: 0;
+        margin: 0;
+        padding: 6px 6px 6px 16px;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 1.25;
         text-align: center;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
+        color: #fff;
         overflow: hidden;
     }
+
     body.demo-basket-page #ygspf-cta {
         flex: 0 0 auto;
         align-self: center;
-        margin: 5px 7px 5px 0 !important;
-        padding: 7px 10px 7px 7px;
+        margin: 6px 8px 6px 4px !important;
+        padding: 8px 10px 8px 8px;
         gap: 4px;
-        font-size: 11px;
-        max-width: 34%;
-        white-space: normal;
+        font-size: 10.5px;
+        max-width: none;
+        white-space: nowrap;
         line-height: 1.15;
     }
+
     body.demo-basket-page #ygspf-cta .ygspf-plus {
         width: 14px;
         height: 14px;
         font-size: 14px;
     }
+
     body.demo-basket-page #ygspf-cta .ygspf-cta-copy {
         display: flex;
         flex-direction: column;
@@ -1214,6 +1245,7 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
         gap: 0;
         min-width: 0;
     }
+
     body.demo-basket-page #ygspf-cta .ygspf-cta-line,
     body.demo-basket-page #ygspf-cta .ygspf-cta-price {
         display: block;
@@ -1222,30 +1254,35 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
 
 @media (max-width: 420px) {
     body.demo-basket-page #ygspf-inner {
-        min-height: 54px;
-        max-height: 62px;
+        min-height: 58px;
     }
+
     body.demo-basket-page #ygspf-brand {
-        flex-basis: 40%;
-        max-width: 40%;
-        padding: 6px 32px 6px 7px;
+        max-width: 38%;
+        padding: 8px 18px 8px 8px;
         gap: 5px;
     }
+
     body.demo-basket-page #ygspf-logo {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
     }
+
     body.demo-basket-page #ygspf-title {
         font-size: 11px;
+        line-height: 1.15;
     }
+
     body.demo-basket-page #ygspf-msg {
-        padding-left: 20px;
-        font-size: 11px;
+        padding: 5px 4px 5px 12px;
+        font-size: 10px;
+        line-height: 1.2;
     }
+
     body.demo-basket-page #ygspf-cta {
-        padding: 6px 8px 6px 6px;
-        font-size: 10.5px;
-        max-width: 36%;
+        margin: 5px 6px 5px 2px !important;
+        padding: 7px 8px 7px 6px;
+        font-size: 10px;
     }
 }
 
@@ -1260,6 +1297,36 @@ body.demo-basket-page .upsellsWrapper {
     margin: 10px 0 0;
     box-sizing: border-box;
     overflow: visible;
+}
+
+/* Mobile: JS parks SPF + club + YMAL under the last checkout CTA */
+body.demo-basket-page #ygspf-root.ygspf-root--after-checkout {
+    float: none;
+    clear: both;
+    width: 100%;
+    max-width: 100%;
+    margin: 28px 0 0;
+    padding-top: 8px;
+    box-sizing: border-box;
+}
+
+body.demo-basket-page #ygbc3-root.ygbc3-root--after-checkout,
+body.demo-basket-page [data-basket-club-promo].ygbc3-root--after-checkout {
+    float: none;
+    clear: both;
+    width: 100%;
+    max-width: 100%;
+    margin: 14px 0 0 !important;
+    box-sizing: border-box;
+}
+
+body.demo-basket-page .upsellsWrapper.upsellsWrapper--after-checkout {
+    float: none;
+    clear: both;
+    width: 100%;
+    margin: 8px 0 0;
+    padding: 18px 0 28px;
+    border-top: 1px solid #e6e6e6;
 }
 
 body.demo-basket-page .upsellHeading {
