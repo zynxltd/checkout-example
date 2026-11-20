@@ -575,6 +575,48 @@ body.demo-basket-page--v2 .mediaSelectWrapper .codeText.valid {
     font-weight: 600;
 }
 
+body.demo-basket-page--v2 .mediaSelectWrapper.is-offer-valid-anim {
+    animation: yg-offer-valid-flash-v2 0.9s ease;
+}
+
+body.demo-basket-page--v2 .mediaSelectWrapper form.is-offer-valid-anim {
+    border-color: var(--yg-forest) !important;
+    animation: yg-offer-valid-ring-v2 0.85s ease;
+}
+
+body.demo-basket-page--v2 .mediaSelectWrapper .codeText.valid.is-offer-valid-anim {
+    color: var(--yg-forest) !important;
+}
+
+@keyframes yg-offer-valid-flash-v2 {
+    0% { background-color: #e5efd0 !important; }
+    100% { background-color: #f1f2f0 !important; }
+}
+
+@keyframes yg-offer-valid-ring-v2 {
+    0% {
+        box-shadow: 0 0 0 0 rgba(38, 79, 28, 0.4);
+        border-color: var(--yg-forest);
+        background-color: #f4f8ec;
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(38, 79, 28, 0);
+        border-color: var(--yg-forest);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(38, 79, 28, 0);
+        border-color: var(--yg-border);
+        background-color: #fff;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.demo-basket-page--v2 .mediaSelectWrapper.is-offer-valid-anim,
+    body.demo-basket-page--v2 .mediaSelectWrapper form.is-offer-valid-anim {
+        animation: none;
+    }
+}
+
 /* YMAL heading */
 body.demo-basket-page--v2 .upsellsWrapper .upsellHeading {
     font-family: var(--yg-heading) !important;

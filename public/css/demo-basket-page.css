@@ -646,6 +646,71 @@ body.demo-basket-page .mediaSelectWrapper .codeText.valid {
     color: #390;
 }
 
+/* Offer code — brief “valid” celebration after Apply */
+@keyframes yg-offer-valid-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(57, 153, 0, 0.45);
+        border-color: #390;
+        background-color: #f3f9ef;
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(57, 153, 0, 0);
+        border-color: #390;
+        background-color: #f7fbf4;
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(57, 153, 0, 0);
+        border-color: #eee;
+        background-color: #fff;
+    }
+}
+
+@keyframes yg-offer-valid-pop {
+    0% {
+        opacity: 0;
+        transform: translateY(6px) scale(0.94);
+    }
+    55% {
+        opacity: 1;
+        transform: translateY(0) scale(1.04);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes yg-offer-valid-flash {
+    0% { background-color: #e7f3df; }
+    100% { background-color: #f1f2f0; }
+}
+
+body.demo-basket-page .mediaSelectWrapper.is-offer-valid-anim {
+    animation: yg-offer-valid-flash 0.9s ease;
+}
+
+body.demo-basket-page .mediaSelectWrapper form.is-offer-valid-anim {
+    animation: yg-offer-valid-ring 0.85s ease;
+}
+
+body.demo-basket-page .mediaSelectWrapper .codeText.valid.is-offer-valid-anim {
+    display: block;
+    animation: yg-offer-valid-pop 0.55s ease;
+}
+
+body.demo-basket-page .mediaSelectWrapper .codeText.valid.is-offer-valid-anim::before {
+    content: '✓ ';
+    font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.demo-basket-page .mediaSelectWrapper.is-offer-valid-anim,
+    body.demo-basket-page .mediaSelectWrapper form.is-offer-valid-anim,
+    body.demo-basket-page .mediaSelectWrapper .codeText.valid.is-offer-valid-anim {
+        animation: none;
+    }
+}
+
 body.demo-basket-page .voucherWrapper .voucherCodeMsg {
     margin-top: 6px;
     font-weight: 700;

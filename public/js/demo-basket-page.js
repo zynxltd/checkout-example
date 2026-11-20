@@ -82,6 +82,21 @@
         setQty(input.getAttribute('data-sku'), input.value);
     });
 
+    const OFFER_JUST_APPLIED_KEY = 'yg-basket-offer-just-applied';
+
+    function playOfferValidAnimation(wrap, msg) {
+        if (!wrap) return;
+        const formEl = wrap.querySelector('[data-basket-offer-form]');
+        wrap.classList.add('is-offer-valid-anim');
+        formEl?.classList.add('is-offer-valid-anim');
+        msg?.classList.add('is-offer-valid-anim');
+        window.setTimeout(() => {
+            wrap.classList.remove('is-offer-valid-anim');
+            formEl?.classList.remove('is-offer-valid-anim');
+            msg?.classList.remove('is-offer-valid-anim');
+        }, 1200);
+    }
+
     document.querySelectorAll('[data-basket-offer-form]').forEach((form) => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -89,11 +104,17 @@
             if (!code || !routes.code) return;
             const wrap = form.closest('.mediaSelectWrapper') || form.parentElement;
             const msg = wrap?.querySelector('[data-basket-offer-msg]');
+            const applyBtn = form.querySelector('.codeApply');
+            if (applyBtn) applyBtn.disabled = true;
             const res = await post(routes.code, { type: 'offer', code });
             if (res.ok) {
+                try {
+                    sessionStorage.setItem(OFFER_JUST_APPLIED_KEY, code.toUpperCase());
+                } catch (_) { /* ignore */ }
                 reload();
                 return;
             }
+            if (applyBtn) applyBtn.disabled = false;
             try {
                 const data = await res.json();
                 if (msg && data?.error) {
@@ -103,6 +124,20 @@
             } catch (_) { /* ignore */ }
         });
     });
+
+    /* After reload — celebrate a freshly applied offer code */
+    (function celebrateOfferIfJustApplied() {
+        let justApplied = '';
+        try {
+            justApplied = sessionStorage.getItem(OFFER_JUST_APPLIED_KEY) || '';
+            if (justApplied) sessionStorage.removeItem(OFFER_JUST_APPLIED_KEY);
+        } catch (_) { /* ignore */ }
+        if (!justApplied) return;
+        const wrap = document.querySelector('.mediaSelectWrapper');
+        const msg = wrap?.querySelector('[data-basket-offer-msg].valid');
+        if (!wrap || !msg) return;
+        playOfferValidAnimation(wrap, msg);
+    })();
 
     document.querySelectorAll('[data-basket-voucher-form]').forEach((form) => {
         form.addEventListener('submit', async (e) => {
