@@ -18,7 +18,7 @@
         && ($cart['club_savings'] ?? 0) > 0;
     $showClubSavings = ($cart['club_member'] || $cart['club_in_cart']) && ($cart['club_member_savings'] ?? 0) > 0;
     $offerDiscount = (float) ($cart['offer_discount'] ?? 0);
-    $showReco = $cart['show_upsells'] ?? true;
+    $showReco = $cart['show_upsells'] ?? false;
     $showRecoInline = $showReco && ! $hideYmalMobile;
     $isEmpty = !empty($cart['is_empty']);
     $drawerV30 = !empty($drawerVariant30);

@@ -2835,19 +2835,19 @@ body.yg-drawer-open {
     flex-direction: row;
     align-items: center;
     gap: 7px;
-    /* Green = left half; curve ends just after “Plus” */
-    flex: 0 0 50%;
-    width: 50%;
-    max-width: 50%;
+    /* Hug title — purple starts just after “Plus” + curve */
+    flex: 0 0 auto;
+    width: max-content;
+    max-width: 58%;
     align-self: stretch;
     min-width: 0;
     min-height: 0;
-    padding: 7px 38px 7px 10px;
+    padding: 7px 30px 7px 10px;
     margin: 0;
     color: #fff;
     background: var(--ygspf-green);
-    /* Softer end curve so “Plus” isn’t eaten by a full pill semicircle */
-    border-radius: 0 28px 28px 0;
+    /* Softer end curve so “Plus” isn’t eaten by the radius */
+    border-radius: 0 26px 26px 0;
     overflow: hidden;
     box-sizing: border-box;
 }
@@ -2968,13 +2968,13 @@ body.yg-drawer-open {
     }
 
     .yg-spf__brand {
-        flex: 0 0 50%;
-        max-width: 50%;
-        width: 50%;
+        flex: 0 0 auto;
+        width: max-content;
+        max-width: 55%;
         min-width: 0;
         margin: 0;
-        padding: 6px 30px 6px 8px;
-        border-radius: 0 24px 24px 0;
+        padding: 6px 26px 6px 8px;
+        border-radius: 0 22px 22px 0;
         gap: 5px;
         overflow: hidden;
         box-sizing: border-box;
@@ -3018,11 +3018,11 @@ body.yg-drawer-open {
 /* Narrow drawer / small phones — two-line title, clear the curve */
 @media (max-width: 420px) {
     .yg-spf__brand {
-        flex: 0 0 50%;
-        max-width: 50%;
-        width: 50%;
-        padding: 5px 28px 5px 6px;
-        border-radius: 0 22px 22px 0;
+        flex: 0 0 auto;
+        width: max-content;
+        max-width: 56%;
+        padding: 5px 24px 5px 6px;
+        border-radius: 0 20px 20px 0;
         gap: 4px;
     }
 

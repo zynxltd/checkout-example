@@ -1699,7 +1699,7 @@ class DemoCart
         }
 
         if (! session()->has('demo_basket_visual')) {
-            session(['demo_basket_visual' => '1']);
+            session(['demo_basket_visual' => '2']);
         }
 
         if (session()->has('demo_cart_items')) {
@@ -1717,7 +1717,7 @@ class DemoCart
             'demo_club_in_cart' => false,
             'demo_drawer_enabled' => true,
             'demo_free_delivery_bar' => false,
-            'demo_show_upsells' => true,
+            'demo_show_upsells' => false,
             'demo_show_welcome_back' => false,
             'demo_wide_drawer' => false,
             'demo_show_apple_pay' => true,
@@ -1747,7 +1747,7 @@ class DemoCart
         }
 
         if (! session()->has('demo_show_upsells')) {
-            session(['demo_show_upsells' => true]);
+            session(['demo_show_upsells' => false]);
         }
 
         if (! session()->has('demo_show_welcome_back')) {
@@ -1755,10 +1755,12 @@ class DemoCart
         }
     }
 
-    /** Basket page visual: 1 = live vieword, 2 = drawer-aligned. */
+    /** Basket page visual: 1 = live vieword, 2 = drawer-aligned (default). */
     public static function basketVisual(): string
     {
-        return session('demo_basket_visual') === '2' ? '2' : '1';
+        $variant = (string) session('demo_basket_visual', '2');
+
+        return $variant === '1' ? '1' : '2';
     }
 
     /** Basket page Crazy Egg club promo — locked to V3. */
@@ -2183,7 +2185,7 @@ class DemoCart
             'gift_qualified' => $giftSpendMore <= 0,
             'gift_milestone_reached' => $subtotal >= $giftMilestone,
             'show_free_delivery_bar' => (bool) session('demo_free_delivery_bar', false),
-            'show_upsells' => (bool) session('demo_show_upsells', true),
+            'show_upsells' => (bool) session('demo_show_upsells', false),
             'show_welcome_back' => (bool) session('demo_show_welcome_back', false),
             'wide_drawer' => (bool) session('demo_wide_drawer', false),
             'drawer_width' => self::drawerWidth(),

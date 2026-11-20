@@ -3,7 +3,7 @@
     $showClub = \App\Support\DemoDrawerVariant::showClubBanner();
     $showSpf = \App\Support\DemoDrawerVariant::showRootBoost();
     $showOffer = \App\Support\DemoDrawerVariant::showOfferCode();
-    $showReco = (bool) session('demo_show_upsells', true);
+    $showReco = (bool) session('demo_show_upsells', false);
     $showWelcomeBack = (bool) session('demo_show_welcome_back', false);
     $basketVisual = \App\Services\DemoCart::basketVisual();
     $onBasketPage = request()->routeIs('demo.basket');

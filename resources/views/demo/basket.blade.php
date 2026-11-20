@@ -2,7 +2,7 @@
 
 @section('title', 'Your Shopping Basket — YouGarden Prototype')
 @php
-    $basketVisual = ($cart['basket_visual'] ?? '1') === '2' ? '2' : '1';
+    $basketVisual = ($cart['basket_visual'] ?? '2') === '1' ? '1' : '2';
     $basketBodyClass = 'demo-basket-page'.($basketVisual === '2' ? ' demo-basket-page--v2' : '');
     $clubPromo = 'v3';
 @endphp

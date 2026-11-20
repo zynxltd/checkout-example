@@ -13,6 +13,7 @@ body.demo-basket-page--v2 {
     --yg-checkout-dark: #468900;
     --yg-muted: #7a726c;
     --yg-border: #e0d6cb;
+    --yg-radius-sm: 4px;
     --yg-heading: var(--yg-font-heading, Georgia, "Times New Roman", serif);
     --yg-body: var(--yg-font-body, "proxima-nova", "Proxima Nova", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 }
@@ -167,7 +168,7 @@ body.demo-basket-page--v2 .qtyWrapper {
     margin: 0;
     background: #fafafa;
     border: 1px solid var(--yg-border);
-    border-radius: 0;
+    border-radius: var(--yg-radius-sm, 4px);
     overflow: hidden;
 }
 
@@ -223,7 +224,7 @@ body.demo-basket-page--v2 .remove {
     padding: 6px 12px;
     background: transparent;
     border: 1px solid var(--yg-border);
-    border-radius: 0;
+    border-radius: var(--yg-radius-sm, 4px);
     color: var(--yg-muted);
     font-family: var(--yg-body);
     font-size: 12px;
@@ -288,7 +289,7 @@ body.demo-basket-page--v2 .checkoutButton {
     margin: 0 !important;
     padding: 14px 16px !important;
     border: none !important;
-    border-radius: 0 !important;
+    border-radius: var(--yg-radius-sm, 4px) !important;
     background: var(--yg-checkout) !important;
     color: #fff !important;
     font-family: var(--yg-heading) !important;
@@ -429,7 +430,7 @@ body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper {
 
 body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper .more {
     display: inline-block;
-    border-radius: 0;
+    border-radius: var(--yg-radius-sm, 4px);
     padding: 7px 14px;
     background: var(--yg-rose);
     color: #fff !important;
@@ -475,13 +476,15 @@ body.demo-basket-page--v2 .mediaSelectWrapper form,
 body.demo-basket-page--v2 .voucherWrapper form {
     display: flex;
     align-items: stretch;
-    gap: 8px;
+    gap: 0;
     margin: 0 !important;
     padding: 0 !important;
-    border: none;
-    border-radius: 0;
-    background: transparent;
+    border: 1px solid var(--yg-border);
+    /* Match basket table corner radius */
+    border-radius: 8px;
+    background: #fff;
     box-shadow: none;
+    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -493,9 +496,9 @@ body.demo-basket-page--v2 .voucherWrapper .offerInput {
     height: 40px !important;
     margin: 0 !important;
     padding: 8px 12px !important;
-    border: 1px solid var(--yg-border) !important;
+    border: none !important;
     border-radius: 0 !important;
-    background: #fff !important;
+    background: transparent !important;
     box-shadow: none !important;
     font-family: var(--yg-body) !important;
     font-size: 15px !important;
@@ -505,7 +508,11 @@ body.demo-basket-page--v2 .voucherWrapper .offerInput {
 body.demo-basket-page--v2 .mediaSelectWrapper .offerInput:focus,
 body.demo-basket-page--v2 .voucherWrapper .offerInput:focus {
     outline: none !important;
-    border-color: var(--yg-forest) !important;
+}
+
+body.demo-basket-page--v2 .mediaSelectWrapper form:focus-within,
+body.demo-basket-page--v2 .voucherWrapper form:focus-within {
+    border-color: var(--yg-forest);
 }
 
 body.demo-basket-page--v2 .mediaSelectWrapper .codeApply,
@@ -518,7 +525,9 @@ body.demo-basket-page--v2 .voucherWrapper .codeApply {
     margin: 0 !important;
     padding: 0 14px !important;
     border: none !important;
-    border-radius: 0 !important;
+    border-left: 1px solid var(--yg-border) !important;
+    /* Flush end-cap — same 8px as table, right side only */
+    border-radius: 0 8px 8px 0 !important;
     background: #7d864f !important;
     color: #fff !important;
     font-family: var(--yg-body) !important;
@@ -562,7 +571,7 @@ body.demo-basket-page--v2 .upsellsWrapper .upsellHeading {
 
 /* YMAL ATC — live full-width square buttons */
 body.demo-basket-page--v2 .upsellsWrapper .mainButtonGreen {
-    border-radius: 0 !important;
+    border-radius: var(--yg-radius-sm, 4px) !important;
     width: 100% !important;
     margin: 0 !important;
     text-transform: uppercase;
@@ -627,20 +636,17 @@ body.demo-basket-page--v2 .upsellsWrapper .mainButtonGreen {
     }
 }
 
-/* —— Square controls only (no pills / soft radius on buttons) —— */
-body.demo-basket-page--v2 button,
+/* —— Slightly rounded controls (4px — not pills, not sharp square) —— */
+body.demo-basket-page--v2 button:not(.codeApply):not(#ygspf-cta):not(.yg-spf__cta),
 body.demo-basket-page--v2 .checkoutButton,
-body.demo-basket-page--v2 .codeApply,
 body.demo-basket-page--v2 .remove,
 body.demo-basket-page--v2 .mainButtonGreen,
 body.demo-basket-page--v2 .qtyWrapper,
 body.demo-basket-page--v2 .qtyMinus,
 body.demo-basket-page--v2 .qtyPlus,
-body.demo-basket-page--v2 .offerInput,
 body.demo-basket-page--v2 .ce-express-slot,
 body.demo-basket-page--v2 .ce-express-face,
 body.demo-basket-page--v2 .co-express-btn,
-body.demo-basket-page--v2 #ygspf-cta,
 body.demo-basket-page--v2 .clubSavingWrapper .clubBuyWrapper .more,
 body.demo-basket-page--v2 #ygbc3-atc,
 body.demo-basket-page--v2 button#ygbc3-atc,
@@ -650,10 +656,33 @@ body.demo-basket-page--v2 #ygbc3-more,
 body.demo-basket-page--v2 .ce-yg-club-promo__atc,
 body.demo-basket-page--v2 .ce-yg-club-promo__opt,
 body.demo-basket-page--v2 .ce-yg-club-promo__more {
-    border-radius: 0 !important;
+    border-radius: var(--yg-radius-sm) !important;
 }
 
-/* Keep product thumbs softly rounded — images, not buttons */
+/* SPF — same width as basket table on desktop (no side gutters) */
+@media (min-width: 768px) {
+    body.demo-basket-page--v2 #ygspf-root {
+        grid-template-columns: 0 minmax(0, 1fr) 0;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    body.demo-basket-page--v2 #ygspf,
+    body.demo-basket-page--v2 #ygspf-inner {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* SPF Add CTA — full pill like design */
+body.demo-basket-page--v2 #ygspf-cta,
+body.demo-basket-page--v2 button#ygspf-cta,
+body.demo-basket-page--v2 .yg-spf__cta {
+    border-radius: 999px !important;
+}
+
+/* Keep product thumbs a touch softer than controls */
 body.demo-basket-page--v2 .mainTable .prodImage {
     border-radius: 8px !important;
 }
