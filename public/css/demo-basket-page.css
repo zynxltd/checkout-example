@@ -14,7 +14,8 @@ body.demo-basket-page .centralWrapper.text {
     position: relative;
     padding: 0 0 40px;
     box-sizing: border-box;
-    overflow: hidden; /* contain floats so footer never jumps into the basket */
+    overflow-x: clip; /* kill horizontal scroll without clipping vertical leaf overhang */
+    overflow-y: visible;
 }
 
 body.demo-basket-page .h1Wrapper,

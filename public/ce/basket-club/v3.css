@@ -321,13 +321,12 @@ html[data-ygbc3="1"] {
 }
 
 html[data-ygbc3="1"] .viewordRightWrapper,
-html[data-ygbc3="1"] .viewordRightWrapper .clubSavingWrapper,
 html[data-ygbc3="1"] #ygbc3-side {
   overflow: visible !important;
 }
 
-#ygbc3-side,
-html[data-ygbc3="1"] .clubSavingWrapper {
+/* CE side strip only — do not restyle live .clubSavingWrapper card */
+#ygbc3-side {
   position: relative;
   display: block !important;
   width: 100% !important;

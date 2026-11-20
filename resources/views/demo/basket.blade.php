@@ -299,6 +299,21 @@
                     </div>
                 </div>
 
+                {{-- Live vieword.csp right-column club member saving --}}
+                @if($showClub)
+                    <div class="clubSavingWrapper" data-basket-club-side>
+                        <a href="{{ $clubUrl }}" aria-label="Join Our Club Today And Save">
+                            <div class="clubSavingHeader">Join Our Club Today And Save:</div>
+                            <div class="clubSaving">{{ $clubSavingLabel }}</div>
+                        </a>
+                        <div class="clubBuyWrapper">
+                            <a href="{{ $clubUrl }}">
+                                <div class="more">More Information »</div>
+                            </a>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="mediaSelectWrapper">
                     <div class="head">Do you have an offer code?</div>
                     <form data-basket-offer-form>
