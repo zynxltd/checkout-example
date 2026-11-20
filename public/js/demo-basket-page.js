@@ -84,6 +84,28 @@
 
     const OFFER_JUST_APPLIED_KEY = 'yg-basket-offer-just-applied';
 
+    function setCodeFieldError(form, msgEl, message) {
+        const input = form?.querySelector('.offerInput, input[type="text"]');
+        form?.classList.add('is-code-invalid');
+        input?.setAttribute('aria-invalid', 'true');
+        if (msgEl) {
+            msgEl.textContent = message;
+            msgEl.classList.remove('valid');
+            msgEl.classList.add('is-error');
+        }
+        input?.focus();
+    }
+
+    function clearCodeFieldError(form, msgEl) {
+        const input = form?.querySelector('.offerInput, input[type="text"]');
+        form?.classList.remove('is-code-invalid');
+        input?.removeAttribute('aria-invalid');
+        if (msgEl?.classList.contains('is-error')) {
+            msgEl.textContent = '';
+            msgEl.classList.remove('is-error');
+        }
+    }
+
     function playOfferValidAnimation(wrap, msg) {
         if (!wrap) return;
         const formEl = wrap.querySelector('[data-basket-offer-form]');
@@ -130,10 +152,16 @@
             }
 
             const code = (form.querySelector('[name="PromotionCode"]')?.value || '').trim();
-            if (!code || !routes.code) {
+            if (!code) {
+                if (actionBtn) actionBtn.disabled = false;
+                setCodeFieldError(form, msg, 'Please enter an offer code.');
+                return;
+            }
+            if (!routes.code) {
                 if (actionBtn) actionBtn.disabled = false;
                 return;
             }
+            clearCodeFieldError(form, msg);
             const res = await post(routes.code, { type: 'offer', code });
             if (res.ok) {
                 try {
@@ -146,10 +174,13 @@
             try {
                 const data = await res.json();
                 if (msg && data?.error) {
-                    msg.textContent = data.error;
-                    msg.classList.remove('valid');
+                    setCodeFieldError(form, msg, data.error);
                 }
             } catch (_) { /* ignore */ }
+        });
+
+        form.querySelector('[name="PromotionCode"]')?.addEventListener('input', () => {
+            clearCodeFieldError(form, form.closest('.mediaSelectWrapper')?.querySelector('[data-basket-offer-msg]'));
         });
     });
 
@@ -199,10 +230,16 @@
 
             const code = (form.querySelector('[name="voucherCode"]')?.value || '').trim();
             const url = routes.checkoutVoucher;
-            if (!code || !url) {
+            if (!code) {
+                if (actionBtn) actionBtn.disabled = false;
+                setCodeFieldError(form, msg, 'Please enter a voucher code.');
+                return;
+            }
+            if (!url) {
                 if (actionBtn) actionBtn.disabled = false;
                 return;
             }
+            clearCodeFieldError(form, msg);
             const res = await post(url, { code });
             if (res.ok) {
                 reload();
@@ -211,8 +248,12 @@
             if (actionBtn) actionBtn.disabled = false;
             try {
                 const data = await res.json();
-                if (msg && data?.error) msg.textContent = data.error;
+                if (msg && data?.error) setCodeFieldError(form, msg, data.error);
             } catch (_) { /* ignore */ }
+        });
+
+        form.querySelector('[name="voucherCode"]')?.addEventListener('input', () => {
+            clearCodeFieldError(form, form.closest('.voucherWrapper')?.querySelector('[data-basket-voucher-msg]'));
         });
     });
 

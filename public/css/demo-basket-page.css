@@ -661,6 +661,33 @@ body.demo-basket-page .mediaSelectWrapper .codeText.valid {
     color: #390;
 }
 
+body.demo-basket-page .mediaSelectWrapper .codeText.is-error,
+body.demo-basket-page .voucherWrapper .voucherCodeMsg.is-error {
+    display: block;
+    color: #c00;
+    font-weight: 700;
+}
+
+body.demo-basket-page .mediaSelectWrapper form.is-code-invalid,
+body.demo-basket-page .voucherWrapper form.is-code-invalid {
+    border-color: #c00;
+    box-shadow: 0 0 0 1px rgba(204, 0, 0, 0.25);
+    animation: yg-code-invalid-shake 0.35s ease;
+}
+
+@keyframes yg-code-invalid-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.demo-basket-page .mediaSelectWrapper form.is-code-invalid,
+    body.demo-basket-page .voucherWrapper form.is-code-invalid {
+        animation: none;
+    }
+}
+
 /* Offer code — brief “valid” celebration after Apply */
 @keyframes yg-offer-valid-ring {
     0% {

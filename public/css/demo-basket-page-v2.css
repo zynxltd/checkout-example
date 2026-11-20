@@ -593,6 +593,24 @@ body.demo-basket-page--v2 .mediaSelectWrapper .codeText.valid {
     font-weight: 600;
 }
 
+body.demo-basket-page--v2 .mediaSelectWrapper .codeText.is-error,
+body.demo-basket-page--v2 .voucherWrapper .voucherCodeMsg.is-error {
+    display: block !important;
+    color: #c41450 !important;
+    font-weight: 700 !important;
+}
+
+body.demo-basket-page--v2 .mediaSelectWrapper form.is-code-invalid,
+body.demo-basket-page--v2 .voucherWrapper form.is-code-invalid {
+    border-color: #c41450 !important;
+    box-shadow: 0 0 0 1px rgba(196, 20, 80, 0.2);
+}
+
+body.demo-basket-page--v2 .voucherWrapper .voucherCodeMsg:not(:empty) {
+    display: block;
+    margin-top: 6px;
+}
+
 body.demo-basket-page--v2 .mediaSelectWrapper.is-offer-valid-anim {
     animation: yg-offer-valid-flash-v2 0.9s ease;
 }
