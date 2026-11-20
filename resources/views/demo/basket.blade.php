@@ -16,8 +16,6 @@
     $subtotal = (float) ($cart['subtotal'] ?? 0);
     $delivery = (float) ($cart['delivery'] ?? 0);
     $savings = (float) ($cart['your_savings'] ?? $cart['savings_from_was'] ?? 0);
-    $offerDiscount = (float) ($cart['offer_discount'] ?? 0);
-    $voucherDiscount = (float) ($cart['voucher_discount'] ?? 0);
     $orderTotal = (float) ($cart['total'] ?? ($subtotal + $delivery));
     $clubSavings = (float) ($cart['club_savings'] ?? 0);
     $showClub = $clubSavings > 0 && empty($cart['club_in_cart']) && empty($cart['club_member']);
@@ -297,28 +295,6 @@
                             <div class="subTotalsRow">
                                 <div class="head">Total Saving</div>
                                 <div class="total save">£{{ number_format($savings, 2) }}</div>
-                            </div>
-                        @endif
-                        @if($offerCode && $offerDiscount > 0)
-                            <div class="subTotalsRow">
-                                <div class="head">Offer ({{ $offerCode }}):</div>
-                                <div class="total save">-£{{ number_format($offerDiscount, 2) }}</div>
-                            </div>
-                        @elseif($offerCode)
-                            <div class="subTotalsRow">
-                                <div class="head">Offer ({{ $offerCode }}):</div>
-                                <div class="total">Applied</div>
-                            </div>
-                        @endif
-                        @if($voucherCode && $voucherDiscount > 0)
-                            <div class="subTotalsRow">
-                                <div class="head">Voucher ({{ $voucherCode }}):</div>
-                                <div class="total save">-£{{ number_format($voucherDiscount, 2) }}</div>
-                            </div>
-                        @elseif($voucherCode)
-                            <div class="subTotalsRow">
-                                <div class="head">Voucher ({{ $voucherCode }}):</div>
-                                <div class="total">Applied</div>
                             </div>
                         @endif
                         <div class="subTotalsRow total">
