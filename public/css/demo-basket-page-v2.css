@@ -560,6 +560,24 @@ body.demo-basket-page--v2 .voucherWrapper .codeApply:hover {
     color: #fff !important;
 }
 
+body.demo-basket-page--v2 .mediaSelectWrapper .codeApply--remove,
+body.demo-basket-page--v2 .voucherWrapper .codeApply--remove {
+    background: #6b5f53 !important;
+    color: #fff !important;
+}
+
+body.demo-basket-page--v2 .mediaSelectWrapper .codeApply--remove:hover,
+body.demo-basket-page--v2 .voucherWrapper .codeApply--remove:hover {
+    background: #574653 !important;
+}
+
+body.demo-basket-page--v2 .mediaSelectWrapper.is-code-applied .offerInput,
+body.demo-basket-page--v2 .voucherWrapper.is-code-applied .offerInput {
+    color: var(--yg-forest) !important;
+    font-weight: 600 !important;
+    background: #f7faf3 !important;
+}
+
 body.demo-basket-page--v2 .mediaSelectWrapper .infoText,
 body.demo-basket-page--v2 .voucherWrapper .infoText,
 body.demo-basket-page--v2 .mediaSelectWrapper .codeText {

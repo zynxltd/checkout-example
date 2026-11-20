@@ -611,6 +611,21 @@ body.demo-basket-page .voucherWrapper .codeApply:hover {
     color: #fff;
 }
 
+body.demo-basket-page .mediaSelectWrapper .codeApply--remove,
+body.demo-basket-page .voucherWrapper .codeApply--remove {
+    flex: 0 0 78px;
+    width: 78px;
+    min-width: 78px;
+    background: #6b5f53;
+}
+
+body.demo-basket-page .mediaSelectWrapper.is-code-applied .offerInput,
+body.demo-basket-page .voucherWrapper.is-code-applied .offerInput {
+    color: #390;
+    font-weight: 700;
+    background: #f7faf3;
+}
+
 body.demo-basket-page .mediaSelectWrapper .infoText,
 body.demo-basket-page .voucherWrapper .infoText {
     float: none;

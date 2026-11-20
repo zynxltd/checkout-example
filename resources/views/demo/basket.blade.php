@@ -17,6 +17,7 @@
     $delivery = (float) ($cart['delivery'] ?? 0);
     $savings = (float) ($cart['your_savings'] ?? $cart['savings_from_was'] ?? 0);
     $offerDiscount = (float) ($cart['offer_discount'] ?? 0);
+    $voucherDiscount = (float) ($cart['voucher_discount'] ?? 0);
     $orderTotal = (float) ($cart['total'] ?? ($subtotal + $delivery));
     $clubSavings = (float) ($cart['club_savings'] ?? 0);
     $showClub = $clubSavings > 0 && empty($cart['club_in_cart']) && empty($cart['club_member']);
@@ -309,6 +310,17 @@
                                 <div class="total">Applied</div>
                             </div>
                         @endif
+                        @if($voucherCode && $voucherDiscount > 0)
+                            <div class="subTotalsRow">
+                                <div class="head">Voucher ({{ $voucherCode }}):</div>
+                                <div class="total save">-£{{ number_format($voucherDiscount, 2) }}</div>
+                            </div>
+                        @elseif($voucherCode)
+                            <div class="subTotalsRow">
+                                <div class="head">Voucher ({{ $voucherCode }}):</div>
+                                <div class="total">Applied</div>
+                            </div>
+                        @endif
                         <div class="subTotalsRow total">
                             <div class="head">Order Total:</div>
                             <div class="total">£{{ number_format($orderTotal, 2) }}</div>
@@ -326,9 +338,9 @@
                     </div>
                 @endif
 
-                <div class="mediaSelectWrapper">
+                <div class="mediaSelectWrapper{{ $offerCode ? ' is-code-applied' : '' }}">
                     <div class="head">Do you have an offer code?</div>
-                    <form data-basket-offer-form>
+                    <form data-basket-offer-form data-code-state="{{ $offerCode ? 'applied' : 'empty' }}">
                         <input
                             type="text"
                             class="offerInput"
@@ -336,16 +348,22 @@
                             value="{{ $offerCode ?? '' }}"
                             autocomplete="off"
                             aria-label="Offer code"
+                            @if($offerCode) readonly @endif
                         >
-                        <input type="submit" class="codeApply" value="Apply">
+                        <input
+                            type="submit"
+                            class="codeApply{{ $offerCode ? ' codeApply--remove' : '' }}"
+                            value="{{ $offerCode ? 'Remove' : 'Apply' }}"
+                            data-basket-code-action="{{ $offerCode ? 'remove' : 'apply' }}"
+                        >
                     </form>
                     <div class="codeText {{ $offerCode ? 'valid' : '' }}" data-basket-offer-msg>{{ $offerCode ? 'Code '.$offerCode.' applied' : '' }}</div>
                     <div class="infoText">Only 1 offer code per order.<br>Please check you have the right code applied.</div>
                 </div>
 
-                <div class="voucherWrapper" id="voucherWrapper">
+                <div class="voucherWrapper{{ $voucherCode ? ' is-code-applied' : '' }}" id="voucherWrapper">
                     <div class="head">Voucher</div>
-                    <form data-basket-voucher-form>
+                    <form data-basket-voucher-form data-code-state="{{ $voucherCode ? 'applied' : 'empty' }}">
                         <input
                             type="text"
                             name="voucherCode"
@@ -354,13 +372,19 @@
                             value="{{ $voucherCode ?? '' }}"
                             autocomplete="off"
                             aria-label="Voucher code"
+                            @if($voucherCode) readonly @endif
                         >
-                        <input type="submit" value="Apply" class="codeApply">
+                        <input
+                            type="submit"
+                            class="codeApply{{ $voucherCode ? ' codeApply--remove' : '' }}"
+                            value="{{ $voucherCode ? 'Remove' : 'Apply' }}"
+                            data-basket-code-action="{{ $voucherCode ? 'remove' : 'apply' }}"
+                        >
                     </form>
                     <div class="infoText">
                         <span>Enter your 16 digit gift voucher code or 10 digit postage voucher code</span><br>
-                        Only 1 voucher can be used at a time
-                        <div class="voucherCodeMsg" id="voucherCodeMsg" data-basket-voucher-msg>{{ $voucherCode ? 'Voucher '.$voucherCode.' applied' : '' }}</div>
+                        Only 1 voucher per order
+                        <div class="voucherCodeMsg{{ $voucherCode ? ' valid' : '' }}" id="voucherCodeMsg" data-basket-voucher-msg>{{ $voucherCode ? 'Voucher '.$voucherCode.' applied' : '' }}</div>
                     </div>
                 </div>
 

@@ -100,12 +100,40 @@
     document.querySelectorAll('[data-basket-offer-form]').forEach((form) => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const code = (form.querySelector('[name="PromotionCode"]')?.value || '').trim();
-            if (!code || !routes.code) return;
             const wrap = form.closest('.mediaSelectWrapper') || form.parentElement;
             const msg = wrap?.querySelector('[data-basket-offer-msg]');
-            const applyBtn = form.querySelector('.codeApply');
-            if (applyBtn) applyBtn.disabled = true;
+            const actionBtn = form.querySelector('.codeApply');
+            const isRemove = form.getAttribute('data-code-state') === 'applied'
+                || actionBtn?.getAttribute('data-basket-code-action') === 'remove';
+
+            if (actionBtn) actionBtn.disabled = true;
+
+            if (isRemove) {
+                if (!routes.removeCode) {
+                    if (actionBtn) actionBtn.disabled = false;
+                    return;
+                }
+                const res = await del(routes.removeCode, { type: 'offer' });
+                if (res.ok) {
+                    reload();
+                    return;
+                }
+                if (actionBtn) actionBtn.disabled = false;
+                try {
+                    const data = await res.json();
+                    if (msg && data?.error) {
+                        msg.textContent = data.error;
+                        msg.classList.remove('valid');
+                    }
+                } catch (_) { /* ignore */ }
+                return;
+            }
+
+            const code = (form.querySelector('[name="PromotionCode"]')?.value || '').trim();
+            if (!code || !routes.code) {
+                if (actionBtn) actionBtn.disabled = false;
+                return;
+            }
             const res = await post(routes.code, { type: 'offer', code });
             if (res.ok) {
                 try {
@@ -114,7 +142,7 @@
                 reload();
                 return;
             }
-            if (applyBtn) applyBtn.disabled = false;
+            if (actionBtn) actionBtn.disabled = false;
             try {
                 const data = await res.json();
                 if (msg && data?.error) {
@@ -142,17 +170,45 @@
     document.querySelectorAll('[data-basket-voucher-form]').forEach((form) => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const code = (form.querySelector('[name="voucherCode"]')?.value || '').trim();
-            if (!code) return;
-            const url = routes.checkoutVoucher;
-            if (!url) return;
-            const res = await post(url, { code });
             const wrap = form.closest('.voucherWrapper') || form.parentElement;
             const msg = wrap?.querySelector('[data-basket-voucher-msg]');
+            const actionBtn = form.querySelector('.codeApply');
+            const isRemove = form.getAttribute('data-code-state') === 'applied'
+                || actionBtn?.getAttribute('data-basket-code-action') === 'remove';
+
+            if (actionBtn) actionBtn.disabled = true;
+
+            if (isRemove) {
+                const url = routes.checkoutVoucherRemove;
+                if (!url) {
+                    if (actionBtn) actionBtn.disabled = false;
+                    return;
+                }
+                const res = await del(url, {});
+                if (res.ok) {
+                    reload();
+                    return;
+                }
+                if (actionBtn) actionBtn.disabled = false;
+                try {
+                    const data = await res.json();
+                    if (msg && data?.error) msg.textContent = data.error;
+                } catch (_) { /* ignore */ }
+                return;
+            }
+
+            const code = (form.querySelector('[name="voucherCode"]')?.value || '').trim();
+            const url = routes.checkoutVoucher;
+            if (!code || !url) {
+                if (actionBtn) actionBtn.disabled = false;
+                return;
+            }
+            const res = await post(url, { code });
             if (res.ok) {
                 reload();
                 return;
             }
+            if (actionBtn) actionBtn.disabled = false;
             try {
                 const data = await res.json();
                 if (msg && data?.error) msg.textContent = data.error;
