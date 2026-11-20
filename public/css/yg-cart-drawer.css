@@ -2489,7 +2489,7 @@ body.yg-drawer-open {
     padding: 14px 16px;
     padding-bottom: max(14px, env(safe-area-inset-bottom));
     border: none;
-    border-radius: 0;
+    border-radius: 0 !important;
     background: var(--yg-theme-checkout-bg);
     color: var(--yg-theme-checkout-text);
     cursor: pointer;
@@ -3076,7 +3076,7 @@ body.yg-drawer-open {
     padding: 16px 10px;
     padding-bottom: max(16px, env(safe-area-inset-bottom));
     min-height: 56px;
-    border-radius: 0;
+    border-radius: 0 !important;
     box-sizing: border-box;
 }
 

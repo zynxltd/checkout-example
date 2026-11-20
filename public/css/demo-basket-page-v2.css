@@ -822,7 +822,8 @@ body.demo-basket-page--v2 .upsellsWrapper .mainButtonGreen {
 }
 
 /* —— Consistent 8px corners (match basket table) —— */
-body.demo-basket-page--v2 button:not(.codeApply):not(#ygspf-cta):not(.yg-spf__cta):not(#ygbc3-atc),
+/* Drawer footer CTAs stay square — exclude .yg-checkout */
+body.demo-basket-page--v2 button:not(.codeApply):not(#ygspf-cta):not(.yg-spf__cta):not(#ygbc3-atc):not(.yg-checkout),
 body.demo-basket-page--v2 .checkoutButton,
 body.demo-basket-page--v2 .remove,
 body.demo-basket-page--v2 .mainButtonGreen,
@@ -838,6 +839,13 @@ body.demo-basket-page--v2 .ce-yg-club-promo__atc,
 body.demo-basket-page--v2 .ce-yg-club-promo__opt,
 body.demo-basket-page--v2 .ce-yg-club-promo__more {
     border-radius: var(--yg-radius-sm) !important;
+}
+
+/* Drawer bottom CTAs — square corners */
+body.demo-basket-page--v2 .yg-drawer__footer .yg-checkout,
+body.demo-basket-page--v2 .yg-drawer__footer .yg-checkout--split,
+body.demo-basket-page--v2 .yg-drawer__footer .yg-checkout--secondary {
+    border-radius: 0 !important;
 }
 
 /* Club CE controls — desktop 8px; mobile uses 10px in the mob block above */
