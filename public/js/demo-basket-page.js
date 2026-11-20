@@ -87,8 +87,20 @@
             e.preventDefault();
             const code = (form.querySelector('[name="PromotionCode"]')?.value || '').trim();
             if (!code || !routes.code) return;
-            const res = await post(routes.code, { code });
-            if (res.ok) reload();
+            const wrap = form.closest('.mediaSelectWrapper') || form.parentElement;
+            const msg = wrap?.querySelector('[data-basket-offer-msg]');
+            const res = await post(routes.code, { type: 'offer', code });
+            if (res.ok) {
+                reload();
+                return;
+            }
+            try {
+                const data = await res.json();
+                if (msg && data?.error) {
+                    msg.textContent = data.error;
+                    msg.classList.remove('valid');
+                }
+            } catch (_) { /* ignore */ }
         });
     });
 
