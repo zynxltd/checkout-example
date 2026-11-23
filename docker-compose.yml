@@ -1,0 +1,19 @@
+services:
+  app:
+    build: .
+    image: yg-cart-drawer-demo:local
+    container_name: yg-cart-drawer
+    ports:
+      - "8080:80"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8080
+      DEMO_PREVIEW_AUTH_ENABLED: "false"
+    volumes:
+      # Persist SQLite between restarts (optional)
+      - yg-sqlite:/var/www/html/database
+    restart: unless-stopped
+
+volumes:
+  yg-sqlite:

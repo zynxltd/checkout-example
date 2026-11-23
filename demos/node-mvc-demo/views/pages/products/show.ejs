@@ -1,0 +1,21 @@
+<%- include('../../partials/header') %>
+
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow"><a href="/products">← Products</a> · <%= product.category %></p>
+    <h1><%= product.name %></h1>
+    <p><%= product.summary %></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell detail">
+    <div>
+      <p class="price"><%= product.priceDisplay %></p>
+      <p class="muted"><%= product.stockLabel %></p>
+    </div>
+    <a class="btn" href="/contact">Enquire</a>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>

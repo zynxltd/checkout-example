@@ -1,0 +1,905 @@
+/**
+ * Crazy Egg A/B — Live Magento header → Argos mock-up (CRO)
+ * Paste into Crazy Egg variant → Custom CSS (pair with crazyegg-header-mockup.js)
+ * Scope: html.ce-yg-hdr-mock
+ *
+ * Desktop (≥1001px): icon-only utilities (TV play, SAVE 10% pill, account, basket);
+ *   centred search pill; Christmas + YouGarden TV removed from the green bar.
+ * Mobile / tablet (≤1000px): pill search under the icon row.
+ *
+ * Icons: inlined as base64 data-URIs inside the JS.
+ */
+
+html.ce-yg-hdr-mock {
+  --ce-hdr-forest: #264f1c;
+  --ce-hdr-text: #2c2c2c;
+  --ce-hdr-search-border: #c5bdb5;
+}
+
+@media (min-width: 1001px) {
+  /* Hide live Magento utility blocks — replaced by .ce-hdr-silos */
+  html.ce-yg-hdr-mock #desktopTop .top-acc-block,
+  html.ce-yg-hdr-mock #desktopTop .basketWrapper {
+    display: none !important;
+  }
+
+  /*
+   * Search duplicate fix:
+   * Magento keeps #searchWrapper (display:none). Luigi clones/shows .lbx-replaced.
+   * Our earlier display:block!important un-hid the Magento copy → two pills.
+   * Keep Magento original hidden; only style Luigi’s live search.
+   */
+  html.ce-yg-hdr-mock #desktopTop > #searchWrapper:not(.lbx-replaced),
+  html.ce-yg-hdr-mock #searchWrapper.search:not(.lbx-replaced) {
+    display: none !important;
+  }
+
+  /*
+   * Match Magento live desktop header:
+   * #head-scroll → height: auto (NEVER fixed — Magento sticky sets
+   *   #wrapper padding-top from head-scroll height; a forced 150px left a
+   *   white strip under the green nav when content was shorter)
+   * #desktopTop.centralWrapper → width: 1300px; margin: 0 auto
+   *   (at 1400px → 50px gutters; at 1710px → ~205px gutters)
+   * #logo → 200×64, margin 18px 0
+   * .basketWrapper → margin-top 20px, height 80px (silos replace it)
+   * Do NOT clear floats — Magento relies on escaping floats to push #desktopNav.
+   */
+  html.ce-yg-hdr-mock #head-scroll {
+    height: auto !important;
+  }
+
+  /* Magento .centralWrapper { padding-bottom: 20px } also hits the nav —
+     zero it so sticky green bar sits flush (no white band under it). */
+  html.ce-yg-hdr-mock #desktopNav > .centralWrapper {
+    padding-bottom: 0 !important;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop {
+    position: relative !important;
+    width: 1300px !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    /* Always inset logo + silos — at ≤1300px Magento goes full-bleed (0 gutters) */
+    padding: 0 24px 20px !important;
+    min-height: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .logo,
+  html.ce-yg-hdr-mock #desktopTop #logo {
+    float: left !important;
+    display: block !important;
+    width: 200px !important;
+    margin: 18px 0 !important;
+    padding: 0 !important;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .logo img,
+  html.ce-yg-hdr-mock #desktopTop #logo img {
+    display: block !important;
+    width: 200px !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+  }
+
+  /* Don't let Luigi wrap become the positioning context */
+  html.ce-yg-hdr-mock #desktopTop #ltw-app {
+    position: static !important;
+  }
+
+  /*
+   * Search pill: center in the gap between logo and silos
+   * (not viewport center — that overlaps the TV silo).
+   * JS layoutSearch() refines left/width from measured bounds.
+   */
+  html.ce-yg-hdr-mock #ltw-app #searchWrapper,
+  html.ce-yg-hdr-mock .search.lbx-replaced {
+    display: block !important;
+    float: none !important;
+    position: absolute !important;
+    left: 210px !important;
+    right: 280px !important;
+    /* #desktopTop float-collapses to ~20px — top:50% parks search at the top.
+       28px centers the 44px pill on the logo midline (~50px). */
+    top: 28px !important;
+    transform: none !important;
+    width: 440px !important;
+    max-width: 100% !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid var(--ce-hdr-search-border) !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    box-shadow: 0 2px 10px rgba(38, 79, 28, 0.08) !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    z-index: 210 !important;
+  }
+
+  html.ce-yg-hdr-mock #ltw-app #searchWrapper:focus-within,
+  html.ce-yg-hdr-mock .search.lbx-replaced:focus-within {
+    border-color: var(--ce-hdr-forest) !important;
+    box-shadow:
+      0 2px 10px rgba(38, 79, 28, 0.1),
+      0 0 0 2px rgba(38, 79, 28, 0.28) !important;
+  }
+
+  html.ce-yg-hdr-mock #searchForm {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  html.ce-yg-hdr-mock #searchForm .input-text,
+  html.ce-yg-hdr-mock #autocomplete-ajax,
+  html.ce-yg-hdr-mock #xautocomplete-ajax,
+  html.ce-yg-hdr-mock .lbx-input {
+    float: none !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 44px !important;
+    margin: 0 !important;
+    padding: 10px 48px 10px 16px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+    color: #555 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-hdr-mock #searchForm .input-text:focus,
+  html.ce-yg-hdr-mock #autocomplete-ajax:focus,
+  html.ce-yg-hdr-mock #xautocomplete-ajax:focus,
+  html.ce-yg-hdr-mock .lbx-input:focus {
+    outline: none !important;
+  }
+
+  html.ce-yg-hdr-mock #searchWrapper .searchGo,
+  html.ce-yg-hdr-mock .search.lbx-replaced .searchGo {
+    position: absolute !important;
+    top: 50% !important;
+    right: 8px !important;
+    left: auto !important;
+    transform: translateY(-50%) !important;
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    color: var(--ce-hdr-forest) !important;
+    background: transparent !important;
+    cursor: pointer !important;
+  }
+
+  html.ce-yg-hdr-mock #searchWrapper .searchGo svg,
+  html.ce-yg-hdr-mock .search.lbx-replaced .searchGo svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* —— Utilities: icon-only row, right of search —— */
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silos {
+    float: right !important;
+    position: relative !important;
+    z-index: 230 !important;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    /* Keep ~92px so Magento float still pushes #desktopNav below */
+    margin: 8px 0 0 0 !important;
+    padding: 0 !important;
+    height: 92px !important;
+    min-height: 92px !important;
+    box-sizing: border-box;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 0;
+    min-width: 44px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: var(--ce-hdr-text) !important;
+    line-height: 0;
+    text-align: center;
+    font: inherit;
+    border-radius: 8px;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo:hover,
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo:focus {
+    color: var(--ce-hdr-forest) !important;
+    background: rgba(38, 79, 28, 0.06);
+    outline: none;
+    text-decoration: none !important;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo__icon {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    line-height: 0;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo__icon img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border: 0;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--tv { min-width: 44px; }
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--tv .ce-hdr-silo__icon img {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--club {
+    min-width: 88px;
+    width: auto;
+    padding: 0 8px;
+  }
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--club .ce-hdr-silo__icon img {
+    width: 78px;
+    height: auto;
+    max-height: 22px;
+  }
+
+  /* Mock-up nav: keep NEW / categories / SALE. TV is a utility; Christmas is seasonal. */
+  html.ce-yg-hdr-mock #desktopNav ul.menu > li.xmas,
+  html.ce-yg-hdr-mock #desktopNav ul.menu > li#XMAS,
+  html.ce-yg-hdr-mock #desktopNav ul.menu > li.tv-button,
+  html.ce-yg-hdr-mock #desktopNav .tv-button {
+    display: none !important;
+  }
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--account { min-width: 44px; }
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--account .ce-hdr-silo__icon img { width: 22px; height: 24px; }
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--basket { min-width: 44px; }
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--basket .ce-hdr-silo__icon img { width: 32px; max-height: 28px; }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo__label {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo__count {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #e3185d;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+    pointer-events: none;
+    box-sizing: border-box;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo__count[hidden] {
+    display: none !important;
+  }
+
+  /* —— Mini basket hover dropdown (mock-up styling) —— */
+  html.ce-yg-hdr-mock {
+    --ce-hdr-stone: #f2e7d8;
+    --ce-hdr-pebble: #483f3a;
+    --ce-hdr-rose: #e3185d;
+    --ce-hdr-muted: #7a726c;
+    --ce-hdr-border: #e0d6cb;
+    --ce-hdr-radius: 20px;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket {
+    position: relative;
+    flex-shrink: 0;
+    z-index: 230;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket.is-open {
+    z-index: 240;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__panel {
+    position: absolute;
+    top: calc(100% + 2px);
+    right: 0;
+    width: min(380px, calc(100vw - 24px));
+    padding-top: 12px;
+    z-index: 240;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__panel[hidden] {
+    display: none !important;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__caret {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-left: 1px solid var(--ce-hdr-border);
+    border-top: 1px solid var(--ce-hdr-border);
+    transform: rotate(45deg);
+    border-radius: 2px;
+    z-index: 0;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__card {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    color: var(--ce-hdr-pebble);
+    border: 1px solid var(--ce-hdr-border);
+    border-radius: var(--ce-hdr-radius);
+    box-shadow: 0 16px 40px rgba(38, 79, 28, 0.14);
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px 12px;
+    background: var(--ce-hdr-stone);
+    border-bottom: 1px solid var(--ce-hdr-border);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__heading {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ce-hdr-forest);
+    line-height: 1.2;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__count {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ce-hdr-muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__scroll {
+    max-height: 280px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #c5d0be transparent;
+    background: #fff;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__item {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: start;
+    padding: 14px 16px;
+    border-bottom: 1px solid #efe8df;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__item:last-child {
+    border-bottom: none;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__img-link {
+    display: block;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: var(--ce-hdr-stone);
+    border: 1px solid var(--ce-hdr-border);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__meta {
+    min-width: 0;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__name {
+    margin: 0 0 4px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--ce-hdr-pebble);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__name-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__name-link:hover,
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__name-link:focus-visible {
+    color: var(--ce-hdr-forest);
+    text-decoration: underline;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__sku {
+    margin: 0;
+    font-size: 12px;
+    color: var(--ce-hdr-muted);
+    line-height: 1.3;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__sku strong {
+    font-weight: 700;
+    color: var(--ce-hdr-pebble);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__price {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ce-hdr-forest);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__qty {
+    font-size: 12px;
+    color: var(--ce-hdr-muted);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__empty {
+    margin: 0;
+    padding: 32px 18px;
+    text-align: center;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+    color: var(--ce-hdr-muted);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #fff;
+    border-top: 1px solid var(--ce-hdr-border);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__total {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
+    color: var(--ce-hdr-pebble);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__total strong {
+    font-weight: 400;
+    color: var(--ce-hdr-forest);
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__cta {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 11px 18px;
+    background: var(--ce-hdr-rose);
+    color: #fff !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__cta:hover,
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-mini-basket__cta:focus {
+    background: #c41452;
+    color: #fff !important;
+    outline: none;
+  }
+}
+
+/* Tighter silos on mid desktop so search keeps room */
+@media (min-width: 1001px) and (max-width: 1200px) {
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silos {
+    gap: 2px;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--club {
+    min-width: 76px;
+    width: auto;
+    padding: 0 6px;
+  }
+
+  html.ce-yg-hdr-mock #desktopTop .ce-hdr-silo--club .ce-hdr-silo__icon img {
+    width: 70px;
+    max-height: 20px;
+  }
+}
+
+@media (max-width: 1000px) {
+  html.ce-yg-hdr-mock {
+    --ce-ms-forest: #264f1c;
+    --ce-ms-border: #c5bdb5;
+    --ce-ms-muted: #777777;
+    --ce-ms-body: Arial, Helvetica, sans-serif;
+  }
+
+  html.ce-yg-hdr-mock .ce-hdr-silos {
+    display: none !important;
+  }
+
+  html.ce-yg-hdr-mock #head-scroll,
+  html.ce-yg-hdr-mock #header .mobileNavBar,
+  html.ce-yg-hdr-mock .mobileNavBar {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  /*
+   * Even mobile icon row: menu | centered logo | account + basket
+   * Logo flexes in the middle (no absolute) so tablet widths don't
+   * leave a huge empty gap between logo and right icons.
+   */
+  html.ce-yg-hdr-mock .mobileNavBar .bottomPanel {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    position: relative !important;
+    float: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 10px 16px !important;
+    margin: 0 !important;
+    min-height: 64px !important;
+    height: auto !important;
+    border-bottom: none !important;
+    gap: 8px !important;
+  }
+
+  html.ce-yg-hdr-mock .mobileNavBar .bottomPanel > * {
+    float: none !important;
+  }
+
+  /* Fully hide search icons — pill replaces them */
+  html.ce-yg-hdr-mock #ltw-app[data-luma*="mobilesearch"],
+  html.ce-yg-hdr-mock .lbx-replaced#mobileSearch,
+  html.ce-yg-hdr-mock .bottomPanel > #mobileSearch:not(:has(a)),
+  html.ce-yg-hdr-mock #mobileSearchWrapper {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    flex: 0 0 0 !important;
+    order: 0 !important;
+  }
+
+  html.ce-yg-hdr-mock .mobileNavBar .block#mobileMenu {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    order: 1 !important;
+    width: auto !important;
+    max-width: none !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(38, 79, 28, 0.12);
+  }
+
+  html.ce-yg-hdr-mock .mobileNavBar .block.logo {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 1 auto !important;
+    order: 2 !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 8px !important;
+    float: none !important;
+    z-index: 1 !important;
+  }
+
+  html.ce-yg-hdr-mock .mobileNavBar .mobLogo,
+  html.ce-yg-hdr-mock .mobileNavBar .mobLogo a {
+    display: flex !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 0 !important;
+  }
+
+  /* Magento live mobile logo ≈ 130×42 */
+  html.ce-yg-hdr-mock .mobileNavBar .mobLogo img {
+    display: block !important;
+    width: 130px !important;
+    height: auto !important;
+    max-width: 130px !important;
+    margin: 0 !important;
+  }
+
+  /* Account — Magento reuses #mobileSearch for login */
+  html.ce-yg-hdr-mock .mobileNavBar .bottomPanel > #mobileSearch:has(a),
+  html.ce-yg-hdr-mock .mobileNavBar .bottomPanel > .block:has(a.blockLink) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    order: 3 !important;
+    width: auto !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    min-height: 44px !important;
+  }
+
+  html.ce-yg-hdr-mock .mobileNavBar a.blockLink {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 40px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(38, 79, 28, 0.12);
+  }
+
+  html.ce-yg-hdr-mock .mobileNavBar .bottomPanel > .block:has(.mobileBasket) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    order: 4 !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 4px 0 0 !important;
+    min-height: 44px !important;
+  }
+
+  /*
+   * Keep .mobileBasket icon-sized (like Magento) so qty badge
+   * top:-6 / left:-12 sits on the glyph — not in the account gap.
+   * Hit area via ::before so spacing between icons stays tight.
+   */
+  html.ce-yg-hdr-mock .mobileNavBar .mobileBasket {
+    position: relative !important;
+    display: inline-block !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 0 !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(38, 79, 28, 0.12);
+  }
+
+  html.ce-yg-hdr-mock .mobileNavBar .mobileBasket::before {
+    content: "" !important;
+    position: absolute !important;
+    top: -12px !important;
+    right: -10px !important;
+    bottom: -12px !important;
+    left: -10px !important;
+    z-index: 0 !important;
+  }
+
+  html.ce-yg-hdr-mock .mobileNavBar .mobileBasket a {
+    position: relative !important;
+    z-index: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+  }
+
+  html.ce-yg-hdr-mock .mobileNavBar .mobileBasketQty {
+    position: absolute !important;
+    top: -6px !important;
+    left: -12px !important;
+    right: auto !important;
+    z-index: 2 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    font-size: 11px !important;
+    text-align: center !important;
+  }
+
+  /* Pill search under icon row (variant) — tight under Magento-height header */
+  html.ce-yg-hdr-mock .ce-ms-bar {
+    display: block !important;
+    clear: both !important;
+    float: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 12px 10px !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    border: 0 !important;
+    border-bottom: 1px solid #eeeeee !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  html.ce-yg-hdr-mock .ce-ms-bar__inner {
+    position: relative !important;
+    display: flex !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    border: 1px solid var(--ce-ms-border) !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    box-shadow: 0 1px 6px rgba(38, 79, 28, 0.06) !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-hdr-mock .ce-ms-bar__inner:focus-within {
+    border-color: var(--ce-ms-forest) !important;
+    box-shadow:
+      0 1px 6px rgba(38, 79, 28, 0.08),
+      0 0 0 2px rgba(38, 79, 28, 0.28) !important;
+  }
+
+  html.ce-yg-hdr-mock .ce-ms-bar__input {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-radius: 999px !important;
+    padding: 11px 44px 11px 16px !important;
+    margin: 0 !important;
+    font-family: var(--ce-ms-body) !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+    color: var(--ce-ms-muted) !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  html.ce-yg-hdr-mock .ce-ms-bar__input::placeholder {
+    color: var(--ce-ms-muted) !important;
+    opacity: 1 !important;
+  }
+
+  html.ce-yg-hdr-mock .ce-ms-bar__btn {
+    position: absolute !important;
+    top: 50% !important;
+    right: 6px !important;
+    transform: translateY(-50%) !important;
+    width: 34px !important;
+    height: 34px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    color: var(--ce-ms-forest) !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+  }
+
+  html.ce-yg-hdr-mock .ce-ms-bar__btn svg {
+    width: 18px !important;
+    height: 18px !important;
+    display: block !important;
+    fill: currentColor !important;
+  }
+}
+
+@media (min-width: 1001px) {
+  html.ce-yg-hdr-mock .ce-ms-bar {
+    display: none !important;
+  }
+}

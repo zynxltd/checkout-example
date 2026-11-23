@@ -1,0 +1,898 @@
+/**
+ * Crazy Egg — Basket Club V3 (all devices) — Variant 1
+ *
+ * Paste into Crazy Egg Variant → Edit CSS
+ * Pair with: v3.js → Edit Script
+ *
+ *   ≤640  — mobile layout (html[data-ygbc3-layout="mob"])
+ *   641–1024 — tablet tweaks
+ *   1025+ — desktop
+ *
+ * SPF is a separate test: v5-spf.css + v5-spf.js
+ */
+
+#ygbc3-root,
+#ygbc3-root * {
+  box-sizing: border-box;
+}
+
+#ygbc3-root {
+  --ygbc3-purple: #7b277b;
+  --ygbc3-purple-mid: #7b277b;
+  --ygbc3-green: #5cb85c;
+  --ygbc3-green-deep: #449d44;
+  --ygbc3-gelica: "gelica", Georgia, "Times New Roman", serif;
+  clear: both;
+  position: relative;
+  width: 100%;
+  margin: 28px 0 16px;
+  padding: 0;
+  overflow: visible !important;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2;
+  color: #fff;
+  background: transparent;
+  border: 0;
+}
+
+html[data-ygbc3="1"] .viewordLeftWrapper,
+html[data-ygbc3="1"] .buttonPromoWrapper,
+html[data-ygbc3="1"] .viewordLeftWrapper .buttonPromoWrapper {
+  overflow: visible !important;
+}
+
+/* —— Row 1: logo (opaque wrap) then rounded purple banner —— */
+#ygbc3-top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* tops flush: wrap = banner height */
+  gap: 10px; /* tighter — purple banner wider, closer to design */
+  width: 100%;
+  margin: 0;
+  /* Padding (not margin) so leaf overhang doesn’t collapse into basket table */
+  padding: 52px 0 0;
+  overflow: visible;
+}
+
+/* Opaque wrap = banner height; logo sits on bottom so leaves overhang above */
+#ygbc3-logo-wrap {
+  position: relative;
+  z-index: 4;
+  flex: 0 0 184px;
+  align-self: flex-start;
+  width: 184px;
+  height: 96px; /* = #ygbc3-banner */
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  overflow: visible;
+  background: #ffffff !important;
+  border-radius: 18px;
+}
+
+#ygbc3-logo {
+  position: absolute;
+  left: 0;
+  /* Nudge down so white badge top aligns with purple banner (leaves still overhang) */
+  bottom: -8px;
+  z-index: 3;
+  width: 184px;
+  height: auto;
+  max-height: none;
+  margin: 0;
+  display: block;
+  border: 0;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+#ygbc3-banner {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  align-self: flex-start;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 96px;
+  min-height: 96px;
+  max-height: 96px;
+  margin: 0;
+  /* Side padding keeps long Save £xx amounts breathing room */
+  padding: 16px 28px;
+  border-radius: 14px !important;
+  background: #7b277b !important;
+  overflow: hidden;
+}
+
+#ygbc3-copy {
+  width: 100%;
+  max-width: none;
+  text-align: center;
+}
+
+#ygbc3-title {
+  margin: 0 0 6px !important;
+  padding: 0 !important;
+  font-family: var(--ygbc3-gelica) !important;
+  /* Desktop: fills banner without blowing up long live save amounts */
+  font-size: clamp(20px, 1.7vw, 24px) !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.01em;
+  color: #ffffff !important;
+  background: none !important;
+  border: 0 !important;
+}
+
+/* Live club saving from .clubSavingWrapper — bold, not oversized */
+#ygbc3-save {
+  font-family: var(--ygbc3-gelica) !important;
+  font-weight: 700 !important;
+  font-size: 1.08em !important;
+  color: #ffffff !important;
+  white-space: nowrap;
+  padding: 0 0.12em;
+}
+
+#ygbc3-benefits {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: clamp(13px, 1.05vw, 16px) !important;
+  font-weight: 400 !important;
+  line-height: 1.35 !important;
+  color: #ffffff !important;
+  background: none !important;
+}
+
+#ygbc3-benefits span {
+  color: #ffffff !important;
+}
+
+#ygbc3-benefits .ygbc3-sep {
+  display: inline;
+  margin: 0 0.45em;
+  color: #ffffff !important;
+  background: none !important;
+  width: auto;
+  height: auto;
+}
+
+#ygbc3-benefits .ygbc3-sep::before {
+  content: "|";
+  color: #ffffff !important;
+}
+
+/* —— Row 2: 1x3 —— */
+#ygbc3-body {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 0.85fr;
+  gap: 12px;
+  align-items: center;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+#ygbc3-opt-auto,
+#ygbc3-opt-one {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 14px;
+  min-height: 54px;
+  height: auto;
+  border: 2px solid #7b277b !important;
+  border-radius: 10px;
+  background: #ffffff !important;
+  color: #7b277b !important;
+  cursor: pointer;
+  text-align: center;
+}
+
+#ygbc3-opt-auto.ygbc3-is-selected,
+#ygbc3-opt-one.ygbc3-is-selected {
+  border-width: 3px !important;
+  padding: 9px 13px 9px 11px;
+}
+
+#ygbc3-opt-auto input,
+#ygbc3-opt-one input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ygbc3-radio {
+  position: relative;
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #7b277b !important;
+  border-radius: 50%;
+  background: #fff !important;
+}
+
+.ygbc3-is-selected .ygbc3-radio::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: #7b277b !important;
+}
+
+.ygbc3-opt-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  text-align: center;
+}
+
+.ygbc3-opt-main {
+  display: block;
+  font-family: var(--ygbc3-gelica) !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  color: #7b277b !important;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.ygbc3-opt-meta {
+  display: block;
+  font-family: var(--ygbc3-gelica) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.15 !important;
+  color: #7b277b !important;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.ygbc3-was {
+  text-decoration: line-through;
+}
+
+#ygbc3-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+#ygbc3-atc {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-radius: 10px;
+  background: #5cb85c !important;
+  color: #ffffff !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+#ygbc3-atc:hover,
+#ygbc3-atc:focus {
+  background: #449d44 !important;
+  color: #ffffff !important;
+}
+
+#ygbc3-more {
+  display: block;
+  margin: 0;
+  padding: 0;
+  color: #7b277b !important;
+  font-family: var(--ygbc3-gelica) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  text-decoration: underline !important;
+  background: none !important;
+  border: 0 !important;
+}
+
+/* Right sidebar: club badge left; purple Save MORE only on the right, flush with badge */
+html[data-ygbc3="1"] {
+  --ygbc3-purple: #7b277b;
+  --ygbc3-purple-mid: #7b277b;
+}
+
+html[data-ygbc3="1"] .viewordRightWrapper,
+html[data-ygbc3="1"] #ygbc3-side {
+  overflow: visible !important;
+}
+
+/* CE side strip only — do not restyle live .clubSavingWrapper card */
+#ygbc3-side {
+  position: relative;
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 14px 0 10px !important;
+  background: transparent !important;
+  border: 0 !important;
+  overflow: visible !important;
+  float: none !important;
+  clear: both !important;
+}
+
+#ygbc3-side-link {
+  --ygbc3-side-bar-h: 34px;
+  position: relative;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-end !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+  width: 100% !important;
+  min-height: calc(var(--ygbc3-side-bar-h) + 12px) !important;
+  padding: 12px 0 0 !important;
+  text-decoration: none !important;
+  overflow: visible !important;
+  line-height: 1 !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+
+#ygbc3-side-link::before {
+  content: "";
+  position: absolute;
+  left: 32%;
+  right: 0;
+  bottom: 2px; /* flush with badge border bottom */
+  top: auto;
+  height: var(--ygbc3-side-bar-h);
+  margin: 0;
+  background: #7b277b !important;
+  border-radius: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#ygbc3-side-logo {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: 58% !important;
+  height: 42px !important;
+  max-height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  object-fit: contain;
+  object-position: left bottom;
+}
+
+#ygbc3-side-save {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0% !important;
+  align-self: flex-end !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-width: 0 !important;
+  height: var(--ygbc3-side-bar-h) !important;
+  min-height: var(--ygbc3-side-bar-h) !important;
+  margin: 0 0 2px !important; /* match ::before bottom flush */
+  padding: 0 10px 0 6px !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em;
+  text-align: center !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+}
+
+/* Tablet — larger logo nudged up flush with purple banner */
+@media (max-width: 1024px) and (min-width: 641px) {
+  #ygbc3-top {
+    gap: 10px;
+    align-items: flex-start;
+    padding-top: 36px; /* leaf clearance */
+  }
+
+  #ygbc3-logo-wrap {
+    flex-basis: 156px;
+    width: 156px;
+    height: 80px; /* = tablet banner — tops flush */
+    margin: 0;
+    border-radius: 14px;
+  }
+
+  #ygbc3-logo {
+    width: 168px; /* bigger than wrap — leaves overhang */
+    left: -6px;
+    /* Match desktop: badge top flush with purple banner */
+    bottom: -8px;
+  }
+
+  #ygbc3-banner {
+    height: 80px;
+    min-height: 80px;
+    max-height: 80px;
+    padding: 10px 14px;
+  }
+
+  #ygbc3-title {
+    font-size: 16px !important;
+    margin: 0 0 4px !important;
+  }
+
+  #ygbc3-save {
+    font-size: 1.18em !important;
+  }
+
+  #ygbc3-benefits {
+    font-size: 11.5px !important;
+    line-height: 1.3 !important;
+  }
+
+  #ygbc3-body {
+    gap: 10px;
+  }
+
+  .ygbc3-opt-main {
+    font-size: 15px !important;
+  }
+
+  #ygbc3-side-link {
+    --ygbc3-side-bar-h: 32px;
+    padding-top: 10px;
+  }
+
+  #ygbc3-side-link::before {
+    left: 34%;
+  }
+
+  #ygbc3-side-logo {
+    height: 38px !important;
+    max-height: 38px !important;
+    max-width: 55% !important;
+  }
+
+  #ygbc3-side-save {
+    font-size: 14px !important;
+  }
+}
+
+/* —— Mobile layout (JS sets data-ygbc3-layout="mob", ≤640) —— */
+html[data-ygbc3-layout="mob"] #ygbc3-root {
+  margin: 32px 0 12px !important;
+  /* Room for leaf overhang above the flush badge */
+  padding: 28px 0 0 !important;
+}
+
+html[data-ygbc3-layout="mob"] .viewordLeftWrapper table.mainTable,
+html[data-ygbc3-layout="mob"] table.mainTable {
+  margin-bottom: 12px !important;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start; /* tops flush — no purple peeking above logo */
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+/* Opaque wrap = banner height; logo scales larger than wrap for flush badge */
+html[data-ygbc3-layout="mob"] #ygbc3-logo-wrap {
+  position: relative;
+  z-index: 4;
+  flex: 0 0 150px;
+  align-self: flex-start;
+  width: 150px;
+  height: 84px;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  overflow: visible;
+  background: #ffffff !important;
+  border-radius: 12px 0 0 12px;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-logo {
+  position: absolute;
+  left: 0;
+  /*
+   * Oversized vs wrap so the bordered badge sits flush with / slightly
+   * over the purple top — no purple strip above the logo.
+   */
+  bottom: -2px;
+  z-index: 3;
+  width: 160px;
+  height: 118px;
+  max-width: none;
+  margin: 0;
+  display: block;
+  border: 0;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-banner {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  align-self: flex-start;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 84px;
+  min-height: 84px;
+  max-height: 84px;
+  /* No top margin — flush with logo wrap */
+  margin: 0 0 0 -28px;
+  padding: 8px 10px 8px 36px;
+  border-radius: 0 12px 12px 0 !important;
+  background: #7b277b !important;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-copy {
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-title {
+  margin: 0 0 4px !important;
+  padding: 0 0 4px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.85) !important;
+  font-family: var(--ygbc3-gelica) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.25 !important;
+  color: #ffffff !important;
+  background: none !important;
+  white-space: normal !important;
+  overflow-wrap: break-word;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-save {
+  font-family: var(--ygbc3-gelica) !important;
+  font-weight: 700 !important;
+  font-size: 1.1em !important;
+  color: #ffffff !important;
+  white-space: nowrap;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-benefits {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 10.5px !important;
+  font-weight: 400 !important;
+  line-height: 1.35 !important;
+  color: #ffffff !important;
+  text-align: center !important;
+  white-space: normal !important;
+  overflow-wrap: break-word;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-benefits span {
+  color: #ffffff !important;
+  display: inline;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-benefits .ygbc3-br {
+  display: block;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-benefits .ygbc3-sep {
+  display: inline;
+  margin: 0 0.25em;
+  width: auto;
+  height: auto;
+  background: none !important;
+  color: #ffffff !important;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-benefits .ygbc3-sep::before {
+  content: "|";
+  color: #ffffff !important;
+}
+
+/* Narrow phones: keep logo flush/big; stack benefits for space */
+@media (max-width: 420px) {
+  html[data-ygbc3-layout="mob"] #ygbc3-logo-wrap {
+    flex-basis: 138px;
+    width: 138px;
+    height: 78px;
+  }
+
+  html[data-ygbc3-layout="mob"] #ygbc3-logo {
+    width: 148px;
+    height: 110px;
+    bottom: -2px;
+  }
+
+  html[data-ygbc3-layout="mob"] #ygbc3-banner {
+    height: 78px;
+    min-height: 78px;
+    max-height: 78px;
+    margin-left: -24px;
+    padding: 6px 8px 6px 32px;
+  }
+
+  html[data-ygbc3-layout="mob"] #ygbc3-title {
+    font-size: 12px !important;
+  }
+
+  html[data-ygbc3-layout="mob"] #ygbc3-benefits {
+    font-size: 10px !important;
+  }
+
+  html[data-ygbc3-layout="mob"] #ygbc3-benefits .ygbc3-sep {
+    display: none;
+  }
+
+  html[data-ygbc3-layout="mob"] #ygbc3-benefits > span:not(.ygbc3-sep) {
+    display: block;
+    line-height: 1.3;
+  }
+}
+
+/*
+ * Mobile radios: two equal option cards, CTA full-width underneath.
+ * (3-up squeezed labels; desktop nowrap was clipping “Auto-Renew”.)
+ */
+html[data-ygbc3-layout="mob"] #ygbc3-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+  align-items: stretch;
+  margin: 10px 0 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-opt-auto,
+html[data-ygbc3-layout="mob"] #ygbc3-opt-one {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 12px 10px 12px 10px !important;
+  min-height: 64px;
+  height: auto;
+  border: 2px solid #7b277b !important;
+  border-radius: 10px;
+  background: #ffffff !important;
+  color: #7b277b !important;
+  cursor: pointer;
+  text-align: left;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  overflow: visible;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-opt-auto.ygbc3-is-selected,
+html[data-ygbc3-layout="mob"] #ygbc3-opt-one.ygbc3-is-selected {
+  border-width: 2px !important;
+  padding: 12px 10px 12px 10px !important;
+  box-shadow: 0 0 0 1px #7b277b !important;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-opt-auto input,
+html[data-ygbc3-layout="mob"] #ygbc3-opt-one input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-ygbc3-layout="mob"] .ygbc3-radio {
+  position: relative;
+  left: auto;
+  top: auto;
+  margin: 0 !important;
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  border: 2px solid #7b277b !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+  flex: 0 0 auto !important;
+  padding: 0 !important;
+}
+
+html[data-ygbc3-layout="mob"] .ygbc3-is-selected .ygbc3-radio::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #7b277b !important;
+}
+
+html[data-ygbc3-layout="mob"] .ygbc3-opt-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+  width: auto;
+  text-align: left;
+}
+
+html[data-ygbc3-layout="mob"] .ygbc3-opt-main {
+  display: block;
+  font-family: var(--ygbc3-gelica) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: #7b277b !important;
+  white-space: normal !important;
+  overflow-wrap: break-word;
+  text-align: left;
+}
+
+html[data-ygbc3-layout="mob"] .ygbc3-opt-meta {
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+  font-family: var(--ygbc3-gelica) !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  color: #7b277b !important;
+  white-space: normal !important;
+  word-break: normal;
+  text-align: left;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-opt-one .ygbc3-opt-meta {
+  font-size: 11px !important;
+  padding: 0;
+}
+
+html[data-ygbc3-layout="mob"] .ygbc3-was {
+  text-decoration: line-through;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-cta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+  width: 100%;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-atc,
+html[data-ygbc3-layout="mob"] button#ygbc3-atc {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 44px;
+  margin: 0 !important;
+  padding: 10px 12px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: #5cb85c !important;
+  color: #ffffff !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-atc:hover,
+html[data-ygbc3-layout="mob"] #ygbc3-atc:focus {
+  background: #449d44 !important;
+  color: #ffffff !important;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-more,
+html[data-ygbc3-layout="mob"] a#ygbc3-more {
+  display: block !important;
+  margin: 0 !important;
+  padding: 2px 0 0 !important;
+  color: #7b277b !important;
+  font-family: var(--ygbc3-gelica) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  text-decoration: underline !important;
+  background: none !important;
+  border: 0 !important;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-side,
+html[data-ygbc3-layout="mob"] .clubSavingWrapper {
+  margin: 14px 0 10px !important;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-side-link {
+  --ygbc3-side-bar-h: 34px;
+  min-height: calc(var(--ygbc3-side-bar-h) + 12px) !important;
+  padding: 12px 0 0 !important;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-side-link::before {
+  left: 18%;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-side-logo {
+  height: 42px !important;
+  max-height: 42px !important;
+  max-width: 62% !important;
+}
+
+html[data-ygbc3-layout="mob"] #ygbc3-side-save {
+  font-size: 15px !important;
+  padding: 0 12px 0 4px !important;
+}

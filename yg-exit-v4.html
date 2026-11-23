@@ -1,0 +1,1474 @@
+{# YouGarden exit intent — Gelica, USPs, Feefo, Add to basket, trust footer #}
+
+{% if meta.preview == "true" %}
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://im.dycdn.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{% endif %}
+
+{# VARIABLES — same tokens as test-atc-carousel / yg-test-bestsellers #}
+{% set yougardenBlue = "#264f1c" %}
+{% set yougardenBlueDark = "#1a3d14" %}
+{% set yougardenPink = "#e3185d" %}
+{% set yougardenInk = "#483F3A" %}
+
+{# ----- Social Proof Messaging Macro start ---- #}
+{% macro socialProof(product) %}
+
+{# social proof icon setup start #}
+{% if fields.socialProofMessaging.iconImage %}
+    {% set socialProofIcon = '<img src="' + fields.socialProofMessaging.iconImage + '" alt="Social Icon" style="height: auto;
+            width: ' + fields.socialProofMessaging.iconWidth + 'px;" />' %}
+{% else %}
+    {% if fields.socialProofMessaging.iconShape != 'rt4q9wp' %}
+        {% set socialProofIcon = '<span style="height: auto;
+            width: ' + fields.socialProofMessaging.iconWidth + 'px; color: ' + fields.socialProofMessaging.iconColor + ';
+            font-size: ' + fields.socialProofMessaging.iconWidth + 'px;">' +
+            fields.socialProofMessaging.iconShape + '</span>' %}
+    {% else %}
+        {% set socialProofIcon = '<svg style="height: auto; padding: 0px !important; margin: 0px !important;
+            width: ' + fields.socialProofMessaging.iconWidth + 'px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 164 211.6" style="enable-background:new 0 0 164 211.6;" xml:space="preserve">
+                <path class="st0" fill="' + fields.socialProofMessaging.iconColor + '" d="M127.1,37.2c3.8,5.1,0.2,25.6-1,39.1C120.8,50.8,69.5,0,69.5,0c8.2,17.3-15,60.2-35.7,92.4  c-1.3-12-4.6-28.8-12.9-34.5c0,0-7.5,31.8-13.6,43.9c0,0-8,18.1-7.2,36c-0.1,0.2,0.6,5.4,1,7.1c6.6,36,39.7,55.8,57.3,66.7  c-0.7-2-2.6-4.9-4.9-8.2c-2-3-2.7-4-3.8-5.4c-1.2-1.8-2.5-3.6-3.6-5.4c-8.7-16-0.3-32.2,4.4-39.2c0.8-1,1.7-2.1,2.7-3.5  c0,0,0,0.1,0,0.1h0c4.4-7,10.4-17.1,11.1-29c0,0,13.2,21.1,6.8,31.5c0,0,18.8-30.3,14.4-60.3c0,0,44.1,34.7,38.6,85  c0,0-2.2,15.5-13.5,34.4C220.3,145.7,127.1,37.2,127.1,37.2z"/>
+            </svg>' %}
+    {% endif %}
+{% endif %}
+{# social proof icon setup end #}
+
+{# social proof start #}
+{% if fields.socialProofMessaging.active  %}
+{% if format in ["dynamichtml", "dynamicimage", "thumb"] %}
+    <tr>
+        <td style='padding-bottom:5px; padding-top:5px; text-align: center;'>
+{% endif %}
+            {% set proof = product.social_proof %}
+            {#  Write out the message for the relevant type of social proof #}
+            {% if proof.purchased and (fields.purchasedData.active) and proof.purchased >= fields.purchasedData.minimumPurchased %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.purchasedData.colors.background }};
+                    color: {{ fields.purchasedData.colors.foreground }};
+                    {% if fields.purchasedData.bold %} font-weight:bold; {% endif %} {% if fields.purchasedData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {% if fields.purchasedData.displayNumber %} {{ proof.purchased }} {% endif %} {{ fields.purchasedData.text }}
+                </div>
+            {% elif proof.carted and ( fields.cartedData.active) and proof.carted >= fields.cartedData.minimumCarted %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.cartedData.colors.background }};
+                    color: {{ fields.cartedData.colors.foreground }};
+                    {% if fields.cartedData.bold %} font-weight:bold; {% endif %} {% if fields.cartedData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {% if fields.cartedData.displayNumber %} {{ proof.carted }} {% endif %} {{ fields.cartedData.text }}
+                </div>
+            {% elif proof.browsed and (fields.browsedData.active) and proof.browsed >= fields.browsedData.minimumBrowsed %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.browsedData.colors.background }};
+                    color: {{ fields.browsedData.colors.foreground }};
+                    {% if fields.browsedData.bold %} font-weight:bold; {% endif %} {% if fields.browsedData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {% if fields.browsedData.displayNumber %} {{ proof.browsed }} {% endif %} {{ fields.browsedData.text }}
+                </div>
+            {% elif fields.fallbackData.active %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};
+                    height: auto;
+                    text-align: center;
+                    background-color: {{ fields.fallbackData.colors.background }};
+                    color: {{ fields.fallbackData.colors.foreground }};
+                    {% if fields.fallbackData.bold %} font-weight:bold; {% endif %} {% if fields.fallbackData.italics %}font-style: italic; {% endif %}'>
+                    {{ socialProofIcon }}
+                    {{ fields.fallbackData.text }}
+                </div>
+            {% else %}
+                <div style='font-size: {{ fields.socialProofMessaging.fontSize.size }}{{ fields.socialProofMessaging.fontSize.unit }};
+                    font-family:{{ fields.socialProofMessaging.font }};
+                    padding: {{ fields.socialProofMessaging.padding.size }}{{ fields.socialProofMessaging.padding.unit }};'>
+                    &nbsp;
+                </div>
+            {% endif %}
+{% if format in ["dynamichtml", "dynamicimage", "thumb"] %}
+        <td>
+    </tr>
+{% endif %}
+{% endif %}
+
+{% endmacro %}
+{# ----- Social Proof Messaging Macro end ---- #}
+
+<div id="{{ safeid }}__overlay" class="{{ safeid }} {{ safeid }}__overlay {{ safeid }}__animated">
+
+	<div class="{{ safeid }}__popover-wrapper">
+
+		<div class="{{ safeid }}__popover-content fr-popover-modal-dialog">
+
+			<button type="button" class="{{ safeid }}__button-close" aria-label="Close"></button>
+
+			{# header start #}
+			{% if fields.headerContainer.active %}
+
+				<div class="{{ safeid }}__popover-header">
+
+					<p class="{{ safeid }}__eyebrow">Before you go</p>
+
+					{# headline start #}
+					{% if fields.headline.active %}
+
+						<div class="{{ safeid }}__headline">
+							<h2>{{ mergeField( fields.headline.text) or "Wait — before you go" }}</h2>
+						</div>
+
+					{% endif %}
+					{# headline end #}
+
+					{# message start #}
+					{% if fields.message.active %}
+
+						<div class="{{ safeid }}__message">
+							<p>{{ fields.message.text or "A few plants from what you've been looking at" }}</p>
+						</div>
+
+					{% endif %}
+					{# message end #}
+
+					<ul class="{{ safeid }}__usps">
+						<li>Free 30-day refund</li>
+						<li>Double guarantee</li>
+						<li>UK grown &amp; selected</li>
+					</ul>
+
+				</div>
+
+			{% endif %}
+			{# header end #}
+
+			{# products start #}
+			<div class="{{ safeid }}__product-rec-container">
+
+				<div class="{{ safeid }}__swiper">
+
+					<div class="swiper-wrapper">
+
+						{% for product in products %}
+
+							{# product card start #}
+							<div class="swiper-slide imagecontainer">
+								<div class="{{ safeid }}__product-card">
+
+								{# product image start #}
+								{% if fields.image.active %}
+
+									<div class="{{ safeid }}__product-image">
+
+										<a href="{{ mergeField( fields.redirectURL, { product: product })|set_ga_tracking(
+											utm_campaign=mergeField( fields.utmCampaign, {}),
+											utm_medium=mergeField( fields.utmMedium, {}),
+											utm_source=mergeField( fields.utmSource, {})) }}">
+											{% set saving = 0 %}
+											{% if product.ruv and product.uv and product.ruv > product.uv %}
+												{% set saving = (product.ruv - product.uv) / product.ruv * 100 %}
+											{% endif %}
+											{% if saving > 0 %}
+											<div class="{{ safeid }}__savings-badge"><div class="save"><span class="percentage">{{ saving|round(0) }}<span class="symbol">%</span></span><br>OFF</div></div>
+											{% endif %}
+											<img src="{{ product.img }}" loading="lazy" alt="{{ product.n }}">
+										</a>
+
+										<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+									</div>
+
+								{% endif %}
+								{# product image end #}
+
+								{# product name start #}
+								{% if fields.name.active %}
+
+									<div class="{{ safeid }}__product-name">
+										<a href="{{ mergeField( fields.redirectURL, { product: product })|set_ga_tracking(
+											utm_campaign=mergeField( fields.utmCampaign, {}),
+											utm_medium=mergeField( fields.utmMedium, {}),
+											utm_source=mergeField( fields.utmSource, {})) }}">
+											{{ (product.n or "")|truncate( fields.name.maxChars) }}
+										</a>
+									</div>
+
+								{% endif %}
+								{# product name end #}
+
+								<div class="{{ safeid }}__product-footer">
+
+									{# social proof start #}
+									{% if fields.socialProofMessaging.active  %}
+
+										<div class="{{ safeid }}__social-proof">
+											{{ socialProof(product) }}
+										</div>
+
+									{% endif %}
+									{# social proof end #}
+
+									{% set feefo_sku = product.sku or product.prid %}
+									{% if feefo_sku %}
+									<div class="{{ safeid }}__ratings">
+										<div class="feefo-product-stars-widget" data-product-sku="{{ feefo_sku }}" data-parent-product-sku="{{ feefo_sku }}"></div>
+									</div>
+									{% endif %}
+
+									{# product ratings start #}
+									{% if fields.ratingIcons.active %}
+
+										<div class="{{ safeid }}__product-rating">
+											{{ product|addProductRatings }}
+										</div>
+
+									{% endif %}
+									{# product ratings end #}
+
+									{# product price — Just / was, same as ATC SmartBlock #}
+									{% if fields.price.active %}
+
+										<div class="{{ safeid }}__product-price-container">
+											{% if product.ruv and product.uv and product.ruv > product.uv %}
+											<div class="{{ safeid }}__product-was-price">
+												<span>{{ product.ruv|format_currency(product.curr, 2) }}</span>
+											</div>
+											{% endif %}
+											<div class="{{ safeid }}__product-price">
+												<a href="{{ mergeField( fields.redirectURL, { product: product })|set_ga_tracking(
+													utm_campaign=mergeField( fields.utmCampaign, {}),
+													utm_medium=mergeField( fields.utmMedium, {}),
+													utm_source=mergeField( fields.utmSource, {})) }}">
+													<span class="{{ safeid }}__price-label">Just</span>
+													<span class="{{ safeid }}__price-amount">{{ product.uv|format_currency(product.curr,2) }}{% if fields.price.suffix %} {{ fields.price.suffix }}{% endif %}</span>
+												</a>
+											</div>
+										</div>
+
+									{% endif %}
+									{# product price end #}
+
+									{% set packs = product|getAllVariantsFromProduct %}
+									{% set first_pack = packs[0] if packs and packs|length else none %}
+									<a class="{{ safeid }}__shop" href="{{ mergeField( fields.redirectURL, { product: product })|set_ga_tracking(
+										utm_campaign=mergeField( fields.utmCampaign, {}),
+										utm_medium=mergeField( fields.utmMedium, {}),
+										utm_source=mergeField( fields.utmSource, {})) }}"
+										data-stno="{{ (first_pack.vid if first_pack else '') or product.sku or product.prid }}"
+										data-sku="{{ product.sku or product.prid }}"
+										data-pdp="{{ product.u }}">Add to basket</a>
+
+								</div>
+
+								</div>
+							</div>
+							{# product card end #}
+
+						{% endfor %}
+
+					</div>
+
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-pagination swiper-pagination-horizontal"></div>
+
+				</div>
+			</div>
+			{# products end #}
+
+			<p class="{{ safeid }}__swipe">Swipe for more</p>
+
+			{# dismiss — quiet, cards are the conversion #}
+			{% if fields.cta.active %}
+				<div class="{{ safeid }}__header-cta-button">
+					<a href="{{ mergeField( fields.buttonHref, {})|set_ga_tracking(
+						utm_campaign=mergeField( fields.utmCampaign, {}),
+						utm_medium=mergeField( fields.utmMedium, {}),
+						utm_source=mergeField( fields.utmSource, {})) }}">
+						{{ fields.cta.text }}
+					</a>
+				</div>
+			{% endif %}
+
+			<ul class="{{ safeid }}__trust">
+				<li>Free 30-day refund &amp; replacement</li>
+				<li>Double guarantee on hardy plants</li>
+			</ul>
+
+		</div>
+
+	</div>
+
+</div>
+
+<link rel="stylesheet" href="https://im.dycdn.net/npm/swiper@11/swiper-bundle.min.css">
+<style type="text/css">
+	@import url("https://use.typekit.net/hrf1tkz.css");
+
+	{% set wrapperClass = safeid + '__popover-wrapper' %}
+
+	.{{ safeid }}__overlay,
+	.{{ safeid }}__overlay * {
+		box-sizing: border-box;
+		outline: 0;
+	}
+
+	.{{ safeid }}__overlay {
+		{% if meta.preview != 'true' %}display: none;{% endif %}
+		position: fixed;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 10000;
+		background-color: rgba(26, 61, 20, 0.55);
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.{{ wrapperClass }} {
+		display: flex;
+		width: 100%;
+		min-height: 100%;
+		justify-content: center;
+		align-items: center;
+		padding: 12px;
+		box-sizing: border-box;
+	}
+
+	.{{ safeid }}__popover-content {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		z-index: 9999;
+		box-sizing: border-box;
+		margin: auto;
+		border-radius: {{ fields.borderRadius }};
+		background-color: {{ fields.backgroundColour or '#ffffff' }};
+		width: 100%;
+		max-width: {{ fields.width }}px;
+		max-height: 92dvh;
+		overflow-x: hidden;
+		overflow-y: auto;
+		padding: 40px 16px 18px;
+		box-shadow: 0 24px 64px rgba(38, 79, 28, 0.18);
+		{% if fields.border %}
+			border: {{ fields.borderWeight }}px {{ fields.borderStyle }} {{ fields.borderColor }};
+		{% endif %}
+	}
+
+	.{{ safeid }}__popover-content::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 4px;
+		background: {{ yougardenBlue }};
+	}
+
+	.{{ safeid }}__popover-header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 0 28px 0 8px;
+		background-color: {{ fields.headerContainer.backgroundColor }};
+		border-radius: {{ fields.headerContainer.borderRadius }};
+	}
+
+	.{{ safeid }}__eyebrow {
+		margin: 0 0 6px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: {{ yougardenBlue }};
+		text-align: center;
+	}
+
+	.{{ safeid }}__usps {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 6px;
+		list-style: none;
+		margin: 0 0 4px;
+		padding: 0;
+	}
+
+	.{{ safeid }}__usps li {
+		margin: 0;
+		padding: 5px 10px;
+		background: #eef3e6;
+		color: {{ yougardenBlue }};
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		font-weight: 700;
+		line-height: 1.2;
+		border-radius: 999px;
+		white-space: nowrap;
+	}
+
+	.{{ safeid }}__headline {
+		width: 100%;
+		display: flex;
+		align-content: center;
+		justify-content: {{ fields.headline.alignment }};
+		padding: {{ fields.headline.padding.size }}{{ fields.headline.padding.unit }};
+		margin: 0 0 4px;
+		position: relative;
+		background-color: transparent;
+	}
+
+	.{{ safeid }}__headline h2 {
+		margin: 0;
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		font-size: {{ fields.headline.fontSize.size }}{{ fields.headline.fontSize.unit }};
+		font-weight: 700;
+		color: {{ fields.headline.colors.foreground or yougardenInk }};
+		letter-spacing: -0.6px;
+		line-height: 1.25;
+		text-align: {{ fields.headline.alignment }};
+		{% if fields.headline.italic %}
+			font-style: italic;
+		{% endif %}
+	}
+
+	.{{ safeid }}__headline::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 88px;
+		height: 3px;
+		background: {{ yougardenBlue }};
+		border-radius: 2px;
+	}
+
+	.{{ safeid }}__message {
+		width: 100%;
+		text-align: {{ fields.message.alignment }};
+		margin: 8px 0 12px;
+		color: {{ fields.message.colors.foreground or '#666666' }};
+		background-color: transparent;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: {{ fields.message.fontSize.size }}{{ fields.message.fontSize.unit }};
+		padding: {{ fields.message.padding.size }}{{ fields.message.padding.unit }};
+		font-weight: {% if fields.message.bold %}bold{% else %}400{% endif %};
+		line-height: 1.4;
+		{% if fields.message.italic %}
+			font-style: italic;
+		{% endif %}
+	}
+
+	.{{ safeid }}__message p {
+		margin: 0;
+	}
+
+	.{{ safeid }}__header-cta-button {
+		width: 100%;
+		text-align: center;
+		margin-top: 4px;
+	}
+
+	.{{ safeid }}__header-cta-button a {
+		width: auto;
+		display: inline;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto;
+		min-height: 0;
+		box-sizing: border-box;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+		font-size: 13px !important;
+		color: #666666 !important;
+		font-family: Arial, Helvetica, sans-serif;
+		background-color: transparent !important;
+		padding: 8px 4px;
+		border: 0 !important;
+		border-radius: 0;
+		font-weight: 500 !important;
+		letter-spacing: 0;
+		text-transform: none !important;
+		text-align: center;
+		line-height: 1.4;
+	}
+
+	.{{ safeid }}__header-cta-button a:hover {
+		background-color: transparent !important;
+		border-color: transparent !important;
+		color: {{ yougardenBlue }} !important;
+	}
+
+	.{{ safeid }}__shop {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: calc(100% - 16px);
+		margin: 10px 8px 0;
+		min-height: 40px;
+		padding: 10px 8px;
+		box-sizing: border-box;
+		background: {{ yougardenBlue }};
+		color: #fff !important;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		text-decoration: none !important;
+		line-height: 1;
+		cursor: pointer;
+		transition: background-color 0.2s ease;
+	}
+
+	.{{ safeid }}__shop:hover {
+		background: {{ yougardenBlueDark }};
+		color: #fff !important;
+	}
+
+	.{{ safeid }}__shop.is-adding {
+		opacity: 0.7;
+		pointer-events: none;
+	}
+
+	.{{ safeid }}__shop.is-added {
+		background: {{ yougardenBlueDark }};
+	}
+
+	.{{ safeid }}__ratings {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 20px;
+		min-height: 20px;
+		padding: 2px 0 6px;
+		margin: 0 auto;
+		text-align: center;
+		width: 158px;
+		overflow: hidden;
+		--feefo-typography-body-small-font-size: 12px;
+	}
+
+	.{{ safeid }}__ratings .feefo-product-stars-widget {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto;
+		line-height: 0;
+		height: 20px;
+	}
+
+	.{{ safeid }}__ratings * {
+		text-shadow: none;
+	}
+
+	.{{ safeid }}__swipe {
+		display: none;
+		margin: 8px 0 0;
+		text-align: center;
+		font-size: 11px;
+		color: #888;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.{{ safeid }}__trust {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 8px 16px;
+		list-style: none;
+		margin: 10px 0 0;
+		padding: 10px 8px 0;
+		border-top: 1px solid #eee;
+	}
+
+	.{{ safeid }}__trust li {
+		position: relative;
+		margin: 0;
+		padding: 0 0 0 16px;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		line-height: 1.3;
+		color: #666;
+	}
+
+	.{{ safeid }}__trust li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 3px;
+		width: 10px;
+		height: 6px;
+		border-left: 2px solid {{ yougardenBlue }};
+		border-bottom: 2px solid {{ yougardenBlue }};
+		transform: rotate(-45deg);
+	}
+
+	:root {
+		--swiper-navigation-size: {{ fields.arrowSize }}px;
+		--swiper-navigation-color: #ffffff;
+	}
+
+	.{{ safeid }} .swiper-wrapper {
+		height: auto;
+		align-items: stretch;
+	}
+
+	.{{ safeid }}__swiper {
+		width: 100%;
+		padding: 0 28px 4px;
+		overflow: hidden;
+		container-type: inline-size;
+		container-name: yg-exit-swiper;
+	}
+
+	.{{ safeid }} .swiper-slide {
+		display: flex;
+		flex-direction: column;
+		height: auto;
+		align-self: stretch;
+		text-align: center;
+		overflow: hidden;
+		background: transparent;
+	}
+
+	.{{ safeid }}__product-card {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 auto;
+		width: 100%;
+		height: 100%;
+		min-width: 0;
+		background-color: {{ fields.style.backgroundColor or '#ffffff' }};
+		border: 1px solid #ececec;
+		{% if fields.style.border %}
+			border: {{ fields.style.borderWeight }}px {{ fields.style.borderStyle }} {{ fields.style.borderColor }};
+		{% endif %}
+		border-radius: 8px;
+		overflow: hidden;
+	}
+
+	.{{ safeid }} .swiper-button-prev,
+	.{{ safeid }} .swiper-button-next {
+		width: 32px;
+		height: 32px;
+		margin-top: 0;
+		top: 22%;
+		transform: translateY(-50%);
+		background: {{ yougardenBlue }};
+		border-radius: 50%;
+		color: #fff;
+	}
+
+	.{{ safeid }} .swiper-button-prev:after,
+	.{{ safeid }} .swiper-button-next:after {
+		font-size: 12px;
+		font-weight: 700;
+		color: #fff;
+	}
+
+	.{{ safeid }} .swiper-button-next {
+		right: 0;
+	}
+
+	.{{ safeid }} .swiper-button-prev {
+		left: 0;
+	}
+
+	.{{ safeid }} .swiper-button-prev:hover,
+	.{{ safeid }} .swiper-button-next:hover {
+		background: {{ yougardenBlueDark }};
+	}
+
+	@container yg-exit-swiper (max-width: 419px) {
+		.{{ safeid }} .swiper-button-prev,
+		.{{ safeid }} .swiper-button-next {
+			display: none;
+		}
+
+		.{{ safeid }}__swiper {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+
+    {% if fields.carouselPagination.active %}
+        .{{ safeid }} .swiper-pagination-bullet {
+            background: {{ fields.carouselPagination.color or '#cccccc' }};
+            opacity: 1;
+            width: 6px;
+            height: 6px;
+        }
+
+        .{{ safeid }} .swiper-pagination-bullet-active {
+            background: {{ fields.carouselPagination.activeColor or yougardenBlue }};
+            width: 18px;
+            border-radius: 4px;
+        }
+    {% endif %}
+
+	.{{ safeid }} .swiper-pagination {
+		width: 100%;
+		position: relative !important;
+		padding-top: 12px;
+		bottom: unset !important;
+	}
+
+	.{{ safeid }}__product-rec-container {
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+		margin-top: 4px;
+		min-width: 0;
+	}
+
+	.{{ safeid }}__product-image {
+		position: relative;
+		display: block;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.{{ safeid }}__product-image a {
+		display: block;
+		width: 100%;
+		position: relative;
+	}
+
+	.{{ safeid }}__product-image img {
+		display: block;
+		width: 100%;
+		height: auto;
+		max-height: 220px;
+		aspect-ratio: 1 / 1;
+		object-fit: contain;
+		object-position: center;
+		margin: 0 auto;
+		padding: 0;
+		background: #f7f4ee;
+	}
+
+	.{{ safeid }}__savings-badge {
+		position: absolute;
+		top: 8px;
+		right: 8px;
+		z-index: 2;
+		width: 56px;
+		height: 56px;
+		background: {{ yougardenPink }};
+		border-radius: 50%;
+		border: solid 2px #fff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.{{ safeid }}__savings-badge .save {
+		text-align: center;
+		font-size: 13px;
+		line-height: 0.85;
+		color: #fff;
+		font-weight: 800;
+		font-family: Arial, Helvetica, sans-serif;
+		display: block;
+		margin-top: 6px;
+	}
+
+	.{{ safeid }}__savings-badge .save .percentage {
+		display: block;
+		font-size: 14px;
+		line-height: 1;
+	}
+
+	.{{ safeid }}__savings-badge .save .symbol {
+		font-size: 11px;
+		vertical-align: top;
+	}
+
+	.{{ safeid }}__product-name {
+		background-color: transparent;
+		flex: 1;
+		min-height: 40px;
+		margin: 8px 0 0;
+		padding: 0 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.{{ safeid }}__product-name a {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		font-size: {{ fields.name.fontSize.size }}{{ fields.name.fontSize.unit }};
+		color: {{ fields.name.colors.foreground or '#1a1a1a' }};
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		padding: 0;
+		text-align: {{ fields.name.alignment }};
+		text-decoration: none;
+		font-weight: 600;
+		line-height: 1.35;
+		letter-spacing: -0.2px;
+		word-break: break-word;
+		max-width: 100%;
+		line-clamp: 2;
+		{% if fields.name.italic %}
+			font-style: italic;
+		{% endif %}
+	}
+
+	.{{ safeid }}__product-name a:hover {
+		color: {{ yougardenBlue }};
+	}
+
+	.{{ safeid }}__product-rating {
+		padding: 0 8px 4px;
+		margin-top: 0;
+		min-height: 0;
+		text-align: {{ fields.ratingIcons.alignment }};
+	}
+
+	.{{ safeid }}__product-rating * {
+		text-shadow: none;
+	}
+
+	.{{ safeid }}__product-rating text {
+		stroke: {{ fields.ratingIcons.iconBorderColor }};
+		stroke-width: 5%;
+	}
+
+	.{{ safeid }}__social-proof {
+		padding: 0 8px;
+		font-size: 11px;
+	}
+
+	.{{ safeid }}__product-footer {
+		margin-top: auto;
+		width: 100%;
+		padding-bottom: 8px;
+	}
+
+	.{{ safeid }}__product-price-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2px;
+		padding: 2px 8px 0;
+	}
+
+	.{{ safeid }}__product-was-price {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 12px;
+		color: #999999;
+		line-height: 1.2;
+	}
+
+	.{{ safeid }}__product-was-price span {
+		text-decoration: line-through;
+	}
+
+	.{{ safeid }}__product-price {
+		background: transparent;
+		text-align: {{ fields.price.alignment }};
+		padding: 0;
+	}
+
+	.{{ safeid }}__product-price a {
+		display: inline-flex;
+		align-items: baseline;
+		flex-wrap: nowrap;
+		gap: 6px;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.{{ safeid }}__price-label {
+		font-size: 11px;
+		color: #666;
+		font-weight: 500;
+		letter-spacing: 0.3px;
+		text-transform: uppercase;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	.{{ safeid }}__price-amount {
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		font-size: {{ fields.price.fontSize.size }}{{ fields.price.fontSize.unit }};
+		font-weight: 700;
+		color: {{ fields.price.colors.foreground or yougardenBlue }};
+		letter-spacing: -0.4px;
+	}
+
+	@media (max-width: 640px) {
+		.{{ wrapperClass }} {
+			align-items: flex-end;
+			padding: 0;
+		}
+
+		.{{ safeid }}__popover-content {
+			width: 100%;
+			max-width: 100%;
+			max-height: 92dvh;
+			border-radius: 12px 12px 0 0;
+			padding: 32px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+		}
+
+		.{{ safeid }}__headline {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.{{ safeid }}__headline h2 {
+			font-size: 20px;
+		}
+
+		.{{ safeid }}__message {
+			margin: 6px 0 8px;
+			padding: 0;
+			font-size: 13px;
+		}
+
+		.{{ safeid }} .swiper-button-prev,
+		.{{ safeid }} .swiper-button-next {
+			display: none;
+		}
+
+		.{{ safeid }}__swiper {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		.{{ safeid }}__savings-badge {
+			width: 44px;
+			height: 44px;
+			top: 6px;
+			right: 6px;
+		}
+
+		.{{ safeid }}__product-image img {
+			max-height: 200px;
+		}
+
+		.{{ safeid }}__header-cta-button a {
+			display: inline;
+			width: auto;
+			padding: 8px 4px;
+		}
+
+		.{{ safeid }}__swipe {
+			display: block;
+		}
+
+		.{{ safeid }}__usps li {
+			font-size: 10px;
+			padding: 4px 8px;
+		}
+
+		.{{ safeid }}__trust {
+			gap: 6px 12px;
+			padding-top: 8px;
+		}
+	}
+
+	/* Utility styles */
+
+	{% set hiddenClass = safeid + '__hidden' %}
+	{% set closeButtonClass = safeid + '__button-close' %}
+
+	.{{ hiddenClass }} {
+		display: none !important;
+	}
+
+	.{{ closeButtonClass }} {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		border: 2px solid #fff;
+		cursor: pointer;
+		z-index: 5;
+		border-radius: 50%;
+		background: {{ yougardenPink }};
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+		filter: none;
+	}
+
+	.{{ closeButtonClass }}:hover,
+	.{{ closeButtonClass }}:focus-visible {
+		background: {{ yougardenBlueDark }};
+	}
+
+	.{{ closeButtonClass }}:focus-visible,
+	.{{ safeid }}__shop:focus-visible {
+		outline: 2px solid {{ yougardenBlue }};
+		outline-offset: 2px;
+	}
+
+	.{{ closeButtonClass }}:before,
+	.{{ closeButtonClass }}:after {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		content: ' ';
+		height: 16px;
+		width: 2px;
+		margin: -8px 0 0 -1px;
+		background-color: #ffffff;
+	}
+
+	.{{ closeButtonClass }}:before {
+		transform: rotate(45deg);
+	}
+
+	.{{ closeButtonClass }}:after {
+		transform: rotate(-45deg);
+	}
+
+	.{{ safeid }}__animated {
+		animation-duration: 0.4s;
+	}
+
+	.{{ safeid }}__animate--fadeIn {
+		-webkit-animation-name: fadeIn;
+		animation-name: fadeIn;
+	}
+
+	.{{ safeid }}__animate--fadeIn .{{ safeid }}__popover-content {
+		-webkit-animation: ygExitIn 0.38s ease;
+		animation: ygExitIn 0.38s ease;
+	}
+
+	@-webkit-keyframes ygExitIn {
+		from { opacity: 0; -webkit-transform: translateY(18px) scale(0.97); }
+		to { opacity: 1; -webkit-transform: none; }
+	}
+
+	@keyframes ygExitIn {
+		from { opacity: 0; transform: translateY(18px) scale(0.97); }
+		to { opacity: 1; transform: none; }
+	}
+
+	.{{ safeid }}__animate--fadeOut {
+		-webkit-animation-name: fadeOut;
+		animation-name: fadeOut;
+	}
+
+	@-webkit-keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	@-webkit-keyframes fadeOut {
+		from { opacity: 1; }
+		to { opacity: 0; }
+	}
+
+	@keyframes fadeOut {
+		from { opacity: 1; }
+		to { opacity: 0; }
+	}
+
+	@media print, (prefers-reduced-motion: reduce) {
+
+		.{{ safeid }}__animated {
+			-webkit-animation-duration: 1ms !important;
+			animation-duration: 1ms !important;
+			-webkit-transition-duration: 1ms !important;
+			transition-duration: 1ms !important;
+			-webkit-animation-iteration-count: 1 !important;
+			animation-iteration-count: 1 !important;
+		}
+
+		.{{ safeid }}__animated[class*='Out'] {
+			opacity: 0;
+		}
+
+	}
+
+</style>
+
+<script type="text/javascript">
+(function() {
+	// Setting variables to use later
+	const {{ safeid }}__root = document.querySelector('#{{ safeid }}__overlay');
+	const {{ safeid }}__ctaButton = {{ safeid }}__root.querySelector('.{{ safeid }}__header-cta-button > a');
+	if ({{ safeid }}__ctaButton) {
+		var {{ safeid }}__ctaCopy = ({{ safeid }}__ctaButton.textContent || '').replace(/\s+/g, ' ').trim();
+		if (/^continue shopping$/i.test({{ safeid }}__ctaCopy)) {
+			{{ safeid }}__ctaButton.textContent = 'No thanks, continue shopping';
+		}
+		{{ safeid }}__ctaButton.addEventListener('click', {{ safeid }}__actionButtonClicked);
+	}
+	var {{ safeid }}__headlineEl = {{ safeid }}__root.querySelector('.{{ safeid }}__headline h2');
+	if ({{ safeid }}__headlineEl && /^don't miss out$/i.test(({{ safeid }}__headlineEl.textContent || '').trim())) {
+		{{ safeid }}__headlineEl.textContent = 'Wait — before you go';
+	}
+	var {{ safeid }}__messageEl = {{ safeid }}__root.querySelector('.{{ safeid }}__message p');
+	if ({{ safeid }}__messageEl && /plants you might like/i.test({{ safeid }}__messageEl.textContent || '')) {
+		{{ safeid }}__messageEl.textContent = "A few plants from what you've been looking at";
+	}
+	{{ safeid }}__root.addEventListener('click', {{ safeid }}__modalClick);
+	{{ safeid }}__root.addEventListener('touchstart', {{ safeid }}__modalClick);
+	document.addEventListener('keyup', {{ safeid }}__modalKeyup);
+	let {{ safeid }}__fired = false;
+	let {{ safeid }}__modalClosed = false;
+
+	function {{ safeid }}__actionButtonClicked(e) {
+		{% if not options.redirectUrl %}
+			e.preventDefault();
+			{{ safeid }}__dismissModal();
+		{% endif %}
+		if (typeof $TB == 'object') $TB.popoverEvent('{{ uniqueid }}', 19);
+	}
+
+	function {{ safeid }}__modalClick(e) {
+		// close modal on close button/background click
+		const targetClasses = e.target.classList;
+		if(targetClasses.contains('{{ hiddenClass }}')
+			|| targetClasses.contains('{{ closeButtonClass }}')
+			|| targetClasses.contains('{{ wrapperClass }}')) {
+			e.preventDefault();
+			{{ safeid }}__dismissModal();
+		}
+	}
+
+	function {{ safeid }}__modalKeyup(e) {
+		// close modal on escape key press
+		if(e.keyCode === 27) {
+			{{ safeid }}__dismissModal();
+		}
+	}
+
+	function {{ safeid }}__closeModal() {
+		{{ safeid }}__modalClosed = true;
+		{{ safeid }}__fired = false;
+		{{ safeid }}__root.classList.add('{{ safeid }}__animate--fadeOut');
+
+		function {{ safeid }}__hidePopover() {
+			{{ safeid }}__root.classList.add('{{ hiddenClass }}');
+			{{ safeid }}__root.classList.remove('{{ safeid }}__animate--fadeOut');
+			{{ safeid }}__root.removeEventListener("animationend", {{ safeid }}__hidePopover);
+		}
+
+		{{ safeid }}__root.addEventListener("animationend", {{ safeid }}__hidePopover)
+	}
+
+	function {{ safeid }}__dismissModal() {
+		if(!{{ safeid }}__modalClosed) {
+			{{ safeid }}__closeModal();
+			try {
+				$TB.popoverDismissed('{{ slotid }}');
+			} catch(e) {}
+		}
+	}
+
+	function {{ safeid }}__firePopover() {
+		if (!{{ safeid }}__fired) {
+			{{ safeid }}__popup.fire();
+		}
+	}
+
+	function {{safeid }}__popoverTimeout() {
+		if ({{ fields.showOnLoad }}) {
+			{{ safeid }}__firePopover();
+		} else if ({{ fields.popupFixedDelay }} && {{ fields.popupFixedDelay }} > 0) {
+			window.setTimeout(function () {
+				if (document.cookie.replace(/(?:(?:^|.*;\s*){{fields.cookieName}}\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== "true") {
+					{{ safeid }}__firePopover()
+				}
+			}, {{ ( fields.popupFixedDelay * 1000) }});
+		}
+	}
+
+	let {{ safeid }}__popup;
+
+	function {{ safeid }}__hideEmptyRatings() {
+		document.querySelectorAll('.{{ safeid }}__product-rating').forEach(function (el) {
+			var t = (el.textContent || '').replace(/\s+/g, '');
+			if (!t || /\(0\)/.test(t)) {
+				el.style.display = 'none';
+			}
+		});
+	}
+
+	function {{ safeid }}__hydrateFeefo() {
+		var root = {{ safeid }}__root;
+		if (!root || !root.querySelector('.feefo-product-stars-widget')) return;
+		function ping() {
+			try {
+				if (window.feefo && window.feefo.widgets && typeof window.feefo.widgets.load === 'function') {
+					window.feefo.widgets.load();
+					return true;
+				}
+				if (window.feefo && typeof window.feefo.load === 'function') {
+					window.feefo.load();
+					return true;
+				}
+				if (window.feefo && typeof window.feefo.init === 'function') {
+					window.feefo.init();
+					return true;
+				}
+				if (window.feefoWidget && typeof window.feefoWidget.load === 'function') {
+					window.feefoWidget.load();
+					return true;
+				}
+			} catch (err) {}
+			return false;
+		}
+		if (!ping()) setTimeout(ping, 400);
+		setTimeout(function () {
+			root.querySelectorAll('.{{ safeid }}__ratings').forEach(function (el) {
+				if (el.querySelector('svg, img, iframe, [class*="star"]')) return;
+				if ((el.textContent || '').replace(/\s+/g, '')) return;
+				el.style.display = 'none';
+			});
+		}, 1800);
+	}
+
+	function {{ safeid }}__isStno(v) {
+		return /^ST\d+/i.test(String(v || '').trim());
+	}
+
+	function {{ safeid }}__cspToken() {
+		var el = document.querySelector('input[name="CSPToken"], #CSPToken');
+		if (el && el.value) return el.value;
+		if (typeof window.CSPToken === 'string' && window.CSPToken) return window.CSPToken;
+		var nodes = document.querySelectorAll('[onclick*="doAjaxBag("]');
+		for (var i = 0; i < nodes.length; i++) {
+			var m = String(nodes[i].getAttribute('onclick') || '').match(/doAjaxBag\(\s*['"]([^'"]+)['"]/);
+			if (m && m[1] && m[1].length > 8 && m[1] !== '1') return m[1];
+		}
+		return '';
+	}
+
+	function {{ safeid }}__ajaxBuy(stno) {
+		var token = {{ safeid }}__cspToken();
+		if (token && typeof window.doAjaxBag === 'function') {
+			return Promise.resolve(window.doAjaxBag(token, stno, 1, '', ''));
+		}
+		if (typeof window.doAjaxBagCat === 'function') {
+			return Promise.resolve(window.doAjaxBagCat(stno));
+		}
+		var jq = window.jQuery || window.$;
+		if (jq && jq.ajax) {
+			return jq.ajax({
+				type: 'POST',
+				url: '/ajaxbagcat/',
+				data: { stno: stno },
+				dataType: 'html'
+			});
+		}
+		return Promise.reject(new Error('no basket api'));
+	}
+
+	function {{ safeid }}__bindShop() {
+		if (!{{ safeid }}__root || {{ safeid }}__root.getAttribute('data-yg-shop-bound')) return;
+		{{ safeid }}__root.setAttribute('data-yg-shop-bound', '1');
+		{{ safeid }}__root.addEventListener('click', function (e) {
+			var btn = e.target.closest('.{{ safeid }}__shop');
+			if (!btn) return;
+			var stno = btn.getAttribute('data-stno') || '';
+			if (!{{ safeid }}__isStno(stno)) return;
+			e.preventDefault();
+			e.stopPropagation();
+			if (btn.classList.contains('is-adding') || btn.classList.contains('is-added')) return;
+			var label = btn.textContent;
+			btn.classList.add('is-adding');
+			btn.textContent = 'Adding…';
+			Promise.resolve({{ safeid }}__ajaxBuy(stno)).then(function () {
+				btn.classList.remove('is-adding');
+				btn.classList.add('is-added');
+				btn.textContent = 'Added';
+			}, function () {
+				btn.classList.remove('is-adding');
+				btn.textContent = label;
+				window.location.href = btn.getAttribute('href') || btn.getAttribute('data-pdp') || '/';
+			});
+		});
+	}
+
+	function {{ safeid }}__initSwiper() {
+		var el = document.querySelector('.{{ safeid }}__swiper');
+		if (!el) return;
+		if (el.swiper) {
+			el.swiper.update();
+			{{ safeid }}__hideEmptyRatings();
+			{{ safeid }}__hydrateFeefo();
+			{{ safeid }}__bindShop();
+			return;
+		}
+		var swiper = new Swiper(el, {{ safeid }}__swiperOptions);
+		{{ safeid }}__bindShop();
+		setTimeout(function () {
+			if (swiper && swiper.update) swiper.update();
+			{{ safeid }}__hideEmptyRatings();
+			{{ safeid }}__hydrateFeefo();
+		}, 80);
+	}
+
+	const {{ safeid }}__ouibounceCallback = () => {
+
+		try {
+
+			if (typeof require == "function"){
+				require(['swiper'], function(Swiper) {
+					{{ safeid }}__initSwiper();
+				});
+			}
+			else if (typeof $TB !== "undefined" && typeof $TB.getScript == "function") {
+				if (!window.Swiper) {
+					$TB.getScript("https://im.dycdn.net/npm/swiper@11/swiper-bundle.min.js", function() {
+						{{ safeid }}__initSwiper();
+					});
+				} else {
+					{{ safeid }}__initSwiper();
+				}
+			}
+			else {
+				console.log("failed to load required libary - SwiperJS")
+			}
+
+		}
+		catch(e){}
+
+		if (!{{ safeid }}__fired) {
+
+			{{ safeid }}__fired = true;
+			try {
+				$TB.popoverShown('{{ slotid }}');
+				{{ safeid }}__root.classList.add('{{ safeid }}__animate--fadeIn');
+				{{ safeid }}__root.addEventListener("animationend", function(){
+					{{ safeid }}__root.classList.remove('{{ safeid }}__animate--fadeIn');
+					function {{ safeid }}_removeClasses(){
+						{{ safeid }}__root.classList.remove('{{ safeid }}__animate--fadeIn');
+						{{ safeid }}__root.removeEventListener("animationend", {{ safeid }}_removeClasses);
+					}
+				{{ safeid }}__root.addEventListener("animationend", {{ safeid }}_removeClasses)
+				})
+			}
+			catch(e){}
+
+		}
+
+	};
+
+	if (typeof require == "function") {
+		let paths = {
+			"ouibounce": "https://im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min",
+			"swiper": "https://im.dycdn.net/npm/swiper@11/swiper-bundle.min"
+		};
+		if (require.defined('swiper')) {
+			delete paths.swiper; // don't load SwiperJS if it's already loaded
+		}
+		require.config({
+			paths: paths
+		});
+	}
+
+	try {
+		if (typeof require == "function"){
+			require(['ouibounce'], function(ouibounce) {
+				{{ safeid }}__popup = ouibounce(document.getElementById('{{ safeid }}__overlay'), {{ safeid }}__ouibounceOptions);
+				{{ safeid }}__popoverTimeout();
+			});
+		}
+		else if (typeof $TB !== "undefined" && typeof $TB.getScript == "function") {
+			$TB.getScript("https://im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min.js", function () {
+				{{ safeid }}__popup = ouibounce(document.getElementById('{{ safeid }}__overlay'), {{ safeid }}__ouibounceOptions);
+				{{ safeid }}__popoverTimeout();
+			})
+		}
+		else {
+			console.log("failed to load required libary - ouibounce")
+		}
+	} catch(e) {}
+
+	const {{ safeid }}__swiperOptions = {
+		speed: 300,
+		slidesPerView: 1.15,
+		spaceBetween: 12,
+		watchOverflow: true,
+		observer: true,
+		observeParents: true,
+		resizeObserver: true,
+		updateOnWindowResize: true,
+		lazy: {
+			loadPrevNext: true,
+		},
+		autoplay: {{ fields.autoplay }},
+		breakpoints: {
+			420: {
+				slidesPerView: 1.35,
+				spaceBetween: 12
+			},
+			{% if fields.breakpoint1.active %}
+				{{ fields.breakpoint1.minWidth }}: {
+					slidesPerView: {{ fields.breakpoint1.columnCount }},
+					spaceBetween: 12
+				},
+			{% endif %}
+			{% if fields.breakpoint2.active %}
+				{{ fields.breakpoint2.minWidth }}: {
+					slidesPerView: {{ fields.breakpoint2.columnCount }},
+					spaceBetween: 14
+				},
+			{% endif %}
+		},
+		breakpointsBase: 'container',
+		loop: false,
+		navigation: {
+			nextEl: '.swiper-button-next',
+			prevEl: '.swiper-button-prev',
+		},
+		{% if fields.carouselPagination.active %}
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: {{ fields.carouselPagination.clickable }},
+				dynamicBullets: true,
+				dynamicMainBullets: 4
+			},
+		{% endif %}
+	};
+
+	const {{ safeid }}__ouibounceOptions = {
+		cookieExpire: {{ fields.daysBetweenPopups }},
+		cookieName: "{{fields.cookieName}}",
+		callback: {{ safeid }}__ouibounceCallback,
+		sitewide: true,
+		aggressive: {{ fields.showOnLoad }},
+		timer: {% if fields.popupMinimumDelay %}{{ ( fields.popupMinimumDelay * 1000) }}{% else %}1000{% endif %},
+		{% if fields.showOnExitIntent %}
+		delay: {% if fields.delayBeforeExitIntent %}{{ fields.delayBeforeExitIntent }}{% else %}250{% endif %},
+		{% else %}
+		delay: 3600000,
+		{% endif %}
+	};
+
+	{% if meta.preview == "true" %}
+		setTimeout(function () { {{ safeid }}__initSwiper(); }, 0);
+	{% endif %}
+})();
+</script>

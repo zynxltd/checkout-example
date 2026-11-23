@@ -1,0 +1,115 @@
+<%- include('../partials/header') %>
+
+<section class="page-hero">
+  <div class="shell">
+    <p class="eyebrow">Signed in as <%= user.name %> · <%= user.email %></p>
+    <h1>Ops dashboard</h1>
+    <p>Protected route showing auth, queue state, third-party API data, and recent in-memory activity. Built with Node + TypeScript.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <% if (flash) { %>
+      <div class="banner info" role="status"><%= flash %></div>
+    <% } %>
+
+    <div class="dashboard-grid">
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Queue</h2>
+          <div class="button-row">
+            <form method="post" action="/dashboard/jobs">
+              <button class="btn" type="submit">Queue follow-up</button>
+            </form>
+            <form method="post" action="/dashboard/quote-digest">
+              <button class="btn secondary" type="submit">Queue quote digest</button>
+            </form>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><strong><%= queueSummary.total %></strong><span>Total jobs</span></article>
+          <article class="stat-card"><strong><%= queueSummary.queued %></strong><span>Queued</span></article>
+          <article class="stat-card"><strong><%= queueSummary.processing %></strong><span>Processing</span></article>
+          <article class="stat-card"><strong><%= queueSummary.completed %></strong><span>Completed</span></article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Third-party API</h2>
+        <blockquote class="quote-card">
+          <p>“<%= quote.quote %>”</p>
+          <footer><%= quote.author %></footer>
+        </blockquote>
+        <p class="muted">
+          Source:
+          <code><%= quote.source %></code>
+          <%= quote.isFallback ? '(fallback used)' : '' %>
+        </p>
+        <% if (quote.error) { %>
+          <p class="muted">Last API issue: <%= quote.error %></p>
+        <% } %>
+      </section>
+
+      <section class="panel">
+        <h2>Recent jobs</h2>
+        <% if (recentJobs.length === 0) { %>
+          <p class="muted">No jobs queued yet.</p>
+        <% } else { %>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% recentJobs.forEach(function (job) { %>
+                  <tr>
+                    <td><%= job.id %></td>
+                    <td><%= job.type %></td>
+                    <td><%= job.status %></td>
+                    <td><%= job.updatedAt %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </section>
+
+      <section class="panel">
+        <h2>Catalog snapshot</h2>
+        <p class="muted"><%= contactCount %> contact message(s) logged.</p>
+        <ul class="message-list">
+          <% Object.entries(productCategories).forEach(function ([category, count]) { %>
+            <li><strong><%= category %></strong> <span class="muted"><%= count %> product(s)</span></li>
+          <% }) %>
+        </ul>
+        <p class="muted">JSON API: <code>/api/health</code> · <code>/api/dashboard</code></p>
+      </section>
+
+      <section class="panel">
+        <h2>Recent contact messages</h2>
+        <% if (recentMessages.length === 0) { %>
+          <p class="muted">Submit the contact form to create one.</p>
+        <% } else { %>
+          <ul class="message-list">
+            <% recentMessages.forEach(function (message) { %>
+              <li>
+                <strong><%= message.name %></strong>
+                <span class="muted"><%= message.email %></span>
+                <p><%= message.message.length > 40 ? message.message.slice(0, 40) + '...' : message.message %></p>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      </section>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,180 @@
+/**
+ * Crazy Egg — PDP sticky ATC: full-width bar WITHOUT spacing
+ *
+ * Slim edge-to-edge bottom bar, no side padding. Title left, ATC
+ * right. Tighter type so it maximises viewport but truncates sooner.
+ * Hidden below 600px.
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: yg-sticky-atc-desktop-flush.json
+ */
+
+@media (min-width: 600px) {
+  .ce-yg-atb-f {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    bottom: 0 !important;
+    z-index: 2147483000 !important;
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 6px 10px;
+    transform: translateY(110%);
+    border: 0;
+    border-top: 1px solid #e2e2e2;
+    border-radius: 0 !important;
+    background: #ffffff;
+    color: #222222;
+    box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.12);
+    font-family: Arial, Helvetica, sans-serif;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  html.ce-yg-atb-f-on .ce-yg-atb-f {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  html.ce-yg-atb-f-ready .ce-yg-atb-f {
+    display: flex !important;
+    transition: transform 0.22s ease-out, visibility 0.22s ease-out;
+  }
+
+  html.ce-yg-atb-f-on {
+    padding-bottom: calc(var(--ce-yg-atb-f-h, 52px) + 4px) !important;
+  }
+
+  .ce-yg-atb-f__left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .ce-yg-atb-f__img {
+    display: block;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    background: #f3f3f3;
+  }
+
+  .ce-yg-atb-f.is-no-img .ce-yg-atb-f__img {
+    display: none;
+  }
+
+  .ce-yg-atb-f__copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .ce-yg-atb-f__title {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #222222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ce-yg-atb-f__sub {
+    display: none;
+  }
+
+  .ce-yg-atb-f__right {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    gap: 8px;
+  }
+
+  .ce-yg-atb-f__price {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    color: #e3185d;
+    white-space: nowrap;
+  }
+
+  .ce-yg-atb-f__actions {
+    display: flex;
+    gap: 6px;
+  }
+
+  .ce-yg-atb-f__options,
+  .ce-yg-atb-f__buy {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    margin: 0;
+    padding: 0 12px;
+    border-radius: 8px !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .ce-yg-atb-f__options {
+    border: 1px solid #468900;
+    background: #ffffff;
+    color: #468900;
+    text-transform: none;
+  }
+
+  .ce-yg-atb-f__options:hover {
+    background: #f4f8ee;
+  }
+
+  .ce-yg-atb-f.is-no-options .ce-yg-atb-f__options {
+    display: none;
+  }
+
+  .ce-yg-atb-f__buy {
+    border: 0;
+    background: #468900;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+
+  .ce-yg-atb-f__buy:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  html.ce-yg-atb-f-on [id$='__notification'] {
+    display: none !important;
+  }
+
+  html.ce-yg-atb-f-on #return-to-top {
+    right: 10px !important;
+    bottom: calc(var(--ce-yg-atb-f-h, 52px) + 12px) !important;
+    z-index: 2147483001 !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .ce-yg-atb-f {
+    display: none !important;
+  }
+}

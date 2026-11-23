@@ -1,0 +1,238 @@
+{# GD — Abandoned Browse Trigger SmartBlock (email) #}
+{# Product module only: viewed/similar items + CTA. No basket qty/total. #}
+{# H1 + intro copy live in Dotdigital EasyEditor. #}
+{# Brand: Gardeners Dream — navy type, red sale, lime CTA #}
+{# Paste into FR: Trigger SmartBlocks → HTML (gd-t-smartblock-browse). #}
+{# CTA: lime #A4D233, navy text, 8px radius, text "Shop now >" #}
+{# Headline field defaults OFF — enable only if you intentionally skip DD titles. #}
+
+{% set gd_navy = '#002D72' %}
+{% set gd_lime = '#A4D233' %}
+{% set gd_sale = '#dd0000' %}
+{% set gd_text = '#002D72' %}
+{% set gd_muted = '#5a6b85' %}
+{% set gd_muted_soft = '#8a96a8' %}
+{% set gd_surface = '#eef2f8' %}
+{% set gd_white = '#ffffff' %}
+{% set gd_border = '#d0d7e5' %}
+{% set font_fallback = 'Arial, Helvetica, sans-serif' %}
+{% set currency = cart.curr if cart and cart.curr else 'GBP' %}
+
+{% set email_width = (fields.width - 2) if fields.border.active else fields.width %}
+
+{% if products and products|length > 0 %}
+<style type="text/css">
+	.gd-ab-outer { width:100% !important; max-width:{{ email_width }}px !important; }
+	.gd-ab-price-mobile { display:none; max-height:0; overflow:hidden; mso-hide:all; }
+	.gd-ab-cta {
+		width:100% !important;
+		max-width:{{ fields.callToAction.width }}px !important;
+		box-sizing:border-box !important;
+	}
+	@media only screen and (max-width:480px) {
+		.gd-ab-outer { width:100% !important; max-width:100% !important; }
+		.gd-ab-pad { padding-left:16px !important; padding-right:16px !important; }
+		.gd-ab-row { padding-left:12px !important; padding-right:12px !important; }
+		.gd-ab-card-pad { padding:12px !important; }
+		.gd-ab-img-col {
+			width:64px !important;
+			max-width:64px !important;
+			padding-right:12px !important;
+		}
+		.gd-ab-thumb {
+			width:56px !important;
+			max-width:56px !important;
+			height:auto !important;
+		}
+		.gd-ab-detail-col { width:100% !important; }
+		.gd-ab-name {
+			font-size:14px !important;
+			line-height:1.35 !important;
+			padding-bottom:6px !important;
+		}
+		.gd-ab-price-col {
+			display:none !important;
+			width:0 !important;
+			max-width:0 !important;
+			padding:0 !important;
+			font-size:0 !important;
+			line-height:0 !important;
+			overflow:hidden !important;
+		}
+		.gd-ab-price-mobile {
+			display:block !important;
+			max-height:none !important;
+			overflow:visible !important;
+			padding-top:8px !important;
+			mso-hide:none !important;
+		}
+		.gd-ab-cta {
+			display:block !important;
+			width:100% !important;
+			max-width:100% !important;
+		}
+	}
+</style>
+
+<table class="gd-ab-outer" cellpadding="0" cellspacing="0" border="0" width="100%" align="center" role="presentation" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; width:100%; max-width:{{ email_width }}px; background-color:{{ fields.backgroundColor }};{% if fields.border.active %} border:1px solid {{ fields.border.color }};{% endif %}">
+
+	{# Optional headline (OFF by default — use Dotdigital H1/para for campaign titles) #}
+	{% if fields.headline.active %}
+	<tr>
+		<td class="gd-ab-pad" style="padding:20px 20px 4px 20px;">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+				<tr>
+					<td align="{{ fields.headline.alignment }}" style="font-family:{{ fields.headline.font }}, {{ font_fallback }}; font-size:{{ fields.headline.size.size }}{{ fields.headline.size.unit }}; line-height:1.25; color:{{ gd_text }}; font-weight:700; font-style:{{ 'italic' if fields.headline.italics else 'normal' }}; letter-spacing:-0.3px;">
+						{{ mergeField(fields.headline.text) }}
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endif %}
+
+	{# Section label — browse, not basket #}
+	<tr>
+		<td class="gd-ab-pad" style="padding:{% if fields.headline.active %}18px{% else %}8px{% endif %} 20px 8px 20px; font-family:{{ font_fallback }}; font-size:11px; line-height:1.2; font-weight:700; letter-spacing:0.8px; text-transform:uppercase; color:{{ gd_muted_soft }};">
+			You recently viewed
+		</td>
+	</tr>
+
+	{# Products (recently viewed / similar / bestsellers — set in FR trigger) #}
+	{% for product in products|sort(fields.reverseSortDirection, false, fields.productSortField)|allowOutOfStockProducts(fields.allowOutOfStockProducts)|limit((fields.maximumProducts|default(20))|int) %}
+	{% set on_sale = fields.prices.active and fields.prices.wasPrice and product.ruv and (product.ruv > product.uv) %}
+	{% if on_sale %}
+		{% set save_pct = (((product.ruv - product.uv) / product.ruv) * 100)|round(1) %}
+	{% endif %}
+	<tr>
+		<td class="gd-ab-row" style="padding:0 16px 10px 16px;">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation" style="border-collapse:separate; border:1px solid {{ gd_border }}; border-radius:12px; background-color:{{ gd_white }};">
+				<tr>
+					<td class="gd-ab-card-pad" style="padding:14px;">
+						<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+							<tr>
+								{% if fields.productImage.active %}
+								<td class="gd-ab-img-col" width="96" valign="top" style="width:96px; padding-right:12px;">
+									<a href="{{ mergeField(fields.productHref, { product: product })|urlWithTrackingParams }}" target="_blank" title="{{ product.n }}" style="text-decoration:none;">
+										<img class="gd-ab-thumb" src="{{ product.img }}" alt="{{ mergeField(fields.productImage.altText, { product: product }) }}" title="{{ product.n }}" width="84" border="0" style="display:block; width:84px; max-width:84px; height:auto; border:0; border-radius:10px; outline:none;">
+									</a>
+								</td>
+								{% endif %}
+
+								{# Name + sale badge (+ mobile price under details) #}
+								<td class="gd-ab-detail-col" valign="top" style="font-family:{{ font_fallback }}; width:100%;">
+									{% if fields.productName.active %}
+									<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+										<tr>
+											<td class="gd-ab-name" align="left" style="padding-bottom:8px; font-family:{{ fields.productName.font }}, {{ font_fallback }}; font-size:{{ fields.productName.size.size }}{{ fields.productName.size.unit }}; line-height:1.35; color:{{ gd_text }}; font-weight:700; font-style:{{ 'italic' if fields.productName.italics else 'normal' }};">
+												<a href="{{ mergeField(fields.productHref, { product: product })|urlWithTrackingParams }}" target="_blank" title="{{ product.n }}" style="color:{{ gd_text }}; text-decoration:none;">
+													{{ product.n }}
+												</a>
+											</td>
+										</tr>
+									</table>
+									{% endif %}
+
+									{% if on_sale and save_pct and save_pct > 0 %}
+									<table cellpadding="0" cellspacing="0" border="0" role="presentation" style="margin-bottom:2px;">
+										<tr>
+											<td style="font-family:{{ font_fallback }}; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.3px; color:{{ gd_white }}; background-color:{{ gd_sale }}; border-radius:999px; padding:4px 9px;">
+												Save {{ save_pct }}%
+											</td>
+										</tr>
+									</table>
+									{% endif %}
+
+									{% if fields.prices.active %}
+									<div class="gd-ab-price-mobile" style="display:none; max-height:0; overflow:hidden; mso-hide:all; font-family:{{ fields.prices.font }}, {{ font_fallback }};">
+										{% if on_sale %}
+											{% if fields.prices.wasPrice %}
+											<div style="font-family:{{ fields.prices.wasPriceFont }}, {{ font_fallback }}; font-size:12px; line-height:1.2; color:{{ gd_muted_soft }}; text-decoration:line-through; font-weight:{{ 'bold' if fields.prices.wasPriceBold else 'normal' }};">
+												{{ product.ruv|format_currency(currency,2) }}
+											</div>
+											{% endif %}
+											<div style="padding-top:2px; font-size:{{ fields.prices.size.size }}{{ fields.prices.size.unit }}; line-height:1.2; color:{{ gd_sale }}; font-weight:700;">
+												{{ product.uv|format_currency(currency,2) }}
+											</div>
+										{% else %}
+											<div style="font-size:{{ fields.prices.size.size }}{{ fields.prices.size.unit }}; line-height:1.2; color:{{ gd_text }}; font-weight:700;">
+												<span style="font-size:10px; letter-spacing:0.5px; text-transform:uppercase; color:{{ gd_muted_soft }}; font-weight:700; padding-right:4px;">From</span>{{ product.uv|format_currency(currency,2) }}
+											</div>
+										{% endif %}
+									</div>
+									{% endif %}
+								</td>
+
+								{# Price column (desktop / tablet) #}
+								{% if fields.prices.active %}
+								<td class="gd-ab-price-col" width="80" valign="top" align="right" style="width:80px; padding-left:8px; white-space:nowrap; font-family:{{ fields.prices.font }}, {{ font_fallback }};">
+									{% if on_sale %}
+										{% if fields.prices.wasPrice %}
+										<div style="font-family:{{ fields.prices.wasPriceFont }}, {{ font_fallback }}; font-size:12px; line-height:1.2; color:{{ gd_muted_soft }}; text-decoration:line-through; font-weight:{{ 'bold' if fields.prices.wasPriceBold else 'normal' }};">
+											{{ product.ruv|format_currency(currency,2) }}
+										</div>
+										{% endif %}
+										<div style="padding-top:2px; font-size:{{ fields.prices.size.size }}{{ fields.prices.size.unit }}; line-height:1.2; color:{{ gd_sale }}; font-weight:700;">
+											{{ product.uv|format_currency(currency,2) }}
+										</div>
+									{% else %}
+										<div style="font-family:{{ font_fallback }}; font-size:10px; line-height:1.2; letter-spacing:0.5px; text-transform:uppercase; color:{{ gd_muted_soft }}; font-weight:700;">
+											From
+										</div>
+										<div style="padding-top:2px; font-size:{{ fields.prices.size.size }}{{ fields.prices.size.unit }}; line-height:1.2; color:{{ gd_text }}; font-weight:700;">
+											{{ product.uv|format_currency(currency,2) }}
+										</div>
+									{% endif %}
+								</td>
+								{% endif %}
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endfor %}
+
+	{# No order total for browse abandon #}
+
+	{# CTA — GD lime + navy → shop / site (not cart rebuild) #}
+	{% if fields.callToAction.active %}
+		{% set cta_bg = fields.callToAction.colors.background if fields.callToAction.colors.background else gd_lime %}
+		{% set cta_fg = fields.callToAction.colors.foreground if fields.callToAction.colors.foreground else gd_navy %}
+		{% set cta_radius = fields.callToAction.borderRadius if fields.callToAction.borderRadius else '8px' %}
+		{% set arcsize = 20 %}
+	<tr>
+		<td class="gd-ab-pad" style="padding:18px 16px 28px 16px;" align="center">
+			<div>
+				<!--[if mso]>
+				<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ mergeField(fields.callToActionHref)|urlWithTrackingParams }}" target="_blank" style="height:{{ fields.callToAction.height }}px;v-text-anchor:middle;width:{{ fields.callToAction.width }}px;" arcsize="{{ arcsize }}%" stroked="f" fillcolor="{{ cta_bg }}">
+				<w:anchorlock/>
+				<center style="color:{{ cta_fg }}; font-family:{{ fields.callToAction.font }}, {{ font_fallback }}; font-size:{{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }}; font-weight:bold;">
+					{{ fields.callToAction.text }}
+				</center>
+				</v:roundrect>
+				<![endif]-->
+				<a class="gd-ab-cta" href="{{ mergeField(fields.callToActionHref)|urlWithTrackingParams }}" target="_blank"
+					style="background-color:{{ cta_bg }};
+					border-radius:{{ cta_radius }};
+					color:{{ cta_fg }};
+					display:inline-block;
+					font-family:{{ fields.callToAction.font }}, {{ font_fallback }};
+					font-size:{{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+					font-weight:700;
+					line-height:{{ fields.callToAction.height }}px;
+					text-align:center;
+					text-decoration:none;
+					width:100%;
+					max-width:{{ fields.callToAction.width }}px;
+					box-sizing:border-box;
+					-webkit-text-size-adjust:none;
+					mso-hide:all;">{{ fields.callToAction.text }}</a>
+			</div>
+		</td>
+	</tr>
+	{% endif %}
+
+</table>
+{% endif %}

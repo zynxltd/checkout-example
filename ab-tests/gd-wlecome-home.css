@@ -1,0 +1,45 @@
+<style>
+/**
+ * Homepage .frontpage > .content blurb → Rubik + size
+ *
+ * Use in:
+ *   - Crazy Egg Custom CSS, OR
+ *   - FR SoftBlock Layout HTML inside <style> (SoftBlock must render on homepage)
+ *
+ * If size/font still don’t change in FR preview, use the companion
+ * crazyegg-homepage-gelica-headlines.html (CSS + JS) in the layout instead.
+ */
+
+body > main > div.frontpage > div.content > p,
+body > div.frontpage > div.content > p,
+main .frontpage > .content > p,
+.frontpage > .content > p,
+.frontpage .content p {
+  font-family: Rubik, Arial, Helvetica, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #444444 !important;
+  line-height: 1.5 !important;
+}
+
+/* Welcome heading: Rubik, leave the site sizes (40 / 30 / 24px). */
+#wrapper > div.frontpage > div:nth-child(3) {
+  margin-bottom: 0 !important;
+}
+
+#wrapper > div.frontpage > div:nth-child(3) > h2,
+.frontpage > .content > h2 {
+  font-family: Rubik, Arial, Helvetica, sans-serif !important;
+}
+
+@media (max-width: 767px) {
+  body > main > div.frontpage > div.content > p,
+  body > div.frontpage > div.content > p,
+  main .frontpage > .content > p,
+  .frontpage > .content > p,
+  .frontpage .content p {
+    font-size: 16px !important;
+  }
+}
+
+</style>

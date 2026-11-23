@@ -1,0 +1,51 @@
+@using YgCartDrawer.Models
+@model CartState
+@{
+    var cart = Model;
+}
+<div class="demo-prototype-stack is-collapsed" id="demo-prototype-stack">
+    <button type="button"
+            class="demo-prototype-stack__dock"
+            data-prototype-dock
+            aria-expanded="false"
+            aria-controls="demo-prototype-stack-body">
+        Prototype tools
+    </button>
+    <div class="demo-prototype-stack__body" id="demo-prototype-stack-body">
+        <div class="demo-prototype-stack__bar">
+            <span class="demo-prototype-stack__bar-title">Prototype tools</span>
+            <button type="button" class="demo-prototype-stack__minimize" data-prototype-minimize aria-label="Minimise prototype tools">Minimise</button>
+        </div>
+        <div class="demo-prototype-stack__content">
+            <aside class="demo-controls" aria-label="Prototype controls">
+                <h3>Prototype controls</h3>
+                <p class="demo-controls__label">VWO-style test switch</p>
+                <label class="demo-toggle">
+                    <input type="checkbox" id="toggle-drawer-mode" @(cart.DrawerEnabled ? "checked" : null)>
+                    <span>Cart drawer (test)</span>
+                </label>
+                <p class="demo-controls__hint">Off = full basket page behaviour (alert). On = slide-out drawer.</p>
+
+                <p class="demo-controls__label">YG options</p>
+                <label class="demo-toggle">
+                    <input type="checkbox" data-option="delivery_bar" @(cart.ShowFreeDeliveryBar ? "checked" : null)>
+                    <span>Free delivery bar</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="checkbox" data-option="upsells" @(cart.ShowUpsells ? "checked" : null)>
+                    <span>Recommendations side tab</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="checkbox" data-option="wide_drawer" @(cart.WideDrawer ? "checked" : null)>
+                    <span>Wide drawer</span>
+                </label>
+                <label class="demo-toggle">
+                    <input type="checkbox" data-option="club_member" @(cart.ClubMember ? "checked" : null)>
+                    <span>Club member (reload)</span>
+                </label>
+                <p class="demo-controls__hint">Offer codes: <code>TEST</code> (−£5.50) or <code>EM0000</code>.</p>
+                <button type="button" class="demo-controls__reset" id="demo-reset-basket">Reset seeded basket</button>
+            </aside>
+        </div>
+    </div>
+</div>

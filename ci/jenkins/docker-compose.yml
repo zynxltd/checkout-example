@@ -1,0 +1,25 @@
+# Local Jenkins for the yg-cart-drawer-demo walkthrough
+# Docs: ../../docs/jenkins-walkthrough.md
+#
+# UI: http://127.0.0.1:8085
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk21
+    container_name: yg-jenkins
+    ports:
+      - "8085:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      # Allow docker build stages on the host engine
+      - /var/run/docker.sock:/var/run/docker.sock
+      # Optional: mount this monorepo for "Pipeline script from SCM" via file:// is awkward;
+      # prefer Git URL. Uncomment to browse files from inside the controller:
+      # - ../..:/workspace/yg-cart-drawer-demo:ro
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=true
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:

@@ -1,0 +1,85 @@
+{# YG — Abandoned Browse Trigger SmartBlock (INHERIT STYLES) #}
+{# inherit_styles = true — text uses h1 / h2 / p / a / s with NO inline styles or <style> blocks #}
+{# Campaign styles: Dotdigital → Utilities → Manage all styles → App Block Styles #}
+{# Or select the SmartBlock → Style content #}
+{# Backup (hardcoded styles): trigger-browse.html / trigger-browse.json #}
+{# Paste into FR: Trigger SmartBlocks → HTML #}
+
+{% set currency = cart.curr if cart and cart.curr else 'GBP' %}
+
+{% if products and products|length > 0 %}
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center" role="presentation">
+
+	{% if fields.headline.active %}
+	<tr>
+		<td>
+			<h1>{{ mergeField(fields.headline.text) }}</h1>
+		</td>
+	</tr>
+	{% endif %}
+
+	<tr>
+		<td>
+			<p>You recently viewed</p>
+		</td>
+	</tr>
+
+	{% for product in products|sort(fields.reverseSortDirection, false, fields.productSortField)|allowOutOfStockProducts(fields.allowOutOfStockProducts)|limit((fields.maximumProducts|default(20))|int) %}
+	{% set on_sale = fields.prices.active and fields.prices.wasPrice and product.ruv and (product.ruv > product.uv) %}
+	{% if on_sale %}
+		{% set save_pct = (((product.ruv - product.uv) / product.ruv) * 100)|round(1) %}
+	{% endif %}
+	<tr>
+		<td>
+			<table cellpadding="8" cellspacing="0" border="0" width="100%" role="presentation">
+				<tr>
+					{% if fields.productImage.active %}
+					<td width="96" valign="top">
+						<a href="{{ mergeField(fields.productHref, { product: product })|urlWithTrackingParams }}" target="_blank" title="{{ product.n }}">
+							<img src="{{ product.img }}" alt="{{ mergeField(fields.productImage.altText, { product: product }) }}" title="{{ product.n }}" width="84" border="0">
+						</a>
+					</td>
+					{% endif %}
+
+					<td valign="top">
+						{% if fields.productName.active %}
+						<h2>
+							<a href="{{ mergeField(fields.productHref, { product: product })|urlWithTrackingParams }}" target="_blank" title="{{ product.n }}">
+								{{ product.n }}
+							</a>
+						</h2>
+						{% endif %}
+
+						{% if on_sale and save_pct and save_pct > 0 %}
+						<p>Save {{ save_pct }}%</p>
+						{% endif %}
+
+						{% if fields.prices.active %}
+						<p>
+							{% if on_sale and fields.prices.wasPrice %}
+							<s>{{ product.ruv|format_currency(currency,2) }}</s>
+							{% endif %}
+							{% if not on_sale %}From {% endif %}{{ product.uv|format_currency(currency,2) }}
+						</p>
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endfor %}
+
+	{% if fields.callToAction.active %}
+	<tr>
+		<td align="center">
+			<p>
+				<a href="{{ mergeField(fields.callToActionHref)|urlWithTrackingParams }}" target="_blank">
+					{{ fields.callToAction.text }}
+				</a>
+			</p>
+		</td>
+	</tr>
+	{% endif %}
+
+</table>
+{% endif %}

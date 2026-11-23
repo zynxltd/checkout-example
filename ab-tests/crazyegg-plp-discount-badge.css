@@ -1,0 +1,19 @@
+/**
+ * Crazy Egg — PLP discount roundel
+ *
+ * Listing cards hang the % OFF badge 10px outside the photo
+ * (.category-box .savingFlash { top: -10px; right: -10px }),
+ * so the circle is only partly on the image.
+ * Homepage roundels sit on the corner. This pulls the listing
+ * badge flush with the top-right of the photo.
+ *
+ * Paste into Crazy Egg variant → Custom CSS
+ * Target: category listing pages, e.g.
+ * https://www.yougarden.com/garden-plants/perennial-plants-and-flowers
+ */
+
+.category-box .savingFlash {
+  top: 0;
+  right: 0;
+  z-index: 2;
+}

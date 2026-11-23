@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 9.03 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 80.08 120.17" style="enable-background:new 0 0 80.08 120.17;" xml:space="preserve">
+<font horiz-adv-x="1000">
+<!-- Copyright \(c\) Mark Simonson, 2005. All rights reserved. -->
+<!-- Copyright: Copyright 2026 Adobe System Incorporated. All rights reserved. -->
+<font-face font-family="ProximaNovaCond-Regular" units-per-em="1000" underline-position="-158" underline-thickness="53"/>
+<missing-glyph horiz-adv-x="492" d="M421,-90l0,842l-351,0l0,-842M389,-60l-288,0l0,782l288,0z"/>
+<glyph unicode="A" horiz-adv-x="511" d="M503,0l-200,667l-95,0l-200,-667l83,0l43,151l243,0l43,-151M360,221l-209,0l104,370z"/>
+<glyph unicode="o" horiz-adv-x="477" d="M238,-12C368,-12 435,106 435,242C435,378 368,495 238,495C110,495 42,378 42,242C42,106 110,-12 238,-12M238,52C155,52 117,144 117,242C117,339 155,431 238,431C323,431 360,339 360,242C360,144 323,52 238,52z"/>
+<glyph unicode="r" horiz-adv-x="291" d="M137,0l0,343C157,383 206,422 250,422C258,422 266,421 274,419l0,74C215,493 168,457 137,406l0,77l-71,0l0,-483z"/>
+<glyph unicode="w" horiz-adv-x="638" d="M496,0l129,483l-75,0l-95,-386l-103,386l-68,0l-102,-386l-94,386l-75,0l129,-483l73,0l104,388l103,-388z"/>
+</font>
+
+	<g>
+	<g>
+		<g>
+			<path style="fill:#94BF3D;" d="M76.08,28.16c-11.6,1.48-24.34,2.67-36.04,3.5c-5.99,0.43-11.99,1.72-18.02,1
+				c-6.2-0.67-12.2-1.8-18.02-4.5c-0.41-0.18-0.42-0.82,0-1c3-1.43,6.01-2.32,9.01-3.03c5.95-1.34,11.96-2.1,18.02-1.42
+				c5.21,0.69,12.71,1.25,18.02,1.62c8.74,0.79,18.36,1.69,27.03,2.83C76.63,27.23,76.68,28.09,76.08,28.16L76.08,28.16z"/>
+		</g>
+		<g>
+			<path style="fill:#94BF3D;" d="M45.75,50.93C52,44.64,60,37.05,66.52,30.97c2.34-2.17,4.7-4.32,7.08-6.45c0,0,0,6.28,0,6.28
+				c-8.84-4.09-15.98-10.76-22.23-18.11c-2.06-2.53-4.01-5.2-5.63-8.3c-0.14-0.27-0.04-0.6,0.23-0.74
+				c10.67,2.09,25.97,12.22,32.58,20.87c0,0,0.85,1.14,0.85,1.14c1.22,1.64,0.84,3.98-0.85,5.14c-4.53,3.19-11.25,7.56-15.94,10.65
+				c0,0-8.08,5.18-8.08,5.18c-2.7,1.72-5.43,3.41-8.17,5.08C45.89,52.02,45.33,51.33,45.75,50.93L45.75,50.93z"/>
+		</g>
+	</g>
+	
+		<text transform="matrix(1 0 0 1 17.8827 109.7508)" style="fill:#94BF3D; font-family:'ProximaNovaCond-Regular'; font-size:20px;">Arrow</text>
+</g>
+</svg>

@@ -1,0 +1,13 @@
+/**
+ * Crazy Egg — PDP Drop Down Re-order
+ *
+ * Pair with: crazyegg-pdp-dropdown-reorder.js
+ * Paste into Crazy Egg Variant → Custom CSS
+ *
+ * Reorder is DOM-only (JS). This file is a light marker / future hooks.
+ * No visual restyle — Magento accordion look stays the same.
+ */
+
+html.ce-yg-pdp-dd-reorder .centralWrapper.text[data-ce-pdp-dd-reordered="1"] {
+  /* Variant marker — layout unchanged from control */
+}

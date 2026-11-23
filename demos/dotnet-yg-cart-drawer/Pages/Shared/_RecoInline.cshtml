@@ -1,0 +1,30 @@
+@using YgCartDrawer.Models
+@model List<UpsellView>
+<section class="yg-reco-inline" aria-labelledby="yg-reco-inline-heading">
+    <h3 class="yg-reco-inline__heading" id="yg-reco-inline-heading">You may also like</h3>
+    <div class="yg-reco-inline__scroller">
+        <ul class="yg-reco-inline__list">
+            @foreach (var upsell in Model)
+            {
+                <li class="yg-reco-inline__item">
+                    <article class="yg-reco-inline-card">
+                        <div class="yg-reco-inline-card__media">
+                            <img class="yg-reco-inline-card__img" src="@upsell.Image" alt="" width="148" height="148" loading="lazy">
+                        </div>
+                        <p class="yg-reco-inline-card__name">@upsell.Name</p>
+                        <p class="yg-reco-inline-card__price">
+                            @if (upsell.From) { <span class="yg-reco-inline-card__from">FROM</span> }
+                            <span class="yg-reco-inline-card__amount">£@upsell.Price.ToString("0.00")</span>
+                        </p>
+                        <button type="button"
+                                class="yg-reco-inline-card__add @(upsell.InBasket ? "is-added" : "")"
+                                data-reco-add="@upsell.Sku"
+                                disabled="@(upsell.InBasket ? "disabled" : null)">
+                            @(upsell.InBasket ? "Added to basket" : "Add")
+                        </button>
+                    </article>
+                </li>
+            }
+        </ul>
+    </div>
+</section>

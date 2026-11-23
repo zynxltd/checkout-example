@@ -1,2 +1,2 @@
 @include('demo.partials.drawer-width-control')
-@include('demo.partials.drawer-theme-customizer')
+{{-- Change colours customiser hidden from prototype tools --}}

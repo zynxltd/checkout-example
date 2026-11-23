@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Category header mockup — Perennial Plants &amp; Flowers | YouGarden</title>
+  <link rel="stylesheet" href="css/yg-fonts.css" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--yg-body);
+      color: var(--yg-pebble);
+      background: var(--yg-stone);
+    }
+
+    .mock-note {
+      margin: 0;
+      padding: 10px 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--yg-forest);
+      background: var(--yg-moss-surface);
+      border-bottom: 1px solid var(--yg-border);
+    }
+
+    .plp-hero {
+      background: var(--yg-stone);
+      border-bottom: 1px solid var(--yg-border);
+    }
+
+    .plp-hero__inner {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 20px 24px 40px;
+    }
+
+    .breadcrumbs {
+      margin: 0 0 28px;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      font-family: var(--yg-body);
+      font-size: 13px;
+      color: var(--yg-muted);
+    }
+
+    .breadcrumbs a {
+      color: var(--yg-muted);
+      text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+      color: var(--yg-forest);
+      text-decoration: underline;
+    }
+
+    .breadcrumbs__sep {
+      color: var(--yg-border);
+      user-select: none;
+    }
+
+    .breadcrumbs__current {
+      color: var(--yg-pebble);
+    }
+
+    .plp-hero__copy {
+      text-align: center;
+    }
+
+    .plp-hero__title {
+      margin: 0 0 14px;
+      font-family: var(--yg-heading);
+      font-size: clamp(2rem, 4.5vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--yg-pebble);
+    }
+
+    .plp-hero__subhead {
+      margin: 0 0 18px;
+      font-family: var(--yg-body);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--yg-pebble);
+    }
+
+    .plp-hero__intro {
+      margin: 0 auto 18px;
+      max-width: 720px;
+      font-family: var(--yg-body);
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: var(--yg-pebble);
+    }
+
+    .plp-hero__more {
+      display: inline-block;
+      font-family: var(--yg-body);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--yg-pebble);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .plp-hero__more:hover {
+      color: var(--yg-forest);
+    }
+
+    /* Light product strip so the hero doesn’t float alone */
+    .plp-grid-preview {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .plp-card {
+      aspect-ratio: 1;
+      border-radius: var(--yg-radius);
+      background:
+        linear-gradient(160deg, var(--yg-moss-surface), transparent 55%),
+        #fff;
+      border: 1px solid var(--yg-border);
+    }
+
+    @media (max-width: 720px) {
+      .plp-grid-preview {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .plp-hero__inner {
+        padding: 16px 16px 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <p class="mock-note">Mockup · Category header on stone · Gelica + Proxima Nova · YG brand colours</p>
+
+  <section class="plp-hero" aria-label="Category introduction">
+    <div class="plp-hero__inner">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumbs">
+          <li><a href="#">Plants</a></li>
+          <li class="breadcrumbs__sep" aria-hidden="true">|</li>
+          <li class="breadcrumbs__current" aria-current="page">Perennial Plants &amp; Flowers</li>
+        </ol>
+      </nav>
+
+      <div class="plp-hero__copy">
+        <h1 class="plp-hero__title">Perennial Plants &amp; Flowers</h1>
+        <h2 class="plp-hero__subhead">
+          Discover Beautiful Perennials for a Colourful, Low-Maintenance Garden
+        </h2>
+        <p class="plp-hero__intro">
+          Perennials are the backbone of any well-planned garden. These dependable plants return year after year,
+          filling borders, beds and containers with long-lasting colour, shape and texture. Whether you love classic
+          cottage garden perennials or prefer bold, architectural varieties, there is a perennial plant for every
+          garden style and growing condition.
+        </p>
+        <a class="plp-hero__more" href="#">Read more</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="plp-grid-preview" aria-hidden="true">
+    <div class="plp-card"></div>
+    <div class="plp-card"></div>
+    <div class="plp-card"></div>
+    <div class="plp-card"></div>
+  </div>
+</body>
+</html>

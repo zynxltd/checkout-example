@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<section class="hero">
+  <div class="hero-media" aria-hidden="true"></div>
+  <div class="shell hero-content">
+    <p class="hero-brand"><%= appName %></p>
+    <h1><%= tagline %></h1>
+    <p class="lede">Express MVC in Node + TypeScript: routes, controllers, repositories, services, typed job queue, auth, and a third-party API client.</p>
+    <a class="btn" href="/products">Browse products</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell split">
+    <div>
+      <h2>Model · View · Controller</h2>
+      <p class="muted">Request hits a route → controller loads data from a model → EJS view renders HTML.</p>
+    </div>
+    <ol class="steps">
+      <li><strong>Route</strong> <code>/products</code></li>
+      <li><strong>Controller</strong> <code>productController.index</code></li>
+      <li><strong>Model</strong> <code>Product.search()</code> via repository</li>
+      <li><strong>View</strong> <code>products/index.ejs</code></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell split">
+    <div>
+      <h2>Best-practice extensions</h2>
+      <p class="muted">This demo now separates auth middleware, dashboard orchestration, a queue worker, and a third-party API client into distinct modules to keep controllers thin.</p>
+    </div>
+    <ol class="steps">
+      <li><strong>Auth</strong> <code>/login</code> + <code>requireAuth</code></li>
+      <li><strong>Queue</strong> <code>jobQueue.enqueue()</code> after contact submit</li>
+      <li><strong>API client</strong> <code>QuoteApiClient.fetchQuote()</code></li>
+      <li><strong>Dashboard</strong> <code>/dashboard</code> combines the pieces</li>
+    </ol>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

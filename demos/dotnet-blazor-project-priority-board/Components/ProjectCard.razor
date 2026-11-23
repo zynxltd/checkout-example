@@ -1,0 +1,46 @@
+<div class="project-card">
+    <div class="card-header">
+        <h3>@ProjectName</h3>
+    </div>
+
+    <div class="card-body">
+        <p class="deadline">Deadline: @Deadline</p>
+        @if (Status == "Active")
+        {
+            <span class="status status-active">@Status</span>
+        }
+        else if (Status == "Planning")
+        {
+            <span class="status status-planning">@Status</span>
+        }
+        else
+        {
+            <span class="status status-hold">@Status</span>
+        }
+    </div>
+
+    <div class="card-actions">
+        @if (CanMoveUp)
+        {
+            <button class="btn btn-sm btn-outline-primary" @onclick="OnMoveUp">↑ Move Up</button>
+        }
+        @if (CanMoveDown)
+        {
+            <button class="btn btn-sm btn-outline-primary" @onclick="OnMoveDown">↓ Move Down</button>
+        }
+        <button class="btn btn-sm btn-outline-info" @onclick="OnViewDetails">View Details</button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string ProjectName { get; set; } = "";
+    [Parameter] public string Deadline { get; set; } = "";
+    [Parameter] public string Status { get; set; } = "";
+
+    [Parameter] public EventCallback OnMoveUp { get; set; }
+    [Parameter] public EventCallback OnMoveDown { get; set; }
+    [Parameter] public EventCallback OnViewDetails { get; set; }
+
+    [Parameter] public bool CanMoveUp { get; set; }
+    [Parameter] public bool CanMoveDown { get; set; }
+}

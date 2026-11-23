@@ -1,0 +1,182 @@
+/**
+ * Crazy Egg → Edit CSS
+ * PayPal | Amazon on top (gap 10px)
+ * Apple Pay = same width as ONE top button, centered below
+ * Desktop only (min-width: 1001px).
+ */
+
+@media (min-width: 1001px) {
+  .payment-grid-wrap {
+    width: 100% !important;
+    max-width: 520px !important;
+    margin: 12px auto 20px !important;
+    clear: both !important;
+    box-sizing: border-box !important;
+  }
+
+  .payment-grid-wrap .ce-express-title {
+    display: block !important;
+    margin: 0 0 14px !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em !important;
+    text-align: center !important;
+    color: #7a726c !important;
+    font-family: inherit !important;
+  }
+
+  .payment-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: 48px !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .payment-grid .ce-express-slot {
+    position: relative !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 48px !important;
+    max-height: 48px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border-radius: 6px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Same width as each top button, centered under the pair */
+  .payment-grid .ce-express-slot--apple {
+    grid-column: 1 / -1 !important;
+    justify-self: center !important;
+    width: calc((100% - 10px) / 2) !important;
+    max-width: none !important;
+    height: 48px !important;
+    max-height: 48px !important;
+  }
+
+  /* SVG face — behind live widget; still receives clicks as backup */
+  .payment-grid .ce-express-face,
+  .payment-grid .co-express-btn {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    min-width: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    line-height: 0 !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    grid-column: auto !important;
+    box-sizing: border-box !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .payment-grid .ce-express-face::after,
+  .payment-grid .co-express-btn::after {
+    content: "" !important;
+    display: block !important;
+    width: 100% !important;
+    height: 48px !important;
+    max-height: 48px !important;
+    border-radius: 6px !important;
+    background-color: transparent !important;
+    background-image: var(--co-express-bg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+  }
+
+  .payment-grid .ce-express-face[data-ce-preview="1"] {
+    pointer-events: none !important;
+    cursor: default !important;
+  }
+
+  /*
+   * Live widgets sit on top and catch the real click.
+   * opacity must stay > 0 — browsers often ignore clicks on fully
+   * invisible iframes (PayPal). 0.02 is still invisible to the eye.
+   */
+  .payment-grid .ce-express-live,
+  .payment-grid .AmazonButtonWrapper.ce-express-live,
+  .payment-grid #AmazonPayButton.ce-express-live,
+  .payment-grid #paypal-button-container.ce-express-live,
+  .payment-grid .pp-button-container.ce-express-live,
+  .payment-grid #apple-pay.ce-express-live,
+  .payment-grid .apple-pay-button-with-text.ce-express-live {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    height: 48px !important;
+    max-height: 48px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0.02 !important;
+    overflow: hidden !important;
+    float: none !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Real Apple Pay must be fully visible or Safari blocks the click */
+  .payment-grid .ce-express-slot--apple .ce-express-face {
+    display: none !important;
+  }
+
+  .payment-grid .ce-express-slot--apple .ce-express-live,
+  .payment-grid .ce-express-slot--apple .ce-express-live--apple,
+  .payment-grid .ce-express-slot--apple #apple-pay,
+  .payment-grid .ce-express-slot--apple .apple-pay-button-with-text,
+  .payment-grid .ce-express-slot--apple .apple-pay-button {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    pointer-events: auto !important;
+    z-index: 3 !important;
+    width: 100% !important;
+    height: 48px !important;
+    max-height: 48px !important;
+    min-height: 48px !important;
+    overflow: visible !important;
+  }
+
+  .payment-grid .ce-express-live iframe,
+  .payment-grid .ce-express-live #AmazonPayButton,
+  .payment-grid .ce-express-live > * {
+    width: 100% !important;
+    height: 48px !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border: none !important;
+    display: block !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+  }
+
+  .payment-grid .amazonpay-button-microtext,
+  .payment-grid picture.amazonpay-button-microtext,
+  .payment-grid picture {
+    display: none !important;
+    height: 0 !important;
+  }
+
+  /* Sidebar: hide leftover divider once widgets moved up */
+  .viewordRightWrapper .buttonsWrapper > hr {
+    display: none !important;
+  }
+}

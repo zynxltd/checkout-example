@@ -1,0 +1,178 @@
+/**
+ * Crazy Egg — PDP Mobile Gallery v2
+ *
+ * Pair with: crazyegg-pdp-mobile-gallery-v2.js
+ * Paste into Crazy Egg Variant → Custom CSS
+ *
+ * Title + reviews centered. Key Features BELOW PayPal text:
+ * 3 max visible, swipe/drag, Magento-style lime green band.
+ *
+ * Example: https://www.yougarden.com/item-p-630050/complete-300-spring-flowering-bulb-collection
+ */
+
+/* Hide original mid-page Key Features */
+.product-right-wrapper > .icons-heading,
+.product-right-wrapper > .icons-wrapper,
+#product-features-carousel,
+.product-features-carousel {
+  display: none !important;
+}
+
+.ce-yg-kf-slide,
+.ce-yg-gal-shell,
+.ce-yg-gal-thumbs,
+#ce-yg-gal-thumbs,
+.ce-yg-kf-under,
+#ce-yg-kf-under {
+  display: none !important;
+}
+
+#main-image-wrapper,
+.main-image-wrapper {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Title full width + centered */
+.product-right-wrapper .product-heading-wrapper {
+  float: none !important;
+  clear: both !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+
+.product-right-wrapper .product-heading-wrapper h1,
+.product-right-wrapper h1,
+.product-right-wrapper .product-name,
+.product-right-wrapper .product-name h1,
+h1.product-title,
+h1.item-title {
+  float: none !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+
+/* Reviews centered */
+.product-right-wrapper #feefo-rating,
+.product-right-wrapper .feefo-rating {
+  float: none !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 6px 0 10px !important;
+  padding: 0 12px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+
+.product-right-wrapper #feefo-rating .feefo-product-stars-widget,
+.product-right-wrapper .feefo-rating .feefo-product-stars-widget {
+  float: none !important;
+  display: inline-block !important;
+  margin: 0 auto !important;
+}
+
+/*
+ * Key Features rail — Magento-style green band
+ * (original: linear-gradient(#fff 50%, #ccea81 50%))
+ */
+.ce-yg-kf-below {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 14px !important;
+  padding: 10px 0 14px !important;
+  background: linear-gradient(#ffffff 42%, #ccea81 42%) !important;
+  box-sizing: border-box !important;
+  clear: both !important;
+}
+
+.ce-yg-kf-below-rail {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-start !important;
+  gap: 0 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 10px !important;
+  box-sizing: border-box !important;
+  overflow-x: scroll !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-x !important;
+  cursor: grab;
+}
+
+.ce-yg-kf-below-rail.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.ce-yg-kf-below-rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* Max 3 visible — slight peek of 4th to cue swipe */
+.ce-yg-kf-below-item {
+  flex: 0 0 calc(100% / 3.15) !important;
+  width: calc(100% / 3.15) !important;
+  max-width: calc(100% / 3.15) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: center !important;
+  padding: 0 6px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+  scroll-snap-align: start;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: none; /* let rail own the drag */
+}
+
+.ce-yg-kf-below-item img {
+  display: block !important;
+  width: 56px !important;
+  height: 56px !important;
+  min-width: 56px !important;
+  min-height: 56px !important;
+  max-width: 56px !important;
+  max-height: 56px !important;
+  object-fit: contain !important;
+  margin: 0 auto 8px !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+}
+
+.ce-yg-kf-below-item span {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 2px !important;
+  min-height: 2.6em !important;
+  font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 11px !important;
+  line-height: 1.25 !important;
+  font-weight: 600 !important;
+  color: #254f1c !important;
+}

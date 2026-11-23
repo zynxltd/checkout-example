@@ -1,0 +1,11 @@
+{
+  "name": "YouGarden",
+  "short_name": "YouGarden",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#264f1c",
+  "theme_color": "#264f1c",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

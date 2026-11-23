@@ -1,0 +1,431 @@
+/**
+ * V5 Club Mobile — logo + purple banner → Auto Renew | One-Off | ATC
+ * Pair: v5-club-mob.js · ce-boot-v5-club-mob.js
+ * ≤640 only (boot/js bail out above).
+ */
+
+html[data-ygbc5="1"] {
+  --ygbc5-purple: #7b277b;
+  --ygbc5-green: #5cb85c;
+  --ygbc5-green-deep: #449d44;
+  --ygbc5-gelica: "gelica", Georgia, "Times New Roman", serif;
+}
+
+#ygbc5-root,
+#ygbc5-root * {
+  box-sizing: border-box;
+}
+
+#ygbc5-root {
+  clear: both;
+  position: relative;
+  width: 100%;
+  margin: 32px 0 12px !important;
+  padding: 20px 0 0 !important;
+  overflow: visible !important;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2;
+  color: #fff;
+  background: transparent;
+  border: 0;
+}
+
+html[data-ygbc5="1"] .viewordLeftWrapper,
+html[data-ygbc5="1"] .buttonPromoWrapper {
+  overflow: visible !important;
+}
+
+html[data-ygbc5="1"] .viewordLeftWrapper table.mainTable,
+html[data-ygbc5="1"] table.mainTable {
+  margin-bottom: 12px !important;
+}
+
+#ygbc5-top {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  height: 92px;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+#ygbc5-logo-wrap {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 148px;
+  width: 148px;
+  height: 92px;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  overflow: visible;
+  background: transparent !important;
+}
+
+#ygbc5-logo {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  width: 148px;
+  height: auto;
+  margin: 0;
+  display: block;
+  border: 0;
+  object-fit: contain;
+  object-position: bottom center;
+}
+
+#ygbc5-banner {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  align-self: flex-start;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 84px;
+  min-height: 84px;
+  max-height: 84px;
+  margin: 6px 0 2px -26px;
+  padding: 8px 12px 8px 34px;
+  border-radius: 0 12px 12px 0 !important;
+  background: #7b277b !important;
+  overflow: hidden;
+}
+
+#ygbc5-copy {
+  width: 100%;
+  text-align: center;
+}
+
+#ygbc5-title {
+  margin: 0 0 4px !important;
+  padding: 0 0 4px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.85) !important;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+  color: #ffffff !important;
+  background: none !important;
+}
+
+#ygbc5-save {
+  font-family: var(--ygbc5-gelica) !important;
+  font-weight: 700 !important;
+  font-size: 1.15em !important;
+  color: #ffffff !important;
+  white-space: nowrap;
+}
+
+#ygbc5-benefits {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  line-height: 1.35 !important;
+  color: #ffffff !important;
+  text-align: center !important;
+}
+
+#ygbc5-benefits span {
+  color: #ffffff !important;
+}
+
+#ygbc5-benefits .ygbc5-br {
+  display: block;
+}
+
+#ygbc5-benefits .ygbc5-sep {
+  display: inline;
+  margin: 0 0.35em;
+  color: #ffffff !important;
+}
+
+#ygbc5-benefits .ygbc5-sep::before {
+  content: "|";
+  color: #ffffff !important;
+}
+
+/* —— Row 2: Auto Renew | One-Off | ATC (equal opt columns) —— */
+#ygbc5-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 0.85fr;
+  gap: 8px;
+  align-items: stretch;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+#ygbc5-opt-auto,
+#ygbc5-opt-one {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 8px 6px 8px 22px !important; /* same always — selected uses ring, not thicker border */
+  min-height: 58px;
+  height: 100%;
+  border: 2px solid #7b277b !important;
+  border-radius: 10px;
+  background: #ffffff !important;
+  color: #7b277b !important;
+  cursor: pointer;
+  text-align: center;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+}
+
+/* Selected: outer glow ring — keeps box + radio dimensions identical */
+#ygbc5-opt-auto.is-selected,
+#ygbc5-opt-one.is-selected {
+  border-width: 2px !important;
+  padding: 8px 6px 8px 22px !important;
+  box-shadow: 0 0 0 1px #7b277b !important;
+}
+
+#ygbc5-opt-auto input,
+#ygbc5-opt-one input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ygbc5-radio {
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  margin-top: -7px !important; /* half of 14px — vertically centered */
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  border: 2px solid #7b277b !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+  flex: none !important;
+  padding: 0 !important;
+}
+
+/* Dot only — outer ring size stays identical selected/unselected */
+.is-selected .ygbc5-radio::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #7b277b !important;
+}
+
+.ygbc5-opt-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  min-width: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.ygbc5-opt-title {
+  display: block;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 1.1 !important;
+  color: #7b277b !important;
+}
+
+.ygbc5-opt-price {
+  display: block;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  line-height: 1.05 !important;
+  color: #7b277b !important;
+}
+
+.ygbc5-opt-meta {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  color: #7b277b !important;
+  white-space: normal; /* wrap so “No Renewal” stays in the box */
+  word-break: break-word;
+}
+
+/* One-Off meta is longer — keep it contained */
+#ygbc5-opt-one .ygbc5-opt-meta {
+  font-size: 8.5px !important;
+  padding: 0 2px;
+}
+
+.ygbc5-was {
+  text-decoration: line-through;
+}
+
+#ygbc5-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+#ygbc5-atc,
+html[data-ygbc5="1"] button#ygbc5-atc {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 40px;
+  margin: 0 !important;
+  padding: 8px 8px !important;
+  border: 0 !important;
+  border-radius: 10px !important;
+  background: #5cb85c !important;
+  color: #ffffff !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+#ygbc5-atc:hover,
+#ygbc5-atc:focus {
+  background: #449d44 !important;
+  color: #ffffff !important;
+}
+
+#ygbc5-more,
+html[data-ygbc5="1"] a#ygbc5-more {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #7b277b !important;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  text-decoration: underline !important;
+  background: none !important;
+  border: 0 !important;
+}
+
+/* Sidebar — refined strip (badge + purple Save MORE) */
+html[data-ygbc5="1"] .viewordRightWrapper,
+html[data-ygbc5="1"] .viewordRightWrapper .clubSavingWrapper,
+html[data-ygbc5="1"] #ygbc5-side {
+  overflow: visible !important;
+}
+
+#ygbc5-side,
+html[data-ygbc5="1"] .clubSavingWrapper {
+  position: relative;
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 100% !important;
+  padding: 0 !important;
+  margin: 14px 0 10px !important;
+  background: transparent !important;
+  border: 0 !important;
+  overflow: visible !important;
+  float: none !important;
+  clear: both !important;
+  box-sizing: border-box !important;
+}
+
+#ygbc5-side-link {
+  --ygbc5-side-bar-h: 34px;
+  position: relative;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-end !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+  width: 100% !important;
+  min-height: calc(var(--ygbc5-side-bar-h) + 12px) !important;
+  padding: 12px 0 0 !important;
+  text-decoration: none !important;
+  overflow: visible !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+
+#ygbc5-side-link::before {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 0;
+  bottom: 0;
+  top: auto;
+  height: var(--ygbc5-side-bar-h);
+  margin: 0;
+  background: #7b277b !important;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#ygbc5-side-logo {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: 62% !important;
+  height: 42px !important;
+  max-height: 42px !important;
+  margin: 0 !important;
+  display: block !important;
+  border: 0 !important;
+  background: transparent !important;
+  object-fit: contain;
+  object-position: left bottom;
+}
+
+#ygbc5-side-save {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0% !important;
+  align-self: flex-end !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+  height: var(--ygbc5-side-bar-h) !important;
+  margin: 0 !important;
+  padding: 0 12px 0 4px !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  font: 800 15px/1 Arial, Helvetica, sans-serif !important;
+  letter-spacing: 0.02em;
+  white-space: nowrap !important;
+}

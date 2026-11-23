@@ -1,0 +1,279 @@
+{# YG — Back in Stock Banner variant #}
+{# Product 1 = full-width banner image + name/price/Shop now. Products 2–3 = 2-up cards. No roundel. No basket total. #}
+{# Paste into FR: Trigger SmartBlocks → HTML (slug p0glzr1). JSON slug/template_style must stay p0glzr1 / dimitvw. H1 lives in Dotdigital. #}
+
+{% set yg_green = '#264f1c' %}
+{% set yg_pink = '#e3185d' %}
+{% set yg_text = '#1f2937' %}
+{% set yg_white = '#ffffff' %}
+{% set font_fallback = 'Arial, Helvetica, sans-serif' %}
+{% set currency = cart.curr if cart and cart.curr else 'GBP' %}
+
+{% set email_width = fields.width or 660 %}
+{% set cols = 2 %}
+{% set name_px = fields.productName.size.size|default(18)|int %}
+{% set name_mobile_px = fields.productName.mobileSize.size|default(14)|int %}
+{% set banner_name_px = fields.productName.size.size|default(22)|int %}
+{% set compact_name_mobile_slot = (name_mobile_px * 2.6)|round(0, floor)|int %}
+{% set was_px = fields.prices.wasPriceSize.size|default(12)|int %}
+{% set price_px = fields.prices.size.size|default(16)|int %}
+{% set feature_price_px = fields.prices.featureSize.size|default(24)|int %}
+{% set feature_price_mobile_px = fields.prices.featureMobileSize.size|default(18)|int %}
+{% set feature_was_px = (feature_price_px * 0.7)|round(0, floor)|int %}
+{% set feature_was_mobile_px = (feature_price_mobile_px * 0.7)|round(0, floor)|int %}
+{% set feature_price_slot = feature_was_px + feature_price_px + 8 %}
+{% set feature_price_mobile_slot = feature_was_mobile_px + feature_price_mobile_px + 8 %}
+{% set cta_px = fields.callToAction.size.size|default(16)|int %}
+{% set cta_mobile_px = fields.callToAction.mobileSize.size|default(12)|int %}
+{% set cta_mobile_pad_y = fields.callToAction.mobilePaddingVertical|default(10)|int %}
+{% set cta_mobile_pad_x = fields.callToAction.mobilePaddingHorizontal|default(4)|int %}
+
+{% if products %}
+{% set catalog = products|allowOutOfStockProducts(fields.allowOutOfStockProducts)|limit((fields.maximumProducts|default(3))|int) %}
+<style type="text/css">
+	.yg-bisb-outer { width:100% !important; max-width:{{ email_width }}px !important; }
+	.yg-bisb-banner-photo { display:block !important; width:100% !important; max-width:100% !important; height:auto !important; }
+	.yg-bisb-col { width:50% !important; max-width:50% !important; display:table-cell !important; }
+	.yg-bisb-photo { display:block !important; width:100% !important; max-width:100% !important; height:auto !important; }
+	.yg-bisb-name { height:{{ compact_name_mobile_slot }}px !important; max-height:{{ compact_name_mobile_slot }}px !important; overflow:hidden !important; line-height:1.3 !important; color:{{ yg_text }} !important; }
+	.yg-bisb-name a { font-size:{{ name_mobile_px }}px !important; line-height:1.3 !important; }
+	.yg-bisb-cta { display:block !important; width:100% !important; max-width:100% !important; box-sizing:border-box !important; font-size:{{ cta_mobile_px }}px !important; line-height:1.2 !important; padding:{{ cta_mobile_pad_y }}px {{ cta_mobile_pad_x }}px !important; white-space:nowrap !important; overflow:hidden !important; }
+	@media only screen and (max-width: 600px) {
+		.yg-bisb-outer { width:100% !important; max-width:100% !important; }
+		.yg-bisb-col { width:50% !important; max-width:50% !important; display:table-cell !important; float:none !important; }
+		.yg-bisb-copy { padding-left:4px !important; padding-right:4px !important; overflow:hidden !important; }
+		.yg-bisb-name { height:{{ compact_name_mobile_slot }}px !important; max-height:{{ compact_name_mobile_slot }}px !important; overflow:hidden !important; }
+		.yg-bisb-name a { font-size:{{ name_mobile_px }}px !important; }
+		.yg-bisb-banner-name a { font-size:{{ name_px }}px !important; }
+		.yg-bisb-banner-amount { font-size:{{ feature_price_mobile_px }}px !important; line-height:{{ feature_price_mobile_px + 4 }}px !important; }
+		.yg-bisb-cta { font-size:{{ cta_mobile_px - 1 }}px !important; padding:{{ cta_mobile_pad_y - 1 }}px {{ cta_mobile_pad_x }}px !important; }
+	}
+</style>
+
+<table class="yg-bisb-outer {{ safeid }} email-full-width width-100" cellpadding="0" cellspacing="0" border="0" width="100%" align="center" role="presentation" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; width:100%; max-width:{{ email_width }}px; background-color:{{ fields.backgroundColor }}; border:0;">
+
+	{% if fields.headline.active %}
+	<tr>
+		<td style="padding:16px 12px 4px 12px;">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+				<tr>
+					<td align="{{ fields.headline.alignment }}" style="font-family:{{ fields.headline.font }}, {{ font_fallback }}; font-size:{{ fields.headline.size.size }}{{ fields.headline.size.unit }}; line-height:1.25; color:{{ yg_text }}; font-weight:{{ '700' if fields.headline.bold else '400' }}; font-style:{{ 'italic' if fields.headline.italics else 'normal' }};">
+						{{ mergeField(fields.headline.text) }}
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endif %}
+
+	{% for product in catalog %}
+	{% if loop.first %}
+	{% set product_url = mergeField(fields.productHref, { product: product })|urlWithTrackingParams %}
+	{% set on_sale = fields.prices.active and fields.prices.wasPrice and product.ruv and (product.ruv > product.uv) %}
+	<tr>
+		<td align="center" style="padding:0; font-size:0; line-height:0;">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation" style="border-collapse:collapse; width:100%; background-color:{{ yg_white }};">
+				{% if fields.productImage.active %}
+				<tr>
+					<td align="center" bgcolor="{{ yg_white }}" style="padding:0; background-color:{{ yg_white }}; font-size:0; line-height:0;">
+						<a href="{{ product_url }}" target="_blank" title="{{ product.n }}" style="display:block; text-decoration:none; font-size:0; line-height:0;">
+							<img class="yg-bisb-banner-photo" src="{{ product.img }}" alt="{{ product.n }}" title="{{ product.n }}" border="0" width="{{ email_width }}" style="display:block; width:100%; max-width:100%; height:auto; margin:0; padding:0; border:0; outline:none; vertical-align:top;">
+						</a>
+					</td>
+				</tr>
+				{% endif %}
+				<tr>
+					<td align="center" style="padding:16px 16px 20px 16px; background-color:{{ yg_white }}; font-size:16px; line-height:22px; color:{{ yg_text }};">
+						{% if fields.productName.active %}
+						<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+							<tr>
+								<td class="yg-bisb-banner-name" align="center" valign="top" style="padding:0 0 6px 0; font-family:{{ fields.productName.font }}, {{ font_fallback }}; font-size:{{ banner_name_px }}px; line-height:1.3; color:{{ fields.productName.color if fields.productName.color else yg_text }}; font-weight:{{ '700' if fields.productName.bold else '400' }}; font-style:{{ 'italic' if fields.productName.italics else 'normal' }};">
+									<a href="{{ product_url }}" target="_blank" title="{{ product.n }}" style="color:{{ fields.productName.color if fields.productName.color else yg_text }}; text-decoration:none; font-size:{{ banner_name_px }}px; line-height:1.3;">
+										{{ product.n }}
+									</a>
+								</td>
+							</tr>
+						</table>
+						{% endif %}
+
+						{% if fields.prices.active %}
+						<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+							<tr>
+								<td align="center" valign="top" style="padding:0 0 4px 0; font-family:{{ fields.prices.font }}, {{ font_fallback }};">
+									{% if on_sale %}
+									<div style="height:{{ feature_was_px + 2 }}px; line-height:{{ feature_was_px + 2 }}px; font-family:{{ fields.prices.wasPriceFont }}, {{ font_fallback }}; font-size:{{ feature_was_px }}px; color:{{ fields.prices.wasPriceColor }}; text-decoration:line-through; font-weight:{{ '700' if fields.prices.wasPriceBold else '400' }};">
+										{{ product.ruv|format_currency(currency,2) }}
+									</div>
+									{% endif %}
+									<div class="yg-bisb-banner-amount" style="height:{{ feature_price_px + 4 }}px; line-height:{{ feature_price_px + 4 }}px; font-size:{{ feature_price_px }}px; color:{{ yg_pink if on_sale else (fields.prices.color if fields.prices.color else yg_green) }}; font-weight:{{ '700' if fields.prices.bold else '400' }};">
+										{{ product.uv|format_currency(currency,2) }}
+									</div>
+								</td>
+							</tr>
+						</table>
+						{% endif %}
+
+						{% if fields.callToAction.active %}
+							{% set cta_bg = fields.callToAction.colors.background if fields.callToAction.colors.background else yg_pink %}
+							{% set cta_fg = fields.callToAction.colors.foreground if fields.callToAction.colors.foreground else yg_white %}
+							{% set cta_border = fields.callToAction.border %}
+							{% set cta_border_w = (fields.callToAction.borderWeight|default(3))|int %}
+							{% set cta_border_color = fields.callToAction.borderColor if fields.callToAction.borderColor else '#fdfefa' %}
+							{% set cta_border_style = fields.callToAction.borderStyle if fields.callToAction.borderStyle else 'solid' %}
+							{% set cta_label = fields.callToAction.text|replace(' >', '&nbsp;&gt;') %}
+						<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+							<tr>
+								<td align="center" style="padding-top:12px;">
+									<!--[if mso]>
+									<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ product_url }}" target="_blank" style="height:48px;v-text-anchor:middle;width:280px;" arcsize="50%"{% if cta_border %} stroked="t" strokecolor="{{ cta_border_color }}" strokeweight="{{ cta_border_w }}px"{% else %} stroked="f"{% endif %} fillcolor="{{ cta_bg }}">
+									<w:anchorlock/>
+									<center style="color:{{ cta_fg }}; font-family:{{ fields.callToAction.font }}, {{ font_fallback }}; font-size:{{ cta_px }}px; font-weight:bold;">
+										{{ cta_label }}
+									</center>
+									</v:roundrect>
+									<![endif]-->
+									<a class="yg-bisb-cta" href="{{ product_url }}" target="_blank"
+										style="background-color:{{ cta_bg }};
+										border-radius:999px;
+										{% if cta_border %}border:{{ cta_border_w }}px {{ cta_border_style }} {{ cta_border_color }};{% else %}border:0;{% endif %}
+										color:{{ cta_fg }};
+										display:block;
+										width:100%;
+										max-width:320px;
+										box-sizing:border-box;
+										font-family:{{ fields.callToAction.font }}, {{ font_fallback }};
+										font-size:{{ cta_px }}px;
+										font-weight:{{ '700' if fields.callToAction.bold else '400' }};
+										font-style:{{ 'italic' if fields.callToAction.italics else 'normal' }};
+										line-height:1.2;
+										padding:12px 16px;
+										white-space:nowrap;
+										overflow:hidden;
+										text-align:center;
+										text-decoration:none;
+										-webkit-text-size-adjust:none;">{{ cta_label }}</a>
+								</td>
+							</tr>
+						</table>
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endif %}
+	{% endfor %}
+
+	{% if catalog|length > 1 %}
+	{% set row_sale_flags = [] %}
+	{% for product in catalog %}
+	{% if not loop.first %}
+	{% if fields.prices.active and fields.prices.wasPrice and product.ruv and (product.ruv > product.uv) %}
+	{% set _ = row_sale_flags.push(1) %}
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+	<tr>
+		<td align="center" style="padding:4px 4px 8px 4px; font-size:16px; line-height:22px; text-align:center;">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation" style="border-collapse:collapse; width:100%; table-layout:fixed;">
+				<tr>
+			{% for product in catalog %}
+			{% if not loop.first %}
+			{% set row_has_sale = row_sale_flags|length > 0 %}
+			{% set on_sale = fields.prices.active and fields.prices.wasPrice and product.ruv and (product.ruv > product.uv) %}
+			{% set product_url = mergeField(fields.productHref, { product: product })|urlWithTrackingParams %}
+					<td class="yg-bisb-col" width="50%" valign="top" align="center" style="width:50%; max-width:50%; vertical-align:top; font-size:16px; line-height:22px; text-align:center; padding:6px;">
+						<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation" style="border-collapse:separate; border-spacing:0; width:100%; background-color:{{ yg_white }}; border:0; border-radius:16px;">
+							{% if fields.productImage.active %}
+							<tr>
+								<td align="left" bgcolor="{{ yg_white }}" style="padding:8px 8px 0 8px; background-color:{{ yg_white }}; font-size:0; line-height:0;">
+									<a href="{{ product_url }}" target="_blank" title="{{ product.n }}" style="display:block; text-decoration:none; font-size:0; line-height:0;">
+										<img class="yg-bisb-photo" src="{{ product.img }}" alt="{{ product.n }}" title="{{ product.n }}" border="0" style="display:block; width:100%; max-width:100%; height:auto; margin:0; padding:0; border:0; border-radius:12px; outline:none; vertical-align:top;">
+									</a>
+								</td>
+							</tr>
+							{% endif %}
+							<tr>
+								<td class="yg-bisb-copy" align="center" style="padding:10px 8px 12px 8px; background-color:{{ yg_white }}; font-size:16px; line-height:22px; color:{{ yg_text }};">
+									{% if fields.productName.active %}
+									<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+										<tr>
+											<td align="center" valign="top" style="padding:0; font-family:{{ fields.productName.font }}, {{ font_fallback }}; font-size:{{ name_mobile_px }}px; line-height:1.3; color:{{ fields.productName.color if fields.productName.color else yg_text }}; font-weight:{{ '700' if fields.productName.bold else '400' }}; font-style:{{ 'italic' if fields.productName.italics else 'normal' }};">
+												<div class="yg-bisb-name" style="height:{{ compact_name_mobile_slot }}px; max-height:{{ compact_name_mobile_slot }}px; overflow:hidden; font-size:{{ name_mobile_px }}px; line-height:1.3;">
+													<a href="{{ product_url }}" target="_blank" title="{{ product.n }}" style="color:{{ fields.productName.color if fields.productName.color else yg_text }}; text-decoration:none; font-size:{{ name_mobile_px }}px; line-height:1.3;">
+														{{ product.n }}
+													</a>
+												</div>
+											</td>
+										</tr>
+									</table>
+									{% endif %}
+
+									{% if fields.prices.active %}
+									<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+										<tr>
+											<td align="center" valign="top" height="{% if row_has_sale %}{{ was_px + price_px + 8 }}{% else %}{{ price_px + 6 }}{% endif %}" style="height:{% if row_has_sale %}{{ was_px + price_px + 8 }}{% else %}{{ price_px + 6 }}{% endif %}px; padding-top:2px; font-family:{{ fields.prices.font }}, {{ font_fallback }};">
+												{% if on_sale or row_has_sale %}
+												<div style="height:{{ was_px + 2 }}px; line-height:{{ was_px + 2 }}px; overflow:hidden; font-family:{{ fields.prices.wasPriceFont }}, {{ font_fallback }}; font-size:{{ was_px }}px; color:{{ fields.prices.wasPriceColor }}; {% if on_sale %}text-decoration:line-through;{% endif %} font-weight:{{ '700' if fields.prices.wasPriceBold else '400' }};">
+													{% if on_sale %}{{ product.ruv|format_currency(currency,2) }}{% else %}&nbsp;{% endif %}
+												</div>
+												{% endif %}
+												<div style="height:{{ price_px + 4 }}px; line-height:{{ price_px + 4 }}px; overflow:hidden; font-size:{{ price_px }}px; color:{{ yg_pink if on_sale else (fields.prices.color if fields.prices.color else yg_green) }}; font-weight:{{ '700' if fields.prices.bold else '400' }};">
+													{{ product.uv|format_currency(currency,2) }}
+												</div>
+											</td>
+										</tr>
+									</table>
+									{% endif %}
+
+									{% if fields.callToAction.active %}
+										{% set cta_bg = fields.callToAction.colors.background if fields.callToAction.colors.background else yg_pink %}
+										{% set cta_fg = fields.callToAction.colors.foreground if fields.callToAction.colors.foreground else yg_white %}
+										{% set cta_border = fields.callToAction.border %}
+										{% set cta_border_w = (fields.callToAction.borderWeight|default(3))|int %}
+										{% set cta_border_color = fields.callToAction.borderColor if fields.callToAction.borderColor else '#fdfefa' %}
+										{% set cta_border_style = fields.callToAction.borderStyle if fields.callToAction.borderStyle else 'solid' %}
+										{% set cta_label = fields.callToAction.text|replace(' >', '&nbsp;&gt;') %}
+									<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+										<tr>
+											<td align="center" style="padding-top:10px;">
+												<a class="yg-bisb-cta" href="{{ product_url }}" target="_blank"
+													style="background-color:{{ cta_bg }};
+													border-radius:999px;
+													{% if cta_border %}border:{{ cta_border_w }}px {{ cta_border_style }} {{ cta_border_color }};{% else %}border:0;{% endif %}
+													color:{{ cta_fg }};
+													display:block;
+													width:100%;
+													max-width:100%;
+													box-sizing:border-box;
+													font-family:{{ fields.callToAction.font }}, {{ font_fallback }};
+													font-size:{{ cta_mobile_px }}px;
+													font-weight:{{ '700' if fields.callToAction.bold else '400' }};
+													line-height:1.2;
+													padding:{{ cta_mobile_pad_y }}px {{ cta_mobile_pad_x }}px;
+													white-space:nowrap;
+													overflow:hidden;
+													text-align:center;
+													text-decoration:none;
+													-webkit-text-size-adjust:none;">{{ cta_label }}</a>
+											</td>
+										</tr>
+									</table>
+									{% endif %}
+								</td>
+							</tr>
+						</table>
+					</td>
+			{% endif %}
+			{% endfor %}
+			{% if catalog|length == 2 %}
+					<td class="yg-bisb-col" width="50%" valign="top" style="width:50%; max-width:50%; font-size:1px; line-height:1px;">&nbsp;</td>
+			{% endif %}
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endif %}
+
+</table>
+{% endif %}

@@ -1,0 +1,41 @@
+@using YgCartDrawer.Models
+@model CartState
+@{
+    var cart = Model;
+    var hasOffer = !string.IsNullOrEmpty(cart.OfferCode);
+}
+<div class="yg-codes" id="yg-codes">
+    <p class="yg-codes__error" id="yg-code-error" hidden></p>
+
+    @if (hasOffer)
+    {
+        <div class="yg-code-row yg-code-row--set">
+            <span class="yg-code-row__text">
+                @if (cart.OfferDiscount > 0)
+                {
+                    <text>Offer <strong>@cart.OfferCode - £@cart.OfferDiscount.ToString("0.00") OFF</strong></text>
+                }
+                else
+                {
+                    <strong>@cart.OfferCode</strong>
+                    <span class="yg-code-badge" aria-label="Offer code applied">Code Applied</span>
+                }
+            </span>
+            <button type="button" class="yg-code-row__action" data-remove-code="offer">Remove</button>
+        </div>
+    }
+    else
+    {
+        <div class="yg-codes__offer">
+            <p class="yg-codes__label" id="yg-code-label">Offer code</p>
+            <div class="yg-code-row">
+                <input id="yg-input-offer" type="text" name="offer" placeholder="Enter offer code" autocomplete="off"
+                       aria-labelledby="yg-code-label" aria-describedby="yg-code-hint">
+                <button type="button" data-apply-code="offer">Apply code</button>
+            </div>
+            <p class="yg-codes__hint" id="yg-code-hint">
+                Have a gift or postage voucher? <a href="/checkout" class="yg-codes__hint-link">Apply at checkout</a>.
+            </p>
+        </div>
+    }
+</div>

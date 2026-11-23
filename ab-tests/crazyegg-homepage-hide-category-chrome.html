@@ -1,0 +1,88 @@
+<!--
+  Fresh Relevance SoftBlock — Layout HTML
+  Homepage category carousel: hide the Shop By Category headline and
+  the slick prev/next arrows. Category tile h3 titles at 16px.
+  Tiles and pager dots stay.
+
+  Paste ALL of this into Layout HTML (not Crazy Egg).
+  Place the SoftBlock on the homepage (any slot) so the <style> injects.
+
+  Preview: https://yougardennew.mtechpreview.com/
+-->
+<style>
+  body > main > div.frontpage > div.category-promotion-wrapper > h2,
+  body main div.frontpage div.category-promotion-wrapper > h2,
+  .frontpage .category-promotion-wrapper > h2,
+  .category-promotion-wrapper > h2 {
+    display: none !important;
+  }
+
+  body > main > div.frontpage > div.category-promotion-wrapper > div.category-promotion-carousel .slick-prev,
+  body > main > div.frontpage > div.category-promotion-wrapper > div.category-promotion-carousel .slick-next,
+  body > main > div.frontpage > div.category-promotion-wrapper > div.category-promotion-carousel .slick-arrow,
+  .frontpage .category-promotion-wrapper .category-promotion-carousel .slick-prev,
+  .frontpage .category-promotion-wrapper .category-promotion-carousel .slick-next,
+  .frontpage .category-promotion-wrapper .category-promotion-carousel .slick-arrow,
+  .category-promotion-carousel .slick-prev,
+  .category-promotion-carousel .slick-next,
+  .category-promotion-carousel .slick-arrow {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  body > main > div.frontpage > div.category-promotion-wrapper .category-promotion-carousel .box h3,
+  .frontpage .category-promotion-wrapper .category-promotion-carousel .box h3,
+  .category-promotion-wrapper .box h3,
+  .category-promotion-carousel .box h3 {
+    font-size: 16px !important;
+  }
+</style>
+<script>
+(function () {
+  var HEAD = '.frontpage .category-promotion-wrapper > h2, .category-promotion-wrapper > h2';
+  var ARROW = '.frontpage .category-promotion-carousel .slick-arrow, .category-promotion-carousel .slick-prev, .category-promotion-carousel .slick-next';
+  var TITLE = '.frontpage .category-promotion-carousel .box h3, .category-promotion-wrapper .box h3, .category-promotion-carousel .box h3';
+  var MAX_MS = 10000;
+  var started = Date.now();
+
+  function hide(sel) {
+    var nodes = document.querySelectorAll(sel);
+    var i;
+    for (i = 0; i < nodes.length; i++) {
+      nodes[i].style.setProperty('display', 'none', 'important');
+      nodes[i].style.setProperty('visibility', 'hidden', 'important');
+    }
+    return nodes.length;
+  }
+
+  function sizeTitles() {
+    var nodes = document.querySelectorAll(TITLE);
+    var i;
+    for (i = 0; i < nodes.length; i++) {
+      nodes[i].style.setProperty('font-size', '16px', 'important');
+    }
+    return nodes.length;
+  }
+
+  function apply() {
+    hide(HEAD);
+    sizeTitles();
+    return hide(ARROW) > 0;
+  }
+
+  function tick() {
+    if (apply()) return;
+    if (Date.now() - started > MAX_MS) return;
+    setTimeout(tick, 150);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tick);
+  } else {
+    tick();
+  }
+
+  setTimeout(apply, 2000);
+})();
+</script>

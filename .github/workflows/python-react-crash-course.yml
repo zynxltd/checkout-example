@@ -1,0 +1,49 @@
+name: Python React crash course
+
+on:
+  push:
+    paths:
+      - "demos/python-react-crash-course/**"
+      - ".github/workflows/python-react-crash-course.yml"
+  pull_request:
+    paths:
+      - "demos/python-react-crash-course/**"
+      - ".github/workflows/python-react-crash-course.yml"
+
+concurrency:
+  group: python-react-crash-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  api-and-web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demos/python-react-crash-course
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install API deps + pytest
+        working-directory: demos/python-react-crash-course/api
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pytest -q
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: demos/python-react-crash-course/web/package-lock.json
+
+      - name: Build web
+        working-directory: demos/python-react-crash-course/web
+        run: |
+          npm ci
+          npm run build

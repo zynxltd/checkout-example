@@ -1,0 +1,95 @@
+:root {
+  --gs-ink: #15241a;
+  --gs-muted: #5a6b60;
+  --gs-accent: #1f6b45;
+  --gs-wash: #e8f2eb;
+}
+
+html {
+  font-size: 14px;
+}
+
+.hero {
+  background: linear-gradient(160deg, var(--gs-wash), #fff 55%);
+  border: 1px solid #d5e4da;
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+}
+
+.hero h1 {
+  color: var(--gs-ink);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.hero .lead {
+  color: var(--gs-muted);
+  max-width: 40rem;
+}
+
+.pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--gs-accent);
+  background: #fff;
+  border: 1px solid #cfe0d5;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.btn-primary {
+  background-color: var(--gs-accent);
+  border-color: var(--gs-accent);
+}
+
+.btn-primary:hover {
+  background-color: #185636;
+  border-color: #185636;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: var(--gs-accent) !important;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.box-shadow {
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}

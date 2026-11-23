@@ -1,0 +1,245 @@
+@using YgCartDrawer.Models
+@model CartState
+@{
+    var cart = Model;
+    var hasOffer = !string.IsNullOrEmpty(cart.OfferCode);
+    var showClub = !cart.ClubMember && !cart.ClubInCart && cart.ClubSavings > 0;
+    var showClubSavings = (cart.ClubMember || cart.ClubInCart) && cart.ClubMemberSavings > 0;
+    var showReco = cart.ShowUpsells;
+    var isEmpty = cart.IsEmpty;
+}
+
+<div class="yg-drawer yg-drawer--v2 yg-drawer--v-3-0 @(cart.WideDrawer ? "yg-drawer--wide" : "") @(!cart.ShowFreeDeliveryBar ? "yg-drawer--no-delivery" : "") @(!showReco ? "yg-drawer--no-reco" : "") @(isEmpty ? "yg-drawer--empty" : "")"
+     id="yg-cart-drawer" role="dialog" aria-modal="true" aria-labelledby="yg-drawer-title" hidden>
+    <div class="yg-drawer__overlay" data-drawer-close></div>
+
+    @if (showClub)
+    {
+        <aside class="yg-extend yg-extend--club" id="yg-club-panel" hidden aria-label="YG Discount Club membership">
+            <button type="button" class="yg-extend__close" data-extend-close aria-label="Close">
+                <img src="/images/icons/icon-close.svg" alt="" width="20" height="20">
+            </button>
+            <partial name="_ClubPanel" model="cart" />
+        </aside>
+    }
+
+    <div class="yg-drawer__stage" id="yg-drawer-stage">
+        @if (showReco)
+        {
+            <aside class="yg-extend yg-extend--reco" id="yg-reco-panel" hidden aria-label="Recommendations">
+                <button type="button" class="yg-extend__close" data-extend-close aria-label="Close recommendations">
+                    <img src="/images/icons/icon-close.svg" alt="" width="20" height="20">
+                </button>
+                <div class="yg-extend__body-reco">
+                    <div class="yg-extend__inner yg-extend__inner--reco">
+                        <h2 class="yg-reco-panel__title">You may also like</h2>
+                        <ul class="yg-reco-panel__list">
+                            @foreach (var upsell in cart.Upsells)
+                            {
+                                <li class="yg-reco-card">
+                                    <div class="yg-reco-card__media">
+                                        <img class="yg-reco-card__img" src="@upsell.Image" alt="" width="120" height="120" loading="lazy">
+                                    </div>
+                                    <p class="yg-reco-card__name">@upsell.Name</p>
+                                    <p class="yg-reco-card__price">
+                                        @if (upsell.From) { <span class="yg-reco-card__from">FROM</span> }
+                                        <span class="yg-reco-card__amount">£@upsell.Price.ToString("0.00")</span>
+                                    </p>
+                                    <button type="button"
+                                            class="yg-reco-card__add @(upsell.InBasket ? "is-added" : "")"
+                                            data-reco-add="@upsell.Sku"
+                                            disabled="@(upsell.InBasket ? "disabled" : null)">
+                                        @(upsell.InBasket ? "Added to basket" : "Add")
+                                    </button>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <footer class="yg-reco-sheet__footer">
+                    <button type="button" class="yg-reco-sheet__checkout" data-reco-checkout>Continue to checkout</button>
+                    <button type="button" class="yg-reco-sheet__dismiss" data-extend-close>
+                        <span class="yg-reco-sheet__dismiss--mobile">No thanks</span>
+                        <span class="yg-reco-sheet__dismiss--desktop">Hide recommendations</span>
+                    </button>
+                </footer>
+            </aside>
+        }
+
+        <div class="yg-drawer__panel-slot">
+            @if (showReco)
+            {
+                <div class="yg-drawer__rail" aria-label="Recommendations">
+                    <button type="button" class="yg-side-tab yg-side-tab--reco" data-extend-open="reco" aria-expanded="false">
+                        <span class="yg-side-tab__icon" aria-hidden="true">›</span>
+                        <span class="yg-side-tab__label">Recommendations</span>
+                    </button>
+                </div>
+            }
+
+            <div class="yg-drawer__panel">
+                <header class="yg-drawer__header">
+                    <div class="yg-drawer__heading">
+                        <h2 class="yg-drawer__title" id="yg-drawer-title">Your Basket</h2>
+                    </div>
+                    <button type="button" class="yg-drawer__close" data-drawer-close aria-label="Close basket">
+                        <img src="/images/icons/icon-close.svg" alt="" width="20" height="20">
+                    </button>
+                </header>
+
+                <div class="yg-drawer__body">
+                    @if (cart.ShowFreeDeliveryBar)
+                    {
+                        <div class="yg-delivery-bar @(cart.GiftQualified ? "yg-delivery-bar--qualified" : "")"
+                             role="status" aria-live="polite"
+                             style="--yg-delivery-milestone: @cart.GiftMilestonePercent%;">
+                            <div class="yg-delivery-bar__inner">
+                                <p class="yg-delivery-bar__msg">
+                                    @if (cart.GiftQualified)
+                                    {
+                                        <text>You’ve unlocked <strong>free delivery</strong>!</text>
+                                    }
+                                    else
+                                    {
+                                        <text>You’re <strong>£@cart.GiftSpendMore.ToString("0.00")</strong> away from free delivery</text>
+                                    }
+                                </p>
+                                <div class="yg-delivery-bar__track" aria-hidden="true">
+                                    <div class="yg-delivery-bar__fill" style="width: @cart.GiftProgressPercent%"></div>
+                                    <span class="yg-delivery-bar__milestone" aria-hidden="true"></span>
+                                </div>
+                                <div class="yg-delivery-bar__labels" aria-hidden="true">
+                                    <span>£0</span>
+                                    <span class="yg-delivery-bar__label-milestone">£@cart.GiftProgressMilestone.ToString("0")</span>
+                                    <span>£@cart.GiftProgressMax.ToString("0")</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (isEmpty)
+                    {
+                        <div class="yg-drawer__empty">
+                            <p class="yg-drawer__empty-msg">Your basket is empty</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <ul class="yg-drawer__items">
+                            @foreach (var item in cart.Items)
+                            {
+                                <li class="yg-item @(item.IsClub ? "yg-item--club" : "")" data-sku="@item.Sku">
+                                    <a class="yg-item__img-link" href="@item.Url">
+                                        <img class="yg-item__img" src="@item.Image" alt="@item.Name" width="88" height="88" loading="lazy">
+                                    </a>
+                                    <div class="yg-item__main">
+                                        <p class="yg-item__sku">Product No. @item.Sku</p>
+                                        <a class="yg-item__name" href="@item.Url">@item.Name</a>
+                                        @if (!string.IsNullOrEmpty(item.Variant))
+                                        {
+                                            <p class="yg-item__variant">@item.Variant</p>
+                                        }
+                                        <div class="yg-item__foot">
+                                            <div class="yg-item__controls">
+                                                <div class="yg-qty">
+                                                    <button type="button" class="yg-qty__btn" data-qty-minus="@item.Sku" aria-label="Decrease quantity" hidden="@(item.IsClub ? "hidden" : null)">
+                                                        <img src="/images/icons/icon-minus.svg" alt="" width="14" height="14">
+                                                    </button>
+                                                    <input type="number" class="yg-qty__input" data-qty-input="@item.Sku"
+                                                           value="@item.Qty" min="0" max="999" inputmode="numeric"
+                                                           aria-label="Quantity for @item.Name"
+                                                           readonly="@(item.IsClub ? "readonly" : null)">
+                                                    <button type="button" class="yg-qty__btn" data-qty-plus="@item.Sku" aria-label="Increase quantity" hidden="@(item.IsClub ? "hidden" : null)">
+                                                        <img src="/images/icons/icon-plus.svg" alt="" width="14" height="14">
+                                                    </button>
+                                                </div>
+                                                <button type="button" class="yg-item__remove" data-remove="@item.Sku" aria-label="Remove item">
+                                                    <img src="/images/icons/icon-trash.svg" alt="" width="18" height="18">
+                                                </button>
+                                            </div>
+                                            <div class="yg-item__price">
+                                                <span class="yg-item__now">£@item.UnitPrice.ToString("0.00")</span>
+                                                <span class="yg-item__was-line">was <span class="yg-item__was">£@item.WasPrice.ToString("0.00")</span></span>
+                                                <span class="yg-item__saving">Saving: £@item.LineSaving.ToString("0.00")</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+
+                        @if (showReco)
+                        {
+                            <partial name="_RecoInline" model="cart.Upsells" />
+                        }
+                    }
+                </div>
+
+                <div class="yg-drawer__summary">
+                    @if (showClub)
+                    {
+                        <button type="button" class="yg-club-bar" data-extend-open="club"
+                                aria-label="Join the Club and save £@cart.ClubSavings.ToString("0.00") — more information">
+                            <span class="yg-club-bar__lead">
+                                <span class="yg-club-bar__lead-line">Join the</span>
+                                <span class="yg-club-bar__lead-line">Club &amp;</span>
+                            </span>
+                            <span class="yg-club-bar__save">Save £@cart.ClubSavings.ToString("0.00")!</span>
+                            <span class="yg-club-bar__btn">More Info</span>
+                        </button>
+                    }
+                    <div class="yg-drawer__summary-inner">
+                        <partial name="_Codes" model="cart" />
+                        <div class="yg-totals">
+                            <div class="yg-totals__mobile-breakdown">
+                                <details class="yg-breakdown" aria-label="Order breakdown">
+                                    <summary class="yg-breakdown__summary">
+                                        <span class="yg-breakdown__label">Order summary</span>
+                                        <span class="yg-breakdown__meta">
+                                            <span class="yg-breakdown__toggle">View</span>
+                                            <span class="yg-breakdown__chev" aria-hidden="true">▾</span>
+                                        </span>
+                                    </summary>
+                                    <div class="yg-breakdown__content">
+                                        <div class="yg-totals__row"><span>Subtotal</span><span>£@cart.Subtotal.ToString("0.00")</span></div>
+                                        @if (cart.YourSavings > 0)
+                                        {
+                                            <div class="yg-totals__row yg-totals__row--save"><span>Your Savings</span><span>£@cart.YourSavings.ToString("0.00")</span></div>
+                                        }
+                                        @if (hasOffer && cart.OfferDiscount > 0)
+                                        {
+                                            <div class="yg-totals__row yg-totals__row--promo"><span>Offer discount</span><span>−£@cart.OfferDiscount.ToString("0.00")</span></div>
+                                        }
+                                    </div>
+                                </details>
+                            </div>
+                            <div class="yg-totals__row yg-totals__row--total">
+                                <span>Subtotal</span>
+                                <span>£@cart.BasketTotal.ToString("0.00")</span>
+                            </div>
+                        </div>
+                    </div>
+                    @if (showClubSavings)
+                    {
+                        <div class="yg-club-savings-banner" role="status" aria-label="Club member savings">
+                            <div class="yg-club-savings-banner__head">
+                                <p class="yg-club-savings-banner__label">Your Club Member Saving Is:</p>
+                            </div>
+                            <div class="yg-club-savings-banner__body">
+                                <p class="yg-club-savings-banner__amount">£@cart.ClubMemberSavings.ToString("0.00")</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <footer class="yg-drawer__footer">
+                    <button type="button" class="yg-checkout">
+                        <img class="yg-checkout__icon" src="/images/icons/icon-checkout-cart.png" alt="" width="34" height="34">
+                        <span class="yg-checkout__label yg-checkout__label--mobile">Checkout</span>
+                        <span class="yg-checkout__label yg-checkout__label--desktop">Proceed to Checkout</span>
+                    </button>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+/**
+ * Crazy Egg — PLP CTA wording Variant 1 ("View Product")
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-plp-cta-view-product.js
+ *
+ * Keeps button label on one line after the shorter copy swap.
+ */
+
+html.ce-yg-plp-cta-v1 .category-box .mainButtonGreen.moreInfo {
+  white-space: nowrap;
+}

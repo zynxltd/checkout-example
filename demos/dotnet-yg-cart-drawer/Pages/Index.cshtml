@@ -1,0 +1,32 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="hero">
+    <p class="eyebrow">ASP.NET port of the YouGarden cart drawer</p>
+    <h1>YouGarden basket demo</h1>
+    <p>Session cart, slide-out drawer, club upsell, offer codes, and recommendations — same cart behaviours as the Laravel prototype.</p>
+    <div class="hero-actions">
+        <a class="btn btn-primary" href="/pdp">View product</a>
+        <button type="button" class="btn btn-secondary" data-open-drawer>Open basket</button>
+    </div>
+</section>
+
+<section class="product-grid">
+    <h2>Seeded basket highlights</h2>
+    <div class="cards">
+        @foreach (var item in Model.Featured)
+        {
+            <article class="card">
+                <a href="/pdp?sku=@item.Sku"><img src="/@item.Image" alt="@item.Name" width="180" height="180"></a>
+                <h3><a href="/pdp?sku=@item.Sku">@item.Name</a></h3>
+                <p>£@item.Price.ToString("0.00")</p>
+                <button type="button" class="btn btn-primary" data-reco-add="@item.Sku">
+                    Add to basket
+                </button>
+            </article>
+        }
+    </div>
+</section>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-ygbc5="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>V5 — 3-column logo | benefits | radios</title>
+  <link rel="stylesheet" href="https://use.typekit.net/hrf1tkz.css">
+  <link rel="stylesheet" href="./v5.css?v=20261117y">
+  <style>
+    body { margin: 0; padding: 40px 20px; background: #ececec; font-family: Arial, sans-serif; }
+    h1 { font-size: 15px; margin: 0 0 14px; color: #333; }
+    /* Match live basket content width so columns match CE */
+    .frame {
+      max-width: 1180px;
+      background: #fff;
+      padding: 48px 16px 28px;
+      border: 1px solid #ddd;
+      overflow: visible;
+    }
+    .ref { margin-top: 28px; max-width: 1180px; }
+    .ref img { width: 100%; height: auto; display: block; border: 1px solid #ddd; }
+    .side-demo {
+      margin-top: 24px;
+      max-width: 280px;
+      background: #fff;
+      padding: 12px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <h1>V5 — 3-column (logo | benefits | radios)</h1>
+
+  <div class="frame">
+    <div id="ygbc5-root">
+      <div id="ygbc5-spf">
+        <div id="ygbc5-spf-inner">
+          <div id="ygbc5-spf-brand">
+            <img id="ygbc5-spf-logo" src="./assets/yg-blooming-fast-logo-72.png" alt="Blooming Fast" width="44" height="44">
+            <p id="ygbc5-spf-title">Superior <strong>Plant Food</strong> Plus</p>
+          </div>
+          <div id="ygbc5-spf-msg">For better results, treat your plants before we send them to you.</div>
+          <button type="button" id="ygbc5-spf-cta">
+            <span class="ygbc5-spf-plus" aria-hidden="true">+</span>
+            <span class="ygbc5-spf-cta-copy">
+              <span class="ygbc5-spf-cta-line">Add to Basket</span>
+              <span class="ygbc5-spf-cta-price">for Just £1</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div id="ygbc5-inner">
+        <img id="ygbc5-logo" src="./assets/yg-club-c-logo.png" alt="YouGarden Discount Club" width="72" height="65">
+        <div id="ygbc5-lead">
+          <div id="ygbc5-copy">
+            <p id="ygbc5-eyebrow">Join our club &amp;</p>
+            <p id="ygbc5-save">Save £110.70</p>
+            <p id="ygbc5-sub">on this order</p>
+            <a id="ygbc5-more" href="#">More Info</a>
+          </div>
+        </div>
+        <div id="ygbc5-benefits">
+          <div class="ygbc5-benefit">
+            <img src="./assets/yg-club-icon-plant.png" alt="" width="68" height="68">
+            <p class="ygbc5-benefit-label"><strong>15% Off</strong>All Plants and Accessories</p>
+          </div>
+          <div class="ygbc5-benefit">
+            <img src="./assets/yg-club-icon-vouchers.png" alt="" width="68" height="68">
+            <p class="ygbc5-benefit-label"><strong>£20</strong>In Vouchers</p>
+          </div>
+          <div class="ygbc5-benefit">
+            <img src="./assets/yg-club-icon-van.png" alt="" width="68" height="68">
+            <p class="ygbc5-benefit-label"><strong>2 x Free</strong>P&amp;P Vouchers<span class="ygbc5-worth">(Worth £6.99 Each)</span></p>
+          </div>
+        </div>
+        <div id="ygbc5-choose" role="radiogroup" aria-label="Club membership options">
+          <label class="ygbc5-opt is-selected">
+            <input type="radio" name="ygbc5-plan" value="ST007814" checked>
+            <span class="ygbc5-radio" aria-hidden="true"></span>
+            <span class="ygbc5-opt-text">
+              <span class="ygbc5-opt-title">Auto Renewal</span>
+              <span class="ygbc5-opt-price">Now £10</span>
+              <span class="ygbc5-opt-meta">Per Year <span class="ygbc5-was">Was £20</span></span>
+            </span>
+          </label>
+          <label class="ygbc5-opt">
+            <input type="radio" name="ygbc5-plan" value="ST003182">
+            <span class="ygbc5-radio" aria-hidden="true"></span>
+            <span class="ygbc5-opt-text">
+              <span class="ygbc5-opt-title">One Year</span>
+              <span class="ygbc5-opt-row">
+                <span class="ygbc5-opt-price">£20</span>
+                <span class="ygbc5-opt-meta">No Auto Renew</span>
+              </span>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-demo">
+    <h1>Sidebar</h1>
+    <div id="ygbc5-side" class="clubSavingWrapper">
+      <a id="ygbc5-side-link" href="#">
+        <img id="ygbc5-side-logo" src="./assets/yg-club-logo-v3-side.png" alt="" width="160" height="48">
+        <span id="ygbc5-side-save">Save MORE!</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="ref">
+    <h1>Design reference</h1>
+    <img src="./_v5_design.png" alt="V5 design" onerror="this.style.display='none'">
+  </div>
+
+  <script>
+    document.querySelectorAll(".ygbc5-opt").forEach(function (lab) {
+      lab.addEventListener("click", function () {
+        document.querySelectorAll(".ygbc5-opt").forEach(function (o) {
+          var input = o.querySelector("input");
+          if (o === lab && input) input.checked = true;
+          o.classList.toggle("is-selected", !!(o.querySelector("input") && o.querySelector("input").checked));
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-ygbc5="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>V5 Responsive frame</title>
+  <link rel="stylesheet" href="https://use.typekit.net/hrf1tkz.css">
+  <link rel="stylesheet" href="./v5-responsive.css?v=20261117r6">
+  <style>
+    body { margin: 0; padding: 24px 10px 20px; background: #fff; }
+  </style>
+</head>
+<body>
+  <div id="ygbc5-root">
+    <div id="ygbc5-spf">
+      <div id="ygbc5-spf-inner">
+        <div id="ygbc5-spf-brand">
+          <img id="ygbc5-spf-logo" src="./assets/yg-blooming-fast-logo-72.png" alt="Blooming Fast" width="44" height="44">
+          <p id="ygbc5-spf-title">Superior <strong>Plant Food</strong> Plus</p>
+        </div>
+        <div id="ygbc5-spf-msg">For better results, treat your plants before we send them to you.</div>
+        <button type="button" id="ygbc5-spf-cta">
+          <span class="ygbc5-spf-plus" aria-hidden="true">+</span>
+          <span class="ygbc5-spf-cta-copy">
+            <span class="ygbc5-spf-cta-line">Add to Basket</span>
+            <span class="ygbc5-spf-cta-price">for Just £1</span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div id="ygbc5-inner">
+      <img id="ygbc5-logo" src="./assets/yg-club-c-logo.png" alt="YouGarden Discount Club" width="72" height="65">
+      <div id="ygbc5-lead">
+        <img id="ygbc5-logo-m" src="./assets/yg-club-badge-mobile.png" alt="YouGarden Discount Club" width="160" height="40">
+        <div id="ygbc5-copy">
+          <p id="ygbc5-eyebrow">Join our club &amp;</p>
+          <p id="ygbc5-save">Save £110.70</p>
+          <p id="ygbc5-sub">on this order</p>
+          <a id="ygbc5-more" href="#">More Info</a>
+        </div>
+      </div>
+      <div id="ygbc5-benefits">
+        <div class="ygbc5-benefit">
+          <img src="./assets/yg-club-icon-plant.png" alt="" width="68" height="68">
+          <p class="ygbc5-benefit-label"><strong>15% Off</strong>All Plants and Accessories</p>
+        </div>
+        <div class="ygbc5-benefit">
+          <img src="./assets/yg-club-icon-vouchers.png" alt="" width="68" height="68">
+          <p class="ygbc5-benefit-label"><strong>£20</strong>In Vouchers</p>
+        </div>
+        <div class="ygbc5-benefit">
+          <img src="./assets/yg-club-icon-van.png" alt="" width="68" height="68">
+          <p class="ygbc5-benefit-label"><strong>2 x Free</strong>P&amp;P Vouchers<span class="ygbc5-worth">(Worth £6.99 Each)</span></p>
+        </div>
+      </div>
+      <p id="ygbc5-benefits-line" aria-hidden="true">
+        <span>15% off all Plants &amp; Accessories</span>
+        <span class="ygbc5-sep" aria-hidden="true">|</span>
+        <span>£20 Voucher</span>
+        <span class="ygbc5-sep" aria-hidden="true">|</span>
+        <span>2 x Free P&amp;P Vouchers</span>
+      </p>
+      <div id="ygbc5-choose" role="radiogroup" aria-label="Club membership options">
+        <label class="ygbc5-opt is-selected">
+          <input type="radio" name="ygbc5-plan" value="ST007814" checked>
+          <span class="ygbc5-radio" aria-hidden="true"></span>
+          <span class="ygbc5-opt-text">
+            <span class="ygbc5-opt-title">Auto Renewal</span>
+            <span class="ygbc5-opt-price">Now £10</span>
+            <span class="ygbc5-opt-meta">Per Year <span class="ygbc5-was">Was £20</span></span>
+          </span>
+        </label>
+        <label class="ygbc5-opt">
+          <input type="radio" name="ygbc5-plan" value="ST003182">
+          <span class="ygbc5-radio" aria-hidden="true"></span>
+          <span class="ygbc5-opt-text">
+            <span class="ygbc5-opt-title">One Year</span>
+            <span class="ygbc5-opt-row">
+              <span class="ygbc5-opt-price">£20</span>
+              <span class="ygbc5-opt-meta">No Auto Renew</span>
+            </span>
+          </span>
+        </label>
+        <button type="button" id="ygbc5-atc">Add to Basket</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll(".ygbc5-opt").forEach(function (lab) {
+      lab.addEventListener("click", function () {
+        document.querySelectorAll(".ygbc5-opt").forEach(function (o) {
+          var input = o.querySelector("input");
+          if (o === lab && input) input.checked = true;
+          o.classList.toggle("is-selected", !!(o.querySelector("input") && o.querySelector("input").checked));
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+/**
+ * Crazy Egg — PDP sticky Add to Basket (Variant 4)
+ *
+ * Phone only (max-width 767px). Hidden from tablet upward.
+ * A full-bleed bar flush to the bottom once Plant Calendar is on screen and
+ * #buy-button has scrolled away. Square corners, YouGarden green, white
+ * ADD TO BASKET label.
+ * While it is open the offer badge is hidden (JS, inline !important)
+ * and #return-to-top sits just above it.
+ *
+ * Paste into Crazy Egg Variant 4 → Custom CSS
+ * Pair with: crazyegg-pdp-sticky-atb-v4.js
+ */
+
+@media (max-width: 767px) {
+  html.ce-yg-atb-on {
+    padding-bottom: 56px !important;
+  }
+
+  .ce-yg-atb {
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 2147483000 !important;
+    display: none;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 18px 16px;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom));
+    transform: none;
+    border: 0;
+    border-radius: 0;
+    background: #468900;
+    color: #ffffff;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.12);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  html.ce-yg-atb-on .ce-yg-atb {
+    display: block !important;
+  }
+
+  .ce-yg-atb:active {
+    background: #3a7200;
+  }
+
+  html.ce-yg-atb-on #style-options,
+  html.ce-yg-atb-on #style-options-drop-box {
+    scroll-margin-top: 120px;
+    scroll-margin-bottom: 16px;
+  }
+
+  /* Popup also sets display:block !important inline; JS repeats this hide. */
+  html.ce-yg-atb-on [id$="__notification"] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  html.ce-yg-atb-on #return-to-top {
+    bottom: calc(var(--ce-yg-atb-h, 52px) + 12px) !important;
+    z-index: 2147483001 !important;
+  }
+}
+
+@media (min-width: 768px) {
+  html.ce-yg-atb-on {
+    padding-bottom: 0 !important;
+  }
+
+  .ce-yg-atb {
+    display: none !important;
+  }
+}

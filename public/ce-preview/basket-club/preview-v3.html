@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-ygbc3="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>V3 — logo then banner, 1x3</title>
+  <link rel="stylesheet" href="https://use.typekit.net/hrf1tkz.css">
+  <link rel="stylesheet" href="./v3.css?v=20261117b">
+  <style>
+    body { margin: 0; padding: 40px 20px; background: #ececec; font-family: Arial, sans-serif; }
+    h1 { font-size: 15px; margin: 0 0 14px; color: #333; }
+    .frame {
+      max-width: 1180px;
+      background: #fff;
+      padding: 36px 16px 28px;
+      border: 1px solid #ddd;
+      overflow: visible;
+    }
+    .ref { margin-top: 28px; max-width: 1180px; }
+    .ref img { width: 100%; height: auto; display: block; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <h1>V3 — SPF strip + logo banner + 1×3</h1>
+
+  <div class="frame">
+    <div id="ygbc3-root">
+      <div id="ygbc3-spf">
+        <div id="ygbc3-spf-inner">
+          <div id="ygbc3-spf-brand">
+            <img id="ygbc3-spf-logo" src="./assets/yg-blooming-fast-logo-72.png" alt="Blooming Fast" width="44" height="44">
+            <p id="ygbc3-spf-title">Superior <strong>Plant Food</strong> Plus</p>
+          </div>
+          <div id="ygbc3-spf-msg">For better results, treat your plants before we send them to you.</div>
+          <button type="button" id="ygbc3-spf-cta">
+            <span class="ygbc3-spf-plus" aria-hidden="true">+</span>
+            <span class="ygbc3-spf-cta-copy">
+              <span class="ygbc3-spf-cta-line">Add to Basket</span>
+              <span class="ygbc3-spf-cta-price">for Just £1</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div id="ygbc3-top">
+        <span id="ygbc3-logo-wrap">
+          <img id="ygbc3-logo" src="./assets/yg-club-logo-v3.png" alt="YouGarden Discount Club" width="152" height="113">
+        </span>
+        <div id="ygbc3-banner">
+          <div id="ygbc3-copy">
+            <p id="ygbc3-title">
+              Join the YouGarden Club &amp;
+              <span id="ygbc3-save">Save £9.00</span>
+              on this order
+            </p>
+            <p id="ygbc3-benefits">
+              <span>15% off all Plants &amp; Accessories</span>
+              <span class="ygbc3-sep" aria-hidden="true"></span>
+              <span>£20 in Product Vouchers</span>
+              <span class="ygbc3-sep" aria-hidden="true"></span>
+              <span>2 x Free P&amp;P Vouchers</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="ygbc3-body" role="radiogroup" aria-label="Club membership options">
+        <label id="ygbc3-opt-auto" class="ygbc3-is-selected">
+          <input type="radio" name="ygbc3-plan" value="ST007814" checked>
+          <span class="ygbc3-radio" aria-hidden="true"></span>
+          <span class="ygbc3-opt-text">
+            <span class="ygbc3-opt-main">£10 / Year Auto-Renew</span>
+            <span class="ygbc3-opt-meta">Per Year <span class="ygbc3-was">Was £20</span></span>
+          </span>
+        </label>
+
+        <label id="ygbc3-opt-one">
+          <input type="radio" name="ygbc3-plan" value="ST003182">
+          <span class="ygbc3-radio" aria-hidden="true"></span>
+          <span class="ygbc3-opt-text">
+            <span class="ygbc3-opt-main">£20 One-Off</span>
+            <span class="ygbc3-opt-meta">12 months | No Renewal</span>
+          </span>
+        </label>
+
+        <div id="ygbc3-cta">
+          <button type="button" id="ygbc3-atc">Add to Basket</button>
+          <a id="ygbc3-more" href="#">More Info</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-preview" style="margin-top:24px;max-width:260px;">
+    <h1>Sidebar</h1>
+    <div id="ygbc3-side">
+      <a id="ygbc3-side-link" href="#">
+        <img id="ygbc3-side-logo" src="./assets/yg-club-logo-v3-side.png" alt="" width="160" height="44">
+        <span id="ygbc3-side-save">Save MORE!</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="ref">
+    <h1>Design reference</h1>
+    <img src="./_v3_design.png" alt="V3 design">
+  </div>
+
+  <script>
+    (function () {
+      var opts = [document.getElementById("ygbc3-opt-auto"), document.getElementById("ygbc3-opt-one")];
+      opts.forEach(function (lab) {
+        lab.addEventListener("click", function () {
+          var input = lab.querySelector("input");
+          if (input) input.checked = true;
+          opts.forEach(function (o) {
+            o.classList.toggle("ygbc3-is-selected", !!(o.querySelector("input") && o.querySelector("input").checked));
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

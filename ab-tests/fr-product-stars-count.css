@@ -1,0 +1,9 @@
+/* Count is inside the Feefo shadow root, sized by this variable (14px).
+   A font-size rule on the class never reaches it. The variable inherits in. */
+.feefo-product-stars-widget {
+    --feefo-typography-body-small-font-size: 12px !important;
+}
+
+.product-stars-container-count {
+    font-size: 12px !important;
+}

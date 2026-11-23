@@ -1,0 +1,56 @@
+# BONUS — copy into .github/workflows/ or enable path filters on the monorepo CI
+name: plotline-node-react-saas
+
+on:
+  pull_request:
+    paths:
+      - 'demos/node-react-saas/**'
+  push:
+    paths:
+      - 'demos/node-react-saas/**'
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demos/node-react-saas/api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: demos/node-react-saas/api/package-lock.json
+      - run: npm ci
+      - run: node --check src/server.js
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demos/node-react-saas/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: demos/node-react-saas/web/package-lock.json
+      - run: npm ci
+      - run: npm run build
+
+  docker-smoke:
+    runs-on: ubuntu-latest
+    needs: [api, web]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build all-in-one image
+        run: docker build -t plotline:ci -f demos/node-react-saas/Dockerfile demos/node-react-saas
+      - name: Run + smoke
+        run: |
+          docker run -d --name plotline -p 5210:5210 plotline:ci
+          sleep 2
+          chmod +x demos/node-react-saas/scripts/smoke.sh
+          demos/node-react-saas/scripts/smoke.sh http://127.0.0.1:5210
+          docker rm -f plotline

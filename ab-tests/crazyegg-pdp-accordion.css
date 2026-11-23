@@ -1,0 +1,407 @@
+/**
+ * Crazy Egg A/B — PDP tab accordion restyle (CRO)
+ * Target: https://www.yougarden.com/item-s-* / item-p-* (PDP)
+ * Paste into Crazy Egg variant → Custom CSS (pair with crazyegg-pdp-accordion.js)
+ * Scope: html.ce-yg-pdp-acc
+ *
+ * Mock-up: stone collapsed cards, white expanded cards, SHOW / HIDE pills.
+ * Plant Calendar is pinned open (no hide) with restyled blooming chart.
+ * Does NOT include sticky Add to Basket bar.
+ */
+
+html.ce-yg-pdp-acc {
+  --ce-pdp-stone: #f5ede1;
+  --ce-pdp-forest: #365722;
+  --ce-pdp-moss: #6c943f;
+  --ce-pdp-moss-surface: #e4edd8;
+  --ce-pdp-text: #4a4540;
+  --ce-pdp-border: #e6ddd2;
+  --ce-pdp-radius: 22px;
+  --ce-pdp-plant: #534258;
+  --ce-pdp-flower: #3db21a;
+  --ce-pdp-fruit: #e8b171;
+  --ce-pdp-sowing: #8a1e34;
+}
+
+/* Host: keep native .centralWrapper width (1300px + auto margins) */
+html.ce-yg-pdp-acc .centralWrapper.text.ce-pdp-acc {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+  padding-bottom: 28px;
+  box-sizing: border-box;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item {
+  border-radius: var(--ce-pdp-radius);
+  background: var(--ce-pdp-stone);
+  border: 1px solid transparent;
+  overflow: hidden;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  /* Flex child default min-width:auto lets Feefo/video blow past the column */
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item.is-open,
+html.ce-yg-pdp-acc .ce-pdp-acc__item.is-pinned {
+  background: #fff;
+  border-color: var(--ce-pdp-border);
+}
+
+/* Kill Magento / site default tab chrome */
+html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-heading {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  margin: 0 !important;
+  padding: 16px 18px !important;
+  box-sizing: border-box;
+  border: none !important;
+  background: transparent !important;
+  color: var(--ce-pdp-forest) !important;
+  font-family: gelica, "Gelica", Georgia, "Times New Roman", serif !important;
+  font-size: 1.12rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  text-align: left !important;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  list-style: none;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item.is-pinned .tab-heading {
+  cursor: default;
+  padding-bottom: 10px !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-heading .arrow,
+html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-heading .svg-inline--fa {
+  display: none !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__control {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "proxima-nova", "Proxima Nova", Arial, Helvetica, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ce-pdp-moss) !important;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fff;
+  line-height: 1.2;
+  pointer-events: none;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item.is-open .ce-pdp-acc__control {
+  background: var(--ce-pdp-moss-surface);
+  color: var(--ce-pdp-moss) !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item.is-pinned .ce-pdp-acc__control {
+  display: none !important;
+}
+
+/* Panel body */
+html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-content {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 18px 18px !important;
+  border: none !important;
+  background: transparent !important;
+  color: var(--ce-pdp-text);
+  font-family: "proxima-nova", "Proxima Nova", Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: left;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item.is-open > .tab-content,
+html.ce-yg-pdp-acc .ce-pdp-acc__item.is-pinned > .tab-content {
+  display: block !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-content p {
+  margin: 0 0 14px;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-content p:last-child {
+  margin-bottom: 0;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-content ul {
+  margin: 0 0 14px;
+  padding-left: 1.25rem;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-content li {
+  margin-bottom: 8px;
+}
+
+/* —— Plant calendar (pinned) —— */
+html.ce-yg-pdp-acc .ce-pdp-acc__item[data-ce-pdp-acc-id="plantcalendar"] .tab-content {
+  padding-top: 0 !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-wrapper {
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0;
+  padding: 0 !important;
+  box-sizing: border-box;
+  float: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  clear: both;
+  box-shadow: none !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .table-key {
+  display: flex !important;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  float: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 14px !important;
+  padding: 0 !important;
+  clear: both;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .table-key .row {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  margin: 0 !important;
+  padding: 6px 12px 6px 8px !important;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #e6ddd2;
+  font-family: "proxima-nova", "Proxima Nova", Arial, Helvetica, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--ce-pdp-text) !important;
+  line-height: 1.2 !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .table-key .row::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .table-key .row.plant::before {
+  background: var(--ce-pdp-plant);
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .table-key .row.flower::before {
+  background: var(--ce-pdp-flower);
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .table-key .row.fruit::before {
+  background: var(--ce-pdp-fruit);
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .table-key .row.sowing::before {
+  background: var(--ce-pdp-sowing);
+}
+
+/* No border-spacing — it makes width:100% overflow and clips the right padding */
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table {
+  float: none !important;
+  clear: both !important;
+  display: table !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  border: none !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  table-layout: fixed !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table th.thRight,
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table td.tdRight {
+  padding-right: 0 !important;
+  border-right: none !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table th {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 2px 8px !important;
+  font-family: "proxima-nova", "Proxima Nova", Arial, Helvetica, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em;
+  color: #6a7260 !important;
+  text-align: center !important;
+  vertical-align: bottom !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table th span {
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table td {
+  height: 18px !important;
+  min-height: 18px;
+  padding: 0 !important;
+  border: 3px solid #f3f6ef !important;
+  border-radius: 6px !important;
+  background: rgba(54, 87, 34, 0.06) !important;
+  background-clip: padding-box !important;
+  vertical-align: middle !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table td.shade-plant {
+  background: var(--ce-pdp-plant) !important;
+  background-clip: padding-box !important;
+  box-shadow: none;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table td.shade-flower {
+  background: var(--ce-pdp-flower) !important;
+  background-clip: padding-box !important;
+  box-shadow: none;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table td.shade-fruit {
+  background: var(--ce-pdp-fruit) !important;
+  background-clip: padding-box !important;
+  box-shadow: none;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table td.shade-sowing {
+  background: var(--ce-pdp-sowing) !important;
+  background-clip: padding-box !important;
+  box-shadow: none;
+}
+
+/* —— Video: true 16:9, capped width (not full card) —— */
+html.ce-yg-pdp-acc .ce-pdp-acc__item .video-wrapper {
+  float: none !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  width: 100% !important;
+  max-width: 720px !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  overflow: hidden !important;
+  text-align: left !important;
+  box-sizing: border-box !important;
+  border-radius: 12px;
+}
+
+@media (min-width: 1001px) {
+  html.ce-yg-pdp-acc .ce-pdp-acc__item .video-wrapper {
+    max-width: 880px !important;
+  }
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item .video-wrapper iframe,
+html.ce-yg-pdp-acc .ce-pdp-acc__item .videoIframe {
+  position: absolute !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  border: 0 !important;
+  display: block !important;
+  aspect-ratio: auto !important;
+  container-type: normal !important;
+}
+
+/* —— Reviews / Feefo: keep widget inside the card —— */
+html.ce-yg-pdp-acc .ce-pdp-acc__item[data-ce-pdp-acc-id="reviews"] .tab-content {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item[data-ce-pdp-acc-id="reviews"] #feefo-product-review-widgetId,
+html.ce-yg-pdp-acc .ce-pdp-acc__item[data-ce-pdp-acc-id="reviews"] .feefo-review-widget-product {
+  max-width: 100% !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  overflow-x: auto !important;
+}
+
+html.ce-yg-pdp-acc .ce-pdp-acc__item[data-ce-pdp-acc-id="reviews"] .feefo-review-widget-product img,
+html.ce-yg-pdp-acc .ce-pdp-acc__item[data-ce-pdp-acc-id="reviews"] .feefo-review-widget-product svg {
+  max-width: 100%;
+}
+
+/* Feefo / TMS slots after accordion stay full-bleed of host */
+html.ce-yg-pdp-acc .centralWrapper.text.ce-pdp-acc > .tmspslot {
+  margin-top: 8px;
+}
+
+@media (min-width: 600px) {
+  html.ce-yg-pdp-acc .centralWrapper.text.ce-pdp-acc {
+    gap: 14px;
+  }
+
+  html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-heading {
+    padding: 18px 22px !important;
+    font-size: 1.2rem !important;
+  }
+
+  html.ce-yg-pdp-acc .ce-pdp-acc__item.is-pinned .tab-heading {
+    padding-bottom: 12px !important;
+  }
+
+  html.ce-yg-pdp-acc .ce-pdp-acc__item .tab-content {
+    padding: 0 22px 22px !important;
+  }
+
+  html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table td {
+    height: 22px !important;
+    border-width: 3px !important;
+  }
+}
+
+@media (max-width: 599px) {
+  html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table th span {
+    display: none;
+  }
+
+  html.ce-yg-pdp-acc .ce-pdp-acc__item .blooming-table td {
+    border-width: 2px !important;
+  }
+}

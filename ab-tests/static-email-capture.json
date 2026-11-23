@@ -1,0 +1,370 @@
+{
+	"name": "Data Capture - Static",
+	"slug": "pq1gx4m",
+	"html": "",
+	"active": true,
+	"content_tag": "",
+	"content_type": "popover",
+	"dt": "",
+	"template_style": "",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "YouGarden static on-page newsletter capture. No popup. Gelica headline, Proxima Nova body, leaf artwork.",
+		"sortOrder": -1,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "headlineSection",
+				"name": "Headline",
+				"sortOrder": 1,
+				"fields": [
+					{
+						"id": "headline",
+						"name": "Headline",
+						"description": "Desktop adds the extra phrase. Mobile shows the main text only.",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Shown on desktop and mobile",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Stay up to date",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "extra",
+								"name": "Desktop extra",
+								"description": "Appended on desktop only",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": " with the latest!",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "messageSection",
+				"name": "Message",
+				"sortOrder": 2,
+				"fields": [
+					{
+						"id": "message",
+						"name": "Message",
+						"description": "Supporting line under the headline",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Subscribe message",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Subscribe to our newsletter to be the first to hear updates, news and promotions from YouGarden!",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "emailSection",
+				"name": "Email",
+				"sortOrder": 3,
+				"fields": [
+					{
+						"id": "email",
+						"name": "Email",
+						"description": "Email address field",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "placeholder",
+								"name": "Placeholder",
+								"description": "Placeholder inside the email field",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Enter Email",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "required",
+								"name": "Required",
+								"description": "Email is required",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "submitSection",
+				"name": "Submit",
+				"sortOrder": 4,
+				"fields": [
+					{
+						"id": "submit",
+						"name": "Submit",
+						"description": "Submit button",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Button label",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Submit",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							}
+						]
+					},
+					{
+						"id": "customSignal",
+						"name": "Signal",
+						"description": "Fresh Relevance signal raised on submit",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "yg_email_capture",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				]
+			},
+			{
+				"id": "footerSection",
+				"name": "Consent",
+				"sortOrder": 5,
+				"fields": [
+					{
+						"id": "footer",
+						"name": "Consent",
+						"description": "Marketing consent checkbox copy",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "before",
+								"name": "Text before link",
+								"description": "Copy before the terms link",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "By submitting your email address, you agree to receive marketing emails from YouGarden. View ",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "linkText",
+								"name": "Link text",
+								"description": "Terms link label",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "Terms & Privacy",
+								"value": "",
+								"sortOrder": 2,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "url",
+								"name": "Link URL",
+								"description": "Terms and privacy URL",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "https://www.yougarden.com/privacy-policy",
+								"value": "",
+								"sortOrder": 3,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "after",
+								"name": "Text after link",
+								"description": "Copy after the terms link",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": " for more information.",
+								"value": "",
+								"sortOrder": 4,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							}
+						]
+					}
+				]
+			},
+			{
+				"id": "thanksSection",
+				"name": "Thank you",
+				"sortOrder": 6,
+				"fields": [
+					{
+						"id": "submittedHeadline",
+						"name": "Thank you headline",
+						"description": "Shown after a successful submit",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Thank you headline",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Thank you!",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							}
+						]
+					},
+					{
+						"id": "submittedMessage",
+						"name": "Thank you message",
+						"description": "Shown after a successful submit",
+						"inline": true,
+						"type": "custom",
+						"first": false,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Thank you message",
+								"inline": true,
+								"type": "text",
+								"first": true,
+								"default": "Your details have been received. Keep an eye on your inbox for all the latest from YouGarden!",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							}
+						]
+					},
+					{
+						"id": "cookieName",
+						"name": "Cookie name",
+						"description": "Remembers a completed signup in this browser",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "yg_static_email_capture",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "cookieDays",
+						"name": "Cookie days",
+						"description": "How long the thank-you state is remembered",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "365",
+						"value": "",
+						"sortOrder": 4,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					}
+				]
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

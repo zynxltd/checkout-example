@@ -1,0 +1,199 @@
+/**
+ * Crazy Egg — PDP sticky ATC: max-width condensed bar (~485px)
+ *
+ * Floating centered box at the bottom of the viewport. Same YG card
+ * as the corner variants, but sits in the middle. Hidden below 600px.
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-pdp-sticky-atb-desktop-pill.js
+ */
+
+@media (min-width: 600px) {
+  .ce-yg-atb-p {
+    position: fixed !important;
+    left: 50% !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: 20px !important;
+    z-index: 2147483000 !important;
+    display: none;
+    box-sizing: border-box;
+    width: 485px;
+    max-width: calc(100vw - 24px);
+    margin: 0;
+    padding: 12px 14px;
+    transform: translateX(-50%) translateY(16px);
+    border: 1px solid #e2e2e2;
+    border-radius: 14px !important;
+    background: #ffffff;
+    color: #222222;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+    font-family: Arial, Helvetica, sans-serif;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  html.ce-yg-atb-p-on .ce-yg-atb-p {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    transform: translateX(-50%) translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  html.ce-yg-atb-p-ready .ce-yg-atb-p {
+    display: flex !important;
+    transition: transform 0.28s ease-out, visibility 0.28s ease-out;
+  }
+
+  html.ce-yg-atb-p-on {
+    padding-bottom: calc(var(--ce-yg-atb-p-h, 96px) + 28px) !important;
+  }
+
+  .ce-yg-atb-p__img {
+    display: block;
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #f3f3f3;
+  }
+
+  .ce-yg-atb-p.is-no-img .ce-yg-atb-p__img {
+    display: none;
+  }
+
+  .ce-yg-atb-p__main {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ce-yg-atb-p__copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 10px;
+    row-gap: 2px;
+    align-items: start;
+  }
+
+  .ce-yg-atb-p__title {
+    grid-column: 1;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #222222;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ce-yg-atb-p__sub {
+    grid-column: 1;
+    font-size: 12px;
+    line-height: 1.3;
+    color: #666666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ce-yg-atb-p__price {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #e3185d;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .ce-yg-atb-p__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .ce-yg-atb-p__options,
+  .ce-yg-atb-p__buy {
+    flex: 1 1 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    margin: 0;
+    padding: 0 10px;
+    border-radius: 10px !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .ce-yg-atb-p__options {
+    border: 1px solid #468900;
+    background: #ffffff;
+    color: #468900;
+    text-transform: none;
+  }
+
+  .ce-yg-atb-p__options:hover {
+    background: #f4f8ee;
+  }
+
+  .ce-yg-atb-p.is-no-options .ce-yg-atb-p__options {
+    display: none;
+  }
+
+  .ce-yg-atb-p.is-no-options .ce-yg-atb-p__title {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .ce-yg-atb-p.is-no-options .ce-yg-atb-p__price {
+    font-size: 20px;
+    align-self: center;
+  }
+
+  .ce-yg-atb-p.is-no-options .ce-yg-atb-p__buy {
+    flex: 1 1 100%;
+  }
+
+  .ce-yg-atb-p__buy {
+    border: 0;
+    background: #468900;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+
+  .ce-yg-atb-p__buy:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  html.ce-yg-atb-p-on [id$='__notification'] {
+    display: none !important;
+  }
+
+  html.ce-yg-atb-p-on #return-to-top {
+    right: 16px !important;
+    bottom: calc(var(--ce-yg-atb-p-h, 96px) + 36px) !important;
+    z-index: 2147483001 !important;
+  }
+}
+
+@media (max-width: 599px) {
+  .ce-yg-atb-p {
+    display: none !important;
+  }
+}

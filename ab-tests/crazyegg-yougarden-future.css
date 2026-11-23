@@ -1,0 +1,414 @@
+/**
+ * YouGarden — Future CRO injection (CSS)
+ * Target: https://www.yougarden.com/
+ *
+ * Paste into Crazy Egg variant → Custom CSS (recommended).
+ * Pair with crazyegg-yougarden-future.js for scroll progress, sticky mobile
+ * basket bar, reveal animations, and back-to-top.
+ *
+ * All rules scoped under html.ce-yg-future (added by JS). Control = unaffected.
+ * Does not overwrite other CE tests unless they share the same elements without
+ * scoping — disable P004 category CSS if running both on the same row.
+ */
+
+/* ── Brand tokens ── */
+html.ce-yg-future {
+    --ce-yg-forest: #264f1c;
+    --ce-yg-forest-deep: #1a3d14;
+    --ce-yg-moss: #ccea81;
+    --ce-yg-moss-glow: rgba(204, 234, 129, 0.55);
+    --ce-yg-pebble: #483f3a;
+    --ce-yg-stone: #f2e7d8;
+    --ce-yg-rose: #e3185d;
+    --ce-yg-cream: #faf8f5;
+    --ce-yg-glass: rgba(255, 255, 255, 0.82);
+    --ce-yg-shadow: 0 12px 40px rgba(38, 79, 28, 0.12);
+    --ce-yg-shadow-hover: 0 20px 48px rgba(38, 79, 28, 0.18);
+    --ce-yg-radius-lg: 20px;
+    --ce-yg-radius-pill: 999px;
+    --ce-yg-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.ce-yg-future {
+        scroll-behavior: auto;
+    }
+
+    html.ce-yg-future *,
+    html.ce-yg-future *::before,
+    html.ce-yg-future *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ── Scroll progress (bar injected by JS) ── */
+html.ce-yg-future .ce-yg-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    width: 100%;
+    height: 3px;
+    pointer-events: none;
+    background: transparent;
+}
+
+html.ce-yg-future .ce-yg-scroll-progress__bar {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--ce-yg-moss), var(--ce-yg-forest), var(--ce-yg-rose));
+    box-shadow: 0 0 12px var(--ce-yg-moss-glow);
+    transition: width 0.08s linear;
+}
+
+/* ── Sticky glass header on scroll ── */
+html.ce-yg-future.ce-yg-scrolled #header,
+html.ce-yg-future.ce-yg-scrolled #topHeader,
+html.ce-yg-future.ce-yg-scrolled .header-wrapper,
+html.ce-yg-future.ce-yg-scrolled #headerWrapper {
+    backdrop-filter: blur(14px) saturate(1.4);
+    -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    background: var(--ce-yg-glass) !important;
+    box-shadow: 0 4px 24px rgba(38, 79, 28, 0.08) !important;
+    transition: background 0.35s var(--ce-yg-ease), box-shadow 0.35s var(--ce-yg-ease);
+}
+
+/* ── USP / trust bar — subtle shimmer ── */
+html.ce-yg-future .usp-wrapper,
+html.ce-yg-future .usp-inner-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+html.ce-yg-future .usp-box {
+    transition: transform 0.25s var(--ce-yg-ease);
+}
+
+html.ce-yg-future .usp-box:hover {
+    transform: translateY(-1px);
+}
+
+/* ── Primary CTAs — gradient shine ── */
+html.ce-yg-future .mainButtonGreen,
+html.ce-yg-future a.mainButtonGreen,
+html.ce-yg-future .btn-green,
+html.ce-yg-future button.mainButtonGreen {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--ce-yg-radius-pill) !important;
+    box-shadow: 0 4px 16px rgba(38, 79, 28, 0.25) !important;
+    transition: transform 0.2s var(--ce-yg-ease), box-shadow 0.2s var(--ce-yg-ease) !important;
+}
+
+html.ce-yg-future .mainButtonGreen::after,
+html.ce-yg-future a.mainButtonGreen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.35) 50%,
+        transparent 65%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.6s var(--ce-yg-ease);
+    pointer-events: none;
+}
+
+html.ce-yg-future .mainButtonGreen:hover,
+html.ce-yg-future a.mainButtonGreen:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(38, 79, 28, 0.32) !important;
+}
+
+html.ce-yg-future .mainButtonGreen:hover::after,
+html.ce-yg-future a.mainButtonGreen:hover::after {
+    transform: translateX(120%);
+}
+
+/* ── Category landing rows — futuristic tiles ── */
+html.ce-yg-future .category-landing-row4-wrapper .block a,
+html.ce-yg-future .category-landing-row4-wrapper .block > a {
+    border-radius: var(--ce-yg-radius-lg) !important;
+    overflow: hidden;
+    box-shadow: var(--ce-yg-shadow);
+    transition: transform 0.35s var(--ce-yg-ease), box-shadow 0.35s var(--ce-yg-ease);
+}
+
+html.ce-yg-future .category-landing-row4-wrapper .block a:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--ce-yg-shadow-hover);
+}
+
+html.ce-yg-future .category-landing-row4-wrapper .block img {
+    transition: transform 0.5s var(--ce-yg-ease);
+}
+
+html.ce-yg-future .category-landing-row4-wrapper .block a:hover img {
+    transform: scale(1.06);
+}
+
+html.ce-yg-future .category-landing-row4-wrapper .block .cta {
+    border-radius: var(--ce-yg-radius-pill) !important;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s var(--ce-yg-ease) !important;
+}
+
+html.ce-yg-future .category-landing-row4-wrapper .block a:hover .cta {
+    background: var(--ce-yg-forest) !important;
+    color: #fff !important;
+    transform: scale(1.04);
+}
+
+/* ── Promotional 2-col blocks (video/GIF row) ── */
+html.ce-yg-future .promotional-wrapper .promotional-blocks.two .item .static-box,
+html.ce-yg-future .promotional-wrapper .promotional-blocks .item .static-box {
+    border-radius: var(--ce-yg-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--ce-yg-shadow);
+    transition: transform 0.35s var(--ce-yg-ease), box-shadow 0.35s var(--ce-yg-ease);
+}
+
+html.ce-yg-future .promotional-wrapper .promotional-blocks .item a:hover .static-box {
+    transform: translateY(-4px);
+    box-shadow: var(--ce-yg-shadow-hover);
+}
+
+html.ce-yg-future .promotional-wrapper .img-wrapper img,
+html.ce-yg-future .promotional-wrapper video {
+    transition: transform 0.45s var(--ce-yg-ease);
+}
+
+html.ce-yg-future .promotional-wrapper .item a:hover .img-wrapper img,
+html.ce-yg-future .promotional-wrapper .item a:hover video {
+    transform: scale(1.04);
+}
+
+/* ── PLP product cards ── */
+html.ce-yg-future .category-box {
+    border-radius: var(--ce-yg-radius-lg) !important;
+    overflow: hidden;
+    background: #fff !important;
+    box-shadow: 0 2px 12px rgba(38, 79, 28, 0.06) !important;
+    transition: transform 0.3s var(--ce-yg-ease), box-shadow 0.3s var(--ce-yg-ease) !important;
+}
+
+html.ce-yg-future .category-box:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--ce-yg-shadow) !important;
+}
+
+html.ce-yg-future .category-box .imgWrapper img {
+    transition: transform 0.45s var(--ce-yg-ease);
+}
+
+html.ce-yg-future .category-box:hover .imgWrapper img {
+    transform: scale(1.05);
+}
+
+/* Sale / savings badges — subtle pulse */
+html.ce-yg-future .category-box .savingFlash,
+html.ce-yg-future .savingFlash {
+    animation: ce-yg-badge-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes ce-yg-badge-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(227, 24, 93, 0.35); }
+    50% { box-shadow: 0 0 0 8px rgba(227, 24, 93, 0); }
+}
+
+/* ── Cart count — attention on update ── */
+html.ce-yg-future #header-cart-count.ce-yg-cart-pulse,
+html.ce-yg-future #topbar-cart-count.ce-yg-cart-pulse {
+    animation: ce-yg-cart-bump 0.5s var(--ce-yg-ease);
+}
+
+@keyframes ce-yg-cart-bump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.35); }
+    100% { transform: scale(1); }
+}
+
+/* ── Scroll reveal (class toggled by JS) ── */
+html.ce-yg-future .ce-yg-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s var(--ce-yg-ease), transform 0.6s var(--ce-yg-ease);
+}
+
+html.ce-yg-future .ce-yg-reveal.ce-yg-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Mobile sticky basket CTA (injected by JS) ── */
+html.ce-yg-future .ce-yg-sticky-basket {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99990;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(180deg, transparent, rgba(38, 79, 28, 0.06) 20%, #fff 40%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(38, 79, 28, 0.1);
+    transform: translateY(110%);
+    transition: transform 0.4s var(--ce-yg-ease);
+    pointer-events: none;
+}
+
+html.ce-yg-future .ce-yg-sticky-basket.is-visible {
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+html.ce-yg-future .ce-yg-sticky-basket__meta {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: var(--ce-yg-pebble);
+    line-height: 1.3;
+}
+
+html.ce-yg-future .ce-yg-sticky-basket__meta strong {
+    display: block;
+    font-size: 15px;
+    color: var(--ce-yg-forest);
+}
+
+html.ce-yg-future .ce-yg-sticky-basket__cta {
+    flex-shrink: 0;
+    padding: 12px 22px;
+    border: 0;
+    border-radius: var(--ce-yg-radius-pill);
+    background: linear-gradient(135deg, var(--ce-yg-forest), var(--ce-yg-forest-deep));
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(38, 79, 28, 0.3);
+    transition: transform 0.2s ease;
+}
+
+html.ce-yg-future .ce-yg-sticky-basket__cta:active {
+    transform: scale(0.97);
+}
+
+/* ── Back to top (injected by JS) ── */
+html.ce-yg-future .ce-yg-btt {
+    position: fixed;
+    right: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    z-index: 99980;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ce-yg-forest);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: var(--ce-yg-shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s var(--ce-yg-ease);
+}
+
+html.ce-yg-future .ce-yg-btt.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+html.ce-yg-future .ce-yg-btt svg {
+    display: block;
+    margin: auto;
+}
+
+html.ce-yg-future.ce-yg-has-sticky-basket .ce-yg-btt {
+    bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (min-width: 768px) {
+    html.ce-yg-future .ce-yg-sticky-basket {
+        display: none !important;
+    }
+
+    html.ce-yg-future.ce-yg-has-sticky-basket .ce-yg-btt {
+        bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* ── Social proof toast (injected by JS) ── */
+html.ce-yg-future .ce-yg-toast {
+    position: fixed;
+    left: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 99985;
+    max-width: min(320px, calc(100vw - 32px));
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: var(--ce-yg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(38, 79, 28, 0.12);
+    box-shadow: var(--ce-yg-shadow);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: var(--ce-yg-pebble);
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease, transform 0.4s var(--ce-yg-ease);
+    pointer-events: none;
+}
+
+html.ce-yg-future .ce-yg-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+html.ce-yg-future .ce-yg-toast strong {
+    color: var(--ce-yg-forest);
+}
+
+@media (max-width: 767px) {
+    html.ce-yg-future.ce-yg-has-sticky-basket .ce-yg-toast {
+        bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* ── Search focus — high visibility ring ── */
+html.ce-yg-future input[type="search"]:focus,
+html.ce-yg-future input[name="search"]:focus,
+html.ce-yg-future .search-box input:focus,
+html.ce-yg-future #search:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px var(--ce-yg-moss-glow), 0 4px 16px rgba(38, 79, 28, 0.12) !important;
+}
+
+/* ── Section headlines — editorial polish ── */
+html.ce-yg-future .fp-section h2,
+html.ce-yg-future .centralWrapper.text h2,
+html.ce-yg-future .featured h2 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+/* ── Focus visible (a11y + keyboard CRO) ── */
+html.ce-yg-future a:focus-visible,
+html.ce-yg-future button:focus-visible {
+    outline: 2px solid var(--ce-yg-moss) !important;
+    outline-offset: 3px !important;
+}

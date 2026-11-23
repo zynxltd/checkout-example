@@ -78,6 +78,15 @@
                 this.wireDrawer(this.mount);
             }
             this.initMiniBasket();
+            /* Full basket page already shows the cart — keep drawer closed */
+            if (this.isBasketPage()) {
+                this.close();
+            }
+        },
+
+        isBasketPage() {
+            return document.body.classList.contains('demo-basket-page')
+                || /^\/basket\/?$/.test(window.location.pathname || '');
         },
 
         noteReturnVisit() {
@@ -405,6 +414,12 @@
                 return;
             }
 
+            /* Already on the full basket page — don't stack the mini drawer */
+            if (this.isBasketPage()) {
+                this.closeMiniBasket();
+                return;
+            }
+
             this.closeMiniBasket();
 
             const drawer = document.getElementById('yg-cart-drawer');
@@ -637,7 +652,7 @@
             this.applyMountHtml(data.html, { preserveExtend });
             this.updateCartBadges(data.cart);
 
-            if (keepOpen) {
+            if (keepOpen && !this.isBasketPage()) {
                 const drawer = document.getElementById('yg-cart-drawer');
                 if (drawer) {
                     drawer.hidden = false;

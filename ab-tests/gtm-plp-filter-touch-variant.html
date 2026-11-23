@@ -1,0 +1,76 @@
+<script>
+/**
+ * GTM Custom HTML — VARIANT PLP filter touch
+ *
+ * Any drawer filter click/touch → dataLayer + gtag (backup for CE/GA4)
+ * Only when drawer Variant is on the page.
+ *
+ * Triggers: Window Loaded + cookie_consent_statistics + cookie_consent_update
+ * Keep GA4 tag plp_filter_apply on Custom Event ce_plp_filter_apply (unpaused)
+ */
+(function () {
+  'use strict';
+
+  if (window.__cePlpFilterTouchVariant) return;
+  window.__cePlpFilterTouchVariant = true;
+
+  var last = 0;
+
+  function drawerLive() {
+    return !!(
+      document.documentElement.classList.contains('ce-yg-plp-filters') ||
+      document.getElementById('ce-ff-apply') ||
+      document.getElementById('ce-ff-shell')
+    );
+  }
+
+  function isVariantFilter(el) {
+    if (!el) return false;
+    if (el.nodeType === 3) el = el.parentElement;
+    if (!el || !el.closest) return false;
+    return !!el.closest(
+      '#ce-ff-shell, #ce-ff-apply, #ce-ff-reset, #ce-ff-close, #ce-ff-backdrop, ' +
+        '.ce-ff-open, .ce-ff-select, .ce-ff-menu, .ce-ff-menu__opt, ' +
+        '#mobile-filter-open.ce-ff-open, .ce-ff-filters'
+    );
+  }
+
+  function fire() {
+    var now = Date.now();
+    if (now - last < 400) return;
+    last = now;
+
+    var path = location.pathname + location.search;
+
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'ce_plp_filter_apply',
+        page_path: path
+      });
+    } catch (errDl) { /* ignore */ }
+
+    try {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'plp_filter_apply', {
+          page_path: path,
+          send_to: 'G-89VMKW3951'
+        });
+      }
+    } catch (errG) { /* ignore */ }
+
+    if (window.console && console.log) {
+      console.log('pushed ce_plp_filter_apply + gtag plp_filter_apply');
+    }
+  }
+
+  function onTouch(e) {
+    if (!drawerLive()) return;
+    if (!isVariantFilter(e.target)) return;
+    fire();
+  }
+
+  document.addEventListener('click', onTouch, true);
+  document.addEventListener('touchend', onTouch, true);
+})();
+</script>

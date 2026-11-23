@@ -1,0 +1,6 @@
+bin/
+obj/
+greenshelf.db
+greenshelf.db-*
+*.user
+.vs/

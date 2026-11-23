@@ -1,0 +1,41 @@
+@page
+@model CheckoutModel
+@{
+    ViewData["Title"] = "Checkout";
+    var cart = Model.Cart;
+}
+
+<section class="checkout">
+    <h1>Checkout</h1>
+    @if (cart.IsEmpty)
+    {
+        <p>Your basket is empty. <a href="/pdp">Continue shopping</a></p>
+    }
+    else
+    {
+        <ul class="checkout-lines">
+            @foreach (var item in cart.Items)
+            {
+                <li>
+                    <img src="@item.Image" alt="" width="64" height="64">
+                    <div>
+                        <strong>@item.Name</strong>
+                        <span>× @item.Qty</span>
+                    </div>
+                    <span>£@item.LineTotal.ToString("0.00")</span>
+                </li>
+            }
+        </ul>
+        <dl class="checkout-totals">
+            <div><dt>Subtotal</dt><dd>£@cart.Subtotal.ToString("0.00")</dd></div>
+            @if (cart.OfferDiscount > 0)
+            {
+                <div><dt>Offer (@cart.OfferCode)</dt><dd>−£@cart.OfferDiscount.ToString("0.00")</dd></div>
+            }
+            <div><dt>Delivery</dt><dd>£@DemoCart.Delivery.ToString("0.00")</dd></div>
+            <div class="checkout-totals__total"><dt>Total</dt><dd>£@cart.Total.ToString("0.00")</dd></div>
+        </dl>
+        <p class="muted">Demo only — no payment is taken.</p>
+        <a class="btn btn-primary" href="/">Back to home</a>
+    }
+</section>

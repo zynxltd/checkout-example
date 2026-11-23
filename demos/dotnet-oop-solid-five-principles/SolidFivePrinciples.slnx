@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="OpenClosePrinciple/OpenClosePrinciple.csproj" />
+  <Project Path="SingleResponsabilityPrinciple/SingleResponsabilityPrinciple.csproj" />
+  <Project Path="TheLiskovSubstitutionPrinciple/TheLiskovSubstitutionPrinciple.csproj" />
+  <Project Path="UnitTestProject1/UnitTestProject1.csproj" />
+</Solution>

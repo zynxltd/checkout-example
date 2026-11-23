@@ -1,0 +1,120 @@
+@page
+@using GardenClub.Web.Data
+@using Microsoft.EntityFrameworkCore
+@inject GardenClubDbContext Db
+@{
+    Layout = null;
+    var plants = await Db.Plants.AsNoTracking().Where(p => p.InStock).OrderBy(p => p.Name).ToListAsync();
+    var categories = plants.Select(p => p.Category).Distinct().OrderBy(c => c).ToList();
+    var avgSave = plants.Count > 0 ? plants.Average(p => (double)p.ClubSaving) : 0;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Garden Club Catalog — .NET Aspire demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+</head>
+<body>
+    <div class="atmosphere" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <div class="site-header__brand">
+            <p class="eyebrow">.NET 10 · Aspire · EF Core 10</p>
+            <a class="logo" href="/">Garden Club</a>
+        </div>
+        <nav class="site-header__nav" aria-label="Primary">
+            <a href="#catalogue">Catalogue</a>
+            <a href="#stack">Stack</a>
+            <a href="/api/stats">API stats</a>
+        </nav>
+        <label class="club-toggle">
+            <input type="checkbox" id="club-member" checked>
+            <span>I'm a Club member</span>
+        </label>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero__copy">
+                <h1>Member prices, live from EF Core</h1>
+                <p>
+                    A full-stack garden club catalogue on ASP.NET Core — seeded plants in SQLite,
+                    interest requests via Minimal APIs, orchestrated with .NET Aspire.
+                </p>
+                <div class="hero__stats" id="hero-stats">
+                    <div><strong>@plants.Count</strong><span>plants</span></div>
+                    <div><strong>£@avgSave.ToString("0.00")</strong><span>avg club save</span></div>
+                    <div><strong>C# 14</strong><span>collection exprs</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="catalogue" id="catalogue">
+            <div class="section-head">
+                <h2>Club catalogue</h2>
+                <div class="filters" role="group" aria-label="Filter by category">
+                    <button type="button" class="chip is-active" data-filter="all">All</button>
+                    @foreach (var cat in categories)
+                    {
+                        <button type="button" class="chip" data-filter="@cat">@cat</button>
+                    }
+                </div>
+            </div>
+
+            <div class="plant-grid" id="plant-grid">
+                @foreach (var plant in plants)
+                {
+                    <article class="plant-card" data-category="@plant.Category" data-sku="@plant.Sku">
+                        <p class="plant-card__cat">@plant.Category</p>
+                        <h3 class="plant-card__name">@plant.Name</h3>
+                        <p class="plant-card__sku">SKU @plant.Sku</p>
+                        <p class="plant-card__blurb">@plant.Blurb</p>
+                        <div class="plant-card__pricing">
+                            <span class="price price--club" data-club-price="@plant.ClubPrice.ToString("0.00")">£@plant.ClubPrice.ToString("0.00")</span>
+                            <span class="price price--retail" data-retail-price="@plant.RetailPrice.ToString("0.00")">£@plant.RetailPrice.ToString("0.00")</span>
+                            <span class="price-save">Save £@plant.ClubSaving.ToString("0.00")</span>
+                        </div>
+                        <button type="button" class="btn" data-interest="@plant.Sku">Express interest</button>
+                    </article>
+                }
+            </div>
+        </section>
+
+        <section class="stack" id="stack">
+            <h2>Tech stack</h2>
+            <ul class="stack-list">
+                <li>.NET 10.0 / C# 14</li>
+                <li>ASP.NET Core (Razor + Minimal APIs)</li>
+                <li>.NET Aspire AppHost</li>
+                <li>EF Core 10 + SQLite</li>
+                <li>OpenTelemetry service defaults</li>
+                <li>Azure DevOps YAML CI/CD</li>
+                <li>HTML / CSS Living Standard</li>
+            </ul>
+        </section>
+    </main>
+
+    <dialog class="interest-dialog" id="interest-dialog">
+        <form method="dialog" id="interest-form">
+            <h2>Hold this plant</h2>
+            <p class="dialog-plant" id="dialog-plant-name"></p>
+            <label>
+                Email
+                <input type="email" name="email" id="interest-email" required placeholder="you@example.com" autocomplete="email">
+            </label>
+            <p class="dialog-status" id="dialog-status" hidden></p>
+            <div class="dialog-actions">
+                <button type="submit" class="btn" value="confirm">Confirm</button>
+                <button type="submit" class="btn btn--ghost" value="cancel">Cancel</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

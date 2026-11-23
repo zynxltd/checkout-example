@@ -1,0 +1,254 @@
+{# GD - Test x2 new — 2-column promotional image / GIF / video cards #}
+
+{% if meta.preview == "true" %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endif %}
+
+{# Gardening Direct brand palette #}
+{% set gdBlue = "#002D72" %}
+{% set gdBlueDark = "#001F4D" %}
+{% set gdBrown = "#483F3A" %}
+{% set gdBlueRgb = "0, 45, 114" %}
+
+{% macro render_card_media(card, label) %}
+    {% set mediaType = card.mediaType or 'image' %}
+    {% if mediaType == 'video' and card.videoUrl %}
+        <video class="{{safeid}}__media {{safeid}}__media--video"
+               width="630"
+               height="354"
+               {% if card.image %}poster="{{ card.image }}"{% endif %}
+               {% if card.videoAutoplay != false %}autoplay{% endif %}
+               muted
+               loop
+               playsinline
+               preload="metadata"
+               aria-label="{{ card.ariaLabel or label }}">
+            <source src="{{ card.videoUrl }}" type="video/mp4">
+        </video>
+    {% elif mediaType == 'gif' and card.gifUrl %}
+        <img class="{{safeid}}__media {{safeid}}__media--gif lazyload"
+             width="630"
+             height="354"
+             src="{{ card.gifUrl }}"
+             data-src="{{ card.gifUrl }}"
+             loading="lazy"
+             alt="{{ card.ariaLabel or label }}">
+    {% else %}
+        <img class="{{safeid}}__media {{safeid}}__media--image lazyload"
+             width="630"
+             height="354"
+             src="{{ card.image }}"
+             data-src="{{ card.image }}"
+             loading="lazy"
+             alt="{{ card.ariaLabel or label }}">
+    {% endif %}
+{% endmacro %}
+
+{% macro render_card(card, slot, label) %}
+    {% if card and (card.image or card.gifUrl or card.videoUrl) %}
+    <div class="item {{safeid}}__item">
+        <a href="{% if card.linkUrl %}{{ mergeField(card.linkUrl)|set_ga_tracking(
+            utm_campaign=mergeField(fields.utmCampaign, {}),
+            utm_medium=mergeField(fields.utmMedium, {}),
+            utm_source=mergeField(fields.utmSource, {})) }}{% else %}#{% endif %}"
+           aria-label="{{ card.ariaLabel or label }}">
+            <div class="static-box">
+                <div class="img-wrapper">
+                    {{ render_card_media(card, label) }}
+                </div>
+                <div class="overlay">
+                    {% if card.overlayTitle %}
+                    <h3>{{ card.overlayTitle }}</h3>
+                    {% else %}
+                    <h3></h3>
+                    {% endif %}
+                    {% if card.overlayText %}
+                    <p>{{ card.overlayText }}</p>
+                    {% else %}
+                    <p></p>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+    </div>
+    {% endif %}
+{% endmacro %}
+
+<div class="{{safeid}} promotional-wrapper{% if fields.showOverlayText and fields.showOverlayText.active %} {{safeid}}--show-overlay{% endif %}">
+    {% if fields.headline and fields.headline.active %}
+    <h2 class="{{safeid}}__headline">{{ mergeField(fields.headline.text) }}</h2>
+    {% elif meta.preview == "true" %}
+    <h2 class="{{safeid}}__headline">From the Gardeners' Corner</h2>
+    {% endif %}
+
+    <div class="promotional-blocks two img-only-row">
+        {{ render_card(fields.card1, 1, 'Promotional card 1') }}
+        {{ render_card(fields.card2, 2, 'Promotional card 2') }}
+    </div>
+</div>
+
+<style>
+    .{{safeid}}.promotional-wrapper {
+        width: 100%;
+        max-width: {% if fields.fillSmartBlockParentContainer %}100%{% else %}{{ fields.width or 1300 }}px{% endif %};
+        margin: 0 auto;
+        box-sizing: border-box;
+        background-color: {{ fields.backgroundColor or 'transparent' }};
+    }
+
+    {% if fields.headline %}
+    .{{safeid}}__headline {
+        margin: 0 0 20px;
+        text-align: {{ fields.headline.alignment|default('Center')|lower }};
+        font-family: {{ fields.headline.font or 'Arial' }}, Arial, sans-serif !important;
+        font-size: {{ fields.headline.size.size or 28 }}{{ fields.headline.size.unit or 'px' }} !important;
+        color: {{ fields.headline.colors.foreground or gdBrown }} !important;
+        {% if fields.headline.bold %}
+        font-weight: 700 !important;
+        {% else %}
+        font-weight: 400 !important;
+        {% endif %}
+        line-height: 1.3 !important;
+        letter-spacing: normal !important;
+        text-transform: none !important;
+    }
+    {% else %}
+    .{{safeid}}__headline {
+        margin: 0 0 20px;
+        text-align: center;
+        font-family: Arial, sans-serif !important;
+        font-size: 28px !important;
+        color: {{ gdBrown }} !important;
+        font-weight: 400 !important;
+        line-height: 1.3 !important;
+    }
+    {% endif %}
+
+    .centralWrapper .{{safeid}}.promotional-wrapper .{{safeid}}__headline,
+    #wrapper .fp-section .{{safeid}}.promotional-wrapper .{{safeid}}__headline {
+        font-family: {{ fields.headline.font or 'Arial' }}, Arial, sans-serif !important;
+    }
+
+    .{{safeid}}.promotional-wrapper .promotional-blocks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: {{ fields.cardGap or 16 }}px;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .{{safeid}}.promotional-wrapper .promotional-blocks.two .item {
+        flex: 0 0 calc(50% - {{ (fields.cardGap or 16) / 2 }}px);
+        max-width: calc(50% - {{ (fields.cardGap or 16) / 2 }}px);
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .{{safeid}}.promotional-wrapper .promotional-blocks a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .{{safeid}}.promotional-wrapper .static-box {
+        position: relative;
+        overflow: hidden;
+        border-radius: {{ fields.cardBorderRadius or 16 }}px;
+        background: #ffffff;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .{{safeid}}.promotional-wrapper .img-wrapper {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        border-radius: {{ fields.cardBorderRadius or 16 }}px;
+        line-height: 0;
+        aspect-ratio: 630 / 354;
+        background: #f4f4f4;
+    }
+
+    .{{safeid}}.promotional-wrapper .{{safeid}}__media {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: {{ fields.cardBorderRadius or 16 }}px;
+        transition: transform 0.35s ease;
+    }
+
+    .{{safeid}}.promotional-wrapper a:hover .static-box,
+    .{{safeid}}.promotional-wrapper a:focus-visible .static-box {
+        box-shadow: 0 10px 24px rgba({{ gdBlueRgb }}, 0.14);
+        transform: translateY(-2px);
+    }
+
+    .{{safeid}}.promotional-wrapper a:hover .{{safeid}}__media,
+    .{{safeid}}.promotional-wrapper a:focus-visible .{{safeid}}__media {
+        transform: scale(1.03);
+    }
+
+    .{{safeid}}.promotional-wrapper .overlay {
+        display: none;
+    }
+
+    .{{safeid}}.promotional-wrapper.{{safeid}}--show-overlay .overlay {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 16px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 45, 114, 0.75) 100%);
+    }
+
+    .{{safeid}}.promotional-wrapper .overlay h3 {
+        margin: 0 0 4px;
+        font-family: Arial, sans-serif !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #ffffff !important;
+        line-height: 1.3 !important;
+    }
+
+    .{{safeid}}.promotional-wrapper .overlay p {
+        margin: 0;
+        font-family: Arial, sans-serif !important;
+        font-size: 14px !important;
+        color: #ffffff !important;
+        line-height: 1.4 !important;
+        opacity: 0.95;
+    }
+
+    @media only screen and (max-width: 767px) {
+        .{{safeid}}.promotional-wrapper .promotional-blocks.two.img-only-row {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            gap: 12px;
+            padding: 0 0 8px;
+            scrollbar-width: none;
+        }
+
+        .{{safeid}}.promotional-wrapper .promotional-blocks.two.img-only-row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .{{safeid}}.promotional-wrapper .promotional-blocks.two.img-only-row .item {
+            flex: 0 0 88%;
+            max-width: 88%;
+            scroll-snap-align: start;
+        }
+
+        .{{safeid}}.promotional-wrapper .static-box,
+        .{{safeid}}.promotional-wrapper .img-wrapper,
+        .{{safeid}}.promotional-wrapper .{{safeid}}__media {
+            border-radius: 12px;
+        }
+    }
+</style>

@@ -1,0 +1,38 @@
+Plant of the Month — August 2026
+================================
+Card text:
+  Title: Plant Of The Month
+  Body:  Everbearer Strawberry 'Sweet Summer'
+  CTA:   Find Out More
+  Link:  https://www.yougarden.com/item-s-pa485/everbearer-strawberry-sweet-summer
+  Blog (email; currently 404): https://www.yougarden.com/blog/plant-of-the-month-august-2026
+
+Recommended image (plant-on-plant — best match for current lilac-style card):
+  potm-strawberry-plant-500.jpg  (500×500, 72dpi)
+  Source: https://s3.amazonaws.com/YouGarden/Web/500x500/PA485_2.jpg
+
+Alt gallery (same max public size — YG S3 has no larger public tier):
+  strawberry-500x500-PA485.jpg    basket harvest
+  strawberry-500x500-PA485_1.jpg  spill / sack
+  strawberry-500x500-PA485_3.jpg  glass bowl harvest
+
+Gardening Jobs For August
+=========================
+Card text (July pattern + blog intro):
+  Title: Gardening Jobs For August
+  Body:  Your Garden’s Second Wind… Here’s What To Do Now!
+  CTA:   Find Out More
+  Link:  https://www.yougarden.com/blog/gardening-jobs-for-august-2/
+
+Blog summary: late-summer maintenance — mulch borders in dry spells, summer-prune apples/pears,
+strawberry runners, kitchen-garden harvests, hedges / lavender / clematis / wisteria, compost & greenhouse.
+
+First-section image (Beds & Borders — max available):
+  jobs-august-beds-borders.jpg  (1849×1850, 300dpi, ~2.8MB)
+  Source: https://i0.wp.com/yougarden471040591.wpcomstaging.com/wp-content/uploads/2021/08/YG-Blog-August_Garden-Bed-Borders.jpg?ssl=1
+  Note: this is the FB-style collage used as Image 1 in the article (mulch / plant / space tips).
+
+Other section graphics (~1850px / 300dpi):
+  jobs-august-top-tip.jpg      Fruit section (strawberry runners + summer prune)
+  jobs-august-kitchen.jpg      Kitchen garden
+  jobs-august-trees-shrubs.jpg Trees & shrubs

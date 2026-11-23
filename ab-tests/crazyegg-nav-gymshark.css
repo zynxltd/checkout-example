@@ -1,0 +1,265 @@
+/**
+ * Crazy Egg A/B — Desktop nav, Gymshark-style columns (Variant)
+ *
+ * White text bar. Hover opens a full-width panel of link columns,
+ * with featured tiles on the right when the page already has a matching image.
+ *
+ * Desktop only (≥1001px). Mobile nav unchanged.
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-nav-gymshark.js
+ */
+
+@media (min-width: 1001px) {
+  html.ce-yg-gs--open #head-scroll {
+    z-index: 400 !important;
+  }
+
+  html.ce-yg-gs #desktopNav.ce-yg-gs--ready {
+    height: 52px !important;
+    min-height: 52px !important;
+    overflow: visible !important;
+    float: left !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+    position: relative !important;
+    z-index: 200 !important;
+  }
+
+  html.ce-yg-gs #desktopNav.ce-yg-gs--ready > .centralWrapper > ul.menu {
+    display: none !important;
+  }
+
+  html.ce-yg-gs #fullScreenNav {
+    display: none !important;
+  }
+
+  .ce-yg-gs {
+    position: relative;
+    z-index: 200;
+    width: 100%;
+    background: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1a1a1a;
+  }
+
+  .ce-yg-gs__bar {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 4px;
+    min-height: 52px;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  .ce-yg-gs__item {
+    position: static;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .ce-yg-gs__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 52px;
+    padding: 0 14px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: #1a1a1a !important;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-decoration: none !important;
+    white-space: nowrap;
+    cursor: pointer;
+    box-sizing: border-box;
+  }
+
+  .ce-yg-gs__item.is-open > .ce-yg-gs__link,
+  .ce-yg-gs__link:hover,
+  .ce-yg-gs__link:focus-visible {
+    border-bottom-color: #1a1a1a;
+  }
+
+  .ce-yg-gs__item.is-new > .ce-yg-gs__link {
+    color: #6b2d8b !important;
+  }
+
+  .ce-yg-gs__item.is-new.is-open > .ce-yg-gs__link,
+  .ce-yg-gs__item.is-new > .ce-yg-gs__link:hover {
+    border-bottom-color: #6b2d8b;
+  }
+
+  .ce-yg-gs__item.is-sale > .ce-yg-gs__link {
+    color: #e3185d !important;
+  }
+
+  .ce-yg-gs__item.is-sale.is-open > .ce-yg-gs__link,
+  .ce-yg-gs__item.is-sale > .ce-yg-gs__link:hover {
+    border-bottom-color: #e3185d;
+  }
+
+  .ce-yg-gs__tv .ce-yg-gs__link {
+    padding: 0 8px;
+    border-bottom-color: transparent !important;
+  }
+
+  .ce-yg-gs__tv img {
+    display: block;
+    height: 28px;
+    width: auto;
+  }
+
+  .ce-yg-gs__panel {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: #ffffff;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    max-height: min(72vh, 680px);
+    overflow: auto;
+    z-index: 201;
+  }
+
+  .ce-yg-gs__item.is-open > .ce-yg-gs__panel {
+    display: block;
+  }
+
+  .ce-yg-gs__panel-inner {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 28px 40px 36px;
+  }
+
+  .ce-yg-gs__panel-inner.has-features {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 36px;
+    align-items: start;
+  }
+
+  .ce-yg-gs__cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+    gap: 28px 24px;
+    align-content: start;
+    text-align: left;
+  }
+
+  .ce-yg-gs__col,
+  .ce-yg-gs__links {
+    text-align: left;
+  }
+
+  .ce-yg-gs__col-title {
+    display: inline-block;
+    margin: 0 0 10px;
+    color: #111111 !important;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-decoration: none !important;
+  }
+
+  .ce-yg-gs__col-title:hover,
+  .ce-yg-gs__col-title:focus-visible {
+    text-decoration: underline !important;
+  }
+
+  .ce-yg-gs__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ce-yg-gs__links li {
+    margin: 0;
+    padding: 0;
+  }
+
+  .ce-yg-gs__links a {
+    display: block;
+    padding: 4px 0;
+    color: #3d3d3d !important;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+    text-decoration: none !important;
+  }
+
+  .ce-yg-gs__links a:hover,
+  .ce-yg-gs__links a:focus-visible {
+    color: #111111 !important;
+    text-decoration: underline !important;
+  }
+
+  .ce-yg-gs__more {
+    margin-top: 4px;
+    font-weight: 700 !important;
+    color: #111111 !important;
+  }
+
+  .ce-yg-gs__features {
+    display: grid;
+    gap: 12px;
+  }
+
+  .ce-yg-gs__feature {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    min-height: 210px;
+    background: #f3f3f3;
+    text-decoration: none !important;
+  }
+
+  .ce-yg-gs__feature img {
+    display: block;
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+  }
+
+  .ce-yg-gs__feature span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 28px 14px 12px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0));
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  html.ce-yg-gs--open .ce-yg-gs__backdrop {
+    display: block;
+  }
+
+  .ce-yg-gs__backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 300;
+  }
+}
+
+@media (max-width: 1000px) {
+  .ce-yg-gs,
+  .ce-yg-gs__backdrop {
+    display: none !important;
+  }
+}

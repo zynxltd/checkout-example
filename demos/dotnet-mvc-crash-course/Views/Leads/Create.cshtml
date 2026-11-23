@@ -1,0 +1,43 @@
+@model DotnetMvcCrashCourse.Models.LeadApplicationForm
+@{
+    ViewData["Title"] = "New lead";
+}
+
+<p class="text-muted small"><a asp-action="Index">← Lead queue</a></p>
+<h1 class="h3 mb-3">Submit loan lead</h1>
+
+<form asp-action="Create" method="post" class="col-lg-6">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="ApplicantName" class="form-label"></label>
+        <input asp-for="ApplicantName" class="form-control" />
+        <span asp-validation-for="ApplicantName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="LoanAmount" class="form-label"></label>
+        <input asp-for="LoanAmount" class="form-control" />
+        <span asp-validation-for="LoanAmount" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ProductType" class="form-label"></label>
+        <select asp-for="ProductType" class="form-select">
+            <option value="personal">personal</option>
+            <option value="secured">secured</option>
+            <option value="guarantor">guarantor</option>
+        </select>
+        <span asp-validation-for="ProductType" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Queue lead</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

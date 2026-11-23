@@ -1,0 +1,12 @@
+/**
+ * Crazy Egg — PLP CTA wording Variant 3 ("Shop Now")
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-plp-cta-shop-now.js
+ *
+ * Keeps button label on one line after the copy swap.
+ */
+
+html.ce-yg-plp-cta-v3 .category-box .mainButtonGreen.moreInfo {
+  white-space: nowrap;
+}

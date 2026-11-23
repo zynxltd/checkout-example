@@ -113,10 +113,9 @@ class DemoDrawerVariant
 
     public static function showOfferCode(): bool
     {
-        // Default off — only show when prototype tool toggles it on.
         return session()->has(self::SESSION_SHOW_OFFER_KEY)
             ? (bool) session(self::SESSION_SHOW_OFFER_KEY)
-            : false;
+            : true;
     }
 
     /**
@@ -124,7 +123,7 @@ class DemoDrawerVariant
      *
      * Shared across all variants:
      * - No "You may also like" on mobile
-     * - Split footer CTA: Checkout | View Basket (half / half)
+     * - Split footer CTA: View Basket | Checkout (half / half)
      *
      * Club / SPF / offer code are independent prototype toggles.
      *
@@ -147,7 +146,7 @@ class DemoDrawerVariant
             'hide_ymal_mobile' => true,
             'show_root_boost' => self::showRootBoost(),
             'show_club' => self::showClubBanner(),
-            'offer_code_mode' => self::showOfferCode() ? 'dropdown' : 'hidden',
+            'offer_code_mode' => self::showOfferCode() ? 'visible' : 'hidden',
             'show_secondary_cta' => false,
             'primary_cta' => 'split',
         ];

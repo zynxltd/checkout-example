@@ -15,21 +15,25 @@
                 height="32"
                 loading="lazy"
             >
-            <p class="yg-spf__title">Superior <strong>Plant&nbsp;Food</strong> Plus</p>
+            <div class="yg-spf__copy">
+                <p class="yg-spf__title">Superior <strong>Plant&nbsp;Food</strong> Plus</p>
+                <p class="yg-spf__msg">Treat plants before we send them.</p>
+            </div>
         </div>
-        <p class="yg-spf__msg">Treat your plants before we send them.</p>
-        <button
-            type="button"
-            class="yg-spf__cta"
-            data-root-boost-add="{{ $boost['sku'] }}"
-            aria-label="Add Superior Plant Food Plus for £1"
-        >
-            <span class="yg-spf__plus" aria-hidden="true">+</span>
-            <span class="yg-spf__cta-copy">
-                <span class="yg-spf__cta-line">Add</span>
-                <span class="yg-spf__cta-price"> for £1</span>
-            </span>
-        </button>
+        <div class="yg-spf__action">
+            <button
+                type="button"
+                class="yg-spf__cta"
+                data-root-boost-add="{{ $boost['sku'] }}"
+                aria-label="Add Superior Plant Food Plus to basket for £1"
+            >
+                <span class="yg-spf__plus" aria-hidden="true">+</span>
+                <span class="yg-spf__cta-copy">
+                    <span class="yg-spf__cta-line">Add</span>
+                    <span class="yg-spf__cta-price"> for £1</span>
+                </span>
+            </button>
+        </div>
     </div>
 </div>
 @endif

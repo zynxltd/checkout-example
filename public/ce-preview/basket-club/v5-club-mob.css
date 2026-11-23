@@ -1,0 +1,318 @@
+/**
+ * V5 Club Mobile v2 — V4-style mobile (design)
+ * Badge + headline → benefits → pills → green Find Out More
+ * Pair: v5-club-mob.js · ce-boot-v5-club-mob.js
+ */
+
+html[data-ygbc5="1"] {
+  --ygbc5-purple: #7b277b;
+  --ygbc5-green: #c5e085;
+  --ygbc5-gelica: "gelica", Georgia, "Times New Roman", serif;
+}
+
+#ygbc5-root,
+#ygbc5-root * {
+  box-sizing: border-box;
+}
+
+#ygbc5-root {
+  clear: both;
+  position: relative;
+  width: 100%;
+  margin: 28px 0 14px !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2;
+  color: #fff;
+  background: transparent;
+  border: 0;
+}
+
+html[data-ygbc5="1"] .viewordLeftWrapper,
+html[data-ygbc5="1"] .buttonPromoWrapper {
+  overflow: visible !important;
+}
+
+html[data-ygbc5="1"] .viewordLeftWrapper table.mainTable,
+html[data-ygbc5="1"] table.mainTable {
+  margin-bottom: 14px !important;
+}
+
+/* —— Purple card + green footer —— */
+#ygbc5-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 12px;
+  overflow: visible; /* leaf on badge can sit above */
+  background: transparent;
+}
+
+#ygbc5-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 14px 12px 14px;
+  background: var(--ygbc5-purple) !important;
+  border-radius: 12px 12px 0 0;
+  overflow: visible;
+}
+
+/* Badge | Join the Club & Save… */
+#ygbc5-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+#ygbc5-logo {
+  flex: 0 0 auto;
+  width: 132px;
+  height: auto;
+  max-height: 48px;
+  display: block;
+  margin: -6px 0 0; /* leaf clearance above pill body */
+  border: 0;
+  object-fit: contain;
+  object-position: left center;
+}
+
+#ygbc5-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1.15 !important;
+  color: #ffffff !important;
+  text-align: left !important;
+}
+
+#ygbc5-title-line1 {
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #ffffff !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  line-height: 1.15 !important;
+}
+
+#ygbc5-title-line2 {
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #ffffff !important;
+  font-size: 16px !important;
+  line-height: 1.15 !important;
+}
+
+#ygbc5-save {
+  font-family: var(--ygbc5-gelica) !important;
+  font-weight: 700 !important;
+  font-size: 1.55em !important;
+  line-height: 1.1 !important;
+  color: #ffffff !important;
+  white-space: nowrap;
+}
+
+#ygbc5-benefits {
+  margin: 0 !important;
+  padding: 0 2px !important;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  max-height: calc(1.35em * 2);
+  overflow: hidden;
+  color: #ffffff !important;
+  text-align: center !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+#ygbc5-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 100%;
+}
+
+.ygbc5-pill {
+  position: relative;
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  height: 44px;
+  min-height: 44px;
+  max-height: 44px;
+  margin: 0 !important;
+  padding: 0 44px 0 12px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: var(--ygbc5-purple) !important;
+  cursor: pointer;
+  text-align: center !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+}
+
+.ygbc5-pill:hover,
+.ygbc5-pill:focus {
+  filter: brightness(0.98);
+}
+
+.ygbc5-pill-text {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap !important;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  color: var(--ygbc5-purple) !important;
+  text-align: center !important;
+}
+
+.ygbc5-pill-text strong {
+  font-family: var(--ygbc5-gelica) !important;
+  font-weight: 700 !important;
+  font-size: 1.15em !important;
+  color: var(--ygbc5-purple) !important;
+}
+
+.ygbc5-was {
+  text-decoration: line-through;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.ygbc5-plus {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  margin-top: -15px;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+/* Green Find Out More — flush under purple */
+#ygbc5-more,
+html[data-ygbc5="1"] a#ygbc5-more {
+  display: block !important;
+  flex: 0 0 auto;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 13px 12px !important;
+  border: 0 !important;
+  border-radius: 0 0 12px 12px !important;
+  background: var(--ygbc5-green) !important;
+  color: var(--ygbc5-purple) !important;
+  font-family: var(--ygbc5-gelica) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  line-height: 1.2 !important;
+  box-shadow: none !important;
+}
+
+#ygbc5-more:hover,
+#ygbc5-more:focus,
+html[data-ygbc5="1"] a#ygbc5-more:hover,
+html[data-ygbc5="1"] a#ygbc5-more:focus {
+  filter: brightness(0.97);
+  color: var(--ygbc5-purple) !important;
+  text-decoration: none !important;
+}
+
+/* Sidebar */
+html[data-ygbc5="1"] .viewordRightWrapper,
+html[data-ygbc5="1"] .viewordRightWrapper .clubSavingWrapper,
+html[data-ygbc5="1"] #ygbc5-side {
+  overflow: visible !important;
+}
+
+#ygbc5-side,
+html[data-ygbc5="1"] .clubSavingWrapper {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 !important;
+  margin: 8px 0 10px !important;
+  background: transparent !important;
+  border: 0 !important;
+  overflow: visible !important;
+  float: none !important;
+  clear: both !important;
+  box-sizing: border-box !important;
+}
+
+#ygbc5-side-link {
+  position: relative;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 40px !important;
+  text-decoration: none !important;
+  overflow: visible !important;
+  background: var(--ygbc5-purple) !important;
+  box-sizing: border-box !important;
+}
+
+#ygbc5-side-logo {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: 55% !important;
+  height: 42px !important;
+  margin: -4px 0 !important;
+  display: block !important;
+  border: 0 !important;
+  background: transparent !important;
+  object-fit: contain;
+  object-position: left center;
+}
+
+#ygbc5-side-save {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 36px !important;
+  margin: 0 !important;
+  padding: 0 12px !important;
+  background: transparent !important;
+  color: #ffffff !important;
+  font: 800 16px/1 Arial, Helvetica, sans-serif !important;
+  letter-spacing: 0.02em;
+  white-space: nowrap !important;
+}

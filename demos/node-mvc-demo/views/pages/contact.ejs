@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<section class="page-hero">
+  <div class="shell">
+    <h1>Contact</h1>
+    <p>POST hits <code>contactController.submit</code>, which validates, writes to <code>ContactMessage</code>, then enqueues a follow-up job for the dashboard worker.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell form-wrap">
+    <% if (success) { %>
+      <div class="banner success" role="status"><%= success %></div>
+    <% } %>
+    <% if (errors.length) { %>
+      <div class="banner error" role="alert">
+        <ul>
+          <% errors.forEach(function (err) { %>
+            <li><%= err %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <form method="post" action="/contact" class="form" novalidate>
+      <label>
+        Name
+        <input name="name" value="<%= values.name %>" autocomplete="name" required />
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" value="<%= values.email %>" autocomplete="email" required />
+      </label>
+      <label>
+        Message
+        <textarea name="message" rows="5" required><%= values.message %></textarea>
+      </label>
+      <button class="btn" type="submit">Send</button>
+    </form>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

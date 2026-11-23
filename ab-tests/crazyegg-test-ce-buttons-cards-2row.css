@@ -1,0 +1,172 @@
+/**
+ * Crazy Egg → Edit CSS (VARIANT: We accept slot, 2-row)
+ * Same size/position as cards 1×3, but:
+ *   PayPal | Amazon
+ *   Apple Pay (same width as one top button, centered)
+ * Desktop only (min-width: 1001px).
+ *
+ * Pair with crazyegg-test-ce-buttons-cards-2row.js
+ */
+
+@media (min-width: 1001px) {
+  .h1Wrapper .cards-wrapper {
+    display: none !important;
+  }
+
+  .payment-grid-wrap--cards {
+    float: right !important;
+    width: 55% !important;
+    max-width: 460px !important;
+    margin: 14px 0 10px !important;
+    padding: 0 !important;
+    clear: none !important;
+    box-sizing: border-box !important;
+  }
+
+  .payment-grid--cards-2row {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-auto-rows: 42px !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .payment-grid--cards-2row .ce-express-slot {
+    position: relative !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 42px !important;
+    max-height: 42px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border-radius: 5px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Same width as each top button, centered under the pair */
+  .payment-grid--cards-2row .ce-express-slot--apple {
+    grid-column: 1 / -1 !important;
+    justify-self: center !important;
+    width: calc((100% - 8px) / 2) !important;
+    max-width: none !important;
+    height: 42px !important;
+    max-height: 42px !important;
+  }
+
+  .payment-grid--cards-2row .ce-express-face,
+  .payment-grid--cards-2row .co-express-btn {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 5px !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    line-height: 0 !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .payment-grid--cards-2row .ce-express-face::after,
+  .payment-grid--cards-2row .co-express-btn::after {
+    content: "" !important;
+    display: block !important;
+    width: 100% !important;
+    height: 42px !important;
+    max-height: 42px !important;
+    border-radius: 5px !important;
+    background-image: var(--co-express-bg) !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+  }
+
+  .payment-grid--cards-2row .ce-express-face[data-ce-preview="1"] {
+    pointer-events: none !important;
+    cursor: default !important;
+  }
+
+  .payment-grid--cards-2row .ce-express-live,
+  .payment-grid--cards-2row .AmazonButtonWrapper.ce-express-live,
+  .payment-grid--cards-2row #AmazonPayButton.ce-express-live,
+  .payment-grid--cards-2row #paypal-button-container.ce-express-live,
+  .payment-grid--cards-2row .pp-button-container.ce-express-live,
+  .payment-grid--cards-2row #apple-pay.ce-express-live,
+  .payment-grid--cards-2row .apple-pay-button-with-text.ce-express-live {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    height: 42px !important;
+    max-height: 42px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0.02 !important;
+    overflow: hidden !important;
+    float: none !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Real Apple Pay must be fully visible or Safari blocks the click */
+  .payment-grid--cards-2row .ce-express-slot--apple .ce-express-face {
+    display: none !important;
+  }
+
+  .payment-grid--cards-2row .ce-express-slot--apple .ce-express-live,
+  .payment-grid--cards-2row .ce-express-slot--apple .ce-express-live--apple,
+  .payment-grid--cards-2row .ce-express-slot--apple #apple-pay,
+  .payment-grid--cards-2row .ce-express-slot--apple .apple-pay-button-with-text,
+  .payment-grid--cards-2row .ce-express-slot--apple .apple-pay-button {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    pointer-events: auto !important;
+    z-index: 3 !important;
+    width: 100% !important;
+    height: 42px !important;
+    max-height: 42px !important;
+    min-height: 42px !important;
+    overflow: visible !important;
+  }
+
+  .payment-grid--cards-2row .ce-express-live iframe,
+  .payment-grid--cards-2row .ce-express-live #AmazonPayButton,
+  .payment-grid--cards-2row .ce-express-live > * {
+    width: 100% !important;
+    height: 42px !important;
+    margin: 0 !important;
+    border: none !important;
+    display: block !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+  }
+
+  .payment-grid--cards-2row .amazonpay-button-microtext,
+  .payment-grid--cards-2row picture.amazonpay-button-microtext,
+  .payment-grid--cards-2row picture {
+    display: none !important;
+    height: 0 !important;
+  }
+
+  .viewordRightWrapper .buttonsWrapper > hr {
+    display: none !important;
+  }
+
+  .h1Wrapper::after {
+    content: "" !important;
+    display: table !important;
+    clear: both !important;
+  }
+}

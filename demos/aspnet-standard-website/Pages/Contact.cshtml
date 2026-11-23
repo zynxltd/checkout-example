@@ -1,0 +1,63 @@
+@page
+@model ContactModel
+@{
+    ViewData["Title"] = "Contact";
+    ViewData["Description"] = "Contact Northline to start a project.";
+}
+
+<section class="page-hero">
+    <div class="shell">
+        <h1>Contact</h1>
+        <p>Share a little context. We’ll get back within two working days.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="shell split">
+        <div class="prose reveal">
+            <p>Prefer email? Write to <strong>hello@northline.example</strong>.</p>
+            <p>Include goals, timeline, and any constraints. The clearer the brief, the faster we can respond with a useful next step.</p>
+        </div>
+
+        <div class="form-panel reveal">
+            @if (Model.Submitted)
+            {
+                <div class="form-success" role="status">
+                    Thanks, @Model.SubmittedName. We’ve received your message and will reply soon.
+                </div>
+            }
+
+            <form method="post" novalidate>
+                <div asp-validation-summary="ModelOnly" class="field-error"></div>
+                <div class="form-grid two">
+                    <label>
+                        Name
+                        <input asp-for="Input.Name" autocomplete="name" />
+                        <span asp-validation-for="Input.Name" class="field-error"></span>
+                    </label>
+                    <label>
+                        Email
+                        <input asp-for="Input.Email" autocomplete="email" />
+                        <span asp-validation-for="Input.Email" class="field-error"></span>
+                    </label>
+                </div>
+                <div class="form-grid" style="margin-top:1rem">
+                    <label>
+                        Company <span class="muted">(optional)</span>
+                        <input asp-for="Input.Company" autocomplete="organization" />
+                    </label>
+                    <label>
+                        Message
+                        <textarea asp-for="Input.Message"></textarea>
+                        <span asp-validation-for="Input.Message" class="field-error"></span>
+                    </label>
+                    <button class="btn btn-primary" type="submit">Send message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="GardenClub.AppHost/GardenClub.AppHost.csproj" />
+  <Project Path="GardenClub.ServiceDefaults/GardenClub.ServiceDefaults.csproj" />
+  <Project Path="GardenClub.Web/GardenClub.Web.csproj" />
+</Solution>

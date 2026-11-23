@@ -1,0 +1,95 @@
+/**
+ * Crazy Egg — PDP thumbs under hero (mobile ≤599px)
+ * Pair with: crazyegg-pdp-thumbs-v1.js
+ */
+
+@media (min-width: 600px) {
+  #ce-yg-thumbs {
+    display: none !important;
+  }
+}
+
+@media (max-width: 599px) {
+  html.ce-yg-thumbs-on #main-image-carousel .slick-dots {
+    display: none !important;
+  }
+
+  html.ce-yg-thumbs-on #main-image-carousel .previous-button,
+  html.ce-yg-thumbs-on #main-image-carousel .next-button,
+  html.ce-yg-thumbs-on #main-image-carousel .slick-arrow {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 9 !important;
+  }
+
+  #ce-yg-thumbs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    width: 100%;
+    margin: 0;
+    padding: 6px 0 8px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    background: #fff;
+  }
+
+  #ce-yg-thumbs::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Side inset = same as gap (6px); 6+6 + 3×6 = 30px */
+  #ce-yg-thumbs .ce-yg-thumb {
+    flex: 0 0 calc((100% - 30px) / 4);
+    width: calc((100% - 30px) / 4);
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    margin: 0;
+    border: 1.5px solid #d7ddd2;
+    border-radius: 6px;
+    background: #f5f6f4;
+    overflow: hidden;
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb:first-child {
+    margin-left: 6px !important;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb:last-child {
+    margin-right: 6px !important;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-active {
+    border-color: #264f1c;
+    border-width: 2px;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-video::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -7px 0 0 -5px;
+    border-style: solid;
+    border-width: 8px 0 8px 13px;
+    border-color: transparent transparent transparent #fff;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+    pointer-events: none;
+  }
+}

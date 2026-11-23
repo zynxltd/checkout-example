@@ -1,0 +1,19 @@
+/**
+ * CONTROL — not Crazy Egg.
+ *
+ * Paste this into the homepage CMS (or a site-wide homepage <style>),
+ * not into Crazy Egg. CE cannot run CSS on Control.
+ *
+ * Hides the two blocks directly under the banner:
+ *   Shop By Category 8-up + Shop Bestsellers
+ *   (.category-promotion-wrapper)
+ *
+ * Control visitors then only see:
+ *   4 large tiles + Top picks for you
+ *
+ * Preview: https://yougardennew.mtechpreview.com/  (web / letmein2)
+ */
+
+.frontpage > .category-promotion-wrapper {
+  display: none !important;
+}

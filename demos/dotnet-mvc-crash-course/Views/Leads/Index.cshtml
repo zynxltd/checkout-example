@@ -1,0 +1,85 @@
+@model IEnumerable<DotnetMvcCrashCourse.Models.LeadApplication>
+@{
+    ViewData["Title"] = "Lead queue";
+    var stats = ViewBag.Stats as DotnetMvcCrashCourse.Contracts.LeadStats;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h3 mb-0">Loan lead queue</h1>
+        <p class="text-muted small mb-0">
+            SaaS intake — API or MVC form → Channel queue → <code>LeadQueueWorker</code> + <code>ILeadRouter</code>.
+        </p>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-primary btn-sm" asp-action="Create">New lead</a>
+        <button class="btn btn-outline-secondary btn-sm" type="button" onclick="location.reload()">Refresh</button>
+    </div>
+</div>
+
+@if (TempData["Flash"] is string flash)
+{
+    <div class="alert alert-success">@flash</div>
+}
+
+@if (stats is not null)
+{
+    <div class="row g-2 mb-3 small">
+        <div class="col-auto"><span class="badge text-bg-secondary">total @stats.Total</span></div>
+        <div class="col-auto"><span class="badge text-bg-info">queued @stats.Queued</span></div>
+        <div class="col-auto"><span class="badge text-bg-warning">processing @stats.Processing</span></div>
+        <div class="col-auto"><span class="badge text-bg-success">routed @stats.Routed</span></div>
+        <div class="col-auto"><span class="badge text-bg-danger">rejected @stats.Rejected</span></div>
+        <div class="col-auto"><span class="badge text-bg-dark">depth @stats.QueueDepth</span></div>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-secondary">No leads yet — use <a asp-action="Create">New lead</a> or POST <code>/api/leads</code>.</div>
+}
+else
+{
+    <table class="table table-sm table-hover align-middle">
+        <thead>
+        <tr>
+            <th>When</th>
+            <th>Applicant</th>
+            <th>Amount</th>
+            <th>Product</th>
+            <th>Status</th>
+            <th>Lender / reason</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var lead in Model)
+        {
+            <tr>
+                <td class="small text-muted">@lead.CreatedAt.ToLocalTime().ToString("HH:mm:ss")</td>
+                <td>
+                    <strong>@lead.ApplicantName</strong>
+                    <div class="small text-muted">@lead.Email</div>
+                </td>
+                <td>£@lead.LoanAmount.ToString("0.00")</td>
+                <td><span class="badge text-bg-light">@lead.ProductType</span></td>
+                <td>
+                    @{
+                        var badge = lead.Status switch
+                        {
+                            DotnetMvcCrashCourse.Models.LeadStatus.Routed => "text-bg-success",
+                            DotnetMvcCrashCourse.Models.LeadStatus.Rejected => "text-bg-danger",
+                            DotnetMvcCrashCourse.Models.LeadStatus.Processing => "text-bg-warning",
+                            DotnetMvcCrashCourse.Models.LeadStatus.Queued => "text-bg-info",
+                            _ => "text-bg-secondary"
+                        };
+                    }
+                    <span class="badge @badge">@lead.Status</span>
+                </td>
+                <td class="small">
+                    @(lead.RoutedToLender ?? lead.RejectReason ?? "—")
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

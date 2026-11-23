@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GreenShelf Live Auction</title>
+  <style>
+    :root { --ink:#15241a; --muted:#5a6b60; --accent:#1f6b45; --wash:#e8f2eb; --rose:#c41e5a; --amber:#9a6b16; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: var(--ink); background: linear-gradient(160deg, var(--wash), #fff 50%); min-height: 100vh; }
+    main { max-width: 920px; margin: 0 auto; padding: 1.5rem; }
+    h1 { margin: 0 0 .25rem; font-size: 1.75rem; }
+    .sub { color: var(--muted); margin-bottom: 1.25rem; }
+    .bar { display: flex; flex-wrap: wrap; gap: .75rem; align-items: end; margin-bottom: 1.25rem; padding: 1rem; background: #fff; border: 1px solid #d5e4da; border-radius: 10px; }
+    label { display: flex; flex-direction: column; gap: .35rem; font-size: .8rem; font-weight: 600; color: var(--muted); }
+    input, select, button { font: inherit; padding: .55rem .7rem; border-radius: 8px; border: 1px solid #c9d8cf; }
+    button { background: var(--accent); color: #fff; border: none; font-weight: 700; cursor: pointer; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    .status { font-size: .85rem; color: var(--muted); }
+    .status.live { color: var(--accent); font-weight: 700; }
+    .lots { display: grid; gap: 1rem; }
+    .lot { background: #fff; border: 1px solid #d5e4da; border-radius: 12px; padding: 1rem 1.1rem; }
+    .lot.closing { border-color: #e0c07a; background: #fffdf6; }
+    .lot.sold { border-color: #9fd0b0; opacity: .92; }
+    .lot.unsold { opacity: .75; }
+    .lot h2 { margin: 0 0 .35rem; font-size: 1.15rem; display: flex; justify-content: space-between; gap: .5rem; align-items: baseline; }
+    .badge { font-size: .7rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+    .badge.closingSoon { color: var(--amber); }
+    .badge.sold { color: var(--accent); }
+    .badge.unsold { color: var(--rose); }
+    .meta { color: var(--muted); font-size: .9rem; margin-bottom: .5rem; }
+    .high { font-size: 1.35rem; font-weight: 700; color: var(--accent); }
+    .bids { margin: .75rem 0 0; padding: 0; list-style: none; font-size: .85rem; color: var(--muted); }
+    .err { color: var(--rose); font-size: .9rem; min-height: 1.2em; }
+    .toast { color: var(--amber); font-size: .9rem; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>GreenShelf live auction</h1>
+    <p class="sub">SignalR + SOLID services — soft-close extensions, min increments, lot closer worker. Open two tabs and bid.</p>
+
+    <div class="bar">
+      <label>Your name <input id="bidder" placeholder="Sam" value="Sam" /></label>
+      <label>Lot
+        <select id="lot"></select>
+      </label>
+      <label>Bid £ <input id="amount" type="number" step="0.50" min="1" value="20" /></label>
+      <button id="bid" type="button">Place bid</button>
+      <span id="conn" class="status">Connecting…</span>
+    </div>
+    <p id="err" class="err"></p>
+    <p id="toast" class="toast"></p>
+    <div id="lots" class="lots"></div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+  <script>
+    const els = {
+      lots: document.getElementById('lots'),
+      lot: document.getElementById('lot'),
+      bidder: document.getElementById('bidder'),
+      amount: document.getElementById('amount'),
+      bid: document.getElementById('bid'),
+      conn: document.getElementById('conn'),
+      err: document.getElementById('err'),
+      toast: document.getElementById('toast'),
+    };
+
+    let board = [];
+    const statusLabel = { 0: 'Open', 1: 'Closing soon', 2: 'Sold', 3: 'Unsold', Open: 'Open', ClosingSoon: 'Closing soon', Sold: 'Sold', Unsold: 'Unsold' };
+    const statusKey = (s) => {
+      if (typeof s === 'number') return ['open', 'closingSoon', 'sold', 'unsold'][s] || 'open';
+      return String(s).charAt(0).toLowerCase() + String(s).slice(1);
+    };
+
+    function endsLabel(iso) {
+      const ms = new Date(iso) - Date.now();
+      if (ms <= 0) return 'ended';
+      const s = Math.ceil(ms / 1000);
+      if (s < 60) return `${s}s left`;
+      return `${Math.floor(s / 60)}m ${s % 60}s left`;
+    }
+
+    function render() {
+      const open = board.filter(l => {
+        const k = statusKey(l.status);
+        return k === 'open' || k === 'closingSoon';
+      });
+      els.lot.innerHTML = open.map(l => `<option value="${l.id}">${l.name}</option>`).join('')
+        || '<option value="">No open lots</option>';
+      els.bid.disabled = open.length === 0;
+
+      els.lots.innerHTML = board.map(l => {
+        const k = statusKey(l.status);
+        const next = l.highBid > 0
+          ? Number(l.highBid) + Number(l.minIncrement)
+          : Number(l.reserve);
+        return `
+        <article class="lot ${k === 'closingSoon' ? 'closing' : k}" data-id="${l.id}">
+          <h2><span>${l.name}</span><span class="badge ${k}">${statusLabel[l.status] ?? l.status}</span></h2>
+          <p class="meta">Reserve £${Number(l.reserve).toFixed(2)} · +£${Number(l.minIncrement).toFixed(2)} · <code>${l.id}</code> · ${endsLabel(l.endsAt)}</p>
+          <p class="high">${l.highBid > 0 ? `£${Number(l.highBid).toFixed(2)} — ${l.highBidder}` : 'No bids yet'}</p>
+          <p class="meta">Next bid from £${next.toFixed(2)}</p>
+          <ul class="bids">${(l.recent || []).map(b => `<li>£${Number(b.amount).toFixed(2)} ${b.bidder}</li>`).join('') || '<li>Waiting for first bid…</li>'}</ul>
+        </article>`;
+      }).join('');
+    }
+
+    function upsert(lot) {
+      const i = board.findIndex(l => l.id === lot.id);
+      if (i >= 0) board[i] = lot; else board.push(lot);
+      board.sort((a, b) => a.id.localeCompare(b.id));
+      render();
+    }
+
+    const connection = new signalR.HubConnectionBuilder()
+      .withUrl('/hubs/auction')
+      .withAutomaticReconnect()
+      .build();
+
+    connection.on('board', (lots) => { board = lots; render(); });
+    connection.on('lotUpdated', upsert);
+    connection.on('lotExtended', (msg) => {
+      els.toast.textContent = `${msg.lotId} extended (anti-snipe) → ends ${new Date(msg.endsAt).toLocaleTimeString()}`;
+    });
+    connection.on('bidRejected', (msg) => { els.err.textContent = msg.error || 'Bid rejected'; });
+
+    els.bid.onclick = async () => {
+      els.err.textContent = '';
+      els.toast.textContent = '';
+      await connection.invoke('PlaceBid', els.lot.value, els.bidder.value, Number(els.amount.value));
+    };
+
+    setInterval(render, 1000);
+
+    connection.start()
+      .then(() => { els.conn.textContent = 'Live'; els.conn.classList.add('live'); return connection.invoke('JoinBoard'); })
+      .catch(err => { els.conn.textContent = 'Failed'; els.err.textContent = String(err); });
+  </script>
+</body>
+</html>

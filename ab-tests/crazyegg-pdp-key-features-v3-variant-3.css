@@ -1,0 +1,298 @@
+/**
+ * Crazy Egg — PDP Key Features v3 · Variant 3 (mobile)
+ *
+ * Pair with: crazyegg-pdp-key-features-v3-variant-3.js
+ * Paste into Crazy Egg Variant → Custom CSS
+ *
+ * v3 Key Features slide (≤1000px) + thumbs under hero (≤599px)
+ * + "Key Features" jump link beside Feefo stars.
+ *
+ * Example: https://www.yougarden.com/item-p-511603/standard-holly-trees-with-premium-pinecone-planters
+ */
+
+@media (max-width: 1000px) {
+  /* Original Key Features leave the buy column → description sits higher */
+  html.ce-yg-pdp-kf-v3v3 .product-right-wrapper > .icons-heading,
+  html.ce-yg-pdp-kf-v3v3 .product-right-wrapper > .icons-wrapper,
+  html.ce-yg-pdp-kf-v3v3 #product-features-carousel,
+  html.ce-yg-pdp-kf-v3v3 .product-features-carousel {
+    display: none !important;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-slide {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 18px 14px 22px;
+    background: linear-gradient(#ffffff 42%, #ccea81 42%);
+    text-align: center;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-slide-title {
+    margin: 0 0 14px;
+    padding: 0;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #264f1c;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-slide-grid {
+    display: grid;
+    gap: 12px 8px;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-slide-grid.cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-slide-grid.cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-slide-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    min-width: 0;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-slide-item img {
+    display: block;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px;
+    min-height: 52px;
+    object-fit: contain;
+    margin: 0 auto 6px;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-slide-item span {
+    display: block;
+    width: 100%;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 11px;
+    line-height: 1.25;
+    font-weight: 500;
+    color: #264f1c;
+  }
+
+  /* "Key Features" jump link — right of Feefo stars */
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-stars-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-stars-row #feefo-rating,
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-stars-row .feefo-rating {
+    flex: 0 1 auto;
+    min-width: 0;
+    margin: 0;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-jump {
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #264f1c;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-jump:hover {
+    color: #1b3a14;
+  }
+}
+
+/* Desktop: leave Magento Key Features alone; hide injected slide / jump link */
+@media (min-width: 1001px) {
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-slide {
+    display: none !important;
+  }
+
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-stars-row .ce-yg-kf-jump,
+  html.ce-yg-pdp-kf-v3v3 .ce-yg-kf-jump {
+    display: none !important;
+  }
+}
+
+/* Thumbs under hero (phone) */
+@media (min-width: 600px) {
+  #ce-yg-thumbs {
+    display: none !important;
+  }
+}
+
+@media (max-width: 599px) {
+  html.ce-yg-thumbs-on #main-image-carousel .slick-dots {
+    display: none !important;
+  }
+
+  html.ce-yg-thumbs-on #main-image-carousel .previous-button,
+  html.ce-yg-thumbs-on #main-image-carousel .next-button,
+  html.ce-yg-thumbs-on #main-image-carousel .slick-arrow {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 9 !important;
+  }
+
+  #ce-yg-thumbs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    width: 100%;
+    margin: 0;
+    padding: 6px 0 8px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    background: #fff;
+  }
+
+  #ce-yg-thumbs::-webkit-scrollbar {
+    display: none;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb {
+    flex: 0 0 calc((100% - 30px) / 4);
+    width: calc((100% - 30px) / 4);
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    margin: 0;
+    border: 1.5px solid #d7ddd2;
+    border-radius: 6px;
+    background: #f5f6f4;
+    overflow: hidden;
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb:first-child {
+    margin-left: 6px !important;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb:last-child {
+    margin-right: 6px !important;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-active {
+    border-color: #264f1c;
+    border-width: 2px;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-video::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -7px 0 0 -5px;
+    border-style: solid;
+    border-width: 8px 0 8px 13px;
+    border-color: transparent transparent transparent #fff;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+    pointer-events: none;
+  }
+
+  /* Key Features thumb — mini version of the big KF slide */
+  #ce-yg-thumbs .ce-yg-thumb.is-kf {
+    background: linear-gradient(#ffffff 42%, #ccea81 42%) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 3px !important;
+    overflow: hidden;
+  }
+
+  /* Hide any leftover single-icon <img> from older paste */
+  #ce-yg-thumbs .ce-yg-thumb.is-kf > img {
+    display: none !important;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 2px;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-title {
+    display: block;
+    margin: 0 0 2px;
+    padding: 0;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 5px;
+    font-weight: 600;
+    line-height: 1;
+    color: #264f1c;
+    white-space: nowrap;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-grid {
+    display: grid !important;
+    gap: 1px;
+    width: 92%;
+    box-sizing: border-box;
+    align-content: center;
+    justify-items: center;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-grid.cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-grid.cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-grid img {
+    display: block !important;
+    width: 100% !important;
+    max-width: 18px !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    object-fit: contain !important;
+    margin: 0 !important;
+    pointer-events: none;
+  }
+}

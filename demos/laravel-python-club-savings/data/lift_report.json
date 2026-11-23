@@ -1,0 +1,24 @@
+{
+  "cohorts": {
+    "guest": {
+      "carts": 5,
+      "recovered": 1,
+      "recovery_rate": 0.2,
+      "recovered_revenue": 44.97,
+      "potential_club_saving_shown": 35.47
+    },
+    "club_msg": {
+      "carts": 5,
+      "recovered": 4,
+      "recovery_rate": 0.8,
+      "recovered_revenue": 151.93,
+      "potential_club_saving_shown": 25.79
+    }
+  },
+  "lift": {
+    "absolute_pp": 60.0,
+    "relative_pct": 300.0,
+    "club_annual_price": 10.0,
+    "note": "Synthetic demo data \u2014 Club message cohort recovers more often."
+  }
+}

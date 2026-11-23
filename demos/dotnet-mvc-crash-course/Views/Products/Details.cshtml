@@ -1,0 +1,19 @@
+@model DotnetMvcCrashCourse.Models.Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<p class="text-muted small"><a asp-action="Index">← Products</a></p>
+<h1 class="h3">@Model.Name</h1>
+<dl class="row">
+    <dt class="col-sm-3">SKU</dt>
+    <dd class="col-sm-9"><code>@Model.Sku</code></dd>
+    <dt class="col-sm-3">Category</dt>
+    <dd class="col-sm-9">@Model.Category</dd>
+    <dt class="col-sm-3">Price</dt>
+    <dd class="col-sm-9">£@Model.Price.ToString("0.00")</dd>
+    <dt class="col-sm-3">Stock</dt>
+    <dd class="col-sm-9">@Model.Stock</dd>
+    <dt class="col-sm-3">Created</dt>
+    <dd class="col-sm-9">@Model.CreatedAt.ToString("u")</dd>
+</dl>

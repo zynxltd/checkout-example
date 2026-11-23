@@ -1,0 +1,160 @@
+/**
+ * Crazy Egg A/B — Nav CRO: priority order + sticky bar (Variant)
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-nav-priority-sticky.js
+ *
+ * Live: https://www.yougarden.com/
+ */
+
+/* -------------------------------------------------------------------------
+   Desktop — sticky green category bar + stronger priority pills
+   ------------------------------------------------------------------------- */
+@media (min-width: 1001px) {
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 500 !important;
+    width: 100% !important;
+    float: left !important;
+    background: #264f1c !important;
+    box-shadow: none;
+    transition: box-shadow 0.18s ease;
+  }
+
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--stuck,
+  html.ce-yg-nav-pri.ce-yg-nav-pri--stuck #desktopNav.ce-yg-nav-pri--ready {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
+  }
+
+  /* Keep dropdowns above page content while sticky */
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready ul.drop-down {
+    z-index: 520 !important;
+  }
+
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready > .centralWrapper > ul.menu {
+    display: flex !important;
+    align-items: stretch;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready > .centralWrapper > ul.menu > li.top {
+    float: none !important;
+    display: flex !important;
+    align-items: stretch;
+  }
+
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready > .centralWrapper > ul.menu > li.top > a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 14px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  /* Priority pills — amplify commercial paths */
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready li.top.new {
+    background: #812881 !important;
+    border-radius: 0;
+  }
+
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready li.top.xmas {
+    background: #a90b02 !important;
+  }
+
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready li.top.sale {
+    background: #e3185d !important;
+  }
+
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready li.top.new > a,
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready li.top.xmas > a,
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready li.top.sale > a {
+    color: #fff !important;
+  }
+
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready li.top.new:hover,
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready li.top.xmas:hover,
+  html.ce-yg-nav-pri #desktopNav.ce-yg-nav-pri--ready li.top.sale:hover {
+    filter: brightness(1.08);
+  }
+
+  /* Hide mobile chips on desktop */
+  #ce-yg-nav-pri-chips {
+    display: none !important;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Mobile / tablet — sticky quick-shop chips under header
+   ------------------------------------------------------------------------- */
+@media (max-width: 1000px) {
+  #ce-yg-nav-pri-chips.ce-yg-nav-pri-chips {
+    display: block !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 480 !important;
+    background: #264f1c !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .ce-yg-nav-pri-chips__row {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 8px;
+    padding: 8px 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .ce-yg-nav-pri-chips__row::-webkit-scrollbar {
+    display: none;
+  }
+
+  a.ce-yg-nav-pri-chip {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 34px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none !important;
+    white-space: nowrap;
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-sizing: border-box;
+  }
+
+  a.ce-yg-nav-pri-chip--xmas {
+    background: #a90b02 !important;
+    border-color: #a90b02 !important;
+  }
+
+  a.ce-yg-nav-pri-chip--sale {
+    background: #e3185d !important;
+    border-color: #e3185d !important;
+  }
+
+  a.ce-yg-nav-pri-chip--new {
+    background: #812881 !important;
+    border-color: #812881 !important;
+  }
+
+  a.ce-yg-nav-pri-chip--garden {
+    background: #1f4218 !important;
+    border-color: rgba(255, 255, 255, 0.28) !important;
+  }
+}

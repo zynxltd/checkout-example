@@ -1,0 +1,317 @@
+/* =========================================
+   PRODUCT CARD
+   ========================================= */
+
+   .category-box {
+    position: relative;
+  
+    background: #fff;
+}
+
+
+/* =========================================
+   PRODUCT IMAGE
+   ========================================= */
+
+.category-box .imgWrapper {
+    overflow: hidden;
+}
+
+.category-box .imgWrapper img {
+    display: block;
+    width: 100%;
+}
+
+
+/* =========================================
+   HIDE BOTTOM BUTTONS
+   ========================================= */
+
+.category-box .mainButtonGreen.moreInfo,
+.category-box .mainButtonGrey.moreInfo,
+.category-box .mainButtonGrey.email {
+    display: none !important;
+}
+
+
+/* =========================================
+   BADGES
+   ========================================= */
+
+.category-box .savingFlash,
+.category-box .overlay {
+    position: absolute;
+    z-index: 10;
+}
+
+.category-box .overlay {
+    z-index: 20;
+}
+
+
+/* =========================================
+   OUT OF STOCK ROUNDAL
+   ========================================= */
+
+.category-box:has(.mainButtonGrey.moreInfo) .savingFlash {
+    background: #6b6b6b !important;
+}
+
+.category-box:has(.mainButtonGrey.moreInfo) .savingFlash .save {
+    display: none;
+}
+
+.category-box:has(.mainButtonGrey.moreInfo) .savingFlash::after {
+    content: "OUT\A OF\A STOCK";
+
+    white-space: pre;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.05;
+    text-align: center;
+}
+
+
+/* =========================================
+   EMAIL WHEN AVAILABLE
+   ========================================= */
+
+/*
+   PRODUCTS THAT ALREADY HAVE THE ORIGINAL
+   .savingFlash ROUNDAL
+
+   Leave the original roundel in place and
+   only change its contents.
+*/
+
+.category-box:has(.mainButtonGrey.email) .savingFlash {
+    background: #6b6b6b !important;
+}
+
+.category-box:has(.mainButtonGrey.email) .savingFlash .save {
+    display: none;
+}
+
+.category-box:has(.mainButtonGrey.email) .savingFlash::after {
+    content: "EMAIL\A WHEN\A AVAILABLE";
+
+    white-space: pre;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.05;
+    text-align: center;
+}
+
+
+/* =========================================
+   EMAIL WHEN AVAILABLE
+   FALLBACK ROUNDEL
+   ========================================= */
+
+/*
+   Some products have:
+
+       .mainButtonGrey.email
+
+   but DO NOT have:
+
+       .savingFlash
+
+   For those products only, create a
+   matching roundel.
+
+   Products which already have .savingFlash
+   will NOT receive this fallback.
+*/
+
+.category-box:has(.mainButtonGrey.email):not(:has(.savingFlash))::after {
+    content: "EMAIL\A WHEN\A AVAILABLE";
+
+    position: absolute;
+
+    /*
+       Match the position of the original
+       roundel over the product image.
+    */
+    top: -8px;
+    right: -8px;
+
+    /*
+       Match original roundel size.
+    */
+    width: 70px;
+    height: 70px;
+
+    min-width: 70px;
+    min-height: 70px;
+
+    box-sizing: border-box;
+
+    /*
+       Circular badge.
+    */
+    border-radius: 50%;
+
+    /*
+       Original grey badge colour.
+    */
+    background: #6b6b6b;
+
+    /*
+       White edge around the roundel.
+    */
+    border: 2px solid #fff;
+
+    /*
+       Text styling.
+    */
+    color: #fff;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.05;
+    text-align: center;
+
+    white-space: pre;
+
+    /*
+       Centre text exactly.
+    */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /*
+       Ensure it sits above the product image.
+    */
+    z-index: 30;
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   ENSURE FALLBACK IS ABOVE IMAGE
+   ========================================= */
+
+.category-box:has(.mainButtonGrey.email):not(:has(.savingFlash)) {
+    isolation: isolate;
+}
+
+
+/* =========================================
+   PRICE + STARS
+   Mobile / tablet: original stack (stars above price)
+   Desktop: one row — price left, stars right
+   ========================================= */
+
+.category-box .yg-plp-meta {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0;
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.category-box .yg-plp-meta .priceWrapper,
+.category-box .yg-plp-meta .rating {
+    float: none !important;
+    clear: none !important;
+    width: 100% !important;
+    max-width: none !important;
+}
+
+.category-box .yg-plp-meta .rating {
+    order: 1;
+    text-align: center !important;
+}
+
+.category-box .yg-plp-meta .priceWrapper {
+    order: 2;
+    text-align: center !important;
+}
+
+.category-box .yg-plp-meta .price {
+    float: none !important;
+    text-align: center !important;
+}
+
+@media (min-width: 1024px) {
+    .category-box .yg-plp-meta {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px;
+        padding: 6px 8px 12px !important;
+        line-height: 0 !important;
+    }
+
+    .category-box .yg-plp-meta .priceWrapper,
+    .category-box .yg-plp-meta .rating {
+        display: flex !important;
+        align-items: center !important;
+        width: auto !important;
+        min-width: 0 !important;
+        height: 20px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        line-height: 0 !important;
+    }
+
+    .category-box .yg-plp-meta .priceWrapper {
+        order: 1;
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        text-align: left !important;
+    }
+
+    .category-box .yg-plp-meta .price {
+        float: none !important;
+        display: block !important;
+        text-align: left !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 20px !important;
+        white-space: nowrap;
+    }
+
+    .category-box .yg-plp-meta .rating {
+        order: 2;
+        flex: 0 1 auto;
+        justify-content: flex-end;
+        text-align: right !important;
+    }
+
+    .category-box .yg-plp-meta .feefo-product-stars-widget {
+        display: flex !important;
+        align-items: center !important;
+        margin: 0 !important;
+        height: 20px !important;
+        line-height: 0 !important;
+        vertical-align: middle;
+    }
+}

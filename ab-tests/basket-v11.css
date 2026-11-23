@@ -1,0 +1,76 @@
+/**
+ * Crazy Egg → Edit CSS (VARIANT 11)
+ * We accept icons only — keep look unchanged, make clickable.
+ * No new SVG express buttons / payment-grid.
+ * Amazon + PayPal stay in original right-column positions.
+ *
+ * Pair with basket-v11.js
+ */
+
+ .h1Wrapper .cards-wrapper .cards.ce-card-linked {
+    position: relative !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .h1Wrapper .cards-wrapper .cards.ce-card-unavailable {
+    cursor: default !important;
+    pointer-events: none !important;
+    opacity: 0.55 !important;
+  }
+  
+  /* Stand-in while live PayPal is borrowed under the We accept icon */
+  .ce-paypal-placeholder {
+    display: none;
+    width: 100% !important;
+    height: 48px !important;
+    margin: 0 0 8px !important;
+    border-radius: 4px !important;
+    background: #ffc439 !important;
+    box-sizing: border-box !important;
+    pointer-events: auto !important;
+  }
+  
+  .ce-paypal-placeholder.is-visible {
+    display: block !important;
+  }
+  
+  .ce-paypal-borrowed {
+    opacity: 0.02 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    pointer-events: auto !important;
+  }
+  
+  .ce-paypal-borrowed iframe,
+  .ce-paypal-borrowed > * {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border: none !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+  }
+  
+  /* Club: hide More Information; header + amount are the link */
+  .clubSavingWrapper .clubBuyWrapper {
+    display: none !important;
+  }
+  
+  .clubSavingWrapper > a.ce-club-link {
+    display: block !important;
+    color: inherit !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  .clubSavingWrapper > a.ce-club-link:hover,
+  .clubSavingWrapper > a.ce-club-link:focus {
+    text-decoration: none !important;
+    outline: none !important;
+  }
+  

@@ -1,0 +1,211 @@
+/**
+ * Crazy Egg — PDP sticky Add to Basket (desktop / tablet, bottom-left)
+ *
+ * Same Sarah Raven-style card as the right-hand variant, pinned
+ * bottom-left. YouGarden colours and type. Hidden below 600px.
+ * Shows once #plantcalendar is on screen and the live buy button
+ * has scrolled away. Hides when the site footer enters the screen.
+ * #return-to-top stays on the right so the two do not stack.
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-pdp-sticky-atb-desktop-left.js
+ */
+
+@media (min-width: 600px) {
+  .ce-yg-atb-l {
+    position: fixed !important;
+    left: 24px !important;
+    right: auto !important;
+    bottom: 24px !important;
+    top: auto !important;
+    z-index: 2147483000 !important;
+    display: none;
+    box-sizing: border-box;
+    width: 460px;
+    max-width: calc(100vw - 32px);
+    margin: 0;
+    padding: 12px 14px;
+    transform: none;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px !important;
+    background: #ffffff;
+    color: #222222;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+    font-family: Arial, Helvetica, sans-serif;
+    pointer-events: auto;
+  }
+
+  html.ce-yg-atb-l-on .ce-yg-atb-l {
+    display: flex !important;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .ce-yg-atb-l__img {
+    display: block;
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #f3f3f3;
+  }
+
+  .ce-yg-atb-l.is-no-img .ce-yg-atb-l__img {
+    display: none;
+  }
+
+  .ce-yg-atb-l__main {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ce-yg-atb-l__copy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 12px;
+    row-gap: 2px;
+    align-items: start;
+  }
+
+  .ce-yg-atb-l__title {
+    grid-column: 1;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #222222;
+    letter-spacing: 0;
+    text-transform: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ce-yg-atb-l__sub {
+    grid-column: 1;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #666666;
+    letter-spacing: 0;
+    text-transform: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ce-yg-atb-l__price {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: start;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #e3185d;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .ce-yg-atb-l__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .ce-yg-atb-l__options,
+  .ce-yg-atb-l__buy {
+    flex: 1 1 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    margin: 0;
+    padding: 0 12px;
+    border-radius: 10px !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .ce-yg-atb-l__options {
+    border: 1px solid #468900;
+    background: #ffffff;
+    color: #468900;
+    text-transform: none;
+  }
+
+  .ce-yg-atb-l__options:hover {
+    background: #f4f8ee;
+  }
+
+  .ce-yg-atb-l.is-no-options .ce-yg-atb-l__options {
+    display: none;
+  }
+
+  .ce-yg-atb-l.is-no-options .ce-yg-atb-l__title {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .ce-yg-atb-l.is-no-options .ce-yg-atb-l__price {
+    font-size: 20px;
+    align-self: center;
+  }
+
+  .ce-yg-atb-l.is-no-options .ce-yg-atb-l__sub:empty {
+    display: none;
+  }
+
+  .ce-yg-atb-l.is-no-options .ce-yg-atb-l__buy {
+    flex: 1 1 100%;
+  }
+
+  .ce-yg-atb-l__buy {
+    border: 0;
+    background: #468900;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+
+  .ce-yg-atb-l__buy:hover {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  html.ce-yg-atb-l-on #style-options,
+  html.ce-yg-atb-l-on #style-options-drop-box {
+    scroll-margin-top: 120px;
+    scroll-margin-bottom: 16px;
+  }
+
+  html.ce-yg-atb-l-on [id$='__notification'] {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .ce-yg-atb-l {
+    left: 16px !important;
+    bottom: 16px !important;
+    width: 420px;
+    max-width: calc(100vw - 24px);
+  }
+}
+
+@media (max-width: 599px) {
+  .ce-yg-atb-l {
+    display: none !important;
+  }
+}

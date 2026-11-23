@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/definition.ts","./src/main.tsx","./src/vite-env.d.ts","./src/blocks/emailcaptureblock.tsx","./src/blocks/gardenspaceblock.tsx","./src/blocks/sunexposureblock.tsx","./src/blocks/index.ts","./src/runner/customrunner.tsx","./src/runner/blocks.tsx"],"version":"5.6.3"}

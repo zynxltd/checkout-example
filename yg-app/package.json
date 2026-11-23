@@ -1,0 +1,23 @@
+{
+  "name": "yougarden-app",
+  "private": true,
+  "description": "YouGarden App Store shell around yougarden.com",
+  "scripts": {
+    "dev": "npx --yes serve www -p 5177",
+    "sync": "npx cap sync",
+    "ios": "npx cap add ios && npx cap sync ios && npx cap open ios",
+    "android": "npx cap add android && npx cap sync android && npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/ios": "^8.0.0",
+    "@capacitor/network": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.0.0"
+  }
+}

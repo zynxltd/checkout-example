@@ -1,0 +1,248 @@
+{# Coupon Bar - Email #}
+
+<div class="{{safeid}}__sb-container imagecontainer" style="width: {{ fields.width }}px; max-width:100%; height: {{ fields.height }}px; margin: 0 auto;">
+
+    <div class="{{safeid}}__sb-root">
+
+        <div class="{{safeid}}__content">
+        
+            {% if valid %}
+
+                {% if fields.headline.active %}
+                <div class="{{safeid}}__headline">
+                    <a href="{{ mergeField(fields.smartblockHref, {})|set_ga_tracking(
+                        utm_campaign=mergeField(fields.utmCampaign, {}), 
+                        utm_medium=mergeField(fields.utmMedium, {}), 
+                        utm_source=mergeField(fields.utmSource, {})) }}">
+
+                            {{ mergeField(fields.headline.text) }}
+
+                    </a>
+                </div>
+                {% endif %}
+
+                <div class="{{safeid}}__coupon-holder" style="display:block; width:100%; margin:0 auto; text-align:center;">
+
+                    <div class="{{safeid}}__coupon-frame" style="display:table; margin:0 auto; padding:4px; background-color:#c5a75d; background-image:linear-gradient(135deg,#9f7c30 0%,#ead99d 48%,#a88436 100%); border:1px solid #8c6b26; border-radius:14px; box-shadow:0 4px 14px rgba(69,52,14,0.18);">
+                        <div class="{{safeid}}__coupon" id="{{safeid}}__coupon" style="display:flex; align-items:center; justify-content:center; min-width:140px; margin:0 auto; padding:10px 20px; background-color:#ffffff; border:2px dashed #264f1c; border-radius:9px; box-shadow:inset 0 0 0 2px #f6f1df; font-family:'Courier New',Courier,monospace; font-size:20px; line-height:1.2; color:#264f1c; font-weight:700; letter-spacing:1.5px; text-align:center; white-space:nowrap; overflow-wrap:anywhere; word-break:break-word;">
+                            {{coupon}}
+
+                            {% if fields.icon.active %}
+                                <span>
+                                    {{ copyImages[fields.icon.iconShape] }}
+                                </span> 
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+            
+            {% else %}
+            
+                {% if fields.notAvailableMsg.active %}
+                    <div class="{{safeid}}__not-available">
+                        <span>{{ mergeField(fields.notAvailableMsg.text) }}</span>
+                    </div>
+                {% endif %}
+            
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+    .{{safeid}}__sb-container * {
+        box-sizing: border-box;
+    }
+
+    .{{safeid}}__sb-container a {
+        text-decoration: none;
+    }
+
+    .{{safeid}}__sb-root {
+    	{% if not fields.notAvailableMsg.active and campaign_expired %}
+        	display: none;
+        {% else %}
+        	display: flex;
+        {% endif %}
+        align-items: center;
+        width: {{ fields.width }}px;
+        max-width: 100%;
+        height: {{ fields.height }}px;
+        padding: {{ fields.padding.size + fields.padding.unit if valid else '0px' }};
+        margin: auto;
+        background-color: {{ fields.backgroundColor }};
+        border-radius: {{ fields.borderRadius }};
+        {% if fields.outerBorder.active %}
+            border: {{ fields.outerBorder.weight }}px {{ fields.outerBorder.style }} {{ fields.outerBorder.color }};
+        {% endif %}
+    }
+
+    .{{safeid}}__content {
+        width: {{ fields.width }}px;
+        max-width: 100%;
+        height: {{ fields.height }}px;
+        display: flex;
+        align-items: center;
+        padding: 6px 14px;
+        background-color: #f8f5e9;
+        background-image: linear-gradient(135deg, #fffdf7 0%, #f1f6ed 52%, #f4ead0 100%);
+        border: 1px solid #d8c58e;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(93, 72, 24, 0.11);
+        {% if fields.headline.active and not campaign_expired %}
+            gap: 18px;
+            {% if fields.couponAlignment == 'flex-start' %}
+                flex-direction: row-reverse;
+            {% endif %}
+        {% endif %}
+        {% if not fields.headline.active and not campaign_expired %}
+            justify-content: {{ fields.couponAlignment }};
+        {% endif %}
+        {% if fields.notAvailableMsg.active and campaign_expired %}
+        	display: flex;
+            justify-content: {% if fields.notAvailableMsg.alignment == 'center' %}center{% else %}{{ 'flex-start' if fields.notAvailableMsg.alignment == 'left' else 'flex-end' }}{% endif %};
+        {% endif %}
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 8px;
+    }
+
+    .{{safeid}}__headline {
+        display: flex;
+        flex-grow: 0;
+        align-items: center;
+        justify-content: center !important;
+        width: 100%;
+        padding: 0;
+        text-align: center;
+        line-height: 1.25;
+        font-family: {{ fields.headline.font }};
+        font-size: {{ fields.headline.fontSize.size }}{{ fields.headline.fontSize.unit }};
+        color: {{ fields.headline.color.foreground }};
+        background-color: {{ fields.headline.color.background }};
+        font-weight: {{ 'bold' if fields.headline.bold else 'normal' }};
+        font-style: {{ 'italic' if fields.headline.italics else 'normal' }};
+        justify-content: {{ fields.headline.alignment }};
+        padding: {{ fields.headline.padding.size }}{{ fields.headline.padding.unit }};
+    }
+
+    .{{safeid}}__headline a {
+        font-family: inherit;
+        font-size: inherit;
+        color: inherit;
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .{{safeid}}__coupon-holder {
+        display: block !important;
+        width: 100% !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
+        text-align: center !important;
+    }
+
+    .{{safeid}}__coupon-frame {
+        display: table !important;
+        margin-right: auto !important;
+        margin-left: auto !important;
+    }
+
+    .{{safeid}}__coupon {
+        display: flex;
+        align-items: center;
+        justify-content: {{ fields.couponAlignment }};
+        gap: 10px;
+        font-family: {{ fields.couponFont }};
+        font-size: {{ fields.couponFontSize.size }}{{ fields.couponFontSize.unit }};
+        color: {{ fields.couponColor.foreground }};
+        background-color: {{ fields.couponColor.background }};
+        font-weight: {{ 'bold' if fields.couponBold else 'normal' }};
+        font-style: {{ 'italic' if fields.couponItalics else 'normal' }};
+        padding: {{ fields.couponPadding.size }}{{ fields.couponPadding.unit }};
+        {% if fields.couponBorder.active %}
+            border: {{ fields.couponBorder.weight }}px {{ fields.couponBorder.style }} {{ fields.couponBorder.color }};
+        {% endif %}
+        {% if fields.couponShape != 'rectangle' %}
+            {% if fields.couponShape == 'rounded-rectangle' %}
+                border-radius: 8px;
+            {% elif fields.couponShape == 'circle' %}
+                border-radius: 50%;
+                aspect-ratio: 1 / 1;
+            {% elif fields.couponShape == 'pill' %}
+                border-radius: {{ 'calc(' + fields.couponFontSize.size + fields.couponFontSize.unit + ' + ' + (fields.couponPadding.size / 2) + fields.couponPadding.unit + ')' }};
+            {% endif %}
+        {% endif %}
+        {% if fields.icon.active %}
+            cursor: pointer;
+        {% endif %}
+    }
+    
+    .{{safeid}}__not-available {
+    	font-family: {{ fields.notAvailableMsg.font }};
+        font-size: {{ fields.notAvailableMsg.fontSize.size }}{{ fields.notAvailableMsg.fontSize.unit }};
+        color: {{ fields.notAvailableMsg.color.foreground }};
+        background-color: {{ fields.notAvailableMsg.color.background }};
+        font-weight: {{ 'bold' if fields.notAvailableMsg.bold else 'normal' }};
+        font-style: {{ 'italic' if fields.notAvailableMsg.italics else 'normal' }};
+        padding: {{ fields.notAvailableMsg.padding.size }}{{ fields.notAvailableMsg.padding.unit }};
+        border-radius: {{ fields.notAvailableMsg.borderRadius }};
+        text-align: {{ fields.notAvailableMsg.alignment }};
+    	{% if fields.notAvailableMsg.border %}
+            border: {{ fields.notAvailableMsg.borderWeight }}px {{ fields.notAvailableMsg.borderStyle }} {{ fields.notAvailableMsg.borderColor }};
+        {% endif %}
+    }
+
+    @media only screen and (max-width: 480px) {
+        .{{safeid}}__sb-container {
+            width: 100% !important;
+            height: auto !important;
+            min-height: {{ fields.height }}px;
+        }
+
+        .{{safeid}}__sb-root {
+            width: 100% !important;
+            height: auto !important;
+            min-height: {{ fields.height }}px;
+            padding: 12px !important;
+        }
+
+        .{{safeid}}__content {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 96px;
+            padding: 12px;
+            gap: 10px;
+        }
+
+        .{{safeid}}__headline {
+            width: 100% !important;
+            padding: 0 !important;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .{{safeid}}__coupon {
+            min-width: 0 !important;
+            width: auto !important;
+            max-width: 200px;
+            padding: 11px 16px !important;
+            font-size: 18px !important;
+            letter-spacing: 1px !important;
+        }
+
+        .{{safeid}}__coupon-holder,
+        .{{safeid}}__coupon-frame {
+            margin-right: auto !important;
+            margin-left: auto !important;
+            text-align: center !important;
+        }
+    }
+
+</style>

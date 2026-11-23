@@ -1,0 +1,92 @@
+{# YouGarden Cart Abandon 3B - £5 off £50+ coupon #}
+
+<div class="{{safeid}}__sb-container imagecontainer" style="width:100%; max-width:{{ fields.width }}px; margin:0 auto;">
+    {% if valid %}
+    <table class="{{safeid}}__offer" width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation" style="width:100%; border-collapse:separate; background-color:#f2e7d8; border:1px solid #e4d5c2; border-radius:18px;">
+        <tr>
+            <td align="center" style="padding:24px 24px 22px 24px;">
+                <div class="{{safeid}}__eyebrow" style="margin:0 0 7px 0; font-family:Arial,Helvetica,sans-serif; font-size:11px; line-height:1.3; color:#e3185d; font-weight:700; letter-spacing:1px; text-transform:uppercase;">
+                    A little something for you
+                </div>
+
+                {% if fields.headline.active %}
+                <div class="{{safeid}}__headline" style="margin:0; font-family:Georgia,'Times New Roman',serif; font-size:25px; line-height:1.25; color:#264f1c; font-weight:700;">
+                    <a href="{{ mergeField(fields.smartblockHref, {})|set_ga_tracking(
+                        utm_campaign=mergeField(fields.utmCampaign, {}),
+                        utm_medium=mergeField(fields.utmMedium, {}),
+                        utm_source=mergeField(fields.utmSource, {})) }}" style="color:#264f1c; text-decoration:none;">
+                        {{ mergeField(fields.headline.text) }}
+                    </a>
+                </div>
+                {% else %}
+                <div class="{{safeid}}__headline" style="margin:0; font-family:Georgia,'Times New Roman',serif; font-size:25px; line-height:1.25; color:#264f1c; font-weight:700;">
+                    Enjoy £5 off your basket
+                </div>
+                {% endif %}
+
+                <div class="{{safeid}}__intro" style="margin:8px 0 17px 0; font-family:Arial,Helvetica,sans-serif; font-size:14px; line-height:1.5; color:#483f3a;">
+                    Complete your order and save £5 when you spend £50 or more.
+                </div>
+
+                <div class="{{safeid}}__code-label" style="margin:0 0 6px 0; font-family:Arial,Helvetica,sans-serif; font-size:10px; line-height:1.2; color:#6b7280; font-weight:700; letter-spacing:0.9px; text-transform:uppercase;">
+                    Your unique code
+                </div>
+
+                <table cellspacing="0" cellpadding="0" border="0" role="presentation" style="margin:0 auto; border-collapse:separate;">
+                    <tr>
+                        <td class="{{safeid}}__coupon" id="{{safeid}}__coupon" align="center" style="padding:12px 18px; background-color:#ffffff; border:2px dashed #264f1c; border-radius:10px; font-family:'Courier New',Courier,monospace; font-size:20px; line-height:1.2; color:#264f1c; font-weight:700; letter-spacing:1.4px; white-space:nowrap;">
+                            {{ coupon }}
+                            {% if fields.icon.active %}
+                            <span class="{{safeid}}__copy-icon" style="display:inline-block; padding-left:9px; vertical-align:middle;">
+                                {{ copyImages[fields.icon.iconShape] }}
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="{{safeid}}__terms" style="margin:12px 0 0 0; font-family:Arial,Helvetica,sans-serif; font-size:11px; line-height:1.4; color:#6b625b;">
+                    Enter the code at checkout. Minimum spend £50. Terms apply.
+                </div>
+            </td>
+        </tr>
+    </table>
+    {% else %}
+        {% if fields.notAvailableMsg.active %}
+        <div class="{{safeid}}__not-available" style="width:100%; padding:18px 20px; border:1px solid #e8ece6; border-radius:14px; background-color:#f9faf8; font-family:Arial,Helvetica,sans-serif; font-size:14px; line-height:1.4; color:#6b7280; text-align:center;">
+            {{ mergeField(fields.notAvailableMsg.text) }}
+        </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+<style>
+    .{{safeid}}__sb-container,
+    .{{safeid}}__sb-container * {
+        box-sizing: border-box;
+    }
+
+    .{{safeid}}__copy-icon img,
+    .{{safeid}}__copy-icon svg {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+    }
+
+    @media only screen and (max-width: 504px) {
+        .{{safeid}}__offer > tbody > tr > td {
+            padding: 20px 16px 18px 16px !important;
+        }
+
+        .{{safeid}}__headline {
+            font-size: 22px !important;
+        }
+
+        .{{safeid}}__coupon {
+            padding: 11px 13px !important;
+            font-size: 17px !important;
+            letter-spacing: 0.8px !important;
+        }
+    }
+</style>

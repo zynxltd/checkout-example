@@ -1,0 +1,217 @@
+<style>
+/**
+ * GD – rounded corners (14px) for promotional tiles and frontpage image.
+ */
+
+/* Promotional blocks — every tile image */
+.promotional-blocks .img-wrapper {
+	border-radius: 14px;
+	overflow: hidden;
+}
+
+.promotional-blocks .img-wrapper img {
+	border-radius: 14px;
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* Four-up row (.four, with or without .img-only-row): clip each card (image + overlay) */
+.promotional-blocks.four .item .static-box {
+	border-radius: 14px;
+	overflow: hidden;
+}
+
+.promotional-blocks.four .item .img-wrapper,
+.promotional-blocks.four .item .img-wrapper img {
+	border-radius: 14px;
+}
+
+/* Frontpage: body > div.frontpage > div:nth-child(6) > div > a > picture > img */
+body > div.frontpage > div:nth-child(6) > div > a > picture {
+	border-radius: 14px;
+	overflow: hidden;
+	display: block;
+}
+
+body > div.frontpage > div:nth-child(6) > div > a > picture > img {
+	border-radius: 14px;
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* Frontpage centralWrapper banner: #wrapper > div.frontpage > div.centralWrapper > div > a > picture > source */
+#wrapper > div.frontpage > div.centralWrapper > div > a > picture {
+	border-radius: 14px;
+	overflow: hidden;
+	display: block;
+}
+
+#wrapper > div.frontpage > div.centralWrapper > div > a > picture > source,
+#wrapper > div.frontpage > div.centralWrapper > div > a > picture > img {
+	border-radius: 14px;
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* Strip banner (nth-child 9) */
+body > div.frontpage > div:nth-child(9) > div.strip-banner > a > picture {
+	border-radius: 14px;
+	overflow: hidden;
+	display: block;
+}
+
+body > div.frontpage > div:nth-child(9) > div.strip-banner > a > picture > img {
+	border-radius: 14px;
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/*
+ * Sale strip banner — <a href="…/sale"><picture><img>…
+ * .strip-banner + div.frontpage so it works in any layout.
+ */
+.strip-banner a[aria-label="Sale"],
+.strip-banner a[href*="yougarden.com/sale"],
+.strip-banner a[href$="/sale"],
+div.frontpage a[aria-label="Sale"],
+div.frontpage a[href*="yougarden.com/sale"] {
+	border-radius: 14px;
+	overflow: hidden;
+	display: block;
+}
+
+.strip-banner a[aria-label="Sale"] picture,
+.strip-banner a[href*="yougarden.com/sale"] picture,
+.strip-banner a[href$="/sale"] picture,
+div.frontpage a[aria-label="Sale"] picture,
+div.frontpage a[href*="yougarden.com/sale"] picture,
+div.frontpage a[href$="/sale"] picture {
+	border-radius: 14px;
+	overflow: hidden;
+	display: block;
+}
+
+.strip-banner a[aria-label="Sale"] picture img,
+.strip-banner a[href*="yougarden.com/sale"] picture img,
+.strip-banner a[href$="/sale"] picture img,
+div.frontpage a[aria-label="Sale"] picture img,
+div.frontpage a[href*="yougarden.com/sale"] picture img,
+div.frontpage a[href$="/sale"] picture img {
+	border-radius: 14px;
+	display: block;
+	width: 100%;
+	height: auto;
+	vertical-align: top;
+}
+
+/*
+ * Strip banners — YouGarden Club & Yudu catalogue (incl. .centralWrapper .strip-banner)
+ */
+.strip-banner :is(
+	a[aria-label="Join the YouGarden Club"],
+	a[href*="yg-discount-club-annual-membership"],
+	a[href*="item-p-820001"],
+	a[aria-label="New Catalogue"],
+	a[href*="content.yudu.com"]
+),
+div.frontpage :is(
+	a[aria-label="Join the YouGarden Club"],
+	a[href*="yg-discount-club-annual-membership"],
+	a[aria-label="New Catalogue"],
+	a[href*="content.yudu.com"]
+) {
+	border-radius: 14px;
+	overflow: hidden;
+	display: block;
+}
+
+.strip-banner :is(
+	a[aria-label="Join the YouGarden Club"],
+	a[href*="yg-discount-club-annual-membership"],
+	a[href*="item-p-820001"],
+	a[aria-label="New Catalogue"],
+	a[href*="content.yudu.com"]
+) picture,
+div.frontpage :is(
+	a[aria-label="Join the YouGarden Club"],
+	a[href*="yg-discount-club-annual-membership"],
+	a[aria-label="New Catalogue"],
+	a[href*="content.yudu.com"]
+) picture {
+	border-radius: 14px;
+	overflow: hidden;
+	display: block;
+}
+
+.strip-banner :is(
+	a[aria-label="Join the YouGarden Club"],
+	a[href*="yg-discount-club-annual-membership"],
+	a[href*="item-p-820001"],
+	a[aria-label="New Catalogue"],
+	a[href*="content.yudu.com"]
+) picture img,
+div.frontpage :is(
+	a[aria-label="Join the YouGarden Club"],
+	a[href*="yg-discount-club-annual-membership"],
+	a[aria-label="New Catalogue"],
+	a[href*="content.yudu.com"]
+) picture img {
+	border-radius: 14px;
+	display: block;
+	width: 100%;
+	height: auto;
+	vertical-align: top;
+}
+
+/* Frontpage block (nth-child 10), first tile */
+body > div.frontpage > div:nth-child(10) > div > div > div:nth-child(1) > a > div > div.img-wrapper {
+	border-radius: 14px;
+	overflow: hidden;
+}
+
+body > div.frontpage > div:nth-child(10) > div > div > div:nth-child(1) > a > div > div.img-wrapper > img {
+	border-radius: 14px;
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* Frontpage block (nth-child 11): picture banner */
+body > div.frontpage > div:nth-child(11) > div > a > picture {
+	border-radius: 14px;
+	overflow: hidden;
+	display: block;
+}
+
+body > div.frontpage > div:nth-child(11) > div > a > picture > img {
+	border-radius: 14px;
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/* Frontpage block (nth-child 12): columns 1 & 2 + column wrapper */
+body > div.frontpage > div:nth-child(12) > div > div > div:nth-child(1) > a > div > div.img-wrapper,
+body > div.frontpage > div:nth-child(12) > div > div > div:nth-child(2) > a > div > div.img-wrapper {
+	border-radius: 14px;
+	overflow: hidden;
+}
+
+body > div.frontpage > div:nth-child(12) > div > div > div:nth-child(1) > a > div > div.img-wrapper > img,
+body > div.frontpage > div:nth-child(12) > div > div > div:nth-child(2) > a > div > div.img-wrapper > img {
+	border-radius: 14px;
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+body > div.frontpage > div:nth-child(12) > div > div > div:nth-child(2) {
+	border-radius: 14px;
+	overflow: hidden;
+}
+
+</style>

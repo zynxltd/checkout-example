@@ -1,0 +1,566 @@
+{
+	"name": "GD - Test x2 new",
+	"slug": "9kp0hyy",
+	"html": "",
+	"active": true,
+	"content_tag": "",
+	"content_type": "product",
+	"dt": "",
+	"template_style": "",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "",
+		"sortOrder": -1,
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "layout",
+				"name": "Core Settings",
+				"fields": [
+					{
+						"id": "width",
+						"name": "SmartBlock Width",
+						"description": "Set the maximum width of the SmartBlock",
+						"inline": true,
+						"type": "numeric",
+						"first": true,
+						"default": 1300,
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": false,
+						"jinjaMergeFields": [],
+						"allowNegative": false
+					},
+					{
+						"id": "fillSmartBlockParentContainer",
+						"name": "Fill SmartBlock Parent Container",
+						"description": "If active the SmartBlock will fill the parent container's width.",
+						"inline": true,
+						"type": "boolean",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": false,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "backgroundColor",
+						"name": "Background Color",
+						"description": "Set the background color for the SmartBlock",
+						"inline": true,
+						"type": "color",
+						"first": false,
+						"default": "#ffffffff",
+						"value": "",
+						"sortOrder": 3,
+						"meta": {
+							"tabTitles": {
+								"foreground": "",
+								"background": ""
+							},
+							"transparencyEnabled": [
+								false
+							]
+						}
+					},
+					{
+						"id": "cardGap",
+						"name": "Gap Between Cards",
+						"description": "Space between the two promotional cards in pixels",
+						"inline": true,
+						"type": "numeric",
+						"first": false,
+						"default": 16,
+						"value": "",
+						"sortOrder": 4,
+						"mergeJinja": false,
+						"jinjaMergeFields": [],
+						"allowNegative": false,
+						"meta": {
+							"min": 0,
+							"max": 48
+						}
+					},
+					{
+						"id": "cardBorderRadius",
+						"name": "Card Corner Radius",
+						"description": "Border radius for promotional cards in pixels",
+						"inline": true,
+						"type": "numeric",
+						"first": false,
+						"default": 16,
+						"value": "",
+						"sortOrder": 5,
+						"mergeJinja": false,
+						"jinjaMergeFields": [],
+						"allowNegative": false,
+						"meta": {
+							"min": 0,
+							"max": 32
+						}
+					}
+				],
+				"sortOrder": 0
+			},
+			{
+				"id": "headlineSection",
+				"name": "Headline",
+				"fields": [
+					{
+						"id": "headline",
+						"name": "Headline",
+						"description": "Enable / Disable the section headline",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 0,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"id": "text",
+								"name": "Text",
+								"description": "Enter the headline text",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "From the Gardeners' Corner",
+								"value": "",
+								"sortOrder": 0,
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the headline",
+								"inline": true,
+								"type": "font",
+								"first": false,
+								"default": "Arial",
+								"value": "",
+								"sortOrder": 1,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "size",
+								"name": "Font Size",
+								"description": "Adjust the font size for the headline",
+								"inline": true,
+								"type": "font_size",
+								"first": false,
+								"default": {
+									"size": 28,
+									"unit": "px"
+								},
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "colors",
+								"name": "Colors",
+								"description": "Set the text color for the headline",
+								"inline": true,
+								"type": "multiple_color",
+								"first": false,
+								"default": {
+									"foreground": "#483F3Aff",
+									"background": "#ffffffff"
+								},
+								"value": "",
+								"sortOrder": 3,
+								"meta": {
+									"tabTitles": {
+										"foreground": "Text",
+										"background": "Background"
+									},
+									"transparencyEnabled": [
+										false
+									]
+								}
+							},
+							{
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the headline text",
+								"inline": true,
+								"type": "bold",
+								"first": false,
+								"default": false,
+								"value": "",
+								"sortOrder": 4
+							},
+							{
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the position of the headline",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "Center",
+								"value": "",
+								"sortOrder": 5,
+								"options": [
+									[
+										"Left",
+										"Left"
+									],
+									[
+										"Center",
+										"Center"
+									],
+									[
+										"Right",
+										"Right"
+									]
+								]
+							}
+						]
+					},
+					{
+						"id": "showOverlayText",
+						"name": "Show Card Overlay Text",
+						"description": "Show title and description text over the bottom of each card when filled in",
+						"inline": true,
+						"type": "custom",
+						"first": false,
+						"default": false,
+						"value": "",
+						"sortOrder": 1,
+						"active": false,
+						"displayActive": true,
+						"subFields": []
+					}
+				],
+				"sortOrder": 1
+			},
+			{
+				"id": "promoCards",
+				"name": "Promotional Cards",
+				"fields": [
+					{
+						"id": "card1",
+						"name": "Card 1 (Left)",
+						"description": "Left promotional card — image, GIF, or video",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 0,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{
+								"id": "mediaType",
+								"name": "Media Type",
+								"description": "Choose image, animated GIF, or looping video",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "image",
+								"value": "",
+								"sortOrder": 0,
+								"options": [
+									[
+										"image",
+										"Image"
+									],
+									[
+										"gif",
+										"GIF"
+									],
+									[
+										"video",
+										"Video (MP4)"
+									]
+								]
+							},
+							{
+								"id": "image",
+								"name": "Image URL",
+								"description": "Image for image cards, or poster/fallback frame for video cards",
+								"inline": true,
+								"type": "image_url",
+								"first": false,
+								"default": "https://www.yougarden.com/csp/yougdn/web/images/pagecontent/YG/frontpage/64/Image-1.jpg",
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "gifUrl",
+								"name": "GIF URL",
+								"description": "Animated GIF URL (used when Media Type is GIF)",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "videoUrl",
+								"name": "Video URL",
+								"description": "MP4 video URL (used when Media Type is Video)",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 3
+							},
+							{
+								"id": "videoAutoplay",
+								"name": "Video Autoplay",
+								"description": "Autoplay video muted (recommended for homepage promo cards)",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 4
+							},
+							{
+								"id": "linkUrl",
+								"name": "Link URL",
+								"description": "Destination when the card is clicked",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "https://www.gardeningdirect.co.uk/gardeners-corner/",
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "ariaLabel",
+								"name": "Accessibility Label",
+								"description": "Short description for screen readers",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "Gardeners' Corner",
+								"value": "",
+								"sortOrder": 6
+							},
+							{
+								"id": "overlayTitle",
+								"name": "Overlay Title",
+								"description": "Optional title shown on the card when overlay text is enabled",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 7
+							},
+							{
+								"id": "overlayText",
+								"name": "Overlay Description",
+								"description": "Optional description shown on the card when overlay text is enabled",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 8
+							}
+						]
+					},
+					{
+						"id": "card2",
+						"name": "Card 2 (Right)",
+						"description": "Right promotional card — image, GIF, or video",
+						"inline": true,
+						"type": "custom",
+						"first": false,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": false,
+						"subFields": [
+							{
+								"id": "mediaType",
+								"name": "Media Type",
+								"description": "Choose image, animated GIF, or looping video",
+								"inline": true,
+								"type": "select",
+								"first": true,
+								"default": "image",
+								"value": "",
+								"sortOrder": 0,
+								"options": [
+									[
+										"image",
+										"Image"
+									],
+									[
+										"gif",
+										"GIF"
+									],
+									[
+										"video",
+										"Video (MP4)"
+									]
+								]
+							},
+							{
+								"id": "image",
+								"name": "Image URL",
+								"description": "Image for image cards, or poster/fallback frame for video cards",
+								"inline": true,
+								"type": "image_url",
+								"first": false,
+								"default": "https://www.yougarden.com/csp/yougdn/web/images/pagecontent/YG/frontpage/64/Image-2.jpg",
+								"value": "",
+								"sortOrder": 1
+							},
+							{
+								"id": "gifUrl",
+								"name": "GIF URL",
+								"description": "Animated GIF URL (used when Media Type is GIF)",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 2
+							},
+							{
+								"id": "videoUrl",
+								"name": "Video URL",
+								"description": "MP4 video URL (used when Media Type is Video)",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 3
+							},
+							{
+								"id": "videoAutoplay",
+								"name": "Video Autoplay",
+								"description": "Autoplay video muted (recommended for homepage promo cards)",
+								"inline": true,
+								"type": "boolean",
+								"first": false,
+								"default": true,
+								"value": "",
+								"sortOrder": 4
+							},
+							{
+								"id": "linkUrl",
+								"name": "Link URL",
+								"description": "Destination when the card is clicked",
+								"inline": true,
+								"type": "url",
+								"first": false,
+								"default": "https://www.gardeningdirect.co.uk/sale",
+								"value": "",
+								"sortOrder": 5,
+								"mergeJinja": false,
+								"jinjaMergeFields": []
+							},
+							{
+								"id": "ariaLabel",
+								"name": "Accessibility Label",
+								"description": "Short description for screen readers",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "Sale",
+								"value": "",
+								"sortOrder": 6
+							},
+							{
+								"id": "overlayTitle",
+								"name": "Overlay Title",
+								"description": "Optional title shown on the card when overlay text is enabled",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 7
+							},
+							{
+								"id": "overlayText",
+								"name": "Overlay Description",
+								"description": "Optional description shown on the card when overlay text is enabled",
+								"inline": true,
+								"type": "text",
+								"first": false,
+								"default": "",
+								"value": "",
+								"sortOrder": 8
+							}
+						]
+					}
+				],
+				"sortOrder": 2
+			},
+			{
+				"id": "redirects",
+				"name": "Tracking",
+				"fields": [
+					{
+						"id": "utmCampaign",
+						"name": "UTM Campaign",
+						"description": "The name of the Google Analytics campaign",
+						"inline": true,
+						"type": "text",
+						"first": true,
+						"default": "gd-home-2col-promo",
+						"value": "",
+						"sortOrder": 1,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmSource",
+						"name": "UTM Source",
+						"description": "The name of the Google Analytics referrer source",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "freshrelevance",
+						"value": "",
+						"sortOrder": 2,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"id": "utmMedium",
+						"name": "UTM Medium",
+						"description": "The name of the Google Analytics medium",
+						"inline": true,
+						"type": "text",
+						"first": false,
+						"default": "smartblock",
+						"value": "",
+						"sortOrder": 3,
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 3
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

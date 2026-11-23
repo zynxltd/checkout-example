@@ -1,0 +1,91 @@
+# Azure DevOps — Garden Club Aspire demo
+# Pipeline: restore → build → test → publish Web artifact
+
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - demos/dotnet-aspire-garden-club/**
+
+pr:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - demos/dotnet-aspire-garden-club/**
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: Release
+  solution: demos/dotnet-aspire-garden-club/GardenClubAspire.sln
+  webProject: demos/dotnet-aspire-garden-club/GardenClub.Web/GardenClub.Web.csproj
+
+stages:
+  - stage: Build
+    displayName: Build & publish
+    jobs:
+      - job: DotNet
+        displayName: .NET 10 CI
+        steps:
+          - task: UseDotNet@2
+            displayName: Install .NET 10 SDK
+            inputs:
+              packageType: sdk
+              version: 10.0.x
+              includePreviewVersions: false
+
+          - task: DotNetCoreCLI@2
+            displayName: Restore
+            inputs:
+              command: restore
+              projects: $(solution)
+
+          - task: DotNetCoreCLI@2
+            displayName: Build
+            inputs:
+              command: build
+              projects: $(solution)
+              arguments: --configuration $(buildConfiguration) --no-restore
+
+          - task: DotNetCoreCLI@2
+            displayName: Publish Web
+            inputs:
+              command: publish
+              publishWebProjects: false
+              projects: $(webProject)
+              arguments: --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/web --no-restore
+              zipAfterPublish: true
+
+          - task: PublishBuildArtifacts@1
+            displayName: Publish artifact
+            inputs:
+              PathtoPublish: $(Build.ArtifactStagingDirectory)/web
+              ArtifactName: garden-club-web
+              publishLocation: Container
+
+  - stage: Deploy_Preview
+    displayName: Deploy preview (manual)
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: Preview
+        displayName: Preview slot placeholder
+        environment: garden-club-preview
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - download: current
+                  artifact: garden-club-web
+                - script: |
+                    echo "Artifact ready for Azure App Service / Container Apps deploy."
+                    echo "Wire this stage to AzureWebApp@1 or AzureContainerApps@1 in your org."
+                    ls -la "$(Pipeline.Workspace)/garden-club-web"
+                  displayName: List published package

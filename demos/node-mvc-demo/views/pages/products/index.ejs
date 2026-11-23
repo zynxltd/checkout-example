@@ -1,0 +1,42 @@
+<%- include('../../partials/header') %>
+
+<section class="page-hero">
+  <div class="shell">
+    <h1>Products</h1>
+    <p>Loaded from the Product model via the products controller.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell">
+    <form class="search" method="get" action="/products">
+      <label>
+        <span class="sr-only">Search</span>
+        <input type="search" name="q" value="<%= q %>" placeholder="Search name or category" />
+      </label>
+      <button class="btn" type="submit">Search</button>
+    </form>
+
+    <% if (products.length === 0) { %>
+      <p class="muted">No products matched “<%= q %>”.</p>
+    <% } else { %>
+      <div class="product-list">
+        <% products.forEach(function (product) { %>
+          <a class="product-row" href="/products/<%= product.id %>">
+            <div>
+              <h2><%= product.name %></h2>
+              <p><%= product.summary %></p>
+            </div>
+            <div class="meta">
+              <span><%= product.priceDisplay %></span>
+              <span class="muted"><%= product.category %></span>
+              <span class="muted"><%= product.stockTone %></span>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../../partials/footer') %>

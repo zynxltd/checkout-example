@@ -1,0 +1,64 @@
+@using YgCartDrawer.Models
+@model CartState
+@{
+    var cart = Model;
+    var miniEmpty = cart.ItemCount < 1 || cart.Items.Count == 0;
+}
+<div class="yg-mini-basket" data-mini-basket>
+    <button type="button"
+            class="site-basket"
+            data-mini-basket-trigger
+            data-open-drawer
+            aria-label="Your basket, @cart.ItemCount item(s), £@cart.BasketTotal.ToString("0.00")"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="yg-mini-basket-panel">
+        Basket
+        <span id="header-cart-count" class="site-basket__count">@cart.ItemCount</span>
+        <span class="visually-hidden">
+            <span id="topbar-cart-count">@cart.ItemCount</span> item(s)
+            £<span id="topbar-cart-total" data-mini-basket-total>@cart.BasketTotal.ToString("0.00")</span>
+        </span>
+    </button>
+
+    <div class="yg-mini-basket__panel" id="yg-mini-basket-panel" data-mini-basket-panel hidden role="region" aria-label="Basket preview">
+        <span class="yg-mini-basket__caret" aria-hidden="true"></span>
+        <div class="yg-mini-basket__card">
+            <div class="yg-mini-basket__head">
+                <p class="yg-mini-basket__heading">Your Basket</p>
+                <p class="yg-mini-basket__count">
+                    <span id="yg-mini-basket-count-label">@cart.ItemCount</span> item(s)
+                </p>
+            </div>
+            <div class="yg-mini-basket__scroll" data-mini-basket-scroll>
+                @if (miniEmpty)
+                {
+                    <p class="yg-mini-basket__empty" data-mini-basket-empty>Your basket is empty</p>
+                }
+                else
+                {
+                    <ul class="yg-mini-basket__list" data-mini-basket-list>
+                        @foreach (var item in cart.Items)
+                        {
+                            <li class="yg-mini-basket__item" data-sku="@item.Sku">
+                                <img class="yg-mini-basket__img" src="@item.Image" alt="" width="56" height="56" loading="lazy">
+                                <div class="yg-mini-basket__meta">
+                                    <p class="yg-mini-basket__name">@item.Name</p>
+                                    <p class="yg-mini-basket__sku">Product No. @item.Sku</p>
+                                </div>
+                                <div class="yg-mini-basket__pricing">
+                                    <span class="yg-mini-basket__price">£@item.UnitPrice.ToString("0.00")</span>
+                                    <span class="yg-mini-basket__qty">Qty @item.Qty</span>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+            <div class="yg-mini-basket__foot">
+                <p class="yg-mini-basket__total">Total £<span data-mini-basket-total>@cart.BasketTotal.ToString("0.00")</span></p>
+                <button type="button" class="yg-mini-basket__cta" data-open-drawer id="demo-view-basket">View basket (@cart.ItemCount)</button>
+            </div>
+        </div>
+    </div>
+</div>

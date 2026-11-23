@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+
+    <!-- NuGet package metadata (what nuget.org / private feeds show) -->
+    <PackageId>GreenShelf.Pricing</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>YouGarden Demo</Authors>
+    <Company>YouGarden</Company>
+    <Description>Demo pricing helpers: margin + club member discounts. Packagist cousin for .NET.</Description>
+    <PackageTags>demo;pricing;yougarden;greenshelf</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/example/yg-cart-drawer-demo</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

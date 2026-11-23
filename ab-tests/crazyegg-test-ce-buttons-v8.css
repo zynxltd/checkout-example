@@ -1,0 +1,227 @@
+/**
+ * Crazy Egg → Edit CSS (VARIANT 8: 1×3 row, no title)
+ * PayPal | Amazon | Apple Pay — one row above basket table.
+ * No "Choose an express checkout" heading.
+ * Club savings: hide "More Information"; header + amount are the link.
+ * All viewports (mobile + desktop).
+ *
+ * Pair with crazyegg-test-ce-buttons-v8.js
+ */
+
+.payment-grid-wrap {
+  --ce-btn-h: 44px;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 10px 0 16px !important;
+  padding: 0 !important;
+  clear: both !important;
+  box-sizing: border-box !important;
+}
+
+/* Hide title if leftover from another variant */
+.payment-grid-wrap .ce-express-title {
+  display: none !important;
+}
+
+.payment-grid,
+.payment-grid--row {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  grid-auto-rows: var(--ce-btn-h) !important;
+  gap: 8px !important;
+  align-items: stretch !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* No Apple Pay: drop empty slot, keep two equal buttons */
+.payment-grid:has(.ce-express-slot--preview) {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.payment-grid .ce-express-slot--preview {
+  display: none !important;
+}
+
+.payment-grid .ce-express-slot {
+  position: relative !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: var(--ce-btn-h) !important;
+  max-height: var(--ce-btn-h) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 6px !important;
+  box-sizing: border-box !important;
+}
+
+.payment-grid .ce-express-slot--apple {
+  grid-column: auto !important;
+  justify-self: stretch !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.payment-grid .ce-express-face,
+.payment-grid .co-express-btn {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  line-height: 0 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  grid-column: auto !important;
+  box-sizing: border-box !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.payment-grid .ce-express-face::after,
+.payment-grid .co-express-btn::after {
+  content: "" !important;
+  display: block !important;
+  width: 100% !important;
+  height: var(--ce-btn-h) !important;
+  max-height: var(--ce-btn-h) !important;
+  border-radius: 6px !important;
+  background-color: transparent !important;
+  background-image: var(--co-express-bg) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+/* No Apple Pay device: must not show a hand cursor */
+.payment-grid .ce-express-slot--preview,
+.payment-grid .ce-express-slot--preview *,
+.payment-grid .ce-express-face[data-ce-preview="1"],
+.payment-grid .ce-express-face[data-ce-preview="1"]::after {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+.payment-grid .ce-express-live,
+.payment-grid .AmazonButtonWrapper.ce-express-live,
+.payment-grid #AmazonPayButton.ce-express-live,
+.payment-grid #paypal-button-container.ce-express-live,
+.payment-grid .pp-button-container.ce-express-live,
+.payment-grid #apple-pay.ce-express-live,
+.payment-grid .apple-pay-button-with-text.ce-express-live {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  height: var(--ce-btn-h) !important;
+  max-height: var(--ce-btn-h) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0.02 !important;
+  overflow: hidden !important;
+  float: none !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  box-sizing: border-box !important;
+  touch-action: manipulation;
+}
+
+/* Hide SVG face only when real Apple Pay is present (Safari needs the live control) */
+.payment-grid .ce-express-slot--apple:has(.ce-express-live) .ce-express-face {
+  display: none !important;
+}
+
+.payment-grid .ce-express-slot--apple .ce-express-live,
+.payment-grid .ce-express-slot--apple .ce-express-live--apple,
+.payment-grid .ce-express-slot--apple #apple-pay,
+.payment-grid .ce-express-slot--apple .apple-pay-button-with-text,
+.payment-grid .ce-express-slot--apple .apple-pay-button {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  pointer-events: auto !important;
+  z-index: 3 !important;
+  width: 100% !important;
+  height: var(--ce-btn-h) !important;
+  max-height: var(--ce-btn-h) !important;
+  min-height: var(--ce-btn-h) !important;
+  overflow: visible !important;
+}
+
+.payment-grid .ce-express-live iframe,
+.payment-grid .ce-express-live #AmazonPayButton,
+.payment-grid .ce-express-live > * {
+  width: 100% !important;
+  height: var(--ce-btn-h) !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border: none !important;
+  display: block !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+}
+
+.payment-grid .amazonpay-button-microtext,
+.payment-grid picture.amazonpay-button-microtext,
+.payment-grid picture {
+  display: none !important;
+  height: 0 !important;
+}
+
+.viewordRightWrapper .buttonsWrapper > hr {
+  display: none !important;
+}
+
+/* Club savings: hide "More Information", whole box is the link */
+.clubSavingWrapper .clubBuyWrapper {
+  display: none !important;
+}
+
+.clubSavingWrapper > a.ce-club-link {
+  display: block !important;
+  color: inherit !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.clubSavingWrapper > a.ce-club-link:hover,
+.clubSavingWrapper > a.ce-club-link:focus {
+  text-decoration: none !important;
+  outline: none !important;
+}
+
+/* Desktop: slightly taller buttons, more spacing */
+@media (min-width: 1001px) {
+  .payment-grid-wrap {
+    --ce-btn-h: 48px;
+    margin: 12px 0 20px !important;
+  }
+
+  .payment-grid,
+  .payment-grid--row {
+    gap: 10px !important;
+  }
+}
+
+/* Narrow phones: stack if three live buttons would be too tight */
+@media (max-width: 380px) {
+  .payment-grid:not(:has(.ce-express-slot--preview)) {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: var(--ce-btn-h) !important;
+    gap: 8px !important;
+  }
+}

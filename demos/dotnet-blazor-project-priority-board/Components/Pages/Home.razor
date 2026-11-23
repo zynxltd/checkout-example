@@ -1,0 +1,69 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using ProjectPriorityBoard.Models
+@using ProjectPriorityBoard.Services
+@inject ProjectService ProjectService
+@inject NavigationManager Navigation
+
+<PageTitle>Project Priority Board</PageTitle>
+
+<div class="container board">
+    <h1>Project Priority Board</h1>
+    <p>Manage your development projects in priority order.</p>
+
+    @if (isLoading)
+    {
+        <p class="loading">Loading projects...</p>
+    }
+    else
+    {
+        <div class="project-list">
+            @for (var index = 0; index < projects.Count; index++)
+            {
+                var i = index;
+                var project = projects[i];
+                <ProjectCard
+                    ProjectName="@project.Name"
+                    Deadline="@project.Deadline"
+                    Status="@project.Status"
+                    OnMoveUp="@(() => MoveProjectUp(i))"
+                    OnMoveDown="@(() => MoveProjectDown(i))"
+                    CanMoveUp="@(i > 0)"
+                    CanMoveDown="@(i < projects.Count - 1)"
+                    OnViewDetails="@(() => NavigateToDetails(i))" />
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private List<Project> projects = [];
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await ProjectService.GetAllProjectsAsync();
+        isLoading = false;
+    }
+
+    private void MoveProjectUp(int index)
+    {
+        if (index > 0)
+        {
+            (projects[index], projects[index - 1]) = (projects[index - 1], projects[index]);
+        }
+    }
+
+    private void MoveProjectDown(int index)
+    {
+        if (index < projects.Count - 1)
+        {
+            (projects[index], projects[index + 1]) = (projects[index + 1], projects[index]);
+        }
+    }
+
+    private void NavigateToDetails(int index)
+    {
+        Navigation.NavigateTo($"/project-detail/{index}");
+    }
+}

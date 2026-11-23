@@ -1,0 +1,1426 @@
+{# Most Popular #}
+
+{% if meta.preview == "true" %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endif %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+{# VARIABLES #}
+{% set yougardenBlue = "#264f1c" %}
+{% set yougardenBlueDark = "#1a3d14" %}
+{% set yougardenDark = "#2c3e50" %}
+{# Mockup stone — opaque match for rgba(242,231,216,0.5) on white (avoids hairline gaps when waves overlap) #}
+{% set yg_stone_default = "#f9f3eb" %}
+{# columns = desktop (≥1400). Breakpoints mirror Magento .category-promotion-carousel #}
+{% set cols = (fields.columns|default(8))|int %}
+{% set bp1_cols = (fields.breakpoint1.columnCount|default(5))|int %}
+{% set bp1_max = (fields.breakpoint1.minWindowWidth|default(1200))|int %}
+{% set bp2_cols = (fields.breakpoint2.columnCount|default(2))|int %}
+{% set bp2_max = (fields.breakpoint2.minWindowWidth|default(700))|int %}
+{# FR booleans can be true / 'true' / 1 depending on editor state #}
+{% set use_yg_stone = fields.ygStoneBackground == true or fields.ygStoneBackground == 'true' or fields.ygStoneBackground == 1 or fields.ygStoneBackground == '1' %}
+{# Waves default ON when stone is on; only off when ygStoneWaves is explicitly false #}
+{% set waves_off = fields.ygStoneWaves == false or fields.ygStoneWaves == 'false' or fields.ygStoneWaves == 0 or fields.ygStoneWaves == '0' %}
+{% set use_yg_waves = use_yg_stone and not waves_off %}
+{# Normalise Background Color — FR often stores white or semi-transparent stone #}
+{% set bg_raw = (fields.backgroundColor or '')|string|replace(' ', '')|lower %}
+{% set bg_is_white = bg_raw == '' or bg_raw == 'white' or bg_raw == '#fff' or bg_raw == '#ffffff' or bg_raw == '#ffffffff' or bg_raw == '#ffffff00' or bg_raw == '#fff0' or bg_raw == 'rgb(255,255,255)' or bg_raw == 'rgba(255,255,255,1)' or bg_raw == 'rgba(255,255,255,0)' or bg_raw == 'rgba(255,255,255,1.0)' %}
+{% set bg_is_stone_hex = 'f2e7d8' in bg_raw or 'f9f3eb' in bg_raw or '242,231,216' in bg_raw %}
+{% if use_yg_stone %}
+	{# Opaque mockup stone unless a custom non-stone colour is set #}
+	{% set sb_bg = yg_stone_default if (bg_is_white or bg_is_stone_hex) else fields.backgroundColor %}
+{% elif fields.backgroundColor and not bg_is_white %}
+	{% set sb_bg = fields.backgroundColor %}
+{% else %}
+	{% set sb_bg = '#FFFFFF' %}
+{% endif %}
+{% set yg_stone = sb_bg %}
+{# URL-encode fill for wavy-edge SVG data URIs #}
+{% set wave_fill = sb_bg|replace('#', '%23')|replace('(', '%28')|replace(')', '%29')|replace(',', '%2C')|replace(' ', '') %}
+{# Show Pagination toggle (Carousel Options) — dots only; arrows stay with carousel #}
+{% set show_pagination = fields.carouselPagination.active == true or fields.carouselPagination.active == 'true' or fields.carouselPagination.active == 1 or fields.carouselPagination.active == '1' %}
+{% set pagination_clickable = fields.carouselPagination.clickable == true or fields.carouselPagination.clickable == 'true' or fields.carouselPagination.clickable == 1 or fields.carouselPagination.clickable == '1' %}
+{% set pagination_color = fields.carouselPagination.color if fields.carouselPagination.color else '#dddddd' %}
+{% set pagination_active_color = fields.carouselPagination.activeColor if fields.carouselPagination.activeColor else '#264f1c' %}
+{# MOST POPULAR badge defaults ON; only hide when explicitly toggled off #}
+{% set most_popular_off = fields.image.mostPopularBadge == false or fields.image.mostPopularBadge == 'false' or fields.image.mostPopularBadge == 0 or fields.image.mostPopularBadge == '0' %}
+{% set show_most_popular = not most_popular_off %}
+
+{% if fields.image.salesBadge == "yougarden" %}
+    {% set salesBadgeColor = "#e3185d" %}
+{% elif fields.image.salesBadge == "gardeningdirect" %}
+    {% set salesBadgeColor = "#d00" %}
+{% elif fields.image.salesBadge == "plantsmailshop" %}
+    {% set salesBadgeColor = "#de6926" %}
+{% elif fields.image.salesBadge == "roses.co.uk" %}
+    {% set salesBadgeColor = "#f2eadd" %}
+{% endif %}
+
+
+<div class="{{safeid}} {{safeid}}__sb-wrapper">
+
+    {# headline start #}
+	{% if fields.headline.active %}
+
+    <div class="{{safeid}}__headline-wrapper"{% if not fields.headline.linkUrl %} role="presentation" onclick="event.preventDefault(); event.stopPropagation(); return false;"{% endif %}>
+		{% if fields.headline.linkUrl %}
+			<a class="{{safeid}}__headline-link" href="{{ mergeField(fields.headline.linkUrl)|set_ga_tracking(
+				utm_campaign=mergeField(fields.utmCampaign, {}),
+				utm_medium=mergeField(fields.utmMedium, {}),
+				utm_source=mergeField(fields.utmSource, {})) }}">
+				<span class="{{safeid}}__headline-text">{{ mergeField(fields.headline.text) }}</span>
+			</a>
+		{% else %}
+			<span class="{{safeid}}__headline-text">{{ mergeField(fields.headline.text) }}</span>
+		{% endif %}
+    </div>
+
+{% endif %}
+{# headline end #}
+
+{# sub-headline start #}
+{% if fields.subHeadline.active %}
+
+    <div class="{{safeid}}__sub-headline" role="presentation" onclick="event.preventDefault(); event.stopPropagation(); return false;">
+        {{ fields.subHeadline.text }}
+    </div>
+
+{% endif %}
+{# sub-headline end #}
+
+{% if fields.divider.active %}
+
+    {% if fields.divider.active %}
+        <div class="{{safeid}}__divider"></div>
+    {% endif %}
+
+{% endif %}
+
+    {# products start #}
+
+    <div class="{{safeid}}__slick">
+
+        {% for row in products|batch(cols) %}
+            {% for product in row %}
+                {# product card start #}
+                <div class="slick-slide imagecontainer">
+                    <div class="custom-product-box {{safeid}}__custom-product-box">
+
+
+                        {# product image start #}
+                        {% if fields.image.active %}
+                            <div class="{{safeid}}__product-image">
+                                <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                    utm_campaign=mergeField(fields.utmCampaign, {}),
+                                    utm_medium=mergeField(fields.utmMedium, {}),
+                                    utm_source=mergeField(fields.utmSource, {})) }}">
+                                    {# MOST POPULAR badge overlay - top left #}
+                                    {% if show_most_popular %}
+                                    <div class="{{safeid}}__most-popular-badge">MOST POPULAR</div>
+                                    {% endif %}
+                                    {% set saving = (product.ruv - product.uv) / product.ruv * 100 %}
+                                    {% if saving > 0 %}
+                                    <div class="{{ safeid }}__savings-badge"><div class="save"><span class="percentage">{{ saving|round(0) }}<span class="symbol">%</span></span><br>OFF</div></div>
+                                    {% endif %}
+                                    <img src="{{ product.img }}" loading="lazy" alt="{{ product.n }}">
+                                </a>
+                            </div>
+                        {% endif %}
+                        {# product image end #}
+
+                        {# social proof start #}
+                        {% if fields.socialProofMessaging.active  %}
+                            <div class="{{safeid}}__social-proof">
+                                {{ socialProof(product) }}
+                            </div>
+                        {% endif %}
+                        {# social proof end #}
+
+                        {# ratings start #}
+                        {% if fields.ratingIcons.active %}
+                            <div class="{{safeid}}__ratings">
+                                {% if product|addProductRatings %}
+                                    {{ product| addProductRatings }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        {# ratings end #}
+
+                        {# product name start #}
+                        {% if fields.productName.active  %}
+                            <div class="{{safeid}}__product-name">
+                                <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                    utm_campaign=mergeField(fields.utmCampaign, {}),
+                                    utm_medium=mergeField(fields.utmMedium, {}),
+                                    utm_source=mergeField(fields.utmSource, {})) }}">
+                                    {{ product.n }}
+                                </a>
+                            </div>
+                        {% endif %}
+                        {# product name end #}
+
+                        {# Fancy Centered Price Container #}
+                        <div class="{{safeid}}__product-price-container-fancy">
+                            {# product was price start #}
+                            {% if fields.productWasPrice.active %}
+                                <div class="{{safeid}}__product-was-price">
+                                    {% if product.ruv and product.ruv > product.uv %}
+                                         <span>{{ product.ruv|format_currency(product.curr, 2) }}</span>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {# product was price end #}
+
+                            {# product price start #}
+                            {% if fields.productPrice.active %}
+                                <div class="{{safeid}}__product-price-fancy">
+                                    <a href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                        utm_campaign=mergeField(fields.utmCampaign, {}),
+                                        utm_medium=mergeField(fields.utmMedium, {}),
+                                        utm_source=mergeField(fields.utmSource, {})) }}" target="_blank">
+                                        <span class="{{safeid}}__price-label">From</span>
+                                        <span class="{{safeid}}__price-amount">{{ product.uv|format_currency(product.curr,2) }}</span>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {# product price end #}
+                        </div>
+                        {# product price end #}
+
+
+
+                            {# cta start #}
+                            {% if fields.callToAction.active %}
+                                <a class="{{safeid}}__product-cta-button" href="{{ mergeField(fields.redirectURL, { product: product })|set_ga_tracking(
+                                        utm_campaign=mergeField(fields.utmCampaign, {}),
+                                        utm_medium=mergeField(fields.utmMedium, {}),
+                                        utm_source=mergeField(fields.utmSource, {})) }}" target="_blank">
+                                    {{ fields.callToAction.text }}
+                                </a>
+                            {% endif %}
+                            {# cta end #}
+                    </div>
+
+                </div>
+                {# product card end #}
+            {% endfor %}
+        {% endfor %}
+
+    </div>
+    {# products end #}
+
+    {# Mockup pager: ‹  ●━━  ○  ›  — centered below carousel #}
+    <div class="{{safeid}}__pager"></div>
+
+</div>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<style>
+/* Space below category pager so homepage Most Popular waves sit clear */
+.frontpage .category-promotion-wrapper .category-promotion-carousel .slick-dots,
+.frontpage .category-promotion-carousel.slick-dotted .slick-dots,
+.category-promotion-carousel .slick-dots {
+	margin-bottom: 56px !important;
+	padding-bottom: 8px !important;
+}
+    .{{safeid}}__slick {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .{{safeid}}__slick .slick-slide {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        /* Match category-promotion-carousel: no slide gutters */
+        padding: 0 !important;
+        margin: 0 !important;
+        {% if use_yg_stone %}
+            background-color: transparent !important;
+        {% elif fields.cardStyling.active %}
+            background-color: {{ fields.cardStyling.backgroundColor }};
+            border-radius: {{ fields.cardStyling.cornerStyle }};
+            {% if fields.cardStyling.shadowtoggle %}
+                box-shadow: 0px 0px 10px 0px;
+            {% endif %}
+            {% if fields.cardStyling.toggleBorder %}
+                border: {{ fields.cardStyling.borderWidth }}px {{ fields.cardStyling.borderStyle }} {{ fields.cardStyling.borderColor }};
+            {% endif %}
+        {% endif %}
+        align-items: unset;
+    }
+
+    .{{safeid}}__slick.slick-initialized .slick-slide, .slick-track {
+        display: flex;
+    }
+
+
+    /* ── Match Magento .category-promotion-carousel pager exactly ── */
+    .{{safeid}}__pager {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        width: 100%;
+        margin: 20px 0 0 0;
+        padding: 0;
+        min-height: 24px;
+        box-sizing: border-box;
+        z-index: 2;
+    }
+
+    .{{safeid}}__pager:empty {
+        display: none;
+    }
+
+    /* Arrows — same FA chevron SVG as Magento .category-promotion-carousel */
+    .{{safeid}}__pager .slick-arrow {
+        position: relative !important;
+        top: auto !important;
+        bottom: auto !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: none !important;
+        box-shadow: none !important;
+        opacity: 1 !important;
+        font-size: 18px !important;
+        line-height: 1 !important;
+        color: #264f1c !important;
+        text-indent: 0 !important;
+        overflow: visible !important;
+        cursor: pointer;
+        z-index: 999;
+        flex: 0 0 auto;
+        transition: color 0.4s;
+    }
+
+    .{{safeid}}__pager .slick-arrow:hover {
+        color: #000 !important;
+        opacity: 1 !important;
+        background: none !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+
+    .{{safeid}}__pager .slick-arrow.slick-disabled {
+        opacity: 0.35 !important;
+        cursor: default;
+    }
+
+    .{{safeid}}__pager .slick-arrow:before,
+    .{{safeid}}__pager .slick-arrow:after {
+        display: none !important;
+        content: none !important;
+    }
+
+    .{{safeid}}__pager .slick-arrow svg {
+        display: inline-block;
+        width: 0.625em;
+        height: 1em;
+        vertical-align: -0.125em;
+        overflow: visible;
+    }
+
+    .{{safeid}}__pager .slick-prev {
+        order: 1;
+        margin-right: 28px !important;
+    }
+
+    .{{safeid}}__pager .slick-next {
+        order: 3;
+        margin-left: 28px !important;
+    }
+
+    .{{safeid}}__slick > .slick-arrow {
+        display: none !important;
+    }
+
+    /*
+     * Magento styles the LI (button hidden):
+     * inactive li: 12×12 #ddd  |  active li: 40×12 #264f1c
+     */
+    .{{safeid}}__pager .slick-dots {
+        order: 2;
+        float: none;
+        text-align: center;
+        width: auto !important;
+        z-index: 999;
+        margin: 0 !important;
+        padding: 0 !important;
+        list-style: none;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        position: static !important;
+        bottom: auto;
+        line-height: 0;
+        height: 12px;
+    }
+
+    .{{safeid}}__pager .slick-dots li {
+        width: 12px !important;
+        height: 12px !important;
+        border-radius: 20px !important;
+        list-style: none;
+        cursor: {% if pagination_clickable %}pointer{% else %}default{% endif %};
+        margin: 0 5px !important;
+        padding: 0 !important;
+        display: inline-block !important;
+        background-color: {{ pagination_color }} !important;
+        transition: 0.4s;
+        vertical-align: middle;
+        {% if not pagination_clickable %}
+        pointer-events: none;
+        {% endif %}
+    }
+
+    /* Magento: hide button; slick binds click on the li */
+    .{{safeid}}__pager .slick-dots li button {
+        display: none !important;
+    }
+
+    .{{safeid}}__pager .slick-dots li button:before {
+        display: none !important;
+    }
+
+    .{{safeid}}__pager .slick-dots li.slick-active {
+        background-color: {{ pagination_active_color }} !important;
+        width: 40px !important;
+        height: 12px !important;
+        cursor: default;
+    }
+
+    {% if not show_pagination %}
+    /* Show Pagination toggle OFF — hide Magento-style pager (dots + arrows) */
+    .{{safeid}}__pager {
+        display: none !important;
+    }
+    .{{safeid}}__pager .slick-dots {
+        display: none !important;
+    }
+    {% endif %}
+
+    /* Legacy side-arrow styles kept inert (pager owns navigation now) */
+    .{{safeid}}__slick .slick-arrow {
+        display: none !important;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .{{safeid}}__pager {
+            margin-top: 14px;
+        }
+    }
+
+    /* slick list spacing above pager */
+    .{{safeid}}__slick {
+        padding-bottom: 0;
+    }
+    .{{safeid}}__slick .slick-dots {
+        display: none !important;
+    }
+
+    /* header styles */
+
+	/* Full-width shell — default in-flow (mobile-safe). Desktop breakout below. */
+	.{{safeid}},
+	.{{safeid}}.{{safeid}}__sb-wrapper,
+	.category-promotion-carousel .{{safeid}},
+	.slick-slider > .{{safeid}},
+	.slick-list .{{safeid}},
+	.category-promotion-wrapper .{{safeid}} {
+		display: block !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		box-sizing: border-box !important;
+		clear: both;
+		float: none !important;
+		position: relative !important;
+		left: auto !important;
+		right: auto !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		background-color: {{ sb_bg }} !important;
+		overflow-x: clip;
+	}
+
+	{% if use_yg_stone %}
+	/* Desktop only — 100vw breakout shifts/clips on mobile + device mode */
+	@media (min-width: 961px) {
+		.{{safeid}},
+		.{{safeid}}.{{safeid}}__sb-wrapper,
+		.category-promotion-carousel .{{safeid}},
+		.slick-slider > .{{safeid}},
+		.slick-list .{{safeid}},
+		.category-promotion-wrapper .{{safeid}} {
+			width: 100vw !important;
+			max-width: 100vw !important;
+			left: 50% !important;
+			right: 50% !important;
+			margin-left: -50vw !important;
+			margin-right: -50vw !important;
+			padding-left: calc(50vw - 50%) !important;
+			padding-right: calc(50vw - 50%) !important;
+			overflow: visible !important;
+		}
+	}
+	{% endif %}
+
+	/* NOTE: root markup is one div with BOTH .{{safeid}} and .{{safeid}}__sb-wrapper */
+	.{{safeid}}__sb-wrapper {
+		display:flex;
+		flex-direction: column;
+		position: relative;
+		z-index: 0;
+		box-sizing: border-box !important;
+		width: 100% !important;
+		max-width: none !important;
+		/* Same node as .{{safeid}} — keep stone fill (do not force transparent / margin:0) */
+		background-color: {{ sb_bg }} !important;
+		{% if use_yg_stone %}
+			padding: 16px 0 24px !important;
+			overflow: visible !important;
+			max-width: none !important;
+			width: 100% !important;
+		{% else %}
+			margin: 0 auto !important;
+			{% if not fields.fillSmartBlockParentContainer %}
+				max-width: {{ fields.width }}px !important;
+				width: 100% !important;
+			{% endif %}
+		{% endif %}
+		{% if fields.carouselActive  %}
+			max-height: fit-content;
+		{% endif %}
+		{% if fields.borders.active %}
+			border:{{ fields.borders.weight }}px solid {{ fields.borders.color or '#979797' }};
+		{% endif %}
+	}
+
+	/* Wavy stone band — waves on the same element as the fill (no white hairline seam).
+	   Opaque #f9f3eb ≈ rgba(242,231,216,0.5) on white. */
+	{% if use_yg_stone %}
+	/* Mobile / tablet — stay in flow; no 100vw breakout; keep side + bottom space */
+	@media (max-width: 960px) {
+		.{{safeid}},
+		.{{safeid}}.{{safeid}}__sb-wrapper {
+			width: 100% !important;
+			max-width: 100% !important;
+			left: auto !important;
+			right: auto !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+			margin-top: 24px !important;
+			margin-bottom: 40px !important;
+			padding-left: 16px !important;
+			padding-right: 16px !important;
+			padding-top: 16px !important;
+			padding-bottom: 28px !important;
+			background-color: {{ sb_bg }} !important;
+			{# Waves need visible overflow; without waves clip sideways scroll #}
+			{% if use_yg_waves %}
+			overflow: visible !important;
+			{% else %}
+			overflow-x: clip !important;
+			{% endif %}
+			transform: none !important;
+		}
+
+		.{{safeid}}__slick,
+		.{{safeid}}__slick .slick-list {
+			width: 100% !important;
+			max-width: 100% !important;
+			margin-left: 0 !important;
+			left: 0 !important;
+			box-sizing: border-box !important;
+		}
+	}
+	{% endif %}
+
+	{% if use_yg_waves %}
+	/*
+	 * Root is a single div.{{safeid}}.{{safeid}}__sb-wrapper — use both
+	 * classes so later __sb-wrapper { margin-top: 0 } cannot wipe spacing.
+	 * Waves on all viewports; 100vw breakout desktop-only (mobile stays in-flow).
+	 */
+	.{{safeid}}.{{safeid}}__sb-wrapper {
+		overflow: visible !important;
+		position: relative !important;
+		z-index: 0;
+		background-color: {{ sb_bg }} !important;
+	}
+
+	.{{safeid}}.{{safeid}}__sb-wrapper > .{{safeid}}__headline-wrapper,
+	.{{safeid}}.{{safeid}}__sb-wrapper > .{{safeid}}__sub-headline,
+	.{{safeid}}.{{safeid}}__sb-wrapper > .{{safeid}}__divider,
+	.{{safeid}}.{{safeid}}__sb-wrapper > .{{safeid}}__slick,
+	.{{safeid}}.{{safeid}}__sb-wrapper > .{{safeid}}__pager {
+		position: relative;
+		z-index: 1;
+	}
+
+	.{{safeid}}.{{safeid}}__sb-wrapper::before,
+	.{{safeid}}.{{safeid}}__sb-wrapper::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		width: 100%;
+		height: 28px;
+		pointer-events: none;
+		z-index: 0;
+		background-repeat: repeat-x;
+		background-size: 280px 28px;
+	}
+
+	.{{safeid}}.{{safeid}}__sb-wrapper::before {
+		top: 0;
+		transform: translateY(calc(-100% + 2px));
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 40' preserveAspectRatio='none'%3E%3Cpath fill='{{ wave_fill }}' d='M0 40V12Q100 0 200 12T400 12V40H0z'/%3E%3C/svg%3E");
+	}
+
+	.{{safeid}}.{{safeid}}__sb-wrapper::after {
+		bottom: 0;
+		transform: translateY(calc(100% - 2px));
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 40' preserveAspectRatio='none'%3E%3Cpath fill='{{ wave_fill }}' d='M0 0V28Q100 40 200 28T400 28V0H0z'/%3E%3C/svg%3E");
+	}
+
+	/* Mobile / tablet — room for waves; no 100vw (avoids sideways scroll) */
+	@media (max-width: 960px) {
+		.{{safeid}}.{{safeid}}__sb-wrapper {
+			margin-top: 48px !important;
+			margin-bottom: 48px !important;
+			padding-top: 12px !important;
+			padding-bottom: 28px !important;
+			overflow: visible !important;
+		}
+	}
+
+	@media (min-width: 961px) {
+		.{{safeid}}.{{safeid}}__sb-wrapper {
+			margin-top: 80px !important;
+			margin-bottom: 56px !important;
+			padding-top: 8px !important;
+			padding-bottom: 28px !important;
+		}
+
+		.{{safeid}}.{{safeid}}__sb-wrapper::before,
+		.{{safeid}}.{{safeid}}__sb-wrapper::after {
+			left: 50%;
+			width: 100vw;
+			margin-left: -50vw;
+			height: 40px;
+			background-size: 400px 40px;
+		}
+	}
+	{% endif %}
+
+	/* Carousel sits on the band — do not stack a second fill (that darkened the stone) */
+	.{{safeid}}__slick,
+	.{{safeid}}__slick .slick-list {
+		width: 100% !important;
+		max-width: 100% !important;
+		box-sizing: border-box !important;
+		background-color: transparent !important;
+		/* Let Slick own horizontal swipe; avoid passive touch preventDefault noise */
+		touch-action: pan-y pinch-zoom;
+	}
+
+	.{{safeid}}__slick .slick-track {
+		/* Let Slick calculate track width from slidesToShow — do not force width */
+		box-sizing: border-box !important;
+		background-color: transparent !important;
+	}
+
+	.{{safeid}}__slick .slick-slide {
+		box-sizing: border-box !important;
+		{% if use_yg_stone %}
+		background-color: transparent !important;
+		{% endif %}
+	}
+
+	.{{safeid}}__slick .slick-slide .custom-product-box,
+	.{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+		width: 100% !important;
+		max-width: 100% !important;
+		box-sizing: border-box !important;
+		padding: 0 !important;
+		{% if use_yg_stone %}
+			/* Sit on stone like category tiles — no white card chrome */
+			background-color: transparent !important;
+			border: none !important;
+			box-shadow: none !important;
+			border-radius: 0 !important;
+		{% endif %}
+	}
+
+	/* Fancy Headline Styles - Solid Green Color */
+	.{{safeid}}__headline-wrapper {
+		cursor: default;
+		pointer-events: auto;
+		text-align: center;
+		position: relative;
+		padding-bottom: 5px;
+		margin-top: {{ fields.headline.topMargin.size }}{{ fields.headline.topMargin.unit }};
+		margin-bottom: {{ fields.headline.bottomMargin.size }}{{ fields.headline.bottomMargin.unit }};
+	}
+
+	.{{safeid}}__headline-link {
+		display: inline-block;
+		text-decoration: none;
+		color: inherit;
+		cursor: pointer;
+	}
+
+
+	/* Gelica — matches homepage mockup (Customer favourites / Shop Bestsellers) */
+	.{{safeid}}__headline-text {
+		display: inline-block;
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		font-size: {{ fields.headline.size.size }}{{ fields.headline.size.unit }};
+		font-weight: 700;
+		color: #483F3A !important;
+		letter-spacing: -0.02em;
+		line-height: 1.15;
+		position: relative;
+		z-index: 2;
+		margin-top: 0;
+	}
+
+	/* Shop By Category h2 — same Gelica headline treatment as this SmartBlock */
+	body > main > div.frontpage > div.category-promotion-wrapper > h2,
+	body main div.frontpage div.category-promotion-wrapper > h2,
+	.frontpage .category-promotion-wrapper > h2 {
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		font-size: {{ fields.headline.size.size }}{{ fields.headline.size.unit }} !important;
+		font-weight: 700 !important;
+		color: #483F3A !important;
+		letter-spacing: -0.02em !important;
+		line-height: 1.15 !important;
+		text-align: center !important;
+		margin-top: 0 !important;
+		margin-bottom: {{ fields.headline.bottomMargin.size }}{{ fields.headline.bottomMargin.unit }} !important;
+		padding-bottom: 5px !important;
+	}
+
+	/* Category tile names — Gelica + pebble #483F3A */
+	body > main > div.frontpage > div.category-promotion-wrapper > div.category-promotion-carousel .slick-slide,
+	body > main > div.frontpage > div.category-promotion-wrapper > div.category-promotion-carousel .slick-slide a,
+	body > main > div.frontpage > div.category-promotion-wrapper > div.category-promotion-carousel .slick-slide span,
+	body > main > div.frontpage > div.category-promotion-wrapper > div.category-promotion-carousel .slick-slide p,
+	body > main > div.frontpage > div.category-promotion-wrapper > div.category-promotion-carousel .slick-slide figcaption,
+	.frontpage .category-promotion-wrapper .category-promotion-carousel .slick-slide,
+	.frontpage .category-promotion-wrapper .category-promotion-carousel .slick-slide a,
+	.frontpage .category-promotion-wrapper .category-promotion-carousel .slick-slide span,
+	.frontpage .category-promotion-wrapper .category-promotion-carousel .slick-slide p,
+	.frontpage .category-promotion-wrapper .category-promotion-carousel .slick-slide figcaption {
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		color: #483F3A !important;
+	}
+
+	.frontpage .category-promotion-wrapper .category-promotion-carousel .slick-slide a,
+	body > main > div.frontpage > div.category-promotion-wrapper > div.category-promotion-carousel .slick-slide a {
+		font-weight: 700 !important;
+		letter-spacing: -0.02em !important;
+		line-height: 1.25 !important;
+		text-decoration: none !important;
+	}
+
+	.{{safeid}}__headline-underline {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 140px;
+		height: 3px;
+		background: linear-gradient(90deg, transparent 0%, {{ yougardenBlue }} 30%, {{ yougardenBlueDark }} 50%, {{ yougardenBlue }} 70%, transparent 100%);
+		border-radius: 2px;
+		box-shadow: 0 1px 4px rgba(38, 79, 28, 0.2);
+		animation: underline-pulse 2s ease-in-out infinite;
+	}
+	
+	@keyframes underline-pulse {
+		0%, 100% {
+			opacity: 1;
+			width: 140px;
+			box-shadow: 0 1px 4px rgba(38, 79, 28, 0.2);
+		}
+		50% {
+			opacity: 0.8;
+			width: 160px;
+			box-shadow: 0 2px 8px rgba(38, 79, 28, 0.4);
+		}
+	}
+	
+	@keyframes underline-glow {
+		0%, 100% {
+			box-shadow: 0 1px 4px rgba(38, 79, 28, 0.2);
+		}
+		50% {
+			box-shadow: 0 2px 12px rgba(38, 79, 28, 0.5);
+		}
+	}
+
+	.{{safeid}}__sub-headline {
+		cursor: default;
+		pointer-events: auto;
+		text-align: {{ fields.subHeadline.alignment }};
+		padding: {{ fields.subHeadline.padding.size }}{{ fields.subHeadline.padding.unit }};
+		margin-top: {{ fields.subHeadline.topMargin.size }}{{ fields.subHeadline.topMargin.unit }};
+		margin-bottom: {{ fields.subHeadline.bottomMargin.size }}{{ fields.subHeadline.bottomMargin.unit }};
+		color: {{ fields.subHeadline.colors.foreground or '#000000' }};
+		background-color: {% if use_yg_stone %}{{ yg_stone }}{% else %}{{ fields.subHeadline.colors.background or '#FFFFFF' }}{% endif %};
+		font-family: {{ fields.subHeadline.font }};
+		font-size: {{ fields.subHeadline.size.size }}{{ fields.subHeadline.size.unit }};
+		{% if fields.subHeadline.bold %}
+			font-weight:bold;
+		{% endif %}
+		{% if fields.subHeadline.italics %}
+			font-style: italic;
+		{% endif %}
+	}
+
+	/* divider styles */
+
+    .{{safeid}}__divider {
+        height: {{fields.divider.weight}}px;
+        background-color: {{fields.divider.color}};
+        border-radius: 10px;
+        margin-bottom: 1em;
+	}
+
+
+    /* product styles — match category-promotion: square tile fills slide with 5px inset (10px between images) */
+    .custom-product-box,
+    .{{safeid}}__custom-product-box,
+    .{{safeid}}__slick .slick-slide .custom-product-box,
+    .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+        display: flex !important;
+        flex-direction: column !important;
+		padding: 0 !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        overflow: visible !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		{% if use_yg_stone %}
+		background-color: transparent !important;
+		border: none !important;
+		box-shadow: none !important;
+		border-radius: 0 !important;
+		{% endif %}
+    }
+
+	.{{safeid}}__product-image {
+		position: relative;
+		display: block;
+		/* Same square tile as Magento category-promotion carousel */
+		width: calc(100% - 10px) !important;
+		max-width: calc(100% - 10px) !important;
+		aspect-ratio: 1 / 1 !important;
+		height: auto !important;
+		max-height: none !important;
+		min-height: 0 !important;
+		align-self: center;
+		padding: 0 !important;
+		margin: 0 5px !important;
+		overflow: hidden;
+		border-radius: 15px;
+		background-color: transparent;
+	}
+
+	/* Fallback when aspect-ratio unsupported */
+	@supports not (aspect-ratio: 1 / 1) {
+		.{{safeid}}__product-image {
+			height: 0 !important;
+			padding-bottom: 100% !important;
+		}
+	}
+
+	.{{safeid}}__product-image a {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: block;
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+		border-radius: 15px;
+	}
+
+	.{{safeid}}__product-image img {
+		width: 100% !important;
+		height: 100% !important;
+		max-width: 100% !important;
+		max-height: none !important;
+		object-fit: cover !important;
+		object-position: center center !important;
+		display: block;
+		margin: 0;
+		padding: 0;
+		border-radius: 15px;
+		box-sizing: border-box;
+		aspect-ratio: unset;
+	}
+
+	/* MOST POPULAR badge overlay - top left with rounded corners */
+	.{{safeid}}__most-popular-badge {
+		position: absolute;
+		top: 0 !important;
+		left: 0 !important;
+		z-index: 10 !important;
+		background-color: #264f1c !important; /* YouGarden green color */
+		color: #ffffff !important;
+		font-family: Arial, sans-serif !important;
+		font-size: 12px !important;
+		font-weight: bold !important;
+		text-transform: uppercase !important;
+		padding: 8px 12px !important;
+		border-radius: 0 0 12px 0 !important;
+		box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important;
+		display: block !important;
+		margin: 0 !important;
+		line-height: 1 !important;
+		white-space: nowrap !important;
+	}
+
+    .{{ safeid}}__savings-badge {
+        position: absolute;
+        top: -11px;
+        right: -10px;
+        z-index: 2;
+        width: 72px;
+        height: 72px;
+        background: #e3185d;
+        border-radius: 50%;
+        border: solid 2px #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    @keyframes badge-pulse {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        50% {
+            transform: scale(1.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        }
+    }
+    
+    .{{ safeid}}__savings-badge .save {
+        text-align: center;
+        font-size: 16px;
+        line-height: 0.8;
+        color: #fff;
+        font-weight: 800;
+        display: block;
+        margin-top: 8px;
+    }
+    
+    .{{ safeid}}__savings-badge .save .percentage {
+        display: block;
+        font-size: 16px;
+        line-height: 0.2;
+        margin-bottom: 0;
+    }
+    
+    .{{ safeid}}__savings-badge .save .symbol {
+        font-size: 15px;
+        vertical-align: top;
+    }
+
+	/* Fancy Centered Product Name - Enhanced Visual Design */
+	.{{safeid}}__product-name {
+		text-align: center;
+        line-height: 1.5;
+		min-height: 48px;
+        margin-top: 6px;
+        margin-bottom: 4px;
+        padding: 0 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+	}
+
+    .{{safeid}}__product-name a {
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		font-size: {{ fields.productName.size.size }}{{ fields.productName.size.unit }};
+		color: #483F3A !important;
+		font-weight: 700;
+		{% if fields.productName.italics %}
+			font-style: italic;
+		{% endif %}
+        vertical-align: baseline;
+        background: 0 0;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-align: center;
+        line-height: 1.5;
+        letter-spacing: -0.02em;
+        position: relative;
+        padding: 4px 0;
+    }
+    
+    .{{safeid}}__product-name a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) scaleX(0);
+        width: 60%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, {{ yougardenBlue }}, transparent);
+        transition: transform 0.3s ease;
+    }
+    
+    .{{safeid}}__product-name a:hover {
+        color: {{ yougardenBlue }};
+        transform: translateY(-1px);
+    }
+    
+    .{{safeid}}__product-name a:hover::after {
+        transform: translateX(-50%) scaleX(1);
+    }
+
+	/* Fancy Centered Price Container */
+	.{{safeid}}__product-price-container-fancy {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		margin-top: 4px;
+		padding: 4px 0 6px;
+		text-align: center;
+	}
+
+	/* Fancy Price Styling — Gelica to match product names / mockup */
+	.{{safeid}}__product-price-fancy {
+		display: inline-flex;
+		align-items: baseline;
+		justify-content: center;
+		gap: 6px;
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		position: relative;
+	}
+
+	.{{safeid}}__product-price-fancy a {
+		text-decoration: none;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 6px;
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		transition: transform 0.2s ease;
+	}
+
+	.{{safeid}}__price-label {
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		font-size: 13px;
+		color: #483F3A;
+		font-weight: 500;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		opacity: 0.85;
+	}
+
+	.{{safeid}}__price-amount {
+		font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+		font-size: {{ fields.productPrice.size.size}}{{ fields.productPrice.size.unit }};
+		font-weight: 700;
+		color: #264F1C;
+		letter-spacing: -0.02em;
+		position: relative;
+		display: inline-block;
+	}
+
+	.{{safeid}}__product-price-fancy a:hover {
+		transform: scale(1.05);
+	}
+
+	.{{safeid}}__product-price-fancy a:hover .{{safeid}}__price-amount {
+		color: #264F1C;
+	}
+
+	/* Was Price Styling - Above main price */
+	.{{safeid}}__product-was-price {
+		font-family: {{ fields.productWasPrice.font }};
+		font-size: {{fields.productWasPrice.size.size }}{{ fields.productWasPrice.size.unit }};
+		color: {{ fields.productWasPrice.color or '#999999' }};
+		{% if fields.productWasPrice.bold %}
+			font-weight: 600;
+		{% else %}
+			font-weight: 400;
+		{% endif %}
+		{% if fields.productWasPrice.italics %}
+			font-style: italic;
+		{% endif %}
+		text-align: center;
+		line-height: 1.2;
+	}
+
+	.{{safeid}}__product-was-price span {
+		{% if fields.productWasPrice.strikethrough %}
+			text-decoration: line-through;
+		{% endif %}
+		position: relative;
+		opacity: 0.7;
+	}
+
+	.{{safeid}}__product-was-price span::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		width: 100%;
+		height: 1.5px;
+		background: #999;
+		transform: translateY(-50%);
+	}
+
+	.{{safeid}}__product-cta-button {
+		display: block;
+		text-decoration: none;
+		{% if fields.callToAction.bold %}
+			font-weight: bold;
+		{% endif %}
+		{% if fields.callToAction.italics %}
+			font-style: italic;
+		{% endif %}
+		padding:10px 0px;
+		margin-left: 5px;
+		margin-right: 5px;
+		width: 90%;
+		text-align: center;
+		font-family: {{ fields.callToAction.font }};
+		font-size: {{ fields.callToAction.size.size }}{{ fields.callToAction.size.unit }};
+		color: {{ fields.callToAction.colors.foreground or '#979797'}};
+		border: {{ fields.callToAction.borderWeight }}px {{ fields.callToAction.borderStyle }} {{ fields.callToAction.borderColor or '#979797' }};
+		{% if fields.callToAction.cornerStyle  == 'rounded' %}
+			border-radius: 24px;
+		{% endif %}
+		{% if fields.callToAction.buttonOutline == 'filled' %}
+			background-color: {{ fields.callToAction.colors.background or '#000000'}};
+		{% endif %}
+		{% if fields.callToAction.buttonOutline == 'outline' %}
+			background-color: transparent;
+		{% endif %}
+	}
+
+	{%if fields.callToActionButtonHover.active %}
+		.{{safeid}}__product-cta-button:hover {
+			color:  {{ fields.callToActionButtonHover.colors.foreground }};
+			{% if fields.callToActionButtonHover.buttonOutline == 'filled' %}
+				border: {{ fields.callToActionButtonHover.borderWeight }}px {{ fields.callToActionButtonHover.borderStyle }} {{ fields.callToActionButtonHover.borderColor }};
+				background-color: {{ fields.callToActionButtonHover.colors.background }};
+			{% endif %}
+			{% if fields.callToActionButtonHover.buttonOutline == 'outline' %}
+				border: {{ fields.callToActionButtonHover.borderWeight }}px {{ fields.callToActionButtonHover.borderStyle }} {{ fields.callToActionButtonHover.borderColor }};
+				background-color: transparent;
+			{% endif %}
+		}
+	{% endif %}
+
+	/* ratings styles */
+
+	.{{safeid}}__ratings {
+		padding: 0.5em;
+		margin-top: auto;
+        text-align: {{ fields.ratingIcons.alignment }};
+        width: 100%;
+    }
+
+    .{{ safeid }}__ratings * {
+        text-shadow: none;
+    }
+
+    .{{ safeid }}__ratings text {
+        stroke: {{ fields.ratingIcons.iconBorderColor }};
+        stroke-width: 5%;
+    }
+
+	/* Responsive Headline — keep Gelica; scale size down on small screens */
+	@media only screen and (max-width: 1024px) {
+		.{{safeid}}__headline-text,
+		body > main > div.frontpage > div.category-promotion-wrapper > h2,
+		.frontpage .category-promotion-wrapper > h2 {
+			font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+			font-size: 22px !important;
+		}
+	}
+
+	@media only screen and (max-width: 768px) {
+		.{{safeid}}__headline-wrapper {
+			margin-top: 4px;
+			/* Match Shop By Category h2 spacing above the tiles */
+			margin-bottom: 20px !important;
+		}
+
+		.{{safeid}}__headline-text,
+		body > main > div.frontpage > div.category-promotion-wrapper > h2,
+		.frontpage .category-promotion-wrapper > h2 {
+			font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+			font-size: 20px !important;
+		}
+        
+        .{{safeid}}__sub-headline {
+            margin-top: 0;
+            margin-bottom: 8px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+	}
+
+	@media only screen and (max-width: 480px) {
+		.{{safeid}}__headline-wrapper {
+			margin-top: 4px;
+			margin-bottom: 20px !important;
+		}
+
+		.{{safeid}}__headline-text,
+		body > main > div.frontpage > div.category-promotion-wrapper > h2,
+		.frontpage .category-promotion-wrapper > h2 {
+			font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+			font-size: 20px !important;
+		}
+        
+        .{{safeid}}__sub-headline {
+            margin-top: 0;
+            margin-bottom: 8px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+	}
+    
+    @media only screen and (max-width: 769px){
+        .{{ safeid }} .slick-slide img {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        }
+        /* Keep block centred in flow — never reintroduce 100vw / -50vw on small screens */
+        .{{safeid}},
+        .{{safeid}}.{{safeid}}__sb-wrapper,
+        .{{ safeid }}__sb-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        left: auto !important;
+        right: auto !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        {% if use_yg_waves %}
+        margin-top: 48px !important;
+        margin-bottom: 48px !important;
+        overflow: visible !important;
+        {% else %}
+        margin-top: 24px !important;
+        margin-bottom: 40px !important;
+        {% endif %}
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        padding-bottom: 24px !important;
+        position: relative !important;
+        transform: none !important;
+        }
+        .{{safeid}}__product-image {
+			aspect-ratio: 1 / 1 !important;
+		}
+        .{{safeid}}__product-image img {
+		width: 100% !important;
+		height: 100% !important;
+		object-fit: cover !important;
+    }
+
+		.{{safeid}}__most-popular-badge {
+			font-size: 10px !important;
+			padding: 6px 10px !important;
+			border-radius: 0 0 6px 0 !important;
+		}
+
+        .{{ safeid }} .nosto-block{
+        padding: 6px;
+        }
+    }
+
+    @media only screen and (max-width: 1000px){
+		.custom-product-box,
+        .{{safeid}}__custom-product-box,
+        .{{safeid}}__slick .slick-slide .custom-product-box,
+        .{{safeid}}__slick .slick-slide .{{safeid}}__custom-product-box {
+  		display: flex !important;
+      	flex-direction: column !important;
+		padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+    }
+    
+    /* Hide featured section heading */
+    #wrapper > div.fp-section.featured > div.centralWrapper.text > h2 {
+        display: none !important;
+    }
+</style>
+
+<script>
+(function() {
+    /* Chrome marks touch listeners passive by default; Slick/jQuery call
+       preventDefault on swipe → console flood. Allow non-passive touch for jQuery. */
+    function patchJqueryTouchPassive() {
+        if (typeof jQuery === 'undefined' || !jQuery.event || !jQuery.event.special) return;
+        if (jQuery.event.special.__ygTouchPassivePatched) return;
+        ['touchstart', 'touchmove'].forEach(function(evt) {
+            var existing = jQuery.event.special[evt] || {};
+            jQuery.event.special[evt] = jQuery.extend({}, existing, {
+                setup: function(_, ns, handle) {
+                    if (this.addEventListener) {
+                        this.addEventListener(evt, handle, { passive: false });
+                    } else if (existing.setup) {
+                        existing.setup.call(this, _, ns, handle);
+                    }
+                },
+                teardown: function(_, ns, handle) {
+                    if (this.removeEventListener) {
+                        this.removeEventListener(evt, handle, { passive: false });
+                    } else if (existing.teardown) {
+                        existing.teardown.call(this, _, ns, handle);
+                    }
+                }
+            });
+        });
+        jQuery.event.special.__ygTouchPassivePatched = true;
+    }
+
+    function initSlick() {
+        patchJqueryTouchPassive();
+        var $slick = $('.{{safeid}}__slick');
+        if ($slick.hasClass('slick-initialized')) return;
+
+        var $pager = $('.{{safeid}}__pager');
+        var carouselOn = {{ 'true' if fields.carouselActive.active else 'false' }};
+        var showPagination = {{ 'true' if show_pagination else 'false' }};
+        /* Desktop columns from FR; responsive tiers locked to Magento
+           .category-promotion-carousel (desktop-first):
+           ≥1400 → 8, <1400 → 7, <1300 → 6, <1200 → 5, <700 → 2 */
+        var pageSize = {{ cols }};
+
+        $slick.slick({
+            mobileFirst: false,
+            slidesToShow: pageSize,
+            slidesToScroll: pageSize,
+            swipeToSlide: false,
+            swipe: true,
+            touchMove: true,
+            draggable: true,
+            touchThreshold: 5,
+            waitForAnimate: false,
+            speed: 400,
+            cssEase: 'ease-out',
+            arrows: carouselOn && showPagination,
+            dots: carouselOn && showPagination,
+            appendArrows: $pager,
+            appendDots: $pager,
+            prevArrow: '<button type="button" class="slick-prev slick-arrow" aria-label="Previous Slide"><svg class="svg-inline--fa fa-chevron-left fa-w-10" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path></svg></button>',
+            nextArrow: '<button type="button" class="slick-next slick-arrow" aria-label="Next Slide"><svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg></button>',
+            autoplay: false,
+            infinite: {{ fields.carouselActive.loop }},
+            responsive: [
+                { breakpoint: 1400, settings: { slidesToShow: 7, slidesToScroll: 7 } },
+                { breakpoint: 1300, settings: { slidesToShow: 6, slidesToScroll: 6 } },
+                { breakpoint: 1200, settings: { slidesToShow: 5, slidesToScroll: 5 } },
+                { breakpoint: 700, settings: { slidesToShow: 2, slidesToScroll: 2 } }
+            ]
+        });
+
+        function syncPageScroll() {
+            if (!$slick.hasClass('slick-initialized')) return;
+            var show = parseInt($slick.slick('slickGetOption', 'slidesToShow'), 10) || 2;
+            var scroll = parseInt($slick.slick('slickGetOption', 'slidesToScroll'), 10) || 1;
+            if (scroll !== show) {
+                $slick.slick('slickSetOption', 'slidesToScroll', show, true);
+            }
+        }
+
+        $slick.on('init', syncPageScroll);
+        $slick.on('breakpoint', function() {
+            syncPageScroll();
+        });
+        /* init already fired before we bound — sync now */
+        syncPageScroll();
+
+        /* Ensure arrow clicks always jump a full page of visible cols */
+        $pager.on('click', '.slick-next, .slick-prev', function(e) {
+            var show = parseInt($slick.slick('slickGetOption', 'slidesToShow'), 10) || 2;
+            var scroll = parseInt($slick.slick('slickGetOption', 'slidesToScroll'), 10) || 1;
+            if (scroll !== show) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var dir = $(this).hasClass('slick-next') ? show : -show;
+                var current = parseInt($slick.slick('slickCurrentSlide'), 10) || 0;
+                $slick.slick('slickGoTo', current + dir);
+                return false;
+            }
+        });
+
+        /* Autoplay: advance 1 slide every 8s (arrows/dots still page by full row) */
+        var autoplaySpeed = 8000;
+        var autoplayTimer = null;
+
+        function stopAutoplay() {
+            if (autoplayTimer) {
+                clearInterval(autoplayTimer);
+                autoplayTimer = null;
+            }
+        }
+
+        function startAutoplay() {
+            stopAutoplay();
+            autoplayTimer = setInterval(function() {
+                if (!$slick.hasClass('slick-initialized')) return;
+                var current = parseInt($slick.slick('slickCurrentSlide'), 10) || 0;
+                $slick.slick('slickGoTo', current + 1);
+            }, autoplaySpeed);
+        }
+
+        $slick.on('mouseenter touchstart', stopAutoplay);
+        $slick.on('mouseleave', startAutoplay);
+        $pager.on('mouseenter', stopAutoplay);
+        $pager.on('mouseleave', startAutoplay);
+        startAutoplay();
+    }
+
+    if (typeof jQuery !== "undefined") {
+        jQuery(document).ready(initSlick);
+    } else {
+        document.addEventListener("DOMContentLoaded", function() {
+            if (typeof jQuery !== "undefined") initSlick();
+        });
+    }
+})();
+</script>

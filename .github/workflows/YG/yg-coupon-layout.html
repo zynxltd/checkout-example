@@ -1,0 +1,35 @@
+{# YouGarden coupon code only. Render nothing when unavailable. #}
+
+{% if valid %}
+<table class="yg-coupon-layout" width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation" style="width:100%; max-width:600px; margin:0 auto; border-collapse:separate; background-color:#ffffff; border:2px solid #f2e7d8; border-radius:16px;">
+	<tr>
+		<td class="yg-coupon-layout__inner" align="center" style="padding:18px 20px;">
+			<p style="margin:0 0 9px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:1.2; color:#6b7280; font-weight:700; letter-spacing:1px; text-transform:uppercase;">
+				Your unique code
+			</p>
+
+			<table width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation" style="width:100%; max-width:360px; margin:0 auto; border-collapse:separate;">
+				<tr>
+					<td class="yg-coupon-layout__code" align="center" style="padding:13px 14px; background-color:#faf6f0; border:2px dashed #264f1c; border-radius:12px; font-family:'Courier New',Courier,monospace; font-size:20px; line-height:1.2; color:#264f1c; font-weight:700; letter-spacing:1.2px; overflow-wrap:anywhere; word-break:break-word;">
+						{{ coupon }}
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<style>
+	@media only screen and (max-width:504px) {
+		.yg-coupon-layout__inner {
+			padding:15px 12px !important;
+		}
+
+		.yg-coupon-layout__code {
+			padding:12px 9px !important;
+			font-size:16px !important;
+			letter-spacing:0.5px !important;
+		}
+	}
+</style>
+{% endif %}

@@ -1,0 +1,40 @@
+{
+  "appId": "com.yougarden.app",
+  "appName": "YouGarden",
+  "webDir": "www",
+  "server": {
+    "url": "https://www.yougarden.com",
+    "allowNavigation": [
+      "https://www.yougarden.com/*",
+      "https://*.yougarden.com/*",
+      "https://support.yougarden.com/*",
+      "https://*.paypal.com/*",
+      "https://*.paypalobjects.com/*",
+      "https://*.worldpay.com/*",
+      "https://*.sagepay.com/*",
+      "https://*.opayo.co.uk/*",
+      "https://*.stripe.com/*",
+      "https://*.klarna.com/*"
+    ]
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "preferredContentMode": "mobile",
+    "scheme": "YouGarden"
+  },
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "launchAutoHide": true,
+      "backgroundColor": "#264f1c",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#264f1c"
+    }
+  }
+}

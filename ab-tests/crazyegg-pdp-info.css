@@ -1,0 +1,196 @@
+/**
+ * Crazy Egg A/B — PDP product information hub (mock-up)
+ * Target: https://www.yougarden.com/item-s-* / item-p-* (PDP)
+ * Paste into Crazy Egg variant → Custom CSS (pair with crazyegg-pdp-info.js)
+ * Scope: html.ce-yg-pdp-info
+ *
+ * Accordion cards only — does NOT include sticky / bscroll ATC bar.
+ */
+
+html.ce-yg-pdp-info {
+  --ce-yg-stone: #f5ede1;
+  --ce-yg-forest: #365722;
+  --ce-yg-moss: #6c943f;
+  --ce-yg-moss-surface: #e4edd8;
+  --ce-yg-text: #4a4540;
+  --ce-yg-border: #e6ddd2;
+  --ce-yg-radius: 28px;
+}
+
+/* Hide plain accordion once enhanced */
+html.ce-yg-pdp-info .ce-yg-pdp-info-source {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* —— Product information hub —— */
+html.ce-yg-pdp-info .ce-yg-pdp-info {
+  max-width: 720px;
+  margin: 0 auto 28px;
+  padding: 8px 16px 8px;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: "proxima-nova", "Proxima Nova", Arial, sans-serif;
+  color: var(--ce-yg-text);
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info__heading {
+  margin: 0 0 14px;
+  font-family: gelica, "Gelica", Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 3vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ce-yg-forest);
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 18px;
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info__chip {
+  border: 1px solid var(--ce-yg-border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ce-yg-text);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info__chip:hover {
+  border-color: var(--ce-yg-moss);
+  color: var(--ce-yg-forest);
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info__chip.is-active {
+  background: var(--ce-yg-moss-surface);
+  border-color: var(--ce-yg-moss);
+  color: var(--ce-yg-forest);
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+/* Collapsed = cream stone pill card */
+html.ce-yg-pdp-info .ce-yg-pdp-info-card {
+  border-radius: var(--ce-yg-radius);
+  background: var(--ce-yg-stone);
+  border: 1px solid transparent;
+  overflow: hidden;
+}
+
+/* Expanded = white card with light border */
+html.ce-yg-pdp-info .ce-yg-pdp-info-card.is-open {
+  background: #fff;
+  border-color: var(--ce-yg-border);
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info-card__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding: 18px 22px;
+  box-sizing: border-box;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info-card__title {
+  font-family: gelica, "Gelica", Georgia, "Times New Roman", serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ce-yg-forest);
+  line-height: 1.25;
+}
+
+/* SHOW pill (collapsed) — white chip, moss text */
+html.ce-yg-pdp-info .ce-yg-pdp-info-card__control {
+  flex-shrink: 0;
+  font-family: "proxima-nova", "Proxima Nova", Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ce-yg-moss);
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #fff;
+  line-height: 1.2;
+}
+
+/* HIDE pill (open) — soft sage chip */
+html.ce-yg-pdp-info .ce-yg-pdp-info-card.is-open .ce-yg-pdp-info-card__control {
+  background: var(--ce-yg-moss-surface);
+  color: var(--ce-yg-moss);
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info-card__panel {
+  padding: 0 22px 22px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ce-yg-text);
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info-card__panel p {
+  margin: 0 0 14px;
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info-card__panel p:last-child {
+  margin-bottom: 0;
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info-card__panel ul {
+  margin: 0 0 14px;
+  padding-left: 1.25rem;
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info-card__panel li {
+  margin-bottom: 8px;
+}
+
+html.ce-yg-pdp-info .ce-yg-pdp-info-card__panel[hidden] {
+  display: none !important;
+}
+
+@media (min-width: 600px) {
+  html.ce-yg-pdp-info .ce-yg-pdp-info {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  html.ce-yg-pdp-info .ce-yg-pdp-info-card__toggle {
+    padding: 20px 26px;
+  }
+
+  html.ce-yg-pdp-info .ce-yg-pdp-info-card__panel {
+    padding: 0 26px 26px;
+  }
+
+  html.ce-yg-pdp-info .ce-yg-pdp-info-card__title {
+    font-size: 1.25rem;
+  }
+}

@@ -1,0 +1,216 @@
+/**
+ * Crazy Egg → Custom CSS
+ * Basket Club Promo V1 — icon logo + benefits row + radios
+ * Pair with: v1.js
+ */
+
+html[data-ce-yg-club-v1="1"] {
+  --ce-yg-club-purple: #6a2d7a;
+  --ce-yg-club-purple-deep: #5a2469;
+  --ce-yg-club-green: #7cb342;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo--v1 {
+  clear: both;
+  width: 100%;
+  margin: 14px 0 18px;
+  box-sizing: border-box;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo--v1 .ce-yg-club-promo__inner {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.15fr) minmax(200px, 1fr) minmax(180px, 0.9fr);
+  gap: 16px 18px;
+  align-items: center;
+  padding: 16px 18px;
+  background: var(--ce-yg-club-purple);
+  color: #fff;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__lead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__logo {
+  flex: 0 0 auto;
+  width: 78px;
+  height: auto;
+  display: block;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__title {
+  margin: 0 0 10px;
+  font-size: 17px;
+  line-height: 1.25;
+  font-weight: 600;
+  color: #fff !important;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__save {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.15em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ce-yg-club-purple) !important;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none !important;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  text-align: center;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit-icon {
+  color: #fff;
+  line-height: 0;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit-label {
+  font-size: 11px;
+  line-height: 1.25;
+  color: #fff;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__choose {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  background: var(--ce-yg-club-purple-deep);
+  border-radius: 6px;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  cursor: pointer;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__radio {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt.is-selected .ce-yg-club-promo__radio::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__was {
+  text-decoration: line-through;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__atc {
+  display: none;
+}
+
+/* Sidebar: icon + Join to Save an Extra */
+html[data-ce-yg-club-v1="1"] .clubSavingWrapper.ce-yg-club-side--v1 {
+  padding: 0 !important;
+  margin: 10px 0 !important;
+  background: var(--ce-yg-club-purple) !important;
+  border: 0 !important;
+  overflow: hidden;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-side--v1 .ce-yg-club-side__link {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-side--v1 .ce-yg-club-side__logo {
+  width: 40px;
+  height: auto;
+  flex: 0 0 auto;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-side--v1 .ce-yg-club-side__text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #fff !important;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-side--v1 .ce-yg-club-side__text strong {
+  text-decoration: underline;
+  font-weight: 800;
+}
+
+@media (max-width: 980px) {
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo--v1 .ce-yg-club-promo__inner {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 14px 12px;
+  }
+
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__atc {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 4px;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ce-yg-club-purple-deep);
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+}

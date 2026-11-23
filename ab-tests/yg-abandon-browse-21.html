@@ -1,0 +1,262 @@
+{# YG — Abandon Browse 21 #}
+{# One product, and the third of three: a narrower centered card. Otherwise a 2×2 grid. No outer border. #}
+{# 2-up names share one height so buttons line up. A blank was-price row is kept only when another card in that row is on sale. #}
+{# Each card: image, name, price, Take another look → product URL. #}
+
+{% set yg_green = '#264f1c' %}
+{% set yg_pink = '#e3185d' %}
+{% set yg_text = '#1f2937' %}
+{% set yg_surface = '#f3f4f6' %}
+{% set yg_white = '#ffffff' %}
+{% set yg_border = '#e5e7eb' %}
+{% set font_fallback = 'Arial, Helvetica, sans-serif' %}
+{% set currency = cart.curr if cart and cart.curr else 'GBP' %}
+
+{% set email_width = fields.width or 660 %}
+{% set cols = 2 %}
+{% set col_width = (((email_width - 16) / cols)|round(1, floor))|int %}
+{% set feature_col_width = (email_width - 32)|int %}
+{% set trio_card_width = ((feature_col_width * 0.75)|round(0, floor))|int %}
+{% set badge_px = 72 %}
+{% set grid_img = ((((email_width - 8) / 2)|round(0, floor))|int) - 28 %}
+{% set feature_img = trio_card_width - 16 %}
+{% set name_px = fields.productName.size.size|default(18)|int %}
+{% set name_mobile_px = fields.productName.mobileSize.size|default(14)|int %}
+{% set name_slot = (name_px * 3.9)|round(0, floor)|int %}
+{% set name_mobile_slot = (name_mobile_px * 3.9)|round(0, floor)|int %}
+{% set compact_name_slot = (name_px * 2.6)|round(0, floor)|int %}
+{% set compact_name_mobile_slot = (name_mobile_px * 2.6)|round(0, floor)|int %}
+{% set was_px = fields.prices.wasPriceSize.size|default(12)|int %}
+{% set price_px = fields.prices.size.size|default(16)|int %}
+{% set feature_price_px = fields.prices.featureSize.size|default(24)|int %}
+{% set feature_price_mobile_px = fields.prices.featureMobileSize.size|default(18)|int %}
+{% set feature_was_px = (feature_price_px * 0.7)|round(0, floor)|int %}
+{% set feature_was_mobile_px = (feature_price_mobile_px * 0.7)|round(0, floor)|int %}
+{% set feature_price_slot = feature_was_px + feature_price_px + 8 %}
+{% set feature_price_mobile_slot = feature_was_mobile_px + feature_price_mobile_px + 8 %}
+{% set cta_px = fields.callToAction.size.size|default(16)|int %}
+{% set cta_mobile_px = fields.callToAction.mobileSize.size|default(12)|int %}
+{% set cta_pad_y = fields.callToAction.paddingVertical|default(10)|int %}
+{% set cta_pad_x = fields.callToAction.paddingHorizontal|default(8)|int %}
+{% set cta_mobile_pad_y = fields.callToAction.mobilePaddingVertical|default(10)|int %}
+{% set cta_mobile_pad_x = fields.callToAction.mobilePaddingHorizontal|default(4)|int %}
+
+{% if products %}
+{% set solo = products|length == 1 %}
+{% set trio = products|length == 3 %}
+<style type="text/css">
+	.yg-bp-outer { width:100% !important; max-width:{{ email_width }}px !important; }
+	.yg-bp-row { width:100% !important; }
+	.yg-bp-col { width:50% !important; max-width:50% !important; display:table-cell !important; overflow:visible !important; }
+	.yg-bp-col.yg-bp-col--feature { width:100% !important; max-width:100% !important; }
+	.yg-bp-trio { width:75% !important; max-width:{{ trio_card_width }}px !important; }
+	.yg-bp-photo { display:block !important; width:100% !important; max-width:100% !important; height:auto !important; }
+	td.yg-bp-photo-cell { position:relative !important; }
+	.yg-bp-photo-wrap { position:relative !important; display:block !important; width:100% !important; font-size:0 !important; line-height:0 !important; }
+	.yg-bp-badge-slot { display:block !important; max-height:0 !important; height:0 !important; overflow:visible !important; font-size:0 !important; line-height:0 !important; mso-line-height-rule:exactly; position:relative !important; width:100% !important; text-align:right !important; z-index:3 !important; opacity:0.999; }
+	.yg-bp-badge { position:relative !important; top:0 !important; margin-top:0 !important; margin-right:0 !important; }
+	.yg-bp-badge, .yg-bp-badge-ring { width:72px !important; height:72px !important; border-radius:50% !important; }
+	.yg-bp-badge-disc { width:68px !important; height:68px !important; border-radius:50% !important; }
+	.yg-bp-badge-pct { font-size:16px !important; }
+	.yg-bp-badge-off { font-size:11px !important; }
+	.yg-bp-name { height:{{ compact_name_mobile_slot }}px !important; max-height:{{ compact_name_mobile_slot }}px !important; overflow:hidden !important; line-height:1.3 !important; color:{{ yg_text }} !important; }
+	.yg-bp-name.yg-bp-name--open { height:auto !important; max-height:none !important; overflow:visible !important; }
+	.yg-bp-name a { font-size:{{ name_mobile_px }}px !important; line-height:1.3 !important; }
+	.yg-bp-name.yg-bp-name--open a { font-size:{{ name_px }}px !important; }
+	.yg-bp-price { height:auto !important; }
+	.yg-bp-price.yg-bp-price--open { height:auto !important; }
+	.yg-bp-price.yg-bp-price--feature { height:{{ feature_price_slot }}px !important; }
+	.yg-bp-was.yg-bp-was--feature { height:{{ feature_was_px + 2 }}px !important; line-height:{{ feature_was_px + 2 }}px !important; font-size:{{ feature_was_px }}px !important; }
+	.yg-bp-amount.yg-bp-amount--feature { height:{{ feature_price_px + 4 }}px !important; line-height:{{ feature_price_px + 4 }}px !important; font-size:{{ feature_price_px }}px !important; }
+	.yg-bp-cta, .yg-bp-cta.yg-bp-cta--fit { display:block !important; width:100% !important; max-width:100% !important; box-sizing:border-box !important; font-size:{{ cta_mobile_px }}px !important; line-height:1.2 !important; padding:{{ cta_mobile_pad_y }}px {{ cta_mobile_pad_x }}px !important; white-space:nowrap !important; overflow:hidden !important; }
+	@media only screen and (max-width: 600px) {
+		.yg-bp-outer { width:100% !important; max-width:100% !important; }
+		.yg-bp-col { width:50% !important; max-width:50% !important; display:table-cell !important; float:none !important; overflow:visible !important; }
+		.yg-bp-col.yg-bp-col--feature { width:100% !important; max-width:100% !important; }
+		.yg-bp-trio { width:75% !important; max-width:75% !important; }
+		.yg-bp-copy { padding-left:4px !important; padding-right:4px !important; overflow:hidden !important; }
+		.yg-bp-name { height:{{ compact_name_mobile_slot }}px !important; max-height:{{ compact_name_mobile_slot }}px !important; overflow:hidden !important; line-height:1.3 !important; }
+		.yg-bp-name.yg-bp-name--open { height:auto !important; max-height:none !important; overflow:visible !important; }
+		.yg-bp-name a, .yg-bp-name.yg-bp-name--open a { font-size:{{ name_mobile_px }}px !important; line-height:1.3 !important; }
+		.yg-bp-price.yg-bp-price--feature { height:{{ feature_price_mobile_slot }}px !important; }
+		.yg-bp-was.yg-bp-was--feature { height:{{ feature_was_mobile_px + 2 }}px !important; line-height:{{ feature_was_mobile_px + 2 }}px !important; font-size:{{ feature_was_mobile_px }}px !important; }
+		.yg-bp-amount.yg-bp-amount--feature { height:{{ feature_price_mobile_px + 4 }}px !important; line-height:{{ feature_price_mobile_px + 4 }}px !important; font-size:{{ feature_price_mobile_px }}px !important; }
+		.yg-bp-cta, .yg-bp-cta.yg-bp-cta--fit { display:block !important; width:100% !important; max-width:100% !important; box-sizing:border-box !important; font-size:{{ cta_mobile_px - 1 }}px !important; line-height:1.2 !important; padding:{{ cta_mobile_pad_y - 1 }}px {{ cta_mobile_pad_x }}px !important; white-space:nowrap !important; }
+		.yg-bp-badge { top:0 !important; margin-top:0 !important; margin-right:0 !important; }
+		.yg-bp-badge, .yg-bp-badge-ring { width:64px !important; height:64px !important; }
+		.yg-bp-badge-disc { width:60px !important; height:60px !important; }
+		.yg-bp-badge-pct { font-size:16px !important; }
+		.yg-bp-badge-off { font-size:11px !important; }
+	}
+</style>
+
+<table class="yg-bp-outer {{ safeid }} email-full-width width-100" cellpadding="0" cellspacing="0" border="0" width="100%" align="center" role="presentation" style="border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; width:100%; max-width:{{ email_width }}px; background-color:{{ fields.backgroundColor }}; border:0;">
+
+	{% if fields.headline.active %}
+	<tr>
+		<td style="padding:16px 12px 4px 12px;">
+			<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+				<tr>
+					<td align="{{ fields.headline.alignment }}" style="font-family:{{ fields.headline.font }}, {{ font_fallback }}; font-size:{{ fields.headline.size.size }}{{ fields.headline.size.unit }}; line-height:1.25; color:{{ yg_text }}; font-weight:{{ '700' if fields.headline.bold else '400' }}; font-style:{{ 'italic' if fields.headline.italics else 'normal' }};">
+						{{ mergeField(fields.headline.text) }}
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	{% endif %}
+
+	<tr>
+		<td align="center" style="padding:0 4px 8px 4px; font-size:16px; line-height:22px; text-align:center;">
+			{% for row in products|batch(cols) %}
+			{% set row_sale_flags = [] %}
+			{% for product in row %}
+			{% if fields.prices.active and fields.prices.wasPrice and product.ruv and (product.ruv > product.uv) %}
+			{% set _ = row_sale_flags.push(1) %}
+			{% endif %}
+			{% endfor %}
+			<table class="yg-bp-row" cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation" style="border-collapse:collapse; width:100%; table-layout:fixed;">
+				<tr>
+			{% for product in row %}
+			{% set row_has_sale = row_sale_flags|length > 0 %}
+			{% set on_sale = fields.prices.active and fields.prices.wasPrice and product.ruv and (product.ruv > product.uv) %}
+			{% set show_badge = product.ruv and product.uv and (product.ruv > product.uv) %}
+			{% if show_badge %}
+				{% set save_pct = (((product.ruv - product.uv) / product.ruv) * 100)|round(0) %}
+			{% endif %}
+			{% set product_url = mergeField(fields.productHref, { product: product })|urlWithTrackingParams %}
+			{% set feature = (solo or trio) and row|length < cols %}
+			{% if feature %}
+			{% set badge_left = feature_img - badge_px %}
+			{% else %}
+			{% set badge_left = grid_img - badge_px %}
+			{% endif %}
+			{% set trio_card = trio and feature %}
+					<td class="yg-bp-col{% if feature %} yg-bp-col--feature{% endif %}" width="{% if feature %}100%{% else %}50%{% endif %}" valign="top" align="center" style="width:{% if feature %}100%{% else %}50%{% endif %}; max-width:{% if feature %}100%{% else %}50%{% endif %}; vertical-align:top; font-size:16px; line-height:22px; text-align:center; padding:6px;">
+						{% if feature %}<table class="yg-bp-trio" cellpadding="0" cellspacing="0" border="0" align="center" width="{{ trio_card_width }}" role="presentation" style="border-collapse:collapse; width:75%; max-width:{{ trio_card_width }}px;"><tr><td>{% endif %}
+							<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation" style="border-collapse:separate; border-spacing:0; width:100%; background-color:{{ yg_white }}; border:0; border-radius:16px; overflow:visible;">
+								{% if fields.productImage.active %}
+								<tr>
+									<td class="yg-bp-photo-cell" align="left" bgcolor="{{ yg_white }}" style="padding:8px 8px 0 8px; background-color:{{ yg_white }}; font-size:0; line-height:0; mso-line-height-rule:exactly;">
+										<div class="yg-bp-photo-wrap" style="position:relative; display:block; width:100%; font-size:0; line-height:0; mso-line-height-rule:exactly;">
+											{% if show_badge and save_pct > 0 %}
+											<div class="yg-bp-badge-slot" style="display:block; max-height:0; height:0; overflow:visible; font-size:0; line-height:0; mso-line-height-rule:exactly; position:relative; width:100%; text-align:right; z-index:3; opacity:0.999;"><!--[if mso]>
+												<v:rect xmlns:v="urn:schemas-microsoft-com:vml" stroked="false" filled="false" style="width:{{ badge_px }}px; height:{{ badge_px }}px; position:absolute; top:0; left:{{ badge_left }}px;">
+												<v:textbox inset="0,0,0,0">
+												<![endif]--><table class="yg-bp-badge" align="right" cellpadding="0" cellspacing="0" border="0" style="position:relative; top:0; width:72px; height:72px; margin-top:0; margin-right:0; border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; border-radius:50%; background-color:{{ yg_white }};">
+												<tr>
+													<td class="yg-bp-badge-ring" align="center" valign="middle" style="background-color:{{ yg_white }}; border-radius:50%; width:72px; height:72px; padding:0; text-align:center; vertical-align:middle; font-size:0; line-height:0;">
+														<table align="center" cellpadding="0" cellspacing="0" border="0" width="68" style="width:68px; height:68px; margin:0 auto; border-collapse:collapse; border-radius:50%;">
+															<tr>
+																<td class="yg-bp-badge-disc" align="center" valign="middle" width="68" height="68" style="background-color:{{ yg_pink }}; border-radius:50%; width:68px; height:68px; text-align:center; vertical-align:middle; font-family:Arial, Helvetica, sans-serif; color:{{ yg_white }}; font-weight:900; font-size:16px; line-height:1;">
+																	<span class="yg-bp-badge-pct" style="display:block; font-size:16px; line-height:1;">{{ save_pct }}%</span>
+																	<span class="yg-bp-badge-off" style="display:block; font-size:11px; line-height:1.1; letter-spacing:0.4px;">OFF</span>
+																</td>
+															</tr>
+														</table>
+													</td>
+												</tr>
+											</table><!--[if mso]>
+												</v:textbox>
+												</v:rect>
+												<![endif]--></div>
+											{% endif %}
+											<img class="yg-bp-photo" src="{{ product.img }}" alt="{{ product.n }}" title="{{ product.n }}" border="0" style="display:block; width:100%; max-width:100%; height:auto; margin:0; padding:0; border:0; border-radius:12px; outline:none; vertical-align:top;">
+											<a href="{{ product_url }}" target="_blank" title="{{ product.n }}" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; display:block; text-decoration:none; font-size:0; line-height:0;">&nbsp;</a>
+										</div>
+									</td>
+								</tr>
+								{% endif %}
+								<tr>
+									<td class="yg-bp-copy" align="center" style="padding:10px 8px 12px 8px; background-color:{{ yg_white }}; font-size:16px; line-height:22px; color:{{ yg_text }};">
+										{% if fields.productName.active %}
+										<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+											<tr>
+												<td align="{{ fields.productName.alignment }}" valign="top" style="padding:0; font-family:{{ fields.productName.font }}, {{ font_fallback }}; font-size:{% if feature %}{{ name_px }}{% else %}{{ name_mobile_px }}{% endif %}px; line-height:1.3; color:{{ fields.productName.color if fields.productName.color else yg_text }}; font-weight:{{ '700' if fields.productName.bold else '400' }}; font-style:{{ 'italic' if fields.productName.italics else 'normal' }};">
+													<div class="yg-bp-name{% if feature %} yg-bp-name--open{% endif %}" style="height:{% if feature %}auto{% else %}{{ compact_name_mobile_slot }}px{% endif %}; {% if not feature %}max-height:{{ compact_name_mobile_slot }}px; overflow:hidden;{% endif %} font-size:{% if feature %}{{ name_px }}{% else %}{{ name_mobile_px }}{% endif %}px; line-height:1.3;">
+														<a href="{{ product_url }}" target="_blank" title="{{ product.n }}" style="color:{{ fields.productName.color if fields.productName.color else yg_text }}; text-decoration:none; font-size:{% if feature %}{{ name_px }}{% else %}{{ name_mobile_px }}{% endif %}px; line-height:1.3;">
+															{{ product.n }}
+														</a>
+													</div>
+												</td>
+											</tr>
+										</table>
+										{% endif %}
+
+										{% if fields.prices.active %}
+										<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+											<tr>
+												<td class="yg-bp-price{% if feature %} yg-bp-price--open{% endif %}{% if feature and on_sale %} yg-bp-price--feature{% endif %}" align="{{ fields.prices.alignment }}" valign="top" height="{% if feature and not on_sale %}{{ feature_price_px + 6 }}{% elif feature %}{{ feature_price_slot }}{% elif row_has_sale %}{{ was_px + price_px + 8 }}{% else %}{{ price_px + 6 }}{% endif %}" style="height:{% if feature and not on_sale %}{{ feature_price_px + 6 }}{% elif feature %}{{ feature_price_slot }}{% elif row_has_sale %}{{ was_px + price_px + 8 }}{% else %}{{ price_px + 6 }}{% endif %}px; padding-top:2px; font-family:{{ fields.prices.font }}, {{ font_fallback }};">
+													{% if on_sale or row_has_sale %}
+													<div class="yg-bp-was{% if feature %} yg-bp-was--feature{% endif %}" style="height:{% if feature %}{{ feature_was_px + 2 }}{% else %}{{ was_px + 2 }}{% endif %}px; line-height:{% if feature %}{{ feature_was_px + 2 }}{% else %}{{ was_px + 2 }}{% endif %}px; overflow:hidden; font-family:{{ fields.prices.wasPriceFont }}, {{ font_fallback }}; font-size:{% if feature %}{{ feature_was_px }}{% else %}{{ was_px }}{% endif %}px; color:{{ fields.prices.wasPriceColor }}; {% if on_sale %}text-decoration:line-through;{% endif %} font-weight:{{ '700' if fields.prices.wasPriceBold else '400' }}; font-style:{{ 'italic' if fields.prices.wasPriceItalics else 'normal' }};">
+														{% if on_sale %}{{ product.ruv|format_currency(currency,2) }}{% else %}&nbsp;{% endif %}
+													</div>
+													{% endif %}
+													<div class="yg-bp-amount{% if feature %} yg-bp-amount--feature{% endif %}" style="height:{% if feature %}{{ feature_price_px + 4 }}{% else %}{{ price_px + 4 }}{% endif %}px; line-height:{% if feature %}{{ feature_price_px + 4 }}{% else %}{{ price_px + 4 }}{% endif %}px; overflow:hidden; font-size:{% if feature %}{{ feature_price_px }}{% else %}{{ price_px }}{% endif %}px; color:{{ yg_pink if on_sale else (fields.prices.color if fields.prices.color else yg_green) }}; font-weight:{{ '700' if fields.prices.bold else '400' }}; font-style:{{ 'italic' if fields.prices.italics else 'normal' }};">
+														{{ product.uv|format_currency(currency,2) }}
+													</div>
+												</td>
+											</tr>
+										</table>
+										{% endif %}
+
+										{% if fields.callToAction.active %}
+											{% set cta_bg = fields.callToAction.colors.background if fields.callToAction.colors.background else yg_pink %}
+											{% set cta_fg = fields.callToAction.colors.foreground if fields.callToAction.colors.foreground else yg_white %}
+											{% set cta_border = fields.callToAction.border %}
+											{% set cta_border_w = (fields.callToAction.borderWeight|default(3))|int %}
+											{% set cta_border_color = fields.callToAction.borderColor if fields.callToAction.borderColor else '#fdfefa' %}
+											{% set cta_border_style = fields.callToAction.borderStyle if fields.callToAction.borderStyle else 'solid' %}
+											{% set cta_label = fields.callToAction.text|replace(' >', '&nbsp;&gt;') %}
+										<table cellpadding="0" cellspacing="0" border="0" width="100%" role="presentation">
+											<tr>
+												<td align="center" style="padding-top:10px;">
+													<!--[if mso]>
+													<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ product_url }}" target="_blank" style="height:48px;v-text-anchor:middle;width:260px;" arcsize="50%"{% if cta_border %} stroked="t" strokecolor="{{ cta_border_color }}" strokeweight="{{ cta_border_w }}px"{% else %} stroked="f"{% endif %} fillcolor="{{ cta_bg }}">
+													<w:anchorlock/>
+													<center style="color:{{ cta_fg }}; font-family:{{ fields.callToAction.font }}, {{ font_fallback }}; font-size:{{ cta_px }}px; font-weight:bold;">
+														{{ cta_label }}
+													</center>
+													</v:roundrect>
+													<![endif]-->
+													<a class="yg-bp-cta" href="{{ product_url }}" target="_blank"
+														style="background-color:{{ cta_bg }};
+														border-radius:999px;
+														{% if cta_border %}border:{{ cta_border_w }}px {{ cta_border_style }} {{ cta_border_color }};{% else %}border:0;{% endif %}
+														color:{{ cta_fg }};
+														display:block;
+														width:100%;
+														max-width:100%;
+														box-sizing:border-box;
+														font-family:{{ fields.callToAction.font }}, {{ font_fallback }};
+														font-size:{{ cta_mobile_px }}px;
+														font-weight:{{ '700' if fields.callToAction.bold else '400' }};
+														font-style:{{ 'italic' if fields.callToAction.italics else 'normal' }};
+														line-height:1.2;
+														padding:{{ cta_mobile_pad_y }}px {{ cta_mobile_pad_x }}px;
+														white-space:nowrap;
+														overflow:hidden;
+														text-align:center;
+														text-decoration:none;
+														-webkit-text-size-adjust:none;">{{ cta_label }}</a>
+												</td>
+											</tr>
+										</table>
+										{% endif %}
+									</td>
+								</tr>
+							</table>
+						{% if feature %}</td></tr></table>{% endif %}
+					</td>
+			{% endfor %}
+			{% if row|length < cols and not solo and not trio %}
+					<td class="yg-bp-col" width="50%" valign="top" style="width:50%; max-width:50%; font-size:1px; line-height:1px;">&nbsp;</td>
+			{% endif %}
+				</tr>
+			</table>
+			{% endfor %}
+		</td>
+	</tr>
+
+</table>
+{% endif %}

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DUSK-style demo — Liquid theme + React bag island</title>
+    <link rel="stylesheet" href="./theme.css" />
+    <!--
+      Fingerprint teaching note (dusk.com live check Jul 2026):
+      - powered-by: Shopify
+      - Shopify.theme = { schema_name: "Underscore", … }  → classic Online Store theme (Liquid)
+      - shopify-section classes + Liquid markers
+      - NOT Hydrogen (no React storefront shell)
+      - App extensions may still ship React (wishlist, badges, search) as islands
+    -->
+  </head>
+  <body>
+    <header class="site-header">
+      <p class="eyebrow">Teaching demo · inspired by dusk.com patterns (not affiliated)</p>
+      <div class="site-header__row">
+        <strong class="logo">DUSK<span class="logo-sub">-style</span></strong>
+        <nav>
+          <a href="#liquid">Liquid grid</a>
+          <a href="#compare">Compare</a>
+        </nav>
+        <button type="button" class="bag-toggle" id="bag-toggle" aria-label="Open bag">
+          Bag <span id="bag-count">0</span>
+        </button>
+      </div>
+    </header>
+
+    <aside class="verdict" id="compare">
+      <h1>Is dusk.com Liquid or React?</h1>
+      <p>
+        <strong>Liquid theme (Shopify Online Store)</strong> — not a Hydrogen/React storefront.
+        Evidence from live headers/HTML: <code>powered-by: Shopify</code>,
+        <code>Shopify.theme</code> (<em>Underscore</em> schema), <code>shopify-section</code>,
+        shop <code>duskretail.myshopify.com</code>.
+      </p>
+      <p>
+        React can still appear as <strong>app extensions / islands</strong> (search, reviews, badges).
+        The page shell is still Liquid-rendered HTML.
+      </p>
+      <ul>
+        <li><strong>Left / below:</strong> HTML as if Liquid rendered it (see <code>.liquid</code> sources).</li>
+        <li><strong>Bag drawer:</strong> React island listening to <code>data-add-to-bag</code> buttons.</li>
+      </ul>
+    </aside>
+
+    <section class="sale-picks" id="liquid">
+      <div class="sale-picks__inner">
+        <h2 class="sale-picks__heading">Summer Sale Top Picks</h2>
+        <p class="hint">
+          Simulated Liquid output · source:
+          <code>liquid/snippets/product-card.liquid</code> +
+          <code>liquid/sections/sale-top-picks.liquid</code>
+        </p>
+
+        <div class="sale-picks__grid">
+          <!-- Equivalent of {% render 'product-card', product: … %} -->
+          <article class="product-card">
+            <a href="#" class="product-card__media" aria-label="Hattie 2 Drawer Bedside Table">
+              <div class="ph ph--wood" role="img" aria-label="Bedside table placeholder"></div>
+              <span class="badge badge--sale">Sale</span>
+            </a>
+            <div class="product-card__body">
+              <h3 class="product-card__title"><a href="#">Hattie 2 Drawer Bedside Table</a></h3>
+              <p class="product-card__meta">More colours available</p>
+              <p class="product-card__price">
+                <span class="price">£97</span>
+                <s class="price price--compare">£139</s>
+              </p>
+              <p class="product-card__reviews">★ 4.89 (1362 reviews)</p>
+              <button
+                type="button"
+                class="btn btn--add"
+                data-add-to-bag
+                data-product-id="1001"
+                data-variant-id="2001"
+                data-title="Hattie 2 Drawer Bedside Table"
+                data-price="97.00"
+              >
+                Add to bag
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <a href="#" class="product-card__media">
+              <div class="ph ph--sofa" role="img" aria-label="Sofa placeholder"></div>
+              <span class="badge badge--sale">Sale</span>
+            </a>
+            <div class="product-card__body">
+              <h3 class="product-card__title"><a href="#">Marseille 2 Seater Sofa</a></h3>
+              <p class="product-card__meta">More colours available</p>
+              <p class="product-card__price">
+                <span class="price">£209</span>
+                <s class="price price--compare">£349</s>
+              </p>
+              <p class="product-card__reviews">★ 4.80 (15 reviews)</p>
+              <button
+                type="button"
+                class="btn btn--add"
+                data-add-to-bag
+                data-product-id="1002"
+                data-variant-id="2002"
+                data-title="Marseille 2 Seater Sofa"
+                data-price="209.00"
+              >
+                Add to bag
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <a href="#" class="product-card__media">
+              <div class="ph ph--bed" role="img" aria-label="Bed placeholder"></div>
+              <span class="badge badge--sale">Sale</span>
+            </a>
+            <div class="product-card__body">
+              <h3 class="product-card__title"><a href="#">Wiltshire Chenille Ottoman Storage Bed</a></h3>
+              <p class="product-card__meta">More colours &amp; sizes available</p>
+              <p class="product-card__price">
+                <span class="price">£263</span>
+                <s class="price price--compare">£379</s>
+              </p>
+              <p class="product-card__reviews">★ 4.92 (581 reviews)</p>
+              <button
+                type="button"
+                class="btn btn--add"
+                data-add-to-bag
+                data-product-id="1003"
+                data-variant-id="2003"
+                data-title="Wiltshire Chenille Ottoman Storage Bed"
+                data-price="263.00"
+              >
+                Add to bag
+              </button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <a href="#" class="product-card__media">
+              <div class="ph ph--linen" role="img" aria-label="Bedding placeholder"></div>
+            </a>
+            <div class="product-card__body">
+              <h3 class="product-card__title"><a href="#">Imogen Ladder Edge Duvet Cover Set</a></h3>
+              <p class="product-card__meta">More sizes available</p>
+              <p class="product-card__price">
+                <span class="price">£30</span>
+                <s class="price price--compare">£55</s>
+              </p>
+              <p class="product-card__reviews">★ 5.00 (2 reviews)</p>
+              <button type="button" class="btn btn--add" disabled>Sold out</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="compare-table">
+      <h2>Liquid theme vs React (on a store like DUSK)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Liquid (dusk.com shell)</th>
+            <th>React</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Runs where?</td>
+            <td>Shopify server → HTML</td>
+            <td>Browser (or Hydrogen server)</td>
+          </tr>
+          <tr>
+            <td>Product grid / SEO HTML</td>
+            <td>✓ Theme sections</td>
+            <td>Hydrogen headless, or islands only</td>
+          </tr>
+          <tr>
+            <td>Add-to-bag drawer UX</td>
+            <td>Theme JS <em>or</em> React island</td>
+            <td>✓ This demo’s drawer</td>
+          </tr>
+          <tr>
+            <td>Admin apps / many extensions</td>
+            <td>—</td>
+            <td>✓ Common</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Mount point for the React island -->
+    <div id="react-bag-root"></div>
+
+    <!--
+      This file is a static twin for reading Liquid → HTML offline.
+      Runnable demo (Liquid-like page + React bag): cd ../react-island && npm run dev → :5182
+    -->
+    <p class="boot-hint" style="padding:1rem;text-align:center">
+      Open the live demo: <code>cd react-island && npm run dev</code> → http://127.0.0.1:5182
+    </p>
+  </body>
+</html>

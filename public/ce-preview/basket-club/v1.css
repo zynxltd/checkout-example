@@ -1,0 +1,449 @@
+/**
+ * Crazy Egg → Custom CSS
+ * Basket Club Promo V1 — match AI Basket_Working_Doc exactly
+ * Pair with: v1.js
+ *
+ * Gelica via Typekit (also loaded in v1.js). @import must stay first.
+ */
+
+@import url("https://use.typekit.net/hrf1tkz.css");
+
+html[data-ce-yg-club-v1="1"] {
+  --ce-yg-club-purple: #7c287d;
+  --ce-yg-club-opt: #570e57;
+  --ce-yg-club-lime: #cce083;
+  --ce-yg-club-gelica: gelica, Gelica, Georgia, "Times New Roman", serif;
+}
+
+/* Keep logo corner overhang visible (YG parents often clip) */
+html[data-ce-yg-club-v1="1"] .viewordLeftWrapper,
+html[data-ce-yg-club-v1="1"] .viewordLeftWrapper > *,
+html[data-ce-yg-club-v1="1"] .buttonPromoWrapper,
+html[data-ce-yg-club-v1="1"] .buttonPromoWrapper > *,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo--v1,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo--v1 .ce-yg-club-promo__inner {
+  overflow: visible !important;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo--v1 {
+  clear: both;
+  width: 100%;
+  margin: 28px 0 18px;
+  padding-top: 32px; /* room for ~40% logo overhang (matches AI) */
+  box-sizing: border-box;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo--v1 .ce-yg-club-promo__inner {
+  display: grid;
+  /* Right column tighter so option cards match design width (little empty space) */
+  grid-template-columns: minmax(190px, 0.9fr) minmax(270px, 1.35fr) minmax(155px, 0.7fr);
+  gap: 0;
+  align-items: stretch;
+  padding: 0;
+  background: var(--ce-yg-club-purple) !important;
+  color: #fff;
+  border-radius: 6px;
+  box-sizing: border-box;
+  overflow: visible !important;
+  position: relative;
+  min-height: 112px;
+}
+
+/*
+ * Logo: AI mockup top-left corner break.
+ * ~40% above top edge, slight left overhang (~8px).
+ */
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__logo {
+  position: absolute;
+  left: -8px;
+  top: -30px;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  display: block;
+  z-index: 5;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  pointer-events: none;
+}
+
+/* Left copy — indented for logo, keep clear of divider */
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__lead {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px 12px 68px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__copy {
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__eyebrow,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__save,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__sub,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__more,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit-label,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit-label strong,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt-title,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt-price,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__meta,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-side--v1 .ce-yg-club-side__text {
+  font-family: var(--ce-yg-club-gelica) !important;
+  font-synthesis: none !important;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__eyebrow,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__save,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__sub {
+  margin: 0;
+  color: #fff !important;
+  line-height: 1.08;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__eyebrow {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__save {
+  font-size: clamp(17px, 1.9vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__sub {
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* More Info — #cce083, left-aligned under copy */
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__more,
+html[data-ce-yg-club-v1="1"] a.ce-yg-club-promo__more:link,
+html[data-ce-yg-club-v1="1"] a.ce-yg-club-promo__more:visited {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  margin: 0 !important;
+  padding: 3px 11px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #cce083 !important;
+  background-color: #cce083 !important;
+  color: #570e57 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  line-height: 1.2 !important;
+  box-shadow: none !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+/* Benefits + white divider asset */
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px 6px;
+  align-content: center;
+  align-items: start;
+  justify-items: center;
+  padding: 12px 16px;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits::before,
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 72%;
+  max-height: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 4px 100%;
+  pointer-events: none;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAACdCAYAAACTmNn1AAAACXBIWXMAAAsSAAALEgHS3X78AAAAl0lEQVRIie3RwQ2AIAwF0MYJGIENdAMZXTfQDRiBDepBYgxEv9qqHOBC8mJ/f5CYmZjZxJsaWk8X7w0ohewLA0e2sT0YOHIOFsK1UCfsgaFXCnXaxc7BQhBsyf5+qxD6LrhCeuyPhVBK0woVlMFD+LDY8M9aAcwpBEGoh/Ag9Dpk1Sdh6KhUDMNwb8RDeNjj5hOGFKbDLQvA9h5tQv02zgAAAABJRU5ErkJggg==");
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits::before {
+  left: 0;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits::after {
+  right: 0;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  max-width: 110px;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit-icon {
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit-icon img {
+  display: block;
+  width: auto;
+  max-height: 28px;
+  height: 28px;
+  object-fit: contain;
+  background: transparent;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit-label {
+  font-size: 9px !important;
+  font-weight: 400 !important;
+  line-height: 1.2;
+  color: #fff !important;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefit-label strong {
+  display: block;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  margin-bottom: 0;
+}
+
+/* Option cards — compact to match design (little empty space on right) */
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__choose {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 10px 10px 12px;
+  background: transparent;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  column-gap: 7px;
+  align-items: center;
+  margin: 0;
+  padding: 6px 8px 6px 7px !important;
+  border: 1.5px solid #fff !important;
+  border-radius: 5px;
+  background: #570e57 !important;
+  background-color: #570e57 !important;
+  cursor: pointer;
+  color: #fff;
+  box-sizing: border-box;
+  min-height: 0;
+  width: 100%;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__radio {
+  grid-column: 1;
+  grid-row: 1;
+  width: 10px;
+  height: 10px;
+  margin-top: 0;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: relative;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt.is-selected .ce-yg-club-promo__radio::after {
+  content: "";
+  position: absolute;
+  inset: 1.5px;
+  border-radius: 50%;
+  background: #cce083;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt-text {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  line-height: 1.1;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt-text .ce-yg-club-promo__opt-title {
+  display: block;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  color: #fff !important;
+  line-height: 1.15;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt-text .ce-yg-club-promo__opt-price {
+  display: block;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.1;
+  color: #fff !important;
+  margin-top: 0;
+}
+
+/* One Year: price + "No Auto Renew" side-by-side (AI mockup) */
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt-row .ce-yg-club-promo__opt-price {
+  display: inline-block;
+  margin-top: 0;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__opt-row .ce-yg-club-promo__meta {
+  margin-top: 0;
+  line-height: 1.1;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__meta {
+  display: block;
+  font-size: 9px !important;
+  font-weight: 400 !important;
+  line-height: 1.15;
+  color: rgba(255, 255, 255, 0.95) !important;
+  margin-top: 0;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__was {
+  text-decoration: line-through;
+  opacity: 0.9;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__atc {
+  display: none;
+}
+
+/* Sidebar */
+html[data-ce-yg-club-v1="1"] .clubSavingWrapper.ce-yg-club-side--v1 {
+  padding: 0 !important;
+  margin: 10px 0 !important;
+  background: var(--ce-yg-club-purple) !important;
+  border: 0 !important;
+  overflow: hidden;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-side--v1 .ce-yg-club-side__link {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-side--v1 .ce-yg-club-side__logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  background: transparent;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-side--v1 .ce-yg-club-side__text {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #fff !important;
+}
+
+html[data-ce-yg-club-v1="1"] .ce-yg-club-side--v1 .ce-yg-club-side__text strong {
+  text-decoration: underline;
+  font-weight: 800;
+}
+
+@media (max-width: 980px) {
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo--v1 {
+    padding-top: 28px;
+  }
+
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo--v1 .ce-yg-club-promo__inner {
+    grid-template-columns: 1fr;
+  }
+
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__logo {
+    width: 64px;
+    height: 64px;
+    left: -4px;
+    top: -26px;
+  }
+
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__lead {
+    padding: 16px 12px 14px 72px;
+  }
+
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__save {
+    font-size: 26px;
+  }
+
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits::before,
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits::after {
+    display: none;
+  }
+
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__benefits {
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  html[data-ce-yg-club-v1="1"] .ce-yg-club-promo__atc {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2px;
+    padding: 12px 14px;
+    border: 0;
+    border-radius: 4px;
+    background: #fff;
+    color: #570e57;
+    font-family: var(--ce-yg-club-gelica);
+    font-size: 14px;
+    font-weight: 800;
+    font-synthesis: none;
+    cursor: pointer;
+  }
+}

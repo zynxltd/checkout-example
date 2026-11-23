@@ -1,0 +1,169 @@
+/**
+ * Crazy Egg A/B — Mobile search bar (match Argos / mock-up header)
+ *
+ * Mobile only (max-width: 1000px).
+ * Paste into Crazy Egg variant → Custom CSS
+ * Pair with: crazyegg-mobile-search-usp.js
+ * (JS also injects critical CSS so hide + bar still work if CSS paste fails)
+ *
+ * Mock-up order:
+ *   [ menu | logo | account | basket ]
+ *   [ ——— full-width pill search ——— ]
+ *   [ cream USP strip ]
+ */
+
+html.ce-yg-mobile-search-usp {
+  --ce-ms-forest: #264f1c;
+  --ce-ms-border: #c5bdb5;
+  --ce-ms-muted: #777777;
+  --ce-ms-body: "proxima-nova", "Proxima Nova", Arial, Helvetica, sans-serif;
+  --ce-ms-icon-slot: 52.5px;
+}
+
+@media (max-width: 1000px) {
+  /*
+   * Hide Luigi mobile-search widget, but KEEP an icon-sized slot so
+   * menu / logo / account / basket stay in their original positions.
+   * Do NOT target bare #mobileSearch — login wrongly shares that id.
+   */
+  html.ce-yg-mobile-search-usp #ltw-app[data-luma*="mobilesearch"] {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: var(--ce-ms-icon-slot) !important;
+    max-width: var(--ce-ms-icon-slot) !important;
+    height: 33px !important;
+    overflow: hidden !important;
+    float: left !important;
+  }
+
+  html.ce-yg-mobile-search-usp #ltw-app[data-luma*="mobilesearch"] #mobileSearch,
+  html.ce-yg-mobile-search-usp .lbx-replaced#mobileSearch {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* Native Magento search icon (already often display:none once Luigi mounts) */
+  html.ce-yg-mobile-search-usp .bottomPanel > #mobileSearch:not(:has(a)) {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  html.ce-yg-mobile-search-usp #mobileSearchWrapper {
+    display: none !important;
+  }
+
+  /*
+   * Fine grey line is border-bottom on .bottomPanel (icon row).
+   * Put the pill inside .mobileNavBar BELOW the icons, and move that
+   * border to under the search so the line sits beneath the pill.
+   */
+  html.ce-yg-mobile-search-usp #head-scroll,
+  html.ce-yg-mobile-search-usp #header .mobileNavBar,
+  html.ce-yg-mobile-search-usp .mobileNavBar {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  html.ce-yg-mobile-search-usp #header .mobileNavBar .bottomPanel,
+  html.ce-yg-mobile-search-usp .mobileNavBar .bottomPanel {
+    border-bottom: none !important;
+  }
+
+  html.ce-yg-mobile-search-usp .ce-ms-bar {
+    display: block !important;
+    clear: both !important;
+    float: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 8px 16px 14px !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    border: 0 !important;
+    border-bottom: 1px solid #eeeeee !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  html.ce-yg-mobile-search-usp .ce-ms-bar__inner {
+    position: relative !important;
+    display: flex !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+    border: 1px solid var(--ce-ms-border) !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    box-shadow: 0 2px 10px rgba(38, 79, 28, 0.08) !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-mobile-search-usp .ce-ms-bar__inner:focus-within {
+    border-color: var(--ce-ms-forest) !important;
+    box-shadow:
+      0 2px 10px rgba(38, 79, 28, 0.1),
+      0 0 0 2px rgba(38, 79, 28, 0.28) !important;
+  }
+
+  html.ce-yg-mobile-search-usp .ce-ms-bar__input {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-radius: 999px !important;
+    padding: 14px 48px 14px 18px !important;
+    margin: 0 !important;
+    font-family: var(--ce-ms-body) !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+    color: var(--ce-ms-muted) !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  html.ce-yg-mobile-search-usp .ce-ms-bar__input::placeholder {
+    color: var(--ce-ms-muted) !important;
+    opacity: 1 !important;
+  }
+
+  html.ce-yg-mobile-search-usp .ce-ms-bar__btn {
+    position: absolute !important;
+    top: 50% !important;
+    right: 6px !important;
+    transform: translateY(-50%) !important;
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    color: var(--ce-ms-forest) !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+  }
+
+  html.ce-yg-mobile-search-usp .ce-ms-bar__btn svg {
+    width: 20px !important;
+    height: 20px !important;
+    display: block !important;
+    fill: currentColor !important;
+  }
+}
+
+@media (min-width: 1001px) {
+  html.ce-yg-mobile-search-usp .ce-ms-bar {
+    display: none !important;
+  }
+}

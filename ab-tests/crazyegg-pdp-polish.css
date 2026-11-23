@@ -1,0 +1,285 @@
+/**
+ * Crazy Egg — YouGarden PDP visual polish
+ *
+ * Keep every PDP block where it is. Tighten type, price, qty / ATC,
+ * options, bullets, and tabs to match the checkout prototype look.
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-pdp-polish.js
+ * Target: https://www.yougarden.com/item-p-* and /item-s-*
+ */
+
+html.ce-yg-pdp-polish {
+  --ce-yg-green: #468900;
+  --ce-yg-green-dark: #365722;
+  --ce-yg-forest: #264f1c;
+  --ce-yg-pink: #e3185d;
+  --ce-yg-stone: #f5ede1;
+  --ce-yg-text: #2c2926;
+  --ce-yg-muted: #6a635c;
+  --ce-yg-line: #e6ddd2;
+  --ce-yg-line-strong: #d4c9bc;
+  --ce-yg-radius: 10px;
+  --ce-yg-radius-sm: 8px;
+}
+
+/* —— Breadcrumb —— */
+html.ce-yg-pdp-polish .breadcrumb-wrapper {
+  border-bottom: 1px solid var(--ce-yg-line) !important;
+  background: #fff !important;
+}
+
+html.ce-yg-pdp-polish .breadcrumbs,
+html.ce-yg-pdp-polish .breadcrumbs a {
+  color: var(--ce-yg-muted) !important;
+  font-weight: 400 !important;
+}
+
+html.ce-yg-pdp-polish .breadcrumbs a:hover {
+  color: var(--ce-yg-forest) !important;
+}
+
+/* —— Gallery —— */
+html.ce-yg-pdp-polish .main-image-wrapper,
+html.ce-yg-pdp-polish .main-image-wrapper-offer,
+html.ce-yg-pdp-polish #main-image-carousel,
+html.ce-yg-pdp-polish #main-image-carousel .slick-list,
+html.ce-yg-pdp-polish #main-image-carousel .slick-slide {
+  border-radius: var(--ce-yg-radius) !important;
+}
+
+html.ce-yg-pdp-polish #main-image-carousel img,
+html.ce-yg-pdp-polish .main-image-wrapper img {
+  border-radius: var(--ce-yg-radius) !important;
+}
+
+html.ce-yg-pdp-polish .thumbnails-wrapper .slick-slide img,
+html.ce-yg-pdp-polish .thumbnails img,
+html.ce-yg-pdp-polish .thumbnail img {
+  border-radius: 6px !important;
+  border: 1px solid var(--ce-yg-line) !important;
+}
+
+/* —— Buy column type —— */
+html.ce-yg-pdp-polish .product-right-wrapper h1 {
+  color: var(--ce-yg-text) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+  line-height: 1.2 !important;
+  margin-bottom: 8px !important;
+}
+
+html.ce-yg-pdp-polish .product-right-wrapper .sub-head {
+  color: var(--ce-yg-muted) !important;
+  line-height: 1.45 !important;
+  margin-bottom: 12px !important;
+}
+
+html.ce-yg-pdp-polish .product-right-wrapper .feefo-rating {
+  margin-bottom: 14px !important;
+}
+
+/* —— Price block —— */
+html.ce-yg-pdp-polish .price-wrapper {
+  border: 1px solid var(--ce-yg-line) !important;
+  border-radius: var(--ce-yg-radius) !important;
+  background: #fff !important;
+  padding: 12px 14px !important;
+  box-sizing: border-box !important;
+  margin-bottom: 12px !important;
+}
+
+html.ce-yg-pdp-polish .price-wrapper .pno-wrapper,
+html.ce-yg-pdp-polish .price-wrapper .pno {
+  color: var(--ce-yg-muted) !important;
+  font-size: 12px !important;
+}
+
+html.ce-yg-pdp-polish .price-wrapper .price {
+  color: var(--ce-yg-text) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+
+html.ce-yg-pdp-polish .price-wrapper .price .price-text {
+  color: var(--ce-yg-pink) !important;
+  font-weight: 700 !important;
+  font-size: 1.65em !important;
+  letter-spacing: -0.02em !important;
+}
+
+html.ce-yg-pdp-polish .price-wrapper .rrp {
+  color: var(--ce-yg-muted) !important;
+  text-decoration: line-through !important;
+}
+
+html.ce-yg-pdp-polish .price-wrapper .saving,
+html.ce-yg-pdp-polish .price-wrapper .saving span {
+  color: var(--ce-yg-green-dark) !important;
+  font-weight: 700 !important;
+}
+
+/* —— Club price —— */
+html.ce-yg-pdp-polish .club-price-wrapper {
+  border: 1px solid #d7e4c8 !important;
+  border-radius: var(--ce-yg-radius) !important;
+  background: #f3f7ec !important;
+  background-color: #f3f7ec !important;
+  background-image: none !important;
+  padding: 10px 12px !important;
+  box-sizing: border-box !important;
+  margin-bottom: 12px !important;
+}
+
+html.ce-yg-pdp-polish .club-price-wrapper .club-price,
+html.ce-yg-pdp-polish .club-price-wrapper .club-price span {
+  color: var(--ce-yg-forest) !important;
+  font-weight: 700 !important;
+}
+
+/* —— Size / style options —— */
+html.ce-yg-pdp-polish .style-options-head,
+html.ce-yg-pdp-polish #style-options .style-options-head {
+  border: 1px solid var(--ce-yg-forest) !important;
+  border-radius: var(--ce-yg-radius) !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-pdp-polish .style-options-head.active {
+  border-radius: var(--ce-yg-radius) var(--ce-yg-radius) 0 0 !important;
+}
+
+html.ce-yg-pdp-polish .style-options-drop-box .option-row {
+  border: 1px solid var(--ce-yg-line-strong) !important;
+  border-radius: var(--ce-yg-radius-sm) !important;
+  box-sizing: border-box !important;
+  margin-bottom: 8px !important;
+}
+
+html.ce-yg-pdp-polish .style-options-drop-box .option-row.active,
+html.ce-yg-pdp-polish .style-options-drop-box .option-row:hover {
+  border-color: var(--ce-yg-forest) !important;
+  background: #f4f8ee !important;
+}
+
+html.ce-yg-pdp-polish .view-size-guide,
+html.ce-yg-pdp-polish .view-size-guide span {
+  color: var(--ce-yg-forest) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+/* —— Qty + ATC —— */
+html.ce-yg-pdp-polish .buy-wrapper .qtyBlock,
+html.ce-yg-pdp-polish .buy-wrapper .qtyWrapper {
+  border: 1px solid var(--ce-yg-line-strong) !important;
+  border-radius: var(--ce-yg-radius) !important;
+  overflow: hidden !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-pdp-polish .buy-wrapper .qtyMinus,
+html.ce-yg-pdp-polish .buy-wrapper .qtyPlus {
+  background: var(--ce-yg-stone) !important;
+  color: var(--ce-yg-forest) !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+}
+
+html.ce-yg-pdp-polish .buy-wrapper .qtyMinus:hover,
+html.ce-yg-pdp-polish .buy-wrapper .qtyPlus:hover {
+  background: #ebe1d2 !important;
+}
+
+html.ce-yg-pdp-polish .buy-wrapper .updateQty-input {
+  border: 0 !important;
+  font-weight: 700 !important;
+  color: var(--ce-yg-text) !important;
+  text-align: center !important;
+}
+
+html.ce-yg-pdp-polish .buy-wrapper .buy-button {
+  background: var(--ce-yg-green) !important;
+  background-color: var(--ce-yg-green) !important;
+  background-image: none !important;
+  color: #fff !important;
+  border: 0 !important;
+  border-radius: var(--ce-yg-radius) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+
+html.ce-yg-pdp-polish .buy-wrapper .buy-button:hover,
+html.ce-yg-pdp-polish .buy-wrapper .buy-button:focus {
+  background: var(--ce-yg-green-dark) !important;
+  background-color: var(--ce-yg-green-dark) !important;
+  color: #fff !important;
+}
+
+/* —— Feature icons / bullets —— */
+html.ce-yg-pdp-polish .icons-heading {
+  color: var(--ce-yg-forest) !important;
+  font-weight: 700 !important;
+  border-top: 1px solid var(--ce-yg-line) !important;
+  padding-top: 14px !important;
+}
+
+html.ce-yg-pdp-polish .points ul {
+  margin-top: 8px !important;
+}
+
+html.ce-yg-pdp-polish .points li {
+  color: var(--ce-yg-text) !important;
+  line-height: 1.45 !important;
+  margin-bottom: 8px !important;
+}
+
+/* —— Tabs / accordion —— */
+html.ce-yg-pdp-polish .product-tabs-wrapper .tab-heading {
+  border: 1px solid var(--ce-yg-line) !important;
+  border-radius: var(--ce-yg-radius-sm) !important;
+  background: #fff !important;
+  color: var(--ce-yg-text) !important;
+  font-weight: 700 !important;
+  margin-bottom: 8px !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-pdp-polish .product-tabs-wrapper .tab-heading:hover,
+html.ce-yg-pdp-polish .product-tabs-wrapper .tab-heading.active {
+  border-color: var(--ce-yg-forest) !important;
+  color: var(--ce-yg-forest) !important;
+  background: #f7faf3 !important;
+}
+
+html.ce-yg-pdp-polish .product-tabs-wrapper .tab-content {
+  border: 1px solid var(--ce-yg-line) !important;
+  border-radius: var(--ce-yg-radius-sm) !important;
+  background: #fff !important;
+  box-sizing: border-box !important;
+  padding: 12px 14px !important;
+  margin-bottom: 10px !important;
+}
+
+html.ce-yg-pdp-polish .product-tabs-wrapper .tab-content p,
+html.ce-yg-pdp-polish .product-tabs-wrapper .tab-content li {
+  color: var(--ce-yg-text) !important;
+  line-height: 1.5 !important;
+}
+
+/* —— Overlay badges on gallery (FREE DELIVERY etc.) —— */
+html.ce-yg-pdp-polish .overlay-wrapper,
+html.ce-yg-pdp-polish .images-wrapper .overlay {
+  z-index: 2;
+}
+
+/* —— Light page calm —— */
+html.ce-yg-pdp-polish .product-top-wrapper,
+html.ce-yg-pdp-polish .product-tabs-wrapper {
+  background: #fff !important;
+}

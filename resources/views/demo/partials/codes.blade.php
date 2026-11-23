@@ -19,49 +19,19 @@
         </span>
         <button type="button" class="yg-code-row__action" data-remove-code="offer">Remove</button>
     </div>
-    @elseif($offerMode === 'dropdown')
-    <details class="yg-codes__details">
-        <summary class="yg-codes__summary">
-            <span class="yg-codes__summary-label">Have an offer code?</span>
-            <span class="yg-codes__summary-chev" aria-hidden="true">▾</span>
-        </summary>
-        <div class="yg-codes__offer">
-            <p class="yg-codes__label" id="yg-code-label">Offer code</p>
-            <div class="yg-code-row">
-                <input
-                    id="yg-input-offer"
-                    type="text"
-                    name="offer"
-                    placeholder="Enter offer code"
-                    autocomplete="off"
-                    aria-labelledby="yg-code-label"
-                    aria-describedby="yg-code-hint"
-                >
-                <button type="button" data-apply-code="offer">Apply code</button>
-            </div>
-            <p class="yg-codes__hint" id="yg-code-hint">
-                Have a gift or postage voucher? <a href="{{ route('demo.checkout') }}#co-voucher-input" class="yg-codes__hint-link">Apply at checkout</a>.
-            </p>
-        </div>
-    </details>
     @elseif($offerMode !== 'hidden')
     <div class="yg-codes__offer">
-        <p class="yg-codes__label" id="yg-code-label">Offer code</p>
         <div class="yg-code-row">
             <input
                 id="yg-input-offer"
                 type="text"
                 name="offer"
-                placeholder="Enter offer code"
+                placeholder="Offer code"
                 autocomplete="off"
-                aria-labelledby="yg-code-label"
-                aria-describedby="yg-code-hint"
+                aria-label="Offer code"
             >
             <button type="button" data-apply-code="offer">Apply code</button>
         </div>
-        <p class="yg-codes__hint" id="yg-code-hint">
-            Have a gift or postage voucher? <a href="{{ route('demo.checkout') }}#co-voucher-input" class="yg-codes__hint-link">Apply at checkout</a>.
-        </p>
     </div>
     @endif
 </div>

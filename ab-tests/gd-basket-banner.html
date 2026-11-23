@@ -1,0 +1,314 @@
+{# Content - Web #}
+
+{% set threshold = 49.99 %}
+{% set total = merges.subtotal|default(0)|float %}
+{% set currency = merges.curr|default('GBP') %}
+
+<div class="{{safeid}}__sb-root imagecontainer" data-image-index="0">
+
+	<div class="{{safeid}}__sb-container">
+		<div class="{{safeid}}__petals" aria-hidden="true">
+			<span class="{{safeid}}__petal"></span>
+			<span class="{{safeid}}__petal"></span>
+			<span class="{{safeid}}__petal"></span>
+			<span class="{{safeid}}__petal"></span>
+			<span class="{{safeid}}__petal"></span>
+			<span class="{{safeid}}__petal"></span>
+			<span class="{{safeid}}__petal"></span>
+			<span class="{{safeid}}__petal"></span>
+		</div>
+
+		{% if fields.headerContainer.active %}
+		<div class="{{safeid}}__header {{safeid}}__row-margin">
+
+			{% if fields.headline.active %}
+			<div class="{{safeid}}__headline">
+				<div class="{{safeid}}__headline-track">
+					<span class="{{safeid}}__headline-item">{% if total < threshold %}Spend {{ (threshold - total)|format_currency(currency,2) }} more to qualify for FREE delivery!{% else %}You qualify for FREE delivery!{% endif %}</span>
+					<span class="{{safeid}}__headline-item" aria-hidden="true">{% if total < threshold %}Spend {{ (threshold - total)|format_currency(currency,2) }} more to qualify for FREE delivery!{% else %}You qualify for FREE delivery!{% endif %}</span>
+				</div>
+			</div>
+			{% endif %}
+			
+			{% if fields.subHeadline.active %}
+			<div class="{{safeid}}__sub-headline">
+				{{ fields.subHeadline.text}}
+	
+			</div>
+			{% endif %}
+
+		</div>
+		{% endif %}
+
+		{% if fields.cta.active %}
+		<div class="{{safeid}}__cta-container {{safeid}}__row-margin">
+			 {% if fields.cta.active %}
+				<a class="{{safeid}}__cta" href="{{ mergeField(fields.buttonHref, {})|set_ga_tracking(
+					utm_campaign=mergeField(fields.utmCampaign, {}), 
+					utm_medium=mergeField(fields.utmMedium, {}), 
+					utm_source=mergeField(fields.utmSource, {})) }}" target="_blank">
+					{{ fields.cta.text }}
+				</a>
+			{% endif %}
+		</div>
+		{% endif %}
+
+	</div>
+
+</div>
+
+<style>
+
+	.{{safeid}}__sb-root {
+		display: flex;
+		justify-content: center;
+	}
+	
+	.{{safeid}}__sb-container {
+		position: relative;
+		overflow: hidden;
+		background-color: {{ fields.newColorField }};
+		padding: {{ fields.padding.size }}{{ fields.padding.unit }};
+		border-radius: {{ fields.borderRadius }};
+		width: {{ '100%' if fields.autofill else fields.width.size + fields.width.unit }};
+		{% if fields.backgroundImage.active %}
+			background-image: url('{{ fields.backgroundImage.imageUrl }}');
+			background-position: {{ fields.backgroundImage.imagePosition }};
+			background-size: {{ fields.backgroundImage.imageSize }};
+			background-repeat: no-repeat;
+		{% endif %}
+		{% if fields.containerBorder.active %}
+			border: {{ fields.containerBorder.borderWeight }}px {{ fields.containerBorder.borderStyle }} {{ fields.containerBorder.borderColor }};
+		{% endif %}
+	}
+
+	.{{safeid}}__sb-container::before {
+		content: none;
+	}
+
+	.{{safeid}}__petals {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.{{safeid}}__petal {
+		position: absolute;
+		top: -12px;
+		width: 8px;
+		height: 10px;
+		border-radius: 80% 0 80% 0;
+		background: rgba(255, 255, 255, 0.35);
+		opacity: 0;
+		animation: {{safeid}}_petal-fall 9s linear infinite;
+	}
+
+	.{{safeid}}__petal:nth-child(1) { left: 8%;  animation-delay: 0s;    animation-duration: 8s; }
+	.{{safeid}}__petal:nth-child(2) { left: 22%; animation-delay: 1.4s;  animation-duration: 10s; width: 6px; height: 8px; }
+	.{{safeid}}__petal:nth-child(3) { left: 38%; animation-delay: 0.7s;  animation-duration: 9s; }
+	.{{safeid}}__petal:nth-child(4) { left: 52%; animation-delay: 2.2s;  animation-duration: 11s; width: 7px; height: 9px; }
+	.{{safeid}}__petal:nth-child(5) { left: 66%; animation-delay: 0.3s;  animation-duration: 8.5s; }
+	.{{safeid}}__petal:nth-child(6) { left: 78%; animation-delay: 1.8s;  animation-duration: 10.5s; width: 6px; height: 7px; }
+	.{{safeid}}__petal:nth-child(7) { left: 88%; animation-delay: 3s;    animation-duration: 9.5s; }
+	.{{safeid}}__petal:nth-child(8) { left: 15%; animation-delay: 4.2s;  animation-duration: 12s; width: 5px; height: 7px; }
+
+	.{{safeid}}__sb-container > *:not(.{{safeid}}__petals) {
+		position: relative;
+		z-index: 1;
+	}
+	
+	.{{safeid}}__header {
+		display: flex;
+		flex-direction: column;
+		padding: {{ fields.headerContainer.padding.size }}{{ fields.headerContainer.padding.unit }};
+	}
+	
+	.{{safeid}}__row-margin:not(:last-child) {
+		margin-bottom: {{ fields.rowMargin }}px;
+	}
+	
+	.{{safeid}}__headline {
+		padding: {{ fields.headline.padding.size }}{{ fields.headline.padding.unit }};
+		background-color: {{ fields.headline.colors.background }};
+		{% if fields.subHeadline.active %}
+		  margin-bottom: {{ fields.rowMargin }}px;
+		{% endif %}
+		font-family: {{ fields.headline.font }};
+		font-size: {{ fields.headline.fontSize.size }}{{ fields.headline.fontSize.unit }};
+		text-align: {{ fields.headline.alignment }};
+		color: {{ fields.headline.colors.foreground }};
+		font-weight: {{ 'bold' if fields.headline.bold else 'normal' }};
+		font-style: {{ 'italic' if fields.headline.italics else 'normal' }};
+		letter-spacing: 0.02em;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.18);
+		display: block;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.{{safeid}}__headline-track {
+		display: inline-flex;
+		align-items: center;
+		gap: 4rem;
+		width: max-content;
+		white-space: nowrap;
+		--marquee-shift: 2rem;
+		animation:
+			{{safeid}}_marquee 18s linear infinite,
+			{{safeid}}_text-glow 3.5s ease-in-out infinite;
+	}
+
+	.{{safeid}}__headline-item {
+		display: inline-block;
+		flex-shrink: 0;
+		white-space: nowrap;
+	}
+
+	.{{safeid}}__headline-item + .{{safeid}}__headline-item {
+		display: inline-block;
+	}
+	
+	.{{safeid}}__sub-headline {
+		padding: {{ fields.subHeadline.padding.size }}{{ fields.subHeadline.padding.unit }};
+		border-radius: {{ fields.subHeadline.borderRadius}};
+		background-color: {{ fields.subHeadline.colors.background }};
+		font-family: {{ fields.subHeadline.font }};
+		font-size: {{ fields.subHeadline.fontSize.size }}{{ fields.subHeadline.fontSize.unit }};
+		text-align: {{ fields.subHeadline.alignment }};
+		color: {{ fields.subHeadline.colors.foreground }};
+		font-weight: {{ 'bold' if fields.subHeadline.bold else 'normal' }};
+		font-style: {{ 'italic' if fields.subHeadline.italics else 'normal' }};
+	}
+	
+	.{{safeid}}__cta-container {
+		display: flex;
+		justify-content: center;
+	}
+	
+	.{{safeid}}__cta {
+		display: flex;
+		justify-content: {{ fields.cta.alignment }};
+		align-items: center;
+		font-family: {{ fields.cta.font }};
+		font-size: {{ fields.cta.fontSize.size }}{{ fields.cta.fontSize.unit }};
+		color: {{ fields.cta.colors.foreground }};
+		background-color: {{ fields.cta.colors.background }};
+		font-weight: {{ 'bold' if fields.cta.bold else 'normal' }};
+		font-style: {{ 'italic' if fields.cta.italics else 'normal' }};
+		border-radius: {{ fields.cta.borderRadius }};
+		text-decoration: none;
+		padding: {{ fields.cta.padding.size }}{{ fields.cta.padding.unit }};
+		{% if fields.cta.borderActive %}
+			border: {{ fields.cta.borderWeight }}px {{ fields.cta.borderStyle }} {{ fields.cta.borderColor }};
+		{% endif %}
+		{% if fields.cta.width > 0 %}
+			width: {{ fields.cta.width }}px;
+		{% else %}
+			width: auto
+		{% endif %}
+		{% if fields.cta.height > 0 %}
+			height: {{ fields.cta.height }}px;
+		{% endif %}
+	}
+
+	/* li.top.new {
+		background: {{ fields.newColorField }} !important;
+	} */
+
+	@media (max-width: 767px) {
+		.{{safeid}}__sb-root,
+		.{{safeid}}__sb-container,
+		.{{safeid}}__header {
+			width: 100% !important;
+			max-width: 100%;
+			box-sizing: border-box;
+			overflow: hidden;
+		}
+
+		.{{safeid}}__headline {
+			text-align: left;
+			margin-bottom: 0;
+		}
+
+		.{{safeid}}__headline-track {
+			gap: 3rem;
+			--marquee-shift: 1.5rem;
+			animation:
+				{{safeid}}_marquee 14s linear infinite,
+				{{safeid}}_text-glow 3.5s ease-in-out infinite;
+		}
+
+		.{{safeid}}__row-margin:not(:last-child) {
+			margin-bottom: 0;
+		}
+	}
+
+	@keyframes {{safeid}}_marquee {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(calc(-50% - var(--marquee-shift, 2rem)));
+		}
+	}
+
+	@keyframes {{safeid}}_text-glow {
+		0%, 100% {
+			opacity: 1;
+			filter: brightness(1);
+		}
+		50% {
+			opacity: 0.92;
+			filter: brightness(1.12);
+		}
+	}
+
+	@keyframes {{safeid}}_petal-fall {
+		0% {
+			transform: translate3d(0, 0, 0) rotate(0deg);
+			opacity: 0;
+		}
+		8% {
+			opacity: 0.55;
+		}
+		50% {
+			transform: translate3d(12px, 28px, 0) rotate(160deg);
+			opacity: 0.4;
+		}
+		100% {
+			transform: translate3d(-8px, 56px, 0) rotate(320deg);
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.{{safeid}}__petal {
+			animation: none;
+			opacity: 0;
+		}
+
+		.{{safeid}}__headline-track {
+			animation: none;
+			opacity: 1;
+			filter: none;
+		}
+	}
+
+	@media (max-width: 767px) and (prefers-reduced-motion: reduce) {
+		.{{safeid}}__headline-track {
+			animation: none;
+		}
+
+		.{{safeid}}__headline-item + .{{safeid}}__headline-item {
+			display: none;
+		}
+
+		.{{safeid}}__headline {
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+	}
+	
+</style>

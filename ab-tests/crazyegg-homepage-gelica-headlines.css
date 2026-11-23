@@ -1,0 +1,32 @@
+/**
+ * Homepage .frontpage > .content blurb → Gelica + size
+ *
+ * Use in:
+ *   - Crazy Egg Custom CSS, OR
+ *   - FR SoftBlock Layout HTML inside <style> (SoftBlock must render on homepage)
+ *
+ * If size/font still don’t change in FR preview, use the companion
+ * crazyegg-homepage-gelica-headlines.html (CSS + JS) in the layout instead.
+ */
+
+body > main > div.frontpage > div.content > p,
+body > div.frontpage > div.content > p,
+main .frontpage > .content > p,
+.frontpage > .content > p,
+.frontpage .content p {
+  font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #483f3a !important;
+  line-height: 1.5 !important;
+}
+
+@media (max-width: 767px) {
+  body > main > div.frontpage > div.content > p,
+  body > div.frontpage > div.content > p,
+  main .frontpage > .content > p,
+  .frontpage > .content > p,
+  .frontpage .content p {
+    font-size: 16px !important;
+  }
+}

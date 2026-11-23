@@ -1,0 +1,43 @@
+{
+  "": {
+    "dependencies": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/GreenShelfDesk.d",
+    "object": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/GreenShelfDesk.o",
+    "swift-dependencies": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/primary.swiftdeps"
+  },
+  "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/Sources/GreenShelfDesk/ContentView.swift": {
+    "object": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/ContentView.swift.o",
+    "swiftmodule": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/ContentView~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/ContentView.swiftdeps",
+    "diagnostics": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/ContentView.dia"
+  },
+  "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/Sources/GreenShelfDesk/GreenShelfDeskApp.swift": {
+    "object": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/GreenShelfDeskApp.swift.o",
+    "swiftmodule": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/GreenShelfDeskApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/GreenShelfDeskApp.swiftdeps",
+    "diagnostics": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/GreenShelfDeskApp.dia"
+  },
+  "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/Sources/GreenShelfDesk/Models.swift": {
+    "object": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/Models.swift.o",
+    "swiftmodule": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/Models~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/Models.swiftdeps",
+    "diagnostics": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/Models.dia"
+  },
+  "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/Sources/GreenShelfDesk/ThirdPartyDeskClient.swift": {
+    "object": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/ThirdPartyDeskClient.swift.o",
+    "swiftmodule": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/ThirdPartyDeskClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/ThirdPartyDeskClient.swiftdeps",
+    "diagnostics": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/ThirdPartyDeskClient.dia"
+  },
+  "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/Sources/GreenShelfDesk/WeatherChrome.swift": {
+    "object": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/WeatherChrome.swift.o",
+    "swiftmodule": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/WeatherChrome~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/WeatherChrome.swiftdeps",
+    "diagnostics": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/WeatherChrome.dia"
+  },
+  "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/Sources/GreenShelfDesk/WeatherDashboardView.swift": {
+    "object": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/WeatherDashboardView.swift.o",
+    "swiftmodule": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/WeatherDashboardView~partial.swiftmodule",
+    "swift-dependencies": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/WeatherDashboardView.swiftdeps",
+    "diagnostics": "/Users/tom/Herd/yg-cart-drawer-demo/demos/swift-greenshelf-desk/.build/arm64-apple-macosx/release/GreenShelfDesk.build/WeatherDashboardView.dia"
+  }
+}

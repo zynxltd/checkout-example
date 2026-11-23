@@ -1,0 +1,18 @@
+<%- include('../partials/header') %>
+
+<section class="page-hero">
+  <div class="shell">
+    <h1>About</h1>
+    <p>Harbor MVC is a teaching demo for Node.js web apps structured the classic MVC way.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell prose">
+    <p><strong>Express</strong> handles HTTP. <strong>Controllers</strong> own request/response flow. <strong>Repositories</strong> and <strong>services</strong> hold business logic (in-memory here — swap for Postgres/Prisma later). <strong>Views</strong> are EJS templates. Source lives in <code>src/</code> as TypeScript.</p>
+    <p>Folder layout mirrors Laravel / ASP.NET style demos: <code>routes/</code>, <code>controllers/</code>, <code>models/</code>, <code>views/</code>.</p>
+    <p>The extended demo also shows a few backend patterns interviewers expect: session auth, a protected dashboard, service classes, queue-style background work, and a third-party API wrapper with a fallback path.</p>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

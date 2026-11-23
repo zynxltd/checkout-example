@@ -1,0 +1,11 @@
+# ASP.NET Core
+**/bin/
+**/obj/
+**/.vs/
+*.user
+*.db
+*.db-shm
+*.db-wal
+appsettings.*.local.json
+.aspire/
+**/gardenclub.db*

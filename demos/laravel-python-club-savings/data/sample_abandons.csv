@@ -1,0 +1,11 @@
+catalog,sku,price,qty,category,recovered
+guest,PA255,14.99,2,plants,0
+guest,ROSE01,24.99,1,plants,0
+guest,MOWER1,199.00,1,machinery,0
+guest,PA255,14.99,3,plants,1
+club_msg,PA255,14.99,2,plants,1
+club_msg,ROSE01,24.99,1,plants,1
+club_msg,FEED01,9.99,2,plants,0
+club_msg,PA255,14.99,4,plants,1
+guest,SHRUB2,18.50,2,plants,0
+club_msg,SHRUB2,18.50,2,plants,1

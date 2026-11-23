@@ -1,0 +1,29 @@
+{% comment %}
+  Section: Summer Sale Top Picks — Liquid loop (like DUSK homepage merchandising).
+  In Shopify Admin: theme editor assigns a product list to section.settings.
+{% endcomment %}
+
+<section id="shopify-section-{{ section.id }}" class="sale-picks">
+  <div class="sale-picks__inner">
+    <h2 class="sale-picks__heading">{{ section.settings.heading | default: 'Summer Sale Top Picks' }}</h2>
+
+    <div class="sale-picks__grid">
+      {% for product in section.settings.product_list %}
+        {% render 'product-card', product: product %}
+      {% else %}
+        <p>No products selected in the theme editor.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sale top picks",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Summer Sale Top Picks" },
+    { "type": "product_list", "id": "product_list", "label": "Products", "limit": 8 }
+  ],
+  "presets": [{ "name": "Sale top picks" }]
+}
+{% endschema %}

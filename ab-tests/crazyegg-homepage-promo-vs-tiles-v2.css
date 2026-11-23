@@ -1,0 +1,28 @@
+/**
+ * Crazy Egg — Homepage category pair test
+ * VARIANT 2 (Custom CSS)
+ *
+ * Variant 2: only the lower pair
+ *   Billboard
+ *   → 4 large tiles
+ *   → Top picks for you
+ *
+ * Hides the two blocks directly under the banner
+ * (.category-promotion-wrapper = 8-up + Shop Bestsellers).
+ *
+ * Use this when Control is “both pairs stacked” on the CMS page.
+ * If Control is already 4 tiles + Top picks (promo hidden in CMS),
+ * you do not need this variant — that look is Control.
+ *
+ * Paste into Crazy Egg Variant 2 → Custom CSS
+ * Pair with: crazyegg-homepage-promo-vs-tiles-v2.js
+ */
+
+html.ce-yg-hp-v2 .frontpage > .category-promotion-wrapper,
+html.ce-yg-hp-v2 .frontpage .ce-yg-hp-v2__hide {
+  display: none !important;
+}
+
+html.ce-yg-hp-v2 .frontpage .ce-yg-hp-v2__show {
+  display: block !important;
+}

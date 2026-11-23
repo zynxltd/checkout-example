@@ -1,0 +1,160 @@
+:root {
+  --ink: #14231a;
+  --muted: #5a6b60;
+  --accent: #1f6b45;
+  --line: #d5e4da;
+  --wash: #e8f2eb;
+  --card: #fff;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(160deg, var(--wash), #f7faf8 45%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+.pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+}
+
+h1 {
+  margin: 0.6rem 0 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  color: var(--muted);
+  max-width: 40rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  margin-top: 1rem;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.05rem;
+}
+
+.row h2 {
+  margin: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+button,
+.search button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 8px;
+  padding: 0.45rem 0.8rem;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+input {
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+}
+
+.search {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+}
+
+.err {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #fde8e8;
+  color: #8a1f1f;
+  white-space: pre-wrap;
+}
+
+.ok {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #d8f3e3;
+  color: #145c38;
+}
+
+.muted {
+  color: var(--muted);
+  margin: 0.5rem 0;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  background: #eef2f0;
+}
+
+.badge.routed {
+  background: #d8f3e3;
+  color: #145c38;
+}
+
+.badge.rejected {
+  background: #fde8e8;
+  color: #8a1f1f;
+}
+
+.badge.queued,
+.badge.processing {
+  background: #e7f0ff;
+  color: #1a4a8a;
+}

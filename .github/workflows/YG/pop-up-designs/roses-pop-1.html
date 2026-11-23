@@ -1,0 +1,1725 @@
+{# Harkness Roses — Option 2 desktop (left diagonal collage + right form) / mobile (top collage + form) #}
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div id="{{safeid}}__wrapper" class="{{safeid}}__wrapper">
+
+	{# Stage 1 badge: Epsilon-style yellow circle — hidden until main popup dismissed without signup #}
+	<div id="{{safeid}}__notification" class="{{safeid}}__notification" aria-hidden="true" hidden>
+		<button type="button" class="{{safeid}}__notification-button" aria-label="{{ mergeField(fields.notification.textTop) if fields.notification and fields.notification.textTop else 'GET' }} {{ mergeField(fields.notification.textMiddle) if fields.notification and fields.notification.textMiddle else '10%' }} {{ mergeField(fields.notification.textBottom) if fields.notification and fields.notification.textBottom else 'OFF' }}">
+			<span class="{{safeid}}__notification-stack">
+				<span class="{{safeid}}__notification-get">{{ mergeField(fields.notification.textTop) if fields.notification and fields.notification.textTop else 'GET' }}</span>
+				<span class="{{safeid}}__notification-pct">{{ mergeField(fields.notification.textMiddle) if fields.notification and fields.notification.textMiddle else '10%' }}</span>
+				<span class="{{safeid}}__notification-off">{{ mergeField(fields.notification.textBottom) if fields.notification and fields.notification.textBottom else 'OFF' }}</span>
+			</span>
+		</button>
+		<button type="button" class="{{safeid}}__notification-close" aria-label="Close offer reminder"></button>
+	</div>
+
+	<div class="{{safeid}}__popover-overlay">
+
+		<div id="{{safeid}}__popover" class="{{safeid}}__popover thumbcontainer">
+
+			{% if fields.image.active or (fields.image2 and fields.image2.active) or (fields.image3 and fields.image3.active) %}
+			{# Option 2 — for now: single pre-composited left collage (diagonals baked into image) #}
+			<div class="{{safeid}}__image {{safeid}}__image--primary" role="img" aria-label="Offer imagery"></div>
+			{% endif %}
+
+			<div id="{{safeid}}__initial-content" class="{{safeid}}__initial-content">
+
+				{% if fields.headline.active %}
+				<h4 class="{{safeid}}__initial-headline">
+					{{ mergeField(fields.headline.text) }}
+				</h4>
+				{% endif %}
+
+				{% if fields.subheadline.active %}
+				<h4 class="{{safeid}}__subheadline">
+					{{ mergeField(fields.subheadline.text) }}
+				</h4>
+				{% endif %}
+
+				{% if fields.message.active %}
+				<p class="{{safeid}}__initial-message">
+					{{ mergeField(fields.message.text) }}
+				</p>
+				{% endif %}
+
+				<form id="{{safeid}}__form" class="{{safeid}}__form" method="POST" novalidate>
+
+					{% if fields.firstName.active %}
+					<input type="text" placeholder="{{ mergeField(fields.firstName.placeholder) }}{{ '*' if fields.firstName.required }}"
+						class="{{safeid}}__input" name="fn" {{ 'required' if fields.firstName.required }} />
+					{% endif %}
+
+					{% if fields.lastName.active %}
+					<input type="text" placeholder="{{ mergeField(fields.lastName.placeholder) }}{{ '*' if fields.lastName.required }}"
+						class="{{safeid}}__input" name="ln" {{ 'required' if fields.lastName.required }} />
+					{% endif %}
+
+					{% if fields.email.active %}
+					<div class="{{safeid}}__email-block">
+						<label class="{{safeid}}__email-label" for="{{safeid}}__email">
+							{{ mergeField(fields.email.label) }}{{ ' (Required)*' if fields.email.required else '' }}
+						</label>
+						<div class="{{safeid}}__email-row">
+							<input type="email" id="{{safeid}}__email" placeholder="{{ mergeField(fields.email.placeholder) }}"
+								class="{{safeid}}__input {{safeid}}__input--email" name="email" autocomplete="email" inputmode="email" spellcheck="false" {{ 'required' if fields.email.required }} />
+							{% if fields.submit.active %}
+							<button type="submit" class="{{safeid}}__submit-button" aria-label="{{ fields.submit.text }}">
+								<span class="{{safeid}}__submit-text">{{ fields.submit.text }}</span>
+								<svg class="{{safeid}}__submit-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+									<path d="M4 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</button>
+							{% endif %}
+						</div>
+						<p id="{{safeid}}__email-error" class="{{safeid}}__email-error {{safeid}}__hidden" role="alert"></p>
+					</div>
+					{% elif fields.submit.active %}
+					<button type="submit" class="{{safeid}}__submit-button" aria-label="{{ fields.submit.text }}">
+						<span class="{{safeid}}__submit-text">{{ fields.submit.text }}</span>
+						<svg class="{{safeid}}__submit-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+							<path d="M4 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</button>
+					{% endif %}
+
+					{% if fields.mobileNo.active %}
+					<input type="tel" placeholder="{{ mergeField(fields.mobileNo.placeholder) }}{{ '*' if fields.mobileNo.required }}"
+						id="{{safeid}}__mobile-no" class="{{safeid}}__input" name="mobile" {{ 'required' if fields.mobileNo.required }} />
+					<p id="{{safeid}}__mobile-error" class="{{safeid}}__mobile-error {{safeid}}__hidden"></p>
+					{% endif %}
+
+					{% if fields.declineButton.active %}
+					<button type="button" class="{{safeid}}__decline-button" id="{{safeid}}__decline-button">
+						{{ fields.declineButton.text }}
+					</button>
+					{% endif %}
+
+				</form>
+
+				{% if fields.footer.active %}
+				<p class="{{safeid}}__footer">
+					{% if fields.footer.url and fields.footer.url != '' %}
+						<a href="{{ fields.footer.url }}">
+					{% endif %}
+					{{ mergeField(fields.footer.text) }}
+					{% if fields.footer.url and fields.footer.url != '' %}
+						</a>
+					{% endif %}
+				</p>
+				{% endif %}
+			</div>
+
+			<div id="{{safeid}}__submitted-content" class="{{safeid}}__submitted-content">
+
+				{% if fields.submittedHeadline.active %}
+				<h4 class="{{safeid}}__submitted-headline">
+					{{ mergeField(fields.submittedHeadline.text) }}
+				</h4>
+				{% endif %}
+
+				{% if fields.submittedMessage.active %}
+				<p class="{{safeid}}__submitted-message">
+					{{ mergeField(fields.submittedMessage.text) }}
+				</p>
+				{% endif %}
+
+				{% if fields.submittedDiscountCode.active %}
+				<button type="button" class="{{safeid}}__submitted-code" id="{{safeid}}__submitted-code" data-code="{{ mergeField(fields.submittedDiscountCode.text) }}" title="Click to copy" aria-label="Copy discount code">
+					{{ mergeField(fields.submittedDiscountCode.text) }}
+				</button>
+				{% endif %}
+
+				{% if fields.submittedButton.active %}
+				<button type="button" class="{{safeid}}__submitted-button" id="{{safeid}}__submitted-button">
+					{{ fields.submittedButton.text }}
+				</button>
+				{% endif %}
+
+			</div>
+
+			<button type="button" class="{{safeid}}__close-button" aria-label="Close"></button>
+
+		</div>
+
+	</div>
+
+</div>
+
+<style>
+
+	:root {
+		--default-margin: 0.75rem;
+		/* Harkness brand: Charcoal / French Grey / White */
+		--hrk-bg: {{ fields.popoverBackground.color if fields.popoverBackground and fields.popoverBackground.active and fields.popoverBackground.color else (fields.backgroundColor if fields.backgroundColor else '#fbfcfc') }};
+		--hrk-ink: {{ fields.headline.color if fields.headline and fields.headline.color else '#504e4e' }};
+		--hrk-grey: #b4b199;
+		--hrk-submit: {{ fields.submit.colors.background if fields.submit and fields.submit.colors and fields.submit.colors.background else '#cfc9b8' }};
+		--hrk-submit-arrow: {{ fields.submit.colors.foreground if fields.submit and fields.submit.colors and fields.submit.colors.foreground else '#504e4e' }};
+		--hrk-gap: #ffffff;
+	}
+
+	.{{safeid}}__wrapper * {
+		all: initial;
+		box-sizing: border-box;
+	}
+
+	.{{safeid}}__popover-overlay {
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.{{safeid}}__wrapper {
+		position: fixed !important;
+		inset: 0 !important;
+		z-index: 2147483647 !important;
+		pointer-events: none;
+		{{ 'display: block;' if meta.preview == 'true' else 'display: none;' }}
+	}
+
+	.{{safeid}}__wrapper.{{safeid}}__wrapper--badge {
+		inset: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+		overflow: visible !important;
+		transform: none !important;
+		pointer-events: none !important;
+		background: transparent !important;
+	}
+
+	.{{safeid}}__wrapper.{{safeid}}__wrapper--modal .{{safeid}}__notification {
+		display: none !important;
+		visibility: hidden !important;
+		opacity: 0 !important;
+		pointer-events: none !important;
+	}
+
+	.{{safeid}}__wrapper.{{safeid}}__wrapper--badge .{{safeid}}__popover-overlay {
+		display: none !important;
+		visibility: hidden !important;
+		pointer-events: none !important;
+	}
+
+	.{{safeid}}__popover-overlay {
+		display: flex;
+		position: fixed;
+		inset: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		align-items: {{ 'flex-start' if 'top' in fields.popoverPosition else ('flex-end' if 'bottom' in fields.popoverPosition else 'center') }};
+		justify-content: {{ 'flex-start' if 'left' in fields.popoverPosition else ('flex-end' if 'right' in fields.popoverPosition else 'center') }};
+		z-index: 2147483647 !important;
+		pointer-events: auto;
+		{% if fields.tactic == 'fixed' %}
+			{{ 'top: 0;' if 'top' in fields.popoverPosition else (
+				'bottom: 0;' if 'bottom' in fields.popoverPosition else 'top: 0' ) }}
+			{{ 'left: 0;' if 'left' in fields.popoverPosition else (
+				'right: 0;' if 'right' in fields.popoverPosition else 'left: calc(50% - ' + (fields.width.size / 2) + fields.width.unit + ');' ) }}
+		{% endif %}
+	}
+
+	.{{safeid}}__popover * {
+		box-sizing: border-box;
+		border: 0;
+		padding: 0;
+		margin: 0;
+		background: transparent;
+	}
+
+	/* Desktop Option 2 — full-bleed collage; white form clipped on a matching diagonal */
+	.{{safeid}}__popover {
+		box-sizing: border-box;
+		position: relative;
+		width: {{ fields.width.size }}{{ fields.width.unit }};
+		height: {{ fields.height.size }}{{ fields.height.unit }};
+		min-height: {{ fields.height.size }}{{ fields.height.unit }};
+		max-height: min({{ fields.height.size }}{{ fields.height.unit }}, calc(100dvh - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }}));
+		margin: auto {{ fields.popoverMargin.size }}{{ fields.popoverMargin.unit }};
+		padding: 0;
+		box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: minmax(0, 1fr);
+		grid-template-areas: "stack";
+		border-radius: {{ fields.borderRadius if fields.borderRadius else '0' }};
+		overflow: hidden;
+		background-color: {% if fields.popoverBackground and fields.popoverBackground.active == false %}transparent{% else %}var(--hrk-bg){% endif %} !important;
+		{% if fields.outerBorder.active %}
+			border: {{ fields.outerBorder.weight }}px {{ fields.outerBorder.style }} {{ fields.outerBorder.color }};
+		{% endif %}
+	}
+
+	.{{safeid}}__initial-content,
+	.{{safeid}}__submitted-content {
+		grid-area: stack;
+		position: relative;
+		z-index: 2;
+		width: 54%;
+		max-width: none;
+		justify-self: end;
+		align-self: stretch;
+		/* Clear diagonal on the left; keep right edge balanced */
+		padding: 44px 40px 36px 80px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		min-height: 0;
+		overflow: visible;
+		-webkit-overflow-scrolling: touch;
+		background-color: var(--hrk-bg) !important;
+		background-image: none !important;
+		/* Match collage diagonal: more inset at bottom (3rd slice cut-off) */
+		-webkit-clip-path: polygon(8% 0, 100% 0, 100% 100%, 22% 100%);
+		clip-path: polygon(8% 0, 100% 0, 100% 100%, 22% 100%);
+	}
+
+	.{{safeid}}__popover::before {
+		display: none !important;
+	}
+
+	.{{safeid}}__submitted-content {
+		display: none;
+		background-image: none !important;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+	}
+
+	.{{safeid}}__image--primary {
+		grid-area: stack;
+		position: relative;
+		z-index: 0;
+		width: 58%;
+		height: 100%;
+		min-height: 0;
+		justify-self: start;
+		align-self: stretch;
+		background-color: var(--hrk-gap);
+		overflow: hidden;
+		background-image: url('{{ fields.image.url if fields.image.url else 'https://images.dycdn.net/a8u5sf4p/left-image_5g1z8lvuw8.jpg' }}') !important;
+		background-size: 100% 100% !important;
+		background-repeat: no-repeat !important;
+		background-position: left center !important;
+	}
+
+	span.{{safeid}}__slice,
+	span.{{safeid}}__slice--1,
+	span.{{safeid}}__slice--2,
+	span.{{safeid}}__slice--3 {
+		display: none !important;
+	}
+
+	/* Simple charcoal X — matches Harkness mockup (no filled circle) */
+	button.{{safeid}}__close-button {
+		cursor: pointer;
+		position: absolute;
+		top: {{ fields.crossInset.size if fields.crossInset and fields.crossInset.size else 14 }}{{ fields.crossInset.unit if fields.crossInset and fields.crossInset.unit else 'px' }};
+		right: {{ fields.crossInset.size if fields.crossInset and fields.crossInset.size else 14 }}{{ fields.crossInset.unit if fields.crossInset and fields.crossInset.unit else 'px' }};
+		z-index: 5;
+		border: none !important;
+		background-color: transparent !important;
+		height: {{ fields.crossSize.size if fields.crossSize.size else 28 }}{{ fields.crossSize.unit if fields.crossSize.unit else 'px' }};
+		width: {{ fields.crossSize.size if fields.crossSize.size else 28 }}{{ fields.crossSize.unit if fields.crossSize.unit else 'px' }};
+		min-width: 28px;
+		min-height: 28px;
+		padding: 0;
+		border-radius: 0 !important;
+		line-height: 0;
+		box-sizing: border-box !important;
+		box-shadow: none !important;
+	}
+
+	button.{{safeid}}__close-button * {
+		cursor: pointer;
+	}
+
+	button.{{safeid}}__close-button::before,
+	button.{{safeid}}__close-button::after {
+		content: '' !important;
+		position: absolute !important;
+		top: 50% !important;
+		left: 50% !important;
+		width: 16px !important;
+		height: 1.5px !important;
+		background-color: {{ fields.crossColor if fields.crossColor else '#504e4e' }} !important;
+		border-radius: 1px !important;
+	}
+
+	button.{{safeid}}__close-button::before {
+		transform: translate(-50%, -50%) rotate(45deg) !important;
+	}
+
+	button.{{safeid}}__close-button::after {
+		transform: translate(-50%, -50%) rotate(-45deg) !important;
+	}
+
+	h4.{{safeid}}__initial-headline {
+		width: 100%;
+		max-width: 340px;
+		margin: 0 0 0.08em;
+		line-height: 1.05;
+		font-family: Forum, {{ fields.headline.font or 'Georgia' }}, 'Times New Roman', Georgia, serif;
+		font-size: {{ fields.headline.fontSize.size if fields.headline.fontSize and fields.headline.fontSize.size else 42 }}{{ fields.headline.fontSize.unit if fields.headline.fontSize and fields.headline.fontSize.unit else 'px' }};
+		padding: {{ fields.headline.padding.size if fields.headline.padding and fields.headline.padding.size else 0 }}{{ fields.headline.padding.unit if fields.headline.padding and fields.headline.padding.unit else 'px' }};
+		font-style: {{ 'italic' if fields.headline.italics else 'normal' }};
+		font-weight: {{ '700' if fields.headline.bold else '400' }};
+		color: {{ fields.headline.color if fields.headline.color else '#504e4e' }};
+		text-align: center;
+		letter-spacing: 0.01em;
+	}
+
+	h4.{{safeid}}__subheadline {
+		width: 100%;
+		max-width: 340px;
+		margin: 0 0 1.5rem;
+		line-height: 1.1;
+		font-family: Forum, {{ fields.subheadline.font or 'Georgia' }}, 'Times New Roman', Georgia, serif;
+		font-size: {{ fields.subheadline.fontSize.size if fields.subheadline.fontSize and fields.subheadline.fontSize.size else 28 }}{{ fields.subheadline.fontSize.unit if fields.subheadline.fontSize and fields.subheadline.fontSize.unit else 'px' }};
+		padding: {{ fields.subheadline.padding.size if fields.subheadline.padding and fields.subheadline.padding.size else 0 }}{{ fields.subheadline.padding.unit if fields.subheadline.padding and fields.subheadline.padding.unit else 'px' }};
+		font-style: {{ 'italic' if fields.subheadline.italics else 'normal' }};
+		font-weight: {{ '700' if fields.subheadline.bold else '400' }};
+		color: {{ fields.subheadline.color if fields.subheadline.color else '#504e4e' }};
+		text-align: center;
+		letter-spacing: 0.01em;
+	}
+
+	p.{{safeid}}__initial-message {
+		width: 100%;
+		margin: 0 0 0.85rem;
+		line-height: 1.45;
+		font-family: Raleway, {{ fields.message.font or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.message.fontSize.size }}{{ fields.message.fontSize.unit }};
+		padding: {{ fields.message.padding.size }}{{ fields.message.padding.unit }};
+		font-style: {{ 'italic' if fields.message.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.message.bold else 'normal' }};
+		color: {{ fields.message.color if fields.message.color else '#504e4e' }};
+		text-align: {{ fields.message.alignment }};
+	}
+
+	p.{{safeid}}__footer {
+		width: 100%;
+		max-width: 340px;
+		margin-top: 1.35rem;
+		margin-bottom: 0;
+		line-height: 1.45;
+		font-family: Raleway, {{ fields.footer.font or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.footer.fontSize.size if fields.footer.fontSize and fields.footer.fontSize.size else 10 }}{{ fields.footer.fontSize.unit if fields.footer.fontSize and fields.footer.fontSize.unit else 'px' }};
+		padding: {{ fields.footer.padding.size if fields.footer.padding and fields.footer.padding.size else 0 }}{{ fields.footer.padding.unit if fields.footer.padding and fields.footer.padding.unit else 'px' }};
+		font-style: {{ 'italic' if fields.footer.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.footer.bold else 'normal' }};
+		color: {{ fields.footer.color if fields.footer.color else '#8a8880' }};
+		text-align: center;
+	}
+
+	p.{{safeid}}__footer a {
+		text-decoration: underline;
+		color: {{ fields.footer.color if fields.footer.color else '#8a8880' }};
+		font-family: inherit;
+		font-size: inherit;
+		font-style: inherit;
+		font-weight: inherit;
+		cursor: pointer;
+	}
+
+	.{{safeid}}__form {
+		width: 100%;
+		max-width: 340px;
+		text-align: center;
+		flex-shrink: 0;
+	}
+
+	.{{safeid}}__email-block {
+		width: 100%;
+		margin-bottom: 0.85rem;
+		text-align: left;
+	}
+
+	label.{{safeid}}__email-label {
+		display: block !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		margin: 0 0 0.45rem !important;
+		padding: 0 !important;
+		overflow: visible !important;
+		clip: auto !important;
+		white-space: normal !important;
+		border: 0 !important;
+		font-family: Raleway, {{ fields.fieldFont or 'Arial' }}, Arial, Helvetica, sans-serif !important;
+		font-size: 12px !important;
+		font-weight: 600 !important;
+		line-height: 1.3 !important;
+		color: var(--hrk-ink) !important;
+		text-align: left !important;
+	}
+
+	.{{safeid}}__email-row {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		width: 100%;
+		max-width: none;
+		margin-bottom: 0;
+		padding: 0;
+		background-color: transparent !important;
+		border-radius: 0 !important;
+		border: none !important;
+		box-shadow: none !important;
+	}
+
+	input[type="text"].{{safeid}}__input,
+	input[type="email"].{{safeid}}__input,
+	input[type="tel"].{{safeid}}__input {
+		margin-bottom: 0.75rem;
+		font-family: Raleway, {{ fields.fieldFont or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.fieldFontSize.size if fields.fieldFontSize and fields.fieldFontSize.size else 14 }}{{ fields.fieldFontSize.unit if fields.fieldFontSize and fields.fieldFontSize.unit else 'px' }};
+		text-align: {{ fields.alignPlaceholder if fields.alignPlaceholder else 'left' }};
+		color: {{ fields.fieldColors.foreground if fields.fieldColors and fields.fieldColors.foreground else '#504e4e' }};
+		background-color: {{ fields.fieldColors.background if fields.fieldColors and fields.fieldColors.background else '#ffffff' }};
+		font-style: {{ 'italic' if fields.fieldItalics else 'normal' }};
+		font-weight: {{ 'bold' if fields.fieldBold else 'normal' }};
+		width: {{ fields.fieldWidth if fields.fieldWidth else 100 }}%;
+		padding: 14px 16px;
+		border-radius: 6px;
+		height: auto;
+		line-height: 1.2;
+		{% if fields.fieldBorderToggle.active %}
+			border: {{ fields.fieldBorderToggle.borderWeight }}px {{ fields.fieldBorderToggle.borderStyle }} {{ fields.fieldBorderToggle.borderColor }};
+		{% else %}
+			border: 1px solid #d5d2c8;
+		{% endif %}
+	}
+
+	input[type="email"].{{safeid}}__input--email {
+		flex: 1 1 auto;
+		width: auto;
+		min-width: 0;
+		margin-bottom: 0;
+		height: 48px;
+		padding: 12px 16px;
+		border-radius: 6px !important;
+		background-color: #ffffff !important;
+		box-shadow: 0 1px 3px rgba(80, 78, 78, 0.08);
+		{% if fields.fieldBorderToggle.active %}
+			border: {{ fields.fieldBorderToggle.borderWeight }}px {{ fields.fieldBorderToggle.borderStyle }} {{ fields.fieldBorderToggle.borderColor }} !important;
+		{% else %}
+			border: 1px solid #d5d2c8 !important;
+		{% endif %}
+	}
+
+	.{{safeid}}__popover .iti {
+		margin-bottom: var(--default-margin);
+		width: {{ fields.fieldWidth }}%;
+	}
+
+	.{{safeid}}__popover .iti input {
+		width: 100%;
+	}
+
+	.{{safeid}}__popover .iti__country {
+		display: block;
+	}
+
+	.{{safeid}}__popover .iti__flag {
+		display: inline-block;
+	}
+
+	.{{safeid}}__popover .iti__country-name,
+	.{{safeid}}__popover .iti__dial-code {
+		font-family: Raleway, {{ fields.fieldFont or 'Arial' }}, Arial, sans-serif;
+	}
+
+	.{{safeid}}__input:focus-visible {
+		outline: 2px solid var(--hrk-grey);
+		outline-offset: 1px;
+	}
+
+	input[type="text"].{{safeid}}__input::placeholder,
+	input[type="email"].{{safeid}}__input::placeholder,
+	input[type="tel"].{{safeid}}__input::placeholder {
+		font-family: Raleway, {{ fields.fieldFont or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.fieldFontSize.size if fields.fieldFontSize and fields.fieldFontSize.size else 14 }}{{ fields.fieldFontSize.unit if fields.fieldFontSize and fields.fieldFontSize.unit else 'px' }};
+		text-align: {{ fields.alignPlaceholder if fields.alignPlaceholder else 'left' }};
+		color: {{ fields.fieldColors.foreground if fields.fieldColors and fields.fieldColors.foreground else '#504e4e' }};
+		font-style: {{ 'italic' if fields.fieldItalics else 'normal' }};
+		font-weight: {{ 'bold' if fields.fieldBold else 'normal' }};
+		opacity: 0.45;
+	}
+
+	/* Soft taupe circular arrow CTA — CSS arrow (FR often strips inline SVG) */
+	button[type="submit"].{{safeid}}__submit-button {
+		cursor: pointer;
+		position: relative !important;
+		flex: 0 0 auto;
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 44px !important;
+		height: 44px !important;
+		min-width: 44px !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		border-radius: 50% !important;
+		border: none !important;
+		background-color: var(--hrk-submit) !important;
+		color: var(--hrk-submit-arrow) !important;
+		box-shadow: 0 2px 6px rgba(80, 78, 78, 0.12);
+		line-height: 0 !important;
+		text-transform: none;
+		overflow: visible !important;
+	}
+
+	span.{{safeid}}__submit-text {
+		position: absolute !important;
+		width: 1px !important;
+		height: 1px !important;
+		overflow: hidden !important;
+		clip: rect(0, 0, 0, 0) !important;
+	}
+
+	svg.{{safeid}}__submit-arrow {
+		display: none !important;
+	}
+
+	/* Arrow shaft */
+	button[type="submit"].{{safeid}}__submit-button::before {
+		content: '' !important;
+		display: block !important;
+		position: absolute !important;
+		top: 50% !important;
+		left: 50% !important;
+		width: 14px !important;
+		height: 2px !important;
+		margin: 0 !important;
+		background-color: var(--hrk-submit-arrow) !important;
+		border: none !important;
+		border-radius: 1px !important;
+		transform: translate(-55%, -50%) !important;
+	}
+
+	/* Arrow head */
+	button[type="submit"].{{safeid}}__submit-button::after {
+		content: '' !important;
+		display: block !important;
+		position: absolute !important;
+		top: 50% !important;
+		left: 50% !important;
+		width: 8px !important;
+		height: 8px !important;
+		margin: 0 !important;
+		background: transparent !important;
+		border: none !important;
+		border-top: 2px solid var(--hrk-submit-arrow) !important;
+		border-right: 2px solid var(--hrk-submit-arrow) !important;
+		border-radius: 0 !important;
+		transform: translate(-15%, -50%) rotate(45deg) !important;
+		box-sizing: border-box !important;
+	}
+
+	button.{{safeid}}__decline-button {
+		cursor: pointer;
+		display: block;
+		font-family: Raleway, {{ fields.declineButton.font or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.declineButton.fontSize.size if fields.declineButton.fontSize and fields.declineButton.fontSize.size else 11 }}{{ fields.declineButton.fontSize.unit if fields.declineButton.fontSize and fields.declineButton.fontSize.unit else 'px' }};
+		text-align: center;
+		font-style: {{ 'italic' if fields.declineButton.italics else 'normal' }};
+		font-weight: {{ '700' if fields.declineButton.bold else '600' }};
+		color: {{ fields.declineButton.colors.foreground if fields.declineButton.colors and fields.declineButton.colors.foreground else '#504e4e' }};
+		background-color: transparent !important;
+		width: 100%;
+		padding: 10px 0 0;
+		margin: 0.15rem 0 0;
+		border-radius: 0;
+		line-height: 1.3;
+		height: auto;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		border: none !important;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	h4.{{safeid}}__submitted-headline {
+		width: 100%;
+		margin-bottom: var(--default-margin);
+		font-family: Forum, {{ fields.submittedHeadline.font or 'Georgia' }}, 'Times New Roman', Georgia, serif;
+		font-size: {{ fields.submittedHeadline.fontSize.size }}{{ fields.submittedHeadline.fontSize.unit }};
+		padding: {{ fields.submittedHeadline.padding.size }}{{ fields.submittedHeadline.padding.unit }};
+		font-style: {{ 'italic' if fields.submittedHeadline.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.submittedHeadline.bold else 'normal' }};
+		color: {{ fields.submittedHeadline.color if fields.submittedHeadline.color else '#504e4e' }};
+		text-align: {{ fields.submittedHeadline.alignment }};
+	}
+
+	p.{{safeid}}__submitted-message {
+		width: 100%;
+		margin-bottom: var(--default-margin);
+		font-family: Raleway, {{ fields.submittedMessage.font or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.submittedMessage.fontSize.size }}{{ fields.submittedMessage.fontSize.unit }};
+		padding: {{ fields.submittedMessage.padding.size }}{{ fields.submittedMessage.padding.unit }};
+		font-style: {{ 'italic' if fields.submittedMessage.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.submittedMessage.bold else 'normal' }};
+		color: {{ fields.submittedMessage.color if fields.submittedMessage.color else '#504e4e' }};
+		text-align: {{ fields.submittedMessage.alignment }};
+	}
+
+	.{{safeid}}__submitted-code {
+		box-sizing: border-box;
+		display: block;
+		width: {{ fields.submittedDiscountCode.width }}%;
+		max-width: 320px;
+		margin: 0.35rem auto 1.25rem;
+		padding: 14px 18px;
+		font-family: Raleway, {{ fields.submittedDiscountCode.font or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.submittedDiscountCode.fontSize.size }}{{ fields.submittedDiscountCode.fontSize.unit }};
+		font-style: {{ 'italic' if fields.submittedDiscountCode.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.submittedDiscountCode.bold else 'normal' }};
+		color: {{ fields.submittedDiscountCode.color }};
+		background-color: {{ fields.submittedDiscountCode.background }};
+		border: {{ fields.submittedDiscountCode.borderWeight }}px dashed {{ fields.submittedDiscountCode.borderColor }};
+		border-radius: 4px;
+		text-align: {{ fields.submittedDiscountCode.alignment }};
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		align-self: center;
+		line-height: 1.2;
+		cursor: pointer;
+		-webkit-user-select: none;
+		user-select: none;
+	}
+
+	button.{{safeid}}__submitted-code:hover {
+		opacity: 0.92;
+	}
+
+	button.{{safeid}}__submitted-code--copied {
+		opacity: 1;
+	}
+
+	.{{safeid}}__submitted-button {
+		cursor: pointer;
+		font-family: Raleway, {{ fields.submittedButton.font or 'Arial' }}, Arial, Helvetica, sans-serif;
+		font-size: {{ fields.submittedButton.fontSize.size }}{{ fields.submittedButton.fontSize.unit }};
+		text-align: {{ fields.submittedButton.textAlignment }};
+		font-style: {{ 'italic' if fields.submittedButton.italics else 'normal' }};
+		font-weight: {{ 'bold' if fields.submittedButton.bold else 'normal' }};
+		color: {{ fields.submittedButton.colors.foreground }};
+		background-color: {{ fields.submittedButton.colors.background }};
+		width: {{ fields.submittedButton.width }}%;
+		padding: {{ fields.submittedButton.padding.size }}{{ fields.submittedButton.padding.unit }};
+		margin: {{ fields.submittedButton.margin.size }}{{ fields.submittedButton.margin.unit }} 0;
+		border-radius: 6px;
+		align-self: {{ 'center' if fields.submittedButton.textAlignment == 'center' else ('flex-end' if fields.submittedButton.textAlignment == 'right' else 'flex-start') }};
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+		line-height: 1.2;
+		{% if fields.submittedButtonBorderToggle.active %}
+			border: {{ fields.submittedButtonBorderToggle.borderWeight }}px {{ fields.submittedButtonBorderToggle.borderStyle }} {{ fields.submittedButtonBorderToggle.borderColor }};
+		{% endif %}
+	}
+
+	/* Mobile — top diagonal collage + white form below (matches right mockup) */
+	@media (max-width: {{ fields.mobileBreakpoint if fields.mobileBreakpoint else 768 }}px) {
+
+		.{{safeid}}__popover {
+			width: calc(100vw - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }});
+			max-width: {{ fields.mobileWidth.size if fields.mobileWidth.size else 420 }}{{ fields.mobileWidth.unit if fields.mobileWidth.unit else 'px' }};
+			height: auto !important;
+			min-height: 0 !important;
+			/* Prefer FR Mobile Height; still fit the screen — scroll inside if content is taller */
+			max-height: min({{ fields.mobileHeight.size if fields.mobileHeight.size else 900 }}{{ fields.mobileHeight.unit if fields.mobileHeight.unit else 'px' }}, calc(100dvh - {{ (fields.popoverMargin.size * 2) if fields.popoverMargin.size else 20 }}{{ fields.popoverMargin.unit if fields.popoverMargin.unit else 'px' }})) !important;
+			display: grid !important;
+			grid-template-columns: 1fr !important;
+			grid-template-rows: auto auto !important;
+			grid-template-areas:
+				"media"
+				"content" !important;
+			margin: auto {{ fields.popoverMargin.size }}{{ fields.popoverMargin.unit }};
+			background-color: var(--hrk-bg) !important;
+			overflow: hidden !important;
+		}
+
+		.{{safeid}}__initial-content,
+		.{{safeid}}__submitted-content {
+			grid-area: content !important;
+			width: 100% !important;
+			max-width: none !important;
+			justify-self: stretch !important;
+			/* Mockup: form rises on the right, leaving a white-rose wedge on the left */
+			margin-top: -56px !important;
+			padding: 64px 24px 32px !important;
+			justify-content: flex-start;
+			align-items: center;
+			text-align: center;
+			background-color: var(--hrk-bg) !important;
+			background-image: none !important;
+			z-index: 2;
+			overflow: visible !important;
+			min-height: min-content !important;
+			height: auto !important;
+			max-height: none !important;
+			-webkit-clip-path: polygon(0 56px, 100% 0, 100% 100%, 0 100%) !important;
+			clip-path: polygon(0 56px, 100% 0, 100% 100%, 0 100%) !important;
+		}
+
+		h4.{{safeid}}__initial-headline,
+		h4.{{safeid}}__subheadline,
+		p.{{safeid}}__initial-message,
+		p.{{safeid}}__footer {
+			text-align: center !important;
+		}
+
+		label.{{safeid}}__email-label {
+			text-align: left !important;
+		}
+
+		{% if fields.headline.mobileFontSize.size > 0 %}
+		h4.{{safeid}}__initial-headline {
+			font-size: {{ fields.headline.mobileFontSize.size }}{{ fields.headline.mobileFontSize.unit }};
+		}
+		{% endif %}
+
+		{% if fields.subheadline.mobileFontSize.size > 0 %}
+		h4.{{safeid}}__subheadline {
+			font-size: {{ fields.subheadline.mobileFontSize.size }}{{ fields.subheadline.mobileFontSize.unit }};
+		}
+		{% endif %}
+
+		{% if fields.submittedHeadline.mobileFontSize.size > 0 %}
+		h4.{{safeid}}__submitted-headline {
+			font-size: {{ fields.submittedHeadline.mobileFontSize.size }}{{ fields.submittedHeadline.mobileFontSize.unit }};
+		}
+		{% endif %}
+
+		.{{safeid}}__email-block {
+			max-width: 360px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.{{safeid}}__email-row {
+			justify-content: center;
+			max-width: 360px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		button.{{safeid}}__decline-button {
+			text-align: center;
+		}
+
+		p.{{safeid}}__footer {
+			margin-top: 1.25rem;
+			text-align: center;
+		}
+
+		.{{safeid}}__image--primary {
+			display: block !important;
+			grid-area: media !important;
+			position: relative !important;
+			z-index: 0 !important;
+			width: 100% !important;
+			justify-self: stretch !important;
+			/* Full collage (all 3 slices) — cover was cropping the white roses */
+			height: {{ fields.image.mobileHeight if fields.image.mobileHeight and fields.image.mobileHeight > 0 else 360 }}px !important;
+			min-height: {{ fields.image.mobileHeight if fields.image.mobileHeight and fields.image.mobileHeight > 0 else 360 }}px !important;
+			max-height: {{ fields.image.mobileHeight if fields.image.mobileHeight and fields.image.mobileHeight > 0 else 360 }}px !important;
+			background-color: var(--hrk-gap) !important;
+			background-image: url('{{ fields.image.mobileUrl if fields.image.mobileUrl else (fields.image.url if fields.image.url else 'https://images.dycdn.net/a8u5sf4p/roses-mobile-top-no-x_5l519q2gln.png') }}') !important;
+			background-size: 100% 100% !important;
+			background-position: center center !important;
+			background-repeat: no-repeat !important;
+			-webkit-clip-path: none !important;
+			clip-path: none !important;
+		}
+
+		span.{{safeid}}__slice,
+		span.{{safeid}}__slice--1,
+		span.{{safeid}}__slice--2,
+		span.{{safeid}}__slice--3 {
+			display: none !important;
+		}
+
+		/* White X on collage — matches Option 2 mobile mockup */
+		button.{{safeid}}__close-button {
+			top: 12px !important;
+			right: 12px !important;
+		}
+
+		button.{{safeid}}__close-button::before,
+		button.{{safeid}}__close-button::after {
+			background-color: #ffffff !important;
+			width: 14px !important;
+			box-shadow: 0 0 2px rgba(0, 0, 0, 0.35);
+		}
+
+		.{{safeid}}__popover::before {
+			display: none !important;
+		}
+	}
+
+	/* animation styles */
+
+	.{{safeid}}__none {
+		animation: fadeIn 0s linear;
+	}
+
+	.{{safeid}}__fadeIn {
+		animation: fadeIn {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	.{{safeid}}__fadeOut {
+		animation: fadeOut {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes fadeOut {
+		from { opacity: 1; }
+		to { opacity: 0; }
+	}
+
+	.{{safeid}}__slideInSideways {
+		animation: slideInSideways {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes slideInSideways {
+		from {
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ 'calc((50vw + ' + (fields.width.size / 2) + fields.width.unit + ') * -1)' if
+				(fields.tactic == 'popover') else '-' + fields.width.size + fields.width.unit }};
+		}
+		to {
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ '0' if ('left' in fields.popoverPosition) or ('right' in fields.popoverPosition) or
+				(fields.tactic == 'popover') else 'calc(50vw - ' + (fields.width.size / 2) + fields.width.unit + ')' }};
+		}
+	}
+
+	.{{safeid}}__slideOutSideways {
+		animation: slideOutSideways {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes slideOutSideways {
+		from {
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ '0' if ('left' in fields.popoverPosition) or ('right' in fields.popoverPosition)  or
+			(fields.tactic == 'popover') else 'calc(50vw - ' + (fields.width.size / 2) + fields.width.unit + ')' }};
+		}
+		to {
+			{{ 'right' if 'right' in fields.popoverPosition else 'left' }}: {{ 'calc((50vw + ' + (fields.width.size / 2) + fields.width.unit + ') * -1)' if
+				(fields.tactic == 'popover') else '-' + fields.width.size + fields.width.unit }};
+		}
+	}
+
+	.{{safeid}}__slideInVertical {
+		animation: slideInVertical {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes slideInVertical {
+		from {
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ 'calc((50vh + ' + (fields.height.size / 2) + fields.height.unit + ') * -1)' if
+				(fields.tactic == 'popover') else '-' + fields.height.size + fields.height.unit }};
+		}
+		to {
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ '0' if ('bottom' in fields.popoverPosition) or ('top' in fields.popoverPosition) or
+			(fields.tactic == 'popover') else 'calc(50vh - ' + (fields.height.size / 2) + fields.height.unit + ')' }};
+		}
+	}
+
+	.{{safeid}}__slideOutVertical {
+		animation: slideOutVertical {{ fields.animationDuration }}s linear;
+	}
+
+	@keyframes slideOutVertical {
+		from {
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ '0' if ('bottom' in fields.popoverPosition) or ('top' in fields.popoverPosition) or
+			(fields.tactic == 'popover') else 'calc(50vh - ' + (fields.height.size / 2) + fields.height.unit + ')' }};
+		}
+		to {
+			{{ 'bottom' if 'bottom' in fields.popoverPosition else 'top' }}: {{ 'calc((50vh + ' + (fields.height.size / 2) + fields.height.unit + ') * -1)' if
+				(fields.tactic == 'popover') else '-' + fields.height.size + fields.height.unit }};
+		}
+	}
+
+	.{{safeid}}__email-row.{{safeid}}__email-row--invalid input[type="email"].{{safeid}}__input--email {
+		border-color: #B42318 !important;
+		box-shadow: 0 0 0 2px rgba(180, 35, 24, 0.18) !important;
+	}
+
+	p.{{safeid}}__email-error {
+		display: inline-block !important;
+		position: relative !important;
+		z-index: 6 !important;
+		width: auto !important;
+		max-width: calc(100% - 16px) !important;
+		margin: 10px 0 0 !important;
+		padding: 8px 12px !important;
+		background-color: #ffffff !important;
+		border-radius: 8px !important;
+		box-shadow: 0 4px 16px rgba(80, 78, 78, 0.18) !important;
+		font-family: Raleway, Arial, Helvetica, sans-serif !important;
+		font-size: 12px !important;
+		font-weight: 700 !important;
+		line-height: 1.35 !important;
+		color: #B42318 !important;
+		text-align: left !important;
+	}
+
+	p.{{safeid}}__email-error.{{safeid}}__hidden {
+		display: none !important;
+	}
+
+	.{{safeid}}__mobile-error {
+		font-family: {{ fields.fieldFont }};
+		font-size: {{ fields.fieldFontSize.size }}{{ fields.fieldFontSize.unit }};
+		color: red;
+		margin-bottom: var(--default-margin);
+	}
+
+	.{{safeid}}__hidden {
+		display: none;
+	}
+
+	.{{safeid}}__notification {
+		display: none !important;
+		position: fixed !important;
+		bottom: {{ fields.notification.offset.size if fields.notification and fields.notification.offset and fields.notification.offset.size else 15 }}{{ fields.notification.offset.unit if fields.notification and fields.notification.offset and fields.notification.offset.unit else 'px' }};
+		left: {{ fields.notification.offset.size if fields.notification and fields.notification.offset and fields.notification.offset.size else 15 }}{{ fields.notification.offset.unit if fields.notification and fields.notification.offset and fields.notification.offset.unit else 'px' }};
+		z-index: 2147483647 !important;
+		pointer-events: auto !important;
+		width: {{ fields.notification.size.size if fields.notification and fields.notification.size and fields.notification.size.size else 110 }}{{ fields.notification.size.unit if fields.notification and fields.notification.size and fields.notification.size.unit else 'px' }};
+		height: {{ fields.notification.size.size if fields.notification and fields.notification.size and fields.notification.size.size else 110 }}{{ fields.notification.size.unit if fields.notification and fields.notification.size and fields.notification.size.unit else 'px' }};
+	}
+
+	.{{safeid}}__notification.{{safeid}}__notification--visible {
+		display: block !important;
+	}
+
+	button.{{safeid}}__notification-button {
+		cursor: pointer;
+		position: relative;
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 100% !important;
+		height: 100% !important;
+		margin: 0 !important;
+		padding: 10px 8px 8px !important;
+		border: none !important;
+		border-radius: 50% !important;
+		background-color: {{ fields.notification.backgroundColor if fields.notification and fields.notification.backgroundColor else '#FFFF00' }} !important;
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18) !important;
+		text-align: center !important;
+		line-height: 1 !important;
+		overflow: visible !important;
+	}
+
+	button.{{safeid}}__notification-button * {
+		cursor: pointer;
+		box-sizing: border-box !important;
+	}
+
+	span.{{safeid}}__notification-stack {
+		display: flex !important;
+		flex-direction: column !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 100% !important;
+		line-height: 1 !important;
+	}
+
+	span.{{safeid}}__notification-get,
+	span.{{safeid}}__notification-pct,
+	span.{{safeid}}__notification-off {
+		display: block !important;
+		width: 100% !important;
+		font-family: Arial, Helvetica, sans-serif !important;
+		font-style: normal !important;
+		color: {{ fields.notification.textColor if fields.notification and fields.notification.textColor else '#FF0000' }} !important;
+		text-align: center !important;
+		text-transform: uppercase !important;
+		letter-spacing: 0 !important;
+	}
+
+	span.{{safeid}}__notification-get {
+		font-size: 14px !important;
+		font-weight: 700 !important;
+		line-height: 1 !important;
+		margin-bottom: 1px !important;
+	}
+
+	span.{{safeid}}__notification-pct {
+		font-size: 36px !important;
+		font-weight: 900 !important;
+		line-height: 0.9 !important;
+		letter-spacing: -0.02em !important;
+	}
+
+	span.{{safeid}}__notification-off {
+		font-size: 22px !important;
+		font-weight: 800 !important;
+		line-height: 1 !important;
+		margin-top: 1px !important;
+	}
+
+	button.{{safeid}}__notification-close {
+		cursor: pointer;
+		position: absolute !important;
+		top: -2px !important;
+		right: -2px !important;
+		display: block !important;
+		width: {{ fields.notification.closeSize.size if fields.notification and fields.notification.closeSize and fields.notification.closeSize.size else 22 }}{{ fields.notification.closeSize.unit if fields.notification and fields.notification.closeSize and fields.notification.closeSize.unit else 'px' }} !important;
+		height: {{ fields.notification.closeSize.size if fields.notification and fields.notification.closeSize and fields.notification.closeSize.size else 22 }}{{ fields.notification.closeSize.unit if fields.notification and fields.notification.closeSize and fields.notification.closeSize.unit else 'px' }} !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		border: none !important;
+		border-radius: 50% !important;
+		background-color: {{ fields.notification.closeBackground if fields.notification and fields.notification.closeBackground else '#FF0000' }} !important;
+		z-index: 2 !important;
+		box-shadow: none !important;
+		line-height: 0 !important;
+		overflow: visible !important;
+	}
+
+	button.{{safeid}}__notification-close::before,
+	button.{{safeid}}__notification-close::after {
+		content: '' !important;
+		position: absolute !important;
+		top: 50% !important;
+		left: 50% !important;
+		width: 10px !important;
+		height: 2px !important;
+		background-color: {{ fields.notification.closeColor if fields.notification and fields.notification.closeColor else '#FFFFFF' }} !important;
+		border-radius: 1px !important;
+	}
+
+	button.{{safeid}}__notification-close::before {
+		transform: translate(-50%, -50%) rotate(45deg) !important;
+	}
+
+	button.{{safeid}}__notification-close::after {
+		transform: translate(-50%, -50%) rotate(-45deg) !important;
+	}
+
+	@media (max-width: {{ fields.mobileBreakpoint if fields.mobileBreakpoint else 768 }}px) {
+		.{{safeid}}__notification {
+			top: calc(100dvh - {{ fields.notification.mobileSize.size if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.size else (fields.notification.size.size if fields.notification and fields.notification.size and fields.notification.size.size else 110) }}{{ fields.notification.mobileSize.unit if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.unit else (fields.notification.size.unit if fields.notification and fields.notification.size and fields.notification.size.unit else 'px') }} - {{ fields.notification.mobileOffset.size if fields.notification and fields.notification.mobileOffset and fields.notification.mobileOffset.size else (fields.notification.offset.size if fields.notification and fields.notification.offset and fields.notification.offset.size else 15) }}{{ fields.notification.mobileOffset.unit if fields.notification and fields.notification.mobileOffset and fields.notification.mobileOffset.unit else (fields.notification.offset.unit if fields.notification and fields.notification.offset and fields.notification.offset.unit else 'px') }}) !important;
+			bottom: auto !important;
+			left: {{ fields.notification.mobileOffset.size if fields.notification and fields.notification.mobileOffset and fields.notification.mobileOffset.size else (fields.notification.offset.size if fields.notification and fields.notification.offset and fields.notification.offset.size else 15) }}{{ fields.notification.mobileOffset.unit if fields.notification and fields.notification.mobileOffset and fields.notification.mobileOffset.unit else (fields.notification.offset.unit if fields.notification and fields.notification.offset and fields.notification.offset.unit else 'px') }} !important;
+			width: {{ fields.notification.mobileSize.size if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.size else (fields.notification.size.size if fields.notification and fields.notification.size and fields.notification.size.size else 110) }}{{ fields.notification.mobileSize.unit if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.unit else (fields.notification.size.unit if fields.notification and fields.notification.size and fields.notification.size.unit else 'px') }} !important;
+			height: {{ fields.notification.mobileSize.size if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.size else (fields.notification.size.size if fields.notification and fields.notification.size and fields.notification.size.size else 110) }}{{ fields.notification.mobileSize.unit if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.unit else (fields.notification.size.unit if fields.notification and fields.notification.size and fields.notification.size.unit else 'px') }} !important;
+		}
+
+		span.{{safeid}}__notification-get { font-size: 13px !important; }
+		span.{{safeid}}__notification-pct { font-size: 32px !important; }
+		span.{{safeid}}__notification-off { font-size: 20px !important; }
+	}
+
+	@media (max-width: {{ fields.mobileBreakpoint if fields.mobileBreakpoint else 768 }}px) and (min-width: 428px) and (min-height: 900px) {
+		.{{safeid}}__notification {
+			top: calc(100dvh - {{ fields.notification.mobileSize.size if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.size else (fields.notification.size.size if fields.notification and fields.notification.size and fields.notification.size.size else 110) }}{{ fields.notification.mobileSize.unit if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.unit else (fields.notification.size.unit if fields.notification and fields.notification.size and fields.notification.size.unit else 'px') }} - {{ fields.notification.mobileOffset.size if fields.notification and fields.notification.mobileOffset and fields.notification.mobileOffset.size else (fields.notification.offset.size if fields.notification and fields.notification.offset and fields.notification.offset.size else 15) }}{{ fields.notification.mobileOffset.unit if fields.notification and fields.notification.mobileOffset and fields.notification.mobileOffset.unit else (fields.notification.offset.unit if fields.notification and fields.notification.offset and fields.notification.offset.unit else 'px') }} - 64px) !important;
+		}
+	}
+
+</style>
+
+
+<link rel="stylesheet" href="//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" >
+
+<script>
+
+	const {{safeid}}_rootElement = document.getElementById('{{safeid}}__wrapper');
+	const {{safeid}}_popoverElement = document.getElementById('{{safeid}}__popover');
+	const {{safeid}}_showAfterFixedDelay = {{ 'true' if fields.popoverFixedDelay|int > 0 else 'false' }};
+	const {{safeid}}_mobileNoActive = {{ 'true' if fields.mobileNo.active else 'false' }};
+	const {{safeid}}_itiErrorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+	const {{safeid}}_errorElement = document.getElementById('{{safeid}}__mobile-error');
+	const {{safeid}}_emailInput = document.getElementById('{{safeid}}__email');
+	const {{safeid}}_emailErrorElement = document.getElementById('{{safeid}}__email-error');
+	const {{safeid}}_emailRequired = {{ 'true' if fields.email and (fields.email.active or fields.email.required) else 'true' }};
+	const {{safeid}}_knownGTlds = {
+		com: 1, net: 1, org: 1, edu: 1, gov: 1, mil: 1, int: 1, info: 1, biz: 1, io: 1,
+		me: 1, tv: 1, cc: 1, co: 1, uk: 1, ie: 1, eu: 1, app: 1, dev: 1, online: 1,
+		shop: 1, store: 1, email: 1, cloud: 1, news: 1, blog: 1, xyz: 1, site: 1,
+		website: 1, tech: 1, digital: 1, media: 1, agency: 1, studio: 1, design: 1,
+		pro: 1, name: 1, mobi: 1, asia: 1, ltd: 1, group: 1, life: 1, world: 1
+	};
+	const {{safeid}}_compoundTlds = {
+		'co.uk': 1, 'org.uk': 1, 'ac.uk': 1, 'gov.uk': 1, 'me.uk': 1, 'net.uk': 1,
+		'ltd.uk': 1, 'plc.uk': 1, 'sch.uk': 1, 'com.au': 1, 'net.au': 1, 'org.au': 1,
+		'co.nz': 1, 'co.za': 1, 'co.in': 1, 'com.br': 1, 'co.ie': 1
+	};
+	const {{safeid}}_tldTypos = {
+		coms: 1, comm: 1, con: 1, cmo: 1, comn: 1, cpm: 1, vom: 1, xom: 1, cok: 1, couk: 1
+	};
+	const {{safeid}}_appearAnimationClass = '{{safeid}}__{{ fields.animationType }}';
+	const {{safeid}}_disappearAnimationClass = '{{safeid}}__{{ fields.animationType|replace('In', 'Out') }}';
+	const {{safeid}}_overlayElement = {{safeid}}_rootElement && {{safeid}}_rootElement.querySelector('.{{safeid}}__popover-overlay');
+	const {{safeid}}_notificationElement = document.getElementById('{{safeid}}__notification');
+	const {{safeid}}_notificationEnabled = {{ 'false' if fields.notification and fields.notification.active == false else 'true' }};
+	const {{safeid}}_notificationDelayMs = {{ (fields.notification.delay|int if fields.notification and fields.notification.delay else 0) * 1000 }};
+	const {{safeid}}_badgeDesktopSize = {{ fields.notification.size.size if fields.notification and fields.notification.size and fields.notification.size.size else 110 }};
+	const {{safeid}}_badgeDesktopOffset = {{ fields.notification.offset.size if fields.notification and fields.notification.offset and fields.notification.offset.size else 15 }};
+	const {{safeid}}_badgeMobileSize = {{ fields.notification.mobileSize.size if fields.notification and fields.notification.mobileSize and fields.notification.mobileSize.size else (fields.notification.size.size if fields.notification and fields.notification.size and fields.notification.size.size else 110) }};
+	const {{safeid}}_badgeMobileOffset = {{ fields.notification.mobileOffset.size if fields.notification and fields.notification.mobileOffset and fields.notification.mobileOffset.size else (fields.notification.offset.size if fields.notification and fields.notification.offset and fields.notification.offset.size else 15) }};
+	const {{safeid}}_badgeBreakpoint = {{ fields.mobileBreakpoint if fields.mobileBreakpoint else 768 }};
+	const {{safeid}}_animationDurationMs = Math.max({{ (fields.animationDuration|float if fields.animationDuration else 1) * 1000 }}, 50);
+	let {{safeid}}_formSubmitted = false;
+	let {{safeid}}_notificationTimeoutId = null;
+	let {{safeid}}_badgeMode = false;
+	let {{safeid}}_badgeAlreadyShown = false;
+	
+	const {{safeid}}_ouibounceCallback = () => {
+		const popoverElementState = {{safeid}}_popoverElement.getAttribute('data-triggered-state') == 'loaded';
+		if (!popoverElementState) {
+			{{safeid}}_hideNotification();
+			if ({{safeid}}_rootElement) {
+				{{safeid}}_rootElement.classList.remove('{{safeid}}__wrapper--badge');
+				{{safeid}}_rootElement.classList.add('{{safeid}}__wrapper--modal');
+			}
+			if ({{safeid}}_overlayElement) {
+				{{safeid}}_overlayElement.style.removeProperty('display');
+				{{safeid}}_overlayElement.style.setProperty('display', 'flex', 'important');
+			}
+			const animatedElement = {{safeid}}_popoverElement;
+			animatedElement.addEventListener("animationend", function {{safeid}}_showPopover() {
+				animatedElement.classList.remove({{safeid}}_appearAnimationClass);
+				animatedElement.removeEventListener('animationend', {{safeid}}_showPopover);
+			});
+			animatedElement.classList.add({{safeid}}_appearAnimationClass);
+			animatedElement.setAttribute('data-triggered-state', 'loaded');
+			{% if fields.tactic != 'fixed' %}
+				document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+			{% endif %}
+			try {
+				$TB.popoverShown('{{ slotid }}');
+			} catch(e) {
+				console.warn('Unable to record popover shown, most likely script not loaded');
+			}
+		}
+	};
+
+	const {{safeid}}_ouibounceOptions = {
+        cookieName: "{{fields.cookieName}}",
+        cookieExpire: {{ fields.daysBetweenPopovers if fields.daysBetweenPopovers else 0 }},
+        callback: {{ safeid }}_ouibounceCallback,
+        sitewide: true,
+        aggressive: {{ 'true' if fields.showEverytime else 'false' }},
+		timer: 1000,
+		delay: {{ '250' if fields.displayOnExitIntent else '3600000' }},
+    };
+
+	const {{safeid}}_copyDiscountCode = async (el) => {
+		const text = el.dataset.code || el.textContent.trim();
+		try {
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				await navigator.clipboard.writeText(text);
+			} else {
+				throw new Error('clipboard unavailable');
+			}
+		} catch (e) {
+			const ta = document.createElement('textarea');
+			ta.value = text;
+			ta.setAttribute('readonly', '');
+			ta.style.position = 'absolute';
+			ta.style.left = '-9999px';
+			document.body.appendChild(ta);
+			ta.select();
+			document.execCommand('copy');
+			document.body.removeChild(ta);
+		}
+		const original = text;
+		el.textContent = 'Copied!';
+		el.classList.add('{{safeid}}__submitted-code--copied');
+		window.setTimeout(() => {
+			el.textContent = original;
+			el.classList.remove('{{safeid}}__submitted-code--copied');
+		}, 2000);
+	};
+
+	const {{safeid}}_init = () => {
+		if ({{safeid}}_rootElement && {{safeid}}_rootElement.parentElement !== document.body) {
+			document.body.appendChild({{safeid}}_rootElement);
+		}
+		if ({{safeid}}_mobileNoActive) {
+			try {
+				const mobileInput = document.getElementById("{{safeid}}__mobile-no");
+				const excludeCountries = '{{ fields.mobileNo.excludeCountries }}';
+				window.iti = intlTelInput(mobileInput, {
+					nationalMode: true,
+					utilsScript: "https://im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/utils.min.js",
+						initialCountry: '{{ fields.mobileNo.initialCountry }}',
+						excludeCountries: excludeCountries.split(',').map((country) => { return country.trim().toLowerCase();})
+				});
+				mobileInput.addEventListener('input', () => {
+					{{safeid}}_errorElement.innerHTML = '';
+					{{safeid}}_errorElement.classList.add('{{safeid}}__hidden');
+				});
+			} catch(e) {
+				console.error('Failed to initialize intlTelInput');
+			}
+		}
+		try {
+			{{safeid}}_popover = ouibounce(
+				{{safeid}}_rootElement, 
+				{{safeid}}_ouibounceOptions
+			);
+		} catch(e) {
+			console.error('Failed to initialize Ouibounce');
+		}
+		if ({{safeid}}_showAfterFixedDelay) {
+			{{safeid}}_popoverTimeout();
+		}
+		document.addEventListener('keyup', (e) => {
+			if (e.keyCode === 27) { // escape key
+				if ({{safeid}}_badgeMode) {
+					{{safeid}}_dismissNotification();
+				} else {
+					{{safeid}}_dismissModal();
+				}
+			}
+		});
+		{{safeid}}_rootElement.addEventListener('click', {{safeid}}_popoverClick);
+		{{safeid}}_rootElement.addEventListener('touchstart', {{safeid}}_popoverClick);
+		const {{safeid}}_formEl = document.getElementById('{{safeid}}__form');
+		if ({{safeid}}_formEl) {
+			{{safeid}}_formEl.addEventListener('submit', {{ safeid }}_submitHandler);
+		}
+		if ({{safeid}}_emailInput) {
+			{{safeid}}_emailInput.addEventListener('input', {{safeid}}_clearEmailError);
+		}
+		const {{safeid}}_declineButton = document.getElementById('{{safeid}}__decline-button');
+		if ({{safeid}}_declineButton) {
+			{{safeid}}_declineButton.addEventListener('click', {{safeid}}_dismissModal);
+		}
+		const {{safeid}}_codeEl = document.getElementById('{{safeid}}__submitted-code');
+		if ({{safeid}}_codeEl) {
+			{{safeid}}_codeEl.addEventListener('click', (e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				{{safeid}}_copyDiscountCode({{safeid}}_codeEl);
+			});
+		}
+		if ({{safeid}}_notificationElement) {
+			const {{safeid}}_notificationButton = {{safeid}}_notificationElement.querySelector('.{{safeid}}__notification-button');
+			const {{safeid}}_notificationClose = {{safeid}}_notificationElement.querySelector('.{{safeid}}__notification-close');
+			if ({{safeid}}_notificationButton) {
+				{{safeid}}_notificationButton.addEventListener('click', (e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					{{safeid}}_openFromNotification();
+				});
+			}
+			if ({{safeid}}_notificationClose) {
+				{{safeid}}_notificationClose.addEventListener('click', (e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					{{safeid}}_dismissNotification();
+				});
+			}
+		}
+		window.addEventListener('resize', {{safeid}}_pinBadge);
+		window.addEventListener('scroll', {{safeid}}_pinBadge, { passive: true });
+		if (window.visualViewport) {
+			window.visualViewport.addEventListener('resize', {{safeid}}_pinBadge);
+			window.visualViewport.addEventListener('scroll', {{safeid}}_pinBadge);
+		}
+	};
+
+	const {{safeid}}_showSuccessMessage = () => {
+		const initialEl = document.getElementById('{{safeid}}__initial-content');
+		const successEl = document.getElementById('{{safeid}}__submitted-content');
+    	const successButton = document.getElementById('{{safeid}}__submitted-button');
+		const redirectUrl = '{{ fields.successButtonHref }}';
+		if (successButton) {
+			if (redirectUrl && redirectUrl.length > 0) {
+				successButton.addEventListener('click', () => { 
+					const url = new URL(redirectUrl);
+					url.searchParams.append('utm_campaign', "{{ fields.utmCampaign }}");
+					url.searchParams.append('utm_source', "{{ fields.utmSource }}");
+					url.searchParams.append('utm_medium', "{{ fields.utmMedium }}");
+					location.href = url;
+				});
+			} else {
+				successButton.addEventListener('click', {{safeid}}_closePopover);
+			}
+		}
+		initialEl.style.display = "none";
+        successEl.style.display = "flex";
+	}
+
+	const {{ safeid }}_popoverTimeout = () => {
+        window.setTimeout(() => {
+			// const popoverAlreadyVisible = {{safeid}}_rootElement.style.display == 'block';
+        	if (
+				(
+					document.cookie.replace(/(?:(?:^|.*;\s*){{ fields.cookieName }}\s*\=\s*([^;]*).*$)|^.*$/, "$1") !== "true" 
+					|| {{ 'true' if fields.showEverytime else 'false' }}
+				) 
+			) {
+            	{{safeid}}_popover.fire();
+        	}
+        }, {{ fields.popoverFixedDelay|int * 1000 }});
+    };
+
+	const {{safeid}}_popoverClick = (e) => {
+		// close modal on close button/background click
+		const targetClasses = e.target.classList;
+		if (targetClasses.contains('{{safeid}}__wrapper') 
+			|| targetClasses.contains('{{safeid}}__popover-overlay') 
+			|| targetClasses.contains('{{safeid}}__close-button')
+			|| ['text', 'g', 'svg', 'path'].includes(e.target.tagName.toLowerCase()) && e.target.closest('button').classList.contains('{{safeid}}__close-button')) {
+			e.preventDefault();
+			{{safeid}}_dismissModal();
+		}
+	}
+
+	const {{safeid}}_clearNotificationTimeout = () => {
+		if ({{safeid}}_notificationTimeoutId) {
+			window.clearTimeout({{safeid}}_notificationTimeoutId);
+			{{safeid}}_notificationTimeoutId = null;
+		}
+	};
+
+	const {{safeid}}_pinBadge = () => {
+		const el = {{safeid}}_notificationElement;
+		if (!el || !{{safeid}}_badgeMode) {
+			return;
+		}
+		const mobile = window.matchMedia('(max-width: ' + {{safeid}}_badgeBreakpoint + 'px)').matches;
+		if (!mobile) {
+			{{safeid}}_unpinBadge();
+			return;
+		}
+		const size = {{safeid}}_badgeMobileSize;
+		const gap = {{safeid}}_badgeMobileOffset;
+		const shortSide = Math.min(window.innerWidth, window.innerHeight);
+		const longSide = Math.max(window.innerWidth, window.innerHeight);
+		const extra = shortSide >= 428 && longSide >= 900 ? 64 : 20;
+		const vv = window.visualViewport;
+		const heights = [window.innerHeight, document.documentElement && document.documentElement.clientHeight, vv && vv.height].filter((n) => n > 0);
+		const viewHeight = Math.min.apply(null, heights);
+		const viewTop = vv ? vv.offsetTop : 0;
+		const viewLeft = vv ? vv.offsetLeft : 0;
+		const top = Math.max(8, Math.round(viewTop + viewHeight - size - gap - extra));
+		const left = Math.max(8, Math.round(viewLeft + gap));
+		el.style.setProperty('position', 'fixed', 'important');
+		el.style.setProperty('top', top + 'px', 'important');
+		el.style.setProperty('left', left + 'px', 'important');
+		el.style.setProperty('bottom', 'auto', 'important');
+		el.style.setProperty('right', 'auto', 'important');
+		el.style.setProperty('width', size + 'px', 'important');
+		el.style.setProperty('height', size + 'px', 'important');
+		el.style.setProperty('max-width', size + 'px', 'important');
+		el.style.setProperty('max-height', size + 'px', 'important');
+		el.style.setProperty('transform', 'none', 'important');
+	};
+
+	const {{safeid}}_unpinBadge = () => {
+		const el = {{safeid}}_notificationElement;
+		if (!el) {
+			return;
+		}
+		['position', 'top', 'left', 'bottom', 'right', 'width', 'height', 'max-width', 'max-height', 'transform'].forEach((prop) => {
+			el.style.removeProperty(prop);
+		});
+	};
+
+	const {{safeid}}_hideNotification = () => {
+		{{safeid}}_clearNotificationTimeout();
+		{{safeid}}_badgeMode = false;
+		{{safeid}}_unpinBadge();
+		if ({{safeid}}_rootElement) {
+			{{safeid}}_rootElement.classList.remove('{{safeid}}__wrapper--badge');
+		}
+		if ({{safeid}}_notificationElement) {
+			{{safeid}}_notificationElement.classList.remove('{{safeid}}__notification--visible');
+			{{safeid}}_notificationElement.style.setProperty('display', 'none', 'important');
+			{{safeid}}_notificationElement.style.setProperty('visibility', 'hidden', 'important');
+			{{safeid}}_notificationElement.style.setProperty('opacity', '0', 'important');
+			{{safeid}}_notificationElement.setAttribute('hidden', '');
+			{{safeid}}_notificationElement.setAttribute('aria-hidden', 'true');
+		}
+	};
+
+	const {{safeid}}_showNotification = () => {
+		if (!{{safeid}}_notificationEnabled || {{safeid}}_formSubmitted || {{safeid}}_badgeAlreadyShown || !{{safeid}}_notificationElement) {
+			return;
+		}
+		{{safeid}}_clearNotificationTimeout();
+		const revealNotification = () => {
+			// Hide main popup completely before showing badge
+			if ({{safeid}}_overlayElement) {
+				{{safeid}}_overlayElement.style.setProperty('display', 'none', 'important');
+			}
+			if ({{safeid}}_rootElement) {
+				{{safeid}}_rootElement.style.display = 'block';
+				{{safeid}}_rootElement.classList.remove('{{safeid}}__wrapper--modal');
+				{{safeid}}_rootElement.classList.add('{{safeid}}__wrapper--badge');
+			}
+			{{safeid}}_badgeMode = true;
+			{{safeid}}_badgeAlreadyShown = true;
+			{{safeid}}_notificationElement.removeAttribute('hidden');
+			{{safeid}}_notificationElement.classList.add('{{safeid}}__notification--visible');
+			{{safeid}}_notificationElement.style.setProperty('display', 'block', 'important');
+			{{safeid}}_notificationElement.style.setProperty('visibility', 'visible', 'important');
+			{{safeid}}_notificationElement.style.setProperty('opacity', '1', 'important');
+			{{safeid}}_notificationElement.setAttribute('aria-hidden', 'false');
+			{{safeid}}_pinBadge();
+			window.requestAnimationFrame({{safeid}}_pinBadge);
+		};
+		if ({{safeid}}_notificationDelayMs > 0) {
+			{{safeid}}_notificationTimeoutId = window.setTimeout(revealNotification, {{safeid}}_notificationDelayMs);
+		} else {
+			revealNotification();
+		}
+	};
+
+	const {{safeid}}_hideOverlay = (onComplete) => {
+		const animatedElement = {{safeid}}_popoverElement;
+		let finished = false;
+		const finishHide = () => {
+			if (finished) {
+				return;
+			}
+			finished = true;
+			if ({{safeid}}_overlayElement) {
+				{{safeid}}_overlayElement.style.setProperty('display', 'none', 'important');
+			}
+			if ({{safeid}}_rootElement) {
+				{{safeid}}_rootElement.classList.remove('{{safeid}}__wrapper--modal');
+			}
+			animatedElement.classList.remove({{safeid}}_disappearAnimationClass);
+			{% if fields.tactic != 'fixed' %}
+				document.getElementsByTagName('body')[0].style.overflow = 'initial';
+			{% endif %}
+			if (typeof onComplete === 'function') {
+				onComplete();
+			}
+		};
+		animatedElement.addEventListener("animationend", function {{safeid}}_hideOverlayAnimationEnd() {
+			animatedElement.removeEventListener('animationend', {{safeid}}_hideOverlayAnimationEnd);
+			finishHide();
+		});
+		animatedElement.classList.add({{safeid}}_disappearAnimationClass);
+		window.setTimeout(finishHide, {{safeid}}_animationDurationMs + 50);
+	};
+
+	const {{safeid}}_showOverlay = () => {
+		if (!{{safeid}}_overlayElement) {
+			return;
+		}
+		// Always hide badge first — both must never show together
+		{{safeid}}_hideNotification();
+		if ({{safeid}}_rootElement) {
+			{{safeid}}_rootElement.style.display = 'block';
+			{{safeid}}_rootElement.classList.remove('{{safeid}}__wrapper--badge');
+			{{safeid}}_rootElement.classList.add('{{safeid}}__wrapper--modal');
+		}
+		{{safeid}}_overlayElement.style.removeProperty('display');
+		{{safeid}}_overlayElement.style.setProperty('display', 'flex', 'important');
+		const animatedElement = {{safeid}}_popoverElement;
+		animatedElement.addEventListener("animationend", function {{safeid}}_showOverlayAnimationEnd() {
+			animatedElement.classList.remove({{safeid}}_appearAnimationClass);
+			animatedElement.removeEventListener('animationend', {{safeid}}_showOverlayAnimationEnd);
+		});
+		animatedElement.classList.add({{safeid}}_appearAnimationClass);
+		{% if fields.tactic != 'fixed' %}
+			document.getElementsByTagName('body')[0].style.overflow = 'hidden';
+		{% endif %}
+		try {
+			$TB.popoverShown('{{ slotid }}');
+		} catch(e) {}
+	};
+
+	const {{safeid}}_openFromNotification = () => {
+		{{safeid}}_hideNotification();
+		{{safeid}}_showOverlay();
+	};
+
+	const {{safeid}}_dismissNotification = () => {
+		{{safeid}}_hideNotification();
+		if ({{safeid}}_rootElement) {
+			{{safeid}}_rootElement.style.display = 'none';
+		}
+		try {
+			$TB.popoverDismissed('{{ slotid }}');
+		} catch(e) {}
+	};
+
+	const {{safeid}}_closePopover = () => {
+		const root = {{safeid}}_rootElement;
+		{{safeid}}_hideNotification();
+		{{safeid}}_hideOverlay(() => {
+			root.style.display = 'none';
+		});
+		try {
+			$TB.popoverDismissed('{{ slotid }}');
+		} catch(e) {}
+	};
+
+	const {{safeid}}_dismissModal = () => {
+		// Soft dismiss only once: first close shows yellow badge.
+		// Closing again after badge reopened the modal fully dismisses (no badge again).
+		// Do NOT call $TB.popoverDismissed on soft dismiss — that removes the SmartBlock.
+		if ({{safeid}}_notificationEnabled && !{{safeid}}_formSubmitted && !{{safeid}}_badgeAlreadyShown) {
+			{{safeid}}_hideOverlay(() => {
+				{{safeid}}_showNotification();
+			});
+			return;
+		}
+		{{safeid}}_closePopover();
+	};
+
+	const {{safeid}}_clearEmailError = () => {
+		if ({{safeid}}_emailErrorElement) {
+			{{safeid}}_emailErrorElement.textContent = '';
+			{{safeid}}_emailErrorElement.classList.add('{{safeid}}__hidden');
+		}
+		const row = {{safeid}}_emailInput && {{safeid}}_emailInput.closest('.{{safeid}}__email-row');
+		if (row) {
+			row.classList.remove('{{safeid}}__email-row--invalid');
+		}
+	};
+
+	const {{safeid}}_showEmailError = (message) => {
+		if ({{safeid}}_emailErrorElement) {
+			{{safeid}}_emailErrorElement.textContent = message;
+			{{safeid}}_emailErrorElement.classList.remove('{{safeid}}__hidden');
+		}
+		const row = {{safeid}}_emailInput && {{safeid}}_emailInput.closest('.{{safeid}}__email-row');
+		if (row) {
+			row.classList.add('{{safeid}}__email-row--invalid');
+		}
+		if ({{safeid}}_emailInput) {
+			{{safeid}}_emailInput.focus();
+		}
+	};
+
+	const {{safeid}}_validateEmail = (value) => {
+		const email = (value || '').trim();
+		if (!email) {
+			return 'Please enter your email address';
+		}
+		if (email.length > 254 || /\s/.test(email)) {
+			return 'Please enter a valid email address';
+		}
+		const at = email.indexOf('@');
+		if (at < 1 || at !== email.lastIndexOf('@')) {
+			return 'Please enter a valid email address';
+		}
+		const local = email.slice(0, at);
+		const domain = email.slice(at + 1).toLowerCase();
+		if (!local || !domain || domain.indexOf('.') === -1 || domain.indexOf('..') !== -1) {
+			return 'Please enter a valid email address';
+		}
+		if (domain.charAt(0) === '-' || domain.charAt(domain.length - 1) === '-') {
+			return 'Please enter a valid email address';
+		}
+		const labels = domain.split('.');
+		const tld = labels[labels.length - 1];
+		const compound = labels.slice(-2).join('.');
+		if (!tld || tld.length < 2) {
+			return 'Please enter a valid email address';
+		}
+		if ({{safeid}}_tldTypos[tld] || {{safeid}}_tldTypos[compound]) {
+			return 'Please enter a valid email address';
+		}
+		const tldOk = {{safeid}}_compoundTlds[compound] || {{safeid}}_knownGTlds[tld] || /^[a-z]{2}$/.test(tld);
+		if (!tldOk) {
+			return 'Please enter a valid email address';
+		}
+		return '';
+	};
+
+	const {{safeid}}_submitHandler = (e) => {
+		e.preventDefault();
+		const formdata = new FormData(document.getElementById(e.target.id));
+    	const emailAddress = formdata.get('email');
+		const rootDetails = Object.fromEntries(formdata.entries());
+		const mobileNoRequired = {{ fields.mobileNo.required }};
+		let isValid = true;
+		{{safeid}}_clearEmailError();
+		const emailError = {{safeid}}_validateEmail(emailAddress);
+		if (emailError) {
+			isValid = false;
+			{{safeid}}_showEmailError(emailError);
+		}
+		if ({{safeid}}_mobileNoActive && (mobileNoRequired || iti.getNumber().length > 0)) {
+			if (!iti.isValidNumber()) {
+				isValid = false;
+				const errorCode = iti.getValidationError();
+				const errorMsg = {{safeid}}_itiErrorMap[errorCode];
+				{{safeid}}_errorElement.innerHTML = errorMsg;
+				{{safeid}}_errorElement.classList.remove('{{safeid}}__hidden');
+			}
+			if (iti.isValidNumber()) {
+				rootDetails.mobile = iti.getNumber();
+			}
+		}
+		if (isValid) {
+			{{safeid}}_formSubmitted = true;
+			{{safeid}}_hideNotification();
+			try {
+				$TB.popoverSubmitted('{{ slotid }}', emailAddress, rootDetails);
+				$TB.raiseSignal("{{ fields.customSignal or 'DefaultCustomSignalName' }}");
+			} catch(e) {
+				console.error('Unable to register submission or raise signal, check the script is present');
+			}
+			{{safeid}}_showSuccessMessage();
+		}
+    }
+
+	try {
+		if (typeof requirejs === "function") {
+			requirejs.config({
+				paths: {
+					"ouibounce": "//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min",
+					"intlTelInput": "//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min"
+				}
+			});
+			requirejs(['intlTelInput', 'ouibounce'], (intlTelInput, ouibounce) => {
+				window.ouibounce = ouibounce;
+				{{safeid}}_init();
+			});
+		} else if (typeof $TB !== "undefined" && typeof $TB.getScript === "function") {
+			$TB.getScript("//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js", () => {
+				$TB.getScript("//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min.js", () => {
+					{{safeid}}_init();
+				});
+			});
+		} else {
+			console.error("Failed to load one or more required libraries - ouibounce and intlTelInput - using usual methods");
+			{% if meta.preview != 'true' %}
+				const telScriptEl = document.createElement('script');
+				telScriptEl.src = '//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js';
+				const ouibounceScriptEl = document.createElement('script');
+				ouibounceScriptEl.src = '//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min.js';
+				const headEl = document.getElementsByTagName('head')[0];
+				headEl.appendChild(telScriptEl);
+				headEl.appendChild(ouibounceScriptEl);
+				const ouibounceScriptCheck = window.setInterval(() => {
+					if (typeof ouibounce !== 'undefined') {
+						window.clearTimeout(ouibounceScriptCheck);
+						{{safeid}}_init();
+					}
+				}, 100);
+			{% endif %}
+		}
+	} catch(e) {
+		console.error('There was an error initialising the ouibounce library or settings', e);
+	}
+
+</script>
+
+{% if meta.preview == 'true' %}
+	<script src="//im.dycdn.net/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+	<script src="//im.dycdn.net/ajax/libs/ouibounce/0.0.12/ouibounce.min.js"></script>
+	<script>{{safeid}}_init();</script>
+{% endif %}

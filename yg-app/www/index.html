@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="YouGarden">
+  <meta name="theme-color" content="#264f1c">
+  <title>YouGarden</title>
+  <link rel="icon" href="./icon.svg">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="splash">
+    <img class="mark" src="./icon.svg" alt="YouGarden">
+    <h1>YouGarden</h1>
+    <p class="sub">The garden centre, in your pocket. Shop plants, basket and account on yougarden.com.</p>
+    <a class="btn" href="https://www.yougarden.com">Open shop</a>
+    <div class="tiles">
+      <a class="tile" href="https://www.yougarden.com/garden-plants">Garden plants</a>
+      <a class="tile" href="https://www.yougarden.com/new">New in</a>
+      <a class="tile" href="https://www.yougarden.com/sale">Sale</a>
+      <a class="tile" href="https://www.yougarden.com/your-account.htm">My account</a>
+    </div>
+    <p class="note">On iPhone/Android this screen is the splash. The installed app loads the live website in-app — same Magento basket, login and checkout. No extra backend.</p>
+  </main>
+  <nav class="tabbar" aria-label="App">
+    <a class="tab is-on" href="https://www.yougarden.com">
+      <svg viewBox="0 0 24 24"><path d="M12 3 4 10h2v10h5v-6h2v6h5V10h2z"/></svg>
+      Home
+    </a>
+    <a class="tab" href="https://www.yougarden.com/garden-plants">
+      <svg viewBox="0 0 24 24"><path d="M12 3c5 4 7 8 7 11a7 7 0 1 1-14 0c0-3 2-7 7-11z"/></svg>
+      Plants
+    </a>
+    <a class="tab" href="https://www.yougarden.com/checkout/cart/">
+      <svg viewBox="0 0 24 24"><path d="M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM5 4h2l1 2h11l-2 9H8L6 4H3"/></svg>
+      Basket
+    </a>
+    <a class="tab" href="https://www.yougarden.com/your-account.htm">
+      <svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5z"/></svg>
+      Account
+    </a>
+  </nav>
+  <script src="./app.js"></script>
+</body>
+</html>

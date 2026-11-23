@@ -1,0 +1,702 @@
+/**
+ * Crazy Egg A/B — Live Magento header → icon-focused mock-up (CRO)
+ * Paste into Crazy Egg variant → Custom CSS (pair with crazyegg-header-icons.js)
+ * Scope: html.ce-yg-hdr-icons
+ *
+ * Desktop (≥1001px): stacked utilities — icon + label under each
+ *   (TV / Join Our Club / Login|Register / Your Basket); SAVE 10% pill as club icon;
+ *   wheelbarrow + pink count; centred search; TV off nav (Christmas stays).
+ * Mobile / tablet (≤1000px): pill search under the icon row.
+ *
+ * Icons: inlined as base64 data-URIs inside the JS.
+ * Do not also paste crazyegg-header-mockup.* or crazyegg-header-hit-areas.*
+ */
+
+html.ce-yg-hdr-icons {
+  --ce-hdr-forest: #264f1c;
+  --ce-hdr-text: #2c2c2c;
+  --ce-hdr-search-border: #c5bdb5;
+}
+
+@media (min-width: 1001px) {
+  /* Hide live Magento account chrome — replaced by .ce-hdr-silos */
+  html.ce-yg-hdr-icons #desktopTop .top-acc-block {
+    display: none !important;
+  }
+
+  /*
+   * Magento basket chrome stays in DOM for #mini-basket-show + item count,
+   * but is taken out of the header flex/float row. Our wheelbarrow silo lives
+   * in .ce-hdr-silos so it lines up with TV / Club / Account.
+   */
+  html.ce-yg-hdr-icons #desktopTop .basketWrapper {
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    border: 0 !important;
+    float: none !important;
+    /* do NOT opacity:0 — that would hide the live dropdown too */
+    pointer-events: none !important;
+    z-index: 999999 !important;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .basketWrapper #top-basket {
+    display: none !important;
+  }
+
+  /* Live Magento dropdown — JS sets fixed top/right under the silo */
+  html.ce-yg-hdr-icons #desktopTop .basketWrapper #mini-basket-show,
+  html.ce-yg-hdr-icons #mini-basket-show.ce-hdr-live-mini-basket {
+    position: fixed !important;
+    float: none !important;
+    left: auto !important;
+    z-index: 999999 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Point Magento’s caret at the basket silo (right side of the 400px panel) */
+  html.ce-yg-hdr-icons #mini-basket-show.ce-hdr-live-mini-basket .icon,
+  html.ce-yg-hdr-icons #desktopTop .basketWrapper #mini-basket-show .icon {
+    text-align: right !important;
+    padding-right: 22px !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-live-basket {
+    position: relative;
+    flex-shrink: 0;
+    z-index: 230;
+  }
+
+  /*
+   * Search duplicate fix:
+   * Magento keeps #searchWrapper (display:none). Luigi clones/shows .lbx-replaced.
+   * Our earlier display:block!important un-hid the Magento copy → two pills.
+   * Keep Magento original hidden; only style Luigi’s live search.
+   */
+  html.ce-yg-hdr-icons #desktopTop > #searchWrapper:not(.lbx-replaced),
+  html.ce-yg-hdr-icons #searchWrapper.search:not(.lbx-replaced) {
+    display: none !important;
+  }
+
+  /*
+   * Match Magento live desktop header:
+   * #head-scroll → height: auto (NEVER fixed — Magento sticky sets
+   *   #wrapper padding-top from head-scroll height; a forced 150px left a
+   *   white strip under the green nav when content was shorter)
+   * #desktopTop.centralWrapper → width: 1300px; margin: 0 auto
+   *   (at 1400px → 50px gutters; at 1710px → ~205px gutters)
+   * #logo → 200×64, margin 18px 0
+   * .basketWrapper → margin-top 20px, height 80px (silos replace it)
+   * Do NOT clear floats — Magento relies on escaping floats to push #desktopNav.
+   */
+  html.ce-yg-hdr-icons #head-scroll {
+    height: auto !important;
+  }
+
+  /* Magento .centralWrapper { padding-bottom: 20px } also hits the nav —
+     zero it so sticky green bar sits flush (no white band under it). */
+  html.ce-yg-hdr-icons #desktopNav > .centralWrapper {
+    padding-bottom: 0 !important;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop {
+    position: relative !important;
+    width: 1300px !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    /* Always inset logo + silos — at ≤1300px Magento goes full-bleed (0 gutters) */
+    padding: 0 24px 20px !important;
+    min-height: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .logo,
+  html.ce-yg-hdr-icons #desktopTop #logo {
+    float: left !important;
+    display: block !important;
+    width: 200px !important;
+    margin: 18px 0 !important;
+    padding: 0 !important;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .logo img,
+  html.ce-yg-hdr-icons #desktopTop #logo img {
+    display: block !important;
+    width: 200px !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+  }
+
+  /* Don't let Luigi wrap become the positioning context */
+  html.ce-yg-hdr-icons #desktopTop #ltw-app {
+    position: static !important;
+  }
+
+  /*
+   * Search pill: center in the gap between logo and silos
+   * (not viewport center — that overlaps the TV silo).
+   * JS layoutSearch() refines left/width from measured bounds.
+   */
+  html.ce-yg-hdr-icons #ltw-app #searchWrapper,
+  html.ce-yg-hdr-icons .search.lbx-replaced {
+    display: block !important;
+    float: none !important;
+    position: absolute !important;
+    left: 210px !important;
+    right: 430px !important;
+    /* #desktopTop float-collapses to ~20px — top:50% parks search at the top.
+       28px centers the 44px pill on the logo midline (~50px). */
+    top: 28px !important;
+    transform: none !important;
+    width: 440px !important;
+    max-width: 100% !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid var(--ce-hdr-search-border) !important;
+    border-radius: 999px !important;
+    background: #fff !important;
+    box-shadow: 0 2px 10px rgba(38, 79, 28, 0.08) !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    z-index: 210 !important;
+  }
+
+  html.ce-yg-hdr-icons #ltw-app #searchWrapper:focus-within,
+  html.ce-yg-hdr-icons .search.lbx-replaced:focus-within {
+    border-color: var(--ce-hdr-forest) !important;
+    box-shadow:
+      0 2px 10px rgba(38, 79, 28, 0.1),
+      0 0 0 2px rgba(38, 79, 28, 0.28) !important;
+  }
+
+  html.ce-yg-hdr-icons #searchForm {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  html.ce-yg-hdr-icons #searchForm .input-text,
+  html.ce-yg-hdr-icons #autocomplete-ajax,
+  html.ce-yg-hdr-icons #xautocomplete-ajax,
+  html.ce-yg-hdr-icons .lbx-input {
+    float: none !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: 44px !important;
+    margin: 0 !important;
+    padding: 10px 48px 10px 16px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    font-size: 15px !important;
+    line-height: 1.2 !important;
+    color: #555 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-hdr-icons #searchForm .input-text:focus,
+  html.ce-yg-hdr-icons #autocomplete-ajax:focus,
+  html.ce-yg-hdr-icons #xautocomplete-ajax:focus,
+  html.ce-yg-hdr-icons .lbx-input:focus {
+    outline: none !important;
+  }
+
+  html.ce-yg-hdr-icons #searchWrapper .searchGo,
+  html.ce-yg-hdr-icons .search.lbx-replaced .searchGo {
+    position: absolute !important;
+    top: 50% !important;
+    right: 8px !important;
+    left: auto !important;
+    transform: translateY(-50%) !important;
+    width: 36px !important;
+    height: 36px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+    color: var(--ce-hdr-forest) !important;
+    background: transparent !important;
+    cursor: pointer !important;
+  }
+
+  html.ce-yg-hdr-icons #searchWrapper .searchGo svg,
+  html.ce-yg-hdr-icons .search.lbx-replaced .searchGo svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* —— Utilities: stacked icon + label silos (matches mock-up) —— */
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silos {
+    float: right !important;
+    position: relative !important;
+    z-index: 230 !important;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 8px 0 0 0 !important;
+    padding: 0 !important;
+    height: 92px !important;
+    min-height: 92px !important;
+    box-sizing: border-box;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    gap: 6px;
+    min-width: 72px;
+    width: auto;
+    height: auto;
+    padding: 4px 6px;
+    margin: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    text-decoration: none !important;
+    color: var(--ce-hdr-text) !important;
+    line-height: 1.15;
+    text-align: center;
+    font: inherit;
+    border-radius: 8px;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo:hover,
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo:focus {
+    color: var(--ce-hdr-forest) !important;
+    background: rgba(38, 79, 28, 0.06);
+    outline: none;
+    text-decoration: none !important;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo:hover .ce-hdr-silo__label,
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo:focus .ce-hdr-silo__label {
+    color: var(--ce-hdr-forest) !important;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo__icon {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    line-height: 0;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo__icon img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border: 0;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--tv { min-width: 86px; }
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--tv .ce-hdr-silo__icon img {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--club {
+    min-width: 92px;
+    width: auto;
+    padding: 4px 6px;
+  }
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--club .ce-hdr-silo__icon img {
+    width: 78px;
+    height: auto;
+    max-height: 22px;
+  }
+
+  /* TV lives in the utilities silo — keep it off the green bar. Christmas stays. */
+  html.ce-yg-hdr-icons #desktopNav ul.menu > li.tv-button,
+  html.ce-yg-hdr-icons #desktopNav .tv-button {
+    display: none !important;
+  }
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--account { min-width: 88px; }
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--account .ce-hdr-silo__icon img { width: 22px; height: 24px; }
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--basket { min-width: 72px; }
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--basket .ce-hdr-silo__icon img { width: 40px; max-height: 34px; }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo__label {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ce-hdr-text);
+    line-height: 1.2;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--account .ce-hdr-silo__label {
+    font-size: 12px;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo__count {
+    position: absolute;
+    top: 0;
+    right: 4px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #e3185d;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+    pointer-events: none;
+    box-sizing: border-box;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo__count[hidden] {
+    display: none !important;
+  }
+
+}
+
+/* Tighter silos on mid desktop so search keeps room */
+@media (min-width: 1001px) and (max-width: 1200px) {
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silos {
+    gap: 6px;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo {
+    min-width: 64px;
+    padding: 2px 4px;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo__label {
+    font-size: 11px;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--club {
+    min-width: 80px;
+    width: auto;
+  }
+
+  html.ce-yg-hdr-icons #desktopTop .ce-hdr-silo--club .ce-hdr-silo__icon img {
+    width: 70px;
+    max-height: 20px;
+  }
+}
+
+@media (max-width: 1000px) {
+  html.ce-yg-hdr-icons {
+    --ce-ms-forest: #264f1c;
+    --ce-ms-border: #c5bdb5;
+    --ce-ms-muted: #777777;
+    --ce-ms-body: Arial, Helvetica, sans-serif;
+  }
+
+  html.ce-yg-hdr-icons .ce-hdr-silos {
+    display: none !important;
+  }
+
+  html.ce-yg-hdr-icons #head-scroll,
+  html.ce-yg-hdr-icons #header .mobileNavBar,
+  html.ce-yg-hdr-icons .mobileNavBar {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  /*
+   * Match Magento live mobile header geometry exactly:
+   *   [menu 14%][logo 58%][account 14%][basket 14%]
+   * (search icon removed — its 14% is absorbed by the logo column)
+   * Same float + padding-top:16px as yougarden.com so icons share a midline.
+   */
+  html.ce-yg-hdr-icons .mobileNavBar .bottomPanel {
+    display: block !important;
+    float: left !important;
+    width: 100% !important;
+    box-sizing: content-box !important;
+    padding: 10px 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    border-bottom: none !important;
+    text-align: center !important;
+    position: relative !important;
+  }
+
+  /*
+   * Park Luigi trigger off-screen (still clickable for the pill).
+   * Must leave the float row so menu/logo/account/basket match Magento.
+   */
+  html.ce-yg-hdr-icons #ltw-app[data-luma*="mobilesearch"],
+  html.ce-yg-hdr-icons .lbx-replaced#mobileSearch,
+  html.ce-yg-hdr-icons .bottomPanel > #mobileSearch:not(:has(a)) {
+    position: fixed !important;
+    left: -10000px !important;
+    top: 0 !important;
+    display: block !important;
+    float: none !important;
+    visibility: visible !important;
+    opacity: 0 !important;
+    width: 44px !important;
+    height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    pointer-events: auto !important;
+    z-index: -1 !important;
+  }
+
+  /* Native Magento slide-down — keep collapsed; pill opens Luigi instead */
+  html.ce-yg-hdr-icons #mobileSearchWrapper {
+    display: none !important;
+  }
+
+  html.ce-yg-hdr-icons .mobileNavBar .bottomPanel > .block,
+  html.ce-yg-hdr-icons .mobileNavBar .bottomPanel > #mobileMenu {
+    display: block !important;
+    float: left !important;
+    width: 14% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 16px 0 0 !important;
+    text-align: center !important;
+    font-size: 17px !important;
+    line-height: 17px !important;
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    box-sizing: content-box !important;
+  }
+
+  html.ce-yg-hdr-icons .mobileNavBar .block#mobileMenu {
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(38, 79, 28, 0.12);
+  }
+
+  /* Logo takes the unused search column too → 40% + 14% = 58% */
+  html.ce-yg-hdr-icons .mobileNavBar .bottomPanel > .block.logo {
+    width: 58% !important;
+    padding: 0 !important;
+    height: auto !important;
+    line-height: 0 !important;
+  }
+
+  html.ce-yg-hdr-icons .mobileNavBar .mobLogo,
+  html.ce-yg-hdr-icons .mobileNavBar .mobLogo a {
+    display: block !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    line-height: 0 !important;
+    text-align: center !important;
+  }
+
+  html.ce-yg-hdr-icons .mobileNavBar .mobLogo img {
+    display: inline-block !important;
+    width: auto !important;
+    max-width: 130px !important;
+    height: auto !important;
+    max-height: 44px !important;
+    margin: 0 auto !important;
+    vertical-align: middle !important;
+  }
+
+  /* Account — Magento reuses #mobileSearch for login; leave native inline link */
+  html.ce-yg-hdr-icons .mobileNavBar a.blockLink {
+    display: inline !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 17px !important;
+    font-size: 17px !important;
+    text-decoration: none !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(38, 79, 28, 0.12);
+  }
+
+  html.ce-yg-hdr-icons .mobileNavBar a.blockLink svg,
+  html.ce-yg-hdr-icons .mobileNavBar a.blockLink .svg-inline--fa {
+    display: inline-block !important;
+    width: 0.875em !important;
+    height: 1em !important;
+    margin: 0 !important;
+    vertical-align: -0.125em !important;
+  }
+
+  /* Basket — Magento inline-block glyph; keep qty badge on the icon */
+  html.ce-yg-hdr-icons .mobileNavBar .mobileBasket {
+    position: relative !important;
+    display: inline-block !important;
+    width: auto !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 17px !important;
+    font-size: 17px !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(38, 79, 28, 0.12);
+  }
+
+  html.ce-yg-hdr-icons .mobileNavBar .mobileBasket a {
+    display: inline !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 17px !important;
+  }
+
+  html.ce-yg-hdr-icons .mobileNavBar .mobileBasket svg,
+  html.ce-yg-hdr-icons .mobileNavBar .mobileBasket .svg-inline--fa {
+    display: inline-block !important;
+    width: 1.125em !important;
+    height: 1em !important;
+    margin: 0 !important;
+    vertical-align: -0.125em !important;
+  }
+
+  html.ce-yg-hdr-icons .mobileNavBar .mobileBasketQty {
+    position: absolute !important;
+    top: -6px !important;
+    left: -12px !important;
+    right: auto !important;
+    z-index: 2 !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1 !important;
+    font-size: 11px !important;
+    text-align: center !important;
+  }
+
+  /* Pill search under icon row (variant) — tight under Magento-height header */
+  html.ce-yg-hdr-icons .ce-ms-bar {
+    display: block !important;
+    clear: both !important;
+    float: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 12px 10px !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    border: 0 !important;
+    border-bottom: 1px solid #eeeeee !important;
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  html.ce-yg-hdr-icons .ce-ms-bar__inner {
+    position: relative !important;
+    display: flex !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    border: 1px solid var(--ce-ms-border) !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    box-shadow: 0 1px 6px rgba(38, 79, 28, 0.06) !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-hdr-icons .ce-ms-bar__inner:focus-within {
+    border-color: var(--ce-ms-forest) !important;
+    box-shadow:
+      0 1px 6px rgba(38, 79, 28, 0.08),
+      0 0 0 2px rgba(38, 79, 28, 0.28) !important;
+  }
+
+  html.ce-yg-hdr-icons .ce-ms-bar__input {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border-radius: 999px !important;
+    padding: 11px 44px 11px 16px !important;
+    margin: 0 !important;
+    font-family: var(--ce-ms-body) !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+    color: var(--ce-ms-muted) !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  html.ce-yg-hdr-icons .ce-ms-bar__input::placeholder {
+    color: var(--ce-ms-muted) !important;
+    opacity: 1 !important;
+  }
+
+  html.ce-yg-hdr-icons .ce-ms-bar__btn {
+    position: absolute !important;
+    top: 50% !important;
+    right: 6px !important;
+    transform: translateY(-50%) !important;
+    width: 34px !important;
+    height: 34px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    color: var(--ce-ms-forest) !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+  }
+
+  html.ce-yg-hdr-icons .ce-ms-bar__btn svg {
+    width: 18px !important;
+    height: 18px !important;
+    display: block !important;
+    fill: currentColor !important;
+  }
+}
+
+@media (min-width: 1001px) {
+  html.ce-yg-hdr-icons .ce-ms-bar {
+    display: none !important;
+  }
+}

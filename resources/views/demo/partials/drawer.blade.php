@@ -297,11 +297,11 @@
 
             <footer class="yg-drawer__footer @if($primaryCta === 'split') yg-drawer__footer--split @elseif($showSecondaryCta) yg-drawer__footer--dual @endif">
                 @if($primaryCta === 'split')
-                <button type="button" class="yg-checkout yg-checkout--split">
-                    <span class="yg-checkout__label">Checkout</span>
-                </button>
                 <button type="button" class="yg-checkout yg-checkout--split yg-checkout--secondary" data-view-basket>
                     <span class="yg-checkout__label">View Basket</span>
+                </button>
+                <button type="button" class="yg-checkout yg-checkout--split">
+                    <span class="yg-checkout__label">Checkout</span>
                 </button>
                 @elseif($primaryCta === 'basket')
                 <button type="button" class="yg-checkout" data-view-basket>

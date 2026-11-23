@@ -1,0 +1,27 @@
+/**
+ * Crazy Egg VARIANT — Custom CSS
+ *
+ * Control (CMS, no CE): hides 8-up (.category-promotion-wrapper)
+ *   → visitors see 4 large tiles + Top picks for you
+ *
+ * Variant (this file + JS):
+ *   Show 8-up category cards (hidden by default)
+ *   Hide 4 large tiles + Top picks
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: yg-cat-cards.js
+ *
+ * Do not use nth-child here — on live homepage the 8-up is
+ * .frontpage > div:nth-child(3); those rules fought the show rule.
+ */
+
+/* 8-up — force show (overrides CMS display:none) */
+html.ce-yg-hp-v1 .frontpage > .category-promotion-wrapper,
+html.ce-yg-hp-v1 .frontpage .ce-yg-hp-v1__show {
+  display: block !important;
+}
+
+/* 4 tiles + Top picks — JS marks these with __hide */
+html.ce-yg-hp-v1 .frontpage .ce-yg-hp-v1__hide {
+  display: none !important;
+}

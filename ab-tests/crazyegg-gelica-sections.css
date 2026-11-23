@@ -1,0 +1,81 @@
+/**
+ * Crazy Egg — Gelica on site sections
+ *
+ * Category pages: title, intro heading, and paragraph inside .top-heading-block.
+ * Title matches the intro heading (Gelica bold). Paragraph is Gelica regular.
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-gelica-sections.js
+ *
+ * The @import must stay first so Gelica loads even if the JS is slow.
+ */
+
+@import url("https://use.typekit.net/hrf1tkz.css");
+
+body .top-heading-block h1,
+body .top-heading-block h1.cl,
+body .top-heading-block .categoryText h2,
+body .top-heading-block .read-more h2,
+body .top-heading-block .mobile-top-text h2,
+body .top-heading-block .categoryText p,
+body .top-heading-block .categoryText li {
+  font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+  font-synthesis: none !important;
+}
+
+body .top-heading-block h1,
+body .top-heading-block h1.cl,
+body .top-heading-block .categoryText h2,
+body .top-heading-block .read-more h2,
+body .top-heading-block .mobile-top-text h2 {
+  font-weight: 700 !important;
+}
+
+body .top-heading-block h1,
+body .top-heading-block h1.cl {
+  color: #264f1c !important;
+}
+
+body .top-heading-block .categoryText p,
+body .top-heading-block .categoryText li {
+  font-weight: 400 !important;
+}
+
+/* Category card names — every tile label, size stays as the site set it */
+body .category-landing-top-wrapper .cta,
+body .category-landing-row4-wrapper .cta,
+body .block > a > .cta,
+body .left > a > .cta {
+  font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+}
+
+/* FAQ and category footer — same Gelica treatment on every category page */
+body .cat-faq h2,
+body #cat-faq-heading,
+body .cat-faq .accordion-button,
+body button[id^="faq-button"],
+body .cat-faq .accordion-panel,
+body .cat-faq .accordion-panel p,
+body .category-footer-text h2,
+body .category-footer-text h3,
+body .category-footer-text p,
+body .category-footer-text li {
+  font-family: gelica, Gelica, Georgia, "Times New Roman", serif !important;
+  font-synthesis: none !important;
+}
+
+body .cat-faq h2,
+body #cat-faq-heading,
+body .category-footer-text h2,
+body .category-footer-text h3,
+body .cat-faq .accordion-button,
+body button[id^="faq-button"] {
+  font-weight: 700 !important;
+}
+
+body .cat-faq .accordion-panel,
+body .cat-faq .accordion-panel p,
+body .category-footer-text p,
+body .category-footer-text li {
+  font-weight: 400 !important;
+}

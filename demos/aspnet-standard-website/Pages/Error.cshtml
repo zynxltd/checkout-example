@@ -1,0 +1,22 @@
+@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section class="page-hero">
+    <div class="shell">
+        <h1>Something went wrong</h1>
+        <p>We couldn’t complete that request. Try again, or head back home.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="shell prose">
+        @if (Model.ShowRequestId)
+        {
+            <p><strong>Request ID:</strong> <code>@Model.RequestId</code></p>
+        }
+        <p><a class="btn btn-primary" asp-page="/Index">Back to home</a></p>
+    </div>
+</section>

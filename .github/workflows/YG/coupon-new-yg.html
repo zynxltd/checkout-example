@@ -1,0 +1,55 @@
+{# YouGarden coupon code only. Render nothing when unavailable. #}
+
+{% if valid %}
+<div class="{{safeid}}__sb-container imagecontainer yg-coupon-smartblock" style="width:100%; max-width:600px; margin:0 auto;">
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation" style="width:100%; border-collapse:separate; background-color:#ffffff; border:2px solid #f2e7d8; border-radius:16px;">
+        <tr>
+            <td class="yg-coupon-smartblock__inner" align="center" style="padding:18px 20px;">
+                <p style="margin:0 0 9px 0; font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:1.2; color:#6b7280; font-weight:700; letter-spacing:1px; text-transform:uppercase;">
+                    Your unique code
+                </p>
+
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" role="presentation" style="width:100%; max-width:360px; margin:0 auto; border-collapse:separate;">
+                    <tr>
+                        <td class="yg-coupon-smartblock__code" id="{{safeid}}__coupon" align="center" style="padding:13px 14px; background-color:#faf6f0; border:2px dashed #264f1c; border-radius:12px; font-family:'Courier New',Courier,monospace; font-size:20px; line-height:1.2; color:#264f1c; font-weight:700; letter-spacing:1.2px; overflow-wrap:anywhere; word-break:break-word;">
+                            {{ coupon }}
+                            {% if fields.icon.active %}
+                            <span class="yg-coupon-smartblock__copy-icon" style="display:inline-block; padding-left:9px; vertical-align:middle;">
+                                {{ copyImages[fields.icon.iconShape] }}
+                            </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<style>
+    .yg-coupon-smartblock,
+    .yg-coupon-smartblock * {
+        box-sizing:border-box;
+    }
+
+    .yg-coupon-smartblock__copy-icon img,
+    .yg-coupon-smartblock__copy-icon svg {
+        display:inline-block;
+        width:18px;
+        height:18px;
+        vertical-align:middle;
+    }
+
+    @media only screen and (max-width:504px) {
+        .yg-coupon-smartblock__inner {
+            padding:15px 12px !important;
+        }
+
+        .yg-coupon-smartblock__code {
+            padding:12px 9px !important;
+            font-size:16px !important;
+            letter-spacing:0.5px !important;
+        }
+    }
+</style>
+{% endif %}

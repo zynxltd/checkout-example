@@ -1,0 +1,81 @@
+@page "/project-detail/{ProjectId:int}"
+@rendermode InteractiveServer
+@using ProjectPriorityBoard.Models
+@using ProjectPriorityBoard.Services
+@inject ProjectService ProjectService
+@inject NavigationManager Navigation
+
+<PageTitle>Project Details</PageTitle>
+
+<div class="container form-page">
+    @if (project is null)
+    {
+        <p>Project not found.</p>
+        <a href="/">Back to Home</a>
+    }
+    else
+    {
+        <h1>Edit Project</h1>
+
+        <EditForm Model="project" OnValidSubmit="HandleUpdate" class="project-form">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label>Name</label>
+                <InputText class="form-control" @bind-Value="project.Name" />
+                <ValidationMessage For="@(() => project.Name)" />
+            </div>
+
+            <div class="form-group">
+                <label>Deadline</label>
+                <InputText class="form-control" @bind-Value="project.Deadline" />
+                <ValidationMessage For="@(() => project.Deadline)" />
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                <InputSelect class="form-select" @bind-Value="project.Status">
+                    <option value="Active">Active</option>
+                    <option value="Planning">Planning</option>
+                    <option value="On Hold">On Hold</option>
+                </InputSelect>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Project</button>
+            <a class="btn btn-link" href="/">Back to Home</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    [Parameter] public int ProjectId { get; set; }
+
+    private Project? project;
+
+    protected override void OnInitialized()
+    {
+        var projects = ProjectService.GetAllProjects();
+        if (ProjectId >= 0 && ProjectId < projects.Count)
+        {
+            var existing = projects[ProjectId];
+            project = new Project
+            {
+                Name = existing.Name,
+                Deadline = existing.Deadline,
+                Status = existing.Status
+            };
+        }
+    }
+
+    private void HandleUpdate()
+    {
+        if (project is null)
+        {
+            return;
+        }
+
+        ProjectService.UpdateProject(ProjectId, project);
+        Navigation.NavigateTo("/");
+    }
+}

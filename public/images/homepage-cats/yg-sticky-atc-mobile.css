@@ -1,0 +1,84 @@
+/**
+ * Crazy Egg — PDP sticky Add to Basket (Variant 3)
+ *
+ * Phone only. Hidden at 600px wide and above.
+ * A full-width hovering pill once Plant Calendar is on screen and #buy-button
+ * has scrolled away. The button always reads ADD TO BASKET.
+ * While it is open the offer badge is hidden (JS, inline !important)
+ * and #return-to-top sits just above it.
+ *
+ * Paste into Crazy Egg Variant 3 → Custom CSS
+ * Pair with: crazyegg-pdp-sticky-atb-v3.js
+ */
+
+ @media (max-width: 599px) {
+    html.ce-yg-atb-on {
+      padding-bottom: 88px !important;
+    }
+  
+    .ce-yg-atb {
+      position: fixed !important;
+      left: 16px !important;
+      right: 16px !important;
+      bottom: calc(12px + env(safe-area-inset-bottom)) !important;
+      z-index: 2147483000 !important;
+      display: none;
+      box-sizing: border-box;
+      width: auto;
+      max-width: none;
+      margin: 0;
+      padding: 14px 20px;
+      transform: none;
+      border: 0;
+      border-radius: 10px !important;
+      background: #468900;
+      color: #ffffff;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1.15;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+  
+    html.ce-yg-atb-on .ce-yg-atb {
+      display: block !important;
+    }
+  
+    .ce-yg-atb:active {
+      background: #3a7200;
+    }
+  
+    html.ce-yg-atb-on #style-options,
+    html.ce-yg-atb-on #style-options-drop-box {
+      scroll-margin-top: 120px;
+      scroll-margin-bottom: 16px;
+    }
+  
+    /* Popup also sets display:block !important inline; JS repeats this hide. */
+    html.ce-yg-atb-on [id$="__notification"] {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+  
+    html.ce-yg-atb-on #return-to-top {
+      bottom: calc(var(--ce-yg-atb-h, 52px) + 28px) !important;
+      z-index: 2147483001 !important;
+    }
+  }
+  
+  @media (min-width: 600px) {
+    html.ce-yg-atb-on {
+      padding-bottom: 0 !important;
+    }
+  
+    .ce-yg-atb {
+      display: none !important;
+    }
+  }
+  

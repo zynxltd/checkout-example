@@ -1,0 +1,33 @@
+@page
+@model PdpModel
+@{
+    ViewData["Title"] = "Product";
+    var p = Model.Product!;
+}
+
+<article class="pdp">
+    <img class="pdp__img" src="/@p.Image" alt="@p.Name" width="420" height="420">
+    <div class="pdp__info">
+        <p class="eyebrow">Product No. @p.Sku</p>
+        <h1>@p.Name</h1>
+        @if (!string.IsNullOrEmpty(p.Variant))
+        {
+            <p class="pdp__variant">@p.Variant</p>
+        }
+        <p class="pdp__price">
+            <strong>£@p.Price.ToString("0.00")</strong>
+            <span class="was">was £@p.WasPrice.ToString("0.00")</span>
+        </p>
+        <label class="pdp__qty">
+            Qty
+            <input id="demo-pdp-qty" type="number" min="1" max="99" value="1">
+        </label>
+        <button type="button"
+                id="demo-add-to-basket"
+                class="btn btn-primary"
+                data-pdp-sku="@p.Sku"
+                data-pdp-variant="@p.Variant">
+            Add to basket
+        </button>
+    </div>
+</article>

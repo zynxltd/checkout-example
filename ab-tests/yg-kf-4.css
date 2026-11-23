@@ -1,0 +1,344 @@
+/**
+ * Crazy Egg — PDP Key Features v3 · Variant 10 (mobile) — CRO
+ *
+ * Same chrome as V5; KF is the 3rd gallery slide / thumb.
+ * Pair with: crazyegg-pdp-key-features-v3-variant-10.js
+ * Paste into Crazy Egg Variant → Custom CSS
+ *
+ * Example: https://www.yougarden.com/item-p-511603/standard-holly-trees-with-premium-pinecone-planters
+ */
+
+ @media (max-width: 1000px) {
+    /* Original Key Features leave the buy column → description sits higher */
+    html.ce-yg-pdp-kf-v3v10 .product-right-wrapper > .icons-heading,
+    html.ce-yg-pdp-kf-v3v10 .product-right-wrapper > .icons-wrapper,
+    html.ce-yg-pdp-kf-v3v10 #product-features-carousel,
+    html.ce-yg-pdp-kf-v3v10 .product-features-carousel {
+      display: none !important;
+    }
+  
+    /* Root is the slick-slide — no padding here (was widening slide → white gap) */
+    html.ce-yg-pdp-kf-v3v10 #main-image-carousel .slick-slide {
+      box-sizing: border-box !important;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 #main-image-carousel .slick-slide.ce-yg-kf-slide {
+      box-sizing: border-box !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      overflow: hidden;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-slide-inner {
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1 / 1;
+      padding: 18px 14px 22px;
+      background: #ffffff;
+      text-align: center;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-slide-title {
+      margin: 0 0 14px;
+      padding: 0;
+      font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #264f1c;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-slide-grid {
+      display: grid;
+      gap: 12px 8px;
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-slide-grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-slide-grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-slide-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      min-width: 0;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-slide-item img {
+      display: block;
+      width: 52px !important;
+      height: 52px !important;
+      min-width: 52px;
+      min-height: 52px;
+      object-fit: contain;
+      margin: 0 auto 6px;
+      padding: 0;
+      pointer-events: none;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-slide-item span {
+      display: block;
+      width: 100%;
+      font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 11px;
+      line-height: 1.25;
+      font-weight: 500;
+      color: #264f1c;
+    }
+  
+    /*
+     * Feefo site CSS: #feefo-rating { float:left; width:200px; margin-top:10px }
+     * Wrap + kill float so "Key Features" can sit on the right.
+     */
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-stars-row {
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      box-sizing: border-box;
+      clear: both;
+      margin: 10px 0 0;
+      padding: 0;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-stars-row #feefo-rating,
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-stars-row .feefo-rating {
+      float: none !important;
+      width: auto !important;
+      max-width: none !important;
+      flex: 0 1 auto;
+      min-width: 0;
+      margin: 0 !important;
+      display: block;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-stars-row .feefo-product-stars-widget {
+      width: auto !important;
+      max-width: 100%;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-jump {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 5px;
+      flex: 0 0 auto;
+      margin-left: auto;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.3;
+      color: #333;
+      text-decoration: none;
+      white-space: nowrap;
+      float: none !important;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-jump:hover {
+      color: #1b3a14;
+      text-decoration: none;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-jump-icon {
+      display: block;
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      color: #333;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-jump-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  /* Desktop: leave Magento Key Features alone; hide injected slide / jump link */
+  @media (min-width: 1001px) {
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-slide {
+      display: none !important;
+    }
+  
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-jump,
+    html.ce-yg-pdp-kf-v3v10 .ce-yg-kf-stars-row .ce-yg-kf-jump {
+      display: none !important;
+    }
+  }
+  
+  /* Thumbs under hero (phone) */
+  @media (min-width: 600px) {
+    #ce-yg-thumbs {
+      display: none !important;
+    }
+  }
+  
+  @media (max-width: 599px) {
+    html.ce-yg-thumbs-on #main-image-carousel .slick-dots {
+      display: none !important;
+    }
+  
+    html.ce-yg-thumbs-on #main-image-carousel .previous-button,
+    html.ce-yg-thumbs-on #main-image-carousel .next-button,
+    html.ce-yg-thumbs-on #main-image-carousel .slick-arrow {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      z-index: 9 !important;
+    }
+  
+    #ce-yg-thumbs {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 6px;
+      width: 100%;
+      margin: 0;
+      padding: 6px 0 8px;
+      box-sizing: border-box;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      touch-action: pan-x;
+      background: #fff;
+    }
+  
+    #ce-yg-thumbs::-webkit-scrollbar {
+      display: none;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb {
+      flex: 0 0 calc((100% - 30px) / 4);
+      width: calc((100% - 30px) / 4);
+      aspect-ratio: 1 / 1;
+      padding: 0;
+      margin: 0;
+      border: 1.5px solid #d7ddd2;
+      border-radius: 6px;
+      background: #f5f6f4;
+      overflow: hidden;
+      cursor: pointer;
+      box-sizing: border-box;
+      position: relative;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb:first-child {
+      margin-left: 6px !important;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb:last-child {
+      margin-right: 6px !important;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb.is-active {
+      border-color: #264f1c;
+      border-width: 2px;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb.is-video::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -7px 0 0 -5px;
+      border-style: solid;
+      border-width: 8px 0 8px 13px;
+      border-color: transparent transparent transparent #fff;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+      pointer-events: none;
+    }
+  
+    /* Key Features thumb — mini version of the big KF slide */
+    #ce-yg-thumbs .ce-yg-thumb.is-kf {
+      background: #ffffff !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      padding: 3px !important;
+      overflow: hidden;
+    }
+  
+    /* Hide any leftover single-icon <img> from older paste */
+    #ce-yg-thumbs .ce-yg-thumb.is-kf > img {
+      display: none !important;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      padding: 2px;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-title {
+      display: block;
+      margin: 0 0 2px;
+      padding: 0;
+      font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 5px;
+      font-weight: 600;
+      line-height: 1;
+      color: #264f1c;
+      white-space: nowrap;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-grid {
+      display: grid !important;
+      gap: 1px;
+      width: 92%;
+      box-sizing: border-box;
+      align-content: center;
+      justify-items: center;
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  
+    #ce-yg-thumbs .ce-yg-thumb.is-kf .ce-yg-thumb-kf-grid img {
+      display: block !important;
+      width: 100% !important;
+      max-width: 18px !important;
+      height: auto !important;
+      aspect-ratio: 1 / 1;
+      object-fit: contain !important;
+      margin: 0 !important;
+      pointer-events: none;
+    }
+  }
+  

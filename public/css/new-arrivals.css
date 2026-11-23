@@ -1,0 +1,309 @@
+/* /new — editorial first-look drop, not a generic Magento PLP */
+
+body.demo-new {
+    --yg-new-ink: #1e3a14;
+    --yg-new-sage: #e8efe0;
+    --yg-new-flag: #812881;
+}
+
+.yg-new-hero {
+    background:
+        linear-gradient(180deg, rgba(30, 58, 20, 0.08), transparent 42%),
+        var(--yg-new-sage);
+    border-bottom: 1px solid #d5e0c8;
+}
+
+.yg-new-hero__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 36px 16px 40px;
+}
+
+.yg-new-hero__kicker {
+    margin: 0 0 8px;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #468900;
+}
+
+.yg-new-hero__title {
+    margin: 0 0 10px;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", serif);
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--yg-new-ink);
+}
+
+.yg-new-hero__lede {
+    margin: 0 0 18px;
+    max-width: 34rem;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 16px;
+    line-height: 1.45;
+    color: #3d4a34;
+}
+
+.yg-new-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yg-new-ink);
+}
+
+.yg-new-hero__meta a {
+    color: #468900;
+    text-decoration: none;
+}
+
+.yg-new-hero__meta a:hover {
+    text-decoration: underline;
+}
+
+.demo-new__main {
+    padding-top: 28px;
+}
+
+.yg-new-featured {
+    margin: 0 0 28px;
+}
+
+.yg-new-featured__head {
+    margin: 0 0 16px;
+}
+
+.yg-new-featured__head h2 {
+    margin: 0 0 4px;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", serif);
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+    color: var(--yg-new-ink);
+}
+
+.yg-new-featured__head p {
+    margin: 0;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 14px;
+    color: #666;
+}
+
+.yg-new-featured__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 800px) {
+    .yg-new-featured__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+}
+
+.yg-new-feature {
+    display: grid;
+    grid-template-rows: minmax(220px, 42vw) auto;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+@media (min-width: 800px) {
+    .yg-new-feature {
+        grid-template-rows: 320px auto;
+    }
+}
+
+.yg-new-feature:hover {
+    border-color: #c8d6b8;
+    box-shadow: 0 8px 24px rgba(30, 58, 20, 0.08);
+}
+
+.yg-new-feature:hover .yg-new-feature__copy h3 {
+    text-decoration: underline;
+}
+
+.yg-new-feature__img {
+    position: relative;
+    background: #f3f3f3;
+}
+
+.yg-new-feature__img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.yg-new-feature__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 16px 18px;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+}
+
+.yg-new-feature__kicker {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #468900;
+}
+
+.yg-new-feature__copy h3 {
+    margin: 0;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", serif);
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: var(--yg-new-ink);
+}
+
+.yg-new-feature__copy p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555;
+}
+
+.yg-new-feature__price {
+    margin-top: 4px !important;
+    font-size: 18px !important;
+    font-weight: 700;
+    color: #e3185d !important;
+}
+
+.yg-new-feature__cta {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #468900;
+}
+
+.yg-new-flag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: var(--yg-new-flag);
+    color: #fff;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.yg-new-when {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    padding: 5px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--yg-new-ink);
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.yg-new-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 22px;
+    scroll-margin-top: 180px;
+}
+
+.yg-new-chip {
+    margin: 0;
+    padding: 8px 14px;
+    border: 1px solid #d5e0c8;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--yg-new-ink);
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.yg-new-chip:hover {
+    background: var(--yg-new-sage);
+}
+
+.yg-new-chip.is-on {
+    border-color: #468900;
+    background: #468900;
+    color: #fff;
+}
+
+.yg-new-grid__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 0 14px;
+}
+
+.yg-new-grid {
+    scroll-margin-top: 180px;
+}
+
+.yg-new-grid__head h2 {
+    margin: 0;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", serif);
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    color: var(--yg-new-ink);
+}
+
+.yg-new-grid__head p {
+    margin: 0;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 13px;
+    color: #666;
+}
+
+.demo-new .yg-new-card .savingFlash {
+    display: none;
+}
+
+.demo-new .yg-new-card .imgWrapper {
+    position: relative;
+}
+
+.yg-new-empty {
+    margin: 16px 0 0;
+    padding: 16px;
+    border-radius: 10px;
+    background: var(--yg-new-sage);
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 14px;
+    text-align: center;
+    color: var(--yg-new-ink);
+}
+
+.demo-new .category-box[hidden] {
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .demo-new * {
+        scroll-behavior: auto !important;
+    }
+}

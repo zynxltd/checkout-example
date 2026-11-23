@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Debug lab";
+    DotnetMvcCrashCourse.Models.Product? match = ViewBag.Match;
+}
+
+<p class="text-muted small"><a asp-controller="Home" asp-action="Index">← Home</a></p>
+<h1 class="h3">Debug lab</h1>
+<p class="text-muted">
+    Run with the debugger (F5), open this page with a query string, set breakpoints in
+    <code>DebugLabController</code>.
+</p>
+
+<form method="get" class="row g-2 col-lg-6 mb-4">
+    <div class="col">
+        <input class="form-control" name="sku" value="@ViewBag.Sku" placeholder="SKU e.g. ROSE01" />
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-primary" type="submit">Lookup</button>
+    </div>
+</form>
+
+<ul>
+    <li>Products in store: <strong>@ViewBag.Count</strong></li>
+    <li>SKU queried: <code>@(ViewBag.Sku ?? "(none)")</code></li>
+    @if (match is null)
+    {
+        <li class="text-danger">No match — try <code>?sku=ROSE01</code></li>
+    }
+    else
+    {
+        <li>Match: <strong>@match.Name</strong> (£@match.Price.ToString("0.00"))</li>
+        <li>Estimated margin (@(0.62m.ToString("P0")) cost): <strong>£@(((decimal)ViewBag.Margin).ToString("0.00"))</strong></li>
+    }
+    <li>LinqLab self-check: <strong>@(ViewBag.LinqOk is true ? "pass" : "fail")</strong></li>
+</ul>
+
+<div class="alert alert-secondary small">
+    <strong>Debugger cheat sheet</strong>
+    <ul class="mb-0">
+        <li><kbd>F5</kbd> Start debugging · <kbd>F9</kbd> Toggle breakpoint</li>
+        <li><kbd>F10</kbd> Step over · <kbd>F11</kbd> Step into · <kbd>Shift+F11</kbd> Step out</li>
+        <li>Watch / Locals windows: inspect <code>products</code>, <code>match</code>, <code>margin</code></li>
+        <li>Debug Console: evaluate <code>products.Count</code> while paused</li>
+    </ul>
+</div>

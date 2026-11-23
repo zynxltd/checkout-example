@@ -1,0 +1,21 @@
+/**
+ * Crazy Egg A/B — Homepage category blocks (Variant 1 only)
+ *
+ * Control (CMS base): 4 tiles + Top picks visible;
+ *                     8-up + Bestsellers already display:none on CMS
+ * Variant 1: show 8-up + Bestsellers; hide 4 tiles + Top picks
+ *
+ * Paste into Crazy Egg Variant 1 → Custom CSS
+ * Pair with: crazyegg-homepage-category-order.js
+ */
+
+/* Variant pair — force show (overrides CMS inline display:none) */
+html.ce-yg-cat-order .frontpage > .category-promotion-wrapper.ce-yg-cat-order__show,
+html.ce-yg-cat-order .frontpage .ce-yg-cat-order__show {
+  display: block !important;
+}
+
+/* Control pair — hide in Variant only */
+html.ce-yg-cat-order .frontpage .ce-yg-cat-order__hide {
+  display: none !important;
+}

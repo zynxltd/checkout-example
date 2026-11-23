@@ -1,0 +1,634 @@
+/**
+ * Crazy Egg — PDP Desktop Layout v1 (left thumbs + KF modal)
+ *
+ * Paste into Crazy Egg Variant → Edit CSS
+ * Pair with: crazyegg-pdp-desk-layout-v1.js
+ *
+ * Breakpoints:
+ *   ≤599px   → mobile CE (#ce-yg-thumbs)
+ *   600–900px → Magento tablet (opt-image hidden)
+ *   ≥901px   → left thumbs + main; KF via lightbulb link → modal tour
+ *   901–1499 → thumbs INSIDE (avoids overlap ~1300–1450)
+ *   ≥1500    → thumbs OUTSIDE left (full desktop)
+ *   Rail always shows exactly 4 whole thumbs (no partial cut-off)
+ *
+ * Example: https://www.yougarden.com/item-p-511603/standard-holly-trees-with-premium-pinecone-planters
+ */
+
+html.ce-yg-pdp-desk-v1 {
+  --ce-yg-desk-wrap: 640px;
+  --ce-yg-desk-gallery: 640px; /* content-sized — not 50% (kills centre gap) */
+  --ce-yg-desk-main: 640px;
+  --ce-yg-desk-rail: 640px; /* 4×thumb + 3×gap — flush with main */
+  --ce-yg-desk-thumb: 154px;
+  --ce-yg-desk-gap: 10px;
+  --ce-yg-desk-thumb-gap: 8px;
+  --ce-yg-desk-gutter: 20px; /* space between gallery and buy column */
+  --ce-yg-desk-visible: 4;
+  --ce-yg-desk-green: #264f1c;
+  --ce-yg-desk-line: #d7ddd2;
+}
+
+/* Safety: Magento ≤900 stacked — don't force desk rail */
+@media (max-width: 900px) {
+  html.ce-yg-pdp-desk-v1 .opt-image-wrapper {
+    position: static !important;
+    left: auto !important;
+    width: auto !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel {
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .images-wrapper {
+    padding-left: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+
+@media (min-width: 901px) {
+  html.ce-yg-pdp-desk-v1 .product-top-wrapper,
+  html.ce-yg-pdp-desk-v1 .product-essential {
+    overflow: visible !important;
+  }
+
+  /*
+   * Magento ≤1300: .product-right-wrapper { float:right; width:50% }.
+   * Our gallery is often >50% → classic float-drop (empty right, buy under).
+   * Flex the real row (.centralWrapper), keep Magento’s 1300 cap + centre.
+   */
+  html.ce-yg-pdp-desk-v1 .product-top-wrapper {
+    width: 100% !important;
+    float: none !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .product-top-wrapper > .centralWrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 1300px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: 0 !important;
+    padding-right: 5px !important; /* light edge gap only */
+    float: none !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .product-top-wrapper > .centralWrapper::before,
+  html.ce-yg-pdp-desk-v1 .product-top-wrapper > .centralWrapper::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .product-top-wrapper > .centralWrapper > .images-wrapper {
+    position: relative !important;
+    display: block !important;
+    float: none !important;
+    flex: 0 0 auto !important;
+    order: 1 !important;
+    box-sizing: border-box !important;
+    width: var(--ce-yg-desk-gallery) !important;
+    max-width: none !important;
+    overflow: visible !important;
+    padding-left: 0 !important;
+    margin: 0 var(--ce-yg-desk-gutter, 20px) 0 0 !important;
+  }
+
+  html.ce-yg-pdp-desk-v1
+    .product-top-wrapper
+    > .centralWrapper
+    > .product-right-wrapper:not(.ce-yg-desk-kf) {
+    float: none !important;
+    clear: none !important;
+    flex: 1 1 0% !important;
+    order: 2 !important;
+    width: auto !important; /* kill Magento 51% / ≤1300 50% */
+    max-width: none !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Mid-desktop: carve rail inside so thumbs aren't clipped off-screen */
+  html.ce-yg-pdp-desk-v1.ce-yg-desk-narrow
+    .product-top-wrapper
+    > .centralWrapper
+    > .images-wrapper {
+    padding-left: calc(var(--ce-yg-desk-thumb) + var(--ce-yg-desk-gap)) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .opt-image-wrapper {
+    display: block !important;
+    visibility: visible !important;
+    position: absolute !important;
+    left: calc(-1 * (var(--ce-yg-desk-thumb) + var(--ce-yg-desk-gap))) !important;
+    top: 0 !important;
+    z-index: 3 !important;
+    width: var(--ce-yg-desk-thumb) !important;
+    max-width: var(--ce-yg-desk-thumb) !important;
+    height: auto !important;
+    min-height: var(--ce-yg-desk-rail, var(--ce-yg-desk-main)) !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  html.ce-yg-pdp-desk-v1.ce-yg-desk-narrow .opt-image-wrapper {
+    left: 0 !important;
+  }
+
+  /* Main locked to --ce-yg-desk-main (600×600) — not 100% (was taller than rail) */
+  html.ce-yg-pdp-desk-v1 #main-image-wrapper,
+  html.ce-yg-pdp-desk-v1 .main-image-wrapper {
+    position: relative !important;
+    float: none !important;
+    width: var(--ce-yg-desk-main) !important;
+    max-width: var(--ce-yg-desk-main) !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    border-radius: 6px !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #main-image-carousel {
+    width: var(--ce-yg-desk-main) !important;
+    max-width: var(--ce-yg-desk-main) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #main-image-carousel .slick-dots,
+  html.ce-yg-pdp-desk-v1 #main-image-carousel ul.slick-dots {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #main-image-carousel .slick-list {
+    width: var(--ce-yg-desk-main) !important;
+    max-width: var(--ce-yg-desk-main) !important;
+    overflow: hidden !important;
+    border-radius: 6px !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #main-image-carousel .slick-slide {
+    width: var(--ce-yg-desk-main) !important;
+    max-width: var(--ce-yg-desk-main) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 600×600 square + thumb-matching radius */
+  html.ce-yg-pdp-desk-v1 #main-image-carousel img.mainImg,
+  html.ce-yg-pdp-desk-v1 #main-image-carousel .slick-slide img {
+    width: var(--ce-yg-desk-main) !important;
+    max-width: var(--ce-yg-desk-main) !important;
+    height: var(--ce-yg-desk-main) !important;
+    max-height: var(--ce-yg-desk-main) !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    border-radius: 6px !important;
+  }
+
+  /* Magento KF block hidden — opened via lightbulb trigger + modal */
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf,
+  html.ce-yg-pdp-desk-v1 .product-right-wrapper > .icons-heading,
+  html.ce-yg-pdp-desk-v1 .product-right-wrapper > .icons-wrapper {
+    display: none !important;
+  }
+
+  /* Reviews slot → Key Features trigger */
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-trigger {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin: 6px 0 10px !important;
+    padding: 8px 14px 8px 10px !important;
+    border: 1px solid #d7ddd2 !important;
+    border-radius: 999px !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f4f8ef 100%) !important;
+    color: #264f1c !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    cursor: pointer !important;
+    box-shadow: 0 1px 0 rgba(38, 79, 28, 0.06) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-trigger:hover {
+    transform: translateY(-1px) !important;
+    border-color: #264f1c !important;
+    box-shadow: 0 6px 16px rgba(38, 79, 28, 0.12) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-bulb {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 50% !important;
+    background: #ccea81 !important;
+    color: #264f1c !important;
+    flex: 0 0 auto !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-hint {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #6a7a62 !important;
+    margin-left: 2px !important;
+  }
+
+  html.ce-yg-pdp-desk-v1.ce-yg-desk-kf-open {
+    overflow: hidden !important;
+  }
+
+  /* Smooth KF modal tour */
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 99999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 24px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.35s ease !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-modal.is-open {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-backdrop {
+    position: absolute !important;
+    inset: 0 !important;
+    background: rgba(20, 32, 16, 0.55) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-dialog {
+    position: relative !important;
+    z-index: 1 !important;
+    width: min(420px, 92vw) !important;
+    padding: 28px 24px 20px !important;
+    border-radius: 18px !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f7faf3 100%) !important;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28) !important;
+    transform: translateY(18px) scale(0.96) !important;
+    opacity: 0 !important;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.35s ease !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-modal.is-open .ce-yg-desk-kf-dialog {
+    transform: translateY(0) scale(1) !important;
+    opacity: 1 !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-close {
+    position: absolute !important;
+    top: 10px !important;
+    right: 12px !important;
+    width: 32px !important;
+    height: 32px !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    color: #5a6b52 !important;
+    font-size: 26px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-eyebrow {
+    margin: 0 0 14px !important;
+    text-align: center !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: #264f1c !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-stage {
+    overflow: hidden !important;
+    width: 100% !important;
+    margin: 0 0 16px !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-track {
+    display: flex !important;
+    width: 100% !important;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) !important;
+    will-change: transform;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-slide {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 4px 8px !important;
+    opacity: 0.45 !important;
+    transform: scale(0.94) !important;
+    transition: opacity 0.45s ease, transform 0.45s ease !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-slide.is-active {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 14px !important;
+    min-height: 200px !important;
+    padding: 20px 16px !important;
+    border-radius: 14px !important;
+    background: radial-gradient(circle at 50% 30%, #e8f5c8 0%, #ffffff 55%) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-card img {
+    width: 96px !important;
+    height: 96px !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 8px 16px rgba(38, 79, 28, 0.18)) !important;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-slide.is-active .ce-yg-desk-kf-card img {
+    transform: scale(1.06) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-card p {
+    margin: 0 !important;
+    text-align: center !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    color: #1f3d18 !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-dots {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    margin: 0 0 14px !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-dot {
+    width: 7px !important;
+    height: 7px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+    background: #c5d2bc !important;
+    cursor: default !important;
+    transition: transform 0.3s ease, background 0.3s ease !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-dot.is-active {
+    background: #264f1c !important;
+    transform: scale(1.35) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-progress {
+    height: 3px !important;
+    border-radius: 3px !important;
+    background: #e2eadc !important;
+    overflow: hidden !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .ce-yg-desk-kf-progress > span {
+    display: block !important;
+    height: 100% !important;
+    width: 0 !important;
+    border-radius: 3px !important;
+    background: linear-gradient(90deg, #7eb53a, #264f1c) !important;
+  }
+
+  /* Description sits under PayPal divider */
+  html.ce-yg-pdp-desk-v1 .product-right-wrapper > .pp-wrapper {
+    border-bottom: 2px solid #bbb !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 12px !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .product-right-wrapper > .points {
+    margin-top: 12px !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .product-top-wrapper {
+    margin-bottom: 8px !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 .product-tabs-wrapper {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #plantcalendar.tab-heading {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+    margin-top: 0 !important;
+  }
+
+  /* Fresh Relevance — Popular choices (collapse height so no white gap) */
+  html.ce-yg-pdp-desk-v1
+    .tmspslot[data-slid='pdp-customers-also-viewed'],
+  html.ce-yg-pdp-desk-v1 [class*='pdp_customers_also_viewed'] {
+    display: none !important;
+    height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+  }
+
+  /*
+   * Vertical thumb stack — EXACTLY 4 whole thumbs, no partial peek:
+   * rail = 4×thumb + 3×gap (= --ce-yg-desk-rail / --ce-yg-desk-main).
+   * Scroll snaps per thumb; rest stay off-screen.
+   */
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: var(--ce-yg-desk-thumb-gap) !important;
+    width: 100% !important;
+    height: var(--ce-yg-desk-rail, var(--ce-yg-desk-main)) !important;
+    max-height: var(--ce-yg-desk-rail, var(--ce-yg-desk-main)) !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    scroll-snap-type: y mandatory;
+    scroll-padding: 0;
+    /* Clip any sub-pixel 5th-thumb peek */
+    background-clip: padding-box;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel.ce-yg-desk-swiping {
+    cursor: grabbing;
+    scroll-behavior: auto;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+  }
+
+  /* Gap only on carousel — avoid double-gap on nested slick flex */
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel .slick-list,
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel .slick-track {
+    display: flex !important;
+    flex-direction: column !important;
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: var(--ce-yg-desk-thumb-gap) !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel .slick-list {
+    gap: 0 !important; /* track owns spacing when slick present */
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel .slick-arrow,
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel .slick-cloned {
+    display: none !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel .slick-slide,
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel > div {
+    float: none !important;
+    display: block !important;
+    position: relative !important;
+    flex: 0 0 var(--ce-yg-desk-thumb) !important;
+    width: 100% !important;
+    height: var(--ce-yg-desk-thumb) !important;
+    max-height: var(--ce-yg-desk-thumb) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1.5px solid var(--ce-yg-desk-line) !important;
+    border-radius: 6px !important;
+    box-sizing: border-box !important;
+    cursor: grab !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    -webkit-user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    pointer-events: auto;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel.ce-yg-desk-swiping img {
+    cursor: grabbing !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel img.ce-yg-desk-thumb-on,
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel img.is-active {
+    border-color: var(--ce-yg-desk-green) !important;
+    border-width: 2px !important;
+  }
+
+  /* Play cue on video thumb (2nd slot) — Magento may already ship .play-icon */
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel .ce-yg-desk-thumb-video {
+    position: relative !important;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel .ce-yg-desk-thumb-video:not(:has(.play-icon))::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    margin: -7px 0 0 -5px;
+    border-style: solid;
+    border-width: 8px 0 8px 13px;
+    border-color: transparent transparent transparent #fff;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+    pointer-events: none;
+  }
+
+  html.ce-yg-pdp-desk-v1 #opt-image-carousel .play-icon {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    z-index: 2 !important;
+    transform: translate(-50%, -50%) !important;
+    pointer-events: none !important;
+  }
+}
+
+/* Mid-desktop chrome — thumbs inside via .ce-yg-desk-narrow (JS) through ~1499 */
+@media (min-width: 901px) and (max-width: 1499px) {
+  html.ce-yg-pdp-desk-v1 {
+    --ce-yg-desk-gap: 8px;
+    --ce-yg-desk-thumb-gap: 6px;
+  }
+
+}
+
+@media (min-width: 1500px) {
+  html.ce-yg-pdp-desk-v1 {
+    --ce-yg-desk-gap: 10px;
+    --ce-yg-desk-thumb-gap: 8px;
+  }
+}

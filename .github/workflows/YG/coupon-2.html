@@ -1,0 +1,168 @@
+{# Coupon Bar - Email #}
+
+<div class="{{safeid}}__sb-container imagecontainer" style="width: {{ fields.width }}px; height: {{ fields.height }}px; margin: 0 auto;">
+
+    <div class="{{safeid}}__sb-root">
+
+        <div class="{{safeid}}__content">
+        
+            {% if valid %}
+
+                {% if fields.headline.active %}
+                <div class="{{safeid}}__headline">
+                    <a href="{{ mergeField(fields.smartblockHref, {})|set_ga_tracking(
+                        utm_campaign=mergeField(fields.utmCampaign, {}), 
+                        utm_medium=mergeField(fields.utmMedium, {}), 
+                        utm_source=mergeField(fields.utmSource, {})) }}">
+
+                            {{ mergeField(fields.headline.text) }}
+
+                    </a>
+                </div>
+                {% endif %}
+
+                <div>
+
+                    <div class="{{safeid}}__coupon" id="{{safeid}}__coupon">
+                        {{coupon}}
+
+                        {% if fields.icon.active %}
+                            <span>
+                                {{ copyImages[fields.icon.iconShape] }}
+                            </span> 
+                        {% endif %}
+                        
+                    </div>
+
+                </div>
+            
+            {% else %}
+            
+                {% if fields.notAvailableMsg.active %}
+                    <div class="{{safeid}}__not-available">
+                        <span>{{ mergeField(fields.notAvailableMsg.text) }}</span>
+                    </div>
+                {% endif %}
+            
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+
+    .{{safeid}}__sb-container * {
+        box-sizing: border-box;
+    }
+
+    .{{safeid}}__sb-container a {
+        text-decoration: none;
+    }
+
+    .{{safeid}}__sb-root {
+    	{% if not fields.notAvailableMsg.active and campaign_expired %}
+        	display: none;
+        {% else %}
+        	display: flex;
+        {% endif %}
+        align-items: center;
+        width: {{ fields.width }}px;
+        height: {{ fields.height }}px;
+        padding: {{ fields.padding.size + fields.padding.unit if valid else '0px' }};
+        margin: auto;
+        background-color: {{ fields.backgroundColor }};
+        border-radius: {{ fields.borderRadius }};
+        {% if fields.outerBorder.active %}
+            border: {{ fields.outerBorder.weight }}px {{ fields.outerBorder.style }} {{ fields.outerBorder.color }};
+        {% endif %}
+    }
+
+    .{{safeid}}__content {
+        width: {{ fields.width }}px;
+        height: {{ fields.height }}px;
+        display: flex;
+        align-items: center;
+        {% if fields.headline.active and not campaign_expired %}
+            gap: {{ fields.padding.size }}{{ fields.padding.unit }};
+            {% if fields.couponAlignment == 'flex-start' %}
+                flex-direction: row-reverse;
+            {% endif %}
+        {% endif %}
+        {% if not fields.headline.active and not campaign_expired %}
+            justify-content: {{ fields.couponAlignment }};
+        {% endif %}
+        {% if fields.notAvailableMsg.active and campaign_expired %}
+        	display: flex;
+            justify-content: {% if fields.notAvailableMsg.alignment == 'center' %}center{% else %}{{ 'flex-start' if fields.notAvailableMsg.alignment == 'left' else 'flex-end' }}{% endif %};
+        {% endif %}
+    }
+
+    .{{safeid}}__headline {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        font-family: {{ fields.headline.font }};
+        font-size: {{ fields.headline.fontSize.size }}{{ fields.headline.fontSize.unit }};
+        color: {{ fields.headline.color.foreground }};
+        background-color: {{ fields.headline.color.background }};
+        font-weight: {{ 'bold' if fields.headline.bold else 'normal' }};
+        font-style: {{ 'italic' if fields.headline.italics else 'normal' }};
+        justify-content: {{ fields.headline.alignment }};
+        padding: {{ fields.headline.padding.size }}{{ fields.headline.padding.unit }};
+    }
+
+    .{{safeid}}__headline a {
+        font-family: inherit;
+        font-size: inherit;
+        color: inherit;
+    }
+
+    .{{safeid}}__coupon {
+        display: flex;
+        align-items: center;
+        justify-content: {{ fields.couponAlignment }};
+        gap: 10px;
+        font-family: {{ fields.couponFont }};
+        font-size: {{ fields.couponFontSize.size }}{{ fields.couponFontSize.unit }};
+        color: {{ fields.couponColor.foreground }};
+        background-color: {{ fields.couponColor.background }};
+        font-weight: {{ 'bold' if fields.couponBold else 'normal' }};
+        font-style: {{ 'italic' if fields.couponItalics else 'normal' }};
+        padding: {{ fields.couponPadding.size }}{{ fields.couponPadding.unit }};
+        {% if fields.couponBorder.active %}
+            border: {{ fields.couponBorder.weight }}px {{ fields.couponBorder.style }} {{ fields.couponBorder.color }};
+        {% endif %}
+        {% if fields.couponShape != 'rectangle' %}
+            {% if fields.couponShape == 'rounded-rectangle' %}
+                border-radius: 8px;
+            {% elif fields.couponShape == 'circle' %}
+                border-radius: 50%;
+                aspect-ratio: 1 / 1;
+            {% elif fields.couponShape == 'pill' %}
+                border-radius: {{ 'calc(' + fields.couponFontSize.size + fields.couponFontSize.unit + ' + ' + (fields.couponPadding.size / 2) + fields.couponPadding.unit + ')' }};
+            {% endif %}
+        {% endif %}
+        {% if fields.icon.active %}
+            cursor: pointer;
+        {% endif %}
+    }
+    
+    .{{safeid}}__not-available {
+    	font-family: {{ fields.notAvailableMsg.font }};
+        font-size: {{ fields.notAvailableMsg.fontSize.size }}{{ fields.notAvailableMsg.fontSize.unit }};
+        color: {{ fields.notAvailableMsg.color.foreground }};
+        background-color: {{ fields.notAvailableMsg.color.background }};
+        font-weight: {{ 'bold' if fields.notAvailableMsg.bold else 'normal' }};
+        font-style: {{ 'italic' if fields.notAvailableMsg.italics else 'normal' }};
+        padding: {{ fields.notAvailableMsg.padding.size }}{{ fields.notAvailableMsg.padding.unit }};
+        border-radius: {{ fields.notAvailableMsg.borderRadius }};
+        text-align: {{ fields.notAvailableMsg.alignment }};
+    	{% if fields.notAvailableMsg.border %}
+            border: {{ fields.notAvailableMsg.borderWeight }}px {{ fields.notAvailableMsg.borderStyle }} {{ fields.notAvailableMsg.borderColor }};
+        {% endif %}
+    }
+
+</style>

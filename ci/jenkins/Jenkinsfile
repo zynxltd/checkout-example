@@ -1,0 +1,147 @@
+pipeline {
+  agent none
+
+  options {
+    timestamps()
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '20'))
+  }
+
+  parameters {
+    booleanParam(name: 'RUN_DOCKER', defaultValue: true, description: 'Build root Dockerfile after PHPUnit')
+    booleanParam(name: 'RUN_PYTHON', defaultValue: false, description: 'Run python-react-crash-course pytest')
+    booleanParam(name: 'RUN_DOTNET', defaultValue: false, description: 'Build dotnet-mvc-crash-course')
+    booleanParam(name: 'RUN_NUGET', defaultValue: false, description: 'Pack + test demos/dotnet-nuget-demo')
+  }
+
+  stages {
+    stage('Checkout') {
+      agent any
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Composer') {
+      agent {
+        docker {
+          image 'composer:2'
+          args '-u root:root'
+          reuseNode true
+        }
+      }
+      steps {
+        sh 'composer install --prefer-dist --no-interaction --no-progress'
+      }
+    }
+
+    stage('PHPUnit') {
+      agent {
+        docker {
+          image 'php:8.4-cli'
+          args '-u root:root'
+          reuseNode true
+        }
+      }
+      steps {
+        sh '''
+          set -e
+          apt-get update -qq
+          apt-get install -y -qq git unzip libzip-dev libsqlite3-dev > /dev/null
+          docker-php-ext-install pdo_sqlite zip > /dev/null
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          composer install --prefer-dist --no-interaction --no-progress
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+          php artisan migrate --force
+          php artisan test --compact
+        '''
+      }
+    }
+
+    stage('Docker') {
+      when {
+        expression { return params.RUN_DOCKER }
+      }
+      agent any
+      steps {
+        sh 'docker build -t yg-cart-drawer-demo:jenkins-${BUILD_NUMBER} .'
+      }
+    }
+
+    stage('Python API') {
+      when {
+        expression { return params.RUN_PYTHON }
+      }
+      agent {
+        docker {
+          image 'python:3.12-slim'
+          args '-u root:root'
+          reuseNode true
+        }
+      }
+      steps {
+        dir('demos/python-react-crash-course/api') {
+          sh '''
+            pip install -q -r requirements.txt
+            pytest -q
+          '''
+        }
+      }
+    }
+
+    stage('Dotnet') {
+      when {
+        expression { return params.RUN_DOTNET }
+      }
+      agent {
+        docker {
+          image 'mcr.microsoft.com/dotnet/sdk:10.0'
+          args '-u root:root'
+          reuseNode true
+        }
+      }
+      steps {
+        dir('demos/dotnet-mvc-crash-course') {
+          sh 'dotnet build -c Release'
+        }
+      }
+    }
+
+    stage('NuGet demo') {
+      when {
+        expression { return params.RUN_NUGET }
+      }
+      agent {
+        docker {
+          image 'mcr.microsoft.com/dotnet/sdk:10.0'
+          args '-u root:root'
+          reuseNode true
+        }
+      }
+      steps {
+        dir('demos/dotnet-nuget-demo') {
+          sh '''
+            set -e
+            dotnet pack src/GreenShelf.Pricing/GreenShelf.Pricing.csproj -c Release -o nupkg
+            dotnet test GreenShelf.Pricing.sln -c Release --nologo
+            dotnet run --project src/GreenShelf.Pricing.Consumer -c Release
+          '''
+        }
+      }
+    }
+  }
+
+  post {
+    success {
+      echo "CI green — BUILD_NUMBER=${BUILD_NUMBER}"
+    }
+    failure {
+      echo "CI red — open Console Output and jump to the first FAILED stage"
+    }
+    always {
+      cleanWs(deleteDirs: true, notFailBuild: true)
+    }
+  }
+}

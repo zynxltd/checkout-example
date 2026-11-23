@@ -1,0 +1,189 @@
+/**
+ * Crazy Egg — PLP category cross-links v4
+ * Paste into Variant → Custom CSS
+ * Pair with: yg-plp-crosslinks-v4.js
+ *
+ * Same as CE Variant 2 white outline pills, plus desktop filters /
+ * sort / reset styled to match.
+ *
+ * Example: https://www.yougarden.com/garden-plants/perennial-plants-and-flowers
+ * Scope: html.ce-yg-plp-crosslinks-v4
+ */
+
+html.ce-yg-plp-crosslinks-v4 {
+  --ce-xl4-forest: #264f1c;
+  --ce-xl4-forest-deep: #1e3f16;
+  --ce-xl4-body: "proxima-nova", "Proxima Nova", Arial, Helvetica, sans-serif;
+}
+
+html.ce-yg-plp-crosslinks-v4 .top-section {
+  float: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  clear: both !important;
+  box-sizing: border-box !important;
+}
+
+/* —— Cross-link pills (Variant 2 look) —— */
+html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 0 12px !important;
+  padding: 10px 0 4px !important;
+  background: transparent !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper::before {
+  content: none !important;
+  display: none !important;
+}
+
+html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper > ul {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 0 6px !important;
+  list-style: none !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper > ul::-webkit-scrollbar {
+  display: none;
+}
+
+html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper > ul > li {
+  display: inline-flex !important;
+  float: none !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper > ul > li > a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 8px 14px !important;
+  border: 1.5px solid var(--ce-xl4-forest) !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: var(--ce-xl4-forest) !important;
+  font-family: var(--ce-xl4-body) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.01em !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper > ul > li > a:hover,
+html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper > ul > li > a:focus {
+  background: var(--ce-xl4-forest) !important;
+  color: #fff !important;
+  border-color: var(--ce-xl4-forest) !important;
+  outline: none;
+}
+
+/* —— Desktop filters / sort / reset — match pill chrome —— */
+@media (min-width: 768px) {
+  html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper > ul {
+    flex-wrap: wrap !important;
+    overflow-x: visible !important;
+    padding-bottom: 0 !important;
+    gap: 8px 10px !important;
+  }
+
+  html.ce-yg-plp-crosslinks-v4 .category-cross-linking-wrapper > ul > li > a {
+    font-size: 14px !important;
+    padding: 9px 16px !important;
+  }
+
+  html.ce-yg-plp-crosslinks-v4 .display-filters-wrapper,
+  html.ce-yg-plp-crosslinks-v4 #display-filters-wrapper {
+    display: block !important;
+  }
+
+  html.ce-yg-plp-crosslinks-v4 .filter-wrapper .filterHead,
+  html.ce-yg-plp-crosslinks-v4 .sort-wrapper .sort-head,
+  html.ce-yg-plp-crosslinks-v4 #sort-head {
+    background: #fff !important;
+    border: 1.5px solid var(--ce-xl4-forest) !important;
+    border-radius: 999px !important;
+    color: var(--ce-xl4-forest) !important;
+    font-family: var(--ce-xl4-body) !important;
+    font-weight: 700 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-plp-crosslinks-v4 .filter-wrapper .filterHead:hover,
+  html.ce-yg-plp-crosslinks-v4 .sort-wrapper .sort-head:hover,
+  html.ce-yg-plp-crosslinks-v4 #sort-head:hover {
+    background: var(--ce-xl4-forest) !important;
+    color: #fff !important;
+  }
+
+  html.ce-yg-plp-crosslinks-v4 .filter-wrapper .filterHead:hover .filter-drop-icon,
+  html.ce-yg-plp-crosslinks-v4 .filter-wrapper .filterHead:hover svg,
+  html.ce-yg-plp-crosslinks-v4 .sort-wrapper .sort-head:hover svg,
+  html.ce-yg-plp-crosslinks-v4 #sort-head:hover svg {
+    color: #fff !important;
+    fill: #fff !important;
+  }
+
+  html.ce-yg-plp-crosslinks-v4 .filter-wrapper .filterHead .filter-drop-icon,
+  html.ce-yg-plp-crosslinks-v4 .filter-wrapper .filterHead svg,
+  html.ce-yg-plp-crosslinks-v4 .sort-wrapper .sort-head svg,
+  html.ce-yg-plp-crosslinks-v4 #sort-head svg,
+  html.ce-yg-plp-crosslinks-v4 #sort-icon {
+    color: var(--ce-xl4-forest) !important;
+  }
+
+  /* RESET FILTERS — outline pill, fills on hover like chips */
+  html.ce-yg-plp-crosslinks-v4 .filter-wrapper .clear-filters {
+    background: #fff !important;
+    border: 1.5px solid var(--ce-xl4-forest) !important;
+    border-radius: 999px !important;
+    color: var(--ce-xl4-forest) !important;
+    font-family: var(--ce-xl4-body) !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+  }
+
+  html.ce-yg-plp-crosslinks-v4 .filter-wrapper .clear-filters:hover {
+    background: var(--ce-xl4-forest) !important;
+    color: #fff !important;
+  }
+}
+
+/* Mobile open-filters button — same chip language */
+@media (max-width: 767px) {
+  html.ce-yg-plp-crosslinks-v4 .category-filters .mobile-filter-open,
+  html.ce-yg-plp-crosslinks-v4 #mobile-filter-open {
+    background: #fff !important;
+    border: 1.5px solid var(--ce-xl4-forest) !important;
+    border-radius: 999px !important;
+    color: var(--ce-xl4-forest) !important;
+    font-family: var(--ce-xl4-body) !important;
+    font-weight: 700 !important;
+    box-sizing: border-box !important;
+  }
+}

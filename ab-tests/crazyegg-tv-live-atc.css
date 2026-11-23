@@ -1,0 +1,80 @@
+/**
+ * Crazy Egg — YouGarden TV Live listing CRO
+ *
+ * Green ADD TO BASKET on listing cards.
+ * Hide the native added-to-basket overlay (this page does not have one).
+ * Mobile carousels are left as-is.
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-tv-live-atc.js
+ * Target URL: https://www.yougarden.com/tv-live
+ */
+
+html.ce-yg-tv-live {
+  --ce-yg-green: #468900;
+  --ce-yg-green-dark: #365722;
+}
+
+html.ce-yg-tv-live .frontpage .promotional-wrapper .promotional-blocks .item .inner .mainButton,
+html.ce-yg-tv-live .promotional-wrapper .promotional-blocks .item .mainButton,
+html.ce-yg-tv-live .promotional-blocks .mainButton {
+  display: table !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  padding: 14px 8px !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+  background: #468900 !important;
+  background-color: #468900 !important;
+  background-image: none !important;
+  color: #fff !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  user-select: none !important;
+  position: relative !important;
+  top: auto !important;
+  flex: none !important;
+}
+
+html.ce-yg-tv-live .frontpage .promotional-wrapper .promotional-blocks .item .inner .mainButton:hover,
+html.ce-yg-tv-live .frontpage .promotional-wrapper .promotional-blocks .item .inner .mainButton:focus,
+html.ce-yg-tv-live .promotional-wrapper .promotional-blocks .item .mainButton:hover,
+html.ce-yg-tv-live .promotional-wrapper .promotional-blocks .item .mainButton:focus,
+html.ce-yg-tv-live .promotional-blocks .mainButton:hover,
+html.ce-yg-tv-live .promotional-blocks .mainButton:focus {
+  background: var(--ce-yg-green-dark) !important;
+  background-color: #365722 !important;
+  color: #fff !important;
+}
+
+html.ce-yg-tv-live .promotional-blocks .mainButton[data-ce-yg-busy="1"],
+html.ce-yg-tv-live .promotional-wrapper .promotional-blocks .item .mainButton[data-ce-yg-busy="1"] {
+  opacity: 0.75;
+  pointer-events: none !important;
+}
+
+html.ce-yg-tv-live .promotional-blocks .mainButton[data-ce-yg-added="1"],
+html.ce-yg-tv-live .promotional-wrapper .promotional-blocks .item .mainButton[data-ce-yg-added="1"] {
+  background: #365722 !important;
+  background-color: #365722 !important;
+}
+
+/* Native ajaxbag overlay — not used on /tv-live */
+html.ce-yg-tv-live #fullScreen,
+html.ce-yg-tv-live #basket-popup-wrapper {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

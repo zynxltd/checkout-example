@@ -1,0 +1,95 @@
+/**
+ * Crazy Egg — PDP Key Features v2 (mobile)
+ *
+ * Pair with: crazyegg-pdp-key-features-v2.js
+ * Paste into Crazy Egg Variant → Custom CSS
+ *
+ * One-row horizontal carousel of smaller, equal-sized icons.
+ * No wrap, no infinite slick loop — native scroll with snap.
+ *
+ * Mobile ≤1000px only. Desktop unchanged.
+ *
+ * Example: https://www.yougarden.com/item-p-630050/complete-300-spring-flowering-bulb-collection
+ */
+
+@media (max-width: 1000px) {
+  /* Hide Magento slick carousel */
+  html.ce-yg-pdp-kf-v2 #product-features-carousel,
+  html.ce-yg-pdp-kf-v2 .product-features-carousel {
+    display: none !important;
+  }
+
+  html.ce-yg-pdp-kf-v2 .icons-wrapper {
+    margin: 0 0 10px !important;
+    padding: 0 !important;
+  }
+
+  html.ce-yg-pdp-kf-v2 .icons-heading {
+    margin: 14px 0 8px !important;
+    font-size: 16px !important;
+    text-align: left !important;
+  }
+
+  html.ce-yg-pdp-kf-v2 .ce-yg-kf-rail {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+    margin: 0;
+    padding: 4px 2px 8px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html.ce-yg-pdp-kf-v2 .ce-yg-kf-rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  html.ce-yg-pdp-kf-v2 .ce-yg-kf-rail-item {
+    flex: 0 0 72px;
+    width: 72px;
+    max-width: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+    padding: 0 4px;
+  }
+
+  html.ce-yg-pdp-kf-v2 .ce-yg-kf-rail-item img {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px;
+    min-height: 32px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 4px;
+  }
+
+  html.ce-yg-pdp-kf-v2 .ce-yg-kf-rail-item span {
+    display: block;
+    width: 100%;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #264f1c;
+    /* Keep every label the same visual height */
+    min-height: 2.4em;
+  }
+}
+
+@media (min-width: 1001px) {
+  html.ce-yg-pdp-kf-v2 .ce-yg-kf-rail {
+    display: none !important;
+  }
+}

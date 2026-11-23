@@ -1,0 +1,946 @@
+{# Fancy variant: YouGarden theme. Date-ranged promo banner with optional extended day. #}
+
+{# Legacy numeric fields are still present; prefer promoStartDate/promoEndDate going forward. #}
+{% set weekendStartYear = fields.weekendStartYear|default(2026) %}
+{% set weekendStartMonth = fields.weekendStartMonth|default(5) %}
+{% set weekendStartDay = fields.weekendStartDay|default(2) %}
+{% set weekendEndDay = fields.weekendEndDay|default(4) %}
+{% set weekendExtendedDay = fields.weekendExtendedDay|default(weekendEndDay) %}
+{% set fridayEnabled = fields.fridayEnabled|default(false) %}
+{% set fridayStartDay = fields.fridayStartDay|default(1) %}
+
+{# New scheduling fields (YYYY-MM-DD). Falls back to legacy values if unset. #}
+{% set promoStartDate = fields.promoStartDate|default('') %}
+{% set promoEndDate = fields.promoEndDate|default('') %}
+{% set extendedDayEnabled = fields.extendedDayEnabled|default(false) %}
+
+{# Variables #}
+
+{% if fields.autoFillWidth %}
+	{% set width = "100%" %}
+{% elif fields.width == 0 %}
+	{% set width = "auto" %}
+{% else %}
+	{% set width = fields.width + "px" %}
+{% endif %}
+
+{# Countdown deadline (optional; no expired message shown) #}
+{% set countdownYear = fields.countdownYear|default(2024) %}
+{% set countdownMonth = fields.countdownMonth|default(12) %}
+{% set countdownDay = fields.countdownDay|default(21) %}
+{% set countdownHour = fields.countdownHour|default(23) %}
+{% set countdownMinute = fields.countdownMinute|default(59) %}
+{% set countdownSecond = fields.countdownSecond|default(59) %}
+
+<div
+	class="imagecontainer {{safeid}}__critical-messaging {{safeid}}__weekend-banner-wrap"
+	data-image-index="0"
+	data-safeid="{{ safeid }}"
+	data-code-default="{{ fields.headline.promoCodeOrganic|default('YGSW15') }}"
+	data-code-ppc="{{ fields.headline.promoCodePpc|default('YGSW15G') }}"
+	data-promo-start="{{ promoStartDate|e }}"
+	data-promo-end="{{ promoEndDate|e }}"
+	data-extended-enabled="{{ 'true' if extendedDayEnabled else 'false' }}"
+	data-message-before-promo="{{ fields.messageBeforePromo|default('')|e }}"
+	data-message-start="{{ fields.messageStart|default('Get 15% Off Sitewide With Code ')|e }}"
+	data-message-during="{{ fields.messageDuring|default('Get 15% Off Sitewide With Code ')|e }}"
+	data-message-day-before-end="{{ fields.messageDayBeforeEnd|default('Get 15% Off Sitewide With Code ')|e }}"
+	data-suffix-day-before-end="{{ fields.suffixDayBeforeEnd|default(' - Ends tomorrow')|e }}"
+	data-message-final-day="{{ fields.messageFinalDay|default('Get 15% Off Sitewide With Code ')|e }}"
+	data-suffix-final-day="{{ fields.suffixFinalDay|default(' - Ends tonight')|e }}"
+	data-message-extended-day="{{ fields.messageExtendedDay|default('Get 15% Off Sitewide With Code ')|e }}"
+	data-suffix-extended-day="{{ fields.suffixExtendedDay|default(fields.suffixFinalDay|default(' - Ends tonight'))|e }}"
+	data-legacy-message-before="{{ fields.messageBeforeWeekend|default('15% Off This Weekend From Saturday - Code ')|e }}"
+	data-legacy-message-friday="{{ fields.messageFriday|default('Get 15% Off Sitewide With Code ')|e }}"
+	data-legacy-message-saturday="{{ fields.messageSaturday|default('Get 15% Off Sitewide Saturday With Code ')|e }}"
+	data-legacy-message-sunday="{{ fields.messageSunday|default('Get 15% Off Sitewide Sunday With Code ')|e }}"
+	data-legacy-message-monday="{{ fields.messageMonday|default('Get 15% Off Sitewide With Code ')|e }}"
+	data-legacy-message-ends-tomorrow="{{ fields.messageEndsTomorrow|default(' - Ends tomorrow')|e }}"
+	data-legacy-message-extended="{{ fields.messageExtended|default(' - Ends tonight')|e }}"
+	data-friday-enabled="{{ 'true' if fridayEnabled else 'false' }}"
+	data-friday-start-day="{{ fridayStartDay }}"
+>
+
+	{% if fields.redirectsEnable.active %}
+	<a href="{{ mergeField(fields.redirectsEnable.smartBlockHref, {})|set_ga_tracking(
+		utm_campaign=mergeField(fields.redirectsEnable.utmCampaign, {}), 
+		utm_medium=mergeField(fields.redirectsEnable.utmMedium, {}), 
+		utm_source=mergeField(fields.redirectsEnable.utmSource, {})) }}" target="_blank">
+	{% endif %}
+
+		<div class="{{safeid}}__container">
+
+			{% if fields.headlineContainer.active|default(true) %}
+			<div class="{{safeid}}__headline">
+
+				{% if fields.headline.active|default(true) %}
+				{# headline: promo codes from fields; JS swaps by traffic source; weekend script may change message #}
+				<p class="{{safeid}}__headline-text">{{ fields.messageDuring|default(fields.messageStart|default('Get 15% Off Sitewide With Code ')) }}<span class="{{safeid}}__promo-code" data-code-default="{{ fields.headline.promoCodeOrganic|default('YGSW15') }}" data-code-ppc="{{ fields.headline.promoCodePpc|default('YGSW15G') }}">{{ fields.headline.promoCodeOrganic|default('YGSW15') }}</span><span class="{{safeid}}__weekend-ends"></span></p>
+				{% endif %}
+
+			</div>
+			{% endif %}
+
+			{% if fields.messageContainer.active %}
+			<div class="{{safeid}}__message">
+
+				{% if fields.message.active %}
+				{# message start - will be replaced by countdown #}
+				<p class="{{safeid}}__countdown-text">{{ mergeField(fields.message.text) }}</p>
+				{# message end #}
+				{% endif %}
+
+			</div>
+			{% endif %}
+
+		</div>
+
+	{% if fields.redirectsEnable.active %}
+	</a>
+	{% endif %}
+	
+</div>
+
+<style>
+	.{{safeid}}__critical-messaging * {
+		box-sizing: border-box;
+		text-decoration: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.{{safeid}}__critical-messaging,
+	.{{safeid}}__weekend-banner-wrap {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		max-width: 100%;
+		overflow-x: hidden;
+		box-sizing: border-box;
+	}
+
+	.{{safeid}}__critical-messaging > a {
+		display: block;
+		width: {{ width }};
+		max-width: 100%;
+	}
+
+	.{{safeid}}__container {
+		display: flex;
+		width: {{ width }};
+		max-width: 100%;
+		min-width: 0;
+		min-height: 48px;
+		background: linear-gradient(135deg, {{ fields.backgroundColor|default("#3F713B") }} 0%, {{ fields.backgroundColor|default("#2d5a29") }} 100%);
+		padding: {{ fields.padding.size|default(0) }}{{ fields.padding.unit|default("px") }};
+		border-radius: {{ fields.borderRadius|default("0") }};
+		box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+		{% if fields.backgroundImage %}
+			background-image: url("{{ fields.backgroundUrl }}");
+			background-size: cover;
+		{% endif %}
+		{% if fields.border %}
+			border: {{ fields.borderWidth }}px {{ fields.borderStyle }} {{ fields.borderColor }};
+		{% endif %}
+	}
+	
+	.{{safeid}}__headline,
+	.{{safeid}}__message {
+		display: flex;
+		align-items: center;
+		overflow: hidden;
+	}
+
+	.{{safeid}}__headline {
+		flex: 0 1 {{ fields.headlineContainer.width|default(100) }}%;
+		background-color: {{ fields.headlineContainer.backgroundColor|default("transparent") }};
+		margin-right: {{ fields.headlineContainer.margin.size|default(0) }}{{ fields.headlineContainer.margin.unit|default("px") }};
+		border-radius: {{ fields.headlineContainer.borderRadius|default("0") }};
+		padding: {{ fields.headlineContainer.padding.size|default(0) }}{{ fields.headlineContainer.padding.unit|default("px") }};
+		{% if fields.headlineContainer.border %}
+			border: {{ fields.headlineContainer.borderWidth }}px {{ fields.headlineContainer.borderColor }} {{ fields.headlineContainer.borderStyle }};
+		{% endif %}
+	}
+	
+	.{{safeid}}__headline p {
+		font-size: {{ fields.headline.fontSize.size|default(16) }}{{ fields.headline.fontSize.unit|default("px") }};
+		color: {{ fields.headline.color|default("#ffffff") }};
+		font-family: {{ fields.headline.font|default("Verdana, Arial, sans-serif") }};
+		font-weight: {{ 'bold' if fields.headline.bold|default(true) else 'normal' }};
+		text-align: {{ fields.headline.alignment|default("center") }};
+		{% if fields.headline.italics %}
+			font-style: italic;
+		{% endif %}
+		{% if fields.headline.underline %}
+			text-decoration: underline;
+		{% endif %}
+        width: 100%;
+		letter-spacing: 0.02em;
+	}
+
+	.{{safeid}}__promo-code {
+		color: {{ fields.headline.promoCodeColor|default("#FFD54F") }};
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		display: inline-block;
+		margin-left: 6px;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 10px rgba(255, 213, 79, 0.25);
+		cursor: pointer;
+	}
+
+	.{{safeid}}__promo-code-wrap {
+		position: relative;
+		display: inline-block;
+	}
+
+	.{{safeid}}__copy-icon {
+		position: absolute;
+		left: 100%;
+		margin-left: 0.35em;
+		top: 50%;
+		transform: translateY(-50%);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25em;
+		white-space: nowrap;
+		opacity: 0;
+		transition: opacity 0.2s ease;
+		pointer-events: none;
+		font-size: 0.7em;
+		font-weight: normal;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: #ffffff !important;
+	}
+	.{{safeid}}__copy-label {
+		color: #ffffff !important;
+	}
+	.{{safeid}}__copy-icon.is-visible {
+		opacity: 1;
+	}
+	.{{safeid}}__copy-icon svg {
+		display: block;
+		width: 1em;
+		height: 1em;
+		flex-shrink: 0;
+		fill: #ffffff !important;
+	}
+
+	.{{safeid}}__confetti-layer {
+		position: fixed;
+		inset: 0;
+		pointer-events: none;
+		z-index: 2147483646;
+		overflow: hidden;
+	}
+	.{{safeid}}__confetti-piece {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 7px;
+		height: 10px;
+		border-radius: 1px;
+		opacity: 0;
+		will-change: transform, opacity;
+		animation: {{safeid}}-confetti-burst 700ms ease-out forwards;
+	}
+	@keyframes {{safeid}}-confetti-burst {
+		0% {
+			opacity: 1;
+			transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+		}
+		100% {
+			opacity: 0;
+			transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)) scale(0.6);
+		}
+	}
+	
+	.{{safeid}}__weekend-ends {
+		color: {{ fields.headline.color|default("#ffffff") }} !important;
+	}
+
+	.{{safeid}}__weekend-ends:not(:empty) {
+		margin-left: 6px;
+	}
+
+    .{{safeid}}__message {
+		flex: 1 1;
+		background-color: {{ fields.messageContainer.backgroundColor }};
+		border-radius: {{ fields.messageContainer.borderRadius }};
+		padding: {{ fields.messageContainer.padding.size }}{{ fields.messageContainer.padding.unit }};
+		{% if fields.messageContainer.border %}
+			border: {{ fields.messageContainer.borderWidth }}px {{ fields.messageContainer.borderColor }} {{ fields.messageContainer.borderStyle }};
+		{% endif %}
+	}
+	
+	.{{safeid}}__message p {
+		font-size: {{ fields.message.fontSize.size }}{{ fields.message.fontSize.unit }};
+		color: {{ fields.message.color }};
+		font-family: {{ fields.message.font }};
+		font-weight: {{ 'bold' if fields.message.bold else 'normal' }};
+		text-align: {{ fields.message.alignment }};
+		{% if fields.message.italics %}
+			font-style: italic;
+		{% endif %}
+		{% if fields.message.underline %}
+			text-decoration: underline;
+		{% endif %}
+        width: 100%;
+	}
+
+	.{{safeid}}__countdown-text {
+		white-space: nowrap;
+	}
+
+	.{{safeid}}__weekend-banner-wrap[data-weekend-hidden="true"] {
+		display: none !important;
+	}
+
+	@media (max-width: 767px) {
+		.{{safeid}}__critical-messaging,
+		.{{safeid}}__critical-messaging > a,
+		.{{safeid}}__container {
+			width: 100% !important;
+			max-width: 100% !important;
+			min-width: 0 !important;
+		}
+
+		.{{safeid}}__headline p {
+			font-size: {{ fields.headline.mobileFontSize.size|default(15) }}{{ fields.headline.mobileFontSize.unit|default("px") }};
+			width: max-content !important;
+			max-width: none !important;
+			white-space: nowrap !important;
+		}
+
+		.{{safeid}}__headline {
+			flex: 1 1 auto;
+			min-width: 0;
+			max-width: 100%;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.{{safeid}}__headline p.{{safeid}}__headline-marquee-track {
+			display: inline-flex !important;
+			align-items: center;
+			width: max-content !important;
+			min-width: 0;
+			max-width: none !important;
+			white-space: nowrap !important;
+			color: {{ fields.headline.color|default("#ffffff") }} !important;
+			will-change: transform;
+			backface-visibility: hidden;
+			-webkit-font-smoothing: antialiased;
+		}
+		.{{safeid}}__headline-segment {
+			display: inline-flex;
+			align-items: center;
+			flex: 0 0 auto;
+			white-space: nowrap;
+			padding-right: 0;
+			color: inherit;
+		}
+		.{{safeid}}__headline-segment::after {
+			content: '\00a0\00a0\00a0\00a0\00a0\00a0';
+			display: inline-block;
+		}
+		.{{safeid}}__copy-icon {
+			display: none !important;
+		}
+		.{{safeid}}__promo-code {
+			-webkit-user-select: text;
+			user-select: text;
+		}
+	}
+</style>
+
+<script>
+(function() {
+	'use strict';
+	var wrap = document.querySelector('.{{safeid}}__weekend-banner-wrap');
+	if (!wrap) return;
+
+	// Generic promo window driven by Start Date / End Date (YYYY-MM-DD).
+	// Comparisons are done as date-only keys (UK time) to avoid timezone edge cases at midnight.
+	var TZ = 'Europe/London';
+
+	function getDateKeyInTz(date, timeZone) {
+		try {
+			return new Intl.DateTimeFormat('en-CA', {
+				timeZone: timeZone,
+				year: 'numeric',
+				month: '2-digit',
+				day: '2-digit'
+			}).format(date);
+		} catch (e) {
+			// Fallback: local date key if Intl/timeZone not supported.
+			var y = date.getFullYear();
+			var m = String(date.getMonth() + 1).padStart(2, '0');
+			var d = String(date.getDate()).padStart(2, '0');
+			return y + '-' + m + '-' + d;
+		}
+	}
+
+	function parseIsoDateKey(isoKey) {
+		// Expects YYYY-MM-DD; returns a UTC date at midnight for safe arithmetic.
+		if (!isoKey || typeof isoKey !== 'string') return null;
+		var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(isoKey.trim());
+		if (!m) return null;
+		var y = parseInt(m[1], 10);
+		var mo = parseInt(m[2], 10);
+		var d = parseInt(m[3], 10);
+		if (!y || mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+		return new Date(Date.UTC(y, mo - 1, d, 0, 0, 0));
+	}
+
+	function addDaysUtcDate(utcDate, days) {
+		return new Date(utcDate.getTime() + days * 86400000);
+	}
+
+	function utcDateToIsoKey(utcDate) {
+		var y = utcDate.getUTCFullYear();
+		var m = String(utcDate.getUTCMonth() + 1).padStart(2, '0');
+		var d = String(utcDate.getUTCDate()).padStart(2, '0');
+		return y + '-' + m + '-' + d;
+	}
+
+	var startKey = (wrap.getAttribute('data-promo-start') || '').trim();
+	var endKey = (wrap.getAttribute('data-promo-end') || '').trim();
+
+	var startUtc = parseIsoDateKey(startKey);
+	var endUtc = parseIsoDateKey(endKey);
+
+	// If new fields are misconfigured, fall back to legacy numeric window.
+	// Legacy window: weekendStartDay -> max(end, extended) within the configured month/year.
+	var legacyPromoYear = {{ weekendStartYear }};
+	var legacyPromoMonthIndex = {{ weekendStartMonth }} - 1;
+	var legacyWeekendEndDayField = {{ weekendEndDay }};
+	var legacyWeekendExtendedDayField = {{ weekendExtendedDay }};
+	var legacyLastPromoDayNum = Math.max(legacyWeekendEndDayField, legacyWeekendExtendedDayField);
+	var legacyWeekendStart = new Date(legacyPromoYear, legacyPromoMonthIndex, {{ weekendStartDay }}, 0, 0, 0);
+	var legacyWeekendEnd = new Date(legacyPromoYear, legacyPromoMonthIndex, legacyLastPromoDayNum, 23, 59, 59);
+
+	if (!startUtc || !endUtc) {
+		startKey = getDateKeyInTz(legacyWeekendStart, TZ);
+		endKey = getDateKeyInTz(legacyWeekendEnd, TZ);
+		startUtc = parseIsoDateKey(startKey);
+		endUtc = parseIsoDateKey(endKey);
+	}
+
+	var extendedEnabled = (wrap.getAttribute('data-extended-enabled') || '').toLowerCase() === 'true';
+	var endPlusOneKey = utcDateToIsoKey(addDaysUtcDate(endUtc, 1));
+	var dayBeforeEndKey = utcDateToIsoKey(addDaysUtcDate(endUtc, -1));
+	var dayBeforeStartKey = utcDateToIsoKey(addDaysUtcDate(startUtc, -1));
+	var visibleEndKey = extendedEnabled ? endPlusOneKey : endKey;
+
+	function getParam(name) {
+		var m = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+		return m ? decodeURIComponent(m[1]).toLowerCase() : '';
+	}
+
+	function getWeekendOverride() {
+		// Preferred preview format: ?banner_preview=sat
+		// Backwards-compatible preview formats: ?yg_weekend=sat (or ?weekend_preview=sat)
+		// New: also accepts weekday names (mon/tue/wed/thu/fri/sat/sun) and date-state labels
+		// (start/daybefore/final/extended/before/after) so previews work without changing the real dates.
+		var standard =
+			getParam('banner_preview') ||
+			getParam('yg_weekend') ||
+			getParam('weekend_preview') ||
+			getParam('yg_promo') ||
+			getParam('promo_preview');
+		if (standard) return standard;
+
+		// Fallback for common malformed preview URLs, e.g. ?banner_preview_sat / ?yg_weekend_sat
+		var href = (window.location.href || '').toLowerCase();
+		var fallback = /(?:banner_preview|yg_(?:weekend|promo))(?:=|_|-)(mon|tue|tuesday|wed|wednesday|thu|thursday|fri|friday|sat|saturday|sun|sunday|start|daybefore|final|extended|before|after)\b/.exec(href);
+		return fallback ? fallback[1] : '';
+	}
+
+	var override = getWeekendOverride();
+	var now = new Date();
+
+	function weekdayIndexFromOverride(value) {
+		switch (value) {
+			case 'sun':
+			case 'sunday':
+				return 0;
+			case 'mon':
+			case 'monday':
+				return 1;
+			case 'tue':
+			case 'tuesday':
+				return 2;
+			case 'wed':
+			case 'wednesday':
+				return 3;
+			case 'thu':
+			case 'thursday':
+				return 4;
+			case 'fri':
+			case 'friday':
+				return 5;
+			case 'sat':
+			case 'saturday':
+				return 6;
+			default:
+				return null;
+		}
+	}
+
+	function utcDateForKey(isoKey) {
+		var d = parseIsoDateKey(isoKey);
+		return d || startUtc;
+	}
+
+	function nowFromKey(isoKey) {
+		var d = utcDateForKey(isoKey);
+		return new Date(d.getTime() + 12 * 60 * 60 * 1000);
+	}
+
+	// Preview overrides:
+	// - before/after: force outside window
+	// - start/daybefore/final/extended: force key date
+	// - weekday names: pick the matching weekday within [start..visibleEnd] if possible
+	if (override === 'after') {
+		now = nowFromKey(utcDateToIsoKey(addDaysUtcDate(utcDateForKey(visibleEndKey), 1)));
+	} else if (override === 'before') {
+		now = nowFromKey(dayBeforeStartKey);
+	} else if (override === 'start') {
+		now = nowFromKey(startKey);
+	} else if (override === 'daybefore') {
+		now = nowFromKey(dayBeforeEndKey);
+	} else if (override === 'final') {
+		now = nowFromKey(endKey);
+	} else if (override === 'extended') {
+		now = nowFromKey(endPlusOneKey);
+	} else {
+		var wIdx = weekdayIndexFromOverride(override);
+		if (wIdx !== null) {
+			// Scan forward from start for first matching weekday inside the visible window.
+			var scan = new Date(startUtc.getTime());
+			var scanEnd = utcDateForKey(visibleEndKey);
+			var chosen = null;
+			for (var i = 0; i < 16; i++) {
+				if (scan.getTime() > scanEnd.getTime()) break;
+				var local = new Date(scan.getTime() + 12 * 60 * 60 * 1000);
+				if (local.getUTCDay() === wIdx) {
+					chosen = new Date(scan.getTime());
+					break;
+				}
+				scan = addDaysUtcDate(scan, 1);
+			}
+			if (chosen) {
+				now = new Date(chosen.getTime() + 12 * 60 * 60 * 1000);
+			}
+		}
+	}
+
+	var headlineEl = wrap.querySelector('.{{safeid}}__headline-text');
+	var endsEl = wrap.querySelector('.{{safeid}}__weekend-ends');
+	var codeEl = wrap.querySelector('.{{safeid}}__promo-code');
+
+	var defaultCode = codeEl ? codeEl.getAttribute('data-code-default') : '';
+	var ppcCode = codeEl ? codeEl.getAttribute('data-code-ppc') : '';
+
+	var msgBeforePromo = wrap.getAttribute('data-message-before-promo') || '';
+	var msgStart = wrap.getAttribute('data-message-start') || 'Get 15% Off Sitewide With Code ';
+	var msgDuring = wrap.getAttribute('data-message-during') || 'Get 15% Off Sitewide With Code ';
+	var msgDayBeforeEnd = wrap.getAttribute('data-message-day-before-end') || msgDuring;
+	var msgFinalDay = wrap.getAttribute('data-message-final-day') || msgDuring;
+	var msgExtendedDay = wrap.getAttribute('data-message-extended-day') || msgFinalDay;
+	var suffixDayBeforeEnd = wrap.getAttribute('data-suffix-day-before-end') || '';
+	var suffixFinalDay = wrap.getAttribute('data-suffix-final-day') || '';
+	var suffixExtendedDay = wrap.getAttribute('data-suffix-extended-day') || suffixFinalDay || '';
+
+	var nowKey = getDateKeyInTz(now, TZ);
+
+	function isKeyBetweenInclusive(key, startInclusive, endInclusive) {
+		return key >= startInclusive && key <= endInclusive;
+	}
+
+	// Visibility rules:
+	// - Show within [start..end] (inclusive)
+	// - If extended enabled: also show on end+1 day
+	// - Optional: if messageBeforePromo is set, show only on the day before start
+	var shouldShow =
+		isKeyBetweenInclusive(nowKey, startKey, visibleEndKey) ||
+		(!!msgBeforePromo && nowKey === dayBeforeStartKey);
+
+	if (!shouldShow) {
+		wrap.setAttribute('data-weekend-hidden', 'true');
+		return;
+	}
+
+	if (headlineEl && codeEl) {
+		while (headlineEl.firstChild && headlineEl.firstChild !== codeEl) {
+			headlineEl.removeChild(headlineEl.firstChild);
+		}
+		var headlinePrefix;
+		if (!!msgBeforePromo && nowKey === dayBeforeStartKey) {
+			headlinePrefix = msgBeforePromo;
+		} else if (nowKey === startKey) {
+			headlinePrefix = msgStart;
+		} else if (nowKey === dayBeforeEndKey) {
+			headlinePrefix = msgDayBeforeEnd;
+		} else if (nowKey === endKey) {
+			headlinePrefix = msgFinalDay;
+		} else if (extendedEnabled && nowKey === endPlusOneKey) {
+			headlinePrefix = msgExtendedDay;
+		} else {
+			headlinePrefix = msgDuring;
+		}
+
+		headlineEl.insertBefore(document.createTextNode(headlinePrefix), codeEl);
+		if (endsEl) endsEl.textContent = '';
+	}
+
+	// Normalize suffix: strip leading whitespace so CSS margin (not the stored space) controls the gap after the code.
+	function normalizeSuffix(s) {
+		return (s || '').replace(/^\s+/, '');
+	}
+
+	// Optional suffix appended after the promo code (matches legacy "Ends tomorrow/tonight" UX).
+	if (endsEl) {
+		if (nowKey === dayBeforeEndKey) {
+			endsEl.textContent = normalizeSuffix(suffixDayBeforeEnd);
+		} else if (nowKey === endKey) {
+			endsEl.textContent = normalizeSuffix(suffixFinalDay);
+		} else if (extendedEnabled && nowKey === endPlusOneKey) {
+			endsEl.textContent = normalizeSuffix(suffixExtendedDay);
+		} else {
+			endsEl.textContent = '';
+		}
+	}
+
+	var mqMobile = window.matchMedia ? window.matchMedia('(max-width: 767px)') : null;
+	var marqueeRafId = null;
+
+	function stopMarquee() {
+		if (marqueeRafId !== null) {
+			window.cancelAnimationFrame(marqueeRafId);
+			marqueeRafId = null;
+		}
+	}
+
+	function teardownMobileMarquee() {
+		if (!headlineEl) return;
+		stopMarquee();
+		if (headlineEl.hasAttribute('data-marquee-base-html')) {
+			headlineEl.innerHTML = headlineEl.getAttribute('data-marquee-base-html');
+			headlineEl.removeAttribute('data-marquee-base-html');
+		}
+		headlineEl.classList.remove('{{safeid}}__headline-marquee-track');
+		headlineEl.style.transform = '';
+		headlineEl.removeAttribute('data-marquee-ready');
+	}
+
+	function setupMobileMarquee() {
+		if (!headlineEl || !mqMobile || !mqMobile.matches) return;
+		if (headlineEl.getAttribute('data-marquee-ready') === 'true') return;
+
+		headlineEl.setAttribute('data-marquee-base-html', headlineEl.innerHTML);
+		var firstSegment = document.createElement('span');
+		firstSegment.className = '{{safeid}}__headline-segment';
+
+		while (headlineEl.firstChild) {
+			firstSegment.appendChild(headlineEl.firstChild);
+		}
+
+		var secondSegment = firstSegment.cloneNode(true);
+		secondSegment.setAttribute('aria-hidden', 'true');
+		headlineEl.appendChild(firstSegment);
+		headlineEl.appendChild(secondSegment);
+		headlineEl.classList.add('{{safeid}}__headline-marquee-track');
+
+		var posX = 0;
+		var lastTs = 0;
+		var speedPxPerSecond = 52;
+		var segmentWidth = 0;
+
+		function measureSegmentWidth() {
+			segmentWidth = Math.ceil(firstSegment.getBoundingClientRect().width);
+			return segmentWidth > 0;
+		}
+
+		measureSegmentWidth();
+
+		function tick(ts) {
+			if (!mqMobile.matches || headlineEl.getAttribute('data-marquee-ready') !== 'true') {
+				return;
+			}
+			if (!segmentWidth && !measureSegmentWidth()) {
+				marqueeRafId = window.requestAnimationFrame(tick);
+				return;
+			}
+			if (!lastTs) lastTs = ts;
+			var dt = (ts - lastTs) / 1000;
+			lastTs = ts;
+
+			posX -= speedPxPerSecond * dt;
+			if (posX <= -segmentWidth) {
+				posX += segmentWidth;
+			}
+			headlineEl.style.transform = 'translate3d(' + posX + 'px,0,0)';
+			marqueeRafId = window.requestAnimationFrame(tick);
+		}
+
+		headlineEl.setAttribute('data-marquee-ready', 'true');
+		marqueeRafId = window.requestAnimationFrame(tick);
+
+		window.requestAnimationFrame(function() {
+			measureSegmentWidth();
+		});
+		if (document.fonts && document.fonts.ready) {
+			document.fonts.ready.then(function() {
+				measureSegmentWidth();
+			}).catch(function() {});
+		}
+	}
+
+	function applyResponsiveState() {
+		if (!mqMobile || !headlineEl) return;
+		if (mqMobile.matches) {
+			setupMobileMarquee();
+		} else {
+			teardownMobileMarquee();
+		}
+	}
+
+	applyResponsiveState();
+	if (mqMobile) {
+		if (typeof mqMobile.addEventListener === 'function') {
+			mqMobile.addEventListener('change', applyResponsiveState);
+		} else if (typeof mqMobile.addListener === 'function') {
+			mqMobile.addListener(applyResponsiveState);
+		}
+	}
+	window.addEventListener('resize', applyResponsiveState);
+})();
+</script>
+
+<script>
+(function() {
+	'use strict';
+	
+	var countdownConfig = {
+		year: {{ countdownYear }},
+		month: {{ countdownMonth }},
+		day: {{ countdownDay }},
+		hour: {{ countdownHour }},
+		minute: {{ countdownMinute }},
+		second: {{ countdownSecond }}
+	};
+	
+	var countdownElement = document.querySelector('.{{safeid}}__countdown-text');
+	
+	if (!countdownElement) {
+		return;
+	}
+	
+	var deadline = new Date(
+		countdownConfig.year,
+		countdownConfig.month - 1,
+		countdownConfig.day,
+		countdownConfig.hour,
+		countdownConfig.minute,
+		countdownConfig.second
+	);
+	
+	function updateCountdown() {
+		var now = new Date();
+		var timeRemaining = deadline - now;
+		
+		if (timeRemaining <= 0) {
+			countdownElement.textContent = '';
+			countdownElement.style.display = 'none';
+			return;
+		}
+		
+		var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+		var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+		var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+		
+		var countdownMessage = '';
+		var parts = [];
+		
+		if (days > 0) {
+			parts.push(days + ' day' + (days !== 1 ? 's' : ''));
+		}
+		if (hours > 0) {
+			parts.push(hours + ' hour' + (hours !== 1 ? 's' : ''));
+		}
+		if (minutes > 0 && days === 0) {
+			parts.push(minutes + ' minute' + (minutes !== 1 ? 's' : ''));
+		}
+		
+		if (parts.length > 0) {
+			if (parts.length === 1) {
+				countdownMessage = 'Order By ' + parts[0] + ' For Christmas Delivery';
+			} else if (parts.length === 2) {
+				countdownMessage = 'Order By ' + parts[0] + ' and ' + parts[1] + ' For Christmas Delivery';
+			} else {
+				var lastPart = parts.pop();
+				countdownMessage = 'Order By ' + parts.join(', ') + ', and ' + lastPart + ' For Christmas Delivery';
+			}
+		} else {
+			countdownMessage = 'Order By ' + minutes + ' minute' + (minutes !== 1 ? 's' : '') + 
+				' and ' + seconds + ' second' + (seconds !== 1 ? 's' : '') + ' For Christmas Delivery';
+		}
+		
+		countdownElement.textContent = countdownMessage;
+	}
+	
+	var countdownInterval = setInterval(function() {
+		updateCountdown();
+		var now = new Date();
+		if (deadline - now <= 0) {
+			clearInterval(countdownInterval);
+		}
+	}, 1000);
+})();
+</script>
+
+<script>
+(function() {
+	'use strict';
+	var STORAGE_KEY = 'yg_sw_promo_source';
+	var codeEls = document.querySelectorAll('.{{safeid}}__promo-code');
+	if (!codeEls.length) return;
+	var defaultCode = codeEls[0].getAttribute('data-code-default');
+	var ppcCode = codeEls[0].getAttribute('data-code-ppc');
+	if (!defaultCode || !ppcCode) return;
+
+	function getUtmParam(name) {
+		var match = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+		return match ? decodeURIComponent(match[1].replace(/\+/g, ' ')) : null;
+	}
+
+	function isPpcTraffic() {
+		var medium = getUtmParam('utm_medium');
+		var source = getUtmParam('utm_source');
+		return (medium && (medium.toLowerCase() === 'cpc' || medium.toLowerCase() === 'ppc')) ||
+			(source && source.toLowerCase() === 'google' && medium && (medium.toLowerCase() === 'cpc' || medium.toLowerCase() === 'ppc'));
+	}
+
+	function getSource() {
+		try {
+			var stored = sessionStorage.getItem(STORAGE_KEY);
+			if (stored === 'ppc' || stored === 'default') return stored;
+		} catch (e) {}
+		var source = isPpcTraffic() ? 'ppc' : 'default';
+		try {
+			sessionStorage.setItem(STORAGE_KEY, source);
+		} catch (e) {}
+		return source;
+	}
+
+	var source = getSource();
+	var nextCode = source === 'ppc' ? ppcCode : defaultCode;
+	for (var i = 0; i < codeEls.length; i++) {
+		codeEls[i].textContent = nextCode;
+	}
+})();
+</script>
+
+<script>
+(function() {
+	'use strict';
+	var wrap = document.querySelector('.{{safeid}}__weekend-banner-wrap');
+	if (!wrap) return;
+
+	function copyToClipboard(text) {
+		if (navigator.clipboard && navigator.clipboard.writeText) {
+			return navigator.clipboard.writeText(text);
+		}
+		var ta = document.createElement('textarea');
+		ta.value = text;
+		ta.style.position = 'fixed';
+		ta.style.opacity = '0';
+		document.body.appendChild(ta);
+		ta.select();
+		try {
+			document.execCommand('copy');
+			return Promise.resolve();
+		} finally {
+			document.body.removeChild(ta);
+		}
+	}
+
+	var resetTimer = null;
+	var confettiColors = ['#FFD54F', '#FFE082', '#FFFFFF', '#A8D5A2', '#3F713B', '#FFF59D'];
+
+	function allCodeEls() {
+		return wrap.querySelectorAll('.{{safeid}}__promo-code');
+	}
+
+	function setCodeLabels(text) {
+		var els = allCodeEls();
+		for (var i = 0; i < els.length; i++) {
+			els[i].textContent = text;
+		}
+	}
+
+	function burstConfetti(originEl) {
+		var rect = originEl.getBoundingClientRect();
+		var originX = rect.left + rect.width / 2;
+		var originY = rect.top + rect.height / 2;
+		var layer = document.createElement('div');
+		layer.className = '{{safeid}}__confetti-layer';
+		layer.setAttribute('aria-hidden', 'true');
+		document.body.appendChild(layer);
+
+		var count = 18;
+		for (var i = 0; i < count; i++) {
+			var piece = document.createElement('span');
+			piece.className = '{{safeid}}__confetti-piece';
+			var angle = (-90 + (Math.random() * 140 - 70)) * (Math.PI / 180);
+			var dist = 36 + Math.random() * 54;
+			var dx = Math.cos(angle) * dist;
+			var dy = Math.sin(angle) * dist + (18 + Math.random() * 28);
+			piece.style.left = originX + 'px';
+			piece.style.top = originY + 'px';
+			piece.style.background = confettiColors[i % confettiColors.length];
+			piece.style.setProperty('--dx', dx.toFixed(1) + 'px');
+			piece.style.setProperty('--dy', dy.toFixed(1) + 'px');
+			piece.style.setProperty('--rot', (Math.random() * 520 - 260).toFixed(0) + 'deg');
+			piece.style.animationDelay = (Math.random() * 40) + 'ms';
+			if (Math.random() > 0.55) {
+				piece.style.borderRadius = '50%';
+				piece.style.width = '6px';
+				piece.style.height = '6px';
+			}
+			layer.appendChild(piece);
+		}
+
+		setTimeout(function() {
+			if (layer.parentNode) layer.parentNode.removeChild(layer);
+		}, 900);
+	}
+
+	wrap.addEventListener('click', function(e) {
+		var codeEl = e.target.closest ? e.target.closest('.{{safeid}}__promo-code') : null;
+		if (!codeEl || !wrap.contains(codeEl)) return;
+		e.preventDefault();
+		e.stopPropagation();
+		var code = codeEl.textContent.trim();
+		if (!code || code.toLowerCase() === 'copied') return;
+		copyToClipboard(code).then(function() {
+			setCodeLabels('Copied');
+			burstConfetti(codeEl);
+			clearTimeout(resetTimer);
+			resetTimer = setTimeout(function() {
+				setCodeLabels(code);
+			}, 1500);
+		}).catch(function() {});
+	});
+
+	var codeEls = allCodeEls();
+	for (var i = 0; i < codeEls.length; i++) {
+		codeEls[i].setAttribute('title', 'Click to copy');
+	}
+})();
+</script>

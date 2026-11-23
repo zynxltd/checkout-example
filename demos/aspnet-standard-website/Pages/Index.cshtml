@@ -1,0 +1,74 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+    ViewData["Description"] = "Northline designs and builds digital products for ambitious teams.";
+}
+
+<section class="hero">
+    <div class="hero-media" role="img" aria-label="Coastal skyline at dusk"></div>
+    <div class="hero-content">
+        <p class="hero-brand">Northline</p>
+        <h1 class="hero-title">Digital products with quiet confidence.</h1>
+        <p class="hero-lede">We partner with teams to ship clear strategy, sharp interfaces, and reliable engineering.</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" asp-page="/Contact">Start a project</a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="shell split">
+        <div class="section-head reveal" style="margin-bottom:0">
+            <h2>One studio for the whole journey.</h2>
+            <p>From first brief to production launch, Northline keeps design and engineering in the same room so decisions stay fast and coherent.</p>
+        </div>
+        <ul class="feature-list reveal">
+            <li>
+                <h3>Discover</h3>
+                <p>Workshops, journeys, and success metrics that keep the team aligned.</p>
+            </li>
+            <li>
+                <h3>Design</h3>
+                <p>Interfaces that feel inevitable — hierarchy first, decoration never.</p>
+            </li>
+            <li>
+                <h3>Deliver</h3>
+                <p>ASP.NET Core, modern front ends, and ops-ready releases.</p>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="section section-ink">
+    <div class="shell">
+        <div class="section-head reveal">
+            <h2>Trusted when the stakes are real.</h2>
+            <p>We build for retail, membership, and B2B teams who need software that holds up past launch week.</p>
+        </div>
+        <div class="stat-strip reveal">
+            <div>
+                <strong>40+</strong>
+                <span>Products shipped</span>
+            </div>
+            <div>
+                <strong>12 yr</strong>
+                <span>Average team experience</span>
+            </div>
+            <div>
+                <strong>98%</strong>
+                <span>Client retention</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-muted">
+    <div class="shell">
+        <div class="section-head reveal">
+            <h2>Ready when you are.</h2>
+            <p>Tell us what you’re building. We’ll reply with a clear next step — no pitch theatre.</p>
+        </div>
+        <a class="btn btn-primary reveal" asp-page="/Contact">Talk to Northline</a>
+    </div>
+</section>

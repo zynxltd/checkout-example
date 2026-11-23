@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "MVC crash course";
+}
+
+<div class="hero">
+    <p class="pill">.NET 10 · ASP.NET Core MVC · for Laravel / Vue devs</p>
+    <h1>GreenShelf inventory</h1>
+    <p class="lead">
+        Same mental model as Laravel MVC — controllers, views, models, DI, validation, CSRF —
+        plus a JSON API your React/Vue front end would call.
+    </p>
+    <p>
+        <a class="btn btn-primary" asp-controller="Products" asp-action="Index">Open products (MVC)</a>
+        <a class="btn btn-outline-secondary" href="/api/products">GET /api/products</a>
+        <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Spa">JS SPA</a>
+        <a class="btn btn-outline-secondary" asp-controller="Leads" asp-action="Index">Lead queue</a>
+        <a class="btn btn-outline-secondary" asp-controller="DebugLab" asp-action="Index" asp-route-sku="MOWER1">Debug lab</a>
+    </p>
+    @if (ViewBag.LinqOk is bool linqOk)
+    {
+        <p class="small @(linqOk ? "text-success" : "text-danger")">LinqLab self-check: @(linqOk ? "pass" : "fail")</p>
+    }
+</div>
+
+<div class="row g-4 mt-2">
+    <div class="col-md-4">
+        <h2 class="h5">Laravel → ASP.NET</h2>
+        <ul class="small text-muted">
+            <li><code>routes/web.php</code> → <code>MapControllerRoute</code></li>
+            <li><code>routes/api.php</code> → <code>[Route("api/...")]</code></li>
+            <li>Blade → Razor (<code>.cshtml</code>)</li>
+            <li>Eloquent → model + store/DbContext</li>
+            <li><code>app()-&gt;bind</code> → <code>builder.Services.Add…</code></li>
+            <li><code>@@csrf</code> → <code>ValidateAntiForgeryToken</code></li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h2 class="h5">Walk this first</h2>
+        <ol class="small">
+            <li><code>Program.cs</code> — pipeline + DI</li>
+            <li><code>ProductsController</code> — MVC actions</li>
+            <li><code>Views/Products/*</code> — Razor</li>
+            <li><code>ProductsApiController</code> — JSON</li>
+            <li><code>DebugLabController</code> — breakpoints</li>
+        </ol>
+    </div>
+    <div class="col-md-4">
+        <h2 class="h5">Then do the exercises</h2>
+        <p class="small text-muted mb-2">Five tasks + <strong>bonus loan-lead SaaS</strong> (API + queue) in <code>EXERCISES.md</code>.</p>
+        <a class="small" href="https://learn.microsoft.com/aspnet/core/mvc/overview">Microsoft MVC overview ↗</a>
+    </div>
+</div>

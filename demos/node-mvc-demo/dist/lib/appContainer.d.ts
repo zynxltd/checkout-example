@@ -1,0 +1,14 @@
+import { InMemoryContactRepository } from '../repositories/ContactRepository.js';
+import { InMemoryProductRepository } from '../repositories/ProductRepository.js';
+import AuthService from '../services/AuthService.js';
+import DashboardService from '../services/DashboardService.js';
+import InMemoryJobQueue from '../services/InMemoryJobQueue.js';
+import QuoteApiClient from '../services/QuoteApiClient.js';
+declare const config: import("../config.js").AppConfig;
+declare const productRepository: InMemoryProductRepository;
+declare const contactRepository: InMemoryContactRepository;
+declare const quoteClient: QuoteApiClient;
+declare const jobQueue: InMemoryJobQueue;
+declare const authService: AuthService;
+declare const dashboardService: DashboardService;
+export { authService, config, contactRepository, dashboardService, jobQueue, productRepository, quoteClient, };

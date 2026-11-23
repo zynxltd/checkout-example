@@ -1,0 +1,31 @@
+# Split services (API + Nginx web) — microservice-shaped local DevOps
+# docker compose up --build
+# Web http://127.0.0.1:5180  → proxies /api to api:5210
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - '5210:5210'
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 5210
+      CORS_ORIGIN: http://localhost:5180,http://127.0.0.1:5180
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://127.0.0.1:5210/api/health']
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - '5180:80'
+    depends_on:
+      api:
+        condition: service_healthy

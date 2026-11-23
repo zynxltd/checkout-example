@@ -1,0 +1,305 @@
+/**
+ * Crazy Egg A/B — SEO content block restyle (sitewide)
+ *
+ * Pair with: crazyegg-seo-heading-block.js
+ * Target: pages with .top-heading-block (category / PLP SEO intro)
+ *
+ * Matches “New” mock-up #2:
+ * - Full-width centred stack (no border)
+ * - H1 Gelica (forest green)
+ * - H2 + body Proxima Nova
+ * - “Read more” bold, underlined, green — below copy, not inline
+ */
+
+html.ce-yg-seo-head {
+  --ce-seo-green: #264f1c;
+  --ce-seo-body: #3d3834;
+  --ce-seo-display: gelica, "Gelica", Georgia, "Times New Roman", serif;
+  --ce-seo-sans: "proxima-nova", "Proxima Nova", Arial, Helvetica, sans-serif;
+}
+
+/* Magento often shrink-wraps / floats this — force full content width + centre */
+html.ce-yg-seo-head .top-heading-block {
+  display: block !important;
+  float: none !important;
+  clear: both !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 16px 0 28px !important;
+  padding: 8px 24px 20px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-align: center !important;
+}
+
+html.ce-yg-seo-head .top-heading-block,
+html.ce-yg-seo-head .top-heading-block * {
+  text-align: center !important;
+}
+
+html.ce-yg-seo-head .top-heading-block h1,
+html.ce-yg-seo-head .top-heading-block h1.cl,
+html.ce-yg-seo-head h1.cl {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  margin: 0 0 14px !important;
+  padding: 0 !important;
+  font-family: var(--ce-seo-display) !important;
+  font-size: clamp(1.75rem, 2.6vw, 2.35rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: var(--ce-seo-green) !important;
+  text-align: center !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .categoryText {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+/* Desktop read-more: stack H2 → blurb → Read more (not inline/absolute) */
+html.ce-yg-seo-head .top-heading-block .read-more {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  float: none !important;
+  position: relative !important;
+  width: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  height: auto !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0 0 4px !important;
+  overflow: visible !important;
+  text-align: center !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more > h2 {
+  order: 1 !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more > p {
+  order: 2 !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more > .read-more-label {
+  order: 3 !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more > .read-more-checkbox {
+  order: 0 !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more::before,
+html.ce-yg-seo-head .top-heading-block .read-more::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more h2,
+html.ce-yg-seo-head .top-heading-block .mobile-top-text h2 {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  margin: 0 0 12px !important;
+  padding: 0 !important;
+  font-family: var(--ce-seo-sans) !important;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  color: var(--ce-seo-green) !important;
+  text-align: center !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more p,
+html.ce-yg-seo-head .top-heading-block .mobile-top-text p {
+  display: block !important;
+  float: none !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 0 !important;
+  margin-bottom: 16px !important;
+  padding: 0 !important;
+  font-family: var(--ce-seo-sans) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+  color: var(--ce-seo-body) !important;
+  text-align: center !important;
+}
+
+/* Collapsed: clamp body; expand when checkbox checked */
+html.ce-yg-seo-head .top-heading-block .read-more > p {
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 4 !important;
+  overflow: hidden !important;
+  margin-bottom: 10px !important;
+}
+
+html.ce-yg-seo-head
+  .top-heading-block
+  .read-more
+  > .read-more-checkbox:checked
+  ~ p {
+  -webkit-line-clamp: unset !important;
+  overflow: visible !important;
+  display: block !important;
+  margin-bottom: 16px !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more p a,
+html.ce-yg-seo-head .top-heading-block .mobile-top-text p a {
+  color: var(--ce-seo-green) !important;
+  text-decoration: underline !important;
+  font-weight: 600 !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more-checkbox {
+  position: absolute !important;
+  left: -9999px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more-label,
+html.ce-yg-seo-head .top-heading-block .read-more-label.show {
+  display: block !important;
+  float: none !important;
+  clear: both !important;
+  position: static !important;
+  inset: auto !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 12px 0 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  font-family: var(--ce-seo-sans) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  color: var(--ce-seo-green) !important;
+  text-align: center !important;
+  text-decoration: underline !important;
+  cursor: pointer !important;
+  z-index: auto !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .read-more-label::before,
+html.ce-yg-seo-head .top-heading-block .read-more-label::after,
+html.ce-yg-seo-head .top-heading-block .read-more-label.show::before,
+html.ce-yg-seo-head .top-heading-block .read-more-label.show::after,
+html.ce-yg-seo-head
+  .top-heading-block
+  .read-more-checkbox:checked
+  ~ .read-more-label::before,
+html.ce-yg-seo-head
+  .top-heading-block
+  .read-more-checkbox:checked
+  ~ .read-more-label::after {
+  content: none !important;
+  content: "" !important;
+  display: none !important;
+}
+
+/* Mobile block */
+html.ce-yg-seo-head .top-heading-block .mobile-show {
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .mobile-top-text {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+html.ce-yg-seo-head .top-heading-block .mobile-read-more,
+html.ce-yg-seo-head .top-heading-block #mobile-read-more {
+  display: block !important;
+  float: none !important;
+  width: auto !important;
+  margin: 8px auto 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: none !important;
+  font-family: var(--ce-seo-sans) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: var(--ce-seo-green) !important;
+  text-decoration: underline !important;
+  text-align: center !important;
+  cursor: pointer !important;
+}
+
+@media (max-width: 767px) {
+  html.ce-yg-seo-head .top-heading-block {
+    margin: 12px 0 20px !important;
+    padding: 8px 16px 16px !important;
+  }
+
+  html.ce-yg-seo-head .top-heading-block h1,
+  html.ce-yg-seo-head .top-heading-block h1.cl {
+    font-size: 1.65rem !important;
+  }
+
+  html.ce-yg-seo-head .top-heading-block .read-more h2,
+  html.ce-yg-seo-head .top-heading-block .mobile-top-text h2 {
+    font-size: 1.05rem !important;
+  }
+
+  html.ce-yg-seo-head .top-heading-block .read-more p,
+  html.ce-yg-seo-head .top-heading-block .mobile-top-text p {
+    font-size: 14px !important;
+  }
+}
+
+/* Desktop: hide mobile twin so we don’t get 2× Read more */
+@media (min-width: 768px) {
+  html.ce-yg-seo-head .top-heading-block .mobile-show {
+    display: none !important;
+  }
+
+  html.ce-yg-seo-head .top-heading-block .read-more.mobile-hide {
+    display: block !important;
+  }
+}
+
+@media (max-width: 767px) {
+  html.ce-yg-seo-head .top-heading-block .read-more.mobile-hide {
+    display: none !important;
+  }
+
+  html.ce-yg-seo-head .top-heading-block .mobile-show {
+    display: block !important;
+  }
+}

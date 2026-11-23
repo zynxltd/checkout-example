@@ -1,0 +1,78 @@
+﻿@using YgCartDrawer.Services
+@inject DemoCart Cart
+@{
+    Cart.Seed();
+    var cart = Cart.State();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="">
+    <title>@ViewData["Title"] — YouGarden Cart Drawer (.NET)</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/yg-cart-drawer.css" asp-append-version="true">
+</head>
+<body class="@ViewData["BodyClass"]">
+    <header class="site-header">
+        <a class="site-logo" href="/">YouGarden</a>
+        <nav class="site-nav">
+            <a href="/">Home</a>
+            <a href="/pdp">PDP</a>
+            <a href="/checkout">Checkout</a>
+            <a href="/account/club">Club</a>
+        </nav>
+        <partial name="_MiniBasket" model="cart" />
+    </header>
+
+    <main class="site-main">
+        @RenderBody()
+    </main>
+
+    <div id="yg-drawer-mount">
+        <partial name="_Drawer" model="cart" />
+    </div>
+
+    <partial name="_PrototypeTools" model="cart" />
+
+    <script>
+        window.__YG_CART_DRAWER_ENABLED = @(cart.DrawerEnabled ? "true" : "false");
+        window.YG_DEMO_ROUTES = {
+            checkout: '/checkout',
+            checkoutComplete: '/checkout',
+            checkoutVoucher: '/checkout',
+            checkoutVoucherRemove: '/checkout',
+            checkoutConfirmation: '/checkout',
+            fragment: '/cart/fragment',
+            add: '/cart/add',
+            qty: '/cart/qty',
+            remove: '/cart/remove',
+            code: '/cart/code',
+            removeCode: '/cart/code',
+            club: '/cart/club',
+            toggleDrawer: '/cart/toggle-drawer',
+            toggleOption: '/cart/toggle-option',
+            reset: '/cart/reset',
+        };
+    </script>
+    <script src="~/js/yg-cart-drawer.js" asp-append-version="true" defer></script>
+    <script src="~/js/demo-prototype-stack.js" asp-append-version="true" defer></script>
+    <script>
+        document.getElementById('demo-reset-basket')?.addEventListener('click', async () => {
+            const res = await fetch(window.YG_DEMO_ROUTES.reset, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                credentials: 'same-origin',
+                body: '{}',
+            });
+            if (!res.ok) {
+                alert('Could not reset basket.');
+                return;
+            }
+            window.location.reload();
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

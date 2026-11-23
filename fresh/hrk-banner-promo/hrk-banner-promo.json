@@ -1,0 +1,1105 @@
+{
+	"name": "HRK - Banner Promo",
+	"slug": "59402d3",
+	"html": "",
+	"active": true,
+	"content_tag": null,
+	"content_type": "banner",
+	"dt": "",
+	"template_style": "bi92p5k",
+	"version": 1,
+	"meta_data": {
+		"thumbnailURL": "",
+		"hoverText": "Harkness sitewide Black Friday BOGOF banner \u2014 links to bare root roses category and shows promo code HRBLACK26.",
+		"sortOrder": -1,
+		"blockedPlatforms": [],
+		"defaultSocialProofOptions": false,
+		"defaultReviewOptions": false,
+		"supportsReviews": false,
+		"supportsSocialProof": false,
+		"sections": [
+			{
+				"id": "redirects",
+				"name": "Links",
+				"fields": [
+					{
+						"id": "redirectsEnable",
+						"name": "Links",
+						"description": "Enable / Disable links \u2014 banner should link to the BOGOF category",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 0,
+								"id": "smartBlockHref",
+								"name": "SmartBlock Hyperlink URL",
+								"description": "Redirect to this URL when somebody clicks on the SmartBlock",
+								"type": "url",
+								"default": "https://www.roses.co.uk/black-friday-bogof-bare-root-roses",
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 2,
+								"id": "utmCampaign",
+								"name": "UTM Campaign",
+								"description": "The name of the Google Analytics campaign",
+								"type": "text",
+								"default": "hrk-black-friday-bogof-2026",
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"inline": true,
+								"first": false,
+								"value": "",
+								"sortOrder": 3,
+								"id": "utmSource",
+								"name": "UTM Source",
+								"description": "The name of the Google Analytics referrer source",
+								"type": "text",
+								"default": "fresh",
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"inline": true,
+								"first": false,
+								"value": "",
+								"sortOrder": 4,
+								"id": "utmMedium",
+								"name": "UTM Medium",
+								"description": "The name of the Google Analytics medium",
+								"type": "text",
+								"default": "banner",
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 5,
+								"id": "ctaLabel",
+								"name": "Shop CTA Label",
+								"description": "Link text appended after the promo message/code, linking to the BOGOF category",
+								"type": "text",
+								"default": "Shop selected roses",
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 6,
+								"id": "ctaColor",
+								"name": "Shop CTA Color",
+								"description": "Font color for the Shop CTA link. Use a high-contrast colour against the banner background.",
+								"type": "color",
+								"default": "#ffffff",
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							}
+						]
+					}
+				],
+				"sortOrder": 0
+			},
+			{
+				"id": "4p45c2d",
+				"name": "Core Settings",
+				"fields": [
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 0,
+						"id": "width",
+						"name": "Width (px)",
+						"description": "Set fixed width of the SmartBlock",
+						"type": "numeric",
+						"default": 0
+					},
+					{
+						"inline": true,
+						"first": false,
+						"value": "",
+						"sortOrder": 1,
+						"id": "autoFillWidth",
+						"name": "Auto Fill Width",
+						"description": "Whether to fill the containing element",
+						"type": "boolean",
+						"default": true
+					},
+					{
+						"inline": true,
+						"first": false,
+						"value": "",
+						"sortOrder": 2,
+						"id": "padding",
+						"name": "Padding",
+						"description": "Adjust the padding around the SmartBlock",
+						"type": "padding",
+						"default": {
+							"size": 0,
+							"unit": "px"
+						}
+					},
+					{
+						"inline": true,
+						"first": false,
+						"value": "",
+						"sortOrder": 3,
+						"id": "backgroundColor",
+						"name": "Background Color",
+						"description": "Set the Background color of the SmartBlock",
+						"type": "color",
+						"default": "#474747",
+						"meta": {
+							"tabTitles": {
+								"foreground": "",
+								"background": ""
+							},
+							"transparencyEnabled": [
+								true
+							]
+						}
+					},
+					{
+						"inline": true,
+						"first": false,
+						"value": "",
+						"sortOrder": 4,
+						"id": "borderRadius",
+						"name": "Corner Style",
+						"description": "Adjust  the Corner Style of the SmartBlock",
+						"type": "select",
+						"default": "0px",
+						"options": [
+							[
+								"0px",
+								"Square"
+							],
+							[
+								"8px",
+								"Rounded"
+							]
+						]
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 5,
+						"id": "backgroundImage",
+						"name": "Background Image",
+						"description": "Enable / Disable the Background Image",
+						"type": "boolean",
+						"default": false
+					},
+					{
+						"inline": true,
+						"first": false,
+						"value": "",
+						"sortOrder": 6,
+						"id": "backgroundUrl",
+						"name": "Background URL",
+						"description": "Show this image as the background of the SmartBlock",
+						"type": "image_url",
+						"default": ""
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 7,
+						"id": "border",
+						"name": "Border",
+						"description": "Enable / Disable the outer Border of the SmartBlock",
+						"type": "boolean",
+						"default": false
+					},
+					{
+						"inline": true,
+						"first": false,
+						"value": "",
+						"sortOrder": 8,
+						"id": "borderColor",
+						"name": "Border Color",
+						"description": "Set the Border color",
+						"type": "color",
+						"default": "#000000",
+						"meta": {
+							"tabTitles": {
+								"foreground": "",
+								"background": ""
+							},
+							"transparencyEnabled": [
+								true
+							]
+						}
+					},
+					{
+						"inline": true,
+						"first": false,
+						"value": "",
+						"sortOrder": 9,
+						"id": "borderWidth",
+						"name": "Border Weight",
+						"description": "Set the Border Width in pixels",
+						"type": "numeric",
+						"default": 1
+					},
+					{
+						"inline": true,
+						"first": false,
+						"value": "",
+						"sortOrder": 10,
+						"id": "borderStyle",
+						"name": "Border Style",
+						"description": "Set the Border style",
+						"type": "select",
+						"default": "solid",
+						"options": [
+							[
+								"solid",
+								"Solid"
+							],
+							[
+								"dotted",
+								"Dotted"
+							],
+							[
+								"dashed",
+								"Dashed"
+							]
+						]
+					}
+				],
+				"sortOrder": 1
+			},
+			{
+				"id": "weekendPromo",
+				"name": "Promo Scheduling + Messaging",
+				"fields": [
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 1,
+						"id": "promoStartDate",
+						"name": "Start Date",
+						"description": "First date the banner should show. Format: YYYY-MM-DD (e.g. 2026-11-21).",
+						"type": "text",
+						"default": "2026-11-21",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 2,
+						"id": "promoEndDate",
+						"name": "End Date",
+						"description": "Last date the banner should show (inclusive). Format: YYYY-MM-DD (e.g. 2026-12-01).",
+						"type": "text",
+						"default": "2026-12-01",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 3,
+						"id": "extendedDayEnabled",
+						"name": "Enable Extended Day",
+						"description": "If enabled, the banner will also show for one extra day after the End Date.",
+						"type": "boolean",
+						"default": false
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 4,
+						"id": "messageStart",
+						"name": "Message (Start Date)",
+						"description": "Message shown on the Start Date. Promo code is appended after this text.",
+						"type": "text",
+						"default": "Buy One Get One Free on Selected Bare Root Roses With Code ",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 5,
+						"id": "messageDuring",
+						"name": "Message (During Promo - Default)",
+						"description": "Message shown on dates between Start Date and End Date (excluding the special days below) unless overridden. Promo code is appended after this text.",
+						"type": "text",
+						"default": "Buy One Get One Free on Selected Bare Root Roses With Code ",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 6,
+						"id": "messageDayBeforeEnd",
+						"name": "Message (Day Before End)",
+						"description": "Message shown on the day before the End Date. Promo code is appended after this text.",
+						"type": "text",
+						"default": "Buy One Get One Free on Selected Bare Root Roses With Code ",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 6.5,
+						"id": "suffixDayBeforeEnd",
+						"name": "Suffix (Day Before End)",
+						"description": "Optional suffix appended to the message on the day before the End Date (e.g. \" - Ends tomorrow\"). Leave blank for no suffix.",
+						"type": "text",
+						"default": " - Ends tomorrow",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 7,
+						"id": "messageFinalDay",
+						"name": "Message (Final Day / End Date)",
+						"description": "Message shown on the End Date. Promo code is appended after this text.",
+						"type": "text",
+						"default": "Buy One Get One Free on Selected Bare Root Roses With Code ",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 7.5,
+						"id": "suffixFinalDay",
+						"name": "Suffix (Final Day / End Date)",
+						"description": "Optional suffix appended to the message on the End Date (e.g. \" - Ends tonight\"). Leave blank for no suffix.",
+						"type": "text",
+						"default": " - Ends tonight",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 8,
+						"id": "messageExtendedDay",
+						"name": "Message (Extended Day)",
+						"description": "Message shown on the Extended Day (only when Enable Extended Day is on). Promo code is appended after this text.",
+						"type": "text",
+						"default": "Buy One Get One Free on Selected Bare Root Roses With Code ",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 8.5,
+						"id": "suffixExtendedDay",
+						"name": "Suffix (Extended Day)",
+						"description": "Optional suffix appended on the Extended Day (only when Enable Extended Day is on). Leave blank for no suffix.",
+						"type": "text",
+						"default": " - Ends tonight",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					},
+					{
+						"inline": true,
+						"first": true,
+						"value": "",
+						"sortOrder": 9,
+						"id": "messageBeforePromo",
+						"name": "Message (Day Before Start - Optional)",
+						"description": "Optional message shown ONLY on the day before the Start Date. Leave blank to keep the banner hidden before Start Date. Promo code is appended after this text.",
+						"type": "text",
+						"default": "",
+						"mergeJinja": true,
+						"jinjaMergeFields": []
+					}
+				],
+				"sortOrder": 2
+			},
+			{
+				"id": "rjf2sfq",
+				"name": "Headline",
+				"fields": [
+					{
+						"id": "headlineContainer",
+						"name": "Headline Container",
+						"description": "Enable / Disable the Headline Container",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 1,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 1,
+								"id": "width",
+								"name": "Width (%)",
+								"description": "Set the width of the headline container as percentage of the entire SmartBlock.",
+								"type": "numeric",
+								"default": 100
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 2,
+								"id": "margin",
+								"name": "Right Margin",
+								"description": "Set the margin of the headline container",
+								"type": "font_size",
+								"default": {
+									"size": 0,
+									"unit": "px"
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 3,
+								"id": "padding",
+								"name": "Padding",
+								"description": "Adjust the padding of the headline container",
+								"type": "padding",
+								"default": {
+									"unit": "px",
+									"size": 10
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 4,
+								"id": "borderRadius",
+								"name": "Corner Style",
+								"description": "Adjust the corner style of the headline container",
+								"type": "select",
+								"default": "0px",
+								"options": [
+									[
+										"8px",
+										"Rounded"
+									],
+									[
+										"0px",
+										"Square"
+									]
+								]
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 5,
+								"id": "backgroundColor",
+								"name": "Background Color",
+								"description": "Set the background color of the headline container",
+								"type": "color",
+								"default": "#474747",
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 6,
+								"id": "border",
+								"name": "Border",
+								"description": "Enable / Disable the Headline Border",
+								"type": "boolean",
+								"default": false
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 7,
+								"id": "borderColor",
+								"name": "Border Color",
+								"description": "Set the Border color",
+								"type": "color",
+								"default": "#000000",
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 8,
+								"id": "borderWidth",
+								"name": "Border Width (px)",
+								"description": "Set the Border Width",
+								"type": "numeric",
+								"default": 2
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 9,
+								"id": "borderStyle",
+								"name": "Border Style",
+								"description": "Adjust the Border style",
+								"type": "select",
+								"default": "solid",
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dotted",
+										"Dotted"
+									],
+									[
+										"Dashed",
+										"Dashed"
+									]
+								]
+							}
+						]
+					},
+					{
+						"id": "headline",
+						"name": "Headline",
+						"description": "Enable / Disable the Headline",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": true,
+						"value": "",
+						"sortOrder": 2,
+						"active": true,
+						"displayActive": true,
+						"subFields": [
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 1,
+								"id": "text",
+								"name": "Text",
+								"description": "Fallback headline text (scheduling messages above usually drive copy).",
+								"type": "text",
+								"default": "Buy One Get One Free on Selected Bare Root Roses With Code HRBLACK26",
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 2,
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the Headline",
+								"type": "font",
+								"default": "Verdana"
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 3,
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size for the Headline",
+								"type": "font_size",
+								"default": {
+									"unit": "px",
+									"size": 16
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 4,
+								"id": "mobileFontSize",
+								"name": "Mobile Font Size",
+								"description": "Adjust the headline font size for mobile (max-width 767px).",
+								"type": "font_size",
+								"default": {
+									"unit": "px",
+									"size": 14
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 4,
+								"id": "color",
+								"name": "Font Color",
+								"description": "Set the text color for the Headline",
+								"type": "color",
+								"default": "#ffffff",
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 5,
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the Headline text",
+								"type": "bold",
+								"default": true
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 6,
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the Headline text",
+								"type": "italics",
+								"default": false
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 6,
+								"id": "underline",
+								"name": "Underline",
+								"description": "Underline the Headline text",
+								"type": "boolean",
+								"default": false
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 7,
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the position of the Headline",
+								"type": "select",
+								"default": "center",
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								]
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 8,
+								"id": "promoCodeColor",
+								"name": "Promo Code Font Color",
+								"description": "Font color for the promo code (organic and PPC)",
+								"type": "color",
+								"default": "#f2eadd",
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 9,
+								"id": "promoCodeOrganic",
+								"name": "Organic / Default Code",
+								"description": "Promo code shown for organic, email and other non-PPC traffic",
+								"type": "text",
+								"default": "HRBLACK26",
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 10,
+								"id": "promoCodePpc",
+								"name": "PPC Code",
+								"description": "Promo code shown for PPC traffic (utm_medium=cpc/ppc). Defaults to same code unless you set a PPC-specific variant.",
+								"type": "text",
+								"default": "HRBLACK26",
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							}
+						]
+					}
+				],
+				"sortOrder": 3
+			},
+			{
+				"id": "sp8xe48",
+				"name": "Message",
+				"fields": [
+					{
+						"id": "messageContainer",
+						"name": "Message Container",
+						"description": "Enable / Disable the Message Container (optional countdown slot \u2014 off by default)",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 1,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 1,
+								"id": "padding",
+								"name": "Padding",
+								"description": "Adjust the padding around the message container",
+								"type": "padding",
+								"default": {
+									"unit": "px",
+									"size": 14
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 2,
+								"id": "borderRadius",
+								"name": "Corner Style",
+								"description": "Adjust the corner style of the message container",
+								"type": "select",
+								"default": "0px",
+								"options": [
+									[
+										"8px",
+										"Rounded"
+									],
+									[
+										"0px",
+										"Square"
+									]
+								]
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 3,
+								"id": "backgroundColor",
+								"name": "Background Color",
+								"description": "Set the background color of the message container",
+								"type": "color",
+								"default": "#3a3a3a",
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 4,
+								"id": "border",
+								"name": "Border",
+								"description": "Enable / Disable the Message Border",
+								"type": "boolean",
+								"default": false
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 5,
+								"id": "borderColor",
+								"name": "Border Color",
+								"description": "Set the Border color",
+								"type": "color",
+								"default": "#ffffff",
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 6,
+								"id": "borderWidth",
+								"name": "Border Width (px)",
+								"description": "Adjust the Border Width",
+								"type": "numeric",
+								"default": 2
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 7,
+								"id": "borderStyle",
+								"name": "Border Style",
+								"description": "Adjust the Border style",
+								"type": "select",
+								"default": "solid",
+								"options": [
+									[
+										"solid",
+										"Solid"
+									],
+									[
+										"dotted",
+										"Dotted"
+									],
+									[
+										"dashed",
+										"Dashed"
+									]
+								]
+							}
+						]
+					},
+					{
+						"id": "message",
+						"name": "Message",
+						"description": "Enable / Disable Message",
+						"inline": true,
+						"type": "custom",
+						"first": true,
+						"default": false,
+						"value": "",
+						"sortOrder": 2,
+						"active": false,
+						"displayActive": true,
+						"subFields": [
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 1,
+								"id": "text",
+								"name": "Text",
+								"description": "Show this text in the message container of the SmartBlock",
+								"type": "text",
+								"default": "",
+								"mergeJinja": true,
+								"jinjaMergeFields": []
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 2,
+								"id": "font",
+								"name": "Font",
+								"description": "Adjust the font style of the message",
+								"type": "font",
+								"default": "Verdana"
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 3,
+								"id": "fontSize",
+								"name": "Font Size",
+								"description": "Adjust the font size of the message",
+								"type": "font_size",
+								"default": {
+									"unit": "px",
+									"size": 14
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 4,
+								"id": "color",
+								"name": "Font Color",
+								"description": "Set the text color for the message",
+								"type": "color",
+								"default": "#ffffff",
+								"meta": {
+									"tabTitles": {
+										"foreground": "",
+										"background": ""
+									},
+									"transparencyEnabled": [
+										true
+									]
+								}
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 5,
+								"id": "bold",
+								"name": "Bold",
+								"description": "Bold the message text",
+								"type": "bold",
+								"default": false
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 6,
+								"id": "italics",
+								"name": "Italics",
+								"description": "Italicize the message text",
+								"type": "italics",
+								"default": false
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 7,
+								"id": "underline",
+								"name": "Underline",
+								"description": "Underline the message text",
+								"type": "boolean",
+								"default": false
+							},
+							{
+								"inline": true,
+								"first": true,
+								"value": "",
+								"sortOrder": 8,
+								"id": "alignment",
+								"name": "Alignment",
+								"description": "Set the text position of the message",
+								"type": "select",
+								"default": "center",
+								"options": [
+									[
+										"left",
+										"Left"
+									],
+									[
+										"center",
+										"Center"
+									],
+									[
+										"right",
+										"Right"
+									]
+								]
+							}
+						]
+					}
+				],
+				"sortOrder": 4
+			}
+		]
+	},
+	"template_type": "",
+	"is_template": true,
+	"merges": "",
+	"merge_params_meta": {},
+	"previewValues": "",
+	"trackingParameters": []
+}

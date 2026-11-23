@@ -1,0 +1,83 @@
+/**
+ * Crazy Egg — PDP Key Features v1 (mobile)
+ *
+ * Pair with: crazyegg-pdp-key-features-v1.js
+ * Paste into Crazy Egg Variant → Custom CSS
+ *
+ * Option 1: remove the scrolling Key Features block; show icons on the
+ * product image so description / bullets sit higher.
+ *
+ * Example: https://www.yougarden.com/item-p-630050/complete-300-spring-flowering-bulb-collection
+ */
+
+/* —— Mobile only —— */
+@media (max-width: 1000px) {
+  /* Original Key Features carousel / heading leave the buy column */
+  html.ce-yg-pdp-kf-v1 .product-right-wrapper > .icons-heading,
+  html.ce-yg-pdp-kf-v1 .product-right-wrapper > .icons-wrapper,
+  html.ce-yg-pdp-kf-v1 #product-features-carousel {
+    display: none !important;
+  }
+
+  html.ce-yg-pdp-kf-v1 #main-image-wrapper,
+  html.ce-yg-pdp-kf-v1 .main-image-wrapper {
+    position: relative !important;
+  }
+
+  html.ce-yg-pdp-kf-v1 .ce-yg-kf-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 6px 4px;
+    padding: 8px 6px 10px;
+    box-sizing: border-box;
+    background: linear-gradient(
+      to top,
+      rgba(255, 255, 255, 0.96) 0%,
+      rgba(255, 255, 255, 0.88) 55%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+  }
+
+  html.ce-yg-pdp-kf-v1 .ce-yg-kf-item {
+    flex: 0 0 calc(33.333% - 4px);
+    max-width: 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  html.ce-yg-pdp-kf-v1 .ce-yg-kf-item img {
+    width: 36px !important;
+    height: 36px !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 2px;
+  }
+
+  html.ce-yg-pdp-kf-v1 .ce-yg-kf-item span {
+    display: block;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: 500;
+    color: #264f1c;
+    letter-spacing: 0;
+  }
+}
+
+/* Desktop: leave Magento Key Features alone */
+@media (min-width: 1001px) {
+  html.ce-yg-pdp-kf-v1 .ce-yg-kf-overlay {
+    display: none !important;
+  }
+}

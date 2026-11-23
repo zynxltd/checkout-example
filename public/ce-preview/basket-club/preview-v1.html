@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-ce-yg-club-v1="1">
+<head>
+  <meta charset="utf-8">
+  <title>V1 Club Promo Preview</title>
+  <link rel="stylesheet" href="./v1.css">
+  <style>
+    body { margin: 0; padding: 24px; background: #ececec; font-family: Arial, sans-serif; }
+    h1 { font-size: 16px; margin: 0 0 12px; color: #333; }
+    .frame { max-width: 940px; background: #fff; padding: 24px 16px; border: 1px solid #ddd; }
+    .ref { margin-top: 24px; max-width: 940px; }
+    .ref img { width: 100%; height: auto; display: block; border: 1px solid #ddd; }
+  </style>
+</head>
+<body>
+  <h1>V1 preview (match AI mockup)</h1>
+  <div class="frame" id="mount"></div>
+  <div class="ref">
+    <h1>AI design reference</h1>
+    <img src="./_v1_ai_design.png" alt="V1 AI design">
+  </div>
+  <script>
+    (function () {
+      var LOGO = "./yg-club-logo-v1.png?v=3";
+      var ICO_PLANT = '<img src="./yg-club-icon-plant.png" alt="" width="34" height="48">';
+      var ICO_VOUCHER = '<img src="./yg-club-icon-vouchers.png" alt="" width="40" height="33">';
+      var ICO_VAN = '<img src="./yg-club-icon-van.png" alt="" width="42" height="25">';
+      function benefit(icon, label) {
+        return (
+          '<div class="ce-yg-club-promo__benefit">' +
+          '<span class="ce-yg-club-promo__benefit-icon" aria-hidden="true">' + icon + "</span>" +
+          '<span class="ce-yg-club-promo__benefit-label">' + label + "</span></div>"
+        );
+      }
+      var root = document.createElement("div");
+      root.className = "ce-yg-club-promo ce-yg-club-promo--v1";
+      root.innerHTML =
+        '<div class="ce-yg-club-promo__inner">' +
+        '<img class="ce-yg-club-promo__logo" src="' + LOGO + '" alt="YouGarden Discount Club" width="78" height="78">' +
+        '<div class="ce-yg-club-promo__lead">' +
+        '<div class="ce-yg-club-promo__copy">' +
+        '<p class="ce-yg-club-promo__eyebrow">Join our club &amp;</p>' +
+        '<p class="ce-yg-club-promo__save">Save £110.70</p>' +
+        '<p class="ce-yg-club-promo__sub">on this order</p>' +
+        '<a class="ce-yg-club-promo__more" href="#">More Info</a>' +
+        "</div></div>" +
+        '<div class="ce-yg-club-promo__benefits">' +
+        benefit(ICO_PLANT, "<strong>15% Off</strong>All Plants and Accessories") +
+        benefit(ICO_VOUCHER, "<strong>£20</strong>In Vouchers") +
+        benefit(ICO_VAN, "<strong>2 x Free</strong>P&amp;P Vouchers<br>(Worth £6.99 Each)") +
+        "</div>" +
+        '<div class="ce-yg-club-promo__choose">' +
+        '<label class="ce-yg-club-promo__opt is-selected">' +
+        '<input type="radio" name="ce-yg-club-v1" value="auto" checked>' +
+        '<span class="ce-yg-club-promo__radio"></span>' +
+        '<span class="ce-yg-club-promo__opt-text">' +
+        '<span class="ce-yg-club-promo__opt-title">Auto Renewal</span>' +
+        '<span class="ce-yg-club-promo__opt-price">Now £10</span>' +
+        '<span class="ce-yg-club-promo__meta">Per Year <span class="ce-yg-club-promo__was">Was £20</span></span>' +
+        "</span></label>" +
+        '<label class="ce-yg-club-promo__opt">' +
+        '<input type="radio" name="ce-yg-club-v1" value="one">' +
+        '<span class="ce-yg-club-promo__radio"></span>' +
+        '<span class="ce-yg-club-promo__opt-text">' +
+        '<span class="ce-yg-club-promo__opt-title">One Year</span>' +
+        '<span class="ce-yg-club-promo__opt-row">' +
+        '<span class="ce-yg-club-promo__opt-price">£20</span>' +
+        '<span class="ce-yg-club-promo__meta">No Auto<br>Renew</span>' +
+        "</span></span></label>" +
+        "</div></div>";
+      document.getElementById("mount").appendChild(root);
+      var opts = root.querySelectorAll(".ce-yg-club-promo__opt");
+      Array.prototype.forEach.call(opts, function (lab) {
+        lab.addEventListener("click", function () {
+          var input = lab.querySelector("input");
+          if (input) input.checked = true;
+          Array.prototype.forEach.call(opts, function (o) {
+            o.classList.toggle("is-selected", !!(o.querySelector("input") && o.querySelector("input").checked));
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

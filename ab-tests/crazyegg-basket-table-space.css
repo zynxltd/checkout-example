@@ -1,0 +1,12 @@
+/**
+ * Crazy Egg → Edit CSS
+ * Desktop only: create clear white space above the basket table
+ * for the express payment buttons.
+ */
+
+@media (min-width: 1001px) {
+  #section2Wrapper > table.mainTable,
+  .viewordLeftWrapper table.mainTable {
+    margin-top: 80px !important;
+  }
+}

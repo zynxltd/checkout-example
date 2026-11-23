@@ -1,0 +1,63 @@
+{% comment %}
+  Educational Liquid — as if in a Shopify Online Store theme.
+  DUSK-style: sale price, compare-at, reviews, add to bag.
+  Shopify renders this on the server → HTML. Not React.
+{% endcomment %}
+
+<article class="product-card" {{ product.shopify_attributes }}>
+  <a href="{{ product.url }}" class="product-card__media">
+    {% if product.featured_image %}
+      <img
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        alt="{{ product.featured_image.alt | escape }}"
+        loading="lazy"
+        width="600"
+        height="750"
+      >
+    {% endif %}
+    {% if product.compare_at_price > product.price %}
+      <span class="badge badge--sale">Sale</span>
+    {% endif %}
+  </a>
+
+  <div class="product-card__body">
+    <h3 class="product-card__title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+
+    {% if product.metafields.custom.more_colours %}
+      <p class="product-card__meta">More colours available</p>
+    {% endif %}
+
+    <p class="product-card__price">
+      <span class="price">{{ product.price | money }}</span>
+      {% if product.compare_at_price > product.price %}
+        <s class="price price--compare">{{ product.compare_at_price | money }}</s>
+      {% endif %}
+    </p>
+
+    {% if product.metafields.reviews.rating_count %}
+      <p class="product-card__reviews">
+        ★ {{ product.metafields.reviews.rating.value }}
+        ({{ product.metafields.reviews.rating_count }} reviews)
+      </p>
+    {% endif %}
+
+    {% comment %}
+      Theme JS or a React island can listen for this button.
+      Liquid only outputs HTML — it does not run React.
+    {% endcomment %}
+    <button
+      type="button"
+      class="btn btn--add"
+      data-add-to-bag
+      data-product-id="{{ product.id }}"
+      data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      data-title="{{ product.title | escape }}"
+      data-price="{{ product.price | money_without_currency }}"
+      {% unless product.available %}disabled{% endunless %}
+    >
+      {% if product.available %}Add to bag{% else %}Sold out{% endif %}
+    </button>
+  </div>
+</article>

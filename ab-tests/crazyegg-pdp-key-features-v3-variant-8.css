@@ -1,0 +1,435 @@
+/**
+ * Crazy Egg — PDP Key Features v3 · Variant 8 (mobile) — slide-out + calendar
+ *
+ * Pair with: crazyegg-pdp-key-features-v3-variant-8.js
+ * Paste into Crazy Egg Variant → Custom CSS
+ *
+ * Hide mid-page KF · thumbs · lightbulb “Key Features” link →
+ * right slide-out with icon grid + Plant Calendar underneath.
+ *
+ * Example: https://www.yougarden.com/item-p-630050/complete-300-spring-flowering-bulb-collection
+ */
+
+@media (max-width: 1000px) {
+  html.ce-yg-pdp-kf-v3v8 .product-right-wrapper > .icons-heading,
+  html.ce-yg-pdp-kf-v3v8 .product-right-wrapper > .icons-wrapper,
+  html.ce-yg-pdp-kf-v3v8 #product-features-carousel,
+  html.ce-yg-pdp-kf-v3v8 .product-features-carousel {
+    display: none !important;
+  }
+
+  /* Feefo is float:left; width:200px — wrap + clear */
+  html.ce-yg-pdp-kf-v3v8 .ce-yg-kf-stars-row {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    clear: both;
+    margin: 10px 0 0;
+    padding: 0;
+  }
+
+  html.ce-yg-pdp-kf-v3v8 .ce-yg-kf-stars-row #feefo-rating,
+  html.ce-yg-pdp-kf-v3v8 .ce-yg-kf-stars-row .feefo-rating {
+    float: none !important;
+    width: auto !important;
+    max-width: none !important;
+    flex: 0 1 auto;
+    min-width: 0;
+    margin: 0 !important;
+  }
+
+  /* Clean link — lightbulb + medium weight, no underline */
+  html.ce-yg-pdp-kf-v3v8 .ce-yg-kf-jump {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 5px;
+    flex: 0 0 auto;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  html.ce-yg-pdp-kf-v3v8 .ce-yg-kf-jump:hover {
+    color: #1b3a14;
+    text-decoration: none;
+  }
+
+  html.ce-yg-pdp-kf-v3v8 .ce-yg-kf-jump-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    color: #333;
+  }
+
+  html.ce-yg-pdp-kf-v3v8 .ce-yg-kf-jump-icon svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Slide-out drawer */
+  #ce-yg-kf-drawer-root {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    pointer-events: none;
+  }
+
+  #ce-yg-kf-drawer-root.is-open {
+    pointer-events: auto;
+  }
+
+  #ce-yg-kf-drawer-scrim {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  #ce-yg-kf-drawer-root.is-open #ce-yg-kf-drawer-scrim {
+    opacity: 1;
+  }
+
+  #ce-yg-kf-drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: min(360px, 92vw);
+    background: #fff;
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.18);
+    transform: translateX(104%);
+    transition: transform 0.28s ease;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  #ce-yg-kf-drawer-root.is-open #ce-yg-kf-drawer {
+    transform: translateX(0);
+  }
+
+  #ce-yg-kf-drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid #e5ebe0;
+    flex: 0 0 auto;
+  }
+
+  #ce-yg-kf-drawer-title {
+    margin: 0;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: #264f1c;
+  }
+
+  #ce-yg-kf-drawer-close {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: 18px;
+    background: #f3f5f1;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    color: #264f1c;
+  }
+
+  #ce-yg-kf-drawer-body {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 18px 16px 28px;
+    flex: 1 1 auto;
+  }
+
+  #ce-yg-kf-drawer-grid {
+    display: grid;
+    gap: 16px 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #ce-yg-kf-drawer-grid.cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #ce-yg-kf-drawer-grid.cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ce-yg-kf-drawer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .ce-yg-kf-drawer-item img {
+    display: block;
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    margin: 0 auto 8px;
+  }
+
+  .ce-yg-kf-drawer-item span {
+    display: block;
+    width: 100%;
+    font-family: Rubik, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 500;
+    color: #264f1c;
+  }
+
+  /* Plant Calendar — match Magento mobile accordion look */
+  .ce-yg-kf-drawer-cal {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e5ebe0;
+    clear: both;
+  }
+
+  .ce-yg-kf-drawer-cal-title {
+    margin: 0 0 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #264f1c;
+  }
+
+  .ce-yg-kf-drawer-cal .blooming-wrapper {
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    clear: both;
+    box-sizing: border-box;
+  }
+
+  .ce-yg-kf-drawer-cal .table-key {
+    float: none !important;
+    width: 100% !important;
+    margin: 0 0 6px !important;
+    padding: 0 !important;
+    clear: both;
+  }
+
+  .ce-yg-kf-drawer-cal .table-key .row {
+    display: inline !important;
+    margin: 0 !important;
+    font-size: 13px !important;
+    font-weight: 300 !important;
+    color: #000 !important;
+    padding: 4px 30px 4px 10px !important;
+    float: none !important;
+  }
+
+  .ce-yg-kf-drawer-cal .table-key .row::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .ce-yg-kf-drawer-cal .table-key .row.plant {
+    border-left: 22px solid #534258 !important;
+  }
+
+  .ce-yg-kf-drawer-cal .table-key .row.flower {
+    border-left: 22px solid #3db21a !important;
+  }
+
+  .ce-yg-kf-drawer-cal .table-key .row.fruit {
+    border-left: 22px solid #e8b171 !important;
+  }
+
+  .ce-yg-kf-drawer-cal .table-key .row.sowing {
+    border-left: 22px solid #8a1e34 !important;
+  }
+
+  .ce-yg-kf-drawer-cal .table-key .row span {
+    display: none !important;
+  }
+
+  .ce-yg-kf-drawer-cal .blooming-table {
+    float: none !important;
+    display: table !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 10px 0 0 !important;
+    padding: 0 !important;
+    border: 1px solid #eee !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    table-layout: fixed !important;
+    clear: both !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+  }
+
+  .ce-yg-kf-drawer-cal .blooming-table th {
+    font-size: 15px !important;
+    font-weight: 300 !important;
+    color: #000 !important;
+    background: #eee !important;
+    padding: 12px 0 !important;
+    text-align: center !important;
+    border-left: 1px solid #ebebeb !important;
+    border-bottom: 1px solid #ebebeb !important;
+    border-top: 1px solid #ebebeb !important;
+    vertical-align: middle !important;
+  }
+
+  .ce-yg-kf-drawer-cal .blooming-table th span {
+    display: none !important;
+  }
+
+  .ce-yg-kf-drawer-cal .blooming-table td {
+    padding: 10px 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    border: 0 !important;
+    border-bottom: 1px solid #ebebeb !important;
+    background: transparent !important;
+    vertical-align: middle !important;
+  }
+
+  .ce-yg-kf-drawer-cal .blooming-table td.shade-plant {
+    background: #534258 !important;
+  }
+
+  .ce-yg-kf-drawer-cal .blooming-table td.shade-flower {
+    background: #3db21a !important;
+  }
+
+  .ce-yg-kf-drawer-cal .blooming-table td.shade-fruit {
+    background: #e8b171 !important;
+  }
+
+  .ce-yg-kf-drawer-cal .blooming-table td.shade-sowing {
+    background: #8a1e34 !important;
+  }
+
+  body.ce-yg-kf-drawer-open {
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1001px) {
+  html.ce-yg-pdp-kf-v3v8 .ce-yg-kf-jump,
+  html.ce-yg-pdp-kf-v3v8 #ce-yg-kf-drawer-root {
+    display: none !important;
+  }
+}
+
+/* Thumbs under hero */
+@media (min-width: 600px) {
+  #ce-yg-thumbs {
+    display: none !important;
+  }
+}
+
+@media (max-width: 599px) {
+  html.ce-yg-thumbs-on #main-image-carousel .slick-dots {
+    display: none !important;
+  }
+
+  html.ce-yg-thumbs-on #main-image-carousel .previous-button,
+  html.ce-yg-thumbs-on #main-image-carousel .next-button,
+  html.ce-yg-thumbs-on #main-image-carousel .slick-arrow {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    z-index: 9 !important;
+  }
+
+  #ce-yg-thumbs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    width: 100%;
+    margin: 0;
+    padding: 6px 0 8px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    background: #fff;
+  }
+
+  #ce-yg-thumbs::-webkit-scrollbar {
+    display: none;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb {
+    flex: 0 0 calc((100% - 30px) / 4);
+    width: calc((100% - 30px) / 4);
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    margin: 0;
+    border: 1.5px solid #d7ddd2;
+    border-radius: 6px;
+    background: #f5f6f4;
+    overflow: hidden;
+    cursor: pointer;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb:first-child {
+    margin-left: 6px !important;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb:last-child {
+    margin-right: 6px !important;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-active {
+    border-color: #264f1c;
+    border-width: 2px;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+
+  #ce-yg-thumbs .ce-yg-thumb.is-video::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -7px 0 0 -5px;
+    border-style: solid;
+    border-width: 8px 0 8px 13px;
+    border-color: transparent transparent transparent #fff;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+    pointer-events: none;
+  }
+}

@@ -1,0 +1,841 @@
+/**
+ * Crazy Egg A/B — PLP Filters & Sort drawer (MOBILE)
+ *
+ * Target: category PLPs with .category-filters / #filterForm (mobile CE variant)
+ * e.g. https://www.yougarden.com/garden-plants/perennial-plants-and-flowers
+ *
+ * Paste into Crazy Egg variant → Custom CSS
+ * Pair with: crazyegg-plp-filters-drawer-mobile.js
+ *
+ * Scope: html.ce-yg-plp-filters
+ * Includes: Colours (long lists) open upward + visualViewport menu clamp
+ */
+
+html.ce-yg-plp-filters {
+  --ce-ff-forest: #264f1c;
+  --ce-ff-stone: #f2e7d8;
+  --ce-ff-pebble: #483f3a;
+  --ce-ff-rose: #e3185d;
+  --ce-ff-rose-dark: #c41450;
+  --ce-ff-border: #e0d6cb;
+  --ce-ff-moss-surface: #e4edd8;
+  --ce-ff-body: "proxima-nova", "Proxima Nova", Arial, Helvetica, sans-serif;
+  --ce-ff-display: Georgia, "Times New Roman", Times, serif;
+}
+
+/*
+ * Keep the PLP looking normal: native accordion stays in the DOM for POST
+ * but must not take layout space or paint a full-page green panel.
+ *
+ * IMPORTANT (iPhone Safari): inputs inside display:none ancestors are omitted
+ * from form POST. Chrome device emulators still submit them — so Apply can
+ * look fine in DevTools and fail on a real iPhone. Never display:none the
+ * #filterForm chain; clip / off-screen it instead.
+ */
+html.ce-yg-plp-filters .category-filters .display-filters-wrapper,
+html.ce-yg-plp-filters .category-filters #display-filters-wrapper {
+  display: block !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  width: 1px !important;
+  max-width: 1px !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  float: none !important;
+  position: absolute !important;
+  left: -10000px !important;
+  top: 0 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  opacity: 0 !important;
+  z-index: -1 !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+}
+
+/* Toolbar strip — compact, no Magento full-width grey bar */
+html.ce-yg-plp-filters .category-filters {
+  float: none !important;
+  clear: both !important;
+  width: 100% !important;
+  display: block !important;
+  margin: 0 0 16px !important;
+  padding: 0 0 16px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #dddddd !important;
+  background: transparent !important;
+  min-height: 0 !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Button moved into cross-links — collapse chrome, keep #filterForm submittable */
+html.ce-yg-plp-filters .category-filters.ce-ff-filters--relocated {
+  display: block !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/*
+ * Category chip strip — button first (sticky), links scroll in the ul.
+ * Live Magento: ul already uses overflow-x: scroll + white-space: nowrap.
+ */
+html.ce-yg-plp-filters .category-cross-linking-wrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  float: none !important;
+  clear: both !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-plp-filters .category-cross-linking-wrapper > ul {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  max-width: 100% !important;
+  float: none !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.25 !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+html.ce-yg-plp-filters .category-cross-linking-wrapper > ul > li {
+  display: inline-flex !important;
+  align-items: center !important;
+  float: none !important;
+  margin: 0 !important;
+  padding: 0 26px 0 0 !important;
+  vertical-align: middle !important;
+  line-height: 1.25 !important;
+}
+
+html.ce-yg-plp-filters .category-cross-linking-wrapper > ul > li > a {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1.25 !important;
+  vertical-align: middle !important;
+}
+
+/* Open trigger — works in filters strip (fallback) or cross-link strip */
+html.ce-yg-plp-filters .category-filters .mobile-filter-open,
+html.ce-yg-plp-filters .category-filters #mobile-filter-open,
+html.ce-yg-plp-filters .category-filters .ce-ff-open,
+html.ce-yg-plp-filters .category-cross-linking-wrapper > .ce-ff-open,
+html.ce-yg-plp-filters .category-cross-linking-wrapper > #mobile-filter-open,
+html.ce-yg-plp-filters .ce-ff-open {
+  display: inline-flex !important;
+  float: none !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 !important;
+  padding: 12px 18px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  background: #264f1c !important;
+  color: #fff !important;
+  font-family: var(--ce-ff-body) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em !important;
+  line-height: 1.2 !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  width: auto !important;
+  max-width: 100%;
+  box-sizing: border-box !important;
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+}
+
+html.ce-yg-plp-filters .category-cross-linking-wrapper > .ce-ff-open,
+html.ce-yg-plp-filters .category-cross-linking-wrapper > #mobile-filter-open {
+  position: sticky !important;
+  left: 0 !important;
+  z-index: 2 !important;
+  align-self: center !important;
+  margin: 0 20px 0 0 !important;
+  /* Never shrink/truncate label when the chip row is tight */
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+  width: max-content !important;
+  min-width: max-content !important;
+  max-width: none !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+}
+
+/*
+ * Tablet (768–1199): button left, chips scroll in the remaining space.
+ * Avoids the mid-width overlap from true-centering chips under the button.
+ */
+@media (min-width: 768px) and (max-width: 1199px) {
+  html.ce-yg-plp-filters .top-section {
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    clear: both !important;
+    text-align: left !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    float: none !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > .ce-ff-open,
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > #mobile-filter-open {
+    position: relative !important;
+    left: auto !important;
+    flex: 0 0 auto !important;
+    margin: 0 20px 0 0 !important;
+    z-index: 2 !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > ul {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    justify-content: flex-start !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > ul > li {
+    padding: 0 16px 0 0 !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > ul > li:last-child {
+    padding-right: 0 !important;
+  }
+}
+
+/*
+ * Wide desktop (1200+): button left at intrinsic width; chips follow
+ * immediately after (no center-in-leftover-space gap).
+ */
+@media (min-width: 1200px) {
+  html.ce-yg-plp-filters .top-section {
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    clear: both !important;
+    text-align: left !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    float: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > .ce-ff-open,
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > #mobile-filter-open {
+    margin: 0 28px 0 0 !important;
+    position: relative !important;
+    left: auto !important;
+    z-index: 2 !important;
+    flex: 0 0 auto !important;
+    width: max-content !important;
+    min-width: max-content !important;
+    max-width: none !important;
+    white-space: nowrap !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > ul {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > ul > li {
+    padding: 0 16px 0 0 !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > ul > li:last-child {
+    padding-right: 0 !important;
+  }
+}
+
+/* Mobile: centered button on its own row, scrollable links underneath */
+@media (max-width: 767px) {
+  html.ce-yg-plp-filters .category-cross-linking-wrapper {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    gap: 18px !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > .ce-ff-open,
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > #mobile-filter-open {
+    position: relative !important;
+    left: auto !important;
+    align-self: center !important;
+    margin: 0 auto 6px !important;
+  }
+
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > ul {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+html.ce-yg-plp-filters .category-filters .mobile-filter-open svg,
+html.ce-yg-plp-filters .category-filters #mobile-filter-open svg,
+html.ce-yg-plp-filters .category-filters .ce-ff-open svg,
+html.ce-yg-plp-filters .ce-ff-open svg {
+  width: 14px !important;
+  height: 14px !important;
+  flex: 0 0 auto;
+  color: #fff !important;
+  fill: currentColor !important;
+}
+
+/* Lock scroll — must NOT reuse .ce-ff-open (that class styles the green button) */
+html.ce-yg-plp-filters body.ce-ff-drawer-open {
+  overflow: hidden !important;
+}
+
+/*
+ * Shell — fill the visible viewport with top/bottom (more reliable than 100dvh
+ * across Chrome device emulators). JS may tighten height via --ce-ff-vvh.
+ */
+html.ce-yg-plp-filters .ce-ff-shell {
+  display: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: none !important;
+  z-index: 2147483000 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* When JS measures visualViewport, prefer that exact pixel box */
+html.ce-yg-plp-filters .ce-ff-shell.ce-ff-shell--vvh {
+  bottom: auto !important;
+  height: var(--ce-ff-vvh, 100dvh) !important;
+  max-height: var(--ce-ff-vvh, 100dvh) !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-shell.is-mounted {
+  display: block !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-shell.is-open {
+  pointer-events: auto !important;
+}
+
+/* Soft neutral dim — page behind stays readable (mock-up) */
+html.ce-yg-plp-filters .ce-ff-backdrop {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  z-index: 0 !important;
+  background: rgba(0, 0, 0, 0.32) !important;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+  pointer-events: auto !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-shell.is-open .ce-ff-backdrop {
+  opacity: 1;
+}
+
+/*
+ * Panel fills the shell. Footer is a flex child inside the panel so it always
+ * matches panel width and stays pinned to the visible bottom (no absolute/
+ * fixed math that fails on tall emulators or when cascade order fights).
+ */
+html.ce-yg-plp-filters .ce-ff-panel {
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: auto !important;
+  z-index: 1 !important;
+  width: min(100%, 380px) !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #f2e7d8 !important;
+  box-shadow: 4px 0 28px rgba(0, 0, 0, 0.18) !important;
+  transform: translate3d(-105%, 0, 0) !important;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  will-change: transform;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  padding-bottom: 0 !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-shell.is-open .ce-ff-panel {
+  transform: translate3d(0, 0, 0) !important;
+}
+
+@media (max-width: 767px) {
+  html.ce-yg-plp-filters .ce-ff-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Header */
+html.ce-yg-plp-filters .ce-ff-head {
+  flex: 0 0 auto;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid #e0d6cb !important;
+  position: relative !important;
+  z-index: 2 !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: var(--ce-ff-display) !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  line-height: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  color: #264f1c !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-close {
+  appearance: none !important;
+  flex: 0 0 auto;
+  width: 40px !important;
+  height: 40px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 1px solid #e0d6cb !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+  color: #483f3a !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-close:focus,
+html.ce-yg-plp-filters .ce-ff-close:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px #264f1c !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-close:hover {
+  background: #e4edd8 !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-close svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+/* Body / fields — scrolls; footer sits below as flex sibling */
+html.ce-yg-plp-filters .ce-ff-body {
+  flex: 1 1 auto !important;
+  flex-shrink: 1 !important;
+  min-height: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  padding: 18px !important;
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  align-content: start;
+  background: #f2e7d8 !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+
+html.ce-yg-plp-filters .ce-ff-field--sort {
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid #e0d6cb;
+}
+
+html.ce-yg-plp-filters .ce-ff-label {
+  font-family: var(--ce-ff-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #264f1c;
+}
+
+html.ce-yg-plp-filters .ce-ff-select-wrap {
+  position: relative !important;
+  display: block !important;
+}
+
+/* Trigger button (replaces native <select> UI — popup was mis-anchored in fixed drawer) */
+html.ce-yg-plp-filters .ce-ff-select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  border: 1px solid #e0d6cb !important;
+  border-radius: 8px !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #483f3a !important;
+  font-family: var(--ce-ff-body) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  text-align: left !important;
+  padding: 12px 36px 12px 12px !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+html.ce-yg-plp-filters .ce-ff-select:hover {
+  border-color: #b9c4b0 !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-select:focus,
+html.ce-yg-plp-filters .ce-ff-select[aria-expanded='true'] {
+  outline: none !important;
+  border-color: #264f1c !important;
+  box-shadow: 0 0 0 3px rgba(108, 148, 63, 0.35) !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-select__value {
+  display: block !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  min-width: 0 !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-select-native {
+  /* Clipped, not display:none — iOS drops .value updates on display:none <select> */
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  clip: rect(0, 0, 0, 0) !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-chevron {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 16px;
+  line-height: 1;
+  color: #666;
+  font-weight: 700;
+}
+
+/* Custom option menu — same language as the field (white / dark text).
+ * max-height is set inline by positionMenu (visualViewport + footer clamp).
+ * Do NOT use !important on max-height — it blocked JS and left Yellow off-screen on iPhone. */
+html.ce-yg-plp-filters .ce-ff-menu {
+  display: none !important;
+  position: fixed !important;
+  z-index: 2147483002 !important;
+  max-height: min(280px, 45dvh);
+  margin: 0 !important;
+  padding: 4px !important;
+  list-style: none !important;
+  overflow: auto !important;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #483f3a !important;
+  border: 1px solid #e0d6cb !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 24px rgba(72, 63, 58, 0.16) !important;
+  box-sizing: border-box !important;
+  color-scheme: light !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-menu.is-open {
+  display: block !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-menu li {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-menu__opt {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 11px 12px !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #483f3a !important;
+  font-family: var(--ce-ff-body) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-menu__opt:hover,
+html.ce-yg-plp-filters .ce-ff-menu__opt:focus {
+  background: #f2e7d8 !important;
+  background-color: #f2e7d8 !important;
+  color: #483f3a !important;
+  outline: none !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-menu__opt.is-selected {
+  background: #e4edd8 !important;
+  background-color: #e4edd8 !important;
+  color: #264f1c !important;
+  font-weight: 700 !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-menu__opt.is-unavailable,
+  html.ce-yg-plp-filters .ce-ff-menu__opt:disabled {
+    color: #a39a93 !important;
+    background: #f7f4f0 !important;
+    background-color: #f7f4f0 !important;
+    cursor: not-allowed !important;
+    opacity: 0.72 !important;
+    pointer-events: none !important;
+  }
+  
+  html.ce-yg-plp-filters .ce-ff-menu__opt.is-unavailable:hover,
+  html.ce-yg-plp-filters .ce-ff-menu__opt.is-unavailable:focus,
+  html.ce-yg-plp-filters .ce-ff-menu__opt:disabled:hover,
+  html.ce-yg-plp-filters .ce-ff-menu__opt:disabled:focus {
+    background: #f7f4f0 !important;
+    background-color: #f7f4f0 !important;
+    color: #a39a93 !important;
+  }
+  
+  html.ce-yg-plp-filters .ce-ff-empty-results {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    margin: 24px 0 40px !important;
+    padding: 28px 24px !important;
+    text-align: center !important;
+    background: #f7f4f0 !important;
+    border: 1px solid #e0d6cb !important;
+    border-radius: 8px !important;
+    color: #483f3a !important;
+  }
+  
+  html.ce-yg-plp-filters .ce-ff-empty-results__title {
+    margin: 0 0 8px !important;
+    font-family: var(--ce-ff-display) !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    color: #264f1c !important;
+  }
+  
+  html.ce-yg-plp-filters .ce-ff-empty-results__text {
+    margin: 0 0 16px !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+  }
+  
+  html.ce-yg-plp-filters .ce-ff-empty-results__reset {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 10px 18px !important;
+    border: 2px solid #264f1c !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    color: #264f1c !important;
+    font-family: var(--ce-ff-body) !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+  }
+  
+  
+/*
+ * Footer — flex child of .ce-ff-panel (always full panel width, always visible).
+ */
+html.ce-yg-plp-filters .ce-ff-actions {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  top: auto !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  max-width: none !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 10px !important;
+  padding: 14px 18px calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+  margin: 0 !important;
+  border-top: 1px solid #e0d6cb !important;
+  background: #ffffff !important;
+  box-sizing: border-box !important;
+  z-index: 6 !important;
+  min-height: 72px !important;
+  transform: none !important;
+  transition: none !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-shell.is-open .ce-ff-actions {
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-reset,
+html.ce-yg-plp-filters .ce-ff-apply {
+  appearance: none !important;
+  border-radius: 8px !important;
+  font-family: var(--ce-ff-body) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  padding: 13px 10px !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-reset {
+  border: 2px solid #264f1c !important;
+  background: #ffffff !important;
+  color: #264f1c !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-reset:hover {
+  background: #e4edd8 !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-apply {
+  border: 2px solid #e3185d !important;
+  background: #e3185d !important;
+  color: #ffffff !important;
+}
+
+html.ce-yg-plp-filters .ce-ff-apply:hover {
+  background: #c41450 !important;
+  border-color: #c41450 !important;
+}
+
+@media (min-width: 768px) {
+  html.ce-yg-plp-filters .ce-ff-open,
+  html.ce-yg-plp-filters .category-filters .mobile-filter-open,
+  html.ce-yg-plp-filters .category-filters #mobile-filter-open,
+  html.ce-yg-plp-filters .category-filters .ce-ff-open,
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > .ce-ff-open,
+  html.ce-yg-plp-filters .category-cross-linking-wrapper > #mobile-filter-open {
+    display: inline-flex !important;
+  }
+}

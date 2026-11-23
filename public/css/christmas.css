@@ -1,0 +1,313 @@
+/* /christmas — living gift shop, not a generic Magento PLP */
+
+body.demo-xmas {
+    --yg-xmas-ink: #3b1418;
+    --yg-xmas-cream: #f3e6d8;
+    --yg-xmas-flag: #7a1836;
+}
+
+.yg-xmas-hero {
+    background:
+        linear-gradient(180deg, rgba(122, 24, 54, 0.08), transparent 48%),
+        var(--yg-xmas-cream);
+    border-bottom: 1px solid #e4d3c2;
+}
+
+.yg-xmas-hero__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 36px 16px 40px;
+}
+
+.yg-xmas-hero__kicker {
+    margin: 0 0 8px;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7a1836;
+}
+
+.yg-xmas-hero__title {
+    margin: 0 0 10px;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", serif);
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--yg-xmas-ink);
+}
+
+.yg-xmas-hero__lede {
+    margin: 0 0 18px;
+    max-width: 34rem;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 16px;
+    line-height: 1.45;
+    color: #5a4038;
+}
+
+.yg-xmas-hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 10px;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--yg-xmas-ink);
+}
+
+.yg-xmas-hero__meta a {
+    color: #468900;
+    text-decoration: none;
+}
+
+.yg-xmas-hero__meta a:hover {
+    text-decoration: underline;
+}
+
+.demo-xmas__main {
+    padding-top: 28px;
+}
+
+.yg-xmas-featured {
+    margin: 0 0 28px;
+}
+
+.yg-xmas-featured__head {
+    margin: 0 0 16px;
+}
+
+.yg-xmas-featured__head h2 {
+    margin: 0 0 4px;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", serif);
+    font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+    color: var(--yg-xmas-ink);
+}
+
+.yg-xmas-featured__head p {
+    margin: 0;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 14px;
+    color: #666;
+}
+
+.yg-xmas-featured__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 800px) {
+    .yg-xmas-featured__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+}
+
+.yg-xmas-feature {
+    display: grid;
+    grid-template-rows: minmax(220px, 42vw) auto;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+@media (min-width: 800px) {
+    .yg-xmas-feature {
+        grid-template-rows: 320px auto;
+    }
+}
+
+.yg-xmas-feature:hover {
+    border-color: #d8b9c0;
+    box-shadow: 0 8px 24px rgba(59, 20, 24, 0.08);
+}
+
+.yg-xmas-feature:hover .yg-xmas-feature__copy h3 {
+    text-decoration: underline;
+}
+
+.yg-xmas-feature__img {
+    position: relative;
+    background: #f3f3f3;
+}
+
+.yg-xmas-feature__img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.yg-xmas-feature__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 16px 18px;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+}
+
+.yg-xmas-feature__kicker {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7a1836;
+}
+
+.yg-xmas-feature__copy h3 {
+    margin: 0;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", serif);
+    font-size: 1.25rem;
+    line-height: 1.25;
+    color: var(--yg-xmas-ink);
+}
+
+.yg-xmas-feature__copy p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555;
+}
+
+.yg-xmas-feature__price {
+    margin-top: 4px !important;
+    font-size: 18px !important;
+    font-weight: 700;
+    color: #e3185d !important;
+}
+
+.yg-xmas-feature__cta {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #468900;
+}
+
+.yg-xmas-flag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: var(--yg-xmas-flag);
+    color: #fff;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.yg-xmas-when {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    padding: 5px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--yg-xmas-ink);
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.yg-xmas-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 22px;
+    scroll-margin-top: 180px;
+}
+
+.yg-xmas-chip {
+    margin: 0;
+    padding: 8px 14px;
+    border: 1px solid #e4d3c2;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--yg-xmas-ink);
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.yg-xmas-chip:hover {
+    background: var(--yg-xmas-cream);
+}
+
+.yg-xmas-chip.is-on {
+    border-color: #7a1836;
+    background: #7a1836;
+    color: #fff;
+}
+
+.yg-xmas-grid {
+    scroll-margin-top: 180px;
+}
+
+.yg-xmas-grid__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 0 14px;
+}
+
+.yg-xmas-grid__head h2 {
+    margin: 0;
+    font-family: var(--yg-heading, Georgia, "Times New Roman", serif);
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    color: var(--yg-xmas-ink);
+}
+
+.yg-xmas-grid__head p {
+    margin: 0;
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 13px;
+    color: #666;
+}
+
+.demo-xmas .yg-xmas-card .savingFlash {
+    display: none;
+}
+
+.demo-xmas .yg-xmas-card .imgWrapper {
+    position: relative;
+}
+
+.yg-xmas-empty {
+    margin: 16px 0 0;
+    padding: 16px;
+    border-radius: 10px;
+    background: var(--yg-xmas-cream);
+    font-family: var(--yg-body, Arial, Helvetica, sans-serif);
+    font-size: 14px;
+    text-align: center;
+    color: var(--yg-xmas-ink);
+}
+
+.demo-xmas .category-box[hidden] {
+    display: none !important;
+}
+
+.demo-xmas .yg-qv__badge:not(.is-oos) {
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .demo-xmas * {
+        scroll-behavior: auto !important;
+    }
+}

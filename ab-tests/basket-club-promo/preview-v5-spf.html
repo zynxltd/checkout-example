@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-ygspf="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>V5 Superior Plant Food</title>
+  <link rel="stylesheet" href="https://use.typekit.net/hrf1tkz.css">
+  <link rel="stylesheet" href="./v5-spf.css?v=20261117t1">
+  <style>
+    body { margin: 0; padding: 40px 20px; background: #ececec; font-family: Arial, sans-serif; }
+    h1 { font-size: 15px; margin: 0 0 8px; color: #333; }
+    p.note { margin: 0 0 16px; font-size: 13px; color: #666; }
+    .widths { margin: 0 0 16px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .widths button {
+      padding: 6px 12px; border: 1px solid #bbb; border-radius: 6px;
+      background: #fff; cursor: pointer; font-size: 13px;
+    }
+    .widths button.is-on { background: #5e9b42; color: #fff; border-color: #5e9b42; }
+    #stage {
+      width: 1180px; max-width: 100%; height: 140px;
+      border: 1px solid #ddd; background: #fff; overflow: hidden;
+    }
+    #stage iframe { width: 100%; height: 100%; border: 0; display: block; }
+  </style>
+</head>
+<body>
+  <h1>V5 Superior Plant Food — all viewports</h1>
+  <p class="note">Standalone SPF test. Can run with club desk/mob in CE.</p>
+  <div class="widths" role="group">
+    <button type="button" data-w="1180" class="is-on">Desktop 1180</button>
+    <button type="button" data-w="900">Tablet 900</button>
+    <button type="button" data-w="390">Mobile 390</button>
+  </div>
+  <div id="stage">
+    <iframe src="./preview-v5-spf-frame.html?v=20261117t1" title="SPF preview"></iframe>
+  </div>
+  <script>
+    var stage = document.getElementById("stage");
+    document.querySelectorAll(".widths button").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".widths button").forEach(function (b) {
+          b.classList.toggle("is-on", b === btn);
+        });
+        stage.style.width = btn.getAttribute("data-w") + "px";
+      });
+    });
+  </script>
+</body>
+</html>

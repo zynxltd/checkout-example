@@ -1,0 +1,331 @@
+/**
+ * Crazy Egg — Superior Plant Food (separate test)
+ *
+ * Paste into Crazy Egg Variant → Edit CSS
+ * Pair with: v5-spf.js → Edit Script
+ *
+ * Shared SPF banner for club variants 1 & 2.
+ * Desktop + tablet + mobile. Own data-ygspf / #ygspf-root
+ * (can run alongside club variants).
+ */
+
+html[data-ygspf="1"] {
+  --ygspf-green: #5e9b42;
+  --ygspf-purple: #321a4c;
+  --ygspf-cta: #f0d078;
+  --ygspf-gelica: "gelica", Georgia, "Times New Roman", serif;
+}
+
+#ygspf-root,
+#ygspf-root * { box-sizing: border-box; }
+
+#ygspf-root {
+  clear: both;
+  width: 100%;
+  margin: 0 0 12px !important;
+  padding-top: 20px !important;
+  overflow: visible !important;
+  font-family: Arial, Helvetica, sans-serif;
+  background: transparent;
+  border: 0;
+}
+
+html[data-ygspf="1"] .viewordLeftWrapper,
+html[data-ygspf="1"] .buttonPromoWrapper { overflow: visible !important; }
+
+html[data-ygspf="1"] .viewordLeftWrapper table.mainTable,
+html[data-ygspf="1"] table.mainTable { margin-bottom: 16px !important; }
+
+html[data-ygspf="1"] .buttonPromoWrapper {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+html[data-ygspf="1"] .buttonPromoWrapper .promoItemWrapper { display: none !important; }
+
+/* —— Superior Plant Food Plus strip (above club bar) —— */
+#ygspf {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#ygspf-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  min-height: 58px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ygspf-purple);
+}
+
+#ygspf-brand {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex: 0 1 auto;
+  max-width: 42%;
+  /* Flush left — green fills left section; only right edge curves into purple */
+  align-self: stretch;
+  min-height: 0;
+  padding: 6px 32px 6px 10px;
+  margin: 0 -22px 0 0;
+  color: #fff;
+  background: var(--ygspf-green);
+  border-radius: 0 999px 999px 0;
+  overflow: visible;
+}
+
+#ygspf-brand::before,
+#ygspf-brand::after {
+  content: none;
+  display: none;
+}
+
+#ygspf-logo {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: block;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  object-fit: cover;
+}
+
+#ygspf-title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+#ygspf-title strong {
+  font-weight: 800;
+}
+
+#ygspf-msg {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  /* Clear the green curved lobe */
+  padding: 10px 18px 10px 36px;
+  font-family: var(--ygspf-gelica);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #ffffff;
+  text-align: center;
+}
+
+#ygspf-cta,
+html[data-ygspf="1"] button#ygspf-cta {
+  flex: 0 0 auto;
+  align-self: center;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px;
+  width: auto !important;
+  max-width: none !important;
+  margin: 8px 10px 8px 0 !important;
+  padding: 8px 18px 8px 14px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: var(--ygspf-cta) !important;
+  color: #111 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.15 !important;
+  white-space: nowrap !important;
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+#ygspf-cta .ygspf-plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+#ygspf-cta .ygspf-cta-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1px;
+  text-align: left;
+  line-height: 1.15;
+}
+
+#ygspf-cta .ygspf-cta-line {
+  display: block;
+  font-weight: 400;
+}
+
+#ygspf-cta .ygspf-cta-price {
+  display: block;
+  font-weight: 800;
+}
+
+
+@media (max-width: 1100px) {
+  #ygspf-brand {
+    max-width: 38%;
+    padding: 6px 26px 6px 8px;
+    gap: 8px;
+  }
+
+  #ygspf-title {
+    font-size: 16px;
+  }
+
+  #ygspf-msg {
+    padding: 10px 14px 10px 30px;
+    font-size: 14px;
+  }
+
+  #ygspf-cta,
+  html[data-ygspf="1"] button#ygspf-cta {
+    padding: 7px 14px 7px 12px !important;
+    font-size: 12px !important;
+  }
+
+}
+
+@media (max-width: 900px) and (min-width: 641px) {
+  #ygspf-brand {
+    max-width: 40%;
+    padding: 5px 22px 5px 8px;
+    margin: 0 -16px 0 0;
+  }
+
+  #ygspf-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  #ygspf-title {
+    font-size: 14px;
+  }
+
+  #ygspf-msg {
+    padding: 8px 12px 8px 26px;
+    font-size: 12px;
+  }
+
+  #ygspf-cta,
+  html[data-ygspf="1"] button#ygspf-cta {
+    margin: 6px 8px 6px 0 !important;
+    padding: 6px 12px 6px 10px !important;
+    font-size: 11px !important;
+  }
+
+  #ygspf-cta .ygspf-plus {
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+  }
+
+}
+
+@media (max-width: 640px) {
+#ygspf {
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+}
+
+#ygspf-inner {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 0;
+  border-radius: 8px;
+}
+
+#ygspf-brand {
+  flex: 1 1 100%;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 5px 10px;
+  border-radius: 0;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+#ygspf-logo {
+  width: 28px;
+  height: 28px;
+}
+
+#ygspf-title {
+  font-size: 13px;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+#ygspf-msg {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  width: auto;
+  box-sizing: border-box;
+  padding: 6px 6px 6px 10px;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: left;
+}
+
+#ygspf-cta,
+html[data-ygspf="1"] button#ygspf-cta {
+  flex: 0 0 auto !important;
+  align-self: center !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 4px 6px 4px 0 !important;
+  padding: 5px 10px 5px 8px !important;
+  gap: 5px !important;
+  font-size: 11px !important;
+}
+
+#ygspf-cta .ygspf-plus {
+  width: 14px;
+  height: 14px;
+  font-size: 15px;
+}
+
+#ygspf-cta .ygspf-cta-copy {
+  gap: 0;
+}
+
+}

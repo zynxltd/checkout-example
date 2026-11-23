@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Reels — PixiJS + GSAP Slot Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="top">
+        <div>
+          <p class="pill">iGaming demo · PixiJS · GSAP · TypeScript</p>
+          <h1>Neon Reels</h1>
+          <p class="sub">Mid-level JS games stack: OOP framework, HTML5 canvas, reel spin + win FX.</p>
+        </div>
+        <div class="hud" id="hud">
+          <div><span>Balance</span><strong id="balance">1000</strong></div>
+          <div><span>Bet</span><strong id="bet">10</strong></div>
+          <div><span>Last win</span><strong id="last-win">0</strong></div>
+        </div>
+      </header>
+
+      <div id="game-root" aria-label="Slot game canvas"></div>
+
+      <div class="controls">
+        <button type="button" id="bet-down" class="ghost">Bet −</button>
+        <button type="button" id="spin" class="spin">SPIN</button>
+        <button type="button" id="bet-up" class="ghost">Bet +</button>
+      </div>
+      <p class="hint" id="status">Press SPIN — 3 matching symbols on the centre payline wins.</p>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

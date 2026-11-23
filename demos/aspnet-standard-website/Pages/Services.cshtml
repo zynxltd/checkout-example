@@ -1,0 +1,54 @@
+@page
+@model ServicesModel
+@{
+    ViewData["Title"] = "Services";
+    ViewData["Description"] = "Product strategy, UX design, and ASP.NET Core engineering from Northline.";
+}
+
+<section class="page-hero">
+    <div class="shell">
+        <h1>Services</h1>
+        <p>Three ways to engage — pick the one that matches where you are.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="shell">
+        <div class="service-rows reveal">
+            <a class="service-row" asp-page="/Contact">
+                <span class="num">01</span>
+                <div>
+                    <h3>Product discovery</h3>
+                    <p>Two-week sprints to map journeys, risks, and a buildable roadmap your stakeholders can fund.</p>
+                </div>
+                <span class="arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="service-row" asp-page="/Contact">
+                <span class="num">02</span>
+                <div>
+                    <h3>Design systems &amp; UX</h3>
+                    <p>Interfaces with strong hierarchy, accessible patterns, and components your engineers can reuse.</p>
+                </div>
+                <span class="arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="service-row" asp-page="/Contact">
+                <span class="num">03</span>
+                <div>
+                    <h3>ASP.NET Core builds</h3>
+                    <p>Razor Pages, APIs, identity, and integrations — production-minded from the first commit.</p>
+                </div>
+                <span class="arrow" aria-hidden="true">→</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section section-muted">
+    <div class="shell section-head reveal">
+        <h2>Not sure where to start?</h2>
+        <p>Book a short intro call. We’ll recommend a shape of engagement — or tell you honestly if we’re not the fit.</p>
+        <p style="margin-top:1.5rem">
+            <a class="btn btn-primary" asp-page="/Contact">Contact us</a>
+        </p>
+    </div>
+</section>

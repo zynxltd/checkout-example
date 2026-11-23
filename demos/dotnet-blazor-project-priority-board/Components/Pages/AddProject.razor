@@ -1,0 +1,52 @@
+@page "/add-project"
+@rendermode InteractiveServer
+@using ProjectPriorityBoard.Models
+@using ProjectPriorityBoard.Services
+@inject ProjectService ProjectService
+@inject NavigationManager Navigation
+
+<PageTitle>Add Project</PageTitle>
+
+<div class="container form-page">
+    <h1>Add Project</h1>
+    <p>Enter project details below.</p>
+
+    <EditForm Model="newProject" OnValidSubmit="HandleValidSubmit" class="project-form">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label>Name</label>
+            <InputText class="form-control" @bind-Value="newProject.Name" placeholder="Project name" />
+            <ValidationMessage For="@(() => newProject.Name)" />
+        </div>
+
+        <div class="form-group">
+            <label>Deadline</label>
+            <InputText class="form-control" @bind-Value="newProject.Deadline" placeholder="e.g. March 15, 2024" />
+            <ValidationMessage For="@(() => newProject.Deadline)" />
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <InputSelect class="form-select" @bind-Value="newProject.Status">
+                <option value="Active">Active</option>
+                <option value="Planning">Planning</option>
+                <option value="On Hold">On Hold</option>
+            </InputSelect>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Project</button>
+        <a class="btn btn-link" href="/">Cancel</a>
+    </EditForm>
+</div>
+
+@code {
+    private Project newProject = new();
+
+    private void HandleValidSubmit()
+    {
+        ProjectService.AddProject(newProject);
+        Navigation.NavigateTo("/");
+    }
+}

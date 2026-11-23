@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+
+<section class="page-hero">
+  <div class="shell">
+    <h1>Login</h1>
+    <p>Session auth keeps the dashboard private without mixing login rules into every controller.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="shell form-wrap">
+    <% if (flash) { %>
+      <div class="banner info" role="status"><%= flash %></div>
+    <% } %>
+
+    <% if (errors.length) { %>
+      <div class="banner error" role="alert">
+        <ul>
+          <% errors.forEach(function (err) { %>
+            <li><%= err %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+
+    <div class="banner">
+      Demo login: <code><%= demoEmail %></code> / <code><%= demoPassword %></code>
+    </div>
+
+    <form method="post" action="/login" class="form" novalidate>
+      <label>
+        Email
+        <input type="email" name="email" value="<%= values.email %>" autocomplete="email" required />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" autocomplete="current-password" required />
+      </label>
+      <button class="btn" type="submit">Sign in</button>
+    </form>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

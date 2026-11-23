@@ -1,0 +1,26 @@
+cut-flower|Cut Flower
+durable|Durable
+easy-to-grow-care|Easy to Grow/Care
+edible|Edible
+evergreen|Evergreen
+exotic-tropical|Exotic / Tropical
+flowers|Flowers
+fragrant|Fragrant
+free-delivery|Free Delivery!
+frost-tender|Frost Tender
+fruiting|Fruiting
+great-feature|Great Feature
+home|Home
+impressive-height|Impressive Height
+impressive-size|Impressive Size
+lasts-for-2-years|Lasts For 2 Years
+lightweight|Lightweight
+perfect-in-pots|Perfect in Pots
+pest-control|Pest Control
+plant-in-shade|Plant In Shade
+plant-in-sunshine|Plant in Sunshine
+plant-size|Plant Size
+proven-performer|Proven Performer
+repeat-flowering|Repeat Flowering
+wildlife-friendly|Wildlife Friendly
+winter-hardy|Winter Hardy

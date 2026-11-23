@@ -1,0 +1,120 @@
+/**
+ * Crazy Egg — PDP top buy column
+ *
+ * On phone and tablet the gallery is full width, but the title, options,
+ * add to basket, feature icons, and bullets sit in a narrower inset column.
+ * This lines that block up with the gallery and stretches the add to basket
+ * across the row beside the quantity.
+ *
+ * Paste into Crazy Egg Variant → Custom CSS
+ * Pair with: crazyegg-pdp-top.js
+ *
+ * Example: https://www.yougarden.com/item-s-pa439/peace-lily-spathiphyllum-cupido
+ */
+
+@media (max-width: 900px) {
+  html.ce-yg-pdp-top .images-wrapper,
+  html.ce-yg-pdp-top .product-right-wrapper {
+    float: none !important;
+    clear: both !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-pdp-top .product-right-wrapper {
+    margin-top: 12px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  html.ce-yg-pdp-top .product-heading-wrapper,
+  html.ce-yg-pdp-top .product-right-wrapper h1,
+  html.ce-yg-pdp-top .product-right-wrapper .sub-head,
+  html.ce-yg-pdp-top .product-right-wrapper .price-wrapper,
+  html.ce-yg-pdp-top .product-right-wrapper .pp-wrapper,
+  html.ce-yg-pdp-top .product-right-wrapper .scroll-link {
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-pdp-top .product-right-wrapper .buy-wrapper {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    column-gap: 12px !important;
+    row-gap: 12px !important;
+    float: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  html.ce-yg-pdp-top .product-right-wrapper #style-options,
+  html.ce-yg-pdp-top .product-right-wrapper #selected-item-price-wrapper,
+  html.ce-yg-pdp-top .product-right-wrapper #club-price-wrapper {
+    flex: 1 0 100% !important;
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-pdp-top .product-right-wrapper .qtyBlock {
+    flex: 0 0 148px !important;
+    float: none !important;
+    width: 148px !important;
+    margin: 0 !important;
+  }
+
+  html.ce-yg-pdp-top .product-right-wrapper #buy-button-wrapper {
+    flex: 1 1 160px !important;
+    float: none !important;
+    width: auto !important;
+    min-width: 160px !important;
+    margin: 0 !important;
+  }
+
+  html.ce-yg-pdp-top .product-right-wrapper #buy-button.buy-button {
+    float: none !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 10px !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+  }
+
+  html.ce-yg-pdp-top .product-right-wrapper .icons-heading,
+  html.ce-yg-pdp-top .product-right-wrapper .icons-wrapper,
+  html.ce-yg-pdp-top .product-right-wrapper .points,
+  html.ce-yg-pdp-top .product-right-wrapper .offer-description {
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.ce-yg-pdp-top .product-right-wrapper .icons-wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  html.ce-yg-pdp-top .product-right-wrapper .points ul,
+  html.ce-yg-pdp-top .product-right-wrapper .offer-description ul {
+    width: 100% !important;
+    margin-left: 0 !important;
+    padding-left: 1.15em !important;
+    box-sizing: border-box !important;
+  }
+}
