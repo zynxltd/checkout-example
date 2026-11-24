@@ -2979,13 +2979,14 @@ body.yg-drawer-open {
         min-height: 44px;
     }
 
+    /* Lock green curve ~60–65% (red-line mark); purple holds the CTA */
     .yg-spf__brand {
-        flex: 1 1 auto;
-        width: auto;
-        max-width: 70%;
+        flex: 0 0 62%;
+        width: 62%;
+        max-width: 62%;
         min-width: 0;
         margin: 0;
-        padding: 5px 22px 5px 8px;
+        padding: 5px 26px 5px 8px;
         border-radius: 0 22px 22px 0;
         gap: 5px;
         overflow: hidden;
@@ -3010,6 +3011,8 @@ body.yg-drawer-open {
     }
 
     .yg-spf__action {
+        flex: 1 1 0;
+        min-width: 0;
         padding: 5px 8px;
         justify-content: center;
     }
@@ -3031,10 +3034,10 @@ body.yg-drawer-open {
 /* Narrow drawer / small phones — two-line title, clear the curve */
 @media (max-width: 420px) {
     .yg-spf__brand {
-        flex: 1 1 auto;
-        width: auto;
-        max-width: 68%;
-        padding: 5px 18px 5px 6px;
+        flex: 0 0 60%;
+        width: 60%;
+        max-width: 60%;
+        padding: 5px 22px 5px 6px;
         border-radius: 0 20px 20px 0;
         gap: 4px;
     }
