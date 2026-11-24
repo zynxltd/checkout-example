@@ -33,7 +33,6 @@
             >
             <button type="button" data-apply-code="offer">Apply code</button>
         </div>
-        <p class="yg-codes__hint">Apply voucher at <a class="yg-codes__hint-link" href="{{ route('demo.checkout') }}">checkout</a>.</p>
     </div>
     @endif
 </div>
