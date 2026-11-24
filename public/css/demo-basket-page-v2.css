@@ -1108,8 +1108,10 @@ body.demo-basket-page--v2 #ygbc3-side {
         min-height: 56px;
     }
 
-    body.demo-basket-page--v2 #ygspf-msg {
+    body.demo-basket-page--v2 #ygspf-action {
         display: flex !important;
+        align-items: center;
+        justify-content: center;
     }
 
     body.demo-basket-page--v2 #ygspf-cta,

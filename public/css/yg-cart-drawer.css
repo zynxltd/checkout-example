@@ -2837,7 +2837,7 @@ body.yg-drawer-open {
     gap: 7px;
     flex: 1 1 auto;
     width: auto;
-    max-width: 55%;
+    max-width: 58%;
     align-self: stretch;
     min-width: 0;
     min-height: 0;
@@ -2912,7 +2912,7 @@ body.yg-drawer-open {
     align-items: center;
     justify-content: center;
     min-width: 0;
-    padding: 6px 10px;
+    padding: 6px 12px;
 }
 
 .yg-spf__cta {
@@ -2922,17 +2922,17 @@ body.yg-drawer-open {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 7px;
     width: auto;
     max-width: 100%;
     margin: 0;
-    padding: 9px 16px 9px 13px;
+    padding: 11px 18px 11px 14px;
     border: 0;
     border-radius: 999px;
     background: var(--ygspf-cta);
     color: #111;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     line-height: 1.2;
     white-space: nowrap;
@@ -2949,9 +2949,9 @@ body.yg-drawer-open {
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
-    width: 18px;
-    height: 18px;
-    font-size: 18px;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 1;
 }
@@ -3011,19 +3011,20 @@ body.yg-drawer-open {
 
     .yg-spf__action {
         padding: 5px 8px;
+        justify-content: center;
     }
 
     .yg-spf__cta {
         margin: 0;
-        padding: 7px 12px 7px 10px;
-        gap: 4px;
-        font-size: 12px;
+        padding: 9px 14px 9px 11px;
+        gap: 5px;
+        font-size: 13px;
     }
 
     .yg-spf__plus {
-        width: 15px;
-        height: 15px;
-        font-size: 15px;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
     }
 }
 

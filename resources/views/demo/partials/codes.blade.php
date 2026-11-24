@@ -21,6 +21,7 @@
     </div>
     @elseif($offerMode !== 'hidden')
     <div class="yg-codes__offer">
+        <p class="yg-codes__label" id="yg-codes-label">Have an offer code?</p>
         <div class="yg-code-row">
             <input
                 id="yg-input-offer"
@@ -28,10 +29,11 @@
                 name="offer"
                 placeholder="Offer code"
                 autocomplete="off"
-                aria-label="Offer code"
+                aria-labelledby="yg-codes-label"
             >
             <button type="button" data-apply-code="offer">Apply code</button>
         </div>
+        <p class="yg-codes__hint">Apply voucher at <a class="yg-codes__hint-link" href="{{ route('demo.checkout') }}">checkout</a>.</p>
     </div>
     @endif
 </div>

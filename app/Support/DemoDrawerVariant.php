@@ -27,7 +27,8 @@ class DemoDrawerVariant
 
     public const SESSION_SHOW_SPF_KEY = 'demo_drawer_show_spf';
 
-    public const SESSION_SHOW_OFFER_KEY = 'demo_drawer_show_offer';
+    /** Bumped key so older sessions that defaulted offer-off pick up the new default-on. */
+    public const SESSION_SHOW_OFFER_KEY = 'demo_drawer_show_offer_v2';
 
     /** @var list<string> */
     public const TEST_VARIANTS = ['1', '2', '3'];

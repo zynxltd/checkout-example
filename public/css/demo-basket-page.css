@@ -1101,18 +1101,26 @@ body.demo-basket-page #ygspf-brand {
     flex-direction: row;
     align-items: center;
     gap: 8px;
-    flex: 0 1 auto;
-    max-width: 48%;
+    flex: 1 1 auto;
+    max-width: 62%;
     align-self: stretch;
     min-width: 0;
     min-height: 0;
-    /* Extra right pad so “Plus” clears the pill curve */
-    padding: 6px 48px 6px 10px;
-    margin: 0 -24px 0 0;
+    padding: 8px 36px 8px 12px;
+    margin: 0;
     color: #fff;
     background: var(--ygspf-green);
     border-radius: 0 999px 999px 0;
     overflow: hidden;
+    box-sizing: border-box;
+}
+
+body.demo-basket-page #ygspf-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-width: 0;
 }
 
 body.demo-basket-page #ygspf-logo {
@@ -1133,16 +1141,13 @@ body.demo-basket-page #ygspf-title {
     z-index: 1;
     margin: 0;
     min-width: 0;
-    flex: 1 1 auto;
     padding-right: 4px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
     font-weight: 400;
     line-height: 1.15;
     color: #fff;
-    white-space: normal;
-    overflow-wrap: normal;
-    text-wrap: balance;
+    white-space: nowrap;
 }
 
 body.demo-basket-page #ygspf-title strong {
@@ -1152,18 +1157,23 @@ body.demo-basket-page #ygspf-title strong {
 body.demo-basket-page #ygspf-msg {
     position: relative;
     z-index: 1;
-    flex: 1 1 auto;
+    margin: 0;
+    font-family: var(--ygspf-gelica);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #fff;
+    text-align: left;
+    white-space: nowrap;
+}
+
+body.demo-basket-page #ygspf-action {
+    flex: 1 1 0;
     display: flex;
     align-items: center;
     justify-content: center;
     min-width: 0;
-    padding: 10px 18px 10px 36px;
-    font-family: var(--ygspf-gelica);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.25;
-    color: #fff;
-    text-align: center;
+    padding: 8px 14px;
 }
 
 body.demo-basket-page #ygspf-cta {
@@ -1174,15 +1184,15 @@ body.demo-basket-page #ygspf-cta {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin: 8px 10px 8px 0;
-    padding: 8px 18px 8px 14px;
+    margin: 0;
+    padding: 12px 20px 12px 16px;
     border: 0;
     border-radius: 999px;
     background: var(--ygspf-cta);
     color: #111;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 13px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 600;
     line-height: 1.15;
     white-space: nowrap;
     cursor: pointer;
@@ -1196,46 +1206,39 @@ body.demo-basket-page #ygspf-cta .ygspf-plus {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     font-size: 20px;
     font-weight: 700;
     line-height: 1;
 }
 
 body.demo-basket-page #ygspf-cta .ygspf-cta-copy {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 1px;
+    display: inline;
     text-align: left;
     line-height: 1.15;
 }
 
 body.demo-basket-page #ygspf-cta .ygspf-cta-line {
+    display: inline;
     font-weight: 400;
 }
 
 body.demo-basket-page #ygspf-cta .ygspf-cta-price {
+    display: inline;
     font-weight: 800;
 }
 
 @media (max-width: 1100px) {
     body.demo-basket-page #ygspf-brand {
-        max-width: 46%;
-        padding: 6px 40px 6px 8px;
+        max-width: 58%;
+        padding: 8px 32px 8px 10px;
     }
-    body.demo-basket-page #ygspf-title { font-size: 13.5px; }
-    body.demo-basket-page #ygspf-msg {
-        padding: 10px 14px 10px 30px;
-        font-size: 14px;
-    }
+    body.demo-basket-page #ygspf-title { font-size: 14px; }
+    body.demo-basket-page #ygspf-msg { font-size: 12px; }
 }
 
-/*
- * Mobile SPF — brand | purple message | CTA (same copy as desktop).
- */
+/* Mobile SPF — green (title + msg) | purple CTA only */
 @media (max-width: 767px) {
     body.demo-basket-page #ygspf-root {
         padding-top: 8px;
@@ -1247,20 +1250,19 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
         flex-wrap: nowrap;
         align-items: stretch;
         border-radius: 10px;
-        min-height: 64px;
+        min-height: 52px;
         max-height: none;
         overflow: hidden;
     }
 
-    /* Green hugs the title — leave purple room for the message */
     body.demo-basket-page #ygspf-brand {
-        flex: 0 1 auto;
-        max-width: 42%;
+        flex: 1 1 auto;
+        max-width: 68%;
         width: auto;
         min-width: 0;
-        margin: 0 -8px 0 0;
-        padding: 10px 22px 10px 10px;
-        border-radius: 0 999px 999px 0;
+        margin: 0;
+        padding: 8px 22px 8px 10px;
+        border-radius: 0 22px 22px 0;
         gap: 6px;
         overflow: hidden;
         align-self: stretch;
@@ -1268,90 +1270,68 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
     }
 
     body.demo-basket-page #ygspf-logo {
-        width: 26px;
-        height: 26px;
+        width: 28px;
+        height: 28px;
         flex: 0 0 auto;
     }
 
     body.demo-basket-page #ygspf-title {
-        flex: 0 1 auto;
-        min-width: 0;
         font-size: 12px;
-        font-weight: 400;
         line-height: 1.15;
-        padding: 0;
-        margin: 0;
-        white-space: normal;
-        overflow: visible;
-        overflow-wrap: normal;
-        display: block;
-        -webkit-line-clamp: unset;
+        white-space: nowrap;
     }
 
-    /* Purple middle copy — same text as desktop */
     body.demo-basket-page #ygspf-msg {
-        display: flex !important;
-        flex: 1 1 0;
-        align-items: center;
+        font-size: 10.5px;
+        line-height: 1.15;
+        white-space: nowrap;
+    }
+
+    body.demo-basket-page #ygspf-action {
+        padding: 6px 10px;
         justify-content: center;
-        align-self: center;
-        min-width: 0;
-        margin: 0;
-        padding: 6px 6px 6px 16px;
-        font-size: 11px;
-        font-weight: 400;
-        line-height: 1.25;
-        text-align: center;
-        color: #fff;
-        overflow: hidden;
     }
 
     body.demo-basket-page #ygspf-cta {
-        flex: 0 0 auto;
-        align-self: center;
-        margin: 6px 8px 6px 4px !important;
-        padding: 8px 10px 8px 8px;
-        gap: 4px;
-        font-size: 10.5px;
+        margin: 0 !important;
+        padding: 10px 14px 10px 12px;
+        gap: 5px;
+        font-size: 13px;
         max-width: none;
         white-space: nowrap;
         line-height: 1.15;
     }
 
     body.demo-basket-page #ygspf-cta .ygspf-plus {
-        width: 14px;
-        height: 14px;
-        font-size: 14px;
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
     }
 
     body.demo-basket-page #ygspf-cta .ygspf-cta-copy {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-        min-width: 0;
+        display: inline;
     }
 
     body.demo-basket-page #ygspf-cta .ygspf-cta-line,
     body.demo-basket-page #ygspf-cta .ygspf-cta-price {
-        display: block;
+        display: inline;
     }
 }
 
 @media (max-width: 420px) {
     body.demo-basket-page #ygspf-inner {
-        min-height: 58px;
+        min-height: 48px;
     }
 
     body.demo-basket-page #ygspf-brand {
-        max-width: 38%;
-        padding: 8px 18px 8px 8px;
+        max-width: 66%;
+        padding: 6px 18px 6px 8px;
         gap: 5px;
     }
 
     body.demo-basket-page #ygspf-logo {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
     }
 
     body.demo-basket-page #ygspf-title {
@@ -1360,15 +1340,13 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
     }
 
     body.demo-basket-page #ygspf-msg {
-        padding: 5px 4px 5px 12px;
-        font-size: 10px;
-        line-height: 1.2;
+        font-size: 9.5px;
+        line-height: 1.15;
     }
 
     body.demo-basket-page #ygspf-cta {
-        margin: 5px 6px 5px 2px !important;
-        padding: 7px 8px 7px 6px;
-        font-size: 10px;
+        padding: 8px 12px 8px 10px;
+        font-size: 12px;
     }
 }
 

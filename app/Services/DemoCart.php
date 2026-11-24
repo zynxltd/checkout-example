@@ -1743,7 +1743,7 @@ class DemoCart
         }
 
         if (! session()->has(DemoDrawerVariant::SESSION_SHOW_OFFER_KEY)) {
-            DemoDrawerVariant::setShowOfferCode(false);
+            DemoDrawerVariant::setShowOfferCode(true);
         }
 
         if (! session()->has('demo_drawer_width')) {

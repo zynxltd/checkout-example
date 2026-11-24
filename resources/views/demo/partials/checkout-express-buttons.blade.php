@@ -19,10 +19,14 @@
     @if(($cart['show_apple_pay'] ?? true))
     <button
         type="button"
-        class="co-express-btn co-express-btn--apple"
+        class="co-express-btn co-express-btn--apple co-express-btn--apple-svg"
         data-express="apple"
         aria-label="Apple Pay"
-        style="--co-express-bg: url('{{ $expressPay('apple-pay-button.svg') }}')"
-    ></button>
+    >
+        {{-- Inline SVG stays sharp on retina; CSS-bg SVGs crop badly in the 3-up row --}}
+        <span class="co-express-btn__artwork" aria-hidden="true">
+            @include('demo.partials.apple-pay-button-svg')
+        </span>
+    </button>
     @endif
 </div>

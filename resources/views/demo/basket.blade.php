@@ -205,21 +205,25 @@
                                 <div id="ygspf-inner">
                                     <div id="ygspf-brand">
                                         <img id="ygspf-logo" src="{{ $spfLogo }}" alt="Blooming Fast" width="44" height="44">
-                                        <p id="ygspf-title">Superior <strong>Plant Food</strong> Plus</p>
+                                        <div id="ygspf-copy">
+                                            <p id="ygspf-title">Superior <strong>Plant Food</strong> Plus</p>
+                                            <p id="ygspf-msg">Treat plants before we send them.</p>
+                                        </div>
                                     </div>
-                                    <div id="ygspf-msg">For better results, treat your plants before we send them to you.</div>
-                                    <button
-                                        type="button"
-                                        id="ygspf-cta"
-                                        data-basket-spf-add="{{ $boost['sku'] }}"
-                                        aria-label="Add Superior Plant Food Plus for £1"
-                                    >
-                                        <span class="ygspf-plus" aria-hidden="true">+</span>
-                                        <span class="ygspf-cta-copy">
-                                            <span class="ygspf-cta-line">Add to Basket</span>
-                                            <span class="ygspf-cta-price">for Just £1</span>
-                                        </span>
-                                    </button>
+                                    <div id="ygspf-action">
+                                        <button
+                                            type="button"
+                                            id="ygspf-cta"
+                                            data-basket-spf-add="{{ $boost['sku'] }}"
+                                            aria-label="Add Superior Plant Food Plus for £1"
+                                        >
+                                            <span class="ygspf-plus" aria-hidden="true">+</span>
+                                            <span class="ygspf-cta-copy">
+                                                <span class="ygspf-cta-line">Add</span>
+                                                <span class="ygspf-cta-price"> for £1</span>
+                                            </span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

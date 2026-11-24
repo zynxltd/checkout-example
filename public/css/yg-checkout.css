@@ -194,6 +194,42 @@
     max-width: 360px;
 }
 
+/* Inline Apple Pay artwork — black face + centered logo (matches basket) */
+.co-express-btn--apple-svg {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    line-height: normal;
+    background: #000;
+    overflow: hidden;
+}
+
+.co-express-btn--apple-svg::after {
+    content: none !important;
+    display: none !important;
+}
+
+.co-express-btn__artwork {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 1 auto;
+    height: auto;
+    width: auto;
+    max-width: 90%;
+    max-height: 62%;
+    pointer-events: none;
+    user-select: none;
+}
+
+.co-express-btn__artwork svg {
+    display: block;
+    height: 28px;
+    width: auto;
+    max-width: 100%;
+}
+
 @media (min-width: 768px) {
     .co-express--row .co-express__buttons {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -213,6 +249,7 @@
         justify-self: stretch;
         width: 100%;
         max-width: none;
+        min-width: 0;
     }
 
     .co-express--row .co-express-btn {
@@ -224,8 +261,10 @@
         background: radial-gradient(120% 180% at 50% 45%, #ffe7a8 0%, #f6c84b 72%);
     }
 
-    .co-express--row .co-express-btn--apple {
+    .co-express--row .co-express-btn--apple,
+    .co-express--row .co-express-btn--apple-svg {
         background: #000;
+        height: 50px;
     }
 
     .co-express--row .co-express-btn::after {
@@ -233,19 +272,11 @@
         border-radius: 8px;
         background-size: 160% auto;
     }
-
-    .co-express--row .co-express-btn--apple::after {
-        background-size: 175% auto;
-    }
 }
 
 @media (min-width: 860px) and (max-width: 999px) {
     .co-express--row .co-express-btn::after {
         background-size: 120% auto;
-    }
-
-    .co-express--row .co-express-btn--apple::after {
-        background-size: 132% auto;
     }
 }
 
@@ -263,6 +294,10 @@
     .co-express-btn--amazon::after {
         background-size: 155% auto;
         background-position: center;
+    }
+
+    .co-express-btn--apple-svg {
+        height: 50px;
     }
 }
 
