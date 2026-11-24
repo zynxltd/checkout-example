@@ -1100,19 +1100,19 @@ body.demo-basket-page #ygspf-brand {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
-    flex: 1 1 auto;
-    max-width: 62%;
+    gap: 10px;
+    flex: 0 1 auto;
+    max-width: 42%;
     align-self: stretch;
     min-width: 0;
     min-height: 0;
-    padding: 8px 36px 8px 12px;
-    margin: 0;
+    /* Flush left — green fills left; curve into purple after “Plus” */
+    padding: 6px 32px 6px 10px;
+    margin: 0 -22px 0 0;
     color: #fff;
     background: var(--ygspf-green);
     border-radius: 0 999px 999px 0;
-    overflow: hidden;
-    box-sizing: border-box;
+    overflow: visible;
 }
 
 body.demo-basket-page #ygspf-copy {
@@ -1127,8 +1127,8 @@ body.demo-basket-page #ygspf-logo {
     position: relative;
     z-index: 1;
     flex: 0 0 auto;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: block;
     border: 0;
     border-radius: 50%;
@@ -1141,9 +1141,8 @@ body.demo-basket-page #ygspf-title {
     z-index: 1;
     margin: 0;
     min-width: 0;
-    padding-right: 4px;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 400;
     line-height: 1.15;
     color: #fff;
@@ -1154,26 +1153,28 @@ body.demo-basket-page #ygspf-title strong {
     font-weight: 800;
 }
 
-body.demo-basket-page #ygspf-msg {
-    position: relative;
-    z-index: 1;
-    margin: 0;
-    font-family: var(--ygspf-gelica);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.2;
-    color: #fff;
-    text-align: left;
-    white-space: nowrap;
+/* Desktop: message in purple middle; mobile copy hidden */
+body.demo-basket-page .ygspf-msg--mob {
+    display: none;
 }
 
-body.demo-basket-page #ygspf-action {
-    flex: 1 1 0;
+body.demo-basket-page #ygspf-msg,
+body.demo-basket-page .ygspf-msg--desk {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     min-width: 0;
-    padding: 8px 14px;
+    margin: 0;
+    padding: 10px 18px 10px 36px;
+    font-family: var(--ygspf-gelica);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #fff;
+    text-align: center;
 }
 
 body.demo-basket-page #ygspf-cta {
@@ -1184,15 +1185,15 @@ body.demo-basket-page #ygspf-cta {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin: 0;
-    padding: 12px 20px 12px 16px;
+    margin: 8px 10px 8px 0;
+    padding: 8px 18px 8px 14px;
     border: 0;
     border-radius: 999px;
     background: var(--ygspf-cta);
     color: #111;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 400;
     line-height: 1.15;
     white-space: nowrap;
     cursor: pointer;
@@ -1206,36 +1207,45 @@ body.demo-basket-page #ygspf-cta .ygspf-plus {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     font-size: 20px;
     font-weight: 700;
     line-height: 1;
 }
 
 body.demo-basket-page #ygspf-cta .ygspf-cta-copy {
-    display: inline;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1px;
     text-align: left;
     line-height: 1.15;
 }
 
 body.demo-basket-page #ygspf-cta .ygspf-cta-line {
-    display: inline;
+    display: block;
     font-weight: 400;
 }
 
 body.demo-basket-page #ygspf-cta .ygspf-cta-price {
-    display: inline;
+    display: block;
     font-weight: 800;
 }
 
 @media (max-width: 1100px) {
     body.demo-basket-page #ygspf-brand {
-        max-width: 58%;
-        padding: 8px 32px 8px 10px;
+        max-width: 38%;
+        padding: 6px 26px 6px 8px;
+        gap: 8px;
     }
-    body.demo-basket-page #ygspf-title { font-size: 14px; }
-    body.demo-basket-page #ygspf-msg { font-size: 12px; }
+    body.demo-basket-page #ygspf-title { font-size: 15px; }
+    body.demo-basket-page #ygspf-msg,
+    body.demo-basket-page .ygspf-msg--desk {
+        padding: 10px 14px 10px 30px;
+        font-size: 14px;
+    }
 }
 
 /* Mobile SPF — green (title + msg) | purple CTA only */
@@ -1256,9 +1266,9 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
     }
 
     body.demo-basket-page #ygspf-brand {
-        flex: 1 1 auto;
-        max-width: 68%;
-        width: auto;
+        flex: 0 0 62%;
+        width: 62%;
+        max-width: 62%;
         min-width: 0;
         margin: 0;
         padding: 8px 22px 8px 10px;
@@ -1281,22 +1291,31 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
         white-space: nowrap;
     }
 
-    body.demo-basket-page #ygspf-msg {
+    /* Hide desktop purple copy; show green copy */
+    body.demo-basket-page #ygspf-msg,
+    body.demo-basket-page .ygspf-msg--desk {
+        display: none !important;
+    }
+
+    body.demo-basket-page .ygspf-msg--mob {
+        display: block;
+        margin: 0;
+        font-family: var(--ygspf-gelica);
         font-size: 10.5px;
+        font-weight: 400;
         line-height: 1.15;
+        color: #fff;
+        text-align: left;
         white-space: nowrap;
     }
 
-    body.demo-basket-page #ygspf-action {
-        padding: 6px 10px;
-        justify-content: center;
-    }
-
     body.demo-basket-page #ygspf-cta {
-        margin: 0 !important;
-        padding: 10px 14px 10px 12px;
+        flex: 0 0 auto;
+        align-self: center;
+        margin: 6px 8px 6px 4px !important;
+        padding: 8px 12px 8px 10px;
         gap: 5px;
-        font-size: 13px;
+        font-size: 11px;
         max-width: none;
         white-space: nowrap;
         line-height: 1.15;
@@ -1309,12 +1328,15 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
     }
 
     body.demo-basket-page #ygspf-cta .ygspf-cta-copy {
-        display: inline;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
     }
 
     body.demo-basket-page #ygspf-cta .ygspf-cta-line,
     body.demo-basket-page #ygspf-cta .ygspf-cta-price {
-        display: inline;
+        display: block;
     }
 }
 
@@ -1324,7 +1346,9 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
     }
 
     body.demo-basket-page #ygspf-brand {
-        max-width: 66%;
+        flex: 0 0 60%;
+        width: 60%;
+        max-width: 60%;
         padding: 6px 18px 6px 8px;
         gap: 5px;
     }
@@ -1339,7 +1363,7 @@ body.demo-basket-page #ygspf-cta .ygspf-cta-price {
         line-height: 1.15;
     }
 
-    body.demo-basket-page #ygspf-msg {
+    body.demo-basket-page .ygspf-msg--mob {
         font-size: 9.5px;
         line-height: 1.15;
     }

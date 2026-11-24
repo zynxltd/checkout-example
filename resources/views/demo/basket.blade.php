@@ -207,23 +207,24 @@
                                         <img id="ygspf-logo" src="{{ $spfLogo }}" alt="Blooming Fast" width="44" height="44">
                                         <div id="ygspf-copy">
                                             <p id="ygspf-title">Superior <strong>Plant Food</strong> Plus</p>
-                                            <p id="ygspf-msg">Treat plants before we send them.</p>
+                                            {{-- Mobile only: short copy in green --}}
+                                            <p id="ygspf-msg-mob" class="ygspf-msg ygspf-msg--mob">Treat plants before we send them.</p>
                                         </div>
                                     </div>
-                                    <div id="ygspf-action">
-                                        <button
-                                            type="button"
-                                            id="ygspf-cta"
-                                            data-basket-spf-add="{{ $boost['sku'] }}"
-                                            aria-label="Add Superior Plant Food Plus for £1"
-                                        >
-                                            <span class="ygspf-plus" aria-hidden="true">+</span>
-                                            <span class="ygspf-cta-copy">
-                                                <span class="ygspf-cta-line">Add</span>
-                                                <span class="ygspf-cta-price"> for £1</span>
-                                            </span>
-                                        </button>
-                                    </div>
+                                    {{-- Desktop: full copy in purple between brand and CTA --}}
+                                    <div id="ygspf-msg" class="ygspf-msg ygspf-msg--desk">For better results, treat your plants<br>before we send them to you.</div>
+                                    <button
+                                        type="button"
+                                        id="ygspf-cta"
+                                        data-basket-spf-add="{{ $boost['sku'] }}"
+                                        aria-label="Add Superior Plant Food Plus for £1"
+                                    >
+                                        <span class="ygspf-plus" aria-hidden="true">+</span>
+                                        <span class="ygspf-cta-copy">
+                                            <span class="ygspf-cta-line">Add to Basket</span>
+                                            <span class="ygspf-cta-price">for Just £1</span>
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
